@@ -6,10 +6,12 @@ import Users from './Users.vue';
 import Home from './Home.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+// import VueResource from 'vue-resource';
 
 // Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+// Vue.use(VueResource);
 
 // new Vue({
 //   render: h => h(App),

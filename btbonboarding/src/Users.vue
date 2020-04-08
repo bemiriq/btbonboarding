@@ -1,21 +1,42 @@
 <template>
-  <div id="app">
+  <div id="usersapp">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
+
+
+    <b-container class="bv-example-row" id="searchId">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <b-row>
+
+          <b-col cols="12" md="8"></b-col>
+
+          <b-col sm="4">
+            <b-form-input v-model="searchQuery" id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
+          </b-col>
+
+          <!-- <b-col cols="6" md="4">
+            
+            <input v-model="searchQuery" placeholder="Search here ... " />
+
+          </b-col> -->
+        </b-row>
+
+      </b-container>
+
     <b-container class="bv-example-row">
       <b-row>
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="#some-link" active>Check-In</b-list-group-item>
-            <b-list-group-item href="#">Onsite Groups</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/users" active>Check-In</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/">Onsite Groups</b-list-group-item>
             <b-list-group-item href="#">Onboarding</b-list-group-item>
-            <b-list-group-item href="#foobar" disabled>Waiting</b-list-group-item>
+            <b-list-group-item href="#foobar">Waiting</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
-            <b-list-group-item href="#foobar" disabled>Social Tagging</b-list-group-item>
+            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
 
         
@@ -42,16 +63,89 @@
           </b-container>
           <hr>
           <b-container class="bv-example-row mb-3">
+
+
+
+          <!-- filteritems is used as it searches only for customerName and filter out the data -->
+          <div v-for="post in filterItems(posts)" v-bind:key="post.id">
             <b-row cols="8" class="bottomRightData">
-              <b-col md="2"> 12:00 PM </b-col> 
-              <b-col md="3">Alexander P</b-col>
+                <b-col md="2">
+                  <div v-for="item in post.items" v-bind:key="item.arrival">
+                    {{item.arrivalTime}}
+                  </div>
+                </b-col>
+
+                <b-col md="3" v-on:click="onDetailDiv = !onDetailDiv">
+                  {{ post.customerName }}
+                </b-col>
+                  
+                <b-col md="1">
+                  <div v-for="item in post.items" v-bind:key="item.arrival">
+                    <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
+                      {{demographic.quantity}}
+                    </div>
+                  </div>
+                </b-col>
+
+                <b-col md="2">Alexander P</b-col>
+                <b-col md="1">5</b-col>
+                <b-col md="1">5</b-col>
+                <b-col md="1">
+                  <input type="checkbox" id="checkbox" v-model="readyChecked">
+                </b-col>
+                <b-col md="1">
+                  <input type="checkbox" id="checkbox" v-model="lateChecked">
+                </b-col>
+
+            </b-row>
+
+            <b-row cols="8" v-show="!onDetailDiv">
+              <b-col md="2">
+                FIRST NAME
+              </b-col>
+
+              <b-col md="1">
+                Initial
+              </b-col>
+
+              <b-col md="2">
+                Cell Number
+              </b-col>
+
+            </b-row>
+            
+          </div>
+
+          <!-- end of filter items search div -->
+
+
+            <!-- <b-row cols="8" class="bottomRightData">
+              <b-col md="2"> 
+                <div v-for="post in posts"  v-bind:key="post.id">
+                   
+                        <div v-for="item in post.items" v-bind:key="item.arrival">
+                            {{item.arrivalTime}}
+                        </div>
+                    </div>
+              </b-col> 
+              <b-col md="3">
+                <div class="col-md-3" v-for="preset in filterItems(posts)" :key="preset.customerName">
+                  <div :id="preset.id">
+                    {{ preset.customerName }}
+                  </div>
+                </div>
+              </b-col>
               <b-col md="1">5</b-col>
               <b-col md="2">Alexander P</b-col>
               <b-col md="1">5</b-col>
               <b-col md="1">5</b-col>
-              <b-col md="1">Tick</b-col>
-              <b-col md="1">Yes</b-col>
-            </b-row>
+              <b-col md="1">
+                <input type="checkbox" id="checkbox" v-model="readyChecked">
+              </b-col>
+              <b-col md="1">
+                <input type="checkbox" id="checkbox" v-model="lateChecked">
+              </b-col>
+            </b-row> -->
           </b-container>
 
         </b-col>
@@ -64,25 +158,105 @@
   </div>
 </template>
 
+
+<script src="moment.js"></script>
+<script>
+  moment().format();  
+</script>
+
+
+  <script src="vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+  import axios from 'axios';
+  // import VueSignature from "vue-signature-pad";
+  // import App from "./App";
+  import Vue from 'vue';
+  import moment from 'moment';
+  // import DateDropdown from 'vue-date-dropdown'; // this for the date dropdown
 
 export default {
   name: 'App',
   components: {
     // HelloWorld
+  },
+
+  data(){
+    return{
+      searchQuery: '',
+      posts: [],
+      todaydate: moment().format('YYYY-MM-DD'),
+      currenttime: moment().format('h:mm A'),
+      readyChecked: '',
+      lateChecked: '',
+      onDetailDiv: true
+    }
+  },
+
+  mounted: function(){
+    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival=2020-04-07")
+    //  .then(response => (this.posts = response.data.data));
+
+    var currentDate = moment().format('YYYY-MM-DD');
+
+    axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
+     .then(response => (this.posts = response.data.data));
+
+// var objToDeploy = this.posts[0];
+
+// //.set(objToDeploy, 'posts.Items[0]')
+//      console.log(objToDeploy);
+//  console.log(this.posts);
+  },
+
+
+  methods:{
+
+    showAllTime: function (){
+
+      console.log('SA');
+
+      // var arrivalDate = moment().format('YYYY-MM-DD');
+      // console.log(arrivalDate);
+
+      // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival=2020-04-07")
+      // .then(response => (this.posts = response.data.data));
+
+      // var currentDate = moment().format('YYYY-MM-DD');
+
+    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
+    //  .then(response => (this.posts = response.data.data));
+       
+    },
+
+
+
+   
+
+    filterItems: function(posts) {
+      var app = this;
+      return posts.filter(function(post) {
+        let regex = new RegExp('(' + app.searchQuery + ')', 'i');
+        return post.customerName.match(regex);
+      })
+    }
+
   }
+
 };
 </script>
 
 <style>
-#app {
+#usersapp {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /*margin-top: 60px;*/
 }
 
 .rightHeader{
@@ -100,12 +274,16 @@ export default {
 .bottomRightData{
   text-align: center;
   font-size: 1.1em;
+  margin-top: 2%;
 }
 
 #dateTimeDiv{
-  font-size: 1.1em;
+  font-size: 1.2em;
   background-color: #fafafa;
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
+}
+
+#searchId{
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 </style>
