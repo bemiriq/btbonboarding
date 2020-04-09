@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import Users from './Users.vue';
 import Home from './Home.vue';
+import Onboarding from './Onboarding.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import VueResource from 'vue-resource';
@@ -19,7 +20,8 @@ Vue.use(BootstrapVue);
 
 const routes = [
 	{ path: '/users', component: Users},
-	{ path : '/', component: Home}
+	{ path : '/', component: Home},
+	{ path : '/onboarding', component: Onboarding}
 ];
 
 const router = new VueRouter({

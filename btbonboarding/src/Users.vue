@@ -32,7 +32,7 @@
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="http://localhost:8080/#/users" active>Check-In</b-list-group-item>
             <b-list-group-item href="http://localhost:8080/#/">Onsite Groups</b-list-group-item>
-            <b-list-group-item href="#">Onboarding</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="#foobar">Waiting</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
@@ -77,6 +77,11 @@
 
                 <b-col md="3" v-on:click="onDetailDiv = !onDetailDiv">
                   {{ post.customerName }}
+                  <div v-show="!onDetailDiv" v-for="item in post.items" v-bind:key="item.arrival">
+                    <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
+                      {{demographic.quantity}}
+                    </div>
+                  </div>
                 </b-col>
                   
                 <b-col md="1">
@@ -99,7 +104,7 @@
 
             </b-row>
 
-            <b-row cols="8" v-show="!onDetailDiv">
+            <!-- <b-row cols="8" v-show="!onDetailDiv">
               <b-col md="2">
                 FIRST NAME
               </b-col>
@@ -112,7 +117,7 @@
                 Cell Number
               </b-col>
 
-            </b-row>
+            </b-row> -->
             
           </div>
 
