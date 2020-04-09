@@ -25,16 +25,17 @@
 
 
         <!-- start of center div which consists of table with all details -->
-        <b-col lg="7"  style="background-color:#fafafa;">
+        <b-col lg="7" style="background-color:#fafafa;">
 
           <div class="bv-example-row">
 
             <b-row>
 
               <b-col>
-                <b>SIDE A</b>
+                <p class="btbSideTitle"><b>SIDE A</b></p>
 
-                <b-col>
+                <b-col  class="border border-info">
+
                   <b-row class="my-1">
                     <b-col sm="3">
                       <label for="input-small">07:00 PM</label>
@@ -44,50 +45,58 @@
                     </b-col>
                   </b-row>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 1"></b-form-input>
-                      </b-col>
-                    </b-row>
+                  <draggable
+                      id="first"
+                      data-source="juju"
+                      :list="list2"
+                      class="list-group"
+                      draggable=".item"
+                      group="a"
+                    >
+                      <div
+                        class="list-group-item item"
+                        v-for="element in list2"
+                        :key="element.name"
+                      >
+                        {{ element.name }}
+                      </div>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 2"></b-form-input>
-                      </b-col>
-                    </b-row>
+                      <div
+                        slot="footer"
+                        class="btn-group list-group-item"
+                        role="group"
+                        aria-label="Basic example"
+                      >
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 3"></b-form-input>
-                      </b-col>
-                    </b-row>
+                      </div>
+                         <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
+                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                      </div> -->
+                    </draggable>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 4"></b-form-input>
-                      </b-col>
-                    </b-row>
+                    <br/>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 5"></b-form-input>
+                    <b-row>
+                      <b-col sm="3">
+                        <b-button variant="primary">Update</b-button>
+                      </b-col>
+                      <b-col sm="3">
+                        <b-button variant="info">RFID</b-button>
                       </b-col>
                     </b-row>
-
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 6"></b-form-input>
-                      </b-col>
-                    </b-row>
+                    <br/>
 
                 </b-col>
 
               </b-col>
 
               <b-col>
-                <b>SIDE B</b>
+                <p class="btbSideTitle"><b>SIDE B</b></p>
 
-                <b-col>
+                <!-- <br/> -->
+
+                <b-col  class="border border-info">
+
                   <b-row class="my-1">
                     <b-col sm="3">
                       <label for="input-small">07:00 PM</label>
@@ -97,41 +106,47 @@
                     </b-col>
                   </b-row>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 1"></b-form-input>
-                      </b-col>
-                    </b-row>
+                  <draggable
+                      id="first"
+                      data-source="juju"
+                      :list="list"
+                      class="list-group"
+                      draggable=".item"
+                      group="a"
+                    >
+                      <div
+                        class="list-group-item item"
+                        v-for="element in list"
+                        :key="element.name"
+                      >
+                        {{ element.name }}
+                      </div>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 2"></b-form-input>
-                      </b-col>
-                    </b-row>
+                      <div
+                        slot="footer"
+                        class="btn-group list-group-item"
+                        role="group"
+                        aria-label="Basic example"
+                      >
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 3"></b-form-input>
-                      </b-col>
-                    </b-row>
+                      </div>
+                      <!--
+                         <button class="btn btn-secondary" @click="add">Add</button> -->
+                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                      </div> -->
+                    </draggable>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 4"></b-form-input>
-                      </b-col>
-                    </b-row>
+                    <br/>
 
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 5"></b-form-input>
+                    <b-row>
+                      <b-col sm="3">
+                        <b-button variant="primary">Update</b-button>
+                      </b-col>
+                      <b-col sm="3">
+                        <b-button variant="info">RFID</b-button>
                       </b-col>
                     </b-row>
-
-                    <b-row class="my-1">
-                      <b-col sm="12">
-                        <b-form-input id="input-small" size="sm" placeholder="PLAYER 6"></b-form-input>
-                      </b-col>
-                    </b-row>
+                    <br/>
 
                 </b-col>
 
@@ -160,13 +175,27 @@
             <b-col>
               <br/>
               <b>7:00 PM</b>
-              <b-list-group>
-                <b-list-group-item>Sandesh</b-list-group-item>
-                <b-list-group-item>Jesse</b-list-group-item>
-                <b-list-group-item>Chuck</b-list-group-item>
-                <b-list-group-item>Tiffer</b-list-group-item>
-                <b-list-group-item>Jesse B</b-list-group-item>
-              </b-list-group>
+
+              <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList3"
+                  :key="element.name"
+                >
+                  {{ element.name }}
+                </div>
+
+                <div
+                  slot="footer"
+                  class="btn-group list-group-item"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
+                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
+                </div>
+              </draggable>
+
             </b-col>
 
           </b-row>
@@ -179,18 +208,66 @@
       </b-row>
     </div>
 
+    <!-- <rawDisplayer class="col-2" :value="list" title="List" /> -->
+
+    <!-- <rawDisplayer class="col-2" :value="dataList3" title="dataList3" /> -->
+
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+import draggable from "vuedraggable";
+let id = 1;
 
 export default {
   name: 'App',
   components: {
     // HelloWorld
-  }
+    draggable
+  },
+
+  data() {
+      return {
+        list: [
+          
+        ],
+
+        list2:[
+          
+        ],
+
+        dataList3: [
+          { name: "John 1", id: 0 },
+          { name: "Joao 2", id: 1 },
+          { name: "Jean 3", id: 2 },
+          { name: "Sacar 1", id: 3 },
+          { name: "Zalan 2", id: 4 },
+          { name: "Sonica 3", id: 5 },
+          { name: "Jonny 4", id: 6 },
+          { name: "Guisepe 5", id: 7 }
+        ]
+      };
+    },
+
+    methods: {
+      add: function() {
+        this.list.push({ name: "Juan " + id, id: id++ });
+        this.list2.push({ name: "Juan " + id, id: id++ });
+      },
+      replace: function() {
+        this.list = [{ name: "Edgard", id: id++ }];
+        this.list2 = [{ name: "Edgard", id: id++ }];
+      },
+      add2: function() {
+        this.dataList3.push({ name: "Juan " + id, id: id++ });
+      },
+      replace2: function() {
+        this.dataList3 = [{ name: "Edgard", id: id++ }];
+      }
+    }
 };
+
 </script>
 
 <style>
@@ -200,7 +277,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /*margin-top: 60px;*/
+  margin-top: 50px;
   /*background-color: red;*/
 }
 
@@ -209,4 +286,14 @@ export default {
   width: 80%;
   margin:auto;
 }
+
+.displayBorder{
+  border-style: outset;
+  border-color: #138496;
+}
+
+.btbSideTitle{
+  font-size: 1.1em;
+}
+
 </style>
