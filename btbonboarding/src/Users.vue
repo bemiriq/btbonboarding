@@ -76,12 +76,79 @@
                 </b-col>
 
                 <b-col md="3" v-on:click="onDetailDiv = !onDetailDiv">
-                  {{ post.customerName }}
-                  <div v-show="!onDetailDiv" v-for="item in post.items" v-bind:key="item.arrival">
+                  <!-- <div v-show="!onDetailDiv" v-for="item in post.items" v-bind:key="item.arrival">
                     <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
                       {{demographic.quantity}}
                     </div>
-                  </div>
+                  </div> -->
+                  <div v-for="item in post.items" v-bind:key="item.id">
+                    <span @click="item.id = !item.id">{{post.customerName}}</span>
+                    <br>
+                    <div>
+
+                      <!-- div that the display the sub child detail -->
+                      <b-container v-if="!item.id" style="width: 900px; margin-left:-25%; border-style: outset; border-color: #138496;"> <!-- {{item.arrivalTime}} -->
+
+                        <b-row style="background-color:grey;">
+                          <b-col md="2">
+                            First Name
+                          </b-col>
+
+                          <b-col md="2">
+                            Last Initial
+                          </b-col>
+
+                          <b-col md="2">
+                            Text Number
+                          </b-col>
+
+
+                          <b-col md="1">
+                            Arrived
+                          </b-col>
+
+                          <b-col md="1">
+                            Waiver
+                          </b-col>
+
+                          <b-col md="2">
+                            No Show
+                          </b-col>
+
+                        </b-row>
+
+                       
+                          <b-col md="2">
+                            {{post.customerName}}
+                          </b-col>
+
+                          <b-col md="2">
+                            {{post.customerName}}
+                          </b-col>
+
+                          <b-col md="2">
+                            {{post.customerName}}
+                          </b-col>
+
+                          <b-col md="1" v-for="item in post.items" v-bind:key="item.id">
+                            <input type="checkbox" id="checkbox" v-model="subchildArrived">
+                          </b-col>
+
+                          <b-col md="1">
+                            <input type="checkbox" id="checkbox" v-model="subchildWaiver">
+                          </b-col>
+
+                          <b-col md="2">
+                            <input type="text" id="checkbox" v-model="subchildNoShow">
+                          </b-col>
+
+                        
+
+                      </b-container>
+                      <!-- end of sub child idv -->
+
+                    </div>
+                   </div>
                 </b-col>
                   
                 <b-col md="1">
@@ -96,10 +163,10 @@
                 <b-col md="1">5</b-col>
                 <b-col md="1">5</b-col>
                 <b-col md="1">
-                  <input type="checkbox" id="checkbox" v-model="readyChecked">
+                  <input type="checkbox" id="readyChecked" v-model="readyChecked">
                 </b-col>
                 <b-col md="1">
-                  <input type="checkbox" id="checkbox" v-model="lateChecked">
+                  <input type="checkbox" id="lateChecked" v-model="lateChecked">
                 </b-col>
 
             </b-row>
@@ -195,9 +262,13 @@ export default {
       posts: [],
       todaydate: moment().format('YYYY-MM-DD'),
       currenttime: moment().format('h:mm A'),
-      readyChecked: '',
-      lateChecked: '',
-      onDetailDiv: true
+      readyChecked: [],
+      lateChecked: [],
+      subchildArrived: [],
+      subchildWaiver: [],
+      subchildNoShow: [],
+      onDetailDiv: true,
+      itemId: true
     }
   },
 
