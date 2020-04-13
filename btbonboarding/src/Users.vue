@@ -75,30 +75,30 @@
                   </div>
                 </b-col>
 
-                <b-col md="3" v-on:click="onDetailDiv = !onDetailDiv">
+                <b-col md="3">
                   <!-- <div v-show="!onDetailDiv" v-for="item in post.items" v-bind:key="item.arrival">
                     <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
                       {{demographic.quantity}}
                     </div>
                   </div> -->
                   <div v-for="item in post.items" v-bind:key="item.id">
-                    <span @click="item.id = !item.id">{{post.customerName}}</span>
+                    <div @click="item.id = !item.id" style="color: blue;">{{post.customerName}}</div>
                     <br>
-                    <div>
+                  
 
                       <!-- div that the display the sub child detail -->
-                      <b-container v-if="!item.id" style="width: 900px; margin-left:-25%; border-style: outset; border-color: #138496;"> <!-- {{item.arrivalTime}} -->
+                      <div v-if="!item.id" style="width: 900px; margin-left:-35%; border-style: outset; border-color: #138496;"> <!-- {{item.arrivalTime}} -->
 
-                        <b-row style="background-color:grey;">
+                        <div class="row" style="font-weight: bold;">
                           <b-col md="2">
                             First Name
                           </b-col>
 
-                          <b-col md="2">
-                            Last Initial
+                          <b-col md="1">
+                            Last
                           </b-col>
 
-                          <b-col md="2">
+                          <b-col md="3">
                             Text Number
                           </b-col>
 
@@ -115,22 +115,24 @@
                             No Show
                           </b-col>
 
-                        </b-row>
+                        </div>
 
                        
-                          <b-col md="2">
-                            {{post.customerName}}
-                          </b-col>
+                        <div class="row">
 
                           <b-col md="2">
                             {{post.customerName}}
                           </b-col>
 
-                          <b-col md="2">
-                            {{post.customerName}}
+                          <b-col md="1">
+                            P
                           </b-col>
 
-                          <b-col md="1" v-for="item in post.items" v-bind:key="item.id">
+                          <b-col md="3">
+                            976 034 7896
+                          </b-col>
+
+                          <b-col md="1">
                             <input type="checkbox" id="checkbox" v-model="subchildArrived">
                           </b-col>
 
@@ -139,16 +141,19 @@
                           </b-col>
 
                           <b-col md="2">
-                            <input type="text" id="checkbox" v-model="subchildNoShow">
+                             <input type="checkbox" id="checkbox" v-model="subchildNoShow">
                           </b-col>
+                          
+                        </div>
 
-                        
+                        <div class="row">
+                            <p>Game Playing</p>
+                        </div>
 
-                      </b-container>
+                      </div>
                       <!-- end of sub child idv -->
 
                     </div>
-                   </div>
                 </b-col>
                   
                 <b-col md="1">

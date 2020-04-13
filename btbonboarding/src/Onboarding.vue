@@ -34,84 +34,126 @@
               <b-col>
                 <p class="btbSideTitle"><b>SIDE A</b></p>
 
-                <b-col  class="border border-info rounded">
+                <!-- start the form here -->
+                <form id="signup-form" @submit.prevent="processForm">
+                  <b-col  class="border border-info rounded">
 
-                  <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:00 PM</label>
-                    </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
-                    </b-col>
-                  </b-row>
+                    <b-row class="my-1">
+                      <b-col sm="3">
+                        <!-- <label for="input-small">07:00 PM</label> -->
+                        <input type="text" name="reservationTime1" v-model="reservationTime1">
+                      </b-col>
+                      <b-col sm="9">
+                        <b-form-input id="input-small" size="sm" name="teamName1" v-model="teamName1" placeholder="TEAM NAME"></b-form-input>
+                      </b-col>
+                    </b-row>
 
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list2"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
-                    >
-                      <div
-                        class="list-group-item item"
-                        v-for="element in list2"
-                        :key="element.name"
+                    <draggable
+                        id="first"
+                        data-source="juju"
+                        :list="list2"
+                        class="list-group"
+                        draggable=".item"
+                        group="a" style="height: 300px; border-style: outset;"
                       >
-                        {{ element.name }}
-                      </div>
+                        <div
+                          class="list-group-item item"
+                          v-for="element in list2"
+                          :key="element.name"
+                        >
+                        <input v-model="element.name">
+                          <!-- {{ element.name }} -->
+                        </div>
 
-                         <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
+                           <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
+                          <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                        </div> -->
+                      </draggable>
 
-                    <br/>
+                      <br/>
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected1">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Playing</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="selected1">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Cyberbot</option>
+                            <option>Blockmonster</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
 
-                    <br />
+                      <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Vs</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected1">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Vs</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="vsselected1">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Team Name 1 </option>
+                            <option>Team Name 2</option>
+                            <option>Team Name 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
 
-                    <br />
+                      <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                      <b-row>
+                        <b-col sm="3">
+                          <b-button variant="primary" type="submit">Update</b-button>
+                        </b-col>
+                        <b-col sm="3">
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <div>
+                            <b-button v-b-modal.modal-center variant="info">RFID</b-button>
 
-                </b-col>
+                            <b-modal id="modal-center" centered title="Team Name 1">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                              <b-row class="my-1">
+                                <b-col sm="11">
+                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
+                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
+                                </b-col>
+                              </b-row>
+                              <br/>
+
+                              <b-row class="my-1">
+                                <b-col sm="11">
+                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
+                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <b-form-input id="input-live" v-model="rfid2" :state="rfidState2" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 2" trim></b-form-input>
+                                </b-col>
+                              </b-row>
+                              <br/>
+
+                              <b-row class="my-1">
+                                <b-col sm="11">
+                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
+                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <b-form-input id="input-live" v-model="rfid3" :state="rfidState3" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 3" trim></b-form-input>
+                                </b-col>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+                          </div>
+                        </b-col>
+                      </b-row>
+                      <br/>
+
+                  </b-col>
+
+                </form>
+
+                <!-- end of the form here -->
 
               </b-col>
 
@@ -985,6 +1027,7 @@
 import draggable from "vuedraggable";
 let id = 1;
 
+
 export default {
   name: 'App',
   components: {
@@ -1006,6 +1049,11 @@ export default {
         list9:[],
         list10:[],
         list11:[],
+
+        teamName1: '',
+        reservationTime1: '',
+        playing1: '',
+        vs1:'',
 
         columnList1:[],
 
@@ -1033,6 +1081,12 @@ export default {
         vsselected9: '',
         vsselected10: '',
 
+        rfid1: '',
+        rfid2: '',
+        rfid3: '',
+        rfid4: '',
+        rfid5: '',
+        rfid6: '',
 
         dataList3: [
           { name: "John", id: 0 },
@@ -1061,8 +1115,39 @@ export default {
       },
       replace2: function() {
         this.dataList3 = [{ name: "Edgard", id: id++ }];
+      },
+
+      processForm: function() {
+        console.log(
+          {
+            name: this.teamName1,
+            reservationTime1: this.reservationTime1,
+            selected1: this.selected1,
+            vsselected1: this.vsselected1,
+            element: this.element
+
+          }
+
+          );
+        // alert('Processing');
       }
+    },
+
+    computed:{
+      rfidState1() {
+        return this.rfid1.length > 5 ? true : false
+      },
+
+      rfidState2() {
+        return this.rfid2.length > 5 ? true : false
+      },
+
+      rfidState3() {
+        return this.rfid3.length > 5 ? true : false
+      }
+
     }
+
 };
 
 </script>
