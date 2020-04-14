@@ -1001,6 +1001,64 @@
                   <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
                   <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
                 </div>
+
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList1"
+                  :key="element.name"
+                >
+                  {{ element.name }}
+                </div>
+
+               <!--  <div
+                  slot="footer"
+                  class="btn-group list-group-item"
+                  role="group"
+                  aria-label="Basic example"
+                > -->
+                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
+                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
+                <!-- </div> -->
+              </draggable>
+
+              <br/>
+              <b>Tiffer's Group</b>
+              <draggable :list="dataList" class="list-group" draggable=".item" group="a">
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList"
+                  :key="element.name"
+                >
+                  {{ element.name }}
+                </div>
+
+                <div
+                  slot="footer"
+                  class="btn-group list-group-item"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
+                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
+                </div>
+
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList1"
+                  :key="element.name"
+                >
+                  {{ element.name }}
+                </div>
+
+               <!--  <div
+                  slot="footer"
+                  class="btn-group list-group-item"
+                  role="group"
+                  aria-label="Basic example"
+                > -->
+                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
+                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
+                <!-- </div> -->
               </draggable>
 
             </b-col>
@@ -1097,6 +1155,13 @@ export default {
           { name: "Sonica", id: 5 },
           // { name: "Jonny", id: 6 },
           // { name: "Guisepe", id: 7 }
+        ],
+
+        dataList1: [
+           { name: "Sandes", id: 0 },
+            { name: "Chuck", id: 1 },
+            { name: "Tiffer", id: 2 },
+          { name: "Jesse", id: 3 },
         ]
       };
     },

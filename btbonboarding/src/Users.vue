@@ -24,7 +24,7 @@
 
       </b-container>
 
-    <b-container class="bv-example-row">
+    <div class="container">
       <b-row>
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
@@ -64,14 +64,23 @@
           <hr>
           <b-container class="bv-example-row mb-3">
 
+            <td><input type='text' v-model='blog.username'></td>
+            <td><input type='text' v-model='blog.name'></td>
+            <td><input type='text' v-model='blog.email'></td>
+            <td><button v-on:click.prevent="postfirebase">POST TO FIREBASE</button></td>
 
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
           <div v-for="post in filterItems(posts)" v-bind:key="post.id">
             <b-row cols="8" class="bottomRightData">
                 <b-col md="2">
-                  <div v-for="item in post.items" v-bind:key="item.arrival">
+                  <!-- <div v-for="item in post.items" v-bind:key="item.arrival" v-on:click="convertTime">
                     {{item.arrivalTime}}
+                  </div> -->
+                  <div>
+                    <button v-for="item in post.items" v-bind:key="item.arrival">
+                      {{item.arrivalTime}}
+                    </button>
                   </div>
                 </b-col>
 
@@ -82,14 +91,60 @@
                     </div>
                   </div> -->
                   <div v-for="item in post.items" v-bind:key="item.id">
-                    <div @click="item.id = !item.id" style="color: blue;">{{post.customerName}}</div>
-                    <br>
+                   <!--  <div @click="item.id = !item.id" style="color: blue;"> -->
+                     <div @click="item.id = !item.id" style="color: blue;">
+
+                      <b-button v-b-modal.modal-xl variant="info">{{post.customerName}}</b-button>
+
+                      <b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                            <!--   <b-row class="my-1" style="background-color: green;">
+                                <b-col style="width:auto;">
+                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
+                                  {{post.customerName}}
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
+                                </b-col>
+                              </b-row>-->
+                              <b-container class="bv-example-row">
+                                  <b-row style="font-weight:bold;">
+                                    <b-col><p>F Name</p></b-col>
+                                    <b-col><p>L Name</p></b-col>
+                                    <b-col><p>Text Number</p></b-col>
+                                    <b-col><p>Arrival</p></b-col>
+                                    <b-col><p>Waiver</p></b-col>
+                                    <b-col><p>No Show</p></b-col>
+                                  </b-row>
+
+                                  <b-row>
+                                    <b-col><p>Sandesh</p></b-col>
+                                    <b-col><p>P</p></b-col>
+                                    <b-col><p>817 360 2705</p></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
+                                  </b-row>
+
+                                </b-container>
+                          <!-- <b-table :fields="fields">
+                            <p>{{post.customerName}}</p>
+                            <template v-slot:table-caption>This is a table caption.</template>
+                            }
+                          </b-table>  -->
+                      </b-modal>
+
+                    </div>
+                  <!-- </div> -->
+                    <!-- <br> -->
                   
 
                       <!-- div that the display the sub child detail -->
-                      <div v-if="!item.id" style="width: 900px; margin-left:-35%; border-style: outset; border-color: #138496;"> <!-- {{item.arrivalTime}} -->
+                      <!-- <div v-if="!item.id" style="width: 900px; margin-left:-35%; border-style: outset; border-color: #138496;">  {{item.arrivalTime}} -->
 
-                        <div class="row" style="font-weight: bold;">
+                        <!-- <div class="row" style="font-weight: bold;">
                           <b-col md="2">
                             First Name
                           </b-col>
@@ -121,7 +176,7 @@
                         <div class="row">
 
                           <b-col md="2">
-                            {{post.customerName}}
+                            <! {{post.customerName}}
                           </b-col>
 
                           <b-col md="1">
@@ -146,11 +201,77 @@
                           
                         </div>
 
-                        <div class="row">
-                            <p>Game Playing</p>
-                        </div>
+                        <hr/>
 
-                      </div>
+                        <div class="row">
+                          <b-col sm="3">
+                            <label for="input-small">Game Playing</label>
+                            </b-col>
+                            <b-col sm="9">
+                              <b-form-select v-model="selected2">
+                                <! <option disabled value="">Please select one</option>
+                                <option>Cyberbot</option>
+                                <option>Blockmonster</option>
+                                <! <option>C</option>
+                              </b-form-select>
+                            </b-col> 
+                            <br/>
+                        </div> -->
+
+                      <!-- </div> -->
+                      
+                        <!-- <div v-if="!item.id" class="row" style="background-color:green; width: 380%;">
+                          <div class="row" style="width: 300%;">
+                            <div class="col">
+                              F Name
+                            </div>
+                            <div class="col">
+                              L Name
+                            </div>
+                            <div class="col">
+                              Cellphone
+                            </div>
+                            <div class="col">
+                              Arrived
+                            </div>
+
+                            <div class="col">
+                              Waiver
+                            </div>
+                            <div class="col">
+                              No Show
+                            </div>
+                            
+                          </div>
+
+                          <div class="row" style="width: 300%;">
+                            <div class="col">
+                              <p>Jr Jack</p>
+                            </div>
+
+                            <div class="col">
+                              <p> S </p>
+                            </div>
+
+                            <div class="col">
+                              <p>8175678901</p>
+                            </div>
+
+                            <div class="col">
+                              <input type="checkbox" id="subchildArrived" v-model="subchildArrived">
+                            </div>
+
+                            <div class="col">
+                              <input type="checkbox" id="subchildWaiver" v-model="subchildWaiver">
+                            </div>
+
+                            <div class="col">
+                              <input type="checkbox" id="subchildNoShow" v-model="subchildNoShow">
+                            </div>
+                            
+                          </div> -->
+                        <!-- </div> -->
+                      
                       <!-- end of sub child idv -->
 
                     </div>
@@ -231,7 +352,7 @@
 
 
       </b-row>
-    </b-container>
+    </div>
   </div>
 </template>
 
@@ -265,6 +386,11 @@ export default {
     return{
       searchQuery: '',
       posts: [],
+      blog:{
+        name:'',
+        email:'',
+        username:''
+      },
       todaydate: moment().format('YYYY-MM-DD'),
       currenttime: moment().format('h:mm A'),
       readyChecked: [],
@@ -272,8 +398,19 @@ export default {
       subchildArrived: [],
       subchildWaiver: [],
       subchildNoShow: [],
+      selected2: '',
+      username: '',
+      email: '',
+      name: '',
       onDetailDiv: true,
-      itemId: true
+      itemId: true,
+      fields: ['first_name', 'last_name', 'age'],
+        items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
+      // timelist: 1500
     }
   },
 
@@ -285,6 +422,8 @@ export default {
 
     axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
      .then(response => (this.posts = response.data.data));
+
+     console.log(this.posts);
 
 // var objToDeploy = this.posts[0];
 
@@ -313,9 +452,10 @@ export default {
        
     },
 
-
-
-   
+    convertTime: function(){
+      console.log("INSIDE");
+      var time = timelist/100-12 + ":00";
+    },
 
     filterItems: function(posts) {
       var app = this;
@@ -323,6 +463,44 @@ export default {
         let regex = new RegExp('(' + app.searchQuery + ')', 'i');
         return post.customerName.match(regex);
       })
+    },
+
+   //  addRecord: function(){
+
+   //   if(this.username != '' && this.name != '' && this.email != ''){
+   //     axios.post('./assets/config.php', {
+   //       request: 2,
+   //       username: this.username,
+   //       name: this.name,
+   //       email: this.email
+   //     })
+   //     .then(function (response) {
+
+   //       // Fetch records
+   //       app.allRecords();
+
+   //       // Empty values
+   //       app.username = '';
+   //       app.name = '';
+   //       app.email = '';
+ 
+   //       alert(response.data);
+   //     })
+   //     .catch(function (error) {
+   //       console.log(error);
+   //     });
+   //   }else{
+   //     alert('Fill all fields.');
+   //   }
+ 
+   // },
+
+    postfirebase:function(){
+      this.$http.post('https://vueonboard.firebaseio.com/posts.json',this.blog).then(function(data){
+        console.log(data);
+        // console.log(username);
+        this.submitted = true;
+      });
     }
 
   }
