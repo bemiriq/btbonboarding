@@ -64,10 +64,18 @@
           <hr>
           <b-container class="bv-example-row mb-3">
 
-            <td><input type='text' v-model='blog.username'></td>
+            <!-- <td><input type='text' v-model='blog.username'></td>
             <td><input type='text' v-model='blog.name'></td>
             <td><input type='text' v-model='blog.email'></td>
-            <td><button v-on:click.prevent="postfirebase">POST TO FIREBASE</button></td>
+            <td><button v-on:click.prevent="postfirebase">POST TO FIREBASE</button></td> -->
+
+            <div>
+              <label>Name : </label>
+              <input type="text" v-model="name" placeholder="full name" required>
+              <input type="text" v-model="username" placeholder="username"  required>
+              <input type="text" v-model="email" placeholder="email" required>
+              <button @click="submitName()">Add </button>
+            </div>
 
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
@@ -109,6 +117,8 @@
                                   <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
                                 </b-col>
                               </b-row>-->
+                              <p> Booker Name = <u style="font-weight:bold;">{{post.customerName}}</u> </p>
+                              <br/>
                               <b-container class="bv-example-row">
                                   <b-row style="font-weight:bold;">
                                     <b-col><p>F Name</p></b-col>
@@ -288,11 +298,19 @@
                 <b-col md="2">Alexander P</b-col>
                 <b-col md="1">5</b-col>
                 <b-col md="1">5</b-col>
+
                 <b-col md="1">
-                  <input type="checkbox" id="readyChecked" v-model="readyChecked">
+                  <!-- <input type="checkbox" id="readyChecked" v-model="readyChecked"> -->
+                  <!-- <div v-for="(value, key, index) in posts" :key="index"> -->
+                    <div v-for="readyChecked in post.items" v-bind:key="readyChecked.id">
+                      <input type="checkbox" v-model="readyChecked.id">
+                    </div>
+                    <label for="jack">jack</label>
+                  <!-- </div> -->
                 </b-col>
+
                 <b-col md="1">
-                  <input type="checkbox" id="lateChecked" v-model="lateChecked">
+                  <!-- <input type="checkbox" id="lateChecked" v-model="lateChecked"> -->
                 </b-col>
 
             </b-row>
@@ -366,6 +384,15 @@
   <script src="vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.14.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.14.0/firebase-analytics.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
@@ -375,6 +402,8 @@
   import Vue from 'vue';
   import moment from 'moment';
   // import DateDropdown from 'vue-date-dropdown'; // this for the date dropdown
+
+  import { namesRef } from './firebase';
 
 export default {
   name: 'App',
@@ -386,11 +415,6 @@ export default {
     return{
       searchQuery: '',
       posts: [],
-      blog:{
-        name:'',
-        email:'',
-        username:''
-      },
       todaydate: moment().format('YYYY-MM-DD'),
       currenttime: moment().format('h:mm A'),
       readyChecked: [],
@@ -399,9 +423,13 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+
+      /** used on firebase **/
       username: '',
       email: '',
       name: '',
+      /** end of firebase array **/
+
       onDetailDiv: true,
       itemId: true,
       fields: ['first_name', 'last_name', 'age'],
@@ -465,6 +493,12 @@ export default {
       })
     },
 
+    submitName(){
+      namesRef.push({ name: this.name, email: this.email, username: this.username});
+      console.log("DATA INSERTED");
+      console.log(this.name +' thank you for submitting');
+    },
+
    //  addRecord: function(){
 
    //   if(this.username != '' && this.name != '' && this.email != ''){
@@ -497,7 +531,7 @@ export default {
 
     postfirebase:function(){
       this.$http.post('https://vueonboard.firebaseio.com/posts.json',this.blog).then(function(data){
-        console.log(data);
+        // console.log(data);
         // console.log(username);
         this.submitted = true;
       });
