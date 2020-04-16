@@ -5,6 +5,9 @@ import BootstrapVue from 'bootstrap-vue';
 import Users from './Users.vue';
 import Home from './Home.vue';
 import Onboarding from './Onboarding.vue';
+import Waiting from './Waiting.vue';
+import Onsite from './Onsite.vue';
+import Playing from './Playing.vue'
 import Drag from './Drag.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -24,6 +27,9 @@ const routes = [
 	{ path: '/users', component: Users},
 	{ path : '/home', component: Home},
 	{ path : '/onboarding', component: Onboarding},
+	{ path : '/waiting', component: Waiting},
+	{ path : '/onsite', component: Onsite},
+	{ path : '/playing', component: Playing},
 	{ path : '/drag', component: Drag}
 ];
 

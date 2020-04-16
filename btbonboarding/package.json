@@ -11,12 +11,14 @@
     "axios": "^0.19.2",
     "bootstrap-vue": "^2.10.1",
     "core-js": "^3.6.4",
+    "firebase": "^7.14.0",
     "moment": "^2.24.0",
     "vue": "^2.6.11",
     "vue-draggable": "^2.0.6",
     "vue-multi-drag": "^0.3.2",
     "vue-router": "^3.1.6",
-    "vuedraggable": "^2.23.2"
+    "vuedraggable": "^2.23.2",
+    "vuefire": "^2.2.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",

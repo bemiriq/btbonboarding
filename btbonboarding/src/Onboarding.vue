@@ -11,9 +11,9 @@
 
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/">Onsite Groups</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="http://localhost:8080/#/Onboarding" active>Onboarding</b-list-group-item>
-            <b-list-group-item href="#foobar">Waiting</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>

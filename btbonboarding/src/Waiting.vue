@@ -11,12 +11,14 @@
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
             <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="#">Onboarding</b-list-group-item>
-            <b-list-group-item href="#foobar">Waiting</b-list-group-item>
-            <b-list-group-item href="#">Playing</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Onboarding">Onboarding</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Waiting" active>Waiting</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
-            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+            <b-list-group-item href="#foobar" disabled>Social Tagging</b-list-group-item>
           </b-list-group>
+
+        
 
         </b-col>
         <!-- end of navigation menu on left side -->
@@ -25,6 +27,22 @@
 
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10"  style="background-color:#fafafa;">
+          <b-col>
+            <h2 style="color: #007BFF;">TEAMS ON DECK</h2>
+            <hr/>
+          </b-col>
+          <b-col>
+            <div>
+              <h4>GHOSTBUSTERS</h4>
+              <h4>MARVEL</h4>
+              <h4>THATS MY TEAM</h4>
+              <h4>CHICKIBOMB</h4>
+              <h4>GET IT</h4>
+              <h4>BEAT THE GUN</h4>
+              <h4>LET IT BE</h4>
+              <h4>GUESS THE NAME</h4>
+            </div>
+          </b-col>
         </b-col>
 
       </b-row>

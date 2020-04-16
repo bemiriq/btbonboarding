@@ -31,10 +31,10 @@
 
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="http://localhost:8080/#/users" active>Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/">Onsite Groups</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="http://localhost:8080/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="#foobar">Waiting</b-list-group-item>
-            <b-list-group-item href="#">Playing</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="http://localhost:8080/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
@@ -69,26 +69,27 @@
             <td><input type='text' v-model='blog.email'></td>
             <td><button v-on:click.prevent="postfirebase">POST TO FIREBASE</button></td> -->
 
-            <div>
+            <!-- <div>
               <label>Name : </label>
               <input type="text" v-model="name" placeholder="full name" required>
               <input type="text" v-model="username" placeholder="username"  required>
               <input type="text" v-model="email" placeholder="email" required>
               <button @click="submitName()">Add </button>
-            </div>
+            </div> -->
 
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
-          <div v-for="post in filterItems(posts)" v-bind:key="post.id">
+          <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
+          <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt">
             <b-row cols="8" class="bottomRightData">
                 <b-col md="2">
                   <!-- <div v-for="item in post.items" v-bind:key="item.arrival" v-on:click="convertTime">
                     {{item.arrivalTime}}
                   </div> -->
                   <div>
-                    <button v-for="item in post.items" v-bind:key="item.arrival">
+                    <p v-for="item in post.items" ref="convertedTime" id="convertedTime" v-bind:key="item.arrival" class="covertedtime">
                       {{item.arrivalTime}}
-                    </button>
+                    </p>
                   </div>
                 </b-col>
 
@@ -100,51 +101,9 @@
                   </div> -->
                   <div v-for="item in post.items" v-bind:key="item.id">
                    <!--  <div @click="item.id = !item.id" style="color: blue;"> -->
-                     <div @click="item.id = !item.id" style="color: blue;">
+                     <div v-on:click="item.id = !item.id" style="color: blue;">
 
-                      <b-button v-b-modal.modal-xl variant="info">{{post.customerName}}</b-button>
-
-                      <b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
-                              <!-- <p class="my-4">Vertically centered modal!</p> -->
-                            <!--   <b-row class="my-1" style="background-color: green;">
-                                <b-col style="width:auto;">
-                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
-                                  {{post.customerName}}
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
-                                </b-col>
-                              </b-row>-->
-                              <p> Booker Name = <u style="font-weight:bold;">{{post.customerName}}</u> </p>
-                              <br/>
-                              <b-container class="bv-example-row">
-                                  <b-row style="font-weight:bold;">
-                                    <b-col><p>F Name</p></b-col>
-                                    <b-col><p>L Name</p></b-col>
-                                    <b-col><p>Text Number</p></b-col>
-                                    <b-col><p>Arrival</p></b-col>
-                                    <b-col><p>Waiver</p></b-col>
-                                    <b-col><p>No Show</p></b-col>
-                                  </b-row>
-
-                                  <b-row>
-                                    <b-col><p>Sandesh</p></b-col>
-                                    <b-col><p>P</p></b-col>
-                                    <b-col><p>817 360 2705</p></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
-                                  </b-row>
-
-                                </b-container>
-                          <!-- <b-table :fields="fields">
-                            <p>{{post.customerName}}</p>
-                            <template v-slot:table-caption>This is a table caption.</template>
-                            }
-                          </b-table>  -->
-                      </b-modal>
+                      <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button>
 
                     </div>
                   <!-- </div> -->
@@ -305,15 +264,57 @@
                     <div v-for="readyChecked in post.items" v-bind:key="readyChecked.id">
                       <input type="checkbox" v-model="readyChecked.id">
                     </div>
-                    <label for="jack">jack</label>
+                    <!-- <label for="jack">jack</label> -->
                   <!-- </div> -->
                 </b-col>
 
                 <b-col md="1">
-                  <!-- <input type="checkbox" id="lateChecked" v-model="lateChecked"> -->
+                  <input type="checkbox" id="lateChecked" v-model="lateChecked">
                 </b-col>
 
             </b-row>
+
+            <b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                            <!--   <b-row class="my-1" style="background-color: green;">
+                                <b-col style="width:auto;">
+                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
+                                  {{post.customerName}}
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
+                                </b-col>
+                              </b-row>-->
+                              <p> Booker Name = <u style="font-weight:bold;">{{post.customerName}}</u> </p>
+                              <br/>
+                              <b-container class="bv-example-row">
+                                  <b-row style="font-weight:bold;">
+                                    <b-col><p>F Name</p></b-col>
+                                    <b-col><p>L Name</p></b-col>
+                                    <b-col><p>Text Number</p></b-col>
+                                    <b-col><p>Arrival</p></b-col>
+                                    <b-col><p>Waiver</p></b-col>
+                                    <b-col><p>No Show</p></b-col>
+                                  </b-row>
+
+                                  <b-row>
+                                    <b-col><p>Sandesh</p></b-col>
+                                    <b-col><p>P</p></b-col>
+                                    <b-col><p>817 360 2705</p></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
+                                  </b-row>
+
+                                </b-container>
+                          <!-- <b-table :fields="fields">
+                            <p>{{post.customerName}}</p>
+                            <template v-slot:table-caption>This is a table caption.</template>
+                            }
+                          </b-table>  -->
+                      </b-modal>
 
             <!-- <b-row cols="8" v-show="!onDetailDiv">
               <b-col md="2">
@@ -441,55 +442,43 @@ export default {
       // timelist: 1500
     }
   },
-
-  mounted: function(){
-    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival=2020-04-07")
-    //  .then(response => (this.posts = response.data.data));
-
+beforeMount() {
     var currentDate = moment().format('YYYY-MM-DD');
 
     axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
      .then(response => (this.posts = response.data.data));
-
-     console.log(this.posts);
-
-// var objToDeploy = this.posts[0];
-
-// //.set(objToDeploy, 'posts.Items[0]')
-//      console.log(objToDeploy);
-//  console.log(this.posts);
+  /*   .then(response => {
+      this.posts = response.data.data.map(pr => ({
+        ...pr,
+      ConvertArrivalTime: new Date(pr["items"].arrivalDateTime)
+           }))
+}
+);*/
+  },
+  mounted() {
+ 
   },
 
 
+/* the function below grabs the time fro axios.get(API) and converts to military time */
+updated() {
+var arrows = document.getElementsByClassName("covertedtime");
+
+    for(var i = 0; i < arrows.length; i++){
+            arrows[i].innerText =  moment(arrows[i].innerText,"HH:mm A").format("h:mm A");
+    }
+},
+/*end of the updated function which converts time*/
+
+
   methods:{
-
-    showAllTime: function (){
-
-      console.log('SA');
-
-      // var arrivalDate = moment().format('YYYY-MM-DD');
-      // console.log(arrivalDate);
-
-      // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival=2020-04-07")
-      // .then(response => (this.posts = response.data.data));
-
-      // var currentDate = moment().format('YYYY-MM-DD');
-
-    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
-    //  .then(response => (this.posts = response.data.data));
-       
-    },
-
-    convertTime: function(){
-      console.log("INSIDE");
-      var time = timelist/100-12 + ":00";
-    },
-
     filterItems: function(posts) {
       var app = this;
+
       return posts.filter(function(post) {
         let regex = new RegExp('(' + app.searchQuery + ')', 'i');
         return post.customerName.match(regex);
+   
       })
     },
 
