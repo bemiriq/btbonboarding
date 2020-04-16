@@ -77,19 +77,62 @@
               <button @click="submitName()">Add </button>
             </div> -->
 
+<b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                            <!--   <b-row class="my-1" style="background-color: green;">
+                                <b-col style="width:auto;">
+                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
+                                  {{post.customerName}}
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <input type="checkbox" name="">
+                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
+                                </b-col>
+                              </b-row>-->
+                              
+                                <p> Booker Name = <u style="font-weight:bold;">{{selectedCustomerName}}</u> </p>
+                              <br/>
+                              <b-container class="bv-example-row">
+                                  <b-row style="font-weight:bold;">
+                                    <b-col><p>F Name</p></b-col>
+                                    <b-col><p>L Name</p></b-col>
+                                    <b-col><p>Text Number</p></b-col>
+                                    <b-col><p>Arrival</p></b-col>
+                                    <b-col><p>Waiver</p></b-col>
+                                    <b-col><p>No Show</p></b-col>
+                                  </b-row>
+
+                                  <b-row>
+                                    <b-col><p>David</p></b-col>
+                                    <b-col><p>P</p></b-col>
+                                    <b-col><p>817 360 2705</p></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
+                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
+                                  </b-row>
+
+                                </b-container>
+                          <!-- <b-table :fields="fields">
+                            <p>{{post.customerName}}</p>
+                            <template v-slot:table-caption>This is a table caption.</template>
+                            }
+                          </b-table>  -->
+                      </b-modal>
+
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
           <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
-          <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt">
+          <div v-for="post in posts" v-bind:key="post.createdAt">
             <b-row cols="8" class="bottomRightData">
                 <b-col md="2">
                   <!-- <div v-for="item in post.items" v-bind:key="item.arrival" v-on:click="convertTime">
                     {{item.arrivalTime}}
                   </div> -->
                   <div>
-                    <p v-for="item in post.items" ref="convertedTime" id="convertedTime" v-bind:key="item.arrival" class="covertedtime">
+                    <div v-for="item in post.items" ref="convertedTime" id="convertedTime" v-bind:key="item.arrival" class="covertedtime">
                       {{item.arrivalTime}}
-                    </p>
+                    </div>
                   </div>
                 </b-col>
 
@@ -99,13 +142,16 @@
                       {{demographic.quantity}}
                     </div>
                   </div> -->
-                  <div v-for="item in post.items" v-bind:key="item.id">
+                  <!-- <div v-for="item in post.items" v-bind:key="item.id"> -->
                    <!--  <div @click="item.id = !item.id" style="color: blue;"> -->
-                     <div v-on:click="item.id = !item.id" style="color: blue;">
-
-                      <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button>
-
+                    <div v-for="item in post.items" v-bind:key="item.id" v-on:click="selectItem (post, item)">
+                      <b-button variant="outline-info">{{post.customerName}}</b-button>
                     </div>
+
+                      <!-- <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button> -->
+
+                    <!-- </div> -->
+
                   <!-- </div> -->
                     <!-- <br> -->
                   
@@ -243,7 +289,8 @@
                       
                       <!-- end of sub child idv -->
 
-                    </div>
+                    <!-- </div> -->
+
                 </b-col>
                   
                 <b-col md="1">
@@ -274,48 +321,6 @@
 
             </b-row>
 
-            <b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
-                              <!-- <p class="my-4">Vertically centered modal!</p> -->
-                            <!--   <b-row class="my-1" style="background-color: green;">
-                                <b-col style="width:auto;">
-                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
-                                  {{post.customerName}}
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
-                                </b-col>
-                              </b-row>-->
-                              <p> Booker Name = <u style="font-weight:bold;">{{post.customerName}}</u> </p>
-                              <br/>
-                              <b-container class="bv-example-row">
-                                  <b-row style="font-weight:bold;">
-                                    <b-col><p>F Name</p></b-col>
-                                    <b-col><p>L Name</p></b-col>
-                                    <b-col><p>Text Number</p></b-col>
-                                    <b-col><p>Arrival</p></b-col>
-                                    <b-col><p>Waiver</p></b-col>
-                                    <b-col><p>No Show</p></b-col>
-                                  </b-row>
-
-                                  <b-row>
-                                    <b-col><p>Sandesh</p></b-col>
-                                    <b-col><p>P</p></b-col>
-                                    <b-col><p>817 360 2705</p></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
-                                  </b-row>
-
-                                </b-container>
-                          <!-- <b-table :fields="fields">
-                            <p>{{post.customerName}}</p>
-                            <template v-slot:table-caption>This is a table caption.</template>
-                            }
-                          </b-table>  -->
-                      </b-modal>
-
             <!-- <b-row cols="8" v-show="!onDetailDiv">
               <b-col md="2">
                 FIRST NAME
@@ -330,8 +335,14 @@
               </b-col>
 
             </b-row> -->
+
+
             
           </div>
+
+
+          
+
 
           <!-- end of filter items search div -->
 
@@ -367,6 +378,8 @@
 
         </b-col>
         <!-- end of right div which all table -->
+
+
 
 
 
@@ -409,7 +422,8 @@
 export default {
   name: 'App',
   components: {
-    // HelloWorld
+    // HelloWorld,
+    // ChildComponent
   },
 
   data(){
@@ -424,6 +438,8 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+      selectedCustomerName: '',
+      // displayModal: true,
 
       /** used on firebase **/
       username: '',
@@ -459,6 +475,9 @@ beforeMount() {
  
   },
 
+  // created() {
+  //   this.$emit('tryMe');
+  // },
 
 /* the function below grabs the time fro axios.get(API) and converts to military time */
 updated() {
@@ -524,7 +543,21 @@ var arrows = document.getElementsByClassName("covertedtime");
         // console.log(username);
         this.submitted = true;
       });
-    }
+    },
+
+    selectItem (post, item) {
+      // alert('1');
+      // item.id = !item.id
+      this.selectedCustomerName = post.customerName
+      var bookerName = this.selectedCustomerName
+      console.log(bookerName);
+      this.$bvModal.show('modal-xl')
+      // show the modal
+      // $bvModal.show('modal-xl')
+      // this.displayModal = true
+      // this.$refs['displayModal'].show()
+      // this.$root.$emit('bv::show::modal', 'modal-xl', '#btnShow')
+     },
 
   }
 
