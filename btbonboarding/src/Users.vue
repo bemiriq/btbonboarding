@@ -92,6 +92,7 @@
                               </b-row>-->
                               
                                 <p> Booker Name = <u style="font-weight:bold;">{{selectedCustomerName}}</u> </p>
+                                <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
                               <br/>
                               <b-container class="bv-example-row">
                                   <b-row style="font-weight:bold;">
@@ -119,11 +120,16 @@
                             }
                           </b-table>  -->
                       </b-modal>
-
+          
+          <ul id="example-2">
+  <li v-for="item in timeList" v-bind:key="item">
+   {{ item }}
+  </li>
+</ul>
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
           <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
-          <div v-for="post in posts" v-bind:key="post.createdAt">
+          <div v-for="post in sortedArray" v-bind:key="post.createdAt">
             <b-row cols="8" class="bottomRightData">
                 <b-col md="2">
                   <!-- <div v-for="item in post.items" v-bind:key="item.arrival" v-on:click="convertTime">
@@ -131,7 +137,12 @@
                   </div> -->
                   <div>
                     <div v-for="item in post.items" ref="convertedTime" id="convertedTime" v-bind:key="item.arrival" class="covertedtime">
+
                       {{item.arrivalTime}}
+
+                      <!-- <div v-for="item in sortedArray" v-bind:key="item.arrivalTime"> -->
+                        
+                      <!-- </div> -->
                     </div>
                   </div>
                 </b-col>
@@ -145,7 +156,7 @@
                   <!-- <div v-for="item in post.items" v-bind:key="item.id"> -->
                    <!--  <div @click="item.id = !item.id" style="color: blue;"> -->
                     <div v-for="item in post.items" v-bind:key="item.id" v-on:click="selectItem (post, item)">
-                      <b-button variant="outline-info">{{post.customerName}}</b-button>
+                      <b-button pill variant="outline-info">{{post.customerName}}</b-button>
                     </div>
 
                       <!-- <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button> -->
@@ -374,6 +385,25 @@
                 <input type="checkbox" id="checkbox" v-model="lateChecked">
               </b-col>
             </b-row> -->
+
+
+
+            <!-- table to sort out the data 
+             <div>
+        <b-table striped hover :items="posts" :fields="fieldstable">
+           <template v-slot:cell(posts.post)="data">{{ data.items }}</template>
+
+          <template v-for="post in posts" >    -->
+
+          <!-- <td v-for="item in post.items" v-bind:key="item.arrival">{{ item.arrivalTime }}</td> dont uncomment this    -->
+
+        <!--   <td v-for="item in post.items"  v-bind:key="item.arrival" >
+                      {{item.arrivalTime}}
+                    </td>        
+        </template>
+        </b-table>
+      </div> -->
+
           </b-container>
 
         </b-col>
@@ -385,9 +415,12 @@
 
       </b-row>
     </div>
+
+     
+
+
   </div>
 </template>
-
 
 <script src="moment.js"></script>
 <script>
@@ -440,6 +473,8 @@ export default {
       selected2: '',
       selectedCustomerName: '',
       // displayModal: true,
+      timeList: [],
+      convertedTimeList: '',
 
       /** used on firebase **/
       username: '',
@@ -449,30 +484,116 @@ export default {
 
       onDetailDiv: true,
       itemId: true,
-      fields: ['first_name', 'last_name', 'age'],
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+
+       fieldstable: [
+          {
+            key: 'customerName',
+            sortable: true
+          },
+          {
+            key: 'createdAt',
+            sortable: true
+          }
         ]
       // timelist: 1500
     }
   },
-beforeMount() {
+
+  computed: {
+    sortedArray: function() {
+
+      function compare(a, b) {
+        if (a.items[0].arrivalTime < b.items[0].arrivalTime ) /** this is the way to call the json notation object **/
+          return -1;
+        if (a.items[0].arrivalTime > b.items[0].arrivalTime )
+          return 1;
+        return 0;
+      }
+
+      console.log(compare);
+
+      return this.posts.sort(compare);
+      console.log(this.posts);
+    }
+  },
+
+
+mounted: function(){
     var currentDate = moment().format('YYYY-MM-DD');
 
-    axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
+    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
+    //  .then(response => (this.posts = response.data.data));
+
+    const current = new moment().format("hh:mm");
+   // var quaterMinute = ["15","30","30","45"];
+
+
+   let next15Minutes = moment().add(15, 'minutes');
+
+   
+
+   next15Minutes.minutes(Math.floor(next15Minutes.minutes() / 15) * 15);
+
+   // console.log(next15Minutes);
+
+  this.timeList.push(next15Minutes.format('h:mm A'));
+   const timetest = next15Minutes;
+   const timetest1 = next15Minutes;
+
+   for(let i=0;i<5;i++){
+
+    if(i<1){
+          timetest1.subtract(15, 'minutes');
+           timetest1.minutes(Math.floor(timetest1.minutes() / 15) * 15);
+           this.timeList.push(timetest1.format('h:mm A'));
+
+           // console.log(this.timeList);
+
+         }
+         else{
+            timetest.add(15, 'minutes');
+          timetest.minutes(Math.floor(timetest.minutes() / 15) * 15);
+          this.timeList.push(timetest.format('h:mm A'));
+
+          // console.log(this.timeList);
+
+       }
+
+     }
+
+     this.timeList = [ ...new Set(this.timeList) ];
+     this.timeList.sort(); //this will sort out the time from ascending to descending
+     this.timeList.reverse(); //used reverse to change asc/desc to desc/asc
+
+     // console.log(this.timeList.reverse());
+
+       // var arrivalDate = moment().format('YYYY-MM-DD');
+       // var arrivalTime = this.arrivalTime1;
+
+       // console.log(arrivalTime);
+
+       var startArrivalTime='1400';
+       var endArrivalTime='2345'
+       axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
      .then(response => (this.posts = response.data.data));
-  /*   .then(response => {
-      this.posts = response.data.data.map(pr => ({
-        ...pr,
-      ConvertArrivalTime: new Date(pr["items"].arrivalDateTime)
-           }))
-}
-);*/
-  },
-  mounted() {
- 
+     // this.posts.sort();
+     // console.log(this.posts);
+     // console.log(this.timeList);
+
+//      var currentTime = moment().format('h:mm A');
+//      console.log(currentTime);
+
+//      var result = posts.filter((x)=>x.customerName === 'Alexander Patterson');
+// console.log(result);
+    
+
+// console.log(json2015);
+
+
+    //  setInterval(() => {
+    //   this.date = moment(this.date.subtract(1, 'seconds'))
+    // }, 1000);
+
   },
 
   // created() {
@@ -545,19 +666,17 @@ var arrows = document.getElementsByClassName("covertedtime");
       });
     },
 
+    /* the function below displays only one modal for particular customer clicked */
     selectItem (post, item) {
-      // alert('1');
-      // item.id = !item.id
-      this.selectedCustomerName = post.customerName
+      this.selectedCustomerName = post.customerName /*this.selectedCustomerName pass the value to data return() */
       var bookerName = this.selectedCustomerName
-      console.log(bookerName);
       this.$bvModal.show('modal-xl')
-      // show the modal
-      // $bvModal.show('modal-xl')
-      // this.displayModal = true
-      // this.$refs['displayModal'].show()
-      // this.$root.$emit('bv::show::modal', 'modal-xl', '#btnShow')
      },
+
+
+      removeDuplicates () {
+          this.timeList = [ ...new Set(this.timeList) ]
+        }
 
   }
 
