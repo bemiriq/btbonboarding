@@ -418,14 +418,14 @@
 
     <br/>
 
-    <div class="bv-example-row" style="width:58%;margin:auto;">
+    <div class="bv-example-row" style="width:58%;margin:auto; background-color: #fafafa;font-weight:bold;">
 
       <b-row>
         <b-col>Front Desk</b-col>
         <b-col>On Deck</b-col>
         <b-col>Room Status</b-col>
         <b-col>CCTV</b-col>
-        <b-col>Control Room</b-col>
+        <b-col><a href="http://localhost:8080/#/controlroom">Control Room</a></b-col>
         <b-col>Photo Bomb</b-col>
         <b-col>Bomb Vision</b-col>
         <b-col>Stats</b-col>

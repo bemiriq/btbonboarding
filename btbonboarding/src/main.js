@@ -7,7 +7,11 @@ import Home from './Home.vue';
 import Onboarding from './Onboarding.vue';
 import Waiting from './Waiting.vue';
 import Onsite from './Onsite.vue';
-import Playing from './Playing.vue'
+import Playing from './Playing.vue';
+
+/* pages link for footer */
+import Control from './Control.vue';
+/**end of footer pages */
 import Drag from './Drag.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -30,6 +34,7 @@ const routes = [
 	{ path : '/waiting', component: Waiting},
 	{ path : '/onsite', component: Onsite},
 	{ path : '/playing', component: Playing},
+	{ path : '/controlroom', component: Control},
 	{ path : '/drag', component: Drag}
 ];
 
