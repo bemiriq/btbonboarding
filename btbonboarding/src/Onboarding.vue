@@ -44,7 +44,7 @@
                         <input type="text" name="reservationTime1" v-model="reservationTime1">
                       </b-col>
                       <b-col sm="9">
-                        <b-form-input id="input-small" size="sm" name="teamName1" v-model="teamName1" placeholder="TEAM NAME"></b-form-input>
+                        <b-form-input id="input-small" size="sm" name="teamName1" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -56,14 +56,14 @@
                         draggable=".item"
                         group="a" style="height: 300px; border-style: outset;"
                       >
-                        <div
+                       <!--  <div
                           class="list-group-item item"
                           v-for="element in list2"
                           :key="element.name"
-                        >
-                        <input v-model="element.name">
-                          <!-- {{ element.name }} -->
-                        </div>
+                        > -->
+                     <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
+                          {{ element.name }}
+                        </div> -->
 
                            <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
                           <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
@@ -989,6 +989,7 @@
                   v-for="element in dataList3"
                   :key="element.name"
                 >
+                <input v-model="reservationDrag1" type="text">
                   {{ element.name }}
                 </div>
 
@@ -1002,13 +1003,13 @@
                   <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
                 </div>
 
-                <div
+                <!-- <div
                   class="list-group-item item"
                   v-for="element in dataList1"
                   :key="element.name"
                 >
                   {{ element.name }}
-                </div>
+                </div> -->
 
                <!--  <div
                   slot="footer"
@@ -1023,10 +1024,10 @@
 
               <br/>
               <b>Tiffer's Group</b>
-              <draggable :list="dataList" class="list-group" draggable=".item" group="a">
+              <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
                 <div
                   class="list-group-item item"
-                  v-for="element in dataList"
+                  v-for="element in dataList3"
                   :key="element.name"
                 >
                   {{ element.name }}
@@ -1146,6 +1147,9 @@ export default {
         rfid5: '',
         rfid6: '',
 
+        reservationDrag1: '',
+        divTeamName1: '',
+
         dataList3: [
           { name: "John", id: 0 },
           { name: "Joao", id: 1 },
@@ -1187,16 +1191,31 @@ export default {
           {
             name: this.teamName1,
             reservationTime1: this.reservationTime1,
-            selected1: this.selected1,
-            vsselected1: this.vsselected1,
-            element: this.element
+            taemlist1: this.divTeamName1
+            // selected1: this.selected1,
+            // vsselected1: this.vsselected1,
+            // element: this.element
 
           }
 
           );
         // alert('Processing');
-      }
-    },
+      },
+
+    //   changeList(event, id, property) {
+    //   let value = event.target.value
+      
+    //   for (item of this.list) {
+    //     if (item.id === id) {
+    //       if(property === 'name') {
+    //         item.name = value
+    //     }
+    //   }
+    // }
+
+    // }
+
+  },
 
     computed:{
       rfidState1() {

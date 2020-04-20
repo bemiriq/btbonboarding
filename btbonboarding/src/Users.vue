@@ -121,11 +121,11 @@
                           </b-table>  -->
                       </b-modal>
           
-          <ul id="example-2">
+<!--           <ul id="example-2">
   <li v-for="item in timeList" v-bind:key="item">
    {{ item }}
   </li>
-</ul>
+</ul> -->
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
           <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
@@ -416,6 +416,31 @@
       </b-row>
     </div>
 
+    <br/>
+
+    <div class="bv-example-row" style="width:58%;margin:auto;">
+
+      <b-row>
+        <b-col>Front Desk</b-col>
+        <b-col>On Deck</b-col>
+        <b-col>Room Status</b-col>
+        <b-col>CCTV</b-col>
+        <b-col>Control Room</b-col>
+        <b-col>Photo Bomb</b-col>
+        <b-col>Bomb Vision</b-col>
+        <b-col>Stats</b-col>
+        <b-col>Support</b-col>
+        <b-col>EOD</b-col>
+        <b-col>Photo Bomb</b-col>
+        <b-col> | </b-col>
+        <b-col>Homebase</b-col>
+        <b-col>Xola</b-col>
+        <b-col>Square</b-col>
+
+      </b-row>
+
+    </div>
+
      
 
 
@@ -503,10 +528,20 @@ export default {
     sortedArray: function() {
 
       function compare(a, b) {
-        if (a.items[0].arrivalTime < b.items[0].arrivalTime ) /** this is the way to call the json notation object **/
+
+        var currentTimeUse = moment().format('h:mm A');
+        
+        b.items[0].arrivalTime =  moment(b.items[0].arrivalTime,"h:mm A").format("h:mm A");
+        a.items[0].arrivalTime =  moment(a.items[0].arrivalTime,"h:mm A").format("h:mm A");
+
+        /* in the function below -1 is dont display , 1 true and 0 is false */
+        console.log(currentTimeUse);
+        if (a.items[0].arrivalTime < b.items[0].arrivalTime )
+          return -1; /** returening false -1 from both function reverse the time and displays in order */
+          if( a.items[0].arrivalTime > currentTimeUse)
           return -1;
-        if (a.items[0].arrivalTime > b.items[0].arrivalTime )
-          return 1;
+          console.log(b.items[0].arrivalTime);
+       
         return 0;
       }
 
@@ -572,8 +607,8 @@ mounted: function(){
 
        // console.log(arrivalTime);
 
-       var startArrivalTime='1400';
-       var endArrivalTime='2345'
+       // var startArrivalTime='1400';
+       // var endArrivalTime='2345'
        axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
      .then(response => (this.posts = response.data.data));
      // this.posts.sort();
@@ -605,7 +640,7 @@ updated() {
 var arrows = document.getElementsByClassName("covertedtime");
 
     for(var i = 0; i < arrows.length; i++){
-            arrows[i].innerText =  moment(arrows[i].innerText,"HH:mm A").format("h:mm A");
+            arrows[i].innerText =  moment(arrows[i].innerText,"h:mm A").format("h:mm A");
     }
 },
 /*end of the updated function which converts time*/
