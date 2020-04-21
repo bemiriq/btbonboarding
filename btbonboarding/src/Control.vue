@@ -24,31 +24,63 @@
 
 
         <!-- start of right div which consists of table with all details -->
-        <b-col lg="10"  style="background-color:#fafafa; font-weight: bold;">
+        <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
 
-          <b-row class="alert alert-primary" role="alert">
+          <!-- <b-row class="alert alert-primary" role="alert">
             <b-col class="col-6"><p id="blinking"> ARBITER DISCONNECTED INFORMATION </p></b-col>
             <b-col> PAUSE </b-col>
             <b-col> PLAY </b-col>
             <b-col> ROOM TIME </b-col>
             <b-col> BOMB TIME </b-col>
+          </b-row> -->
+          <b-row>
+            <b-col>CONTROL ROOM SIDE A</b-col>
           </b-row>
-
           <b-row>
 
             <!-- starting div for room 1 and room 6 -->
-            <b-col class="border border-dark" style="background-color: #00ff80; padding-top: 1%;">
+            <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']">
                 <div>
-                  <h4 style="font-weight: bold;"> ROOM 1 </h4>
-                  <hr/>
+                  <b-row>
+                    <b-col>
+                      <h4 style="font-weight: bold;"> ROOM 1 </h4>
+                    </b-col>
+                    <b-col> 
+                      <div v-on:click="room1pauseDiv = !room1pauseDiv ; room1playDiv = !room1playDiv ;">
 
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
+                        <div v-show="!room1playDiv" @click="timerPause">
+                          <img src="./assets/icons/play4.png"/>
+                          <!-- <p>PLAY</p> -->
+                        </div>
+
+                        <div v-show="!room1pauseDiv" @click="timerRun">
+                          <img src="./assets/icons/pause1.png" />
+                          <!-- <p>PAUSED</p> -->
+                        </div>
+
+                      </div>
+                      <!-- <span :class="{red: !alwaysAccordionMode }">Tabs</span>
+                      <span :class="{red: alwaysAccordionMode }">Accordion</span> -->
+                     </b-col>
+                  </b-row>
+                  <hr/>
                 </div>
 
+                <!-- <div><div id="time" v-html="time"></div>
+                  <div class="buttons">
+                    <button v-if="!state" @click="resume">Resume</button>
+                    <button v-if="state" @click="pause">Pause</button>
+                  </div>
+                </div> -->
+
+                <div>
+                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
+                </div>
                 <br/>
                 
                 <div>
-                  <p id="bombTime"> Bomb Time : {{ room1counter }} </p>
+                  <div id="bombTime">Bomb Time :  <span v-html="time">{{totalTime}}</span>  </div>
+                  <!-- <p id="time" v-html="time">{{timerCount}}</p> -->
                 </div>
 
                 <br/>
@@ -63,8 +95,8 @@
 
                 <div id="add30sec">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter -= 30"> - 30 sec </button></b-col>
+                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="totalTime += 30"> + 30 sec </button></b-col>
+                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="totalTime -= 30"> - 30 sec </button></b-col>
                   </b-row>
                 </div>
 
@@ -72,8 +104,8 @@
 
                 <div id="resetStartButton">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info">START</button></b-col>
+                    <b-col><button type="button" class="btn btn-outline-info" @click="timerReset">RESET</button></b-col>
+                    <b-col><button type="button" class="btn btn-outline-info" @click="timerRun">START</button></b-col>
                   </b-row>
                 </div>
 
@@ -84,7 +116,7 @@
 
 
             <!-- starting b-col and div for room 2 and room 7 -->
-            <b-col style="background-color: #ff007f;padding-top: 1%;">
+            <b-col class="border border-dark" style="background-color: #ff007f;padding-top: 1%;">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 2 </h4>
                   <hr/>
@@ -128,7 +160,7 @@
             <!-- ending div for room 2 and room 7 -->
 
             <!-- starting b-col and div for room 3 and room 8 -->
-            <b-col style="background-color: #ffff00;padding-top: 1%;">
+            <b-col class="border border-dark" style="background-color: #ffff00;padding-top: 1%;">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 3 </h4>
                   <hr/>
@@ -172,7 +204,7 @@
             <!-- ending div for room 3 and room 8 -->
 
             <!-- starting b-col and div for room 4 and room 9 -->
-            <b-col style="background-color: #007bff;padding-top: 1%;">
+            <b-col class="border border-dark" style="background-color: #00ff80;padding-top: 1%;">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 4 </h4>
                   <hr/>
@@ -217,7 +249,7 @@
 
 
             <!-- starting b-col and div for room 5 and room 10 -->
-            <b-col style="background-color: #00ff80;padding-top: 1%;">
+            <b-col class="border border-dark" style="background-color: #00ff80;padding-top: 1%;">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 5 </h4>
                   <hr/>
@@ -306,9 +338,110 @@ export default {
   data(){
     return{
       room1counter: 130,
+      room1pauseDiv: true,
+      room1playDiv: false,
+      // totalTime: (25 * 60),
+      totalTime: 180,
+      timerRunning: false,
+      timerPaused: false,
+      interval: null,
+      gameStatusByColor: true
+      // styleobj: {
+      //   color: '#4CAF50',
+      //   marginLeft: '20px',
+      //   fontSize: '30px'
+      // }
     }
     
-  }
+  },
+
+  methods: {
+    timerRun() {
+      this.timerRunning = true;
+      this.message = 'Greatness is within sight!!!';
+      this.interval = setInterval(this.countdownTimer, 1000);
+      this.totalTime = (180); /** each team time value should be defined here as mm * ss or sss  **/
+      console.log(this.totalTime);
+      this.gameStatusByColor = !this.gameStatusByColor;
+    },
+    timerPause() {
+      this.message = 'Never quit, keep going!!';
+      this.timerRunning = false;
+      clearInterval(this.interval);
+    },
+    timerReset() {
+      this.message = 'Let the countdown begin!!';
+      this.timerRunning = false;
+      clearInterval( () => { this.interval; });
+      // this.totalTime = (25 * 60);
+      this.totalTime = (0 * 0);
+      this.gameStatusByColor = !this.gameStatusByColor; /* this will reset the game status color */
+    },
+    timerCountdown() {
+      console.log('Working');
+      this.timerRunning = true;
+      this.interval = setInterval(this.updateCurrentTime, 1000);
+      // Counts down from 60 seconds times 1000.
+      setInterval( () => {
+        this.timerMinutes--
+      }, 60 * 1000)
+      
+      // Check if seconds at double zero and then make it a 59 to countdown from.
+      // need another method of checking the number while in the loop and then adding a zero on the number under 10
+      if(this.timerSeconds === '00'){
+        this.timerSeconds = 59;
+        setInterval( () => {
+          this.timerSeconds--
+        }, 1000);
+      } else {
+        setInterval( () => {
+          this.timerSeconds--
+        }, 1000);
+      }
+    },
+    countdownTimer() {
+      if (this.timerRunning == true) {
+          this.totalTime--;
+      }
+    }
+  },
+
+
+  mounted: function(){
+    // this.interval = setInterval(this.updateCurrentTime, 1000);
+  },
+
+  computed: {
+     time: function() {
+      return this.minutes + " : " + this.seconds;
+    },
+    minutes: function() {
+      var min = Math.floor(this.totalTime / 60);
+      return min >= 10 ? min : '0' + min;
+    },
+    seconds: function() {
+      var sec = this.totalTime - (this.minutes * 60);
+      return sec >= 10 ? sec : '0' + sec;
+    }
+  },
+
+   // watch: {
+
+   //          timerCount: {
+   //              handler(value) {
+
+   //                  if (value > 0) {
+   //                      setTimeout(() => {
+   //                          this.timerCount--;
+   //                      }, 1000);
+   //                  }
+
+   //              },
+   //              immediate: true // This ensures the watcher is triggered upon creation
+   //          }
+
+   //      }
+  
 
 };
 </script>
@@ -352,6 +485,20 @@ export default {
   background-color: black;
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+.playImage{
+  width: 20px;
+}
+
+.greenStatus{
+  background-color: #00ff80; 
+  padding-top: 1%;
+}
+
+.playingStatus{
+  background-color: #007bff;
+  padding-top: 1%;
 }
 
 </style>

@@ -21,7 +21,11 @@
         </b-col>
 
         <b-col lg="2">
-          Time: {{ currenttime }}
+          <div id="time" v-html="time"></div>
+                  <!-- <div class="buttons">
+                    <button v-if="!state" @click="resume">Resume</button>
+                    <button v-if="state" @click="pause">Pause</button>
+                  </div> -->
         </b-col>
 
       </b-row>
@@ -58,7 +62,10 @@ export default {
     return{
       posts: [],
       todaydate: moment().format('YYYY-MM-DD'),
-      currenttime: moment().format('h:mm A')
+      currenttime: moment().format('h:mm A'),
+      state: true,
+      realTimeDisplay: Date.now(),
+      interval: null
     }
   },
 
@@ -73,6 +80,57 @@ export default {
       axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+arrivalDate)
       .then(response => (this.posts = response.data.data));
 
+    },
+
+    /* the below function is for new time update */
+    reset: function() {
+      this.state = true;
+      this.realTimeDisplay = Date.now();
+    },
+    pause: function() {
+      this.state = false;
+    },
+    resume: function() {
+      this.state = true;
+    },
+    updaterealTimeDisplay: function() {
+      if (this.state == true) {
+          this.realTimeDisplay = Date.now();
+      }
+    }
+    /* end of time update */
+  },
+
+  mounted: function(){
+    this.interval = setInterval(this.updaterealTimeDisplay, 1000);
+  },
+
+  computed: {
+    time: function() {
+      return this.hours + ":" + this.minutes + ":" + this.seconds;
+    },
+    milliseconds: function() {
+      return this.realTimeDisplay;
+    },
+    hours: function() {
+      // var milli = this.milliseconds;
+      // Doing the math
+      // var hrs = Math.floor((milli / 3600000) % 24);
+      // Using getHours()
+      var hrs = new Date().getHours();
+      if (hrs >= 13) { hrs = hrs - 12 }
+      return hrs >= 10 ? hrs : '0' + hrs;
+    },
+    minutes: function() {
+      var milli = this.milliseconds;
+      var min = Math.floor((milli / 60000) % 60);
+      return min >= 10 ? min : '0' + min;
+    },
+    seconds: function() {
+      var milli = this.milliseconds;
+      var sec = Math.ceil((milli % 60000) / 1000).toFixed(0);
+      if (sec == 60) { sec = '0' }
+      return sec >= 10 ? sec : '0' + sec;
     }
   }
 

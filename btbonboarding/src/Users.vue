@@ -1,5 +1,5 @@
 <template>
-  <div id="usersapp">
+  <div id="usersapp" style="width: 80%; margin:auto;">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
@@ -9,7 +9,7 @@
         <!-- Stack the columns on mobile by making one full-width and the other half-width -->
         <b-row>
 
-          <b-col cols="12" md="8"></b-col>
+          <b-col cols="10" md="8"></b-col>
 
           <b-col sm="4">
             <b-form-input v-model="searchQuery" id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
@@ -24,7 +24,7 @@
 
       </b-container>
 
-    <div class="container">
+    <div>
       <b-row>
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
@@ -418,12 +418,12 @@
 
     <br/>
 
-    <div class="bv-example-row" style="width:58%;margin:auto; background-color: #fafafa;font-weight:bold;">
+    <div class="bv-example-row" style="width:auto;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
       <b-row>
-        <b-col>Front Desk</b-col>
+        <!-- <b-col>Front Desk</b-col> -->
         <b-col>On Deck</b-col>
-        <b-col>Room Status</b-col>
+        <!-- <b-col>Room Status</b-col> -->
         <b-col>CCTV</b-col>
         <b-col><a href="http://localhost:8080/#/controlroom">Control Room</a></b-col>
         <b-col>Photo Bomb</b-col>
@@ -432,7 +432,7 @@
         <b-col>Support</b-col>
         <b-col>EOD</b-col>
         <b-col>Photo Bomb</b-col>
-        <b-col> | </b-col>
+        <!-- <b-col> | </b-col> -->
         <b-col>Homebase</b-col>
         <b-col>Xola</b-col>
         <b-col>Square</b-col>
