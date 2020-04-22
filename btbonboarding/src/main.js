@@ -8,6 +8,7 @@ import Onboarding from './Onboarding.vue';
 import Waiting from './Waiting.vue';
 import Onsite from './Onsite.vue';
 import Playing from './Playing.vue';
+import Score from './Score.vue';
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -17,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import Vue from 'vue';
 import VueDraggable from 'vue-draggable';
+// import VueFire from 'vuefire';
 // import VueMultiDrag from 'vue-multi-drag';
 import './firebase'; //this one is for database
 
@@ -26,6 +28,8 @@ import './firebase'; //this one is for database
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueDraggable);
+// Vue.use(VueFire);
+// var firebase = require('firebase');
 
 const routes = [
 	{ path: '/users', component: Users},
@@ -35,6 +39,7 @@ const routes = [
 	{ path : '/onsite', component: Onsite},
 	{ path : '/playing', component: Playing},
 	{ path : '/controlroom', component: Control},
+	{ path : '/score', component: Score},
 	{ path : '/drag', component: Drag}
 ];
 

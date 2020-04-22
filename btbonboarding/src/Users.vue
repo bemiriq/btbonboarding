@@ -320,14 +320,19 @@
                   <!-- <input type="checkbox" id="readyChecked" v-model="readyChecked"> -->
                   <!-- <div v-for="(value, key, index) in posts" :key="index"> -->
                     <div v-for="readyChecked in post.items" v-bind:key="readyChecked.id">
-                      <input type="checkbox" v-model="readyChecked.id">
+                      <input type="checkbox" :value="readyChecked.id" v-model="readyCheckedCategories" @click="readycheck($event)">
+                      <!-- {{readyChecked.id}} -->
                     </div>
                     <!-- <label for="jack">jack</label> -->
                   <!-- </div> -->
                 </b-col>
 
                 <b-col md="1">
-                  <input type="checkbox" id="lateChecked" v-model="lateChecked">
+                  <!-- <input type="checkbox" id="lateChecked" v-model="lateChecked"> -->
+                  <div v-for="lateChecked in post.items" v-bind:key="lateChecked.id">
+                    <input type="checkbox" :value="lateChecked.id" v-model="lateCheckedCategories" @click="latecheck($event)">
+                    <!-- {{lateChecked.id}} -->
+                  </div>
                 </b-col>
 
             </b-row>
@@ -507,6 +512,9 @@ export default {
       name: '',
       /** end of firebase array **/
 
+      readyCheckedCategories:[],
+      lateCheckedCategories:[],
+
       onDetailDiv: true,
       itemId: true,
 
@@ -529,18 +537,25 @@ export default {
 
       function compare(a, b) {
 
-        var currentTimeUse = moment().format('h:mm A');
+        // var currentTimeUse = moment().format('h:mm A');
+
+        var subtracttime = moment().subtract(45 , 'minutes');
+
+        var currentTimeUse = moment(subtracttime).format('h:mm A');
+
+        // console.log(currentTimeUse);
+
         
         b.items[0].arrivalTime =  moment(b.items[0].arrivalTime,"h:mm A").format("h:mm A");
         a.items[0].arrivalTime =  moment(a.items[0].arrivalTime,"h:mm A").format("h:mm A");
 
         /* in the function below -1 is dont display , 1 true and 0 is false */
-        console.log(currentTimeUse);
-        if (a.items[0].arrivalTime < b.items[0].arrivalTime )
-          return -1; /** returening false -1 from both function reverse the time and displays in order */
+        // console.log(currentTimeUse);
+        if (b.items[0].arrivalTime > currentTimeUse)
+          return 1; /** returening false -1 from both function reverse the time and displays in order */
           if( a.items[0].arrivalTime > currentTimeUse)
           return -1;
-          console.log(b.items[0].arrivalTime);
+          // console.log(b.items[0].arrivalTime);
        
         return 0;
       }
@@ -661,6 +676,18 @@ var arrows = document.getElementsByClassName("covertedtime");
       namesRef.push({ name: this.name, email: this.email, username: this.username});
       console.log("DATA INSERTED");
       console.log(this.name +' thank you for submitting');
+    },
+
+    readycheck: function(e) {
+      if (e.target.checked) {
+        console.log(e.target.value)
+      }
+    },
+
+    latecheck: function(e) {
+      if (e.target.checked) {
+        console.log(e.target.value)
+      }
     },
 
    //  addRecord: function(){

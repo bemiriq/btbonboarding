@@ -24,7 +24,8 @@
 
 
         <!-- start of right div which consists of table with all details -->
-        <b-col lg="10"  style="background-color:#fafafa;">
+        <b-col lg="10" style="background-color:#fafafa;">
+          <p>SA</p>
         </b-col>
 
       </b-row>

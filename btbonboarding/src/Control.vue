@@ -3,6 +3,10 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
+  <b-modal id="modal-center" centered title="BootstrapVue">
+    <p class="my-4">Vertically centered modal!</p>
+  </b-modal>
+
     <div class="bv-example-row" style="width: 80%;margin:auto;">
       <b-row>
         <!-- start of the left div which has navigation menu -->
@@ -49,12 +53,12 @@
                       <div v-on:click="room1pauseDiv = !room1pauseDiv ; room1playDiv = !room1playDiv ;">
 
                         <div v-show="!room1playDiv" @click="timerPause">
-                          <img src="./assets/icons/play4.png"/>
+                          <img src="./assets/icons/pause1.png"/>
                           <!-- <p>PLAY</p> -->
                         </div>
 
                         <div v-show="!room1pauseDiv" @click="timerRun">
-                          <img src="./assets/icons/pause1.png" />
+                          <img src="./assets/icons/play4.png" />
                           <!-- <p>PAUSED</p> -->
                         </div>
 
@@ -74,7 +78,19 @@
                 </div> -->
 
                 <div>
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
+                  <!-- <select v-model="selected">
+                    <option v-for="option in options" v-bind:value="option.text" v-bind:key="option.text">
+                      {{ option.text }}
+                    </option>
+                  </select> -->
+                  <span>Teamname</span>
+
+                  <b-form-group id="input-group-3" label-for="input-3">
+                    <b-form-select id="input-3" v-model="options.text" :options="options" required>
+                      
+                    </b-form-select>
+                  </b-form-group>
+
                 </div>
                 <br/>
                 
@@ -345,7 +361,17 @@ export default {
       timerRunning: false,
       timerPaused: false,
       interval: null,
-      gameStatusByColor: true
+      gameStatusByColor: true,
+      selected: 'A',
+        options: [
+          { text: 'Ghostbusters'},
+          { text: 'Marshmallows'},
+          { text: 'Beat the gun'},
+          { text: 'Bunny Rabbit'},
+          { text: 'Takecare'},
+          { text: 'Gun the bomb'},
+          { text: 'Beat the bomb beat the gun'},
+        ]
       // styleobj: {
       //   color: '#4CAF50',
       //   marginLeft: '20px',
