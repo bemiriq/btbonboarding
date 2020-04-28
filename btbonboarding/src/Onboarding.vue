@@ -35,7 +35,8 @@
                 <p class="btbSideTitle"><b>SIDE A</b></p>
 
                 <!-- start the form here -->
-                <form id="signup-form" @submit.prevent="processForm">
+                <!-- <form id="signup-form" @submit.prevent="processForm"> -->
+                <form id="signup-form">
                   <b-col  class="border border-info rounded">
 
                     <b-row class="my-1">
@@ -44,7 +45,7 @@
                         <input type="text" name="reservationTime1" v-model="reservationTime1">
                       </b-col>
                       <b-col sm="9">
-                        <b-form-input id="input-small" size="sm" name="teamName1" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
+                        <b-form-input id="input-small" size="sm" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -54,13 +55,16 @@
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;"
+                        group="a" style="height: 340px; border-style: outset;"
                       >
-                       <!--  <div
-                          class="list-group-item item"
-                          v-for="element in list2"
-                          :key="element.name"
-                        > -->
+                      <div
+                        class="list-group-item item"
+                        v-for="(element, index) in list2"
+                        :key="index">
+
+                        <b-form-input id="input-live" v-model="element.first_name" disabled></b-form-input>
+                        <!-- <input v-model="element.first_name" disabled> -->
+                      </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
                           {{ element.name }}
                         </div> -->
@@ -77,10 +81,11 @@
                         <label for="input-small">Playing</label>
                         </b-col>
                         <b-col sm="9">
+                          <!-- <b-form-select v-model="selected1"> -->
                           <b-form-select v-model="selected1">
                             <!-- <option disabled value="">Please select one</option> -->
-                            <option>Cyberbot</option>
-                            <option>Blockmonster</option>
+                            <option v-for="item in missions" v-bind:key="item.id">{{item.id}}</option>
+                            <!-- <option>Blockmonster</option> -->
                             <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
@@ -105,30 +110,52 @@
 
                       <br />
 
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+    <p> You are going to update data for <b> {{teamName1}} </b> </p>
+<!--     <ul>
+      <li v-for="(element, index) in list2" v-bind:key="index">
+        {{element.fist_name}}
+      </li>
+    </ul> -->
+
+    <br>
+
+      <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+    <br>
+
+  </b-modal>
+
                       <b-row>
                         <b-col sm="3">
-                          <b-button variant="primary" type="submit">Update</b-button>
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
                         </b-col>
                         <b-col sm="3">
                           <!-- <b-button variant="info">RFID</b-button> -->
                           <div>
                             <b-button v-b-modal.modal-center variant="info">RFID</b-button>
 
-                            <b-modal id="modal-center" centered title="Team Name 1">
+                            <b-modal id="modal-center" centered title="Side A" v-bind:hide-footer="true">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
                               <b-row class="my-1">
                                 <b-col sm="11">
-                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
+                                  <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
+                                  <div v-for="(listings, index) in list2" :key="index">
+                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.rfid1" placeholder="SCAN WRISTBAND" trim></b-form-input>
+                                    <br/>
+                                  </div>
                                   <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
                                 </b-col>
+                                <br/>
+                                <b-col><b-button block variant="info">UPDATE</b-button></b-col>
+                                <br/>
                               </b-row>
                               <br/>
 
-                              <b-row class="my-1">
+<!--                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
-                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
                                   <b-form-input id="input-live" v-model="rfid2" :state="rfidState2" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 2" trim></b-form-input>
                                 </b-col>
                               </b-row>
@@ -137,11 +164,10 @@
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
-                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
                                   <b-form-input id="input-live" v-model="rfid3" :state="rfidState3" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 3" trim></b-form-input>
                                 </b-col>
                               </b-row>
-                              <br/>
+                              <br/> -->
 
                             </b-modal>
                           </div>
@@ -179,7 +205,7 @@
                       :list="list"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;" 
+                      group="a" style="height: 340px; border-style: outset;" 
                     >
                       <div
                         class="list-group-item item"
@@ -283,7 +309,7 @@
                       :list="list4"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -367,7 +393,7 @@
                       :list="list5"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -461,7 +487,7 @@
                       :list="list6"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -545,7 +571,7 @@
                       :list="list7"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -639,7 +665,7 @@
                       :list="list8"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -723,7 +749,7 @@
                       :list="list9"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -817,7 +843,7 @@
                       :list="list10"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -901,7 +927,7 @@
                       :list="list11"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 340px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -989,8 +1015,8 @@
                   v-for="element in dataList3"
                   :key="element.name"
                 >
-                <input v-model="reservationDrag1" type="text">
-                  {{ element.name }}
+                <!-- <input v-model="reservationDrag1" type="text"> -->
+                  {{ element.first_name }}
                 </div>
 
                 <div
@@ -1081,9 +1107,11 @@
   </div>
 </template>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import draggable from "vuedraggable";
+import axios from 'axios';
 let id = 1;
 
 
@@ -1092,6 +1120,14 @@ export default {
   components: {
     // HelloWorld
     draggable
+  },
+
+  mounted: function(){
+    
+    axios.get('http://localhost:9090/missions/').then(response => (this.missions = response.data ));
+
+    axios.get('http://localhost:9090/people/').then(response => (this.dataList3 = response.data ));
+
   },
 
   data() {
@@ -1108,6 +1144,11 @@ export default {
         list9:[],
         list10:[],
         list11:[],
+
+        missions:[],
+        filterPlayerId1:[],
+
+        lastTeamIdOne: [],
 
         teamName1: '',
         reservationTime1: '',
@@ -1151,12 +1192,12 @@ export default {
         divTeamName1: '',
 
         dataList3: [
-          { name: "John", id: 0 },
-          { name: "Joao", id: 1 },
-          { name: "Jean", id: 2 },
-          { name: "Sacar", id: 3 },
-          { name: "Zalan", id: 4 },
-          { name: "Sonica", id: 5 },
+          // { name: "John", id: 0 },
+          // { name: "Joao", id: 1 },
+          // { name: "Jean", id: 2 },
+          // { name: "Sacar", id: 3 },
+          // { name: "Zalan", id: 4 },
+          // { name: "Sonica", id: 5 },
           // { name: "Jonny", id: 6 },
           // { name: "Guisepe", id: 7 }
         ],
@@ -1186,21 +1227,75 @@ export default {
         this.dataList3 = [{ name: "Edgard", id: id++ }];
       },
 
-      processForm: function() {
-        console.log(
-          {
-            name: this.teamName1,
-            reservationTime1: this.reservationTime1,
-            taemlist1: this.divTeamName1
-            // selected1: this.selected1,
-            // vsselected1: this.vsselected1,
-            // element: this.element
-
-          }
-
-          );
-        // alert('Processing');
+      hideModal() {
+        this.$refs['my-modal-submit-id'].hide()
       },
+
+      // processForm: function() {
+      //   console.log(
+      //     {
+      //       name: this.teamName1,
+      //       reservationTime1: this.reservationTime1,
+      //       taemlist1: this.divTeamName1
+      //       // selected1: this.selected1,
+      //       // vsselected1: this.vsselected1,
+      //       // element: this.element
+
+      //     }
+
+      //     );
+      //   // alert('Processing');
+      // },
+
+      checkPlayerId1(){
+        axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+      },
+
+      submitFirstNameList(){
+
+
+        console.log(this.teamName1);
+
+        console.log("Team Name");
+
+        console.log(this.selected1);
+        console.log(this.vsselected1); // teams for versus mode
+
+        axios.post('http://localhost:9090/teams',{
+        name: this.teamName1,
+        })
+        .then(function (response) {
+          console.log(response);
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        // this will fetch the last team id 
+        // axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        var filterPlayerId1 = this.lastTeamIdOne[0];
+        var lastTeamId = filterPlayerId1['id'];
+
+        console.log(lastTeamId);
+
+        var arr = this.list2;
+        // console.log(arr);
+        for(var i=0; i < arr.length; i++){
+          // console.log("WAS here as well");
+          // console.log(arr[i]['first_name']);
+          console.log(arr[i]['id']);
+          axios.post('http://localhost:9090/team_player_sessions',{
+
+            team_id: lastTeamId + 1,
+            player_id: arr[i]['id']
+            // player_id: sand + 1
+
+          });
+        }
+      }
+    
 
     //   changeList(event, id, property) {
     //   let value = event.target.value

@@ -561,9 +561,11 @@ export default {
       }
 
       console.log(compare);
+      // console.log(arrivalTime);
 
       return this.posts.sort(compare);
-      console.log(this.posts);
+      // console.log(this.posts);
+      console.log("S");
     }
   },
 
