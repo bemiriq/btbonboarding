@@ -40,12 +40,13 @@
                   <b-col  class="border border-info rounded">
 
                     <b-row class="my-1">
-                      <b-col sm="3">
+                      <b-col sm="4">
                         <!-- <label for="input-small">07:00 PM</label> -->
-                        <input type="text" name="reservationTime1" v-model="reservationTime1">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <!-- <p>{{dateTime1Data}}</p> -->
                       </b-col>
-                      <b-col sm="9">
-                        <b-form-input id="input-small" size="sm" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
+                      <b-col sm="8">
+                        <b-form-input id="input-small" size="md" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -82,9 +83,9 @@
                         </b-col>
                         <b-col sm="9">
                           <!-- <b-form-select v-model="selected1"> -->
-                          <b-form-select v-model="selected1">
+                          <b-form-select v-model="selected1" v-on:change="sortBy">
                             <!-- <option disabled value="">Please select one</option> -->
-                            <option v-for="item in missions" v-bind:key="item.id">{{item.id}}</option>
+                            <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option>
                             <!-- <option>Blockmonster</option> -->
                             <!-- <option>C</option> -->
                           </b-form-select>
@@ -191,11 +192,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:00 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 2"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -295,11 +296,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:15 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 3"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -379,11 +380,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:15 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 4"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -473,11 +474,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:30 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 5"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -557,11 +558,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:30 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 6"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -651,11 +652,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:45 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 7"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -735,11 +736,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">07:45 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 8"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -829,11 +830,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">08:00 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 9"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -913,11 +914,11 @@
                 <b-col  class="border border-info rounded">
 
                   <b-row class="my-1">
-                    <b-col sm="3">
-                      <label for="input-small">08:00 PM</label>
+                    <b-col sm="4">
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                     </b-col>
-                    <b-col sm="9">
-                      <b-form-input id="input-small" size="sm" placeholder="TEAM NAME"></b-form-input>
+                    <b-col sm="8">
+                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 10"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1112,6 +1113,8 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import draggable from "vuedraggable";
 import axios from 'axios';
+var moment = require('moment');
+
 let id = 1;
 
 
@@ -1127,6 +1130,45 @@ export default {
     axios.get('http://localhost:9090/missions/').then(response => (this.missions = response.data ));
 
     axios.get('http://localhost:9090/people/').then(response => (this.dataList3 = response.data ));
+
+    var currenttime = moment().format('h:mm A');
+    // console.log(currenttime);
+
+    var start = moment();
+    /** first time case **/
+    var remainder1 = -15 - (start.minute() % 30);
+    var dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
+
+    /** second time case **/
+    var remainder2 = 0 - (start.minute() % 30);
+    var dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
+
+    /** third time case **/
+    var remainder3 = 15 - (start.minute() % 30);
+    var dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
+
+     /** forth time case **/
+    var remainder4 = 30 - (start.minute() % 30);
+    var dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
+
+    /** fifth time case **/
+    var remainder5 = 45 - (start.minute() % 30);
+    var dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
+
+    /** sixth time case **/
+    var remainder6 = 60 - (start.minute() % 30);
+    var dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
+
+    // console.log(dateTime1);
+    this.dateTime1Data = dateTime1;
+    this.dateTime2Data = dateTime2;
+    this.dateTime3Data = dateTime3;
+    this.dateTime4Data = dateTime4;
+    this.dateTime5Data = dateTime5;
+    this.dateTime6Data = dateTime6;
+    console.log(this.dateTime1Data);
+    console.log(dateTime2);
+    console.log(dateTime3);
 
   },
 
@@ -1156,6 +1198,15 @@ export default {
         vs1:'',
 
         columnList1:[],
+
+        /* stores quater format time **/
+        dateTime1Data:'',
+        dateTime2Data:'',
+        dateTime3Data:'',
+        dateTime4Data:'',
+        dateTime5Data:'',
+        dateTime6Data:'',
+        /* end of time formated quater wise */
 
         selected1: '',
         selected2: '',
@@ -1294,7 +1345,11 @@ export default {
 
           });
         }
-      }
+      },
+
+      sortBy: function() {
+        console.log(this.selected1);
+    },
     
 
     //   changeList(event, id, property) {
