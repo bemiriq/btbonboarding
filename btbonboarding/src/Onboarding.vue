@@ -6,6 +6,63 @@
     <div class="bv-example-row" id="mainContainer">
 
       <b-row>
+
+        <!-- list for all rfid b-modal -->
+
+        <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                              <b-row class="my-1">
+                                <b-col sm="11">
+                                  <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
+                                  <div v-for="(listings, index) in list2" :key="index">
+                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input>
+                                    <br/>
+                                  </div>
+                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
+                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
+                                    
+                                  <!-- </div> -->
+                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
+                                </b-col>
+                                <br/>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked();">UPDATE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+
+        <b-modal id="modal-center2" ref="sideArfidModalUpdate2" centered title="Side B" v-bind:hide-footer="true">
+                              <!-- <p class="my-4">Vertically centered modal!</p> -->
+                              <b-row class="my-1">
+                                <b-col sm="11">
+                                  <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
+                                  <div v-for="(listings, index) in playerCheckList2" :key="index">
+                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.rfidSideA2"></b-form-input>
+                                    <br/>
+                                  </div>
+                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
+                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
+                                    
+                                  <!-- </div> -->
+                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
+                                </b-col>
+                                <br/>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked2();">UPDATE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+        <!-- end oof b-modal for rfid list -->
+
+
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
 
@@ -21,6 +78,7 @@
 
         </b-col>
         <!-- end of navigation menu on left side -->
+
 
 
 
@@ -126,20 +184,14 @@
 
                       <br />
 
-  <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
-    <p> You are going to update data for <b> {{teamName1}} </b> </p>
-<!--     <ul>
-      <li v-for="(element, index) in list2" v-bind:key="index">
-        {{element.fist_name}}
-      </li>
-    </ul> -->
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName1}} </b> </p>
+                        <br>
 
-    <br>
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
 
-      <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
-    <br>
-
-  </b-modal>
+                      </b-modal>
 
                       <b-row>
                         <b-col sm="3">
@@ -149,47 +201,6 @@
                           <!-- <b-button variant="info">RFID</b-button> -->
                           <div>
                             <b-button v-b-modal.modal-center variant="info">RFID</b-button>
-
-                            <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
-                              <!-- <p class="my-4">Vertically centered modal!</p> -->
-                              <b-row class="my-1">
-                                <b-col sm="11">
-                                  <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
-                                  <div v-for="(listings, index) in list2" :key="index">
-                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
-                                    <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input>
-                                    <br/>
-                                  </div>
-                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
-                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
-                                    
-                                  <!-- </div> -->
-                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
-                                </b-col>
-                                <br/>
-                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked();">UPDATE</b-button></b-col>
-                                <br/>
-                              </b-row>
-                              <br/>
-
-<!--                               <b-row class="my-1">
-                                <b-col sm="11">
-                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
-                                  <b-form-input id="input-live" v-model="rfid2" :state="rfidState2" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 2" trim></b-form-input>
-                                </b-col>
-                              </b-row>
-                              <br/>
-
-                              <b-row class="my-1">
-                                <b-col sm="11">
-                                  <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input>
-                                  <b-form-input id="input-live" v-model="rfid3" :state="rfidState3" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 3" trim></b-form-input>
-                                </b-col>
-                              </b-row>
-                              <br/> -->
-
-                            </b-modal>
                           </div>
                         </b-col>
                       </b-row>
@@ -203,90 +214,84 @@
 
               </b-col>
 
-              <b-col>
+             <b-col>
                 <p class="btbSideTitle"><b>SIDE B</b></p>
 
-                <!-- <br/> -->
+                <!-- start the form here -->
+                <!-- <form id="signup-form" @submit.prevent="processForm"> -->
+                <form id="signup-form">
+                  <b-col  class="border border-info rounded">
 
-                <b-col  class="border border-info rounded">
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <!-- <label for="input-small">07:00 PM</label> -->
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <!-- <p>{{dateTime1Data}}</p> -->
+                      </b-col>
+                      <b-col sm="8">
+                        <b-form-input id="input-small" size="md" v-model="teamName2" placeholder="TEAM NAME 2"></b-form-input>
+                      </b-col>
+                    </b-row>
 
-                  <b-row class="my-1">
-                    <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
-                    </b-col>
-                    <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 2"></b-form-input>
-                    </b-col>
-                  </b-row>
-
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;" 
-                    >
+                    <draggable
+                        id="first"
+                        data-source="juju"
+                        :list="playerCheckList2"
+                        class="list-group"
+                        draggable=".item"
+                        group="a" style="height: 370px; border-style: outset;"
+                      >
                       <div
                         class="list-group-item item"
-                        v-for="element in list"
-                        :key="element.name">
-                        {{ element.name }}
+                        v-for="(element, index) in playerCheckList2"
+                        :key="index">
+
+                        <b-form-input id="input-live" v-model="element.first_name" disabled></b-form-input>
+                        <!-- <input v-model="element.first_name" disabled> -->
                       </div>
+                     <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
+                          {{ element.name }}
+                        </div> -->
 
-                      <!-- <div
-                        slot="footer"
-                        class="btn-group list-group-item"
-                        role="group"
-                        aria-label="Basic example"
-                      >
+                           <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
+                          <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                        </div> -->
+                      </draggable>
 
-                      </div> -->
+                      <br/>
 
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Playing</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <!-- <b-form-select v-model="selected1"> -->
+                          <b-form-select v-model="selected2" v-on:change="sortBy">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option>
+                            <!-- <option>Blockmonster</option> -->
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
 
+                      <br />
 
-                      <!--
-                         <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
-
-                     <br/>
-
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected2">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
-
-                    <br />
-
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Vs</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected2">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
-
-                    <br />
-
-
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Vs</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="vsselected2">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Team Name 1 </option>
+                            <option>Team Name 2</option>
+                            <option>Team Name 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
+                      <br/>
                       <b-row>
                         <b-col sm="3">
                         <label for="input-small">Organization</label>
@@ -302,19 +307,36 @@
                         </b-col>
                       </b-row>
 
+                      <br />
+
+                    <b-modal id="modal-2" ref="my-modal-submit-id2" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                      <p> You are going to update data for <b> {{teamName2}} </b> </p>
+
+                      <br>
+
+                        <b-button variant="primary" v-on:click="submitFirstNameList2(); hideModal2();">SUBMIT</b-button>
+                      <br>
+
+                    </b-modal>
+
+                      <b-row>
+                        <b-col sm="3">
+                          <b-button variant="primary" v-b-modal.modal-2 v-on:click="checkPlayerId2();">Update</b-button>
+                        </b-col>
+                        <b-col sm="3">
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <div>
+                            <b-button v-b-modal.modal-center2 variant="info">RFID</b-button>
+                          </div>
+                        </b-col>
+                      </b-row>
                       <br/>
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                  </b-col>
 
-                </b-col>
+                </form>
+
+                <!-- end of the form here -->
 
               </b-col>
 
@@ -1081,7 +1103,7 @@
 
             <b-col>
               <br/>
-              <b>7:00 PM</b>
+              <b><p>{{dateTime1Data}}</p></b>
 
               <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
                 <div
@@ -1292,14 +1314,19 @@ export default {
         list10:[],
         list11:[],
 
+        playerCheckList2:[],
+
         missions:[],
         filterPlayerId1:[],
 
         lastTeamIdOne: [],
+        lastTeamIdTwo: [],
 
         reservationNameByTime: [],
 
         teamName1: '',
+        teamName2:'',
+        
         reservationTime1: '',
         playing1: '',
         vs1:'',
@@ -1310,6 +1337,7 @@ export default {
 
         /** start list for rifd selected for each field **/
         rfidSideA1: [],
+        rfidSideA2: [],
         /** end of rfid tag selected **/
 
         /** organization select list **/
@@ -1404,8 +1432,16 @@ export default {
         this.$refs['my-modal-submit-id'].hide()
       },
 
+      hideModal2() {
+        this.$refs['my-modal-submit-id2'].hide()
+      },
+
       hideModalRfidClicked() {
         this.$refs['sideArfidModalUpdate'].hide()
+      },
+
+      hideModalRfidClicked2() {
+        this.$refs['sideArfidModalUpdate2'].hide()
       },
 
       // processForm: function() {
@@ -1426,6 +1462,10 @@ export default {
 
       checkPlayerId1(){
         axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+      },
+
+      checkPlayerId2(){
+        axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
       },
 
       submitFirstNameList(){
@@ -1479,6 +1519,60 @@ export default {
           });
         }
       },
+
+
+      submitFirstNameList2(){
+
+
+        // console.log(this.teamName1);
+
+        // console.log("Team Name");
+
+        // console.log(this.selected1);
+        // console.log(this.vsselected1); // teams for versus mode
+
+        axios.post('http://localhost:9090/teams',{
+        name: this.teamName2,
+        })
+        .then(function (response) {
+          console.log(response);
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        // this will fetch the last team id 
+        // axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        var filterPlayerId1 = this.lastTeamIdTwo[0];
+        var lastTeamId = filterPlayerId1['id'];
+
+        console.log(lastTeamId);
+
+        var arr = this.playerCheckList2;
+        // console.log(arr);
+        for(var i=0; i < arr.length; i++){
+          // console.log("WAS here as well");
+          // console.log(arr[i]['first_name']);
+          // console.log(arr[i]['id']);
+
+          var teamId = lastTeamId + 1;
+          var playerId = arr[i]['id'];
+
+          var arr2 = this.rfidSideA1;
+          axios.post('http://localhost:9090/team_player_sessions',{
+
+            team_id: lastTeamId + 1,
+            player_id: arr[i]['id'],
+            rfid_id: arr[i]['rfidSideA2']
+            // rfid_id: rfidSideA1
+            // player_id: sand + 1
+
+          });
+        }
+      },
+
 
       sortBy: function() {
         console.log(this.selected1);
