@@ -111,7 +111,7 @@
 
                       <br />
 
-                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+  <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
     <p> You are going to update data for <b> {{teamName1}} </b> </p>
 <!--     <ul>
       <li v-for="(element, index) in list2" v-bind:key="index">
@@ -142,9 +142,13 @@
                                   <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
-                                    <b-form-input id="input-live" v-model="listings.rfid1" placeholder="SCAN WRISTBAND" trim></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input>
                                     <br/>
                                   </div>
+                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
+                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
+                                    
+                                  <!-- </div> -->
                                   <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
                                   <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
                                 </b-col>
@@ -1049,15 +1053,42 @@
                 <!-- </div> -->
               </draggable>
 
+              <br>
+
+  <!--             <div v-bind:key="player.Person.id">
+   {{player.Person.name}}
+</div> -->
+
+              <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
+                <div v-for="player in reservation.Players" v-bind:key="player.id">
+                  <div v-bind:key="player.Person.id">
+                     {{player.Person.first_name}}
+                  </div>
+                </div>
+              </div>
+            <!-- </div> -->
+
               <br/>
               <b>Tiffer's Group</b>
-              <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
-                <div
+              <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a">
+                <!-- <div
                   class="list-group-item item"
-                  v-for="element in dataList3"
+                  v-for="element in dataListByTime"
                   :key="element.name"
                 >
                   {{ element.name }}
+                </div> -->
+
+                <div
+                  class="list-group-item item"
+                  v-for="element in reservationNameByTime"
+                  :key="element.id"
+                >
+                  <div v-for="player in element.players" :key="player.id">
+                    <div v-for="per in player.person" :key="per.id">
+                      {{per.first_name}}
+                    </div>
+                  </div>
                 </div>
 
                 <div
@@ -1072,7 +1103,7 @@
 
                 <div
                   class="list-group-item item"
-                  v-for="element in dataList1"
+                  v-for="element in reservationNameByTime"
                   :key="element.name"
                 >
                   {{ element.name }}
@@ -1131,33 +1162,38 @@ export default {
 
     axios.get('http://localhost:9090/people/').then(response => (this.dataList3 = response.data ));
 
+    /** get all the rfid tag **/
+    axios.get('http://localhost:9090/rfids/').then(response => (this.rfidTagList = response.data ));
+
+    axios.get('http://localhost:9090/sessions/start/2020-04-28%2000:00:00/end/2020-04-28%2024:00:00').then(response => (this.reservationNameByTime = response.data));
+
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
 
-    var start = moment();
+    const start = moment();
     /** first time case **/
-    var remainder1 = -15 - (start.minute() % 30);
-    var dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
+    const remainder1 = -15 - (start.minute() % 30);
+    const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
     /** second time case **/
-    var remainder2 = 0 - (start.minute() % 30);
-    var dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
+    const remainder2 = 0 - (start.minute() % 30);
+    const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
 
     /** third time case **/
-    var remainder3 = 15 - (start.minute() % 30);
-    var dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
+    const remainder3 = 15 - (start.minute() % 30);
+    const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
 
      /** forth time case **/
-    var remainder4 = 30 - (start.minute() % 30);
-    var dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
+    const remainder4 = 30 - (start.minute() % 30);
+    const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
 
     /** fifth time case **/
-    var remainder5 = 45 - (start.minute() % 30);
-    var dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
+    const remainder5 = 45 - (start.minute() % 30);
+    const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
 
     /** sixth time case **/
-    var remainder6 = 60 - (start.minute() % 30);
-    var dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
+    const remainder6 = 60 - (start.minute() % 30);
+    const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
 
     // console.log(dateTime1);
     this.dateTime1Data = dateTime1;
@@ -1192,12 +1228,20 @@ export default {
 
         lastTeamIdOne: [],
 
+        reservationNameByTime: [],
+
         teamName1: '',
         reservationTime1: '',
         playing1: '',
         vs1:'',
 
         columnList1:[],
+
+        rfidTagList: [], // fetches rfid tag list from database
+
+        /** start list for rifd selected for each field **/
+        rfidSideA1: [],
+        /** end of rfid tag selected **/
 
         /* stores quater format time **/
         dateTime1Data:'',
@@ -1251,14 +1295,16 @@ export default {
           // { name: "Sonica", id: 5 },
           // { name: "Jonny", id: 6 },
           // { name: "Guisepe", id: 7 }
-        ],
-
-        dataList1: [
-           { name: "Sandes", id: 0 },
-            { name: "Chuck", id: 1 },
-            { name: "Tiffer", id: 2 },
-          { name: "Jesse", id: 3 },
         ]
+
+        // dataList1: [
+        //    { name: "Sandes", id: 0 },
+        //     { name: "Chuck", id: 1 },
+        //     { name: "Tiffer", id: 2 },
+        //   { name: "Jesse", id: 3 },
+        // ]
+
+        // reservationNameByTime: [],
       };
     },
 
@@ -1336,11 +1382,18 @@ export default {
         for(var i=0; i < arr.length; i++){
           // console.log("WAS here as well");
           // console.log(arr[i]['first_name']);
-          console.log(arr[i]['id']);
+          // console.log(arr[i]['id']);
+
+          var teamId = lastTeamId + 1;
+          var playerId = arr[i]['id'];
+
+          var arr2 = this.rfidSideA1;
           axios.post('http://localhost:9090/team_player_sessions',{
 
             team_id: lastTeamId + 1,
-            player_id: arr[i]['id']
+            player_id: arr[i]['id'],
+            rfid_id: arr[i]['rfidSideA1']
+            // rfid_id: rfidSideA1
             // player_id: sand + 1
 
           });
