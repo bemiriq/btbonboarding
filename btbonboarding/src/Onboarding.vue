@@ -56,7 +56,7 @@
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 340px; border-style: outset;"
+                        group="a" style="height: 370px; border-style: outset;"
                       >
                       <div
                         class="list-group-item item"
@@ -108,6 +108,21 @@
                           </b-form-select>
                         </b-col>
                       </b-row>
+                      <br/>
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Organization</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="organizationselected1">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Organization 1 </option>
+                            <option>Organization 2</option>
+                            <option>Organization 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
 
                       <br />
 
@@ -135,7 +150,7 @@
                           <div>
                             <b-button v-b-modal.modal-center variant="info">RFID</b-button>
 
-                            <b-modal id="modal-center" centered title="Side A" v-bind:hide-footer="true">
+                            <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
                               <b-row class="my-1">
                                 <b-col sm="11">
@@ -153,7 +168,7 @@
                                   <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
                                 </b-col>
                                 <br/>
-                                <b-col><b-button block variant="info">UPDATE</b-button></b-col>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked();">UPDATE</b-button></b-col>
                                 <br/>
                               </b-row>
                               <br/>
@@ -210,7 +225,7 @@
                       :list="list"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;" 
+                      group="a" style="height: 370px; border-style: outset;" 
                     >
                       <div
                         class="list-group-item item"
@@ -271,6 +286,24 @@
 
                     <br />
 
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Organization</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="organizationselected2">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Organization 1 </option>
+                            <option>Organization 2</option>
+                            <option>Organization 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br/>
+
                     <b-row>
                       <b-col sm="3">
                         <b-button variant="primary">Update</b-button>
@@ -314,7 +347,7 @@
                       :list="list4"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -362,7 +395,25 @@
                       </b-col>
                     </b-row>
 
-                    <br/>
+                    <br />
+
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Organization</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="organizationselected3">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Organization 1 </option>
+                            <option>Organization 2</option>
+                            <option>Organization 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br/>
 
                     <b-row>
                       <b-col sm="3">
@@ -398,7 +449,7 @@
                       :list="list5"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -448,6 +499,24 @@
 
                     <br />
 
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Organization</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="organizationselected4">
+                            <!-- <option disabled value="">Please select one</option> -->
+                            <option>Organization 1 </option>
+                            <option>Organization 2</option>
+                            <option>Organization 3</option>
+                            <!-- <option>C</option> -->
+                          </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br/>
+
                     <b-row>
                       <b-col sm="3">
                         <b-button variant="primary">Update</b-button>
@@ -492,7 +561,7 @@
                       :list="list6"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -576,7 +645,7 @@
                       :list="list7"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -670,7 +739,7 @@
                       :list="list8"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -754,7 +823,7 @@
                       :list="list9"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -848,7 +917,7 @@
                       :list="list10"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -932,7 +1001,7 @@
                       :list="list11"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 340px; border-style: outset;"
+                      group="a" style="height: 370px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1243,6 +1312,13 @@ export default {
         rfidSideA1: [],
         /** end of rfid tag selected **/
 
+        /** organization select list **/
+        organizationselected1: '',
+        organizationselected2: '',
+        organizationselected3: '',
+        organizationselected4: '',
+        /** end of organization list **/
+
         /* stores quater format time **/
         dateTime1Data:'',
         dateTime2Data:'',
@@ -1326,6 +1402,10 @@ export default {
 
       hideModal() {
         this.$refs['my-modal-submit-id'].hide()
+      },
+
+      hideModalRfidClicked() {
+        this.$refs['sideArfidModalUpdate'].hide()
       },
 
       // processForm: function() {
