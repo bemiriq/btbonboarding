@@ -15,18 +15,29 @@
                                 <b-col sm="11">
                                   <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
                                   <div v-for="(listings, index) in list2" :key="index">
-                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
-                                    <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input>
                                     <br/>
+                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
+                                    <!-- <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input> -->
+                                    <!-- <br/> -->
+
+                                    <b-form-select v-model="listings.rfidState1" style="display:hide;">
+                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
+                                    </b-form-select>
+
+                                    <!-- <b-form-input v-model="listings.rfidState1" list="my-list-id"></b-form-input>
+
+                                    <datalist id="my-list-id">
+                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
+                                    </datalist> -->
+
+                                    <!-- <b-form-input list="input-list" id="input-with-list" v-model="listings.rfidState1"></b-form-input>
+                                    <b-form-datalist id="input-list" v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id">{{option.id}}</b-form-datalist> -->
+
                                   </div>
-                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
-                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
-                                    
-                                  <!-- </div> -->
-                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
                                 </b-col>
-                                <br/>
+                              </b-row>
+                              <br/>
+                              <b-row>
                                 <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked();">UPDATE</b-button></b-col>
                                 <br/>
                               </b-row>
@@ -41,8 +52,14 @@
                                 <b-col sm="11">
                                   <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
                                   <div v-for="(listings, index) in playerCheckList2" :key="index">
+                                    <br/>
                                     <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
-                                    <b-form-input id="input-live" v-model="listings.rfidSideA2"></b-form-input>
+                                    <!-- <b-form-input id="input-live" v-model="listings.rfidSideA2"></b-form-input> -->
+
+                                     <b-form-select v-model="listings.rfidState2" style="display:hide;">
+                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
+                                    </b-form-select>
+
                                     <br/>
                                   </div>
                                   <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
@@ -52,7 +69,9 @@
                                   <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
                                   <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
                                 </b-col>
-                                <br/>
+                                </b-row>
+                              <br/>
+                              <b-row>
                                 <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked2();">UPDATE</b-button></b-col>
                                 <br/>
                               </b-row>
@@ -1314,7 +1333,7 @@ export default {
         list10:[],
         list11:[],
 
-        playerCheckList2:[],
+        playerCheckList2:[], /** this saves dragged item from main div **/
 
         missions:[],
         filterPlayerId1:[],
@@ -1471,12 +1490,12 @@ export default {
       submitFirstNameList(){
 
 
-        console.log(this.teamName1);
+        // console.log(this.teamName1);
 
-        console.log("Team Name");
+        // console.log("Team Name");
 
-        console.log(this.selected1);
-        console.log(this.vsselected1); // teams for versus mode
+        // console.log(this.selected1);
+        // console.log(this.vsselected1); // teams for versus mode
 
         axios.post('http://localhost:9090/teams',{
         name: this.teamName1,
@@ -1495,7 +1514,22 @@ export default {
         var filterPlayerId1 = this.lastTeamIdOne[0];
         var lastTeamId = filterPlayerId1['id'];
 
-        console.log(lastTeamId);
+        /** starting of axios post for SESSION TABLE **/
+        axios.post('http://localhost:9090/sessions',{
+          mission_id: this.selected1,
+          team_id: lastTeamId + 1
+        })
+        .then(function (response) {
+          console.log(response);
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+        /** end of session table post **/
+
+        // console.log(lastTeamId);
 
         var arr = this.list2;
         // console.log(arr);
@@ -1507,12 +1541,12 @@ export default {
           var teamId = lastTeamId + 1;
           var playerId = arr[i]['id'];
 
-          var arr2 = this.rfidSideA1;
+          // var arr2 = this.rfidSideA1;
           axios.post('http://localhost:9090/team_player_sessions',{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],
-            rfid_id: arr[i]['rfidSideA1']
+            rfid_id: arr[i]['rfidState1']
             // rfid_id: rfidSideA1
             // player_id: sand + 1
 
@@ -1548,7 +1582,22 @@ export default {
         var filterPlayerId1 = this.lastTeamIdTwo[0];
         var lastTeamId = filterPlayerId1['id'];
 
-        console.log(lastTeamId);
+        /** starting of axios post for SESSION TABLE **/
+        axios.post('http://localhost:9090/sessions',{
+          mission_id: this.selected2,
+          team_id: lastTeamId + 1
+        })
+        .then(function (response) {
+          console.log(response);
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+        /** end of session table post **/
+
+        // console.log(lastTeamId);
 
         var arr = this.playerCheckList2;
         // console.log(arr);
@@ -1560,12 +1609,12 @@ export default {
           var teamId = lastTeamId + 1;
           var playerId = arr[i]['id'];
 
-          var arr2 = this.rfidSideA1;
+          // var arr2 = this.rfidSideA1;
           axios.post('http://localhost:9090/team_player_sessions',{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],
-            rfid_id: arr[i]['rfidSideA2']
+            rfid_id: arr[i]['rfidState2']
             // rfid_id: rfidSideA1
             // player_id: sand + 1
 
