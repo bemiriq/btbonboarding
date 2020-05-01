@@ -9,11 +9,11 @@
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Waiting" active>Waiting</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Playing">Playing</b-list-group-item>
+            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Waiting" active>Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar" disabled>Social Tagging</b-list-group-item>
           </b-list-group>

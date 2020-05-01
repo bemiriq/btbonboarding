@@ -9,8 +9,8 @@
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="#">Onboarding</b-list-group-item>
             <b-list-group-item href="#foobar">Waiting</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>

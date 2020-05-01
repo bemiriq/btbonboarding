@@ -30,11 +30,11 @@
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="http://localhost:8080/#/users" active>Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Playing">Playing</b-list-group-item>
+            <b-list-group-item href="/#/users" active>Check-In{{title}}</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
@@ -430,7 +430,7 @@
         <b-col>On Deck</b-col>
         <!-- <b-col>Room Status</b-col> -->
         <b-col>CCTV</b-col>
-        <b-col><a href="http://localhost:8080/#/controlroom">Control Room</a></b-col>
+        <b-col><a href="/#/controlroom">Control Room</a></b-col>
         <b-col>Photo Bomb</b-col>
         <b-col>Bomb Vision</b-col>
         <b-col>Stats</b-col>
@@ -491,6 +491,8 @@ export default {
 
   data(){
     return{
+      // url: process.env.VUE_APP_URL,
+      // title: process.env.VUE_APP_TITLE,
       searchQuery: '',
       posts: [],
       todaydate: moment().format('YYYY-MM-DD'),
@@ -571,6 +573,9 @@ export default {
 
 
 mounted: function(){
+
+    console.log(process.env.VUE_APP_ROOT_URL); /** this my localhost URL **/
+
     var currentDate = moment().format('YYYY-MM-DD');
 
     // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
