@@ -1267,15 +1267,18 @@ export default {
   },
 
   mounted: function(){
-    
-    axios.get('http://localhost:9090/missions/').then(response => (this.missions = response.data ));
 
-    axios.get('http://localhost:9090/people/').then(response => (this.dataList3 = response.data ));
+    // console.log(process.env.VUE_APP_ROOT_URL);
+    // console.log(process.env.VUE_DATABASE_URL);
+    
+    axios.get('http://11.11.11.61:9090/missions/').then(response => (this.missions = response.data ));
+
+    axios.get('http://11.11.11.61:9090/people/').then(response => (this.dataList3 = response.data ));
 
     /** get all the rfid tag **/
-    axios.get('http://localhost:9090/rfids/').then(response => (this.rfidTagList = response.data ));
+    axios.get('http://11.11.11.61:9090/rfids/').then(response => (this.rfidTagList = response.data ));
 
-    axios.get('http://localhost:9090/sessions/start/2020-04-28%2000:00:00/end/2020-04-28%2024:00:00').then(response => (this.reservationNameByTime = response.data));
+    axios.get('http://11.11.11.61:9090/sessions/start/2020-04-28%2000:00:00/end/2020-04-28%2024:00:00').then(response => (this.reservationNameByTime = response.data));
 
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
@@ -1480,11 +1483,11 @@ export default {
       // },
 
       checkPlayerId1(){
-        axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
       },
 
       checkPlayerId2(){
-        axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
+        axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
       },
 
       submitFirstNameList(){
@@ -1497,12 +1500,12 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post('http://localhost:9090/teams',{
+        axios.post('http://11.11.11.61:9090/teams',{
         name: this.teamName1,
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1510,18 +1513,18 @@ export default {
         });
 
         // this will fetch the last team id 
-        // axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         var filterPlayerId1 = this.lastTeamIdOne[0];
         var lastTeamId = filterPlayerId1['id'];
 
         /** starting of axios post for SESSION TABLE **/
-        axios.post('http://localhost:9090/sessions',{
+        axios.post('http://11.11.11.61:9090/sessions',{
           mission_id: this.selected1,
           team_id: lastTeamId + 1
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1542,7 +1545,7 @@ export default {
           var playerId = arr[i]['id'];
 
           // var arr2 = this.rfidSideA1;
-          axios.post('http://localhost:9090/team_player_sessions',{
+          axios.post('http://11.11.11.61:9090/team_player_sessions',{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],
@@ -1565,12 +1568,12 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post('http://localhost:9090/teams',{
+        axios.post('http://11.11.11.61:9090/teams',{
         name: this.teamName2,
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1578,18 +1581,18 @@ export default {
         });
 
         // this will fetch the last team id 
-        // axios.get('http://localhost:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         var filterPlayerId1 = this.lastTeamIdTwo[0];
         var lastTeamId = filterPlayerId1['id'];
 
         /** starting of axios post for SESSION TABLE **/
-        axios.post('http://localhost:9090/sessions',{
+        axios.post('http://11.11.11.61:9090/sessions',{
           mission_id: this.selected2,
           team_id: lastTeamId + 1
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1610,7 +1613,7 @@ export default {
           var playerId = arr[i]['id'];
 
           // var arr2 = this.rfidSideA1;
-          axios.post('http://localhost:9090/team_player_sessions',{
+          axios.post('http://11.11.11.61:9090/team_player_sessions',{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],

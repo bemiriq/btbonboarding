@@ -574,7 +574,7 @@ export default {
 
 mounted: function(){
 
-    console.log(process.env.VUE_APP_ROOT_URL); /** this my localhost URL **/
+    // console.log(process.env.VUE_APP_ROOT_URL); /** this my localhost URL **/
 
     var currentDate = moment().format('YYYY-MM-DD');
 
