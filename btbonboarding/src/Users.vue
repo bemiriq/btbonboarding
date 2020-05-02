@@ -30,7 +30,7 @@
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="/#/users" active>Check-In{{title}}</b-list-group-item>
+            <b-list-group-item href="/#/users" active>Check-In</b-list-group-item>
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
@@ -574,7 +574,8 @@ export default {
 
 mounted: function(){
 
-    // console.log(process.env.VUE_APP_ROOT_URL); /** this my localhost URL **/
+    console.log(process.env.VUE_APP_ROOTURL); /** this my localhost URL **/
+    // console.log(process.env.VUE_APP_DATABASE);
 
     var currentDate = moment().format('YYYY-MM-DD');
 
