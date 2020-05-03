@@ -576,6 +576,13 @@ mounted: function(){
 
     console.log(process.env.VUE_APP_ROOTURL); /** this my localhost URL **/
     // console.log(process.env.VUE_APP_DATABASE);
+    console.log(process.env.VUE_APP_ROOTURL_DATABASE);
+
+    console.log(process.env.VUE_APP_DATABASE_TEAMS);
+
+    console.log(process.env.VUE_APP_DATABASE_SESSIONS);
+
+    console.log(process.env.VUE_APP_DATABASE_PLAYERSESSIONS);
 
     var currentDate = moment().format('YYYY-MM-DD');
 

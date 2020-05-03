@@ -86,11 +86,11 @@
         <b-col lg="2">
 
           <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Onboarding" active>Onboarding</b-list-group-item>
-            <b-list-group-item href="http://localhost:8080/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="#">Playing</b-list-group-item>
+            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
@@ -1171,9 +1171,9 @@
 
               <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
                 <div v-for="player in reservation.Players" v-bind:key="player.id">
-                  <div v-bind:key="player.Person.id">
+                  <!-- <div v-bind:key="player.Person.id">
                      {{player.Person.first_name}}
-                  </div>
+                  </div> -->
                 </div>
               </div>
             <!-- </div> -->
@@ -1270,15 +1270,16 @@ export default {
 
     // console.log(process.env.VUE_APP_ROOT_URL);
     // console.log(process.env.VUE_DATABASE_URL);
+    console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS);
     
-    axios.get('http://11.11.11.61:9090/missions/').then(response => (this.missions = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_MISSION).then(response => (this.missions = response.data ));
 
-    axios.get('http://11.11.11.61:9090/people/').then(response => (this.dataList3 = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_PEOPLE).then(response => (this.dataList3 = response.data ));
 
     /** get all the rfid tag **/
-    axios.get('http://11.11.11.61:9090/rfids/').then(response => (this.rfidTagList = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_RFIDS).then(response => (this.rfidTagList = response.data ));
 
-    axios.get('http://11.11.11.61:9090/sessions/start/2020-04-28%2000:00:00/end/2020-04-28%2024:00:00').then(response => (this.reservationNameByTime = response.data));
+    axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
 
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
@@ -1483,11 +1484,11 @@ export default {
       // },
 
       checkPlayerId1(){
-        axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
       },
 
       checkPlayerId2(){
-        axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
+        axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
       },
 
       submitFirstNameList(){
@@ -1500,12 +1501,12 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post('http://11.11.11.61:9090/teams',{
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
         name: this.teamName1,
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1513,18 +1514,18 @@ export default {
         });
 
         // this will fetch the last team id 
-        // axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         var filterPlayerId1 = this.lastTeamIdOne[0];
         var lastTeamId = filterPlayerId1['id'];
 
         /** starting of axios post for SESSION TABLE **/
-        axios.post('http://11.11.11.61:9090/sessions',{
+        axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
           mission_id: this.selected1,
           team_id: lastTeamId + 1
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1545,7 +1546,7 @@ export default {
           var playerId = arr[i]['id'];
 
           // var arr2 = this.rfidSideA1;
-          axios.post('http://11.11.11.61:9090/team_player_sessions',{
+          axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],
@@ -1568,12 +1569,12 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post('http://11.11.11.61:9090/teams',{
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
         name: this.teamName2,
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1581,18 +1582,18 @@ export default {
         });
 
         // this will fetch the last team id 
-        // axios.get('http://11.11.11.61:9090/teams').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         var filterPlayerId1 = this.lastTeamIdTwo[0];
         var lastTeamId = filterPlayerId1['id'];
 
         /** starting of axios post for SESSION TABLE **/
-        axios.post('http://11.11.11.61:9090/sessions',{
+        axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
           mission_id: this.selected2,
           team_id: lastTeamId + 1
         })
         .then(function (response) {
           console.log(response);
-          // axios.get('http://11.11.11.61:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
         })
 
         .catch(function (error) {
@@ -1613,7 +1614,7 @@ export default {
           var playerId = arr[i]['id'];
 
           // var arr2 = this.rfidSideA1;
-          axios.post('http://11.11.11.61:9090/team_player_sessions',{
+          axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
 
             team_id: lastTeamId + 1,
             player_id: arr[i]['id'],
