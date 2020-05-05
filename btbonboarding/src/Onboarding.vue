@@ -1189,35 +1189,15 @@
                   {{ element.name }}
                 </div> -->
 
-                <div
-                  class="list-group-item item"
-                  v-for="element in reservationNameByTime"
-                  :key="element.id"
-                >
-                  <div v-for="player in element.players" :key="player.id">
-                    <div v-for="per in player.person" :key="per.id">
-                      {{per.first_name}}
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  slot="footer"
-                  class="btn-group list-group-item"
-                  role="group"
-                  aria-label="Basic example"
-                >
-                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
-                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
-                </div>
-
-                <div
-                  class="list-group-item item"
-                  v-for="element in reservationNameByTime"
-                  :key="element.name"
-                >
-                  {{ element.name }}
-                </div>
+                <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
+  {{reservation.id}}
+<!--   <div v-for="player in reservation.Players" v-bind:key="player.id">
+    {{player.id}}
+    <div v-for="persons in player.Person" v-bind:key="persons.id">
+      {{persons.name}}
+    </div>
+  </div> -->
+</div>
 
                <!--  <div
                   slot="footer"
@@ -1501,17 +1481,17 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        // axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
-        // name: this.teamName1,
-        // })
-        // .then(function (response) {
-        //   console.log(response);
-        //   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        // })
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
+        name: this.teamName1,
+        })
+        .then(function (response) {
+          console.log(response);
+          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        })
 
-        // .catch(function (error) {
-        //   console.log(error);
-        // });
+        .catch(function (error) {
+          console.log(error);
+        });
 
         // this will fetch the last team id 
         // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});

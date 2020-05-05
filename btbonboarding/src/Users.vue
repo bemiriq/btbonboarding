@@ -639,7 +639,8 @@ mounted: function(){
 
        // var startArrivalTime='1400';
        // var endArrivalTime='2345'
-       axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
+       axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate,
+        {headers: {'X-API-KEY': 'Af144hp8uKL3ESKoSDlsDR1btaMM4nO1cbdsT8rWvKo'}})
      .then(response => (this.posts = response.data.data));
      // this.posts.sort();
      // console.log(this.posts);
