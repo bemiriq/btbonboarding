@@ -102,7 +102,7 @@
 
 
         <!-- start of center div which consists of table with all details -->
-        <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 600px;">
+        <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
           <div class="bv-example-row">
 
@@ -133,7 +133,7 @@
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 370px; border-style: outset;"
+                        group="a" style="height: 300px; border-style: outset;"
                       >
                       <div
                         class="list-group-item item"
@@ -258,7 +258,7 @@
                         :list="playerCheckList2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 370px; border-style: outset;"
+                        group="a" style="height: 300px; border-style: outset;"
                       >
                       <div
                         class="list-group-item item"
@@ -388,7 +388,7 @@
                       :list="list4"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -490,7 +490,7 @@
                       :list="list5"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -602,7 +602,7 @@
                       :list="list6"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -686,7 +686,7 @@
                       :list="list7"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -780,7 +780,7 @@
                       :list="list8"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -864,7 +864,7 @@
                       :list="list9"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -958,7 +958,7 @@
                       :list="list10"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1042,7 +1042,7 @@
                       :list="list11"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 370px; border-style: outset;"
+                      group="a" style="height: 300px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1501,17 +1501,17 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
-        name: this.teamName1,
-        })
-        .then(function (response) {
-          console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        })
+        // axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
+        // name: this.teamName1,
+        // })
+        // .then(function (response) {
+        //   console.log(response);
+        //   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // })
 
-        .catch(function (error) {
-          console.log(error);
-        });
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
         // this will fetch the last team id 
         // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
@@ -1520,17 +1520,10 @@ export default {
 
         /** starting of axios post for SESSION TABLE **/
         axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
-          mission_id: this.selected1,
-          team_id: lastTeamId + 1
-        })
-        .then(function (response) {
-          console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        })
-
-        .catch(function (error) {
-          console.log(error);
+          mission_id: 3,
+          team_id: 1
         });
+
         /** end of session table post **/
 
         // console.log(lastTeamId);
