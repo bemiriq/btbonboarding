@@ -1190,13 +1190,13 @@
                 </div> -->
 
                 <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
-  {{reservation.id}}
-<!--   <div v-for="player in reservation.Players" v-bind:key="player.id">
+  <!-- {{reservation.id}} -->
+  <div v-for="player in reservation.Players" v-bind:key="player.id">
     {{player.id}}
-    <div v-for="persons in player.Person" v-bind:key="persons.id">
-      {{persons.name}}
-    </div>
-  </div> -->
+    <!-- <div v-for="persons in player.Person" v-bind:key="persons.id"> -->
+      <!-- {{persons.name}} -->
+    <!-- </div> -->
+  </div>
 </div>
 
                <!--  <div
@@ -1500,8 +1500,15 @@ export default {
 
         /** starting of axios post for SESSION TABLE **/
         axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
-          mission_id: 3,
-          team_id: 1
+          mission_id: this.selected1,
+          team_id: lastTeamId + 1
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+
+        .catch(function (error) {
+          console.log(error);
         });
 
         /** end of session table post **/
