@@ -24,11 +24,11 @@
                                       <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
                                     </b-form-select>
 
-                                    <!-- <b-form-input v-model="listings.rfidState1" list="my-list-id"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState1" list="my-list-id"></b-form-input>
 
                                     <datalist id="my-list-id">
                                       <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
-                                    </datalist> -->
+                                    </datalist>
 
                                     <!-- <b-form-input list="input-list" id="input-with-list" v-model="listings.rfidState1"></b-form-input>
                                     <b-form-datalist id="input-list" v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id">{{option.id}}</b-form-datalist> -->
@@ -1190,14 +1190,14 @@
                 </div> -->
 
                 <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
-  <!-- {{reservation.id}} -->
-  <div v-for="player in reservation.Players" v-bind:key="player.id">
-    {{player.id}}
-    <!-- <div v-for="persons in player.Person" v-bind:key="persons.id"> -->
-      <!-- {{persons.name}} -->
-    <!-- </div> -->
-  </div>
-</div>
+                  <!-- {{reservation.id}} -->
+                  <div v-for="player in reservation.Booker" v-bind:key="player.person_id">
+                    {{player.id}}
+                    <!-- <div v-for="personchanged in player.Person" v-bind:key="personchanged.id">
+                      {{personchanged.first_name}}
+                    </div> -->
+                  </div>
+                </div>
 
                <!--  <div
                   slot="footer"

@@ -462,14 +462,14 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="/__/firebase/7.14.0/firebase-app.js"></script>
+<!-- <script src="/__/firebase/7.14.0/firebase-app.js"></script> -->
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="/__/firebase/7.14.0/firebase-analytics.js"></script>
+<!-- <script src="/__/firebase/7.14.0/firebase-analytics.js"></script> -->
 
 <!-- Initialize Firebase -->
-<script src="/__/firebase/init.js"></script>
+<!-- <script src="/__/firebase/init.js"></script> -->
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
@@ -480,7 +480,7 @@
   import moment from 'moment';
   // import DateDropdown from 'vue-date-dropdown'; // this for the date dropdown
 
-  import { namesRef } from './firebase';
+  // import { namesRef } from './firebase';
 
 export default {
   name: 'App',
@@ -509,9 +509,9 @@ export default {
       convertedTimeList: '',
 
       /** used on firebase **/
-      username: '',
-      email: '',
-      name: '',
+      // username: '',
+      // email: '',
+      // name: '',
       /** end of firebase array **/
 
       readyCheckedCategories:[],
@@ -574,15 +574,15 @@ export default {
 
 mounted: function(){
 
-    console.log(process.env.VUE_APP_ROOTURL); /** this my localhost URL **/
+    // console.log(process.env.VUE_APP_ROOTURL); /** this my localhost URL **/
     // console.log(process.env.VUE_APP_DATABASE);
-    console.log(process.env.VUE_APP_ROOTURL_DATABASE);
+    // console.log(process.env.VUE_APP_ROOTURL_DATABASE);
 
-    console.log(process.env.VUE_APP_DATABASE_TEAMS);
+    // console.log(process.env.VUE_APP_DATABASE_TEAMS);
 
-    console.log(process.env.VUE_APP_DATABASE_SESSIONS);
+    // console.log(process.env.VUE_APP_DATABASE_SESSIONS);
 
-    console.log(process.env.VUE_APP_DATABASE_PLAYERSESSIONS);
+    // console.log(process.env.VUE_APP_DATABASE_PLAYERSESSIONS);
 
     var currentDate = moment().format('YYYY-MM-DD');
 
@@ -736,13 +736,13 @@ var arrows = document.getElementsByClassName("covertedtime");
  
    // },
 
-    postfirebase:function(){
-      this.$http.post('https://vueonboard.firebaseio.com/posts.json',this.blog).then(function(data){
-        // console.log(data);
-        // console.log(username);
-        this.submitted = true;
-      });
-    },
+    // postfirebase:function(){
+    //   this.$http.post('https://vueonboard.firebaseio.com/posts.json',this.blog).then(function(data){
+    //     // console.log(data);
+    //     // console.log(username);
+    //     this.submitted = true;
+    //   });
+    // },
 
     /* the function below displays only one modal for particular customer clicked */
     selectItem (post, item) {
