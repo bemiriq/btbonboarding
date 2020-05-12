@@ -20,7 +20,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import VueDraggable from 'vue-draggable';
 // import VueFire from 'vuefire';
 // import VueMultiDrag from 'vue-multi-drag';
-import './firebase'; //this one is for database
+// import './firebase'; //this one is for database
 
 // import VueResource from 'vue-resource';
 

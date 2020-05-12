@@ -671,7 +671,7 @@ updated() {
 var arrows = document.getElementsByClassName("covertedtime");
 
     for(var i = 0; i < arrows.length; i++){
-            arrows[i].innerText =  moment(arrows[i].innerText,"h:mm A").format("h:mm A");
+      arrows[i].innerText =  moment(arrows[i].innerText,"h:mm A").format("h:mm A");
     }
 },
 /*end of the updated function which converts time*/

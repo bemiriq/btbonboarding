@@ -178,9 +178,7 @@
                         <b-col sm="9">
                           <b-form-select v-model="vsselected1">
                             <!-- <option disabled value="">Please select one</option> -->
-                            <option>Team Name 1 </option>
-                            <option>Team Name 2</option>
-                            <option>Team Name 3</option>
+                            <option v-for="option in allTeamList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
@@ -1122,93 +1120,66 @@
 
             <b-col>
               <br/>
-              <b><p>{{dateTime1Data}}</p></b>
+              <b>
+                <!-- <div v-for="reservation in teamByTime1" v-bind:key="reservation.id"> -->
+                  <!-- <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" > -->
+                  <p> {{dateTime1Data}} </p>
+                  <!-- </div> -->
+                <!-- </div> -->
+                <hr/>
+              </b>
 
-              <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
+              <!-- <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
                 <div
                   class="list-group-item item"
-                  v-for="element in dataList3"
+                  v-for="element in teamByTime1"
                   :key="element.name"
-                >
-                <!-- <input v-model="reservationDrag1" type="text"> -->
+                
                   {{ element.first_name }}
                 </div>
 
-                <div
-                  slot="footer"
-                  class="btn-group list-group-item"
-                  role="group"
-                  aria-label="Basic example"
-                >
-                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
-                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
+              </draggable> -->
+
+              <div v-for="reservation in teamByTime1" v-bind:key="reservation.id">
+                  <draggable :list="teamByTime1" class="list-group" draggable=".item" group="a">
+                    <div class="list-group-item item" v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
+                         {{element.Person.first_name}}
+                      <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
+                        {{ element.name }}
+                      </div> -->
+                    </div>
+                  </draggable>
                 </div>
-
-                <!-- <div
-                  class="list-group-item item"
-                  v-for="element in dataList1"
-                  :key="element.name"
-                >
-                  {{ element.name }}
-                </div> -->
-
-               <!--  <div
-                  slot="footer"
-                  class="btn-group list-group-item"
-                  role="group"
-                  aria-label="Basic example"
-                > -->
-                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
-                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
-                <!-- </div> -->
-              </draggable>
 
               <br>
 
-  <!--             <div v-bind:key="player.Person.id">
-   {{player.Person.name}}
-</div> -->
-
-              <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
-                <div v-for="player in reservation.Players" v-bind:key="player.id">
-                  <!-- <div v-bind:key="player.Person.id">
-                     {{player.Person.first_name}}
-                  </div> -->
-                </div>
-              </div>
             <!-- </div> -->
 
               <br/>
-              <b>Tiffer's Group</b>
-              <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a">
-                <!-- <div
-                  class="list-group-item item"
-                  v-for="element in dataListByTime"
-                  :key="element.name"
-                >
-                  {{ element.name }}
+              <b>
+                <div v-for="reservation in teamByTime1" v-bind:key="reservation.id">
+                  <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
+                  <p> {{element.Person.first_name}} Group</p>
+                  </div>
+                </div>
+              </b>
+              <!-- <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a"> -->
+                <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
+                  {{ element.first_name }}
                 </div> -->
 
                 <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
-                  <!-- {{reservation.id}} -->
-                  <div v-for="player in reservation.Booker" v-bind:key="player.person_id">
-                    {{player.id}}
-                    <!-- <div v-for="personchanged in player.Person" v-bind:key="personchanged.id">
-                      {{personchanged.first_name}}
-                    </div> -->
-                  </div>
+                  <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a">
+                    <div class="list-group-item item" v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
+                         {{element.Person.first_name}}
+                      <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
+                        {{ element.name }}
+                      </div> -->
+                    </div>
+                  </draggable>
                 </div>
 
-               <!--  <div
-                  slot="footer"
-                  class="btn-group list-group-item"
-                  role="group"
-                  aria-label="Basic example"
-                > -->
-                  <!-- <button class="btn btn-secondary" @click="add2">Add</button> -->
-                  <!-- <button class="btn btn-secondary" @click="replace2">Replace</button> -->
-                <!-- </div> -->
-              </draggable>
+              
 
             </b-col>
 
@@ -1261,6 +1232,8 @@ export default {
 
     axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
 
+    axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data));
+
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
 
@@ -1300,6 +1273,8 @@ export default {
     console.log(dateTime2);
     console.log(dateTime3);
 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS).then(response => (this.teamByTime1 = response.data));
+
   },
 
   data() {
@@ -1325,7 +1300,7 @@ export default {
         lastTeamIdOne: [],
         lastTeamIdTwo: [],
 
-        reservationNameByTime: [],
+        // reservationNameByTime: [],
 
         teamName1: '',
         teamName2:'',
@@ -1393,16 +1368,13 @@ export default {
         reservationDrag1: '',
         divTeamName1: '',
 
-        dataList3: [
-          // { name: "John", id: 0 },
-          // { name: "Joao", id: 1 },
-          // { name: "Jean", id: 2 },
-          // { name: "Sacar", id: 3 },
-          // { name: "Zalan", id: 4 },
-          // { name: "Sonica", id: 5 },
-          // { name: "Jonny", id: 6 },
-          // { name: "Guisepe", id: 7 }
-        ]
+        dataList3: [],
+
+        reservationNameByTime:[],
+
+        allTeamList: [], /* its for the team vs team dropdown */
+
+        teamByTime1: [] /* will display players name according to time from axios post url as reservation/xola_order_id */
 
         // dataList1: [
         //    { name: "Sandes", id: 0 },
@@ -1472,14 +1444,6 @@ export default {
       },
 
       submitFirstNameList(){
-
-
-        // console.log(this.teamName1);
-
-        // console.log("Team Name");
-
-        // console.log(this.selected1);
-        // console.log(this.vsselected1); // teams for versus mode
 
         axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
         name: this.teamName1,
