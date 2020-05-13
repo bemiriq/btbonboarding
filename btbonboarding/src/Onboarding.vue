@@ -1120,14 +1120,13 @@
 
             <b-col>
               <br/>
-              <b>
+              
                 <!-- <div v-for="reservation in teamByTime1" v-bind:key="reservation.id"> -->
                   <!-- <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" > -->
-                  <p> {{dateTime1Data}} </p>
+              <div>
+                  <b><p> {{dateTime1Data}} </p></b>
                   <!-- </div> -->
                 <!-- </div> -->
-                <hr/>
-              </b>
 
               <!-- <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
                 <div
@@ -1139,45 +1138,49 @@
                 </div>
 
               </draggable> -->
-
-              <div v-for="reservation in teamByTime1" v-bind:key="reservation.id">
-                  <draggable :list="teamByTime1" class="list-group" draggable=".item" group="a">
-                    <div class="list-group-item item" v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
-                         {{element.Person.first_name}}
-                      <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
-                        {{ element.name }}
-                      </div> -->
+                <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
+                    <div v-for="yahoo in reservation.Reservation_people" v-bind:key="yahoo.id" >
+                         <!-- {{element.Person.first_name}} -->
+                      <!-- <div class="list-group-item item" v-for="element in yahoo.Person" :key="element.person_id"> -->
+                      <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                        <div class="list-group-item item">{{ yahoo.Person.first_name }}</div>
+                      <!-- </div> -->
+                      </draggable>
                     </div>
-                  </draggable>
                 </div>
+             
+                  
+              </div>
 
               <br>
 
-            <!-- </div> -->
+              <!-- <p>LAST NAME GROUP </p>
 
-              <br/>
+                <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a">
+                    <div v-for="reservation in teamByTime2" v-bind:key="reservation.id" class="list-group-item item">
+                      <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
+                         {{element.Person.first_name}}
+                      </div>
+                    </div>
+                  </draggable>
+              <br> -->
+
+<!--               <br/>
               <b>
                 <div v-for="reservation in teamByTime1" v-bind:key="reservation.id">
                   <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
-                  <p> {{element.Person.first_name}} Group</p>
+                  <p> {{element.Person.last_name}} Group</p>
                   </div>
                 </div>
               </b>
-              <!-- <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a"> -->
-                <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
-                  {{ element.first_name }}
-                </div> -->
 
                 <div v-for="reservation in reservationNameByTime" v-bind:key="reservation.id">
                   <draggable :list="reservationNameByTime" class="list-group" draggable=".item" group="a">
                     <div class="list-group-item item" v-for="element in reservation.Reservation_people" v-bind:key="element.id" >
-                         {{element.Person.first_name}}
-                      <!-- <div class="list-group-item item" v-for="element in dataListByTime" :key="element.name">
-                        {{ element.name }}
-                      </div> -->
+                         {{element.Person.last_name}}
                     </div>
                   </draggable>
-                </div>
+                </div> -->
 
               
 
@@ -1273,7 +1276,18 @@ export default {
     console.log(dateTime2);
     console.log(dateTime3);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS).then(response => (this.teamByTime1 = response.data));
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
+
+    var starttime='start';
+    var endtime='end';
+    var currentdate = moment().format("YYYY-MM-DD");
+    // const dateTime1Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:00");
+    // const dateTime2Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:59")
+
+
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00').then(response => (this.teamByTime2 = response.data));
+
+    // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00');
 
   },
 
@@ -1374,7 +1388,8 @@ export default {
 
         allTeamList: [], /* its for the team vs team dropdown */
 
-        teamByTime1: [] /* will display players name according to time from axios post url as reservation/xola_order_id */
+        teamByTime1: [], /* will display players name according to time from axios post url as reservation/xola_order_id */
+        teamByTime2: []
 
         // dataList1: [
         //    { name: "Sandes", id: 0 },
@@ -1434,6 +1449,27 @@ export default {
       //     );
       //   // alert('Processing');
       // },
+
+      checkMove1(evt){
+        // if (evt.draggedContext.element.name=='apple'){
+        //   return false
+        // }
+        if(this.teamName1.length < 1){
+          return false
+        }
+      },
+
+      checkMove2(evt){
+        // if (evt.draggedContext.element.name=='apple'){
+        //   return false
+        // }
+        if(this.teamName2.length < 1){
+          return false
+        }
+        else{
+          console.log('else print vo');
+        }
+      },
 
       checkPlayerId1(){
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
