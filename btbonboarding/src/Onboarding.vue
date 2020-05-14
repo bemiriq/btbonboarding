@@ -123,7 +123,7 @@
                         <!-- <p>{{dateTime1Data}}</p> -->
                       </b-col>
                       <b-col sm="8">
-                        <b-form-input id="input-small" size="md" v-model="teamName1" placeholder="TEAM NAME 1"></b-form-input>
+                        <b-form-input id="input-small" size="md" v-model="teamName1" placeholder="TEAM NAME 1" v-on:change="posttoapi($event)"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -133,14 +133,14 @@
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;"
+                        group="a" style="height: 300px; border-style: outset;" @add="onDrop"
                       >
                       <div
                         class="list-group-item item"
                         v-for="(element, index) in list2"
                         :key="index">
 
-                        <b-form-input id="input-live" v-model="element.first_name" disabled></b-form-input>
+                        <b-form-input id="input-live" v-model="element.last_name" disabled @input="inputEvent"></b-form-input>
                         <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
@@ -1120,9 +1120,21 @@
 
             <b-col>
               <br/>
+
+              <draggable :list="dataList3" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList3"
+                  :key="element.name">
+                  {{ element.last_name }}
+                </div>
+              </draggable>
               
                 <!-- <div v-for="reservation in teamByTime1" v-bind:key="reservation.id"> -->
                   <!-- <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" > -->
+
+              <br>
+
               <div>
                   <b><p> {{dateTime1Data}} </p></b>
                   <!-- </div> -->
@@ -1138,18 +1150,24 @@
                 </div>
 
               </draggable> -->
-                <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
-                    <div v-for="yahoo in reservation.Reservation_people" v-bind:key="yahoo.id" >
+              <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
+                <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                
+                  <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.id">
+                    {{ element.Person.last_name }}
+                  </div>
+                
+                    <!-- <div v-for="yahoo in reservation.Reservation_people" v-bind:key="yahoo.id" > -->
                          <!-- {{element.Person.first_name}} -->
                       <!-- <div class="list-group-item item" v-for="element in yahoo.Person" :key="element.person_id"> -->
-                      <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
-                        <div class="list-group-item item">{{ yahoo.Person.first_name }}</div>
+                      
+                        
                       <!-- </div> -->
-                      </draggable>
-                    </div>
-                </div>
-             
-                  
+                      
+                    <!-- </div> -->
+                
+                </draggable>
+              </div>  
               </div>
 
               <br>
@@ -1295,7 +1313,7 @@ export default {
       return {
         list: [],
 
-        list2:[],
+        list2:[], /** this grabs the player names for side A first form */
 
         list4:[],
         list5:[],
@@ -1389,7 +1407,15 @@ export default {
         allTeamList: [], /* its for the team vs team dropdown */
 
         teamByTime1: [], /* will display players name according to time from axios post url as reservation/xola_order_id */
-        teamByTime2: []
+        teamByTime2: [],
+
+        /* gets team name id when post */
+        teamname1id:'',
+        /*end of team name id after post */
+
+        /* gets the session id once the team name is inserted */
+        team1SessionDetail:'',
+        /* end of session id */
 
         // dataList1: [
         //    { name: "Sandes", id: 0 },
@@ -1450,6 +1476,71 @@ export default {
       //   // alert('Processing');
       // },
 
+      posttoapi(event){
+        // console.log("sandes");
+         /* this submits team name */
+          axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1,{
+          name: this.teamName1,
+          })
+          .then(response => {this.teamname1id = response.data})
+          .catch(function (error) {
+            console.log(error);
+          });
+          /*end of team name submission */
+
+          // get team id from teamname inserted 
+          // axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1).then(response => {this.teamname1id.id = response.data});
+          // /* end of team id from team name */
+      },
+
+      inputEvent(e) {
+        console.log('sattttt');
+      // this.$emit('input', e.target.value);
+      },
+
+      // onDrop for Team Name 1 table it will post to session table and team_player_session table
+      onDrop(e){
+        console.log('one drop');
+        var teamId = this.teamname1id[0].id;
+        var routeId = 1;
+
+          if(teamId > 0){
+            // console.log('greater than 0');
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+            team_id: teamId,
+            route_id: routeId
+            })
+            .then(response => {
+
+              console.log(response.data.id);
+              var sessionIdInserted = response.data.id;
+
+              /** checks the session id and post again using axios.post for team player session table **/
+              if(sessionIdInserted > 0){
+
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
+                session_id: sessionIdInserted,
+                team_id: teamId
+                })
+                .then(function (response) {
+                  console.log(response);
+                  // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+                })
+
+                .catch(function (error) {
+                  console.log(error);
+                });
+              }
+              /** ends axios post on team player sessions **/
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+      },
+
       checkMove1(evt){
         // if (evt.draggedContext.element.name=='apple'){
         //   return false
@@ -1458,20 +1549,7 @@ export default {
           return false;
         }
         else{
-          console.log("sa");
-          /* this submits team name */
-          axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1,{
-          name: this.teamName1,
-          })
-          .then(function (response) {
-            console.log(response);
-            // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-          })
-
-          .catch(function (error) {
-            console.log(error);
-          });
-          /*end of team name submission */
+          console.log('insert team name first');
         }
       },
 
