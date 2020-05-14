@@ -1455,7 +1455,23 @@ export default {
         //   return false
         // }
         if(this.teamName1.length < 1){
-          return false
+          return false;
+        }
+        else{
+          console.log("sa");
+          /* this submits team name */
+          axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1,{
+          name: this.teamName1,
+          })
+          .then(function (response) {
+            console.log(response);
+            // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+          })
+
+          .catch(function (error) {
+            console.log(error);
+          });
+          /*end of team name submission */
         }
       },
 
@@ -1549,17 +1565,21 @@ export default {
         // console.log(this.selected1);
         // console.log(this.vsselected1); // teams for versus mode
 
-        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
-        name: this.teamName2,
-        })
-        .then(function (response) {
-          console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        })
+        /* this was use to submit team name when UPDATE button was clicked */
 
-        .catch(function (error) {
-          console.log(error);
-        });
+        // axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
+        // name: this.teamName2,
+        // })
+        // .then(function (response) {
+        //   console.log(response);
+        //   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
+        // })
+
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
+
+        /* end of submit team name */
 
         // this will fetch the last team id 
         // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
