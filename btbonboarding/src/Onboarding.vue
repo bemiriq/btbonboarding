@@ -140,6 +140,7 @@
                         v-for="(element, index) in list2"
                         :key="index">
 
+                        <input v-model="element.id" type="text" disabled style="display:none;">
                         <b-form-input id="input-live" v-model="element.last_name" disabled @input="inputEvent"></b-form-input>
                         <!-- <input v-model="element.first_name" disabled> -->
                       </div>
@@ -1500,7 +1501,14 @@ export default {
 
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop(e){
+        // console.log(this.list2['id']);
+        // return Object.keys(this.list2).length-1;
+
+
+        var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
+
         console.log('one drop');
+        // console.log(this.element.id);
         var teamId = this.teamname1id[0].id;
         var routeId = 1;
 
@@ -1520,7 +1528,8 @@ export default {
 
                 axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
                 session_id: sessionIdInserted,
-                team_id: teamId
+                team_id: teamId,
+                player_id: draggedPlayerId
                 })
                 .then(function (response) {
                   console.log(response);
