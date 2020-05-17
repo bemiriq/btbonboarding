@@ -17,6 +17,8 @@
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
                                     <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
+                                    <input type="text" v-model="listings.id" disabled style="display:none;"/>
+
                                     <!-- <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input> -->
                                     <!-- <br/> -->
 
@@ -38,7 +40,7 @@
                               </b-row>
                               <br/>
                               <b-row>
-                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked();">UPDATE</b-button></b-col>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked(); updateRfid();">UPDATE</b-button></b-col>
                                 <br/>
                               </b-row>
                               <br/>
@@ -141,7 +143,7 @@
                         :key="index">
 
                         <input v-model="element.id" type="text" disabled style="display:none;">
-                        <b-form-input id="input-live" v-model="element.last_name" disabled @input="inputEvent"></b-form-input>
+                        <b-form-input id="input-live" v-model="element.Person.last_name" disabled @input="inputEvent"></b-form-input>
                         <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
@@ -1120,7 +1122,7 @@
           <b-row>
 
             <b-col>
-              <br/>
+              <!-- <br/>
 
               <draggable :list="dataList3" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 <div
@@ -1129,34 +1131,32 @@
                   :key="element.name">
                   {{ element.last_name }}
                 </div>
-              </draggable>
-              
-                <!-- <div v-for="reservation in teamByTime1" v-bind:key="reservation.id"> -->
-                  <!-- <div v-for="element in reservation.Reservation_people" v-bind:key="element.id" > -->
+              </draggable> -->
+            
 
               <br>
 
-              <div>
-                  <b><p> {{dateTime1Data}} </p></b>
-                  <!-- </div> -->
-                <!-- </div> -->
+              <!-- <div> -->
+                  <!-- <b><p> {{dateTime1Data}} </p></b> -->
 
-              <!-- <draggable :list="dataList3" class="list-group" draggable=".item" group="a">
-                <div
-                  class="list-group-item item"
-                  v-for="element in teamByTime1"
-                  :key="element.name"
-                
-                  {{ element.first_name }}
-                </div>
-
-              </draggable> -->
               <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
-                <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
+
+                <!-- {{reservation.id}} -->
+                {{reservation.reservation_for}}
+                <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
+                    {{ element.Person.last_name }}
+                  </div>
+                </draggable>
+
+            <!--     <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.id">
                     {{ element.Person.last_name }}
-                  </div>
+                  </div> -->
+
+
                 
                     <!-- <div v-for="yahoo in reservation.Reservation_people" v-bind:key="yahoo.id" > -->
                          <!-- {{element.Person.first_name}} -->
@@ -1166,10 +1166,13 @@
                       <!-- </div> -->
                       
                     <!-- </div> -->
+
+
                 
-                </draggable>
+                <!-- </draggable> -->
+                <br>
               </div>  
-              </div>
+              <!-- </div> -->
 
               <br>
 
@@ -1415,7 +1418,7 @@ export default {
         /*end of team name id after post */
 
         /* gets the session id once the team name is inserted */
-        team1SessionDetail:'',
+        playerSessionDetail1:[],
         /* end of session id */
 
         // dataList1: [
@@ -1477,6 +1480,27 @@ export default {
       //   // alert('Processing');
       // },
 
+      updateRfid(){
+        console.log("inside update rfid");
+         var arr = this.list2;
+        // console.log(arr);
+        for(var i=0; i < arr.length; i++){
+
+          var playerid = arr[i]['id'];
+          var sessionid = this.playerSessionDetail1 + i;
+          console.log(sessionid);
+          
+          axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+playerid+'/session/'+sessionid,{
+
+            player_id: arr[i]['id'],
+            rfid_id: arr[i]['rfidState1'],
+            team_id: this.teamname1id[0].id,
+            session_id: this.playerSessionDetail1
+
+          });
+        }
+      },
+
       posttoapi(event){
         // console.log("sandes");
          /* this submits team name */
@@ -1506,6 +1530,7 @@ export default {
 
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
+        console.log(draggedPlayerId);
 
         console.log('one drop');
         // console.log(this.element.id);
@@ -1521,18 +1546,21 @@ export default {
             .then(response => {
 
               console.log(response.data.id);
+              this.playerSessionDetail1 = response.data.id;
               var sessionIdInserted = response.data.id;
 
               /** checks the session id and post again using axios.post for team player session table **/
               if(sessionIdInserted > 0){
 
-                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
-                session_id: sessionIdInserted,
-                team_id: teamId,
-                player_id: draggedPlayerId
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
+                // session_id: sessionIdInserted,
+                team_id: teamId
+                // player_id: draggedPlayerId
                 })
                 .then(function (response) {
                   console.log(response);
+                  // just run team_player_session here
+
                   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
                 })
 
