@@ -22,15 +22,15 @@
                                     <!-- <b-form-input id="input-live" v-model="listings.rfidSideA1"></b-form-input> -->
                                     <!-- <br/> -->
 
-                                    <b-form-select v-model="listings.rfidState1" style="display:hide;">
-                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
+                                    <b-form-select v-model="listings.rfidState1" style="display:hide;" v-on:change="posttorfidapi($event)">
+                                      <option v-for="option in rfidTagList" v-bind:value="option.tag" :key="option.tag"> {{ option.tag }} </option>
                                     </b-form-select>
 
-                                    <b-form-input v-model="listings.rfidState1" list="my-list-id"></b-form-input>
+                                   <!--  <b-form-input v-model="listings.rfidState1" list="my-list-id"  v-on:change="posttorfidapi($event)"></b-form-input>
 
                                     <datalist id="my-list-id">
-                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
-                                    </datalist>
+                                      <option v-for="option in rfidTagList" v-bind:value="option.tag" :key="option.tag"> {{ option.tag }} </option>
+                                    </datalist> -->
 
                                     <!-- <b-form-input list="input-list" id="input-with-list" v-model="listings.rfidState1"></b-form-input>
                                     <b-form-datalist id="input-list" v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id">{{option.id}}</b-form-datalist> -->
@@ -1330,6 +1330,10 @@ export default {
         list10:[],
         list11:[],
 
+        list2sessionid: '', /* this submits the session id as an variable to update rfid reader **/
+        list2teamplayersessionid: '', /* this is the team player session table id to update data for rfid reader */
+        list2rfidcontainer: '',
+
         playerCheckList2:[], /** this saves dragged item from main div **/
 
         missions:[],
@@ -1482,26 +1486,61 @@ export default {
       //   // alert('Processing');
       // },
 
-      updateRfid(){
+      posttorfidapi(event){
         console.log("inside update rfid");
          var arr = this.list2;
         // console.log(arr);
         for(var i=0; i < arr.length; i++){
-
+          console.log(arr.length);
+          var rfid_tag = arr[i]['rfidState1'];
           var playerid = arr[i]['id'];
-          var sessionid = this.playerSessionDetail1 + i;
+          var sessionid = this.list2sessionid;
+          console.log(playerid);
+          console.log(rfid_tag);
           console.log(sessionid);
-          
-          axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+playerid+'/session/'+sessionid,{
+          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
+            tag: rfid_tag,
+          })
+          .then(response => {
+            console.log(response.data[0].id);
+           // this.list2rfidcontainer = response.data[0].id;
+            this.list2rfidcontainer  = response.data[0].id;
+            // for(var j=0; response.data[0].id > j; j++){
+              
+               // console.log(response.data[0].id);
+              var usedrfidid = response.data[0].id;
 
-            player_id: arr[i]['id'],
-            rfid_id: arr[i]['rfidState1'],
-            team_id: this.teamname1id[0].id,
-            session_id: this.playerSessionDetail1
+              console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usedrfidid);
+              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usedrfidid,{
+              player_id: playerid,
+              rfid_id: usedrfidid,
+              team_id: this.teamname1id[0].id,
+              session_id: sessionid
+            })
+              .then(function (response) {
+                console.log(response);
+                console.log("papa");
+                // this.list2teamplayersessionid = response.data[0].id;
+              })
 
+              .catch(function (error) {
+                console.log(error);
+              });
+
+            })
+            
+
+            /** end of rfid update to team player session table **/
+          // })
+          .catch(function (error) {
+            console.log(error);
           });
         }
       },
+
+      // posttorfidapi(event){
+      //   console.log("sandes man");
+      // },
 
       posttoapi(event){
         // console.log("sandes");
@@ -1536,20 +1575,30 @@ export default {
 
         console.log('one drop');
         // console.log(this.element.id);
+        console.log(this.teamname1id[0].id);
+        var reservationid = this.list2[0].reservation_id;
         var teamId = this.teamname1id[0].id;
         var routeId = 1;
+        // console.log(this.list2);
 
           if(teamId > 0){
             // console.log('greater than 0');
-            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
             team_id: teamId,
             route_id: routeId
             })
             .then(response => {
 
-              console.log(response.data.id);
-              this.playerSessionDetail1 = response.data.id;
-              var sessionIdInserted = response.data.id;
+              // console.log(response.data.id);
+              // console.log(response.data.session_id);
+              console.log(response.data);
+
+              // console.log(response.data[0].route_id);
+              this.list2sessionid = response.data[0].id; /** this pass session id to list2sessionid **/
+
+              this.playerSessionDetail1 = response.data[0].id;
+              var sessionIdInserted = response.data[0].id;
 
               /** checks the session id and post again using axios.post for team player session table **/
               if(sessionIdInserted > 0){
@@ -1559,14 +1608,19 @@ export default {
                 team_id: teamId
                 // player_id: draggedPlayerId
                 })
-                .then(function (response) {
-                  console.log(response);
+                .then(response => {
+                  console.log(response.data);
+                  console.log(response.data[0].id);
+                  var list2_teamplayersessionid = response.data[0].id;
+                  console.log(list2_teamplayersessionid);
+                  
+                  this.list2teamplayersessionid = response.data[0].id;
                   // just run team_player_session here
 
                   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
                 })
 
-                .catch(function (error) {
+                .catch(error => {
                   console.log(error);
                 });
               }
