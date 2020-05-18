@@ -1309,6 +1309,8 @@ export default {
 
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00').then(response => (this.teamByTime2 = response.data));
 
+    console.log(this.teamByTime2);
+
     // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00');
 
   },
