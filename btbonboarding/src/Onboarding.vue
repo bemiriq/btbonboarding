@@ -23,6 +23,7 @@
                                     <!-- <br/> -->
 
                                     <b-form-select v-model="listings.rfidState1" style="display:hide;" v-on:change="posttorfidapi($event)">
+                                    <!-- <b-form-select v-model="listings.rfidState1" style="display:hide;"> -->
                                       <option v-for="option in rfidTagList" v-bind:value="option.tag" :key="option.tag"> {{ option.tag }} </option>
                                     </b-form-select>
 
@@ -1257,8 +1258,6 @@ export default {
 
     axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
 
-    axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data));
-
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
 
@@ -1502,18 +1501,19 @@ export default {
             tag: rfid_tag,
           })
           .then(response => {
-            console.log(response.data[0].id);
+            // console.log(response.data[0].id);
            // this.list2rfidcontainer = response.data[0].id;
             this.list2rfidcontainer  = response.data[0].id;
             // for(var j=0; response.data[0].id > j; j++){
               
-               // console.log(response.data[0].id);
-              var usedrfidid = response.data[0].id;
+               console.log(this.list2rfidcontainer);
+              // var usedrfidid = response.data[0].id;
 
-              console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usedrfidid);
-              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usedrfidid,{
+              console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+this.list2teamplayersessionid);
+
+              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+this.list2teamplayersessionid,{
               player_id: playerid,
-              rfid_id: usedrfidid,
+              rfid_id: this.list2rfidcontainer,
               team_id: this.teamname1id[0].id,
               session_id: sessionid
             })
@@ -1557,6 +1557,9 @@ export default {
           // get team id from teamname inserted 
           // axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1).then(response => {this.teamname1id.id = response.data});
           // /* end of team id from team name */
+
+          axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data));
+          
       },
 
       inputEvent(e) {
