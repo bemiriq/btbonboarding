@@ -1335,6 +1335,8 @@ export default {
         list2rfidcontainerarray: [],
         list2rfidcontainer: '',
 
+        countfunction: '0',
+
         playerCheckList2:[], /** this saves dragged item from main div **/
 
         missions:[],
@@ -1491,7 +1493,11 @@ export default {
         console.log("inside update rfid");
          var arr = this.list2;
 
-         console.log(this.list2[0].rfidState1);
+         var number = this.countfunction++;
+
+         console.log(number);
+
+         console.log(this.list2[number].rfidState1);
         // console.log(arr);
         // for(var i=0; i < arr.length; i++){
         //   console.log(arr.length);
@@ -1503,6 +1509,10 @@ export default {
           // console.log(rfid_tag);
           // console.log(sessionid);
 
+          var rfid_tag = this.list2[number].rfidState1;
+
+          console.log(rfid_tag);
+          
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
             tag: rfid_tag,
           })
