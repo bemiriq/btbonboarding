@@ -1330,7 +1330,9 @@ export default {
         list11:[],
 
         list2sessionid: '', /* this submits the session id as an variable to update rfid reader **/
-        list2teamplayersessionid: '', /* this is the team player session table id to update data for rfid reader */
+        list2teamplayersessionid: [], /* this is the team player session table id to update data for rfid reader */
+        tolist2teamplayersessionid: '',
+        list2rfidcontainerarray: [],
         list2rfidcontainer: '',
 
         playerCheckList2:[], /** this saves dragged item from main div **/
@@ -1488,15 +1490,19 @@ export default {
       posttorfidapi(event){
         console.log("inside update rfid");
          var arr = this.list2;
+
+         console.log(this.list2[0].rfidState1);
         // console.log(arr);
-        for(var i=0; i < arr.length; i++){
-          console.log(arr.length);
-          var rfid_tag = arr[i]['rfidState1'];
-          var playerid = arr[i]['id'];
-          var sessionid = this.list2sessionid;
-          console.log(playerid);
-          console.log(rfid_tag);
-          console.log(sessionid);
+        // for(var i=0; i < arr.length; i++){
+        //   console.log(arr.length);
+        //   var rfid_tag = arr[i]['rfidState1'];
+        //   var playerid = arr[i]['id'];
+        //   var sessionid = this.list2sessionid;
+        //   var teamPlayerSessionID = this.list2teamplayersessionid[i];
+          // console.log(playerid);
+          // console.log(rfid_tag);
+          // console.log(sessionid);
+
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
             tag: rfid_tag,
           })
@@ -1504,16 +1510,55 @@ export default {
             // console.log(response.data[0].id);
            // this.list2rfidcontainer = response.data[0].id;
             this.list2rfidcontainer  = response.data[0].id;
+
+            this.list2rfidcontainer = response.data[0].id;
+
+                  if (this.list2rfidcontainer > 0) { 
+                        this.list2rfidcontainerarray.push(this.list2rfidcontainer);
+                    }
+
+
             // for(var j=0; response.data[0].id > j; j++){
               
-               console.log(this.list2rfidcontainer);
+               // console.log(this.list2teamplayersessionid);
               // var usedrfidid = response.data[0].id;
 
-              console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+this.list2teamplayersessionid);
+              // var teamPlayerSessionID = this.list2teamplayersessionid;
+              // for(var i=0; i < teamPlayerSessionID.length; i++){
+              //   console.log("I was in");
+              // }
 
-              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+this.list2teamplayersessionid,{
+            })
+            
+
+            /** end of rfid update to team player session table **/
+          // })
+          .catch(function (error) {
+            console.log(error);
+          });
+        // }
+      },
+
+      updateRfid(){
+
+        var arr = this.list2teamplayersessionid;
+         for(var i=0; i < arr.length; i++){
+
+            var teamplayertableid = this.list2teamplayersessionid[i];
+            var rfidtag_id = this.list2rfidcontainerarray[i];
+            var playerid = this.list2[i].id;
+            var sessionid = this.list2sessionid;
+
+            console.log(this.list2[i].id);
+          console.log(teamplayertableid);
+          console.log(rfidtag_id);
+
+          console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid);
+
+
+          axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
               player_id: playerid,
-              rfid_id: this.list2rfidcontainer,
+              rfid_id: rfidtag_id,
               team_id: this.teamname1id[0].id,
               session_id: sessionid
             })
@@ -1527,15 +1572,8 @@ export default {
                 console.log(error);
               });
 
-            })
-            
-
-            /** end of rfid update to team player session table **/
-          // })
-          .catch(function (error) {
-            console.log(error);
-          });
-        }
+         }
+        
       },
 
       // posttorfidapi(event){
@@ -1612,12 +1650,32 @@ export default {
                 // player_id: draggedPlayerId
                 })
                 .then(response => {
-                  console.log(response.data);
-                  console.log(response.data[0].id);
-                  var list2_teamplayersessionid = response.data[0].id;
-                  console.log(list2_teamplayersessionid);
+                  // console.log(response.data);
+                  // console.log(response.data[0].id);
+                  // var list2_teamplayersessionid = response.data[0].id;
+                  // console.log(list2_teamplayersessionid);
+                  // this.list2teamplayersessionid = response.data;
+
+
+                  /* this grabs the data from response pass it to tolist2teamplyersession which is an object , stores the multiple objects*/
+                  /* multiple objects is passed to array called list2teamplayersession*/
+                  this.tolist2teamplayersessionid = response.data[0].id;
+
+                  if (this.tolist2teamplayersessionid > 0) { 
+                        this.list2teamplayersessionid.push(this.tolist2teamplayersessionid);
+                    }
+
                   
-                  this.list2teamplayersessionid = response.data[0].id;
+
+                  // this.list2teamplayersessionid.push(this.tolist2teamplayersessionid);
+              
+                  // console.log(this.list2teamplayersessionid.push(this.tolist2teamplayersessionid));
+
+                  // this.list2teamplayersessionid = response.data[0].id;
+
+                  // this.list2teamplayersessionid.forEach(obj => {
+                  //     array.push(obj.list2_teamplayersessionid);
+                  // });
                   // just run team_player_session here
 
                   // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
