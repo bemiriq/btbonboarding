@@ -1301,7 +1301,7 @@ export default {
     console.log(dateTime2);
     console.log(dateTime3);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
 
     var starttime='start';
     var endtime='end';
