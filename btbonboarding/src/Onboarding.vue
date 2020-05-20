@@ -1146,14 +1146,15 @@
                 <br>
                 
                 <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
+
+
+               <!--  <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                     {{ element.Person.last_name }} 
 
-                    <!-- {{reservation.mission_id}} -->
                   </div>
 
-                </draggable>
+                </draggable> -->
 
             <!--     <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 
