@@ -8,7 +8,7 @@
       <b-row>
 
         <!-- list for all rfid b-modal -->
-
+<!-- 
         <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
                               <b-row class="my-1">
                                 <b-col sm="11">
@@ -29,7 +29,7 @@
                               </b-row>
                               <br/>
 
-                            </b-modal>
+                            </b-modal> -->
 
 
         <b-modal id="modal-center" ref="sideArfidModalUpdate2" centered title="Side A" v-bind:hide-footer="true">
@@ -1627,7 +1627,7 @@ export default {
             })
               .then(function (response) {
                 console.log(response);
-                console.log("papa");
+                // console.log("papa");
                 // this.list2teamplayersessionid = response.data[0].id;
               })
 
