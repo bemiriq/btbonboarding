@@ -8,13 +8,13 @@
       <b-row>
 
         <!-- list for all rfid b-modal -->
-<!-- 
+
         <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
-                                    <b-form-input id="input-live" v-model="listings.last_name" disabled></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
                                     <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi($event)"></b-form-input>
@@ -25,40 +25,6 @@
                               <br/>
                               <b-row>
                                 <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked(); updateRfid();">UPDATE</b-button></b-col>
-                                <br/>
-                              </b-row>
-                              <br/>
-
-                            </b-modal> -->
-
-
-        <b-modal id="modal-center" ref="sideArfidModalUpdate2" centered title="Side A 1" v-bind:hide-footer="true">
-                              <!-- <p class="my-4">Vertically centered modal!</p> -->
-                              <b-row class="my-1">
-                                <b-col sm="11">
-                                  <!-- <b-form-input id="input-live" placeholder="PLAYER NAME 1"></b-form-input> -->
-                                  <div v-for="(listings, index) in playerCheckList2" :key="index">
-                                    <br/>
-                                    <b-form-input id="input-live" v-model="listings.first_name" placeholder="PLAYER NAME 1" disabled></b-form-input>
-                                    <!-- <b-form-input id="input-live" v-model="listings.rfidSideA2"></b-form-input> -->
-
-                                     <b-form-select v-model="listings.rfidState2" style="display:hide;">
-                                      <option v-for="option in rfidTagList" v-bind:value="option.id" :key="option.id"> {{ option.tag }} </option>
-                                    </b-form-select>
-
-                                    <br/>
-                                  </div>
-                                  <!-- <div  v-for="(listings, index) in rfidTagList" :key="index"> -->
-                                    <!-- <b-form-input id="input-live" v-model="selectedRfidList1" placeholder="SCAN WRISTBAND" trim v-bind:value="item.id"></b-form-input> -->
-                                    
-                                  <!-- </div> -->
-                                  <!-- <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input> -->
-                                </b-col>
-                                </b-row>
-                              <br/>
-                              <b-row>
-                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked2();">UPDATE</b-button></b-col>
                                 <br/>
                               </b-row>
                               <br/>
