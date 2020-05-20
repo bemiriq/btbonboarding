@@ -1108,9 +1108,8 @@
               <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
 
                 <!-- {{reservation.id}} -->
-                {{reservation.reservation_for}}
+                {{convertedTime}}
                 <br>
-                
                 <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
 
 
@@ -1276,7 +1275,18 @@ export default {
     // const dateTime2Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:59")
 
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T00:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00').then(response => (this.teamByTime2 = response.data));
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T00:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00').then(response => 
+      (
+        this.teamByTime2 = response.data,
+        // var teamtime = this.teamByTime2.data[0].reservation_for,
+        // console.log(this.teamByTime2[0].reservation_for),
+
+        this.teamByTime2FormattedTime = moment(this.teamByTime2[0].reservation_for).format("h:mm A")
+
+        // this.teamByTime2FormattedTime = response.data.reservation_for
+      ));
+
+
 
     console.log(this.teamByTime2);
 
@@ -1298,6 +1308,8 @@ export default {
         list9:[],
         list10:[],
         list11:[],
+
+        teamByTime2FormattedTime:[],
 
         list2sessionid: '', /* this submits the session id as an variable to update rfid reader **/
         list2teamplayersessionid: [], /* this is the team player session table id to update data for rfid reader */
@@ -2000,8 +2012,26 @@ export default {
 
       rfidState3() {
         return this.rfid3.length > 5 ? true : false
-      }
+      },
 
+      convertedTime() {
+
+          // var currentTimeUse = moment().format('h:mm A');
+
+          // var subtracttime = moment().subtract(55 , 'minutes');
+          // var arr = this.teamByTime2;
+
+          // for(var i=0; i < arr.length; i++){
+
+          // }
+          console.log(this.teamByTime2[1].reservation_for);
+
+          return moment(this.teamByTime2[1].reservation_for).add(2, 'hours').add(30, 'minutes').format('h:mm A');
+
+          // items[0].arrivalTime =  moment(b.items[0].arrivalTime,"h:mm A").format("h:mm A");
+
+        }
+        // return this.posts.sort(compare);
     }
 
 };
