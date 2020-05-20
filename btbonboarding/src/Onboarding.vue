@@ -1108,8 +1108,8 @@
               <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
 
                 <!-- {{reservation.id}} -->
-                {{convertedTime}}
-                <br>
+                <!-- {{convertedTime}} -->
+                <p class="filter">{{ reservation.reservation_for | moment }}</p>
                 <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
 
 
@@ -2032,7 +2032,13 @@ export default {
 
         }
         // return this.posts.sort(compare);
+    },
+
+    filters: {
+    moment: function (date) {
+      return moment(date).add(2, 'hours').add(30, 'minutes').format('h:mm A');
     }
+  }
 
 };
 
