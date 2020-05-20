@@ -150,9 +150,11 @@
                         v-for="(element, index) in list2"
                         :key="index">
 
-                        <input v-model="element.id" type="text" disabled style="display:none;">
-                        <b-form-input id="input-live" v-model="element.Person.last_name" disabled @input="inputEvent"></b-form-input>
-                        <!-- <input v-model="element.first_name" disabled> -->
+                        <!-- <input type="text" v-model="reservation.mission_id"> -->
+
+                          <input v-model="element.id" type="text" disabled style="display:none;">
+                          <b-form-input id="input-live" v-model="element.Person.last_name" disabled @input="inputEvent"></b-form-input>
+                          <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
                           {{ element.name }}
@@ -170,13 +172,16 @@
                         <label for="input-small">Playing</label>
                         </b-col>
                         <b-col sm="9">
-                          <!-- <b-form-select v-model="selected1"> -->
-                          <b-form-select v-model="selected1" v-on:change="sortBy">
-                            <!-- <option disabled value="">Please select one</option> -->
-                            <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option>
-                            <!-- <option>Blockmonster</option> -->
-                            <!-- <option>C</option> -->
-                          </b-form-select>
+                            <b-form-select v-model="selected1" v-on:change="sortBy">
+                              <!-- <option disabled value="">Please select one</option> -->
+                              <!-- <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option> -->
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                              <!-- <option>Blockmonster</option> -->
+                              <!-- <option>C</option> -->
+                            </b-form-select>
+
+                          
+
                         </b-col>
                       </b-row>
 
@@ -286,10 +291,7 @@
                         <b-col sm="9">
                           <!-- <b-form-select v-model="selected1"> -->
                           <b-form-select v-model="selected2" v-on:change="sortBy">
-                            <!-- <option disabled value="">Please select one</option> -->
-                            <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option>
-                            <!-- <option>Blockmonster</option> -->
-                            <!-- <option>C</option> -->
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
                           </b-form-select>
                         </b-col>
                       </b-row>
@@ -1141,11 +1143,16 @@
 
                 <!-- {{reservation.id}} -->
                 {{reservation.reservation_for}}
+                <br>
+                
                 <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                    {{ element.Person.last_name }}
+                    {{ element.Person.last_name }} 
+
+                    <!-- {{reservation.mission_id}} -->
                   </div>
+
                 </draggable>
 
             <!--     <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
@@ -1348,6 +1355,8 @@ export default {
         reservationTime1: '',
         playing1: '',
         vs1:'',
+        // selected1: null,
+        missionSideA1:'',
 
         /** this is for the second form list side B 1 **/
 
@@ -1372,6 +1381,11 @@ export default {
           playerSessionDetail4: '',
 
           /** end of rfid reader updates for side B 1 **/
+
+          /** this for pre select down for side B 1 **/
+          selected2: null,
+          missions2:[],
+          /** end of pre select dropdown for game name **/
 
         /** end of objects for second form list side B 1 **/
 
@@ -1400,8 +1414,7 @@ export default {
         dateTime6Data:'',
         /* end of time formated quater wise */
 
-        selected1: '',
-        selected2: '',
+        selected1: null,
         selected3: '',
         selected4: '',
         selected5: '',
@@ -1703,6 +1716,9 @@ export default {
         // console.log(this.list2['id']);
         // return Object.keys(this.list2).length-1;
 
+        var missionid = this.teamByTime2[0].mission_id;
+        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
         console.log(draggedPlayerId);
@@ -1789,6 +1805,10 @@ export default {
       },
 
       onDrop2(e){
+
+        var missionid = this.teamByTime2[0].mission_id;
+        this.selected2 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
         var draggedPlayerId = this.list4[this.list4.length - 1].id; /* this will always select the last player id dragged */
 
         var reservationid = this.list4[0].reservation_id;
