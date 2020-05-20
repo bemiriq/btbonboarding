@@ -32,7 +32,7 @@
                             </b-modal> -->
 
 
-        <b-modal id="modal-center" ref="sideArfidModalUpdate2" centered title="Side A" v-bind:hide-footer="true">
+        <b-modal id="modal-center" ref="sideArfidModalUpdate2" centered title="Side A 1" v-bind:hide-footer="true">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
                               <b-row class="my-1">
                                 <b-col sm="11">
