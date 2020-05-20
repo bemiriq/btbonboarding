@@ -1149,10 +1149,9 @@
 
 
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
-                <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
+                <!-- <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                     {{ element.Person.first_name }} 
-
-                  </div>
+                  </div> -->
 
                 </draggable>
 
