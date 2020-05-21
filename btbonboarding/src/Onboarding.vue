@@ -9,11 +9,12 @@
 
         <!-- list for all rfid b-modal -->
 
-        <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true">
+        <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A 1" v-bind:hide-footer="true">
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
+                                    <p>{{listing.last_name}}</p>
                                     <b-form-input id="input-live" v-model="listings.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
@@ -36,7 +37,7 @@
 
         <!-- sibe B 1 .. rfid update -->
 
-                <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1 2" v-bind:hide-footer="true">
+                <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true">
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
@@ -99,7 +100,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                       </b-col>
                       <b-col sm="8">
-                        <b-form-input id="input-small" size="md" v-model="teamName1" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event)"></b-form-input>
+                        <b-form-input id="input-small" size="md" v-model="teamName1" placeholder="TEAM NAME 1" v-on:change="posttoapi($event)"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -138,7 +139,7 @@
                         <label for="input-small">Playing</label>
                         </b-col>
                         <b-col sm="9">
-                            <b-form-select v-model="selected1" v-on:change="sortBy">
+                            <b-form-select v-model="selected1" v-on:change="onChangeMission1">
                               <!-- <option disabled value="">Please select one</option> -->
                               <!-- <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option> -->
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
@@ -158,11 +159,15 @@
                         <label for="input-small">Vs</label>
                         </b-col>
                         <b-col sm="9">
-                          <b-form-select v-model="vsselected1">
-                            <!-- <option disabled value="">Please select one</option> -->
+                          <!-- <b-form-select v-model="vsselected1">
                             <option v-for="option in allTeamList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
-                            <!-- <option>C</option> -->
-                          </b-form-select>
+                          </b-form-select> -->
+
+                                    <b-form-input v-model="vsselected1" list="my-list-id"></b-form-input>
+                                    <datalist id="my-list-id">
+                                      <option v-for="option in allTeamList" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
+                                    </datalist>
+
                         </b-col>
                       </b-row>
                       <br/>
@@ -171,11 +176,9 @@
                         <label for="input-small">Organization</label>
                         </b-col>
                         <b-col sm="9">
-                          <b-form-select v-model="organizationselected1">
+                          <b-form-select v-model="organizationselected1" @change="onChange($event)">
                             <!-- <option disabled value="">Please select one</option> -->
-                            <option>Organization 1 </option>
-                            <option>Organization 2</option>
-                            <option>Organization 3</option>
+                            <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
@@ -193,15 +196,18 @@
                       </b-modal>
 
                       <b-row>
-                        <b-col sm="3">
+                        <b-col sm="3" style="display: none;">
                           <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
                         </b-col>
-                        <b-col sm="3">
+                        <!-- <b-col sm="3"> -->
                           <!-- <b-button variant="info">RFID</b-button> -->
-                          <div>
+                          <!-- <div>
                             <b-button v-b-modal.modal-center variant="info">RFID</b-button>
+                          </div> -->
+                        <!-- </b-col> -->
+                        <div style="width: 50%;margin:auto;">
+                            <b-button block v-b-modal.modal-center variant="info">RFID</b-button>
                           </div>
-                        </b-col>
                       </b-row>
                       <br/>
 
@@ -226,7 +232,7 @@
                         <b-form-input type="text" name="reservationTime2" v-model="dateTime2Data" disabled></b-form-input>
                       </b-col>
                       <b-col sm="8">
-                        <b-form-input id="input-small" size="md" v-model="teamName2" placeholder="TEAM NAME 2" v-on:blur="posttoapi2($event)"></b-form-input>
+                        <b-form-input id="input-small" size="md" v-model="teamName2" placeholder="TEAM NAME 2" v-on:change="posttoapi2($event)"></b-form-input>
                       </b-col>
                     </b-row>
 
@@ -282,12 +288,10 @@
                         <b-col sm="3">
                         <label for="input-small">Organization</label>
                         </b-col>
-                        <b-col sm="9">
-                          <b-form-select v-model="organizationselected2">
+                         <b-col sm="9">
+                          <b-form-select v-model="organizationselected2" @change="onChange2($event)">
                             <!-- <option disabled value="">Please select one</option> -->
-                            <option>Organization 1 </option>
-                            <option>Organization 2</option>
-                            <option>Organization 3</option>
+                            <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
@@ -306,15 +310,18 @@
                     </b-modal>
 
                       <b-row>
-                        <b-col sm="3">
+                        <b-col sm="3" style="display: none;">
                           <b-button variant="primary" v-b-modal.modal-2 v-on:click="checkPlayerId2();">Update</b-button>
                         </b-col>
-                        <b-col sm="3">
+                        <!-- <b-col sm="3"> -->
                           <!-- <b-button variant="info">RFID</b-button> -->
-                          <div>
+                         <!--  <div>
                             <b-button v-b-modal.modal-centersideB_one variant="info">RFID</b-button>
+                          </div> -->
+                          <div style="width: 50%;margin:auto;">
+                            <b-button block v-b-modal.modal-centersideB_one variant="info">RFID</b-button>
                           </div>
-                        </b-col>
+                        <!-- </b-col> -->
                       </b-row>
                       <br/>
 
@@ -1227,6 +1234,8 @@ export default {
 
     axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
 
+    axios.get(process.env.VUE_APP_DTB_ORGANIZATION).then(response => (this.organizationList = response.data));
+
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
 
@@ -1381,6 +1390,7 @@ export default {
         organizationselected2: '',
         organizationselected3: '',
         organizationselected4: '',
+        organizationList: [],
         /** end of organization list **/
 
         /* stores quater format time **/
@@ -1404,7 +1414,7 @@ export default {
         // selected6: '',
 
 
-        vsselected1: '',
+        vsselected1: null,
         vsselected2: '',
         vsselected3: '',
         vsselected4: '',
@@ -1659,8 +1669,6 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
-
-          axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data));
           
       },
 
@@ -1673,8 +1681,6 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
-
-          axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList2 = response.data));
           
       },
 
@@ -1691,8 +1697,10 @@ export default {
 
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop(e){
-        // console.log(this.list2['id']);
-        // return Object.keys(this.list2).length-1;
+
+         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data)); /** this fetches team name from team table **/
+
+        console.log(this.organizationselected1);
 
         var missionid = this.teamByTime2[0].mission_id;
         this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
@@ -1706,6 +1714,7 @@ export default {
         console.log(this.teamname1id[0].id);
         var reservationid = this.list2[0].reservation_id;
         var teamId = this.teamname1id[0].id;
+
         var routeId = 1;
         // console.log(this.list2);
 
@@ -1784,6 +1793,8 @@ export default {
 
       onDrop2(e){
 
+         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList2 = response.data));
+
         var missionid = this.teamByTime2[0].mission_id;
         this.selected2 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
@@ -1791,7 +1802,7 @@ export default {
 
         var reservationid = this.list4[0].reservation_id;
         var teamId = this.teamname2id[0].id;
-        var routeId = 1;
+        var routeId = 2;
 
           if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
@@ -1839,6 +1850,146 @@ export default {
               console.log(error);
             });
           }
+      },
+
+      onChange(event){
+        // console.log(this.list2['id']);
+        console.log(this.organizationselected1);
+
+        var missionid = this.teamByTime2[0].mission_id;
+        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
+
+        var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
+        console.log(draggedPlayerId);
+
+        // console.log('one drop');
+        // console.log(this.element.id);
+        console.log(this.teamname1id[0].id);
+        var reservationid = this.list2[0].reservation_id;
+        var teamId = this.teamname1id[0].id;
+        var organizationid = this.organizationselected1;
+        var sessionID = this.list2sessionid;
+        console.log(organizationid);
+
+        var routeId = 1;
+        // console.log(this.list2);
+
+          if(teamId > 0){
+            // console.log('greater than 0');
+            // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionID,{
+            // team_id: teamId,
+            // route_id: routeId,
+
+              organization_id: organizationid
+
+            })
+            .then(response => {
+
+              console.log(response.data);
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
+      },
+
+      onChange2(event){
+        // console.log(this.list2['id']);
+        console.log(this.organizationselected1);
+
+        var missionid = this.teamByTime2[0].mission_id;
+        this.selected2 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
+
+        var draggedPlayerId = this.list4[this.list4.length - 1].id; /* this will always select the last player id dragged */
+        console.log(draggedPlayerId);
+
+        // console.log('one drop');
+        // console.log(this.element.id);
+        console.log(this.teamname2id[0].id);
+        var reservationid = this.list4[0].reservation_id;
+        var teamId = this.teamname2id[0].id;
+        var organizationid = this.organizationselected2;
+        var sessionID = this.list4sessionid;
+        console.log(organizationid);
+
+        var routeId = 1;
+        // console.log(this.list2);
+
+          if(teamId > 0){
+            // console.log('greater than 0');
+            // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionID,{
+            // team_id: teamId,
+            // route_id: routeId,
+            
+              organization_id: organizationid
+
+            })
+            .then(response => {
+
+              console.log(response.data);
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
+      },
+
+      onChangeMission1(event){
+        console.log(this.list2sessionid);
+        console.log("inside on change mission");
+
+        var missionid = this.teamByTime2[0].mission_id;
+        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
+
+        var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
+        console.log(draggedPlayerId);
+
+        // console.log('one drop');
+        // console.log(this.element.id);
+        console.log(this.teamname1id[0].id);
+        var reservationid = this.list2[0].reservation_id;
+        var teamId = this.teamname1id[0].id;
+        var organizationid = this.organizationselected1;
+        var sessionID = this.list2sessionid;
+        var missionid = this.selected1;
+
+        console.log(this.selected1);
+
+        var routeId = 1;
+        // console.log(this.list2);
+
+          if(teamId > 0){
+            // console.log('greater than 0');
+            // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionID,{
+            // team_id: teamId,
+            // route_id: routeId,
+
+              mission_id: missionid
+
+            })
+            .then(response => {
+
+              console.log(response.data);
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
       },
 
       checkMove1(evt){
