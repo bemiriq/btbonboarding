@@ -1285,7 +1285,7 @@ export default {
     // const dateTime2Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:59")
 
     var startReservationTime = moment().subtract(1, 'hours').format('h:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('h:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('H:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1294,11 +1294,11 @@ export default {
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T09:00:00'+'/'+endtime+'/'+currentdate+'T13:00:00').then(response => 
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
-        this.teamByTime2 = response.data,
+        this.teamByTime2 = response.data
         // var teamtime = this.teamByTime2.data[0].reservation_for,
         // console.log(this.teamByTime2[0].reservation_for),
 
-        this.teamByTime2FormattedTime = moment(this.teamByTime2[0].reservation_for).format("h:mm A")
+        // this.teamByTime2FormattedTime = moment(this.teamByTime2[0].reservation_for).format("h:mm A")
 
         // this.teamByTime2FormattedTime = response.data.reservation_for
       ));
