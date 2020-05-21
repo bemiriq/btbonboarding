@@ -14,7 +14,7 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
-                                    <p>{{listing.last_name}}</p>
+                                    <!-- <p>{{listing.last_name}}</p> -->
                                     <b-form-input id="input-live" v-model="listings.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
@@ -1116,13 +1116,14 @@
 
                 <!-- {{reservation.id}} -->
                 <!-- {{convertedTime}} -->
-                <p class="filter">{{ reservation.reservation_for | moment }}</p>
-                <!-- :list="reservation.Resevation_people" defines what you are trying to grag on -->
 
+                <p class="filter">{{ reservation.reservation_for | moment }}</p>
+
+                <b>{{reservation.Booker.Person.last_name}}</b>
 
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                    {{ element.Person.last_name }} 
+                    {{element.Person.first_name}}  {{ element.Person.last_name }} 
                   </div>
 
                 </draggable>
@@ -1283,8 +1284,15 @@ export default {
     // const dateTime1Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:00");
     // const dateTime2Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:59")
 
+    var startReservationTime = moment().subtract(1, 'hours').format('h:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('h:mm:ss');
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T00:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00').then(response => 
+    console.log(startReservationTime);
+    console.log(endReservationTime);
+    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T09:00:00'+'/'+endtime+'/'+currentdate+'T13:00:00').then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data,
         // var teamtime = this.teamByTime2.data[0].reservation_for,
@@ -1996,6 +2004,9 @@ export default {
         // if (evt.draggedContext.element.name=='apple'){
         //   return false
         // }
+
+        console.log(this.teamName1.length);
+
         if(this.teamName1.length < 1){
           return false;
         }
@@ -2187,7 +2198,8 @@ export default {
 
     filters: {
     moment: function (date) {
-      return moment(date).add(2, 'hours').add(30, 'minutes').format('h:mm A');
+      // return moment(date).add(2, 'hours').add(30, 'minutes').format('h:mm A');
+      return moment(date).format('h:mm A');
     }
   }
 
