@@ -1291,8 +1291,8 @@ export default {
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T09:00:00'+'/'+endtime+'/'+currentdate+'T13:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T09:00:00'+'/'+endtime+'/'+currentdate+'T13:00:00').then(response => 
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data
         // var teamtime = this.teamByTime2.data[0].reservation_for,
@@ -1720,6 +1720,7 @@ export default {
         // console.log('one drop');
         // console.log(this.element.id);
         console.log(this.teamname1id[0].id);
+        
         var reservationid = this.list2[0].reservation_id;
         var teamId = this.teamname1id[0].id;
 
