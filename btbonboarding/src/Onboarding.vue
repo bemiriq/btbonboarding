@@ -14,11 +14,10 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
-                                    <!-- <p>{{listing.last_name}}</p> -->
                                     <b-form-input id="input-live" v-model="listings.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi($event)"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi($event)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
 
                                   </div>
                                 </b-col>
@@ -229,7 +228,7 @@
 
                     <b-row class="my-1">
                       <b-col sm="4">
-                        <b-form-input type="text" name="reservationTime2" v-model="dateTime2Data" disabled></b-form-input>
+                        <b-form-input type="text" name="reservationTime2" v-model="dateTime1Data" disabled></b-form-input>
                       </b-col>
                       <b-col sm="8">
                         <b-form-input id="input-small" size="md" v-model="teamName2" placeholder="TEAM NAME 2" v-on:change="posttoapi2($event)"></b-form-input>
@@ -1291,7 +1290,7 @@ export default {
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T09:00:00'+'/'+endtime+'/'+currentdate+'T13:00:00').then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data
@@ -1325,6 +1324,8 @@ export default {
         list9:[],
         list10:[],
         list11:[],
+
+        // isChanged:false,
 
         teamByTime2FormattedTime:[],
 
@@ -1532,6 +1533,7 @@ export default {
       //   // alert('Processing');
       // },
 
+
       posttorfidapi(event){
         console.log("inside update rfid");
          var arr = this.list2;
@@ -1596,6 +1598,7 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
       },
 
       updateRfid(){
@@ -1720,7 +1723,7 @@ export default {
         // console.log('one drop');
         // console.log(this.element.id);
         console.log(this.teamname1id[0].id);
-        
+
         var reservationid = this.list2[0].reservation_id;
         var teamId = this.teamname1id[0].id;
 
