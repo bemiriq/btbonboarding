@@ -14,7 +14,8 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
-                                    <b-form-input id="input-live" v-model="listings.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+
+                                    <b-form-input id="input-live" v-model="listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
                                     <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi($event)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
@@ -205,7 +206,7 @@
                           </div> -->
                         <!-- </b-col> -->
                         <div style="width: 50%;margin:auto;">
-                            <b-button block v-b-modal.modal-center variant="info">RFID</b-button>
+                            <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                           </div>
                       </b-row>
                       <br/>
@@ -318,7 +319,7 @@
                             <b-button v-b-modal.modal-centersideB_one variant="info">RFID</b-button>
                           </div> -->
                           <div style="width: 50%;margin:auto;">
-                            <b-button block v-b-modal.modal-centersideB_one variant="info">RFID</b-button>
+                            <b-button block v-b-modal.modal-centersideB_one variant="info">Assign RFID</b-button>
                           </div>
                         <!-- </b-col> -->
                       </b-row>
