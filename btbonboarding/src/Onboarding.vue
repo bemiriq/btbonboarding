@@ -110,7 +110,7 @@
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;" @add="onDrop"
+                        group="a" style="height: 300px; border-style: outset;" @add="onDrop" @start="getpersonDetails1"
                       >
                       <div
                         class="list-group-item item"
@@ -120,7 +120,7 @@
                         <!-- <input type="text" v-model="reservation.mission_id"> -->
 
                           <input v-model="element.id" type="text" disabled style="display:none;">
-                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' " disabled @input="inputEvent"></b-form-input>
+                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' " disabled @input="inputEvent" ></b-form-input>
                           <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
@@ -1110,7 +1110,7 @@
 
                 <b>{{reservation.Booker.Person.last_name}} Reservation</b>
 
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                     <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
                     <p>{{reservation.Booker.Person.last_name}}</p>
@@ -1273,7 +1273,7 @@ export default {
     // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('h:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('H:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('H:mm:ss');
 
     console.log(startReservationTime);
@@ -1343,6 +1343,8 @@ export default {
         vs1:'',
         // selected1: null,
         missionSideA1:'',
+
+        delTeamPlayerSessionId1: '',
 
         /** this is for the second form list side B 1 **/
 
@@ -1721,6 +1723,13 @@ export default {
       // this.$emit('input', e.target.value);
       },
 
+      //removes the team player ssession data when dropped back to reservation from list2,list4,list5,list6
+      onDropReservation(e){
+        console.log("moved in");
+        var draggedPlayerId = this.list2;
+        console.log(draggedPlayerId);
+      },
+
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop(e){
 
@@ -2045,6 +2054,38 @@ export default {
           console.log('else print vo');
         }
       },
+
+      getpersonDetails1(){
+
+        console.log(this.list2[0].id);
+        
+
+        // this.playerSessionDetail4 = response.data[0].id;
+              var draggedPlayerId = this.list2[0].id;
+              var sessionIdInserted = this.playerSessionDetail1;
+
+              console.log(this.playerSessionDetail1);
+
+              /** checks the session id and post again using axios.post for team player session table **/
+              if(sessionIdInserted > 0){
+
+                console.log("inside man");
+
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
+                // session_id: sessionIdInserted,
+                // team_id: teamId
+                // player_id: draggedPlayerId
+                })
+                .then(response => {
+                  var getTeamPlayerSessionId1 = response.data[0].id;
+                  console.log(getTeamPlayerSessionId1);
+
+                  axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+getTeamPlayerSessionId1);
+
+                })
+      }
+
+    },
 
       checkPlayerId1(){
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
