@@ -15,10 +15,10 @@
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
 
-                                    <b-form-input id="input-live" v-model="listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                    <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi($event)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
 
                                   </div>
                                 </b-col>
@@ -42,7 +42,7 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
                                     <br/>
-                                    <b-form-input id="input-live" v-model="listings.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
+                                    <b-form-input id="input-live" v-model="listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
                                     <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi2($event)"></b-form-input>
@@ -120,7 +120,7 @@
                         <!-- <input type="text" v-model="reservation.mission_id"> -->
 
                           <input v-model="element.id" type="text" disabled style="display:none;">
-                          <b-form-input id="input-live" v-model="element.Person.last_name" disabled @input="inputEvent"></b-form-input>
+                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' " disabled @input="inputEvent"></b-form-input>
                           <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
@@ -136,7 +136,7 @@
 
                       <b-row>
                         <b-col sm="3">
-                        <label for="input-small">Playing</label>
+                        <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
                             <b-form-select v-model="selected1" v-on:change="onChangeMission1">
@@ -146,9 +146,6 @@
                               <!-- <option>Blockmonster</option> -->
                               <!-- <option>C</option> -->
                             </b-form-select>
-
-                          
-
                         </b-col>
                       </b-row>
 
@@ -163,26 +160,24 @@
                             <option v-for="option in allTeamList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                           </b-form-select> -->
 
-                                    <b-form-input v-model="vsselected1" list="my-list-id"></b-form-input>
+                                    <b-form-input v-model="vsselected1" list="my-list-id" v-on:change="onChangeTeamVsTeam1"></b-form-input>
                                     <datalist id="my-list-id">
                                       <option v-for="option in allTeamList" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
                                     </datalist>
 
                         </b-col>
                       </b-row>
-                      <br/>
+                     <!--  <br/>
                       <b-row>
                         <b-col sm="3">
                         <label for="input-small">Organization</label>
                         </b-col>
                         <b-col sm="9">
                           <b-form-select v-model="organizationselected1" @change="onChange($event)">
-                            <!-- <option disabled value="">Please select one</option> -->
                             <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
-                            <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
-                      </b-row>
+                      </b-row> -->
 
                       <br />
 
@@ -258,7 +253,7 @@
 
                       <b-row>
                         <b-col sm="3">
-                        <label for="input-small">Playing</label>
+                        <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
                           <!-- <b-form-select v-model="selected1"> -->
@@ -283,19 +278,17 @@
                         </b-col>
                       </b-row>
 
-                      <br/>
+                      <!-- <br/>
                       <b-row>
                         <b-col sm="3">
                         <label for="input-small">Organization</label>
                         </b-col>
                          <b-col sm="9">
                           <b-form-select v-model="organizationselected2" @change="onChange2($event)">
-                            <!-- <option disabled value="">Please select one</option> -->
                             <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
-                            <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
-                      </b-row>
+                      </b-row> -->
 
                       <br />
 
@@ -381,7 +374,7 @@
 
                     <b-row>
                       <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                      <label for="input-small">Mission</label>
                       </b-col>
                       <b-col sm="9">
                         <b-form-select v-model="selected3">
@@ -410,7 +403,7 @@
                       </b-col>
                     </b-row>
 
-                    <br />
+                   <!--  <br />
 
 
                       <b-row>
@@ -419,14 +412,12 @@
                         </b-col>
                         <b-col sm="9">
                           <b-form-select v-model="organizationselected3">
-                            <!-- <option disabled value="">Please select one</option> -->
                             <option>Organization 1 </option>
                             <option>Organization 2</option>
                             <option>Organization 3</option>
-                            <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
-                      </b-row>
+                      </b-row> -->
 
                       <br/>
 
@@ -483,7 +474,7 @@
 
                     <b-row>
                       <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                      <label for="input-small">Mission</label>
                       </b-col>
                       <b-col sm="9">
                         <b-form-select v-model="selected4">
@@ -512,7 +503,7 @@
                       </b-col>
                     </b-row>
 
-                    <br />
+                   <!--  <br />
 
 
                       <b-row>
@@ -521,14 +512,12 @@
                         </b-col>
                         <b-col sm="9">
                           <b-form-select v-model="organizationselected4">
-                            <!-- <option disabled value="">Please select one</option> -->
                             <option>Organization 1 </option>
                             <option>Organization 2</option>
                             <option>Organization 3</option>
-                            <!-- <option>C</option> -->
                           </b-form-select>
                         </b-col>
-                      </b-row>
+                      </b-row> -->
 
                       <br/>
 
@@ -595,7 +584,7 @@
 
                     <b-row>
                       <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                      <label for="input-small">Mission</label>
                       </b-col>
                       <b-col sm="9">
                         <b-form-select v-model="selected5">
@@ -679,7 +668,7 @@
 
                     <b-row>
                       <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                      <label for="input-small">Mission</label>
                       </b-col>
                       <b-col sm="9">
                         <b-form-select v-model="selected6">
@@ -1090,7 +1079,7 @@
 
         <!-- start of right div -->
         <b-col lg="3"  style="background-color:#f0f0f0; height: 450px; overflow:scroll;">
-          <b>RESERVATIONS</b>
+          <!-- <b>RESERVATIONS</b> -->
 
           <b-row>
 
@@ -1119,11 +1108,12 @@
 
                 <p class="filter">{{ reservation.reservation_for | moment }}</p>
 
-                <b>{{reservation.Booker.Person.last_name}}</b>
+                <b>{{reservation.Booker.Person.last_name}} Reservation</b>
 
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                    {{element.Person.first_name}}  {{ element.Person.last_name }} 
+                    <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
+                    <p>{{reservation.Booker.Person.last_name}}</p>
                   </div>
 
                 </draggable>
@@ -1280,9 +1270,8 @@ export default {
 
     var starttime='start';
     var endtime='end';
+    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
-    // const dateTime1Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:00");
-    // const dateTime2Reservation1 = moment(start).add(remainder1, "minutes").format("h:mm:59")
 
     var startReservationTime = moment().subtract(1, 'hours').format('h:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('H:mm:ss');
@@ -1291,8 +1280,8 @@ export default {
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data
         // var teamtime = this.teamByTime2.data[0].reservation_for,
@@ -1535,7 +1524,7 @@ export default {
       // },
 
 
-      posttorfidapi(event){
+      posttorfidapi(event, index){
         console.log("inside update rfid");
          var arr = this.list2;
 
@@ -1566,6 +1555,12 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
+          const nextIndex = index + 1;
+          if (nextIndex < this.list2.length && rfid_tag.length > 5) {
+            this.$refs.todos[nextIndex].focus()
+          }
+
       },
 
       posttorfidapi2(event){
@@ -1599,6 +1594,25 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
+      },
+
+      onChangeTeamVsTeam1(){
+        console.log(this.list2sessionid);
+        // http://localhost:9090/team_vs_teams
+
+        var sessionidused = this.list2sessionid;
+
+        axios.post(process.env.VUE_APP_DTB_T_VS_T,{
+              session_id: sessionidused
+            })
+              .then(function (response) {
+                console.log(response);
+              })
+
+              .catch(function (error) {
+                console.log(error);
+              });
 
       },
 
@@ -1715,7 +1729,7 @@ export default {
         console.log(this.organizationselected1);
 
         var missionid = this.teamByTime2[0].mission_id;
-        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        this.selected1 = this.missions[missionid+0].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
