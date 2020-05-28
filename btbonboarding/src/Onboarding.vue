@@ -270,11 +270,13 @@
                         <label for="input-small">Vs</label>
                         </b-col>
                         <b-col sm="9">
-                          <b-form-select v-model="vsselected2" v-on:click="getAllTeamName2">
-                            <!-- <option disabled value="">Please select one</option> -->
+                          <!-- <b-form-select v-model="vsselected2" v-on:click="getAllTeamName2">
                             <option v-for="option in allTeamList2" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
-                            <!-- <option>C</option> -->
-                          </b-form-select>
+                          </b-form-select> -->
+                          <b-form-input v-model="vsselected2" list="my-list-id1" v-on:focus="getAllTeamName2" v-on:change="onChangeTeamVsTeam2"></b-form-input>
+                              <datalist id="my-list-id1">
+                                  <option v-for="option in allTeamList2" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
+                              </datalist>
                         </b-col>
                       </b-row>
 
@@ -1131,7 +1133,7 @@
                 </draggable>
 
                 <draggable>
-                  
+
                 </draggable>
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
@@ -1440,7 +1442,7 @@ export default {
 
 
         vsselected1: null,
-        vsselected2: '',
+        vsselected2: null,
         vsselected3: '',
         vsselected4: '',
         vsselected5: '',
@@ -1645,6 +1647,7 @@ export default {
 
         var teamName = this.vsselected1;
         var teamSessionId = this.list2sessionid;
+        var teamSessionId2 = this.list4sessionid;
 
         console.log(teamName);
         console.log(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName);
@@ -1658,25 +1661,111 @@ export default {
                 var teamNameId = response.data[0].id;
                 console.log(teamNameId);
 
+                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId);
+
+                /** this will update session id on team_vs_team_id for SIDE A 1 **/
                 axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId,{
-                  team_vs_team_id : teamNameId
+                  team_vs_team_id : teamSessionId2
                 })
-                  .then(function (response) {
+                  .then(response => {
                     console.log(response);
                   })
 
                   .catch(function (error) {
                     console.log(error);
                   });
+                /** end of SIDE A 1 session id update on team vs team id **/
+
+                
+                /**this will update session id on team_vs_team_id for SIDE B 1 **/
+
+                  axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId2,{
+                      team_vs_team_id : teamSessionId
+                      })
+
+                      .then(response => {
+                      console.log(response);
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+
+
+                  /** end of team_vs_team_id for side B 1 **/
               })
 
               .catch(function (error) {
                 console.log(error);
               });
+        
+        this.vsselected2 = this.teamName1; /** this updates the team name auto on SIDE B 1 **/   
+
+      },
+
+      onChangeTeamVsTeam2(){
+
+        console.log(this.list4sessionid);
+        console.log(this.vsselected2);
+        // http://localhost:9090/team_vs_teams
+        console.log(this.allTeamList2.id);
+        console.log("inside on change team vs team 1");
+
+        var teamName = this.vsselected2;
+        var teamSessionId = this.list2sessionid;
+        var teamSessionId2 = this.list4sessionid; /** this is the parent now **/
+
+        console.log(teamName);
+        console.log(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName);
+
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
+              name: this.vsselected2
+            })
+              .then(response => {
+                console.log(response);
+                console.log(response.data[0].id);
+                var teamNameId = response.data[0].id;
+                console.log(teamNameId);
+
+                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId2);
+
+                /** this will update session id on team_vs_team_id for SIDE A 1 **/
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId2,{
+                  team_vs_team_id : teamSessionId
+                })
+                  .then(response => {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                /** end of SIDE A 1 session id update on team vs team id **/
+
+                
+                /**this will update session id on team_vs_team_id for SIDE B 1 **/
+
+                  axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId,{
+                      team_vs_team_id : teamSessionId2
+                      })
+
+                      .then(response => {
+                      console.log(response);
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
 
 
-        var sessionidused = this.list2sessionid;
+                  /** end of team_vs_team_id for side B 1 **/
+              })
 
+              .catch(function (error) {
+                console.log(error);
+              });
+        // console.log("inside team vs team 2nd column");
+        this.vsselected1 = this.teamName2; /** this updates the team name auto on SIDE A 1 **/  
       },
 
       updateRfid(){
