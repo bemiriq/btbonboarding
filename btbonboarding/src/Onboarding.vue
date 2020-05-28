@@ -1116,9 +1116,9 @@
                     <!-- <div class="list-group-item item" v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.id">
                       {{player_minor.first_name}}
                     </div> -->
-                    <p v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.name">
+                    <!-- <p v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.name">
                       {{player_minor.first_name}}
-                  </p>
+                  </p> -->
                 </div>
 
 
@@ -1128,6 +1128,10 @@
                   </p>
                 </div> -->
 
+                </draggable>
+
+                <draggable>
+                  
                 </draggable>
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
@@ -1290,8 +1294,8 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
-    // var currentdate = moment().format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
 
     var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
@@ -1300,8 +1304,8 @@ export default {
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data
         // var teamtime = this.teamByTime2.data[0].reservation_for,
