@@ -160,7 +160,7 @@
                             <option v-for="option in allTeamList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                           </b-form-select> -->
 
-                                    <b-form-input v-model="vsselected1" list="my-list-id" v-on:change="onChangeTeamVsTeam1"></b-form-input>
+                                    <b-form-input v-model="vsselected1" list="my-list-id" v-on:focus="getAllTeamName" v-on:change="onChangeTeamVsTeam1"></b-form-input>
                                     <datalist id="my-list-id">
                                       <option v-for="option in allTeamList" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
                                     </datalist>
@@ -270,7 +270,7 @@
                         <label for="input-small">Vs</label>
                         </b-col>
                         <b-col sm="9">
-                          <b-form-select v-model="vsselected2">
+                          <b-form-select v-model="vsselected2" v-on:click="getAllTeamName2">
                             <!-- <option disabled value="">Please select one</option> -->
                             <option v-for="option in allTeamList2" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             <!-- <option>C</option> -->
@@ -1113,10 +1113,30 @@
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                     <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
-                    <p>{{reservation.Booker.Person.last_name}}</p>
-                  </div>
+                    <!-- <div class="list-group-item item" v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.id">
+                      {{player_minor.first_name}}
+                    </div> -->
+                    <p v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.name">
+                      {{player_minor.first_name}}
+                  </p>
+                </div>
+
+
+                <!-- <div class="list-group-item item" v-for="element1 in reservation.Reservation_people" :key="element1.name">
+                  <p v-for="player_minor in element1.Person.Player.Player_minors" :key="player_minor.name">
+                      {{player_minor.first_name}}
+                  </p>
+                </div> -->
 
                 </draggable>
+
+                <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
+                  <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
+                  <p v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.name">
+                      {{player_minor.first_name}}
+                  </p>
+                </div>
+                </draggable> -->
 
             <!--     <draggable :list="teamByTime2" class="list-group" draggable=".item" group="a" :move="checkMove1">
                 
@@ -1270,18 +1290,18 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('H:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('H:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
       (
         this.teamByTime2 = response.data
         // var teamtime = this.teamByTime2.data[0].reservation_for,
@@ -1599,22 +1619,59 @@ export default {
 
       },
 
+      getAllTeamName(){
+        // console.log("san");
+        axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data));
+
+      },
+
+      getAllTeamName2(){
+
+        // console.log("san");
+        axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList2 = response.data));
+
+      },
+
       onChangeTeamVsTeam1(){
         console.log(this.list2sessionid);
+        console.log(this.vsselected1);
         // http://localhost:9090/team_vs_teams
+        console.log(this.allTeamList.id);
+        console.log("inside on change team vs team 1");
 
-        var sessionidused = this.list2sessionid;
+        var teamName = this.vsselected1;
+        var teamSessionId = this.list2sessionid;
 
-        axios.post(process.env.VUE_APP_DTB_T_VS_T,{
-              session_id: sessionidused
+        console.log(teamName);
+        console.log(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName);
+
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
+              name: this.vsselected1
             })
-              .then(function (response) {
+              .then(response => {
                 console.log(response);
+                console.log(response.data[0].id);
+                var teamNameId = response.data[0].id;
+                console.log(teamNameId);
+
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId,{
+                  team_vs_team_id : teamNameId
+                })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
               })
 
               .catch(function (error) {
                 console.log(error);
               });
+
+
+        var sessionidused = this.list2sessionid;
 
       },
 
@@ -1733,7 +1790,7 @@ export default {
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop(e){
 
-         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data)); /** this fetches team name from team table **/
+         // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList = response.data)); /** this fetches team name from team table **/
 
         console.log(this.organizationselected1);
 
@@ -2224,6 +2281,18 @@ export default {
   },
 
     computed:{
+
+      // teambytimeRepeat() {
+      //     const grouped = this.teamByTime2.reduce((map, { text, time }) => {
+      //       let group = map.get(time) || map.set(time, []).get(time)
+      //       group.push(text)
+      //       return map
+      //     }, new Map())
+
+      //     return Array.from(grouped, ([ time, texts ]) => ({ time, texts }))
+      //   }
+
+
       rfidState1() {
         return this.rfid1.length > 5 ? true : false
       },
