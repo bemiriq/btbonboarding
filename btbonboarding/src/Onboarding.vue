@@ -1357,6 +1357,7 @@ export default {
         list2rfidcontainer: '',
 
         countfunction: '0',
+        countfunction2: '0',
 
         playerCheckList2:[], /** this saves dragged item from main div **/
 
@@ -1558,13 +1559,15 @@ export default {
 
 
       posttorfidapi(event, index){
-        console.log("inside update rfid");
+        console.log("inside update rfid side A");
          var arr = this.list2;
 
          var number = this.countfunction++;
 
-          var rfid_tag = this.list2[number].rfidState1;
+          var rfid_tag = parseInt(this.list2[number].rfidState1);
 
+          console.log(arr);
+          console.log(number);
           console.log(rfid_tag);
 
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
@@ -1600,10 +1603,19 @@ export default {
         console.log("inside update rfid side b 1");
          var arr = this.list4;
 
-         var number = this.countfunction++;
+         // console.log(this.list4);
+         // console.log(this.list4[number].rfidState2);
 
-          var rfid_tag = this.list4[number].rfidState2;
+         var number = this.countfunction2++;
 
+         
+         console.log(this.list4[number].rfidState2);
+
+          var rfid_tag = parseInt(this.list4[number].rfidState2);
+
+          console.log(rfid_tag);
+          console.log(arr);
+          console.log(number);
           console.log(rfid_tag);
 
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
@@ -1812,6 +1824,25 @@ export default {
               });
 
          }
+
+         /** this will update the player_count on session table **/
+        console.log(this.list2.length);        
+        var sessionid = this.list2sessionid;
+
+         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+              player_count: this.list2.length
+            })
+              .then(function (response) {
+                console.log(response);
+                // console.log("papa");
+                // this.list2teamplayersessionid = response.data[0].id;
+              })
+
+              .catch(function (error) {
+                console.log(error);
+              });
+
+          /** end of player_count on session table **/
         
       },
 
@@ -1842,6 +1873,25 @@ export default {
               });
 
          }
+
+         /** this will update the player_count on session table **/
+         console.log(this.list4.length);        
+        var sessionid = this.list4sessionid;
+
+         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+              player_count: this.list4.length
+            })
+              .then(function (response) {
+                console.log(response);
+                // console.log("papa");
+                // this.list2teamplayersessionid = response.data[0].id;
+              })
+
+              .catch(function (error) {
+                console.log(error);
+              });
+
+        /** end of player_count for session table **/
         
       },
 
@@ -1898,7 +1948,7 @@ export default {
         console.log(this.organizationselected1);
 
         var missionid = this.teamByTime2[0].mission_id;
-        this.selected1 = this.missions[missionid+0].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
