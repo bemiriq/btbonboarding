@@ -9,7 +9,9 @@
 
         <!-- list for all rfid b-modal -->
 
-        <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A 1" v-bind:hide-footer="true">
+        <!-- <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
+        <b-modal id="modal-center" ref="sideArfidModalUpdate" centered v-bind:hide-footer="true">
+                            <b><p>Side A {{dateTime1Data}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
@@ -25,7 +27,7 @@
                               </b-row>
                               <br/>
                               <b-row>
-                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked(); updateRfid();">UPDATE</b-button></b-col>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked(); updateRfid();">COMPLETE</b-button></b-col>
                                 <br/>
                               </b-row>
                               <br/>
@@ -37,7 +39,9 @@
 
         <!-- sibe B 1 .. rfid update -->
 
-                <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true">
+                <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
+                <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
+                            <b><p>Side B {{dateTime1Data}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
@@ -52,7 +56,7 @@
                               </b-row>
                               <br/>
                               <b-row>
-                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClickedSideB1(); updateRfid2();">UPDATE</b-button></b-col>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClickedSideB1(); updateRfid2();">COMPLETE</b-button></b-col>
                                 <br/>
                               </b-row>
                               <br/>
@@ -120,7 +124,7 @@
                         <!-- <input type="text" v-model="reservation.mission_id"> -->
 
                           <input v-model="element.id" type="text" disabled style="display:none;">
-                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' " disabled @input="inputEvent" ></b-form-input>
+                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name " disabled @input="inputEvent" ></b-form-input>
                           <!-- <input v-model="element.first_name" disabled> -->
                       </div>
                      <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
