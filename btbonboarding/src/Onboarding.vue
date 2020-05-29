@@ -46,10 +46,10 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
                                     <br/>
-                                    <b-form-input id="input-live" v-model="listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
+                                    <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState1" v-on:input="posttorfidapi2($event)"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState2" ref="todos2" @input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
 
                                   </div>
                                 </b-col>
@@ -108,13 +108,14 @@
                       </b-col>
                     </b-row>
 
+                    <!-- group="a" style="height: 300px; border-style: outset;" @add="onDrop" @start="getpersonDetails1" -->
                     <draggable
                         id="first"
                         data-source="juju"
                         :list="list2"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;" @add="onDrop" @start="getpersonDetails1"
+                        group="a" style="height: 300px; border-style: outset;" @add="onDrop" @start="onDropReservation"
                       >
                       <div
                         class="list-group-item item"
@@ -1116,7 +1117,7 @@
 
                 <b>{{reservation.Booker.Person.last_name}} Reservation</b>
 
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
                 <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                     <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
                     <!-- <div class="list-group-item item" v-for="player_minor in element.Person.Player.Player_minors" :key="player_minor.id">
@@ -1300,7 +1301,7 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
     var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
@@ -1589,19 +1590,19 @@ export default {
           });
 
           const nextIndex = index + 1;
-          if (nextIndex < this.list2.length && rfid_tag.length > 5) {
+          if (nextIndex < this.list2.length && rfid_tag.length > 7) {
             this.$refs.todos[nextIndex].focus()
           }
 
       },
 
-      posttorfidapi2(event){
+      posttorfidapi2(event, index){
         console.log("inside update rfid side b 1");
          var arr = this.list4;
 
          var number = this.countfunction++;
 
-          var rfid_tag = this.list4[number].rfidState1;
+          var rfid_tag = this.list4[number].rfidState2;
 
           console.log(rfid_tag);
 
@@ -1626,6 +1627,11 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
+          const nextIndex = index + 1;
+          if (nextIndex < this.list4.length && rfid_tag.length > 7) {
+            this.$refs.todos2[nextIndex].focus()
+          }
 
       },
 
@@ -1823,7 +1829,7 @@ export default {
           axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
               player_id: playerid,
               rfid_id: rfidtag_id,
-              team_id: this.teamname1id[0].id,
+              team_id: this.teamname2id[0].id,
               session_id: sessionid
             })
               .then(function (response) {
@@ -1910,10 +1916,12 @@ export default {
 
           if(teamId > 0){
             // console.log('greater than 0');
+            
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
             team_id: teamId,
-            route_id: routeId
+            route_id: routeId,
+            mission_id: this.teamByTime2[0].mission_id
             })
             .then(response => {
 
@@ -1998,7 +2006,8 @@ export default {
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
             team_id: teamId,
-            route_id: routeId
+            route_id: routeId,
+            mission_id: this.teamByTime2[0].mission_id
             })
             .then(response => {
 
@@ -2191,9 +2200,6 @@ export default {
 
         if(this.teamName1.length < 1){
           return false;
-        }
-        else{
-          console.log('insert team name first');
         }
       },
 
@@ -2391,7 +2397,7 @@ export default {
 
 
       rfidState1() {
-        return this.rfid1.length > 5 ? true : false
+        return this.rfid1.length > 7 ? true : false
       },
 
       rfidState2() {
