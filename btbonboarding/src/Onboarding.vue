@@ -1371,7 +1371,7 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -1401,7 +1401,14 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      /** below line is to make the function WORK ON MY LOCAL DATABASE **/
+
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00");
+
+      /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      /** This one  **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
 
       var sideA1route='1';
       var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
