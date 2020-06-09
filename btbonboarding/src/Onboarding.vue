@@ -44,7 +44,6 @@
 
                                       <b-form-input style="background-color:#33FF90" v-model="personame.Rfid.tag">{{personame.Rfid.tag}}</b-form-input>
                                       <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/>
-                                      <br>
                                       <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
                                       <!-- <b-form-input v-model="rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input> -->
                                     </div>
@@ -134,36 +133,64 @@
 
                     <!-- group="a" style="height: 300px; border-style: outset;" @add="onDrop" @start="getpersonDetails1" -->
 
-                    <draggable
-                        id="first"
-                        data-source="juju"
-                        :list="list2"
-                        class="list-group"
-                        draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;" @add="onDrop" :move="onDropReservation"
-                      >
-                      <!-- <p>SAN DESH</p> -->
+                    <!-- <draggable id="first" data-source="juju" :list="toListFetchRouteA1" class="list-group" draggable=".item" group="a">
+                        <div class="list-group-item item" v-for="(teamfetch,index) in toListFetchRouteA1" :key="index">
+                          <input id="input-live" v-model="teamfetch.id" type="text" disabled>
+                        </div>
+                    </draggable> -->
+                    
                       
-                      <div v-if="toListFetchRouteA1.length > '0'" style="height: 100%; background-color: yellow;">
-                        <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
-                          <div class="list-group-item item" v-for="(element, index) in teamfetch.Team_player_sessions" :key="index">
-                            <div>
-                              {{element.Player.Person.first_name}} {{element.Player.Person.last_name}}
-                            </div>
+                        <!-- <b-form-input id="input-live" disabled v-model="fetchPlayerList" v-if="fetchPlayerList"></b-form-input> -->
+                        <div v-if="toListFetchRouteA1.length > '0'">
+                          <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
+                            <!-- <input id="input-live" v-model="teamfetch.id" type="text" disabled> -->
+                            <!-- <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id" class="list-group-item item">
+                              {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}}
+                            </div> -->
+                            <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a"  style="height: 300px; border-style: outset; background-color: yellow;">
+                              <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
+                                {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}}
+                              </div>
+                            </draggable>
                           </div>
                         </div>
+                      <!-- </draggable> -->
+                    <!-- </div> -->
+
+                    <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
+                      <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                       </div>
-                      
-                      
+                    </draggable -->
+                    <div v-else>
+                      <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" 
+                      @add="onDrop" :move="onDropReservation">
 
-                      <!-- <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
+                        <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
+                          <!-- <input type="text" v-model="reservation.mission_id"> -->
 
-                          <input v-model="element.id" type="text" disabled>
+                            <!-- <b-form-input id="input-live" disabled v-model="fetchPlayerList" v-if="fetchPlayerList"></b-form-input> -->
 
-                          <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input>
-                          <input v-model="element.first_name" disabled>
+                            <input v-model="element.id" type="text" disabled style="display: none;">
+
+                             <!-- <select v-model="list2SelectedPlayerId" >
+                                 <option v-bind:value="element.id"> {{element.id}}</option>
+                            </select> -->
+
+                            <!-- <input v-bind:value="element.id" v-on:click="selectedPlayerId"/> -->
+                            <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' ' + element.Person.id" disabled @input="inputEvent"></b-form-input>
+                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
+                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
+                            <!-- <input v-model="element.first_name" disabled> -->
+                        </div>
+                       <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
+                            {{ element.name }}
+                          </div> -->
+
+                             <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
+                            <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                          </div> -->
+                        </draggable>
                       </div>
- -->                      </draggable>
 
                       <br/>
 
@@ -1165,13 +1192,13 @@
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
                   <!-- <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name"> -->
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }}
+                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }} / {{reservation.Booker.Person.last_name}}
 
                       <!-- <select :value="reservation.Booker.Person.id" v-on:click="reservationBy">
                         <option>{{reservation.Booker.Person.id}}</option>
                       </select> -->
 
-                      <!-- <input v-bind:value="reservation.Booker.Person.id" v-on:click="reservationBy"/> -->
+                      <!-- <input v-model="" v-bind:value="reservation.Booker.Person.last_name" v-on:click="reservationBy"/> -->
 
                       <!-- <input v-bind:value="reservation.Booker.Person.id" ref="printBookerLastName"/> -->
 
@@ -1371,7 +1398,7 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -1401,14 +1428,7 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      /** below line is to make the function WORK ON MY LOCAL DATABASE **/
-
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00");
-
-      /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
-
-      /** This one  **/
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       var sideA1route='1';
       var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
