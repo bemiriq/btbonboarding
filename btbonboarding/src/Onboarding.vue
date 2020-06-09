@@ -1521,6 +1521,8 @@ export default {
         lastTeamIdOne: [],
         lastTeamIdTwo: [],
 
+        onDrop2FunctionLoaded:'0',
+
         // reservationNameByTime: [],
 
         teamName1: '',
@@ -1957,7 +1959,8 @@ export default {
             var playerid = this.list2[i].id;
             var sessionid = this.list2sessionid;
 
-            console.log(this.list2[i].id);
+          console.log(this.list2[i].id);
+
           console.log(teamplayertableid);
           console.log(rfidtag_id);
 
@@ -2139,6 +2142,7 @@ export default {
 
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
+
         console.log(draggedPlayerId);
 
         
@@ -2185,12 +2189,13 @@ export default {
               var sessionIdInserted = response.data[0].id;
 
               /** checks the session id and post again using axios.post for team player session table **/
+              peopleidDragged = this.list4[0].Person.Player.id;
               if(sessionIdInserted > 0){
 
                 axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
                 // session_id: sessionIdInserted,
-                team_id: teamId
-                // player_id: draggedPlayerId
+                team_id: teamId,
+                player_id: peopleidDragged
                 })
                 .then(response => {
                   // console.log(response.data);
@@ -2246,6 +2251,15 @@ export default {
 
         console.log(this.teamByTime2[0].mission_id);
 
+        var countondrop2 = this.onDrop2FunctionLoaded++;
+        // this.onDrop2FunctionLoaded++;
+        console.log(countondrop2);
+
+        console.log("below is the dragged id as person id");
+        console.log(this.list4[countondrop2].Person.Player.id);
+
+        var peopleidused = this.list4[countondrop2].Person.Player.id;
+
         this.selected2 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
         var draggedPlayerId = this.list4[this.list4.length - 1].id; /* this will always select the last player id dragged */
@@ -2275,8 +2289,8 @@ export default {
 
                 axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
                 // session_id: sessionIdInserted,
-                team_id: teamId
-                // player_id: draggedPlayerId
+                team_id: teamId,
+                player_id: peopleidused
                 })
                 .then(response => {
 
