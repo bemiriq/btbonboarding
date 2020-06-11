@@ -3,6 +3,8 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
+    <input type="text" placeholder="input field for RFID reader"/>
+
     <div class="bv-example-row" id="mainContainer">
 
       <b-row>
@@ -177,7 +179,9 @@
                             </select> -->
 
                             <!-- <input v-bind:value="element.id" v-on:click="selectedPlayerId"/> -->
-                            <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' ' + element.Person.id" disabled @input="inputEvent"></b-form-input>
+                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' ' + element.Person.id" disabled @input="inputEvent"></b-form-input> -->
+                            <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent"></b-form-input>
+
                             <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
                             <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
                             <!-- <input v-model="element.first_name" disabled> -->
@@ -1398,7 +1402,7 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2189,7 +2193,8 @@ export default {
               var sessionIdInserted = response.data[0].id;
 
               /** checks the session id and post again using axios.post for team player session table **/
-              peopleidDragged = this.list4[0].Person.Player.id;
+              var peopleidDragged = this.list2[0].Person.Player.id;
+
               if(sessionIdInserted > 0){
 
                 axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
