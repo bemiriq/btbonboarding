@@ -3,7 +3,8 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
-    <input type="text" placeholder="input field for RFID reader"/>
+    <!-- <input type="text" placeholder="input field for RFID reader" @blur="focusOutPostRfid" :value=""/> -->
+    <!-- <input type="text"/> -->
 
     <div class="bv-example-row" id="mainContainer">
 
@@ -22,7 +23,8 @@
                                     <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState1" ref="todos" @blur="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                    <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
 
                                   </div>
                                 </b-col>
@@ -36,18 +38,14 @@
 
                               <!-- this displays the fetch data from mounted -->
                               <b-row class="my-1">
-                                <!-- karfuilagyo@gmail.com -->
                                 <b-col sm="12">
                                   <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                                     <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
-                                      <!-- {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}} {{personame.Rfid.id}} -->
 
                                       <b-form-input id="input-live" :value="personame.Player.Person.first_name +' '+personame.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
 
                                       <b-form-input style="background-color:#33FF90" v-model="personame.Rfid.tag">{{personame.Rfid.tag}}</b-form-input>
                                       <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/>
-                                      <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
-                                      <!-- <b-form-input v-model="rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input> -->
                                     </div>
                                   </div>
                                 </b-col>
@@ -143,12 +141,13 @@
                     
                       
                         <!-- <b-form-input id="input-live" disabled v-model="fetchPlayerList" v-if="fetchPlayerList"></b-form-input> -->
+
+
+
+
+
                         <div v-if="toListFetchRouteA1.length > '0'">
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
-                            <!-- <input id="input-live" v-model="teamfetch.id" type="text" disabled> -->
-                            <!-- <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id" class="list-group-item item">
-                              {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}}
-                            </div> -->
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a"  style="height: 300px; border-style: outset; background-color: yellow;">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
                                 {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}}
@@ -156,6 +155,11 @@
                             </draggable>
                           </div>
                         </div>
+
+
+
+
+
                       <!-- </draggable> -->
                     <!-- </div> -->
 
@@ -163,6 +167,7 @@
                       <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                       </div>
                     </draggable -->
+
                     <div v-else>
                       <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" 
                       @add="onDrop" :move="onDropReservation">
@@ -1485,6 +1490,8 @@ export default {
 
   data() {
       return {
+        checkReader:'',
+
         list: [],
 
         list2:[], /** this grabs the player names for side A first form */
@@ -1718,12 +1725,20 @@ export default {
       //   // alert('Processing');
       // },
 
+      focusOutPostRfid(e){
+        console.log('inside focus out');
+        console.log('blur', e.target.value);
+      },
 
       posttorfidapi(event, index){
         console.log("inside update rfid side A");
          var arr = this.list2;
 
+         console.log(this.list2);
+
          var number = this.countfunction++;
+
+         console.log(this.list2[number].rfidState1);
 
           var rfid_tag = parseInt(this.list2[number].rfidState1);
 
@@ -1735,8 +1750,7 @@ export default {
             tag: rfid_tag,
           })
           .then(response => {
-            // console.log(response.data[0].id);
-           // this.list2rfidcontainer = response.data[0].id;
+            console.log(response.data[0].id);
             this.list2rfidcontainer  = response.data[0].id;
 
             this.list2rfidcontainer = response.data[0].id;
@@ -1744,9 +1758,7 @@ export default {
                   if (this.list2rfidcontainer > 0) { 
                         this.list2rfidcontainerarray.push(this.list2rfidcontainer);
                     }
-
             })
-            
 
             /** end of rfid update to team player session table **/
           .catch(function (error) {
