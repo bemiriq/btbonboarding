@@ -71,7 +71,7 @@
                                     <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState2" ref="todos2" @input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState2" ref="todos2" @blur="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
 
                                   </div>
                                 </b-col>
@@ -1201,8 +1201,7 @@
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
                   <!-- <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name"> -->
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }} / {{reservation.Booker.Person.last_name}}
-
+                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }}
                       <!-- <select :value="reservation.Booker.Person.id" v-on:click="reservationBy">
                         <option>{{reservation.Booker.Person.id}}</option>
                       </select> -->
@@ -1778,7 +1777,7 @@ export default {
         console.log("inside update rfid side b 1");
          var arr = this.list4;
 
-         // console.log(this.list4);
+         console.log(this.list4);
          // console.log(this.list4[number].rfidState2);
 
          var number = this.countfunction2++;
@@ -1788,32 +1787,33 @@ export default {
 
           var rfid_tag = parseInt(this.list4[number].rfidState2);
 
+          console.log(this.list4[0].rfidState2);
+          console.log(this.list4[1].rfidState2);
+
           console.log(rfid_tag);
           console.log(arr);
           console.log(number);
           console.log(rfid_tag);
 
-          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-            tag: rfid_tag,
-          })
-          .then(response => {
-            // console.log(response.data[0].id);
-           // this.list2rfidcontainer = response.data[0].id;
-            this.list4rfidcontainer  = response.data[0].id;
+          // axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
+          //   tag: rfid_tag,
+          // })
+          // .then(response => {
+          //   this.list4rfidcontainer  = response.data[0].id;
 
-            this.list4rfidcontainer = response.data[0].id;
+          //   this.list4rfidcontainer = response.data[0].id;
 
-                  if (this.list4rfidcontainer > 0) { 
-                        this.list4rfidcontainerarray.push(this.list4rfidcontainer);
-                    }
+          //         if (this.list4rfidcontainer > 0) { 
+          //               this.list4rfidcontainerarray.push(this.list4rfidcontainer);
+          //           }
 
-            })
+          //   })
             
 
-            /** end of rfid update to team player session table **/
-          .catch(function (error) {
-            console.log(error);
-          });
+          //   /** end of rfid update to team player session table **/
+          // .catch(function (error) {
+          //   console.log(error);
+          // });
 
           const nextIndex = index + 1;
           if (nextIndex < this.list4.length && rfid_tag.length > 7) {
