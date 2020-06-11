@@ -63,7 +63,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>Side B {{dateTime1Data}}</p></b>
+                            <b><p>Side B {{dataTime1BData}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
@@ -82,6 +82,24 @@
                                 <br/>
                               </b-row>
                               <br/>
+
+                              <!-- this displays the fetch data from mounted -->
+                              <b-row class="my-1">
+                                <b-col sm="12">
+                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2" :key="teamfetch.id">
+                                    <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
+
+                                      <b-form-input id="input-live" :value="personame.Player.Person.first_name +' '+personame.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+
+                                      <b-form-input style="background-color:#33FF90" v-model="personame.Rfid.tag">{{personame.Rfid.tag}}</b-form-input>
+                                      <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/>
+                                    </div>
+                                  </div>
+                                </b-col>
+                              </b-row>
+
+                              <!-- end of row that displays fetch data from mounted -->
+
 
                             </b-modal>
 
@@ -1367,6 +1385,7 @@ export default {
     /** first time case **/
     const remainder1 = -15 - (start.minute() % 30);
     const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
+    const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
     /** second time case **/
     const remainder2 = 0 - (start.minute() % 30);
@@ -1390,6 +1409,8 @@ export default {
 
     // console.log(dateTime1);
     this.dateTime1Data = dateTime1;
+    this.dataTime1BData = dateTime1B;
+
     this.dateTime2Data = dateTime2;
     this.dateTime3Data = dateTime3;
     this.dateTime4Data = dateTime4;
@@ -1481,6 +1502,57 @@ export default {
                       });
     }
 
+
+    if(dateTime1B != null){
+
+      console.log(dateTime1B);
+      const remainderRoute1 = -15 - (start.minute() % 30);
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      var sideB1route='2';
+      var sideB1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+      console.log(sideB1time);
+
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+sideB1time+'/route_id/'+sideB1route,{
+                      // team_vs_team_id : teamSessionId2
+                      })
+
+                      .then(response => {
+                        console.log(response);
+                        // console.log(response.data[0].id);
+                        if(response.data.length > 0){
+                          console.log("greater than 0");
+                          this.teamName2 = response.data[0].Team.name;
+                          this.selected2 = response.data[0].mission_id;
+
+                          var first_name = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+                          var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
+
+                          this.toListFetchRouteA2 = response.data ;
+                          // this.toListFetchRouteA2 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+
+                          if (this.toListFetchRouteA2 > 0) { 
+                              this.fetchPlayerList2.push(this.toListFetchRouteA2);
+                          }
+
+                          // this.list2 = "SAN";
+                          // this.fetchPlayerList = first_name+' '+last_name;
+
+                          // this.tolist2teamplayersessionid = response.data[];
+                          // this.list2[0].Person.last_name = last_name;
+
+                        }
+                        else{
+                          console.log("less");
+                        }
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+    }
+
+
       
 
     // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00');
@@ -1509,6 +1581,10 @@ export default {
         timeListText:'Time',
         toListFetchRouteA1:'',
         fetchPlayerList:[],
+
+        toListFetchRouteA2:'',
+        fetchPlayerList2:[],
+        dataTime1BData: '',
 
         teamByTime2FormattedTime:[],
 
