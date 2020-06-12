@@ -1427,8 +1427,8 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -2281,7 +2281,10 @@ export default {
               var sessionIdInserted = response.data[0].id;
 
               /** checks the session id and post again using axios.post for team player session table **/
-              var peopleidDragged = this.list2[0].Person.Player.id;
+              // var peopleidDragged = this.list2[0].Person.Player.id;
+              var peopleidDragged = this.list2[0].person_id;
+              console.log(this.list2);
+              console.log(peopleidDragged);
 
               if(sessionIdInserted > 0){
 
