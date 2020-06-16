@@ -71,7 +71,7 @@
                                     <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
                                     <input type="text" v-model="listings.id" disabled style="display:none;"/>
 
-                                    <b-form-input v-model="listings.rfidState2" ref="todos2" @blur="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                    <b-form-input v-model="listings.rfidState2" ref="todos2" v-on:input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90', 'color' : '#33FF90' } : null"></b-form-input>
 
                                   </div>
                                 </b-col>
@@ -347,8 +347,13 @@
                         v-for="(element2, index) in list4"
                         :key="index">
 
-                        <input v-model="element2.id" type="text" disabled style="display:none;">
-                        <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2"></b-form-input>
+                        <input v-model="element2.id" type="text" disabled/>
+                        <!-- <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2">{{element2.Person.last_name}} {{element2.Person.first_name}}</b-form-input> -->
+                        <!-- :value="element.Person.first_name + ' ' + element.Person.last_name" -->
+                        <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2">
+                          
+                        </b-form-input>
+
                       </div>
                       </draggable>
 
@@ -1214,7 +1219,7 @@
 
                 <p class="filters">{{reservation.reservation_for | moment}}</p>
 
-                <b>{{reservation.Booker.Person.last_name}} Reservation</b>
+                <b>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
                   <!-- <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name"> -->
@@ -1229,6 +1234,7 @@
                       <!-- <input v-bind:value="reservation.Booker.Person.id" ref="printBookerLastName"/> -->
 
                       </p>
+                      <!-- <p>{{reservation.Booker.Person.last_name}}</p> -->
                       <!-- <select :value="reservation.Booker.Person.id">
                         <option>{{reservation.Booker.Person.id}}</option>
                       </select> -->
@@ -1427,8 +1433,8 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(15, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1863,37 +1869,68 @@ export default {
 
           var rfid_tag = parseInt(this.list4[number].rfidState2);
 
-          console.log(this.list4[0].rfidState2);
-          console.log(this.list4[1].rfidState2);
+          console.log(this.list4[this.list4.length-1].rfidState2);
+          // console.log(this.list4[1].rfidState2);
 
           console.log(rfid_tag);
           console.log(arr);
           console.log(number);
           console.log(rfid_tag);
 
-          // axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-          //   tag: rfid_tag,
-          // })
-          // .then(response => {
-          //   this.list4rfidcontainer  = response.data[0].id;
+          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
+            tag: rfid_tag,
+          })
+          .then(response => {
+            this.list4rfidcontainer  = response.data[0].id;
+            var rfidId = this.list4rfidcontainer;
+            console.log(response.data[0].id);
 
-          //   this.list4rfidcontainer = response.data[0].id;
+            // this.list4rfidcontainer = response.data[0].id;
 
-          //         if (this.list4rfidcontainer > 0) { 
-          //               this.list4rfidcontainerarray.push(this.list4rfidcontainer);
-          //           }
+            //       if (this.list4rfidcontainer > 0) { 
+            //             this.list4rfidcontainerarray.push(this.list4rfidcontainer);
+            //         }
 
-          //   })
+            // })
+
+            var teamplayertableid = this.list4teamplayersessionid[number];
+            var rfidtag_id = this.list4rfidcontainerarray[number];
+            var playerid = this.list4[number].id;
+            var sessionid = this.list4sessionid;
+            console.log(teamplayertableid);
+            console.log(rfidtag_id);
+            console.log(playerid);
+            console.log(sessionid);
+
+            axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
+                // player_id: playerid,
+                rfid_id: rfidId,
+                team_id: this.teamname2id[0].id,
+                session_id: sessionid
+              })
+                .then(function (response) {
+                  console.log(response);
+                  // this.list2teamplayersessionid = response.data[0].id;
+                })
+
+                .catch(function (error) {
+                  console.log(error);
+                });
             
+            })
 
-          //   /** end of rfid update to team player session table **/
-          // .catch(function (error) {
-          //   console.log(error);
-          // });
+            /** end of rfid update to team player session table **/
+          .catch(function (error) {
+            console.log(error);
+          });
 
           const nextIndex = index + 1;
-          if (nextIndex < this.list4.length && rfid_tag.length > 7) {
-            this.$refs.todos2[nextIndex].focus()
+          console.log(nextIndex);
+          console.log(this.list4.length);
+
+          if (nextIndex < this.list4.length) {
+            this.$refs.todos2[nextIndex].focus();
+            console.log("next index switch");
           }
 
       },
@@ -2099,49 +2136,48 @@ export default {
       },
 
 
-      updateRfid2(){
+      updateRfid2(){ 
 
-        var arr = this.list4teamplayersessionid;
-         for(var i=0; i < arr.length; i++){
+        console.log("rfid 2 column updated");
 
-            var teamplayertableid = this.list4teamplayersessionid[i];
-            var rfidtag_id = this.list4rfidcontainerarray[i];
-            var playerid = this.list4[i].id;
-            var sessionid = this.list4sessionid;
+        // var arr = this.list4teamplayersessionid;
+        //  for(var i=0; i < arr.length; i++){
 
-          axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
-              player_id: playerid,
-              rfid_id: rfidtag_id,
-              team_id: this.teamname2id[0].id,
-              session_id: sessionid
-            })
-              .then(function (response) {
-                console.log(response);
-                // this.list2teamplayersessionid = response.data[0].id;
-              })
+        //     var teamplayertableid = this.list4teamplayersessionid[i];
+        //     var rfidtag_id = this.list4rfidcontainerarray[i];
+        //     var playerid = this.list4[i].id;
+        //     var sessionid = this.list4sessionid;
 
-              .catch(function (error) {
-                console.log(error);
-              });
+        //   axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
+        //       player_id: playerid,
+        //       rfid_id: rfidtag_id,
+        //       team_id: this.teamname2id[0].id,
+        //       session_id: sessionid
+        //     })
+        //       .then(function (response) {
+        //         console.log(response);
+        //       })
 
-         }
+        //       .catch(function (error) {
+        //         console.log(error);
+        //       });
 
-         /** this will update the player_count on session table **/
-         console.log(this.list4.length);        
-        var sessionid = this.list4sessionid;
+        //  }
 
-         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
-              player_count: this.list4.length
-            })
-              .then(function (response) {
-                console.log(response);
-                // console.log("papa");
-                // this.list2teamplayersessionid = response.data[0].id;
-              })
+        //  /** this will update the player_count on session table **/
+        //  console.log(this.list4.length);        
+        // var sessionid = this.list4sessionid;
 
-              .catch(function (error) {
-                console.log(error);
-              });
+        //  axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+        //       player_count: this.list4.length
+        //     })
+        //       .then(function (response) {
+        //         console.log(response);
+        //       })
+
+        //       .catch(function (error) {
+        //         console.log(error);
+        //       });
 
         /** end of player_count for session table **/
         
