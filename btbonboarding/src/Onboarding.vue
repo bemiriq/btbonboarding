@@ -168,7 +168,7 @@
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a"  style="height: 300px; border-style: outset; background-color: yellow;">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
-                                {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}}
+                                {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}} 
                               </div>
                             </draggable>
                           </div>
@@ -334,25 +334,54 @@
                       </b-col>
                     </b-row>
 
-                    <draggable
+                    <!-- <draggable
                         id="first"
                         data-source="juju"
                         :list="list4"
                         class="list-group"
                         draggable=".item"
                         group="a" style="height: 300px; border-style: outset;" @add="onDrop2"
-                      >
+                      > -->
+
+                    <draggable
+                        id="first"
+                        data-source="juju"
+                        :list="list4"
+                        class="list-group"
+                        draggable=".item"
+                        group="a" style="height: 300px; border-style: outset;" @add="onDrop2">
+
                       <div
                         class="list-group-item item"
                         v-for="(element2, index) in list4"
                         :key="index">
 
-                        <input v-model="element2.id" type="text" disabled/>
+                        <input v-model="element2.id" type="text" disabled style="display: none;"/>
                         <!-- <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2">{{element2.Person.last_name}} {{element2.Person.first_name}}</b-form-input> -->
                         <!-- :value="element.Person.first_name + ' ' + element.Person.last_name" -->
-                        <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2">
+                        <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name + ' ( ' + element2.Person.Bookerdetail.lastName +' )'" disabled @input="inputEvent2"> -->
+
+                        <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2" > -->
+
+                        <!-- </b-form-input> -->
+                        <!-- <input type="text" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2"/> -->
+                        <!-- <span class="glyphicon glyphicon-envelope"></span> -->
+                        <!-- <p>&#10004;</p> -->
+                        <div> 
+                          <!-- <p>I will display &#9986;</p> -->
+                          <b-row>
+                            <b-col sm="2">
+                               <p v-if="list4[index].rfidState2 > 3" style='font-size:17px; color:green;'>&#9989;</p> 
+                            </b-col>
+                            <b-col sm="7">
+                                {{element2.Person.first_name}} {{element2.Person.last_name}} ({{element2.Person.Bookerdetail.firstName}} {{element2.Person.Bookerdetail.lastName}})
+                            </b-col>
+                          </b-row>
+                        </div>
                           
-                        </b-form-input>
+
+                        <!-- </input> -->
+                        <!-- <p v-if="list4.rfidState2.length > 4">S</p> -->
 
                       </div>
                       </draggable>
@@ -1220,31 +1249,12 @@
                 <p class="filters">{{reservation.reservation_for | moment}}</p>
 
                 <b>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
-                <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1"> -->
+
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
-                  <!-- <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name"> -->
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
-                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }}
-                      <!-- <select :value="reservation.Booker.Person.id" v-on:click="reservationBy">
-                        <option>{{reservation.Booker.Person.id}}</option>
-                      </select> -->
-
-                      <!-- <input v-model="" v-bind:value="reservation.Booker.Person.last_name" v-on:click="reservationBy"/> -->
-
-                      <!-- <input v-bind:value="reservation.Booker.Person.id" ref="printBookerLastName"/> -->
-
-                      </p>
-                      <!-- <p>{{reservation.Booker.Person.last_name}}</p> -->
-                      <!-- <select :value="reservation.Booker.Person.id">
-                        <option>{{reservation.Booker.Person.id}}</option>
-                      </select> -->
-
-
+                      <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
+                      <!-- <p>S</p> -->
                   </div>
-
-                  
-
-
                 </draggable>
 
 
@@ -1257,14 +1267,18 @@
               <!-- <div v-for="minorreservation in teamByTime2" v-bind:key="minorreservation.id">
 
                 <div v-for="minorname in minorreservation.Reservation_people" :key="minorname.name">
-                  <draggable :list="minorreservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
-                        <div  class="list-group-item item" v-for="element in minorname.Person.Player.Player_minors" :key="element.id">
-                            {{element.first_name}}
+                  <draggable :list="minorreservation.Reservation_people.Minors" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
+                        <div  class="list-group-item item" v-for="element in minorname.Minors" :key="element.id">
+                            {{minorname.Minors.first_name}} {{minorname.Minors.last_name}}
                         </div>
                 </draggable>
                 </div>
 
 
+              </div> -->
+
+              <!-- <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
+                <p>SAN</p>
               </div> -->
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="onDropReservation">
@@ -1433,24 +1447,149 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(15, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(14, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime).then(response => 
-      (
-        this.teamByTime2 = response.data
-        // var teamtime = this.teamByTime2.data[0].reservation_for,
-        // console.log(this.teamByTime2[0].reservation_for),
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
-        // this.teamByTime2FormattedTime = moment(this.teamByTime2[0].reservation_for).format("h:mm A")
+      })
+      .then(response => 
+      {
+        // this.teamByTime2 = response.data;
 
-        // this.teamByTime2FormattedTime = response.data.reservation_for
-      ));
+        var booker_last_name = response.data[0].Booker.Person.last_name;
+        var booker_first_name = response.data[0].Booker.Person.first_name;
+        var booker_id = response.data[0].Booker.Person.id;
+
+        console.log(booker_first_name +' '+ booker_last_name);
+
+        var replyDataObj = response.data;
+        console.log(replyDataObj);
+
+        // var ccEmailId = "sandeshchiryo";
+
+        // replyDataObj[0]['Reservation_people'][0]['Person']['Bookerdetail']={
+        //      "id" : booker_id,
+        //      "firstName" : booker_first_name,
+        //      "lastName" : booker_last_name
+        //   }
+
+        console.log(replyDataObj);
+
+
+        for(let i=0; i < response.data.length; i++){
+          // console.log("090");
+          // console.log(i);
+
+          var booker_last_name = response.data[i].Booker.Person.last_name;
+          var booker_first_name = response.data[i].Booker.Person.first_name;
+          var booker_id = response.data[i].Booker.Person.id;
+
+          console.log(booker_first_name +' '+ booker_last_name);
+
+          var replyDataObj1 = response.data;
+          console.log(replyDataObj1);
+
+          var reservationID = response.data[i].Reservation_people[i].reservation_id;
+
+          // var ccEmailId = "sandeshchiryo";
+
+          console.log(response.data[0].Reservation_people.length);
+
+          var countSubtract = response.data[0].Reservation_people.length;
+
+          console.log(countSubtract);
+
+          for(let j=0; j < response.data[0].Reservation_people.length; j++){
+
+            console.log(i);
+            console.log(response.data[i].Reservation_people[j].Person.first_name+' '+response.data[i].Reservation_people[j].Person.last_name);
+
+          // console.log(response.data[0].Reservation_people[0].Person.Player.Player_minors.length);
+
+          replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+               // "address": [
+               //   ccEmailId
+               //  ]
+               "id" : booker_id, /** this is the person id for the booker **/
+               "firstName" : booker_first_name,
+               "lastName" : booker_last_name
+            }
+
+            console.log(replyDataObj1);
+            this.teamByTime2 = replyDataObj1;
+
+            for(let k=0; k < response.data[i].Reservation_people[j].Person.Player.Player_minors.length; k++){
+              // console.log(k);
+              console.log(i);
+              console.log(j);
+              console.log(k);
+              console.log(response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name);
+
+              var minorLastName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name;
+              var minorFirstName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].first_name;
+
+              var minorPlayerMinorId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].id;
+              var personSignedWaiverId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].player_id;
+
+              console.log(minorLastName+' '+minorFirstName);
+              var incrementObject = countSubtract++;
+              // var definePerson = 'Person';
+
+              // replyDataObj1[i]['Reservation_people'][j]['Person'][k]={
+              replyDataObj1[i]['Reservation_people'][incrementObject]={
+                 // "id" : booker_id,
+                 "id": minorPlayerMinorId,
+                 "Person":
+                    {
+                      "Player":{
+                        "id" : minorPlayerMinorId,
+                        "minor": 'yes'
+                      },
+                      "first_name" : minorFirstName,
+                      "last_name" : minorLastName,
+                      "id" : minorPlayerMinorId,
+                      "minor" : 'yes',
+                      "player_id" : personSignedWaiverId,
+                      "reservation_id": reservationID,
+                      "Bookerdetail":{
+                        "id" : booker_id, /** this is the person id for the booker **/
+                        "firstName" : booker_first_name,
+                        "lastName" : booker_last_name
+                      }
+                  }
+
+              }
+
+              console.log(replyDataObj1);
+              this.teamByTime2 = replyDataObj1;
+
+            }
+
+          }
+
+          // console.log(response.data[0].Reservation_people[0].Person.Player.Player_minors.length);
+
+          // for(let k=0; k < response.data[0].Reservation_people.Person.Player.Player_minors.length)
+
+          // this.teamByTime2 = replyDataObj;
+          // console.log(replyDataObj1);
+          // console.log(i++);
+        }
+
+        // this.teamByTime2 = replyDataObj1; /** this pushes the changed array/objects data **/
+
+        // this.teamByTime1.push(replyDataObj1);
+
+      })
+      .catch(function (error){
+        console.log(error);
+      });
 
 
     // var sideA1route='1';
@@ -2390,22 +2529,43 @@ export default {
         console.log("below is the dragged id as person id");
         console.log(this.list4[countondrop2].Person.Player.id);
 
+
         var peopleidused = this.list4[countondrop2].Person.Player.id;
 
         this.selected2 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
         var draggedPlayerId = this.list4[this.list4.length - 1].id; /* this will always select the last player id dragged */
 
-        var reservationid = this.list4[0].reservation_id;
+        var reservationid = this.list4[countondrop2].reservation_id;
         var teamId = this.teamname2id[0].id;
         var routeId = 2;
 
-          if(teamId > 0){
-            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
-            axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
+        // console.log(reservationid);
+
+        /** statement that checks if the dragged item is MONOR or NOT **/
+
+          if(this.list4[countondrop2].Person.Player.minor == 'yes'){
+
+            console.log('YES MINOR');
+            // console.log(this.list4[countondrop2].Person.Player.id);
+            // console.log(this.list4[countondrop2].Person.player_id);
+            console.log(countondrop2);
+            var id_of_player = this.list4[countondrop2].Person.player_id;
+            console.log(this.list4[0].Person.player_id);
+            console.log(id_of_player);
+
+            var minor_id = this.list4[countondrop2].Person.Player.id;
+            var id_of_reservation = this.list4[countondrop2].Person.reservation_id;
+            console.log(id_of_reservation);
+            // console.log(id_of_player+'/'+minor_id);
+
+            if(teamId > 0){
+            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId);
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId,{
             team_id: teamId,
             route_id: routeId,
-            mission_id: this.teamByTime2[0].mission_id
+            mission_id: this.teamByTime2[0].mission_id,
+            reservation_id: id_of_reservation
             })
             .then(response => {
 
@@ -2422,7 +2582,8 @@ export default {
                 axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
                 // session_id: sessionIdInserted,
                 team_id: teamId,
-                player_id: peopleidused
+                player_id: id_of_player,
+                player_minor_id: minor_id
                 })
                 .then(response => {
 
@@ -2447,6 +2608,73 @@ export default {
               console.log(error);
             });
           }
+
+
+          }
+          else{
+            console.log('Not Minor');
+            // console.log(reservationid);
+
+            if(teamId > 0){
+            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
+            team_id: teamId,
+            route_id: routeId,
+            mission_id: this.teamByTime2[0].mission_id,
+            reservation_id: reservationid
+            })
+            .then(response => {
+
+              console.log(response.data);
+
+              this.list4sessionid = response.data[0].id; /** this pass session id to list4sessionid **/
+
+              this.playerSessionDetail4 = response.data[0].id;
+              var sessionIdInserted = response.data[0].id;
+
+              /** checks the session id and post again using axios.post for team player session table **/
+              if(sessionIdInserted > 0){
+
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
+                // session_id: sessionIdInserted,
+                team_id: teamId,
+                player_id: peopleidused
+                // reservation_id: reservationid
+                })
+                .then(response => {
+
+                  /* this grabs the data from response pass it to tolist4teamplyersession which is an object , stores the multiple objects*/
+                  /* multiple objects is passed to array called list4teamplayersession*/
+                  this.tolist4teamplayersessionid = response.data[0].id;
+
+                  if (this.tolist4teamplayersessionid > 0) { 
+                        this.list4teamplayersessionid.push(this.tolist4teamplayersessionid);
+                    }
+                })
+
+                .catch(error => {
+                  console.log(error);
+                });
+              }
+              /** ends axios post on team player sessions **/
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
+          }
+
+        /** end of MINOR CHECK STATEMENT **/
+
+
+        // console.log(this.list4[countondrop2].Person.Minor_Player_id);
+
+        // if(this.list4[countondrop2].Person.Player.id === 'undefined'){
+        //   console.log("undefined");
+        // }
       },
 
       onChange(event){
@@ -2639,9 +2867,9 @@ export default {
       //   console.log("ins");
       // },
 
-      getpersonDetails1(){
+      getpersonDetails1(){ /** right now it only selects list2 or list 4 **/
 
-        console.log(this.list2);
+        console.log(this.list4[0].id);
 
         // this.playerSessionDetail4 = response.data[0].id;
               var draggedPlayerId = this.list2[0].id;
@@ -2825,6 +3053,12 @@ export default {
       //     return Array.from(grouped, ([ time, texts ]) => ({ time, texts }))
       //   }
 
+      fullNameOk() {
+        console.log("koiralo la ja");
+        // if(this.list4[0].rfidState2.length > 3){
+        //   console.log("inside KOIRALO");
+        // }
+      },
 
       rfidState1() {
         return this.rfid1.length > 7 ? true : false
