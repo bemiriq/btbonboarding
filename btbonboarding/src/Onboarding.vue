@@ -163,6 +163,7 @@
 
 
 
+                    <div v-if="this.teamName1 > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <div v-if="toListFetchRouteA1.length > '0'">
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
@@ -218,6 +219,15 @@
                           </div> -->
                         </draggable>
                       </div>
+
+                    </div> <!-- end of v-if teamname1 check -->
+
+                    <div v-else> <!-- v-else if teamname not inserted display differnt div with **INSERT TEAM** text -->
+                        <div style="height: 300px; border-style: outset;">
+                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
+                        </div>
+                    </div>
+
 
                       <br/>
 
@@ -343,55 +353,56 @@
                         group="a" style="height: 300px; border-style: outset;" @add="onDrop2"
                       > -->
 
-                    <draggable
-                        id="first"
-                        data-source="juju"
-                        :list="list4"
-                        class="list-group"
-                        draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;" @add="onDrop2">
+                    <div v-if="teamName2.length > 2">
+                      <draggable
+                          id="first"
+                          data-source="juju"
+                          :list="list4"
+                          class="list-group"
+                          draggable=".item"
+                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2">
 
-                      <div
-                        class="list-group-item item"
-                        v-for="(element2, index) in list4"
-                        :key="index">
+                        <div
+                          class="list-group-item item"
+                          v-for="(element2, index) in list4"
+                          :key="index">
 
-                        <input v-model="element2.id" type="text" disabled style="display: none;"/>
-                        <!-- <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2">{{element2.Person.last_name}} {{element2.Person.first_name}}</b-form-input> -->
-                        <!-- :value="element.Person.first_name + ' ' + element.Person.last_name" -->
-                        <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name + ' ( ' + element2.Person.Bookerdetail.lastName +' )'" disabled @input="inputEvent2"> -->
+                          <input v-model="element2.id" type="text" disabled style="display: none;"/>
+                          <!-- <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2">{{element2.Person.last_name}} {{element2.Person.first_name}}</b-form-input> -->
+                          <!-- :value="element.Person.first_name + ' ' + element.Person.last_name" -->
+                          <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name + ' ( ' + element2.Person.Bookerdetail.lastName +' )'" disabled @input="inputEvent2"> -->
 
-                        <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2" > -->
+                          <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2" > -->
 
-                        <!-- </b-form-input> -->
-                        <!-- <input type="text" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2"/> -->
-                        <!-- <span class="glyphicon glyphicon-envelope"></span> -->
-                        <!-- <p>&#10004;</p> -->
-                        <div> 
-                          <!-- <p>I will display &#9986;</p> -->
-                          <b-row>
-                            <b-col sm="2">
-                               <p v-if="list4[index].rfidState2 > 3" style='font-size:17px; color:green;'>&#9989;</p> 
-                            </b-col>
-                            <b-col sm="7">
-                                {{element2.Person.first_name}} {{element2.Person.last_name}} ({{element2.Person.Bookerdetail.firstName}} {{element2.Person.Bookerdetail.lastName}})
-                            </b-col>
-                            <b-col>
-                              {{element2.Person.minorsymbol}}
-                            </b-col>
-                          </b-row>
+                          <!-- </b-form-input> -->
+                          <!-- <input type="text" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2"/> -->
+                          <!-- <span class="glyphicon glyphicon-envelope"></span> -->
+                          <!-- <p>&#10004;</p> -->
+                          <div> 
+                            <!-- <p>I will display &#9986;</p> -->
+                            <b-row>
+                              <b-col sm="2">
+                                 <p v-if="list4[index].rfidState2 > 3" style='font-size:17px; color:green;'>&#9989;</p> 
+                              </b-col>
+                              <b-col sm="7">
+                                  {{element2.Person.first_name}} {{element2.Person.last_name}} ({{element2.Person.Bookerdetail.firstName}} {{element2.Person.Bookerdetail.lastName}})
+                              </b-col>
+                              <b-col>
+                                {{element2.Person.minorsymbol}}
+                              </b-col>
+                            </b-row>
+                          </div>
+                            
+
+                          <!-- </input> -->
+                          <!-- <p v-if="list4.rfidState2.length > 4">S</p> -->
+
                         </div>
-                          
+                        </draggable>
 
-                        <!-- </input> -->
-                        <!-- <p v-if="list4.rfidState2.length > 4">S</p> -->
+                        <br>
 
-                      </div>
-                      </draggable>
-
-                      <br/>
-
-                      <b-row>
+                        <b-row>
                         <b-col sm="3">
                         <label for="input-small">Mission</label>
                         </b-col>
@@ -462,7 +473,18 @@
                           </div>
                         <!-- </b-col> -->
                       </b-row>
+
+                    </div>
+
+                      <!-- if the team.length is less than 2 it will display text -->
+                      <div v-else>
+                        <div style="height: 450px; border-style: outset;">
+                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
+                        </div>
+                      </div>
                       <br/>
+
+                      <!-- <br/> -->
 
                   </b-col>
 
@@ -1253,7 +1275,8 @@
 
                 <b>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
 
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1">
+                <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1"> -->
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="getpersonDetails1">
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                       <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
                       <!-- <p>S</p> -->
@@ -1450,7 +1473,7 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(6, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2851,17 +2874,28 @@ export default {
         // if (evt.draggedContext.element.name=='apple'){
         //   return false
         // }
-
+        console.log('check move 1');
         console.log(this.teamName1.length);
         // console.log(sortKey);
 
-        if(this.teamName1.length < 1){
-          return false;
+        if(this.teamName1.length > 1){
+          return true;
           // return this.list1Move(evt);
         }
-      },
+        else{
+          return false;
+        }
 
-      checkMove2(evt){
+        if(this.teamName2.length > 2){
+          return true;
+        }
+        else{
+          return false;
+        }
+     },
+
+     checkMove2(evt){
+        console.log('check move 2');
         if(this.teamName2.length < 1){
            return false
         }
@@ -3136,6 +3170,10 @@ export default {
 
 .btbSideTitle{
   font-size: 1.1em;
+}
+
+#insertTeamFirst{
+  color: #C0C0C0; font-size: 15px; font-style: italic; margin-top: 5%;
 }
 
 #div2 {
