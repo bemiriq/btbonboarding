@@ -63,7 +63,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>Side B {{dataTime1BData}}</p></b>
+                            <b><p>{{teamName2}} on Side B for {{dataTime1BData}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
@@ -375,6 +375,9 @@
                             </b-col>
                             <b-col sm="7">
                                 {{element2.Person.first_name}} {{element2.Person.last_name}} ({{element2.Person.Bookerdetail.firstName}} {{element2.Person.Bookerdetail.lastName}})
+                            </b-col>
+                            <b-col>
+                              {{element2.Person.minorsymbol}}
                             </b-col>
                           </b-row>
                         </div>
@@ -1447,8 +1450,8 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(14, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'minutes').format('HH:mm:ss');
+    var endReservationTime = moment().add(6, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1555,6 +1558,7 @@ export default {
                       "last_name" : minorLastName,
                       "id" : minorPlayerMinorId,
                       "minor" : 'yes',
+                      "minorsymbol" : 'M',
                       "player_id" : personSignedWaiverId,
                       "reservation_id": reservationID,
                       "Bookerdetail":{
