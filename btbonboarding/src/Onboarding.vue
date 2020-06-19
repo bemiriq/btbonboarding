@@ -2009,7 +2009,7 @@ export default {
 
          console.log(this.list2[number].rfidState1);
 
-          var rfid_tag = parseInt(this.list2[number].rfidState1);
+          var rfid_tag = this.list2[number].rfidState1;
 
           console.log(arr);
           console.log(number);
@@ -2064,7 +2064,7 @@ export default {
          
          console.log(this.list4[number].rfidState2);
 
-          var rfid_tag = parseInt(this.list4[number].rfidState2);
+          var rfid_tag = this.list4[number].rfidState2;
 
           console.log(this.list4[this.list4.length-1].rfidState2);
           // console.log(this.list4[1].rfidState2);
