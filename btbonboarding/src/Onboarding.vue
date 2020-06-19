@@ -19,13 +19,16 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
                                     <br/>
-
-                                    <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-                                    <input type="text" v-model="listings.id" disabled style="display:none;"/>
-
-                                    <b-form-input v-model="listings.rfidState1" ref="todos" @blur="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
-                                    <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
-
+                                    <b-row>
+                                      <b-col>
+                                        <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                        <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                      </b-col>
+                                      <b-col>
+                                        <b-form-input v-model="listings.rfidState1" ref="todos" @blur="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                      <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
+                                      </b-col>
+                                    </b-row>
                                   </div>
                                 </b-col>
                               </b-row>
@@ -68,11 +71,18 @@
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
                                     <br/>
-                                    <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
-                                    <input type="text" v-model="listings.id" disabled style="display:none;"/>
-
-                                    <b-form-input v-model="listings.rfidState2" ref="todos2" v-on:input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90', 'color' : '#33FF90' } : null"></b-form-input>
-
+                                    <b-row>
+                                      <b-col sm="6">
+                                        <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" placeholder="PLAYER NAME" disabled></b-form-input>
+                                        <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                      </b-col>
+                                      <b-col sm="6">
+                                        <b-form-input v-model="listings.rfidState2" ref="todos2" @blur="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                      </b-col>
+                                      <b-col>
+                                        <!-- <p v-if="listings[index].rfidState2 > 3 ">RFID Checked</p> -->
+                                      </b-col>
+                                    </b-row>
                                   </div>
                                 </b-col>
                               </b-row>
@@ -163,7 +173,7 @@
 
 
 
-                    <div v-if="this.teamName1 > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
+                    <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <div v-if="toListFetchRouteA1.length > '0'">
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
@@ -187,38 +197,40 @@
                       </div>
                     </draggable -->
 
-                    <div v-else>
-                      <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" 
-                      @add="onDrop" :move="onDropReservation">
+                          <div v-else>
+                            <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop" :move="onDropReservation">
 
-                        <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
-                          <!-- <input type="text" v-model="reservation.mission_id"> -->
+                              <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
 
-                            <!-- <b-form-input id="input-live" disabled v-model="fetchPlayerList" v-if="fetchPlayerList"></b-form-input> -->
+                                  <!-- <insput v-model="element.id" type="text" disabled style="display: none;"> -->
 
-                            <input v-model="element.id" type="text" disabled style="display: none;">
+                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent"></b-form-input> -->
 
-                             <!-- <select v-model="list2SelectedPlayerId" >
-                                 <option v-bind:value="element.id"> {{element.id}}</option>
-                            </select> -->
+                                  <b-row>
+                                    <b-col sm="2">
+                                       <p v-if="list2[index].rfidState1 > 3" style='font-size:17px; color:green;'>&#9989;</p> 
+                                    </b-col>
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+                                    <b-col>
+                                      {{element.Person.minorsymbol}}
+                                    </b-col>
+                                  </b-row>
 
-                            <!-- <input v-bind:value="element.id" v-on:click="selectedPlayerId"/> -->
-                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' ' + element.Person.id" disabled @input="inputEvent"></b-form-input> -->
-                            <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent"></b-form-input>
+                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
+                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
+                                  <!-- <input v-model="element.first_name" disabled> -->
+                              </div>
+                             <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
+                                  {{ element.name }}
+                                </div> -->
 
-                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
-                            <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
-                            <!-- <input v-model="element.first_name" disabled> -->
-                        </div>
-                       <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
-                            {{ element.name }}
-                          </div> -->
-
-                             <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
-                            <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                          </div> -->
-                        </draggable>
-                      </div>
+                                   <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
+                                  <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
+                                </div> -->
+                              </draggable>
+                            </div>
 
                     </div> <!-- end of v-if teamname1 check -->
 
@@ -360,7 +372,7 @@
                           :list="list4"
                           class="list-group"
                           draggable=".item"
-                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2">
+                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
 
                         <div
                           class="list-group-item item"
@@ -399,10 +411,20 @@
 
                         </div>
                         </draggable>
+                      <br>
+                    </div>
 
-                        <br>
+                      <!-- if the team.length is less than 2 it will display text -->
+                      <div v-else>
+                        <div style="height: 300px; border-style: outset;">
+                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
+                        </div>
+                      </div>
+                      <br/>
 
-                        <b-row>
+                      <!-- <br/> -->
+
+                      <b-row>
                         <b-col sm="3">
                         <label for="input-small">Mission</label>
                         </b-col>
@@ -474,17 +496,7 @@
                         <!-- </b-col> -->
                       </b-row>
 
-                    </div>
-
-                      <!-- if the team.length is less than 2 it will display text -->
-                      <div v-else>
-                        <div style="height: 450px; border-style: outset;">
-                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
-                        </div>
-                      </div>
                       <br/>
-
-                      <!-- <br/> -->
 
                   </b-col>
 
@@ -1276,7 +1288,7 @@
                 <b>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1" @add="getpersonDetails1"> -->
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="getpersonDetails1">
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a">
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.name">
                       <p>{{element.Person.first_name}}  {{ element.Person.last_name }}</p>
                       <!-- <p>S</p> -->
@@ -2014,9 +2026,18 @@ export default {
 
 
 
+          // const nextIndex = index + 1;
+          // if (nextIndex < this.list2.length && rfid_tag.length > 7) {
+          //   this.$refs.todos[nextIndex].focus()
+          // }
+
           const nextIndex = index + 1;
-          if (nextIndex < this.list2.length && rfid_tag.length > 7) {
-            this.$refs.todos[nextIndex].focus()
+          console.log(nextIndex);
+          console.log(this.list2.length);
+
+          if (nextIndex < this.list2.length) {
+            this.$refs.todos[nextIndex].focus();
+            console.log("next index switch");
           }
 
       },
@@ -2388,38 +2409,46 @@ export default {
       },
 
       //removes the team player ssession data when dropped back to reservation from list2,list4,list5,list6
-      onDropReservation(e){
-        console.log("moved in");
+      // onDropReservation(e){
 
-        console.log(this.list2);
-        console.log(this.list2.id);
-        console.log(this.list2[0].id);
-        console.log(this.list2[1].id);
-        var draggedPlayerId = this.list2;
-        console.log(draggedPlayerId);
-        console.log(this.list2sessionid);
-        var sessionId = this.list2sessionid;
+      //   console.log("moved in");
 
-        // axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/'+sessionId).then(response => (
-        //   console.log(response.data);
-        //   console.log(response);
-        //   )
-        // );
+      //   console.log(this.list2);
+      //   console.log(this.list2.id);
+      //   console.log(this.list2[0].id);
+      //   // console.log(this.list2[1].id);
+      //   var draggedPlayerId = this.list2;
+      //   console.log(draggedPlayerId);
+      //   console.log(this.list2sessionid);
+      //   var sessionId = this.list2sessionid;
 
-        console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionId);
+      //   console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionId);
 
-        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionId,{
-                })
-                .then(response => {
-                  console.log(response);
-                  console.log(response.data);
-                })
+      //   axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionId,{
+      //           })
+      //           .then(response => {
+      //             console.log(response);
+      //             console.log(response.data);
+      //           })
 
-                .catch(error => {
-                  console.log(error);
-                });
+      //           .catch(error => {
+      //             console.log(error);
+      //           });
+
+      // },
+
+      onDropReservation2(e){
+        console.log("0909090");
+        console.log(e);
+        console.log(e.draggedContext.element.Person.first_name);
+        console.log(e.draggedContext.element.Person.last_name);
+        console.log(e.draggedContext.element.Person.id); /** this is waiver id **/
+        console.log(e.draggedContext.element.reservation_id);
+        console.log(e.draggedContext.element.Person.player_id);
+        console.log(e.draggedContext.element.Person.reservation_id);
 
       },
+
 
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop(e){
@@ -2905,43 +2934,47 @@ export default {
       //   console.log("ins");
       // },
 
-      getpersonDetails1(){ /** right now it only selects list2 or list 4 **/
+      // getpersonDetails1(){ /** right now it only selects list2 or list 4 **/
 
-        console.log(this.list4[0].id);
+      //   console.log("Inside person details 1");
 
-        // this.playerSessionDetail4 = response.data[0].id;
-              var draggedPlayerId = this.list2[0].id;
-              var sessionIdInserted = this.playerSessionDetail1;
+      //   // console.log(this.list2[0].id);
 
-              console.log(this.playerSessionDetail1);
+      //   // console.log(this.list4[0].id);
 
-              /** checks the session id and post again using axios.post for team player session table **/
-              // if(this.list2[0].id > 0){
-              //   console.log("first");
-              // }
-              // if(this.list2[1].id > 0){
-              //   console.log("second");
-              // }
+      //   // this.playerSessionDetail4 = response.data[0].id;
+      //         var draggedPlayerId = this.list2[0].id;
+      //         var sessionIdInserted = this.playerSessionDetail1;
 
-              if(sessionIdInserted > 0){
+      //         console.log(this.playerSessionDetail1);
 
-                console.log("inside man");
+      //         /** checks the session id and post again using axios.post for team player session table **/
+      //         // if(this.list2[0].id > 0){
+      //         //   console.log("first");
+      //         // }
+      //         // if(this.list2[1].id > 0){
+      //         //   console.log("second");
+      //         // }
 
-                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
-                // session_id: sessionIdInserted,
-                // team_id: teamId
-                // player_id: draggedPlayerId
-                })
-                .then(response => {
-                  var getTeamPlayerSessionId1 = response.data[0].id;
-                  console.log(getTeamPlayerSessionId1);
+      //         if(sessionIdInserted > 0){
 
-                  axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+getTeamPlayerSessionId1);
+      //           console.log("inside man");
 
-                })
-      }
+      //           axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/session/'+sessionIdInserted,{
+      //           // session_id: sessionIdInserted,
+      //           // team_id: teamId
+      //           // player_id: draggedPlayerId
+      //           })
+      //           .then(response => {
+      //             var getTeamPlayerSessionId1 = response.data[0].id;
+      //             console.log(getTeamPlayerSessionId1);
 
-    },
+      //             axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+getTeamPlayerSessionId1);
+
+      //           })
+      // }
+
+    // },
 
       checkPlayerId1(){
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
