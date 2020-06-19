@@ -198,7 +198,10 @@
                     </draggable -->
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop" :move="onDropReservation">
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop" :move="onDropReservation"> -->
+
+                            <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop">
+
 
                               <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
 
@@ -366,13 +369,21 @@
                       > -->
 
                     <div v-if="teamName2.length > 2">
-                      <draggable
+                      <!-- <draggable
                           id="first"
                           data-source="juju"
                           :list="list4"
                           class="list-group"
                           draggable=".item"
-                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
+                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2"> -->
+
+                        <draggable
+                          id="first"
+                          data-source="juju"
+                          :list="list4"
+                          class="list-group"
+                          draggable=".item"
+                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2">
 
                         <div
                           class="list-group-item item"
@@ -1485,8 +1496,8 @@ export default {
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(7, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -2437,17 +2448,17 @@ export default {
 
       // },
 
-      onDropReservation2(e){
-        console.log("0909090");
-        console.log(e);
-        console.log(e.draggedContext.element.Person.first_name);
-        console.log(e.draggedContext.element.Person.last_name);
-        console.log(e.draggedContext.element.Person.id); /** this is waiver id **/
-        console.log(e.draggedContext.element.reservation_id);
-        console.log(e.draggedContext.element.Person.player_id);
-        console.log(e.draggedContext.element.Person.reservation_id);
+      // onDropReservation2(e){
+      //   console.log("0909090");
+      //   console.log(e);
+      //   console.log(e.draggedContext.element.Person.first_name);
+      //   console.log(e.draggedContext.element.Person.last_name);
+      //   console.log(e.draggedContext.element.Person.id); /** this is waiver id **/
+      //   console.log(e.draggedContext.element.reservation_id);
+      //   console.log(e.draggedContext.element.Person.player_id);
+      //   console.log(e.draggedContext.element.Person.reservation_id);
 
-      },
+      // },
 
 
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
