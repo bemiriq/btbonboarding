@@ -170,10 +170,15 @@
                       
                         <!-- <b-form-input id="input-live" disabled v-model="fetchPlayerList" v-if="fetchPlayerList"></b-form-input> -->
 
+                    <div v-if="this.teamName1.length < 1"> <!-- v-else if teamname not inserted display differnt div with **INSERT TEAM** text -->
+                        <div style="height: 300px; border-style: outset;">
+                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
+                        </div>
+                    </div>
 
 
 
-                    <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
+                    <div v-else> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <div v-if="toListFetchRouteA1.length > '0'">
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
@@ -236,12 +241,6 @@
                             </div>
 
                     </div> <!-- end of v-if teamname1 check -->
-
-                    <div v-else> <!-- v-else if teamname not inserted display differnt div with **INSERT TEAM** text -->
-                        <div style="height: 300px; border-style: outset;">
-                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
-                        </div>
-                    </div>
 
 
                       <br/>
