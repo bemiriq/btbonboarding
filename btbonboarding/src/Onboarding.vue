@@ -1632,10 +1632,10 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -3000,6 +3000,7 @@ export default {
             route_id: routeId,
             mission_id: this.teamByTime2[0].mission_id,
             reservation_id: id_of_reservation
+            // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
             })
             .then(response => {
 
@@ -3009,6 +3010,19 @@ export default {
 
               this.playerSessionDetail2 = response.data[0].id;
               var sessionIdInserted = response.data[0].id;
+
+
+              axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+              })
+              .then(response => {
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+
 
               /** checks the session id and post again using axios.post for team player session table **/
               if(sessionIdInserted > 0){
@@ -3041,6 +3055,8 @@ export default {
             .catch(function (error) {
               console.log(error);
             });
+
+
           }
 
 
@@ -3056,6 +3072,7 @@ export default {
             route_id: routeId,
             mission_id: this.teamByTime2[0].mission_id,
             reservation_id: reservationid
+            // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
             })
             .then(response => {
 
@@ -3089,6 +3106,18 @@ export default {
                 .catch(error => {
                   console.log(error);
                 });
+
+
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                  player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                })
+                .then(response => {
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
               }
               /** ends axios post on team player sessions **/
 
@@ -3097,6 +3126,18 @@ export default {
             .catch(function (error) {
               console.log(error);
             });
+
+
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
+              player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+            })
+            .then(response => {
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
           }
 
           }
@@ -3196,6 +3237,18 @@ export default {
                 .catch(error => {
                   console.log(error);
                 });
+
+
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                  player_count: countondrop2+1 /** countondrop2 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                })
+                .then(response => {
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
               }
               /** ends axios post on team player sessions **/
 
@@ -3252,6 +3305,19 @@ export default {
                 .catch(error => {
                   console.log(error);
                 });
+
+
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                  player_count: countondrop2+1 /** countondrop2 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                })
+                .then(response => {
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+
               }
               /** ends axios post on team player sessions **/
 
