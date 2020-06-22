@@ -1633,10 +1633,10 @@ export default {
     var starttime='start';
     var endtime='end';
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().subtract(1,'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(4, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
