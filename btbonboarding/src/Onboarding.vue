@@ -256,6 +256,8 @@
                           <div v-else>
                             <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop1" :move="onDropReservation1">
 
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop1"> -->
+
                               <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
 
                                   <!-- <insput v-model="element.id" type="text" disabled style="display: none;"> -->
@@ -336,14 +338,20 @@
                           <label for="input-small">Vs</label>
                           </b-col>
                           <b-col sm="9">
+
                             <!-- <b-form-select v-model="vsselected1">
                               <option v-for="option in allTeamList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             </b-form-select> -->
 
-                                      <b-form-input v-model="vsselected1" list="my-list-id" v-on:focus="getAllTeamName" v-on:change="onChangeTeamVsTeam1"></b-form-input>
+                                     <!--  <b-form-input v-model="vsselected1" list="my-list-id" v-on:focus="getAllTeamName" v-on:change="onChangeTeamVsTeam1"></b-form-input>
                                       <datalist id="my-list-id">
                                         <option v-for="option in allTeamList" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
-                                      </datalist>
+                                      </datalist> -->
+
+                            <b-form-select v-model="vsselected1" v-on:change="onChangeTeamVsTeam1">
+                              <!-- <option value=""></option> -->
+                              <option :value="teamName2"> {{ teamName2 }} </option>
+                            </b-form-select>
 
                           </b-col>
                         </b-row>
@@ -430,6 +438,14 @@
                           draggable=".item"
                           group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
 
+                       <!--  <draggable
+                          id="first"
+                          data-source="juju"
+                          :list="list4"
+                          class="list-group"
+                          draggable=".item"
+                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="movingItemFrom2"> -->
+
                         <div
                           class="list-group-item item"
                           v-for="(element2, index) in list4"
@@ -474,7 +490,6 @@
 
                         </div>
                         </draggable>
-                      <br>
                     </div>
 
                       <!-- if the team.length is less than 2 it will display text -->
@@ -483,9 +498,9 @@
                           <p id="insertTeamFirst"> ** Add a team name first ** </p>
                         </div>
                       </div>
-                      <br/>
-
                       <!-- <br/> -->
+
+                      <br/>
 
                       <b-row>
                         <b-col sm="3">
@@ -510,13 +525,26 @@
                             <!-- <b-form-select v-model="vsselected2" v-on:click="getAllTeamName2">
                               <option v-for="option in allTeamList2" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
                             </b-form-select> -->
-                            <b-form-input v-model="vsselected2" list="my-list-id1" v-on:focus="getAllTeamName2" v-on:change="onChangeTeamVsTeam2"></b-form-input>
+                           
+
+                            <!-- <b-form-input v-model="vsselected2" list="my-list-id1" v-on:focus="getAllTeamName2" v-on:change="onChangeTeamVsTeam2"></b-form-input>
                                 <datalist id="my-list-id1">
                                     <option v-for="option in allTeamList2" v-bind:value="option.name" :key="option.id"> {{ option.name }} </option>
-                                </datalist>
+                                </datalist> -->
+
+                            <b-form-select v-model="vsselected2" v-on:change="onChangeTeamVsTeam2">
+                              <!-- <option value=""></option> -->
+                              <!-- <option v-bind:value="teamIdSideA1"> {{ teamName1 }} </option> -->
+                              <option :value="teamName1"> {{ teamName1 }} </option>
+                            </b-form-select>
+
                           </b-col>
                         </b-row>
                       </div>
+
+                      <!-- <div v-if="vsselected1 == selected2">
+                          <p> SAME TEAM DUDE</p>                        
+                      </div> -->
 
 
 
@@ -1605,10 +1633,10 @@ export default {
     var starttime='start';
     var endtime='end';
     // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(1,'days').format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(4, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1763,9 +1791,9 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(1,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       console.log(routeDateTime);
 
@@ -1923,6 +1951,9 @@ export default {
   data() {
       return {
         checkReader:'',
+        draggedTeamPlayerSessionId:'',
+        teamIdSideA1: '',
+        teamIdSideB1: '',
 
         list: [],
 
@@ -2689,7 +2720,10 @@ export default {
           axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName1,{
           name: this.teamName1,
           })
-          .then(response => {this.teamname1id = response.data})
+          .then(response => {
+            this.teamname1id = response.data;
+            this.teamIdSideA1 = response.data[0].id;
+          })
           .catch(function (error) {
             console.log(error);
           });
@@ -2701,7 +2735,12 @@ export default {
           axios.post(process.env.VUE_APP_FC_TEAMS+'/'+this.teamName2,{
           name: this.teamName2,
           })
-          .then(response => {this.teamname2id = response.data})
+          .then(response => {
+            this.teamname2id = response.data;
+            this.teamIdSideB1 = response.data[0].id;
+            // console.log(this.teamname2id);
+            // console.log(response.data[0].id);
+          })
           .catch(function (error) {
             console.log(error);
           });
@@ -2758,6 +2797,16 @@ export default {
       //             console.log(error);
       //           });
 
+      // },
+
+      // movingItemFrom2(e){
+      //   console.log(" 87 89 0");
+      //   console.log(e);
+      //   console.log(e.draggedContext.index);
+      //   var index = e.draggedContext.index;
+      //   console.log(this.list4teamplayersessionid[index]);
+
+      //   this.draggedTeamPlayerSessionId = this.list4teamplayersessionid[index];
       // },
 
       onDropReservation1(e){
@@ -2889,6 +2938,15 @@ export default {
 
       // onDrop for Team Name 1 table it will post to session table and team_player_session table
       onDrop1(e){
+
+        // console.log("0909090");
+        // console.log(e);
+        // // var index = e.draggedContext.index;
+        // console.log(this.draggedTeamPlayerSessionId);
+
+
+        // console.log(e);
+        // console.log(e.added);
 
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList1 = response.data));
 
