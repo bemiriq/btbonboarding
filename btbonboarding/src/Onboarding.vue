@@ -25,7 +25,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col>
-                                        <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState1" ref="todos" v-on:change="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
                                       <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
                                       </b-col>
                                     </b-row>
@@ -77,7 +77,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col sm="6">
-                                        <b-form-input v-model="listings.rfidState2" ref="todos2" v-on:input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState2" ref="todos2" v-on:change="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
                                       </b-col>
                                       <b-col>
                                         <!-- <p v-if="listings[index].rfidState2 > 3 ">RFID Checked</p> -->
@@ -130,7 +130,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col sm="6">
-                                        <b-form-input v-model="listings.rfidState3" ref="todos3" v-on:input="posttorfidapi3($event, index)" :style="listings.rfidState3 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState3" ref="todos3" v-on:change="posttorfidapi3($event, index)" :style="listings.rfidState3 ? { 'background-color': '#33FF90' } : null"></b-form-input>
                                       </b-col>
                                       <b-col>
                                         <!-- <p v-if="listings[index].rfidState2 > 3 ">RFID Checked</p> -->
@@ -1632,7 +1632,7 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
     var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
