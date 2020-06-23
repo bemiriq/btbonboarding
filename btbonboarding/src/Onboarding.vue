@@ -25,7 +25,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col>
-                                        <b-form-input v-model="listings.rfidState1" ref="todos" v-on:change="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
                                       <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
                                       </b-col>
                                     </b-row>
@@ -77,7 +77,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col sm="6">
-                                        <b-form-input v-model="listings.rfidState2" ref="todos2" v-on:change="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState2" ref="todos2" @input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
                                       </b-col>
                                       <b-col>
                                         <!-- <p v-if="listings[index].rfidState2 > 3 ">RFID Checked</p> -->
@@ -266,7 +266,10 @@
 
                                   <b-row>
                                     <b-col sm="2">
-                                       <p v-if="list2[index].rfidState1 > 3" style='font-size:17px; color:green;'>&#9989;</p> 
+
+                                      <p v-if="list2[index].rfidState1 == null" style="display:none;"></p>
+                                      <p v-else style='font-size:17px; color:green;'>&#9989;</p>
+
                                     </b-col>
                                     <b-col sm="7">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
@@ -466,7 +469,9 @@
                             <!-- <p>I will display &#9986;</p> -->
                             <b-row>
                               <b-col sm="2">
-                                 <p v-if="list4[index].rfidState2 > 3" style='font-size:17px; color:green;'>&#9989;</p>
+
+                                 <p v-if="list4[index].rfidState2 == null" style="display:none;"></p>
+                                 <p v-else style='font-size:17px; color:green;'>&#9989;</p>
 
                                  <input type="text" :value="index" style="display:none;">
 
@@ -1632,10 +1637,10 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
     // var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -1791,9 +1796,9 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       console.log(routeDateTime);
 
@@ -1954,6 +1959,8 @@ export default {
         draggedTeamPlayerSessionId:'',
         teamIdSideA1: '',
         teamIdSideB1: '',
+
+        checkAlphabet: /^[A-Za-z]+$/,
 
         list: [],
 
@@ -2242,6 +2249,7 @@ export default {
 
       posttorfidapi(event, index){
         console.log("inside update rfid side A");
+        console.log(event);
          var arr = this.list2;
 
          console.log(this.list2);
