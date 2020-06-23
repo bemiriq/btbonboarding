@@ -1633,7 +1633,7 @@ export default {
     console.log(dateTime1);
     console.log(dateTime3);
 
-    this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm:00");
+    this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
     console.log(this.sessionRow1DateTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
@@ -1718,56 +1718,65 @@ export default {
             }
 
             console.log(replyDataObj1);
+            console.log(i);
+            console.log(j);
+
+
+
+            var playerMinorLength = response.data[i].Reservation_people[j].Person.Player.Player_minors.length;
+            console.log(playerMinorLength);
 
             this.teamByTime2 = replyDataObj1;
+            if(playerMinorLength > 0){
+              for(let k=0; k < playerMinorLength; k++){
+                // console.log(k);
+                console.log(i);
+                console.log(j);
+                console.log(k);
+                console.log(response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name);
 
-            for(let k=0; k < response.data[i].Reservation_people[j].Person.Player.Player_minors.length; k++){
-              // console.log(k);
-              console.log(i);
-              console.log(j);
-              console.log(k);
-              console.log(response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name);
+                var minorLastName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name;
+                var minorFirstName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].first_name;
 
-              var minorLastName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name;
-              var minorFirstName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].first_name;
+                var minorPlayerMinorId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].id;
+                var personSignedWaiverId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].player_id;
 
-              var minorPlayerMinorId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].id;
-              var personSignedWaiverId = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].player_id;
+                console.log(minorLastName+' '+minorFirstName);
+                var incrementObject = countSubtract++;
+                // var definePerson = 'Person';
 
-              console.log(minorLastName+' '+minorFirstName);
-              var incrementObject = countSubtract++;
-              // var definePerson = 'Person';
-
-              // replyDataObj1[i]['Reservation_people'][j]['Person'][k]={
-              replyDataObj1[i]['Reservation_people'][incrementObject]={
-                 // "id" : booker_id,
-                 "id": minorPlayerMinorId,
-                 "Person":
-                    {
-                      "Player":{
+                // replyDataObj1[i]['Reservation_people'][j]['Person'][k]={
+                replyDataObj1[i]['Reservation_people'][incrementObject]={
+                   // "id" : booker_id,
+                   "id": minorPlayerMinorId,
+                   "Person":
+                      {
+                        "Player":{
+                          "id" : minorPlayerMinorId,
+                          "minor": 'yes'
+                        },
+                        "first_name" : minorFirstName,
+                        "last_name" : minorLastName,
                         "id" : minorPlayerMinorId,
-                        "minor": 'yes'
-                      },
-                      "first_name" : minorFirstName,
-                      "last_name" : minorLastName,
-                      "id" : minorPlayerMinorId,
-                      "minor" : 'yes',
-                      "minorsymbol" : 'M',
-                      "player_id" : personSignedWaiverId,
-                      "reservation_id": reservationID,
-                      "Bookerdetail":{
-                        "id" : booker_id, /** this is the person id for the booker **/
-                        "firstName" : booker_first_name,
-                        "lastName" : booker_last_name
-                      }
-                  }
+                        "minor" : 'yes',
+                        "minorsymbol" : 'M',
+                        "player_id" : personSignedWaiverId,
+                        "reservation_id": reservationID,
+                        "Bookerdetail":{
+                          "id" : booker_id, /** this is the person id for the booker **/
+                          "firstName" : booker_first_name,
+                          "lastName" : booker_last_name
+                        }
+                    }
+
+                }
+
+                console.log(replyDataObj1);
+                this.teamByTime2 = replyDataObj1;
 
               }
-
-              console.log(replyDataObj1);
-              this.teamByTime2 = replyDataObj1;
-
             }
+            
 
           }
 
@@ -1794,10 +1803,10 @@ export default {
     // var sideA1route='1';
     // var sideA1time= '2020-06-03%2004:13:42.000000';
 
-    console.log(sideA1time);
+    // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 != null){
+    if(dateTime11 != null){
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1825,10 +1834,13 @@ export default {
                           this.teamName1 = response.data[0].Team.name;
                           this.selected1 = response.data[0].mission_id;
 
-                          var first_name = response.data[0].Team_player_sessions[0].Player.Person.first_name;
-                          var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
+                          // var first_name = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+                          // var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
-                          this.toListFetchRouteA1 = response.data;
+                          console.log(response.data[0]);
+                          console.log(last_name);
+
+                          this.toListFetchRouteA1 = response.data[0];
 
                           console.log(this.toListFetchRouteA1);
 
@@ -1857,7 +1869,7 @@ export default {
     }
 
 
-    if(dateTime1B != null){
+    if(dateTime11B != null){
 
       console.log(dateTime1B);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1908,7 +1920,7 @@ export default {
     }
 
 
-    if(dateTime2A != null){
+    if(dateTime21A != null){
 
       console.log(dateTime2A);
       const remainderRoute1 = -15 - (start.minute() % 30);
