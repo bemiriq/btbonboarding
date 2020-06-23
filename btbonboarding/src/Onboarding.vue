@@ -1786,6 +1786,7 @@ export default {
 
       })
       .catch(function (error){
+        console.log("error at line 1789");
         console.log(error);
       });
 
@@ -1850,6 +1851,7 @@ export default {
                       })
 
                       .catch(function (error) {
+                        console.log("error at line 1854");
                         console.log(error);
                       });
     }
@@ -1900,6 +1902,7 @@ export default {
                       })
 
                       .catch(function (error) {
+                        console.log("error at line 1905");
                         console.log(error);
                       });
     }
@@ -1950,6 +1953,7 @@ export default {
                       })
 
                       .catch(function (error) {
+                        console.log("error at line 1956");
                         console.log(error);
                       });
     }
