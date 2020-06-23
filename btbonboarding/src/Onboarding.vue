@@ -1799,7 +1799,7 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(10,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
@@ -1858,7 +1858,7 @@ export default {
 
       console.log(dateTime1B);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(10,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       var sideB1route='2';
       var sideB1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
