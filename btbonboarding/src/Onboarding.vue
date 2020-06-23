@@ -1643,8 +1643,8 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(10, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1708,14 +1708,14 @@ export default {
 
           // console.log(response.data[0].Reservation_people[0].Person.Player.Player_minors.length);
 
-          replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-               // "address": [
-               //   ccEmailId
-               //  ]
-               "id" : booker_id, /** this is the person id for the booker **/
-               "firstName" : booker_first_name,
-               "lastName" : booker_last_name
-            }
+            replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+                 // "address": [
+                 //   ccEmailId
+                 //  ]
+                 "id" : booker_id, /** this is the person id for the booker **/
+                 "firstName" : booker_first_name,
+                 "lastName" : booker_last_name
+              }
 
             console.log(replyDataObj1);
             console.log(i);
