@@ -42,13 +42,13 @@
                               <!-- this displays the fetch data from mounted -->
                               <b-row class="my-1">
                                 <b-col sm="12">
-                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
-                                    <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
+                                  <div class="list-group-item item" v-for="(teamfetch,index) in toListFetchRouteA1" :key="teamfetch.id">
+                                    <div v-for="personname in teamfetch.Team_player_sessions" :key="personname.id">
 
-                                      <b-form-input id="input-live" :value="personame.Player.Person.first_name +' '+personame.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-
-                                      <b-form-input style="background-color:#33FF90" v-model="personame.Rfid.tag">{{personame.Rfid.tag}}</b-form-input>
-                                      <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/>
+                                      <b-form-input id="input-live" :value="personname.Player.Person.first_name +' '+personname.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                      <!-- <p>{{personname[index].Rfid.tag}}</p> -->
+                                      <b-form-input v-model="personname.rfid_id">{{personname.rfid_id}}</b-form-input>
+                                      <!-- <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/> -->
                                     </div>
                                   </div>
                                 </b-col>
@@ -230,10 +230,10 @@
 
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="toListFetchRouteA1.length > '0'">
+                        <div v-if="toListFetchRouteA1.length > '0'" style="height: 300px; background-color: yellow;">
                           <!-- <p>GREATER THAN 0 </p> -->
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
-                            <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a"  style="height: 300px; border-style: outset; background-color: yellow;">
+                            <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
                                 {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}} 
                               </div>
@@ -1643,7 +1643,7 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(10, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -1718,6 +1718,7 @@ export default {
             }
 
             console.log(replyDataObj1);
+
             this.teamByTime2 = replyDataObj1;
 
             for(let k=0; k < response.data[i].Reservation_people[j].Person.Player.Player_minors.length; k++){
@@ -1799,9 +1800,9 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(10,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       console.log(routeDateTime);
 
@@ -1858,7 +1859,7 @@ export default {
 
       console.log(dateTime1B);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(10,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       var sideB1route='2';
       var sideB1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
@@ -3086,6 +3087,7 @@ export default {
 
             if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
               team_id: teamId,
               route_id: routeId,
@@ -3149,15 +3151,15 @@ export default {
             });
 
 
-            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
-              player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
-            })
-            .then(response => {
+            // axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+            //   player_count: countondrop1+1 * countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 *
+            // })
+            // .then(response => {
 
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+            // })
+            // .catch(function (error) {
+            //   console.log(error);
+            // });
 
           }
 
