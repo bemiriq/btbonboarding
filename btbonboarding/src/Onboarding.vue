@@ -231,7 +231,7 @@
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <div v-if="toListFetchRouteA1.length > '0'">
-                          <p>GREATER THAN 0 </p>
+                          <!-- <p>GREATER THAN 0 </p> -->
                           <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a"  style="height: 300px; border-style: outset; background-color: yellow;">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
@@ -1630,15 +1630,18 @@ export default {
     this.dateTime5Data = dateTime5;
     this.dateTime6Data = dateTime6;
     console.log(this.dateTime1Data);
-    console.log(dateTime2);
+    console.log(dateTime1);
     console.log(dateTime3);
+
+    this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm:00");
+    console.log(this.sessionRow1DateTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
 
     var starttime='start';
     var endtime='end';
+    // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
-    // var currentdate = moment().format("YYYY-MM-DD");
 
     var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
@@ -1796,9 +1799,9 @@ export default {
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
-      const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
 
       console.log(routeDateTime);
 
@@ -1824,6 +1827,9 @@ export default {
                           var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
                           this.toListFetchRouteA1 = response.data;
+
+                          console.log(this.toListFetchRouteA1);
+
                           // this.toListFetchRouteA1 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
 
                           if (this.toListFetchRouteA1 > 0) { 
@@ -1960,7 +1966,7 @@ export default {
         teamIdSideA1: '',
         teamIdSideB1: '',
 
-        checkAlphabet: /^[A-Za-z]+$/,
+        sessionRow1DateTime:'',
 
         list: [],
 
@@ -2956,6 +2962,8 @@ export default {
         // console.log(e);
         // console.log(e.added);
 
+        // console.log(this.dateTime1Data);
+
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => (this.allTeamList1 = response.data));
 
         // console.log(this.teamByTime1.data);
@@ -3001,14 +3009,17 @@ export default {
             console.log(id_of_reservation);
             // console.log(id_of_player+'/'+minor_id);
 
+
             if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId,{
-            team_id: teamId,
-            route_id: routeId,
-            mission_id: this.teamByTime2[0].mission_id,
-            reservation_id: id_of_reservation
-            // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+              team_id: teamId,
+              route_id: routeId,
+              mission_id: this.teamByTime2[0].mission_id,
+              reservation_id: id_of_reservation,
+              session_time: this.sessionRow1DateTime,
+              location_id: 1
+              // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
             })
             .then(response => {
 
@@ -3076,11 +3087,13 @@ export default {
             if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
-            team_id: teamId,
-            route_id: routeId,
-            mission_id: this.teamByTime2[0].mission_id,
-            reservation_id: reservationid
-            // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+              team_id: teamId,
+              route_id: routeId,
+              mission_id: this.teamByTime2[0].mission_id,
+              reservation_id: reservationid,
+              session_time: this.sessionRow1DateTime,
+              location_id: 1
+              // player_count: countondrop1+1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
             })
             .then(response => {
 
@@ -3208,10 +3221,12 @@ export default {
             if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId,{
-            team_id: teamId,
-            route_id: routeId,
-            mission_id: this.teamByTime2[0].mission_id,
-            reservation_id: id_of_reservation
+              team_id: teamId,
+              route_id: routeId,
+              mission_id: this.teamByTime2[0].mission_id,
+              reservation_id: id_of_reservation,
+              session_time: this.sessionRow1DateTime,
+              location_id: 1
             })
             .then(response => {
 
@@ -3276,10 +3291,12 @@ export default {
             if(teamId > 0){
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
-            team_id: teamId,
-            route_id: routeId,
-            mission_id: this.teamByTime2[0].mission_id,
-            reservation_id: reservationid
+              team_id: teamId,
+              route_id: routeId,
+              mission_id: this.teamByTime2[0].mission_id,
+              reservation_id: reservationid,
+              session_time: this.sessionRow1DateTime,
+              location_id: 1
             })
             .then(response => {
 
