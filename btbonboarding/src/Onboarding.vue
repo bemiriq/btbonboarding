@@ -49,9 +49,31 @@
 
                                     <!-- <div v-for="personname in teamfetch.Team_player_sessions" :key="personname.id"> -->
 
-                                      <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-                                      <b-form-input v-model="teamfetch.Rfid.tag" disabled>{{teamfetch.Rfid.tag}}</b-form-input>
+                                     
+                                      <!-- <b-form-input v-model="teamfetch.Rfid.tag" disabled>{{teamfetch.Rfid.tag}}</b-form-input> -->
+                                      
 
+                                      <b-row>
+                                        <b-col>
+                                           <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
+                                        </b-col>
+                                        <b-col>
+                                          <!-- <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input> -->
+                                        <!-- </b-col> -->
+
+                                          <p v-if="teamfetch.Rfid != null">
+                                          <!-- VALUE -->
+                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90">
+                                              {{teamfetch.Rfid.tag}}
+                                            </b-form-input>
+                                          </p>
+                                          <p v-else>
+                                            <!-- NO VALUE -->
+                                            <b-form-input></b-form-input>
+                                          </p>
+                                        </b-col>
+                                      </b-row>
 
                                       <!-- <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/> -->
 
@@ -1656,7 +1678,7 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
