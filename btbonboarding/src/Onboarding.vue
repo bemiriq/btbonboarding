@@ -42,12 +42,12 @@
                               <!-- this displays the fetch data from mounted -->
                               <b-row class="my-1">
                                 <b-col sm="12">
-                                  <div class="list-group-item item" v-for="(teamfetch,index) in toListFetchRouteA1" :key="teamfetch.id">
+                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                                     <div v-for="personname in teamfetch.Team_player_sessions" :key="personname.id">
 
                                       <b-form-input id="input-live" :value="personname.Player.Person.first_name +' '+personname.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                       <!-- <p>{{personname[index].Rfid.tag}}</p> -->
-                                      <b-form-input v-model="personname.rfid_id">{{personname.rfid_id}}</b-form-input>
+                                      <!-- <b-form-input v-model="personname.rfid_id">{{personname.rfid_id}}</b-form-input> -->
                                       <!-- <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/> -->
                                     </div>
                                   </div>
@@ -1806,7 +1806,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime11 != null){
+    if(dateTime1 != null){
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1869,7 +1869,7 @@ export default {
     }
 
 
-    if(dateTime11B != null){
+    if(dateTime1B != null){
 
       console.log(dateTime1B);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1920,7 +1920,7 @@ export default {
     }
 
 
-    if(dateTime21A != null){
+    if(dateTime2A != null){
 
       console.log(dateTime2A);
       const remainderRoute1 = -15 - (start.minute() % 30);
