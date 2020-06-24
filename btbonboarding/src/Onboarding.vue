@@ -14,7 +14,7 @@
 
         <!-- <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
         <b-modal id="modal-center" ref="sideArfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>Side A {{dateTime1Data}}</p></b>
+                            <b><p>{{teamName1}} Side A {{dateTime1Data}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
@@ -95,7 +95,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName2}} on Side B for {{dataTime1BData}}</p></b>
+                            <b><p>{{teamName2}} on Side B for {{dateTime1BData}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list4" :key="index">
@@ -125,14 +125,29 @@
                               <!-- this displays the fetch data from mounted -->
                               <b-row class="my-1">
                                 <b-col sm="12">
-                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2" :key="teamfetch.id">
-                                    <div v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
 
-                                      <b-form-input id="input-live" :value="personame.Player.Person.first_name +' '+personame.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2.Team_player_sessions" :key="teamfetch.id">
+                                      
 
-                                      <b-form-input style="background-color:#33FF90" v-model="personame.Rfid.tag">{{personame.Rfid.tag}}</b-form-input>
-                                      <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/>
-                                    </div>
+                                      <b-row>
+                                        <b-col>
+                                           <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
+                                        </b-col>
+                                        <b-col>
+
+                                          <p v-if="teamfetch.Rfid != null">
+                                          <!-- VALUE -->
+                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90">
+                                              {{teamfetch.Rfid.tag}}
+                                            </b-form-input>
+                                          </p>
+                                          <p v-else>
+                                            <!-- NO VALUE -->
+                                            <b-form-input></b-form-input>
+                                          </p>
+                                        </b-col>
+                                      </b-row>
                                   </div>
                                 </b-col>
                               </b-row>
@@ -271,7 +286,25 @@
                           <draggable id="first" data-source="juju" :list="toListFetchRouteA1.Team_player_sessions" class="list-group" draggable=".item" group="a">
                             <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1.Team_player_sessions" :key="teamfetch.id">
                               <!-- <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input> -->
-                              {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                              
+                              
+
+                              <b-row>
+                                    <b-col sm="2">
+                                      <!-- <p v-if="list2[index].rfidState1 == null" style="display:none;"></p> -->
+                                      <p v-if="teamfetch.Rfid != null" style='font-size:17px; color:green;'>&#9989;</p>
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
+                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                                    </b-col>
+
+                                    <b-col>
+                                      <!-- {{element.Person.minorsymbol}} -->
+                                    </b-col>
+                                  </b-row>
+
                             </div>
                           </draggable>
                         </div>
@@ -468,68 +501,63 @@
                       > -->
 
                     <div v-if="teamName2.length > 2">
-                      <draggable
-                          id="first"
-                          data-source="juju"
-                          :list="list4"
-                          class="list-group"
-                          draggable=".item"
-                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
 
-                       <!--  <draggable
-                          id="first"
-                          data-source="juju"
-                          :list="list4"
-                          class="list-group"
-                          draggable=".item"
-                          group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="movingItemFrom2"> -->
+                      <div v-if="toListFetchRouteA2 > '0'" style="height: 300px; background-color: yellow;">
 
-                        <div
-                          class="list-group-item item"
-                          v-for="(element2, index) in list4"
-                          :key="index">
+                          <draggable id="first" data-source="juju" :list="toListFetchRouteA2.Team_player_sessions" class="list-group" draggable=".item" group="a">
+                            <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2.Team_player_sessions" :key="teamfetch.id">
+                              <!-- <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input> -->
+                              
+                              
 
-                          <input v-model="element2.id" type="text" disabled style="display: none;"/>
-                          <!-- <b-form-input id="input-live" v-model="element2.Person.last_name" disabled @input="inputEvent2">{{element2.Person.last_name}} {{element2.Person.first_name}}</b-form-input> -->
-                          <!-- :value="element.Person.first_name + ' ' + element.Person.last_name" -->
-                          <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name + ' ( ' + element2.Person.Bookerdetail.lastName +' )'" disabled @input="inputEvent2"> -->
+                              <b-row>
+                                    <b-col sm="2">
+                                      <!-- <p v-if="list2[index].rfidState1 == null" style="display:none;"></p> -->
+                                      <p v-if="teamfetch.Rfid != null" style='font-size:17px; color:green;'>&#9989;</p>
+                                    </b-col>
 
-                          <!-- <b-form-input id="input-live" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2" > -->
+                                    <b-col sm="7">
+                                        <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
+                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                                    </b-col>
 
-                          <!-- </b-form-input> -->
-                          <!-- <input type="text" :value="element2.Person.first_name + ' ' + element2.Person.last_name" disabled @input="inputEvent2"/> -->
-                          <!-- <span class="glyphicon glyphicon-envelope"></span> -->
-                          <!-- <p>&#10004;</p> -->
-                          <div> 
-                            <!-- <p>I will display &#9986;</p> -->
-                            <b-row>
-                              <b-col sm="2">
+                                    <b-col>
+                                      <!-- {{element.Person.minorsymbol}} -->
+                                    </b-col>
+                                  </b-row>
 
-                                 <p v-if="list4[index].rfidState2 == null" style="display:none;"></p>
-                                 <p v-else style='font-size:17px; color:green;'>&#9989;</p>
-
-                                 <input type="text" :value="index" style="display:none;">
-
-                                 <!-- <b-form-input v-model="element2.fetchIndex" :value="index"></b-form-input> -->
-
-                                 <!-- <b-form-input v-model=".index" ref="todos2" v-on:input="index"></b-form-input> -->
-
-                              </b-col>
-                              <b-col sm="7">
-                                  {{element2.Person.first_name}} {{element2.Person.last_name}} ({{element2.Person.Bookerdetail.firstName}} {{element2.Person.Bookerdetail.lastName}})
-                              </b-col>
-                              <b-col>
-                                {{element2.Person.minorsymbol}}
-                              </b-col>
-                            </b-row>
-                          </div>
-                            
-
-                          <!-- </input> -->
-                          <!-- <p v-if="list4.rfidState2.length > 4">S</p> -->
+                            </div>
+                          </draggable>
 
                         </div>
-                        </draggable>
+
+                      <div v-else>
+                        <!-- <p>DES</p> -->
+
+                        <draggable id="first" data-source="juju" :list="list4" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
+
+                              <div class="list-group-item item" v-for="(element, index) in list4" :key="index">
+
+                                  <b-row>
+                                    <b-col sm="2">
+
+                                      <p v-if="list4[index].rfidState2 == null" style="display:none;"></p>
+                                      <p v-else style='font-size:17px; color:green;'>&#9989;</p>
+
+                                    </b-col>
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+                                    <b-col>
+                                      {{element.Person.minorsymbol}}
+                                    </b-col>
+                                  </b-row>
+                                </div>
+                              </draggable>
+
+                      </div>
+
+                      
                     </div>
 
                       <!-- if the team.length is less than 2 it will display text -->
@@ -1654,7 +1682,7 @@ export default {
 
     // console.log(dateTime1);
     this.dateTime1Data = dateTime1;
-    this.dataTime1BData = dateTime1B;
+    this.dateTime1BData = dateTime1B;
 
     this.dateTime2Data = dateTime2;
     this.dateTime2AData = dateTime2A;
@@ -1908,7 +1936,8 @@ export default {
     }
 
 
-    if(dateTime1B != null){
+    if(this.dateTime1BData != null){
+      console.log("INSIDE DATE TIME 1 BBBBBBBBBBBBBB");
 
       console.log(dateTime1B);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1930,21 +1959,21 @@ export default {
                           this.teamName2 = response.data[0].Team.name;
                           this.selected2 = response.data[0].mission_id;
 
-                          var first_name = response.data[0].Team_player_sessions[0].Player.Person.first_name;
-                          var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
-                          this.toListFetchRouteA2 = response.data ;
-                          // this.toListFetchRouteA2 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+                         this.toListFetchRouteA2 = response.data[0];
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
 
-                          if (this.toListFetchRouteA2 > 0) { 
+                          console.log(this.toListFetchRouteA1);
+                          
+                          // this.toListFetchRouteA1 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+
+                          if (trackId > 0) { 
+                            
                               this.fetchPlayerList2.push(this.toListFetchRouteA2);
+                              console.log("SAAAAAAA");
                           }
 
-                          // this.list2 = "SAN";
-                          // this.fetchPlayerList = first_name+' '+last_name;
-
-                          // this.tolist2teamplayersessionid = response.data[];
-                          // this.list2[0].Person.last_name = last_name;
 
                         }
                         else{
@@ -1959,7 +1988,7 @@ export default {
     }
 
 
-    if(dateTime2A != null){
+    if(this.dateTime2AData = null){
 
       console.log(dateTime2A);
       const remainderRoute1 = -15 - (start.minute() % 30);
@@ -1985,7 +2014,6 @@ export default {
                           var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
                           this.toListFetchRouteA3 = response.data ;
-                          // this.toListFetchRouteA2 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
 
                           if (this.toListFetchRouteA3 > 0) { 
                               this.fetchPlayerList3.push(this.toListFetchRouteA3);
@@ -2045,7 +2073,7 @@ export default {
 
         toListFetchRouteA2:'',
         fetchPlayerList2:[],
-        dataTime1BData: '',
+        dateTime1BData: '',
 
         teamByTime2FormattedTime:[],
 
