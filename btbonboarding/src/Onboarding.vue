@@ -1678,7 +1678,7 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2680,7 +2680,7 @@ export default {
 
             var teamplayertableid = this.list2teamplayersessionid[i];
             var rfidtag_id = this.list2rfidcontainerarray[i];
-            var playerid = this.list2[i].id;
+            // var playerid = this.list2[i].id;
             var sessionid = this.list2sessionid;
 
           console.log(this.list2[i].id);
@@ -2692,7 +2692,7 @@ export default {
 
 
           axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamplayertableid,{
-              player_id: playerid,
+              // player_id: playerid,
               rfid_id: rfidtag_id,
               team_id: this.teamname1id[0].id,
               session_id: sessionid
