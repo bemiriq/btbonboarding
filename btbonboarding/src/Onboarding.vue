@@ -42,14 +42,21 @@
                               <!-- this displays the fetch data from mounted -->
                               <b-row class="my-1">
                                 <b-col sm="12">
-                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
-                                    <div v-for="personname in teamfetch.Team_player_sessions" :key="personname.id">
 
-                                      <b-form-input id="input-live" :value="personname.Player.Person.first_name +' '+personname.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-                                      <!-- <p>{{personname[index].Rfid.tag}}</p> -->
-                                      <!-- <b-form-input v-model="personname.rfid_id">{{personname.rfid_id}}</b-form-input> -->
+                                  <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1.Team_player_sessions" :key="teamfetch.id">
+
+                                    <!-- <p>{{teamfetch.id}}</p> -->
+
+                                    <!-- <div v-for="personname in teamfetch.Team_player_sessions" :key="personname.id"> -->
+
+                                      <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                      <b-form-input v-model="teamfetch.Rfid.tag" disabled>{{teamfetch.Rfid.tag}}</b-form-input>
+
+
                                       <!-- <input type="text" disabled :value="personame.Rfid.id" style="display: none;"/> -->
-                                    </div>
+
+
+                                    <!-- </div> -->
                                   </div>
                                 </b-col>
                               </b-row>
@@ -230,15 +237,21 @@
 
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="toListFetchRouteA1.length > '0'" style="height: 300px; background-color: yellow;">
-                          <!-- <p>GREATER THAN 0 </p> -->
-                          <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
+                        <!-- <p>SAAAAA</p> -->
+                        <div v-if="toListFetchRouteA1 > '0'" style="height: 300px; background-color: yellow;">
+                          <!-- <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
                                 {{personame.Player.Person.first_name}} {{personame.Player.Person.last_name}} 
                               </div>
                             </draggable>
-                          </div>
+                          </div> -->
+                          <draggable id="first" data-source="juju" :list="toListFetchRouteA1.Team_player_sessions" class="list-group" draggable=".item" group="a">
+                            <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA1.Team_player_sessions" :key="teamfetch.id">
+                              <!-- <b-form-input id="input-live" :value="teamfetch.Player.Person.first_name +' '+teamfetch.Player.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input> -->
+                              {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                            </div>
+                          </draggable>
                         </div>
 
 
@@ -1838,16 +1851,20 @@ export default {
                           // var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
                           console.log(response.data[0]);
-                          console.log(last_name);
+                          // console.log(last_name);
 
                           this.toListFetchRouteA1 = response.data[0];
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
 
                           console.log(this.toListFetchRouteA1);
-
+                          
                           // this.toListFetchRouteA1 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
 
-                          if (this.toListFetchRouteA1 > 0) { 
+                          if (trackId > 0) { 
+                            
                               this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              console.log("SAAAAAAA");
                           }
 
                           // this.list2 = "SAN";
