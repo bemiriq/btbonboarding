@@ -25,7 +25,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col>
-                                        <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState1" ref="todos" @input="posttorfidapi($event, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null"></b-form-input>
                                       <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
                                       </b-col>
                                     </b-row>
@@ -64,7 +64,7 @@
 
                                           <p v-if="teamfetch.Rfid != null">
                                           <!-- VALUE -->
-                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90">
+                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                               {{teamfetch.Rfid.tag}}
                                             </b-form-input>
                                           </p>
@@ -106,7 +106,7 @@
                                         <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                       </b-col>
                                       <b-col sm="6">
-                                        <b-form-input v-model="listings.rfidState2" ref="todos2" @input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90' } : null"></b-form-input>
+                                        <b-form-input v-model="listings.rfidState2" ref="todos2" @input="posttorfidapi2($event, index)" :style="listings.rfidState2 ? { 'background-color': '#33FF90', color:'#33FF90' } : null"></b-form-input>
                                       </b-col>
                                       <b-col>
                                         <!-- <p v-if="listings[index].rfidState2 > 3 ">RFID Checked</p> -->
@@ -138,7 +138,7 @@
 
                                           <p v-if="teamfetch.Rfid != null">
                                           <!-- VALUE -->
-                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90">
+                                            <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90; color:#33FF90;">
                                               {{teamfetch.Rfid.tag}}
                                             </b-form-input>
                                           </p>
@@ -297,7 +297,7 @@
 
                                     <b-col sm="7">
                                         <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
-                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
                                     <b-col>
@@ -518,7 +518,7 @@
 
                                     <b-col sm="7">
                                         <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
-                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}}
+                                        {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}} ({{sideB1BookerNameFetched}})
                                     </b-col>
 
                                     <b-col>
@@ -1897,6 +1897,8 @@ export default {
                           this.teamName1 = response.data[0].Team.name;
                           this.selected1 = response.data[0].mission_id;
 
+                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
                           // var first_name = response.data[0].Team_player_sessions[0].Player.Person.first_name;
                           // var last_name = response.data[0].Team_player_sessions[0].Player.Person.last_name;
 
@@ -1956,9 +1958,12 @@ export default {
                         // console.log(response.data[0].id);
                         if(response.data.length > 0){
                           console.log("greater than 0");
+
+                          // console.log(response.data[0].Reservation.Booker.Person.first_name);
+
                           this.teamName2 = response.data[0].Team.name;
                           this.selected2 = response.data[0].mission_id;
-
+                          this.sideB1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
 
                          this.toListFetchRouteA2 = response.data[0];
                           var trackId = response.data[0].id;
@@ -2049,6 +2054,9 @@ export default {
         draggedTeamPlayerSessionId:'',
         teamIdSideA1: '',
         teamIdSideB1: '',
+
+        sideB1BookerNameFetched:'',
+        sideA1BookerNameFetched:'',
 
         sessionRow1DateTime:'',
 
