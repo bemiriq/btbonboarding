@@ -275,7 +275,7 @@
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <!-- <p>SAAAAA</p> -->
-                        <div v-if="toListFetchRouteA1 > '0'" style="height: 300px;">
+                        <div v-if="toListFetchRouteA1 > '0'"  style="height: 300px;border-style: outset;">
                           <!-- <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
@@ -502,7 +502,7 @@
 
                     <div v-if="teamName2.length > 2">
 
-                      <div v-if="toListFetchRouteA2 > '0'" style="height: 300px;">
+                      <div v-if="toListFetchRouteA2 > '0'" style="height: 300px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="toListFetchRouteA2.Team_player_sessions" class="list-group" draggable=".item" group="a">
                             <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2.Team_player_sessions" :key="teamfetch.id">
@@ -575,10 +575,9 @@
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                          <!-- <b-form-select v-model="selected1"> -->
-                          <b-form-select v-model="selected2" v-on:change="sortBy">
+                            <b-form-select v-model="selected2" v-on:change="onChangeMission2">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                          </b-form-select>
+                            </b-form-select>
                         </b-col>
                       </b-row>
 
@@ -3716,35 +3715,77 @@ export default {
 
       onChangeMission1(event){
         console.log(this.list2sessionid);
+        console.log(event); /** this print out the selected values as 1,2,3 for cyberbot,blockmonster, promode**/
+
+        var selectedMissionId = event;
+
         console.log("inside on change mission");
 
-        var missionid = this.teamByTime2[0].mission_id;
-        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        // var missionid = this.teamByTime2[0].mission_id;
+        // this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
 
 
         var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
-        console.log(draggedPlayerId);
-
-        // console.log('one drop');
-        // console.log(this.element.id);
-        console.log(this.teamname1id[0].id);
+        // console.log(draggedPlayerId);
+        // console.log(this.teamname1id[0].id);
         var reservationid = this.list2[0].reservation_id;
         var teamId = this.teamname1id[0].id;
         var organizationid = this.organizationselected1;
         var sessionID = this.list2sessionid;
-        var missionid = this.selected1;
+        // var missionid = this.selected1;
+        var missionid = selectedMissionId;
 
-        console.log(this.selected1);
+        console.log(missionid);
 
         var routeId = 1;
-        // console.log(this.list2);
 
           if(teamId > 0){
-            // console.log('greater than 0');
-            // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
             axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionID,{
-            // team_id: teamId,
-            // route_id: routeId,
+
+              mission_id: missionid
+
+            })
+            .then(response => {
+
+              console.log(response.data);
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+          }
+
+      },
+
+      onChangeMission2(event){
+        console.log(this.list4sessionid);
+        console.log(event); /** this print out the selected values as 1,2,3 for cyberbot,blockmonster, promode**/
+
+        var selectedMissionId = event;
+
+        console.log("inside on change mission");
+
+        // var missionid = this.teamByTime2[0].mission_id;
+        // this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+
+
+        var draggedPlayerId = this.list4[this.list4.length - 1].id; /* this will always select the last player id dragged */
+        // console.log(draggedPlayerId);
+        // console.log(this.teamname1id[0].id);
+        var reservationid = this.list4[0].reservation_id;
+        var teamId = this.teamname2id[0].id;
+        var organizationid = this.organizationselected2;
+        var sessionID = this.list4sessionid;
+        // var missionid = this.selected1;
+        var missionid = selectedMissionId;
+
+        console.log(missionid);
+
+        var routeId = 1;
+
+          if(teamId > 0){
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionID,{
 
               mission_id: missionid
 
