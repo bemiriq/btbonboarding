@@ -275,7 +275,7 @@
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <!-- <p>SAAAAA</p> -->
-                        <div v-if="toListFetchRouteA1 > '0'" style="height: 300px; background-color: yellow;">
+                        <div v-if="toListFetchRouteA1 > '0'" style="height: 300px;">
                           <!-- <div v-for="teamfetch in toListFetchRouteA1" :key="teamfetch.id">
                             <draggable id="first" data-source="juju" :list="teamfetch.Team_player_sessions" class="list-group" draggable=".item" group="a">
                               <div class="list-group-item item" v-for="personame in teamfetch.Team_player_sessions" :key="personame.id">
@@ -290,12 +290,12 @@
                               
 
                               <b-row>
-                                    <b-col sm="2">
+                                    <b-col sm="1">
                                       <!-- <p v-if="list2[index].rfidState1 == null" style="display:none;"></p> -->
                                       <p v-if="teamfetch.Rfid != null" style='font-size:17px; color:green;'>&#9989;</p>
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
                                         {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
@@ -502,7 +502,7 @@
 
                     <div v-if="teamName2.length > 2">
 
-                      <div v-if="toListFetchRouteA2 > '0'" style="height: 300px; background-color: yellow;">
+                      <div v-if="toListFetchRouteA2 > '0'" style="height: 300px;">
 
                           <draggable id="first" data-source="juju" :list="toListFetchRouteA2.Team_player_sessions" class="list-group" draggable=".item" group="a">
                             <div class="list-group-item item" v-for="teamfetch in toListFetchRouteA2.Team_player_sessions" :key="teamfetch.id">
@@ -511,12 +511,12 @@
                               
 
                               <b-row>
-                                    <b-col sm="2">
+                                    <b-col sm="1">
                                       <!-- <p v-if="list2[index].rfidState1 == null" style="display:none;"></p> -->
                                       <p v-if="teamfetch.Rfid != null" style='font-size:17px; color:green;'>&#9989;</p>
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         <!-- {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
                                         {{teamfetch.Player.Person.first_name}} {{teamfetch.Player.Person.last_name}} ({{sideB1BookerNameFetched}})
                                     </b-col>
