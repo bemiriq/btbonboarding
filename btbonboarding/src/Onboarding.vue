@@ -1699,8 +1699,6 @@ export default {
     this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
     console.log(this.sessionRow1DateTime);
 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONBYID).then(response => (this.teamByTime1 = response.data));
-
     var starttime='start';
     var endtime='end';
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
