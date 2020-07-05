@@ -303,7 +303,7 @@
                               </div>
                             </draggable>
                           </div> -->
-                          <draggable id="first" data-source="juju" :list="toListFetchRouteA1.Team_player_sessions" class="list-group" draggable=".item" group="a" @add="onDrop1AfterReload">
+                          <draggable id="first" data-source="juju" :list="toListFetchRouteA1.Team_player_sessions" class="list-group" draggable=".item" group="a" @add="onDrop1AfterReload" :move="onDropReservation1AfterReload">
                             <div class="list-group-item item" v-for="element in toListFetchRouteA1.Team_player_sessions" :key="element.id">
                               <b-row>
                                     <b-col sm="1">
@@ -1748,8 +1748,8 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -1782,10 +1782,12 @@ export default {
 
         console.log(replyDataObj);
 
+        console.log(response.data.length);
+
 
         for(let i=0; i < response.data.length; i++){
           // console.log("090");
-          // console.log(i);
+          console.log(i);
 
           var booker_last_name = response.data[i].Booker.Person.last_name;
           var booker_first_name = response.data[i].Booker.Person.first_name;
@@ -1870,102 +1872,113 @@ export default {
 
           }
 
-          var reservationID = response.data[i].Reservation_people[i].reservation_id;
+          else{
+            console.log("conisistsss s ssssssssssssssssssssssssssss");
+            
+            for(let i=0; i < response.data.length; i++){
 
-          // var ccEmailId = "sandeshchiryo";
+              console.log(i);
+              console.log(response.data[i].Reservation_people.length);
 
+              var booker_last_name = response.data[i].Booker.Person.last_name;
+              var booker_first_name = response.data[i].Booker.Person.first_name;
+              var booker_id = response.data[i].Booker.Person.id;
 
-          console.log(response.data[0].Reservation_people.length);
+              console.log(booker_last_name);
 
-          var countSubtract = response.data[0].Reservation_people.length;
+              for(let j=0; j < response.data[i].Reservation_people.length; j++){
 
-          console.log(countSubtract);
+                console.log(i);
+                console.log(j);
 
-          for(let j=0; j < response.data[0].Reservation_people.length; j++){
-
-            console.log("yellow");
-
-            console.log(i);
-            console.log(response.data[i].Reservation_people[j].Person.first_name+' '+response.data[i].Reservation_people[j].Person.last_name);
-
-          // console.log(response.data[0].Reservation_people[0].Person.Player.Player_minors.length);
-
-            replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-                 // "address": [
-                 //   ccEmailId
-                 //  ]
-                 "id" : booker_id, /** this is the person id for the booker **/
-                 "firstName" : booker_first_name,
-                 "lastName" : booker_last_name
-              }
-
-            console.log(replyDataObj1);
-            console.log(i);
-            console.log(j);
-
-
-
-            // var playerMinorLength = response.data[i].Reservation_people[j].Person.Player.Player_minors.length;
-            var playerMinorLength = response.data[i].Reservation_people.length;
-            console.log(playerMinorLength);
-
-            this.teamByTime2 = replyDataObj1;
-            if(playerMinorLength > 0){
-              // for(let k=0; k < playerMinorLength; k++){
-              //   console.log(i);
-              //   console.log(j);
-              //   console.log(k);
-                // console.log(response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name);
-
-                // var minorLastName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].last_name;
-                // var minorFirstName = response.data[i].Reservation_people[j].Person.Player.Player_minors[k].first_name;
-
-                var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-
-                var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-                console.log(minorLastName+' '+minorFirstName);
-                var incrementObject = countSubtract++;
-                // var definePerson = 'Person';
-
-                // replyDataObj1[i]['Reservation_people'][j]['Person'][k]={
-                replyDataObj1[i]['Reservation_people'][incrementObject]={
-                   // "id" : booker_id,
-                   "person_id": minorPlayerMinorId,
-                   "id": minorReservationsMinorId,
-                   "Person":
-                      {
-                        "Player":{
-                          "id" : minorReservationsMinorId,
-                          "minor": 'yes'
-                        },
-                        "first_name" : minorFirstName,
-                        "last_name" : minorLastName,
-                        "person_id" : minorPlayerMinorId,
-                        "minor" : 'yes',
-                        "minorsymbol" : 'M',
-                        "player_id" : personSignedWaiverId,
-                        "reservation_id": reservationID,
-                        "Bookerdetail":{
-                          "id" : booker_id, /** this is the person id for the booker **/
-                          "firstName" : booker_first_name,
-                          "lastName" : booker_last_name
-                        }
-                    }
-
+                replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+                   // "address": [
+                   //   ccEmailId
+                   //  ]
+                   "id" : booker_id, /** this is the person id for the booker **/
+                   "firstName" : booker_first_name,
+                   "lastName" : booker_last_name
                 }
-
-                console.log(replyDataObj1);
-                this.teamByTime2 = replyDataObj1;
-
               }
+
+              this.teamByTime2 = replyDataObj1;
+              console.log(replyDataObj1);
+
+            }
+          }
+
+
+
+          // var reservationID = response.data[i].Reservation_people[i].reservation_id;
+
+          // var countSubtract = response.data[0].Reservation_people.length;
+
+          // console.log(countSubtract);
+
+          // for(let j=0; j < response.data[0].Reservation_people.length; j++){
+
+          //   console.log("yellow");
+
+          //   console.log(i);
+          //   console.log(response.data[i].Reservation_people[j].Person.first_name+' '+response.data[i].Reservation_people[j].Person.last_name);
+
+
+          //   var playerMinorLength = response.data[i].Reservation_people.length;
+          //   console.log(playerMinorLength);
+
+          //   this.teamByTime2 = replyDataObj1;
+          //   if(playerMinorLength > 0){
+
+          //       var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+          //       var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+          //       var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+
+          //       var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+          //       var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+
+          //       console.log(minorLastName+' '+minorFirstName);
+          //       var incrementObject = countSubtract++;
+
+          //       replyDataObj1[i]['Reservation_people'][incrementObject]={
+          //          // "id" : booker_id,
+          //          "person_id": minorPlayerMinorId,
+          //          "id": minorReservationsMinorId,
+          //          "Person":
+          //             {
+          //               "Player":{
+          //                 "id" : minorReservationsMinorId,
+          //                 "minor": 'yes'
+          //               },
+          //               "first_name" : minorFirstName,
+          //               "last_name" : minorLastName,
+          //               "person_id" : minorPlayerMinorId,
+          //               "minor" : 'yes',
+          //               "minorsymbol" : 'M',
+          //               "player_id" : personSignedWaiverId,
+          //               "reservation_id": reservationID,
+          //               "Bookerdetail":{
+          //                 "id" : booker_id, /** this is the person id for the booker **/
+          //                 "firstName" : booker_first_name,
+          //                 "lastName" : booker_last_name
+          //               }
+          //           }
+
+          //       }
+
+          //       console.log(replyDataObj1);
+          //       this.teamByTime2 = replyDataObj1;
+
+          //     }
             
             
 
-          }
+          // }
+
+
+
+
+
+
 
           // console.log(response.data[0].Reservation_people[0].Person.Player.Player_minors.length);
 
