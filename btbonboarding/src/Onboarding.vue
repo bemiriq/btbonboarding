@@ -2122,7 +2122,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 = null){
+    if(dateTime1 != null){
 
       console.log(dateTime1);
       const remainderRoute1 = -15 - (start.minute() % 30);
