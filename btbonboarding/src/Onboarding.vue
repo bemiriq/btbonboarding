@@ -267,7 +267,7 @@
 
                     <div v-if="this.teamName1.length > 1"> <!-- checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="toListFetchRouteA1 > '0'"  style="height: 300px;border-style: outset;">
+                        <div v-if="toListFetchRouteA1 > '0'"  style="height: 360px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="toListFetchRouteA1.Team_player_sessions" class="list-group" draggable=".item" group="a" @add="onDrop1AfterReload" :move="deleteTeamPlayerSessionAfterReload1">
                             <div class="list-group-item item" v-for="element in toListFetchRouteA1.Team_player_sessions" :key="element.id">
@@ -311,9 +311,9 @@
                     </draggable -->
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop1" :move="onDropReservation1">
+                            <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1" :move="onDropReservation1">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list2" :key="index">
 
@@ -325,13 +325,13 @@
                                     <b-col sm="2">
 
                                       <p v-if="list2[index].rfidState1 == null" style="display:none;"></p>
-                                      <p v-else style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-else style='color:green;'>&#9989;</p>
 
                                     </b-col>
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
-                                    <b-col>
+                                    <b-col sm="1">
                                       {{element.Person.minorsymbol}}
                                     </b-col>
                                   </b-row>
@@ -353,7 +353,7 @@
                     </div> <!-- end of v-if teamname1 check -->
 
                     <div v-else> <!-- v-else if teamname not inserted display differnt div with **INSERT TEAM** text -->
-                        <div style="height: 300px; border-style: outset;">
+                        <div style="height: 360px; border-style: outset;">
                           <p id="insertTeamFirst"> ** Add a team name first ** </p>
                         </div>
                     </div>
@@ -483,7 +483,7 @@
                     <div v-if="teamName2.length > 1">
 
                       <!-- <p>SAAAAA</p> -->
-                        <div v-if="toListFetchRouteB1 > '0'"  style="height: 300px;border-style: outset;">
+                        <div v-if="toListFetchRouteB1 > '0'"  style="height: 360px;border-style: outset;">
                           <draggable id="first" data-source="juju" :list="toListFetchRouteB1.Team_player_sessions" class="list-group" draggable=".item" group="a" @add="onDrop2AfterReload" :move="deleteTeamPlayerSessionAfterReload2">
                             <div class="list-group-item item" v-for="element in toListFetchRouteB1.Team_player_sessions" :key="element.id">
                               <b-row>
@@ -514,7 +514,7 @@
                         </div>
 
                       <div v-else>
-                        <draggable id="first" data-source="juju" :list="list4" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
+                        <draggable id="first" data-source="juju" :list="list4" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop2" :move="onDropReservation2">
 
                               <div class="list-group-item item" v-for="(element, index) in list4" :key="index">
                                   <b-row>
@@ -540,7 +540,7 @@
 
                       <!-- if the team.length is less than 2 it will display text -->
                       <div v-else>
-                        <div style="height: 300px; border-style: outset;">
+                        <div style="height: 360px; border-style: outset;">
                           <p id="insertTeamFirst"> ** Add a team name first ** </p>
                         </div>
                       </div>
@@ -674,12 +674,12 @@
                         :list="list4"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;" @add="onDrop2"
+                        group="a" style="height: 360px; border-style: outset;" @add="onDrop2"
                       > -->
 
                     <div v-if="teamName3.length > 1">
                       <!-- <p>SAAAAA</p> -->
-                        <div v-if="toListFetchRouteA2 > '0'"  style="height: 300px;border-style: outset;">
+                        <div v-if="toListFetchRouteA2 > '0'"  style="height: 360px;border-style: outset;">
                           <draggable id="first" data-source="juju" :list="toListFetchRouteA2.Team_player_sessions" class="list-group" draggable=".item" group="a" @add="onDrop3AfterReload">
                             <div class="list-group-item item" v-for="element in toListFetchRouteA2.Team_player_sessions" :key="element.id">
                               <b-row>
@@ -710,7 +710,7 @@
                         </div>
 
                       <div v-else>
-                        <draggable id="first" data-source="juju" :list="list5" class="list-group" draggable=".item" group="a" style="height: 300px; border-style: outset;" @add="onDrop3" :move="onDropReservation3">
+                        <draggable id="first" data-source="juju" :list="list5" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop3" :move="onDropReservation3">
 
                               <div class="list-group-item item" v-for="(element, index) in list5" :key="index">
                                   <b-row>
@@ -734,7 +734,7 @@
 
                       <!-- if the team.length is less than 2 it will display text -->
                       <div v-else>
-                        <div style="height: 300px; border-style: outset;">
+                        <div style="height: 360px; border-style: outset;">
                           <p id="insertTeamFirst"> ** Add a team name first ** </p>
                         </div>
                       </div>
@@ -831,7 +831,7 @@
                         :list="list5"
                         class="list-group"
                         draggable=".item"
-                        group="a" style="height: 300px; border-style: outset;"
+                        group="a" style="height: 360px; border-style: outset;"
                       >
                         <div
                           class="list-group-item item"
@@ -848,7 +848,7 @@
                     </div>
 
                     <div v-else>
-                      <div style="height: 300px; border-style: outset;">
+                      <div style="height: 360px; border-style: outset;">
                           <p id="insertTeamFirst"> ** Add a team name first ** </p>
                         </div>
                     </div>
@@ -950,7 +950,7 @@
                       :list="list6"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1034,7 +1034,7 @@
                       :list="list7"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1128,7 +1128,7 @@
                       :list="list8"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1212,7 +1212,7 @@
                       :list="list9"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1306,7 +1306,7 @@
                       :list="list10"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1390,7 +1390,7 @@
                       :list="list11"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 300px; border-style: outset;"
+                      group="a" style="height: 360px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
