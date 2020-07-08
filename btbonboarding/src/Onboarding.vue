@@ -4475,7 +4475,7 @@ export default {
 
         var reservationid = this.list4[countondrop2].reservation_id;
         var teamId = this.teamname2id[0].id;
-        var routeId = 1;
+        var routeId = 2;
 
         var reservationIdForSessionUpdate = this.list4[countondrop2].id;
         console.log(reservationIdForSessionUpdate);
