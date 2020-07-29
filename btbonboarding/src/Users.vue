@@ -49,20 +49,23 @@
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10"  style="background-color:#fafafa;">
           
-          <b-container class="bv-example-row mb-3">
-            <b-row cols="8" class="rightHeader">
-              <b-col md="2">Time</b-col>
-              <b-col md="3">Reservation</b-col>
+          <b-container class="bv-example-row">
+            <b-row class="rightHeader">
+              <b-col md="1">Time</b-col>
+              <b-col md="2">Reservation</b-col>
+              <b-col md="1">Mission</b-col>
               <b-col md="1">Size</b-col>
-              <b-col md="2">Group</b-col>
+              <b-col md="1">Group</b-col>
+              <b-col md="1">Waivers</b-col>
               <b-col md="1">Arrived</b-col>
               <b-col md="1">Paid</b-col>
-              <b-col md="1">Ready</b-col>
+              <b-col md="1">Release</b-col>
               <b-col md="1">Late</b-col>
+              <b-col md="1">NoShows</b-col>
             </b-row>
           </b-container>
           <hr>
-          <b-container class="bv-example-row mb-3">
+          <b-container class="bv-example-row">
 
             <!-- <td><input type='text' v-model='blog.username'></td>
             <td><input type='text' v-model='blog.name'></td>
@@ -77,7 +80,7 @@
               <button @click="submitName()">Add </button>
             </div> -->
 
-<b-modal id="modal-xl" centered size="xl" title="TEAM NAME 1">
+          <b-modal id="modal-xl" centered size="xl" title="TEAM">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
                             <!--   <b-row class="my-1" style="background-color: green;">
                                 <b-col style="width:auto;">
@@ -91,7 +94,11 @@
                                 </b-col>
                               </b-row>-->
                               
-                                <p> Booker Name = <u style="font-weight:bold;">{{selectedCustomerName}}</u> </p>
+                                <!-- <b-row>
+                                  <b-col>{{selectedCustomerName}}</b-col>
+                                  <b-col>{{selectedDate}}</b-col>
+                                </b-row> -->
+                                <p>{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}}</p>
                                 <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
                               <br/>
                               <b-container class="bv-example-row">
@@ -100,17 +107,24 @@
                                     <b-col><p>L Name</p></b-col>
                                     <b-col><p>Text Number</p></b-col>
                                     <b-col><p>Arrival</p></b-col>
-                                    <b-col><p>Waiver</p></b-col>
-                                    <b-col><p>No Show</p></b-col>
+                                    <!-- <b-col><p>Waiver</p></b-col> -->
+                                    <b-col><p>Status</p></b-col>
+                                    <b-col><p>Non-Player</p></b-col>
                                   </b-row>
 
-                                  <b-row>
-                                    <b-col><p>David</p></b-col>
-                                    <b-col><p>P</p></b-col>
-                                    <b-col><p>817 360 2705</p></b-col>
+                                  <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">
+                                    <p>{{fetchlist1.player_name}}</p>
+                                    <p>S</p>
+                                  </div> -->
+
+                                  <b-row v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id" style="margin-top: 1%;">
+                                    <b-col>{{fetchlist1.player_first_name}}</b-col>
+                                    <b-col>{{fetchlist1.player_last_name}}</b-col>
+                                    <b-col>{{fetchlist1.player_cell_number}}</b-col>
                                     <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
+                                    <!-- <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col> -->
+                                    <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col>
                                     <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
-                                    <b-col><input type="checkbox" v-model="subchildNoShow"/></b-col>
                                   </b-row>
 
                                 </b-container>
@@ -129,34 +143,18 @@
 
           <!-- filteritems is used as it searches only for customerName and filter out the data -->
           <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
-          <div v-for="post in sortedArray" v-bind:key="post.createdAt">
-            <b-row cols="8" class="bottomRightData">
-                <b-col md="2">
-                  <!-- <div v-for="item in post.items" v-bind:key="item.arrival" v-on:click="convertTime">
-                    {{item.arrivalTime}}
-                  </div> -->
-                  <div>
-                    <div v-for="item in post.items" ref="convertedTime" id="convertedTime" v-bind:key="item.arrival" class="covertedtime">
 
-                      {{item.arrivalTime}}
+          <!-- <div v-for="post in sortedArray" v-bind:key="post.createdAt"> -->
 
-                      <!-- <div v-for="item in sortedArray" v-bind:key="item.arrivalTime"> -->
-                        
-                      <!-- </div> -->
-                    </div>
-                  </div>
+          <!-- <div > -->
+            <b-row v-for="item in posts" v-bind:key="item.id" >
+                <b-col class="covertedtime" col lg="1">
+                      {{item.reservation_for}}
                 </b-col>
 
-                <b-col md="3">
-                  <!-- <div v-show="!onDetailDiv" v-for="item in post.items" v-bind:key="item.arrival">
-                    <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
-                      {{demographic.quantity}}
-                    </div>
-                  </div> -->
-                  <!-- <div v-for="item in post.items" v-bind:key="item.id"> -->
-                   <!--  <div @click="item.id = !item.id" style="color: blue;"> -->
-                    <div v-for="item in post.items" v-bind:key="item.id" v-on:click="selectItem (post, item)">
-                      <b-button pill variant="outline-info">{{post.customerName}}</b-button>
+                <b-col col lg="2">
+                    <div v-on:click="selectItem (posts, item)">
+                      <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
                     </div>
 
                       <!-- <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button> -->
@@ -303,37 +301,75 @@
                     <!-- </div> -->
 
                 </b-col>
-                  
-                <b-col md="1">
-                  <div v-for="item in post.items" v-bind:key="item.arrival">
-                    <div v-for="demographic in item.demographics" v-bind:key="demographic.id">
-                      {{demographic.quantity}}
-                    </div>
+
+                <b-col col lg="1">
+                  <div>
+                    {{item.Mission.name}}
                   </div>
                 </b-col>
 
-                <b-col md="2">Alexander P</b-col>
-                <b-col md="1">5</b-col>
-                <b-col md="1">5</b-col>
+                <!-- this represents the RESERVATION SIZE -->
+                <b-col col lg="1">
+                    {{item.size}}
+                </b-col>
 
-                <b-col md="1">
-                  <!-- <input type="checkbox" id="readyChecked" v-model="readyChecked"> -->
-                  <!-- <div v-for="(value, key, index) in posts" :key="index"> -->
+                 <!-- this represents the GROUP Name or organization name -->
+                <b-col lg="1">
+                  <!-- <select v-for="organization in organizationDetail" v-bind:key="organization.id"> -->
+                    <div>
+                  <select>
+                    <option value=""> </option>
+                    <option v-for="organization in organizationDetail" v-bind:key="organization.id">{{organization.name}}</option>
+                    <!-- <option>B</option> -->
+                    <!-- <option>C</option> -->
+                  </select>
+                </div>
+                </b-col>
+
+                <!-- TOTAL WAIVERS SIGNED -->
+                <b-col col lg="1">
+                  <div>
+                    {{item.Reservation_people.length+item.Reservation_minors.length}}
+                  </div>
+                </b-col>
+                
+                <!-- below defines the ARRIVED VALUE -->
+                <b-col col lg="1">
+                  <div>
+                    {{item.size}}
+                  </div>
+                </b-col>
+
+                
+
+                <!-- below defines the Paid or Not data -->
+                <b-col col lg="1">
+                  <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
+                  <div v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</div>
+                  <div v-if="item.paid_amount != item.final_dollar_amount">&#10060;</div>
+                </b-col>
+
+                <!-- below defines READY -->
+                <b-col col lg="1"><input type="checkbox" :value="readyChecked.id"/></b-col>
+
+                <!-- below defines LATE -->
+                <b-col col lg="1"><input type="checkbox" :value="lateChecked.id"/></b-col>
+
+
+                <!-- defines NO SHOWS -->
+                <b-col col lg="1">No Shows</b-col>
+
+                <!-- <b-col md="1">
                     <div v-for="readyChecked in post.items" v-bind:key="readyChecked.id">
                       <input type="checkbox" :value="readyChecked.id" v-model="readyCheckedCategories" @click="readycheck($event)">
-                      <!-- {{readyChecked.id}} -->
                     </div>
-                    <!-- <label for="jack">jack</label> -->
-                  <!-- </div> -->
                 </b-col>
 
                 <b-col md="1">
-                  <!-- <input type="checkbox" id="lateChecked" v-model="lateChecked"> -->
                   <div v-for="lateChecked in post.items" v-bind:key="lateChecked.id">
                     <input type="checkbox" :value="lateChecked.id" v-model="lateCheckedCategories" @click="latecheck($event)">
-                    <!-- {{lateChecked.id}} -->
                   </div>
-                </b-col>
+                </b-col> -->  
 
             </b-row>
 
@@ -354,7 +390,7 @@
 
 
             
-          </div>
+          <!-- </div> -->
 
 
           
@@ -495,6 +531,7 @@ export default {
       // title: process.env.VUE_APP_TITLE,
       searchQuery: '',
       posts: [],
+      organizationDetail: [],
       todaydate: moment().format('YYYY-MM-DD'),
       currenttime: moment().format('h:mm A'),
       readyChecked: [],
@@ -503,7 +540,16 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+      
+
       selectedCustomerName: '',
+      selectedDate:'',
+      selectedTime:'',
+      mission_name:'',
+      teamSize:'',
+      clickedPlayerList:[],
+      personPhoneNumber:'',
+
       // displayModal: true,
       timeList: [],
       convertedTimeList: '',
@@ -574,97 +620,79 @@ export default {
 
 mounted: function(){
 
-    // console.log(process.env.VUE_APP_ROOTURL); /** this my localhost URL **/
-    // console.log(process.env.VUE_APP_DATABASE);
-    // console.log(process.env.VUE_APP_ROOTURL_DATABASE);
+  //   var currentDate = moment().format('YYYY-MM-DD');
 
-    // console.log(process.env.VUE_APP_DATABASE_TEAMS);
-
-    // console.log(process.env.VUE_APP_DATABASE_SESSIONS);
-
-    // console.log(process.env.VUE_APP_DATABASE_PLAYERSESSIONS);
-
-    var currentDate = moment().format('YYYY-MM-DD');
-
-    // axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate)
-    //  .then(response => (this.posts = response.data.data));
-
-    const current = new moment().format("hh:mm");
-   // var quaterMinute = ["15","30","30","45"];
+  //   const current = new moment().format("hh:mm");
 
 
-   let next15Minutes = moment().add(15, 'minutes');
+  //  let next15Minutes = moment().add(15, 'minutes');
 
    
 
-   next15Minutes.minutes(Math.floor(next15Minutes.minutes() / 15) * 15);
+  //  next15Minutes.minutes(Math.floor(next15Minutes.minutes() / 15) * 15);
 
-   // console.log(next15Minutes);
+  // this.timeList.push(next15Minutes.format('h:mm A'));
+  //  const timetest = next15Minutes;
+  //  const timetest1 = next15Minutes;
 
-  this.timeList.push(next15Minutes.format('h:mm A'));
-   const timetest = next15Minutes;
-   const timetest1 = next15Minutes;
+  //  for(let i=0;i<5;i++){
 
-   for(let i=0;i<5;i++){
+  //   if(i<1){
+  //         timetest1.subtract(15, 'minutes');
+  //          timetest1.minutes(Math.floor(timetest1.minutes() / 15) * 15);
+  //          this.timeList.push(timetest1.format('h:mm A'));
 
-    if(i<1){
-          timetest1.subtract(15, 'minutes');
-           timetest1.minutes(Math.floor(timetest1.minutes() / 15) * 15);
-           this.timeList.push(timetest1.format('h:mm A'));
-
-           // console.log(this.timeList);
-
-         }
-         else{
-            timetest.add(15, 'minutes');
-          timetest.minutes(Math.floor(timetest.minutes() / 15) * 15);
-          this.timeList.push(timetest.format('h:mm A'));
-
-          // console.log(this.timeList);
-
-       }
-
-     }
-
-     this.timeList = [ ...new Set(this.timeList) ];
-     this.timeList.sort(); //this will sort out the time from ascending to descending
-     this.timeList.reverse(); //used reverse to change asc/desc to desc/asc
-
-     // console.log(this.timeList.reverse());
-
-       // var arrivalDate = moment().format('YYYY-MM-DD');
-       // var arrivalTime = this.arrivalTime1;
-
-       // console.log(arrivalTime);
-
-       // var startArrivalTime='1400';
-       // var endArrivalTime='2345'
-       axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate,
-        {headers: {'X-API-KEY': 'Af144hp8uKL3ESKoSDlsDR1btaMM4nO1cbdsT8rWvKo'}})
-     .then(response => (this.posts = response.data.data));
-     // this.posts.sort();
-     // console.log(this.posts);
-     // console.log(this.timeList);
-
-//      var currentTime = moment().format('h:mm A');
-//      console.log(currentTime);
-
-//      var result = posts.filter((x)=>x.customerName === 'Alexander Patterson');
-// console.log(result);
-    
-
-// console.log(json2015);
+  //        }
+  //        else{
+  //           timetest.add(15, 'minutes');
+  //         timetest.minutes(Math.floor(timetest.minutes() / 15) * 15);
+  //         this.timeList.push(timetest.format('h:mm A'));
 
 
-    //  setInterval(() => {
-    //   this.date = moment(this.date.subtract(1, 'seconds'))
-    // }, 1000);
+  //      }
+
+  //    }
+
+  //    this.timeList = [ ...new Set(this.timeList) ];
+  //    this.timeList.sort(); //this will sort out the time from ascending to descending
+  //    this.timeList.reverse(); //used reverse to change asc/desc to desc/asc
+
+  //      axios.get("https://sandbox.xola.com/api/orders?seller=5e1f43c0c697353cf12979e7&items.arrival="+currentDate,
+  //       {headers: {'X-API-KEY': 'Af144hp8uKL3ESKoSDlsDR1btaMM4nO1cbdsT8rWvKo'}})
+  //    .then(response => (this.posts = response.data.data));
+
+    var starttime='start';
+    var endtime='end';
+    var currentdate = moment().format("YYYY-MM-DD");
+    var startReservationTime = '10:00:00';
+    // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = '22:00:00';
+
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+      })
+    .then(response => 
+      {
+        console.log(response);
+        this.posts = response.data;
+      })
+    .catch(function (error){
+        console.log(error);
+      });
+
+    axios.get(process.env.VUE_APP_DTB_ORGANIZATION,{
+
+    })
+    .then(response => 
+      {
+        console.log(response);
+        this.organizationDetail = response.data;
+      })
+    .catch(function (error){
+        console.log(error);
+      });
 
   },
-
-  // created() {
-  //   this.$emit('tryMe');
-  // },
 
 /* the function below grabs the time fro axios.get(API) and converts to military time */
 updated() {
@@ -745,9 +773,150 @@ var arrows = document.getElementsByClassName("covertedtime");
     // },
 
     /* the function below displays only one modal for particular customer clicked */
-    selectItem (post, item) {
-      this.selectedCustomerName = post.customerName /*this.selectedCustomerName pass the value to data return() */
-      var bookerName = this.selectedCustomerName
+    selectItem (posts, item) {
+
+      console.log(item);
+
+      var bookerName = item.Booker.Person.first_name+' '+item.Booker.Person.last_name;
+      var missionName = item.Mission.name;
+      var teamSizeItem = item.size;
+      
+      /** conversion of date and time for second part **/
+        var reservation_for = item.reservation_for;
+
+        var arr = reservation_for.split("T");
+        var onlyDate = arr.splice(0,1).join("");
+        console.log(onlyDate);
+
+        var onlyTime = arr.join("T");
+        console.log(onlyTime);
+
+        var twoDigits = onlyTime.substring(0, 2);
+        var time1 = twoDigits-12;
+        console.log(time1);
+
+        if(time1 > 0){
+          console.log("PM");
+          var ampm = "PM";
+        }
+        else{
+          console.log("AM");
+          var ampm = "AM";
+        }
+
+        var posNegTime = Math.abs(time1);
+        var onlyTime = arr.join("T");
+        var twoDigits = onlyTime.substring(3, 5);
+        console.log(twoDigits);
+
+        var timeConverted = posNegTime+':'+twoDigits+' '+ampm;
+        console.log(timeConverted);
+      /** end of date and time converted for second part **/
+
+
+      /** create object which grabs both MINOR and NON-MINOR in the same column **/
+      var countReservationPeople = item.Reservation_people.length;
+      console.log(countReservationPeople);
+
+      var replyDataObj1 = item;
+
+      for(let i=0; i < countReservationPeople; i++){
+        
+        console.log(i);
+        var player_first_name = item.Reservation_people[i].Person.last_name;
+        var player_last_name = item.Reservation_people[i].Person.first_name;
+        var player_cell_number = item.Reservation_people[i].Person.phone;
+        var player_full_name = player_first_name+' '+player_last_name;
+        var player_person_id = item.Reservation_people[i].Person.Player.person_id;
+        var player_id = item.Reservation_people[i].Person.Player.id;
+        var missionName = item.Mission.name;
+        var missionId = item.Mission.id;
+        var playCount = item.Reservation_people[i].Person.Player.play_count;
+        console.log(player_full_name);
+        // var booker_id = response.data[i].Booker.Person.id;
+        // var objectValue = i++;
+        console.log(i);
+        // var namebana = 'NameMe';
+
+        replyDataObj1['Reservation_people'][i]={
+          "person_id": player_person_id,
+          "player_id": player_id,
+          "player_first_name": player_first_name,
+          "player_last_name": player_last_name,
+          "player_full_name": player_full_name,
+          "player_cell_number": player_cell_number,
+          "minor_tag": "",
+          "play_count": playCount,
+          "mission_name": missionName,
+          "mission_id": missionId
+        }
+
+        this.clickedPlayerList = replyDataObj1;
+        console.log(replyDataObj1);
+
+        this.personPhoneNumber = player_cell_number;
+        // if(item.Reseservation_people)
+
+      }
+
+      console.log(this.clickedPlayerList.Reservation_people.length);
+      var replyDataObj1 = item;
+      var reservationPeopleLength = this.clickedPlayerList.Reservation_people.length;
+      var countReservationMinor = item.Reservation_minors.length;
+      console.log(countReservationMinor);
+
+      for(let i=0; i < countReservationMinor; i++){
+        
+        console.log(item);
+        var nonMinorPhone = this.personPhoneNumber;
+
+        var minor_first_name = item.Reservation_minors[i].Player_minor.last_name;
+        var minor_last_name = item.Reservation_minors[i].Player_minor.first_name;
+        var player_cell_number = nonMinorPhone;
+        var minor_full_name = minor_first_name+' '+minor_last_name;
+        var minor_person_id = item.Reservation_minors[i].Player_minor.id;
+        var minor_player_id = item.Reservation_minors[i].Player_minor.player_id;
+        var missionName = item.Mission.name;
+        var missionId = item.Mission.id;
+        // var booker_id = response.data[i].Booker.Person.id;
+        // var objectValue = i++;
+        console.log(i);
+        // var namebana = 'NameMe';
+        var objectValue = reservationPeopleLength + i;
+        console.log(objectValue);
+
+        replyDataObj1['Reservation_people'][objectValue]={
+          "person_id": minor_person_id,
+          "player_id": minor_player_id,
+          "player_first_name": minor_first_name,
+          "player_last_name": minor_last_name,
+          "player_full_name": minor_full_name,
+          "player_cell_number": player_cell_number,
+          "minor_tag": "M",
+          "play_count": "1",
+          "mission_name": missionName,
+          "mission_id": missionId
+        }
+
+        this.clickedPlayerList = replyDataObj1;
+        console.log(replyDataObj1);
+
+      }
+      /** end of MINOR and NON-MINOR same column **/
+
+
+      this.selectedCustomerName = bookerName;
+      this.selectedDate = onlyDate;
+      this.selectedTime = timeConverted;
+      this.mission_name = missionName;
+      this.teamSize = teamSizeItem;
+
+      console.log(bookerName);
+      console.log(reservation_for);
+      // this.selectedCustomerName = 
+      // console.log(this.posts);
+      // this.selectedCustomerName = posts.customerName /*this.selectedCustomerName pass the value to data return() */
+      // var bookerName = this.selectedCustomerName
       this.$bvModal.show('modal-xl')
      },
 
@@ -786,7 +955,8 @@ var arrows = document.getElementsByClassName("covertedtime");
 .bottomRightData{
   text-align: center;
   font-size: 1.1em;
-  margin-top: 2%;
+  /*margin-top: 2%;*/
+  /*margin-right: 5%;*/
 }
 
 #dateTimeDiv{
