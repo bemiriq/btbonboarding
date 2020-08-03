@@ -121,7 +121,14 @@
                                     <b-col>{{fetchlist1.player_first_name}}</b-col>
                                     <b-col>{{fetchlist1.player_last_name}}</b-col>
                                     <b-col>{{fetchlist1.player_cell_number}}</b-col>
-                                    <b-col><input type="checkbox" v-model="subchildArrived"/></b-col>
+                                    <!-- <b-col><input type="checkbox" v-model="subchildArrived"/></b-col> -->
+                                    <b-col>
+                                      <!-- <p v-if="fetchlist1.arrived == '1'">YES</p>
+                                      <p v-else>NO</p> -->
+                                      <!-- {{fetchlist1.arrived}} -->
+                                      <p v-if="fetchlist1.arrived == '1'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
+                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
+                                    </b-col>
                                     <!-- <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col> -->
                                     <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col>
                                     <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
@@ -153,7 +160,7 @@
                 </b-col>
 
                 <b-col col lg="2">
-                    <div v-on:click="selectItem (posts, item)">
+                    <div v-on:click="selectItem ($event, posts, item)">
                       <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
                     </div>
 
@@ -329,14 +336,16 @@
                 <!-- TOTAL WAIVERS SIGNED -->
                 <b-col col lg="1">
                   <div>
+                    <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
                     {{item.Reservation_people.length+item.Reservation_minors.length}}
+
                   </div>
                 </b-col>
                 
                 <!-- below defines the ARRIVED VALUE -->
                 <b-col col lg="1">
                   <div>
-                    {{item.size}}
+                    {{item.Total_Arrived.arrived}}
                   </div>
                 </b-col>
 
@@ -353,7 +362,10 @@
                 <b-col col lg="1"><input type="checkbox" :value="readyChecked.id"/></b-col>
 
                 <!-- below defines LATE -->
-                <b-col col lg="1"><input type="checkbox" :value="lateChecked.id"/></b-col>
+                <b-col col lg="1">
+                  <!-- <input type="checkbox" :value="lateChecked.id"/> -->
+                  {{currentTime}}-{{item.reservation_for}}
+                </b-col>
 
 
                 <!-- defines NO SHOWS -->
@@ -549,6 +561,7 @@ export default {
       teamSize:'',
       clickedPlayerList:[],
       personPhoneNumber:'',
+      currentTime:'',
 
       // displayModal: true,
       timeList: [],
@@ -620,6 +633,8 @@ export default {
 
 mounted: function(){
 
+  this.currentTime = moment().format('HH:mm');
+
   //   var currentDate = moment().format('YYYY-MM-DD');
 
   //   const current = new moment().format("hh:mm");
@@ -675,6 +690,54 @@ mounted: function(){
       {
         console.log(response);
         this.posts = response.data;
+
+        /** Beginning of ARRIVED counting part **/
+         var countPostArray = response.data.length;
+        // console.log(countPostArray);
+          var replyDataObj1 = this.posts;
+
+          for(let i=0; i <= countPostArray; i++){
+              
+            // console.log(response.data);
+             
+            var countReservationPeople = response.data[i].Reservation_people.length;
+            var countReservationMinors = response.data[i].Reservation_minors.length;
+
+            // console.log(countReservationMinors);
+            // console.log(countReservationPeople);
+
+            var arrivedPerson = 0;
+
+            for(let j=0; j < countReservationPeople; j++){
+
+                arrivedPerson += response.data[i].Reservation_people[j].arrived;
+            }
+
+            var arrivedMinor = 0;
+
+            for(let k=0; k < countReservationMinors; k++){
+
+                arrivedMinor += response.data[i].Reservation_minors[k].arrived;
+            }
+            // console.log(arrivedValue);
+
+            var arrived = arrivedPerson + arrivedMinor;
+
+            // console.log(arrived);
+            // for(let k=0; k < countReservationMinors; k++){
+
+            //     replyDataObj1['Reservation_people'][i]={
+            //       "count_arrived": countArrived,
+            //     }
+            // }
+
+            replyDataObj1[i]['Total_Arrived']={
+                  "arrived": arrived,
+            }
+
+          }
+          /** END of ARRIVED counting PART **/
+
       })
     .catch(function (error){
         console.log(error);
@@ -691,7 +754,6 @@ mounted: function(){
     .catch(function (error){
         console.log(error);
       });
-
   },
 
 /* the function below grabs the time fro axios.get(API) and converts to military time */
@@ -734,6 +796,54 @@ var arrows = document.getElementsByClassName("covertedtime");
       }
     },
 
+    arrivedCheckbox(event, res_people_or_minor_table_id, minor_tag){
+      console.log(event);
+      console.log(res_people_or_minor_table_id);
+      console.log(minor_tag);
+      // console.log(value);
+
+      console.log(event.target.checked);
+
+      if(event.target.checked == true){
+        var arrivedValue = '1';
+      }
+      if(event.target.checked == false){
+        var arrivedValue = '0';
+      }
+
+      console.log(arrivedValue);
+
+      var reservation_table_id = res_people_or_minor_table_id;
+      if(minor_tag == 'M'){
+        console.log('YES MINOR'+arrivedValue);
+        axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservation_table_id,{
+            arrived: arrivedValue
+          })
+
+          .then(response => 
+            {
+              console.log(response);
+            })
+          .catch(function (error) {
+              console.log(error);
+          });
+      }
+
+      else{
+        console.log('NOT MINOR'+arrivedValue);
+        console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id);
+        axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id,{
+                arrived: arrivedValue
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      }
+    },
+
    //  addRecord: function(){
 
    //   if(this.username != '' && this.name != '' && this.email != ''){
@@ -773,9 +883,12 @@ var arrows = document.getElementsByClassName("covertedtime");
     // },
 
     /* the function below displays only one modal for particular customer clicked */
-    selectItem (posts, item) {
+    selectItem (event, posts, item) {
 
+      console.log("SER YYYYYYYYYYYYYYYYYYYY");
       console.log(item);
+      console.log(event);
+      console.log(posts);
 
       var bookerName = item.Booker.Person.first_name+' '+item.Booker.Person.last_name;
       var missionName = item.Mission.name;
@@ -783,6 +896,7 @@ var arrows = document.getElementsByClassName("covertedtime");
       
       /** conversion of date and time for second part **/
         var reservation_for = item.reservation_for;
+        console.log(reservation_for);
 
         var arr = reservation_for.split("T");
         var onlyDate = arr.splice(0,1).join("");
@@ -792,10 +906,14 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log(onlyTime);
 
         var twoDigits = onlyTime.substring(0, 2);
-        var time1 = twoDigits-12;
+        console.log(twoDigits);
+        var time1 = twoDigits-4;
         console.log(time1);
 
-        if(time1 > 0){
+        var time2 = time1-12;
+        console.log(time2);
+
+        if(time1 >= 12){
           console.log("PM");
           var ampm = "PM";
         }
@@ -810,21 +928,29 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log(twoDigits);
 
         var timeConverted = posNegTime+':'+twoDigits+' '+ampm;
+        var timeConvertedWithoutAMPM = posNegTime+':'+twoDigits;
         console.log(timeConverted);
       /** end of date and time converted for second part **/
 
 
       /** create object which grabs both MINOR and NON-MINOR in the same column **/
-      var countReservationPeople = item.Reservation_people.length;
-      console.log(countReservationPeople);
+      
+      if(item.Reservation_people[0].loop_value == undefined){
+        // console.log("undefined cha hai");
+        var countReservationPeople = item.Reservation_people.length;
+        // console.log(countReservationPeople);
 
-      var replyDataObj1 = item;
-
-      for(let i=0; i < countReservationPeople; i++){
+        var replyDataObj1 = item;
+        for(let i=0; i < countReservationPeople; i++){
         
-        console.log(i);
-        var player_first_name = item.Reservation_people[i].Person.last_name;
-        var player_last_name = item.Reservation_people[i].Person.first_name;
+        // console.log(i);
+        // console.log(item);
+        // console.log(item.Reservation_people);
+        // console.log(item.Reservation_people[i]);
+        // console.log(item.Reservation_people[i].Person.first_name);
+
+        var player_first_name = item.Reservation_people[i].Person.first_name;
+        var player_last_name = item.Reservation_people[i].Person.last_name;
         var player_cell_number = item.Reservation_people[i].Person.phone;
         var player_full_name = player_first_name+' '+player_last_name;
         var player_person_id = item.Reservation_people[i].Person.Player.person_id;
@@ -832,76 +958,96 @@ var arrows = document.getElementsByClassName("covertedtime");
         var missionName = item.Mission.name;
         var missionId = item.Mission.id;
         var playCount = item.Reservation_people[i].Person.Player.play_count;
+        var arrived = item.Reservation_people[i].arrived;
+        var reservation_people_minor_table_id = item.Reservation_people[i].id;
+        var reservation_for = timeConvertedWithoutAMPM;
         console.log(player_full_name);
         // var booker_id = response.data[i].Booker.Person.id;
         // var objectValue = i++;
-        console.log(i);
-        // var namebana = 'NameMe';
+            console.log(i);
+            // var namebana = 'NameMe';
 
-        replyDataObj1['Reservation_people'][i]={
-          "person_id": player_person_id,
-          "player_id": player_id,
-          "player_first_name": player_first_name,
-          "player_last_name": player_last_name,
-          "player_full_name": player_full_name,
-          "player_cell_number": player_cell_number,
-          "minor_tag": "",
-          "play_count": playCount,
-          "mission_name": missionName,
-          "mission_id": missionId
-        }
+            replyDataObj1['Reservation_people'][i]={
+              "person_id": player_person_id,
+              "player_id": player_id,
+              "reservation_people_minor_table_id": reservation_people_minor_table_id,
+              "player_first_name": player_first_name,
+              "player_last_name": player_last_name,
+              "player_full_name": player_full_name,
+              "player_cell_number": player_cell_number,
+              "minor_tag": "",
+              "play_count": playCount,
+              "mission_name": missionName,
+              "mission_id": missionId,
+              "loop_value": 1,
+              "arrived": arrived,
+              "reservation_for": reservation_for
+            }
 
-        this.clickedPlayerList = replyDataObj1;
-        console.log(replyDataObj1);
+            this.clickedPlayerList = replyDataObj1;
+            console.log(replyDataObj1);
 
-        this.personPhoneNumber = player_cell_number;
-        // if(item.Reseservation_people)
+            this.personPhoneNumber = player_cell_number;
+            // if(item.Reseservation_people)
 
+          }
+
+          console.log(this.clickedPlayerList.Reservation_people.length);
+          var replyDataObj1 = item;
+          var reservationPeopleLength = this.clickedPlayerList.Reservation_people.length;
+          var countReservationMinor = item.Reservation_minors.length;
+          console.log(countReservationMinor);
+
+          for(let i=0; i < countReservationMinor; i++){
+            
+            console.log(item);
+            var nonMinorPhone = this.personPhoneNumber;
+
+            var minor_first_name = item.Reservation_minors[i].Player_minor.last_name;
+            var minor_last_name = item.Reservation_minors[i].Player_minor.first_name;
+            var player_cell_number = nonMinorPhone;
+            var minor_full_name = minor_first_name+' '+minor_last_name;
+            var minor_person_id = item.Reservation_minors[i].Player_minor.id;
+            var minor_player_id = item.Reservation_minors[i].Player_minor.player_id;
+            var missionName = item.Mission.name;
+            var missionId = item.Mission.id;
+            var minorArrived = item.Reservation_minors[i].arrived;
+            var reservation_people_minor_table_id = item.Reservation_minors[i].id;
+            var reservation_for = timeConvertedWithoutAMPM;
+            // var booker_id = response.data[i].Booker.Person.id;
+            // var objectValue = i++;
+            console.log(i);
+            
+            console.log(minorArrived);
+            console.log(item.Reservation_minors);
+
+            // var namebana = 'NameMe';
+            var objectValue = reservationPeopleLength + i;
+            console.log(objectValue);
+
+            replyDataObj1['Reservation_people'][objectValue]={
+              "person_id": minor_person_id,
+              "player_id": minor_player_id,
+              "reservation_people_minor_table_id": reservation_people_minor_table_id,
+              "player_first_name": minor_first_name,
+              "player_last_name": minor_last_name,
+              "player_full_name": minor_full_name,
+              "player_cell_number": player_cell_number,
+              "minor_tag": "M",
+              "play_count": "1",
+              "mission_name": missionName,
+              "mission_id": missionId,
+              "arrived": minorArrived,
+              "reservation_for": reservation_for
+            }
+
+            this.clickedPlayerList = replyDataObj1;
+            console.log(replyDataObj1);
+
+          }
+      
       }
 
-      console.log(this.clickedPlayerList.Reservation_people.length);
-      var replyDataObj1 = item;
-      var reservationPeopleLength = this.clickedPlayerList.Reservation_people.length;
-      var countReservationMinor = item.Reservation_minors.length;
-      console.log(countReservationMinor);
-
-      for(let i=0; i < countReservationMinor; i++){
-        
-        console.log(item);
-        var nonMinorPhone = this.personPhoneNumber;
-
-        var minor_first_name = item.Reservation_minors[i].Player_minor.last_name;
-        var minor_last_name = item.Reservation_minors[i].Player_minor.first_name;
-        var player_cell_number = nonMinorPhone;
-        var minor_full_name = minor_first_name+' '+minor_last_name;
-        var minor_person_id = item.Reservation_minors[i].Player_minor.id;
-        var minor_player_id = item.Reservation_minors[i].Player_minor.player_id;
-        var missionName = item.Mission.name;
-        var missionId = item.Mission.id;
-        // var booker_id = response.data[i].Booker.Person.id;
-        // var objectValue = i++;
-        console.log(i);
-        // var namebana = 'NameMe';
-        var objectValue = reservationPeopleLength + i;
-        console.log(objectValue);
-
-        replyDataObj1['Reservation_people'][objectValue]={
-          "person_id": minor_person_id,
-          "player_id": minor_player_id,
-          "player_first_name": minor_first_name,
-          "player_last_name": minor_last_name,
-          "player_full_name": minor_full_name,
-          "player_cell_number": player_cell_number,
-          "minor_tag": "M",
-          "play_count": "1",
-          "mission_name": missionName,
-          "mission_id": missionId
-        }
-
-        this.clickedPlayerList = replyDataObj1;
-        console.log(replyDataObj1);
-
-      }
       /** end of MINOR and NON-MINOR same column **/
 
 

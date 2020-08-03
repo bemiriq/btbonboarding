@@ -24,7 +24,7 @@
 
         <!-- <b-modal id="modal-center" ref="sideArfidModalUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
         <b-modal id="modal-center" ref="sideArfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName1}} Side A {{dateTime1Data}}</p></b>
+                            <b><p>{{teamName10}} Side A {{dateTime1Data}}</p></b>
                               <!-- <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list2" :key="index">
@@ -54,7 +54,7 @@
                                     <!-- element in fetchPlayerList[10].Team_player_sessions -->
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[10].Team_player_sessions" :key="index">
                                         <b-row>
-                                          <b-col>
+                                          <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                           </b-col>
 
@@ -94,18 +94,18 @@
 
                                         <br/>
                                         <b-row>
-                                          <b-col>
+                                          <b-col sm="6">
                                             <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
-                                          <b-col>
+                                          <b-col sm="4">
                                             <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
                                           <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
                                           </b-col>
 
-                                          <!-- <b-col>
-                                            <b-icon icon="trash-fill" font-scale="1.5" @click="this.listings[index].rfidState1=''"></b-icon>
-                                          </b-col> -->
+                                          <b-col sm="2">
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 10)"></b-icon>
+                                          </b-col>
 
                                         </b-row>
 
@@ -136,8 +136,8 @@
         <!-- sibe B 1 .. rfid update -->
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-                <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName2}} on Side B for {{dateTime1BData}}</p></b>
+                <b-modal id="modal-center11" ref="sideB1rfidModalUpdate" centered v-bind:hide-footer="true">
+                            <b><p>{{teamName11}} on Side B for {{dateTime1BData}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -182,7 +182,7 @@
 
                                   <div v-else>
 
-                                      <div v-for="(listings, index) in list4" :key="index">
+                                      <div v-for="(listings, index) in list11" :key="index">
 
                                         <br/>
                                         <b-row>
@@ -195,9 +195,9 @@
                                           <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
                                           </b-col>
 
-                                          <!-- <b-col>
-                                            <b-icon icon="trash-fill" font-scale="1.5" @click="this.listings[index].rfidState1=''"></b-icon>
-                                          </b-col> -->
+                                          <b-col>
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 11)"></b-icon>
+                                          </b-col>
 
                                         </b-row>
 
@@ -225,7 +225,7 @@
 
         <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-centersideA_two" ref="sideA2rfidModalUpdate" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName3}} on Side A for {{dateTime2Data}}</p></b>
+                            <b><p>{{teamName12}} on Side A for {{dateTime2Data}}</p></b>
                               <b-row class="my-1">
                                 <b-col sm="11">
                                   <div v-for="(listings, index) in list5" :key="index">
@@ -405,7 +405,7 @@
                     </draggable -->
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 10, index)" :move="onDropReservation1">
+                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
 
@@ -419,12 +419,12 @@
 
                                     <b-col sm="2">
 
-                                      <p v-if="list10[index].rfidState1 == null">&#10060;</p>
-                                      <p v-else style='color:green;'>&#9989;</p>
+                                      <p v-if="list10[index].rfidState1 == '' || !list10[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list10[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="7">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
@@ -474,12 +474,8 @@
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                            <b-form-select v-model="selected1" v-on:change="onChangeMission1">
-                              <!-- <option disabled value="">Please select one</option> -->
-                              <!-- <option v-for="item in missions" v-bind:key="item.id" v-bind:value="item.id">{{item.name}}</option> -->
+                            <b-form-select v-model="selected10" v-on:change="onChangeMission1">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                              <!-- <option>Blockmonster</option> -->
-                              <!-- <option>C</option> -->
                             </b-form-select>
                         </b-col>
                       </b-row>
@@ -564,7 +560,9 @@
                                 <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <b-button block variant="primary">Send To Waitlist</b-button>
+                                <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                <b-button block v-else variant="primary" >Send To Waitlist</b-button>
+                                <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                               </b-col>
                             </b-row>
                           </div>
@@ -619,7 +617,7 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="7">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -653,7 +651,7 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 11, index)" :move="onDropReservation1">
+                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
 
                               <div class="list-group-item item" v-for="(element, index) in list11" :key="index">
 
@@ -684,9 +682,7 @@
 
 
                                   </b-row>
-
                               </div>
-
                               </draggable>
                             </div>
 
@@ -698,7 +694,7 @@
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                            <b-form-select v-model="selected1" v-on:change="onChangeMission1">
+                            <b-form-select v-model="selected11" v-on:change="onChangeMission1">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
                             </b-form-select>
                         </b-col>
@@ -725,7 +721,7 @@
                       <br />
 
                       <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
-                        <p> You are going to update data for <b> {{teamName10}} </b> </p>
+                        <p> You are going to update data for <b> {{teamName11}} </b> </p>
                         <br>
 
                           <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
@@ -741,7 +737,7 @@
                           <div style="width: 70%; margin:auto;">
                             <b-row>
                               <b-col>
-                                <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
+                                <b-button block v-b-modal.modal-center11 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
                                 <b-button block variant="primary">Send To Waitlist</b-button>
@@ -1888,7 +1884,7 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(9, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2269,7 +2265,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 != null){
+    if(dateTime1 = null){
 
       // console.log(dateTime1);
       // const remainderRoute1 = -15 - (start.minute() % 30);
@@ -2286,6 +2282,7 @@ export default {
       var totalBoxes = '10';
       
       var timeUsed = -30;
+      // var timeUsed = -15;
 
       // this.loadScreen = true;
 
@@ -2310,7 +2307,7 @@ export default {
 
 
         const remainderRoute1 = timeUsed - (start.minute() % 30);
-        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00");
+        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
         var replyDataObj1 = b;
@@ -2432,7 +2429,7 @@ export default {
                                   var teamIdFetch = response.data[0].Team.id;
                                   var selectFetched = response.data[0].mission_id;
 
-                                  var teamObjectId = b+1;
+                                  var teamObjectId = b+10;
                                   console.log(teamObjectId);
                                   // var defineTeam = 'teamName'+teamObjectId;
                                   // console.log(defineTeam);
@@ -2443,16 +2440,18 @@ export default {
                                   // this.teamIdSideA1 = response.data[0].Team.id;
                                   // this.selected1 = response.data[0].mission_id;
                                   this["teamName"+teamObjectId] = teamNameFetched;
-                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
-                                  this["selected"+teamObjectId] = selectFetched;
+                                  // this["teamIdBox"+teamObjectId] = teamIdFetch;
+
+                                  if(selectFetched == '1'){
+                                    this["selected"+teamObjectId] = 'Cyberbot';
+                                  }
+                                  if(selectFetched == '2'){
+                                    this["selected"+teamObjectId] = 'Blockmonster';
+                                  }
 
                                   // var useThisObject = 10+teamObjectId;
 
                                   // console.log(this["fetchPlayerList"+useThisObject]);
-
-                                  console.log("teamName"+teamObjectId);
-                                  console.log(this["teamName"+teamObjectId]);
-
 
                                 }
 
@@ -2504,7 +2503,7 @@ export default {
                                   var teamIdFetch = response.data[0].Team.id;
                                   var selectFetched = response.data[0].mission_id;
 
-                                  var teamObjectId = b+1;
+                                  var teamObjectId = b+10;
                                   console.log(teamObjectId);
                                   // var defineTeam = 'teamName'+teamObjectId;
                                   // console.log(defineTeam);
@@ -2516,14 +2515,18 @@ export default {
                                   // this.selected1 = response.data[0].mission_id;
                                   this["teamName"+teamObjectId] = teamNameFetched;
                                   this["teamIdBox"+teamObjectId] = teamIdFetch;
-                                  this["selected"+teamObjectId] = selectFetched;
+                                  // this["selected"+teamObjectId] = selectFetched;
+
+                                  if(selectFetched == '1'){
+                                    this["selected"+teamObjectId] = 'Cyberbot';
+                                  }
+                                  if(selectFetched == '2'){
+                                    this["selected"+teamObjectId] = 'Blockmonster';
+                                  }
 
                                   // var useThisObject = 10+teamObjectId;
 
                                   // console.log(this["fetchPlayerList"+useThisObject]);
-
-                                  console.log("teamName"+teamObjectId);
-                                  console.log(this["teamName"+teamObjectId]);
 
                                 }
 
@@ -3078,6 +3081,30 @@ export default {
         sessionRow19DateTime:'',
         sessionRow20DateTime:'',
 
+        selected10: '',
+        selected11: '',
+        selected12: '',
+        selected13: '',
+        selected14: '',
+        selected15: '',
+        selected16: '',
+        selected17: '',
+        selected18: '',
+        selected19: '',
+        selected20: '',
+
+        disableButton10: false,
+        disableButton11: false,
+        disableButton12: false,
+        disableButton13: false,
+        disableButton14: false,
+        disableButton15: false,
+        disableButton16: false,
+        disableButton17: false,
+        disableButton18: false,
+        disableButton19: false,
+        disableButton20: false,
+
         reservationTime1: '',
         playing1: '',
         vs1:'',
@@ -3220,7 +3247,7 @@ export default {
         selected7: '',
         selected8: '',
         selected9: '',
-        selected10: '',
+        // selected10: '',
         // selected6: '',
 
 
@@ -3255,7 +3282,7 @@ export default {
         teamByTime2: [],
 
         /* gets team name id when post */
-        teamname1id:'',
+        // teamname1id:'',
         /*end of team name id after post */
 
         /* gets the session id once the team name is inserted */
@@ -3414,6 +3441,32 @@ export default {
 
       },
 
+      deleteRfidBeforeReload(event, index , col){
+
+        console.log(event);
+        console.log(index);
+        console.log(col);
+
+        this["list"+col][index].rfidState1 = ''; /** this will make input field blank on UI part **/
+
+        this["disableButton"+col] = false; /** this will disable the SEND TO WAITLIST BUTTON **/
+
+        var teamPlayerSessionId = this["list"+col+"teamplayersessionid"][index];
+
+
+        axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
+          rfid_id: ''
+        })
+        .then(function (response) {
+          console.log(response);
+          // this["list"+col][index].rfidState1 = ''; 
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      },
+
       deleterfidonclick(event, index){
         console.log(event);
         console.log(index);
@@ -3502,9 +3555,9 @@ export default {
 
       posttorfidapi(event, col, index){
 
-        console.log(event);
-        console.log(col);
-        console.log(index);
+        // console.log(event);
+        // console.log(col);
+        // console.log(index);
 
         // var defineListNumber = 12 - col ; /** this defines the column as list2, list4 and list5. As the first box is list2 and second is suppose to be list3 **/
 
@@ -3512,26 +3565,26 @@ export default {
         // var listNumberPositive = Math.abs(defineListNumber);
         // console.log(listNumberPositive);
 
-        console.log(this["list"+col]);
+        // console.log(this["list"+col]);
 
         if(event.length > 7){
 
-        console.log("inside update rfid side A");
-        console.log(event);
+        // console.log("inside update rfid side A");
+        // console.log(event);
          // var arr = this["list"+col];
 
          // console.log(this.list2);
 
          var number = this.countfunction++;
-         console.log(this["list"+col][index]);
+         // console.log(this["list"+col][index]);
 
-         console.log(this["list"+col][index].rfidState1);
+         // console.log(this["list"+col][index].rfidState1);
 
           var rfid_tag = this["list"+col][index].rfidState1;
 
           // console.log(arr);
-          console.log(index);
-          console.log(rfid_tag);
+          // console.log(index);
+          // console.log(rfid_tag);
 
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
             tag: rfid_tag,
@@ -3565,17 +3618,41 @@ export default {
             console.log(error);
           });
 
-          console.log(event);
-          console.log(event.length);
+          var totalPlayers = this["list"+col].length;
+          console.log(totalPlayers);
+          // if()
+          // if(this.list10[index].rfidState1 == '' || !this.list10[index].rfidState1 > '0')
+          for(var i=0; i < totalPlayers; i++){
+            if(this["list"+col][i].rfidState1 == ''){
+              this["disableButton"+col] = false;
+              break;
+            }
+            else{
+
+              if(this["list"+col][i].rfidState1 > '0'){
+                this["disableButton"+col] = true;
+              }
+              else{
+                this["disableButton"+col] = false;
+                break;
+              }
+
+            }
+          }
+
+
+          // console.log(event);
+          // console.log(event.length);
 
           const nextIndex = index + 1;
-          console.log(nextIndex);
-          console.log(this.list2.length);
+          // console.log(nextIndex);
+          // console.log(this.list2.length);
 
           
             this.$refs.todos[nextIndex].focus();
-            console.log("SWITH TO NEXT");
-        
+            // console.log("SWITH TO NEXT");
+
+
         }
 
         else{
@@ -4286,136 +4363,135 @@ export default {
       },
 
 
-      onDropReservation1(e){
+      onDropReservation1(event, col){
 
-        console.log("0909090");
-        console.log(e);
-        console.log(e.draggedContext.element.Person.first_name);
-        console.log(e.draggedContext.element.Person.last_name);
-        console.log(e.draggedContext.element.Person.id); /** this is waiver id **/
-        console.log(e.draggedContext.element.reservation_id);
-        console.log(e.draggedContext.element.Person.player_id);
-        console.log(e.draggedContext.element.Person.reservation_id);
-        console.log(e.draggedContext.index);
-        console.log(e.draggedContext.element.Person.minor);
+        console.log(event);
 
-        var fetchIndex = e.draggedContext.index;
+        if(event.removed.element.Person.first_name.length > '1'){
 
-        // console.log(this.list2sessionid);
-        // console.log(this.list2sessionid[fetchIndex]);
+          console.log(col);
+          console.log(event.removed.element.Person.first_name);
 
-        // console.log(this.list2teamplayersessionid[fetchIndex]);
-
-        var deleteId = this.list2teamplayersessionid[fetchIndex];
-
-        var updateNullOnReservationPeople = e.draggedContext.element.id;
-        console.log(updateNullOnReservationPeople);
-
-        // axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+deleteId,{
-
-        // })
-        // .then(response => {
-        //   console.log(response);
-        //   console.log(response.data.session_id);
-        // })
-        // .catch(error => {
-        //   console.log(error);
-        // });
-
-        axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+deleteId,{
-
-        })
-        .then(response => {
-          console.log("Deleted Id "+deleteId);
-          console.log(fetchIndex);
-          this.list2teamplayersessionid.splice(fetchIndex,1);
-
-          this.onDrop1FunctionLoaded--;
-          if(this.onDrop1FunctionLoaded > 0){
-            console.log('yes greater than 0');
-          }
-          else{
-            console.log('equal to 0');
-          }
+          console.log("0909090");
+          console.log(event);
+          console.log(event.removed.element.Person.first_name);
+          console.log(event.removed.element.Person.last_name);
+          console.log(event.removed.element.Person.id); /** this is waiver id **/
+          console.log(event.removed.element.reservation_id);
+          // console.log(event.removed.element.Person.player_id);
+          console.log(event.removed.element.person_id);
+          console.log(event.removed.element.reservation_id);
+          console.log(event.removed.oldIndex);
+          console.log(event.removed.element.Person.minor);
 
 
-          /** below axios.get will fetch the player_count for particular SESSION ID and 
-           update player_count as -1 when dragged out from team box **/
+            var fetchIndex = event.removed.oldIndex;
+            console.log(fetchIndex);
 
-          var sessionIdDragged = this.list2sessionid; /** its define as array but contains only one object as session id can be used on 5 times **/
+            var deleteId = this["list"+col+"teamplayersessionid"][fetchIndex];
+            console.log("000000000000000"+deleteId);
 
-          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdDragged,{
-                      
+            var updateNullOnReservationPeople = event.removed.element.id;
+            console.log(updateNullOnReservationPeople);
+
+
+            axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+deleteId,{
+
             })
             .then(response => {
-              console.log(response);
-              console.log(response.data);
-              console.log(response.data.player_count);
+              console.log("Deleted Id "+deleteId);
+              console.log(fetchIndex);
+              this["list"+col+"teamplayersessionid"].splice(fetchIndex,1);
 
-              var sessionPlayerCount = response.data.player_count;
-              // console.log(sessionPlayerCount);
-              // console.log(sessionIdDragged);
+              // this.onDrop1FunctionLoaded--;
+              this["onDrop"+col+"FunctionLoaded"]--;
+              // if(this.onDrop1FunctionLoaded > 0){
+              //   console.log('yes greater than 0');
+              // }
+              // else{
+              //   console.log('equal to 0');
+              // }
 
-              axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdDragged,{
-                player_count: sessionPlayerCount-1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
-              })
-              .then(response => {
 
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+              /** below axios.get will fetch the player_count for particular SESSION ID and 
+               update player_count as -1 when dragged out from team box **/
+
+              var sessionIdDragged = this["list"+col+"sessionid"]; /** its define as array but contains only one object as session id can be used on 5 times **/
+
+              axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdDragged,{
+                          
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data);
+                  console.log(response.data.player_count);
+
+                  var sessionPlayerCount = response.data.player_count;
+                  // console.log(sessionPlayerCount);
+                  // console.log(sessionIdDragged);
+
+                  axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdDragged,{
+                    player_count: sessionPlayerCount-1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                  })
+                  .then(response => {
+
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                })
+                
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              /** end of SESSION ID PLAYER COUNT -1 update **/
+
 
             })
-            
-            .catch(function (error) {
+            .catch(error => {
               console.log(error);
             });
 
-          /** end of SESSION ID PLAYER COUNT -1 update **/
 
 
-        })
-        .catch(error => {
-          console.log(error);
-        });
+            /** this will update the reservation_people **/
 
+            console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople);
 
+            if(event.removed.element.Person.minor == "yes"){
 
-        /** this will update the reservation_people **/
+              axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+updateNullOnReservationPeople,{
+                    session_id: '0' /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                  })
+                  .then(response => {
 
-        console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
-        if(e.draggedContext.element.Person.minor == "yes"){
+            }
 
-          axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+updateNullOnReservationPeople,{
-                session_id: '0' /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
-              })
-              .then(response => {
+            else{
 
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+              axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople,{
+                    session_id: '0' /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                  })
+                  .then(response => {
+
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                  /** end of reservation-people update for SESSION_ID **/
+            }
+                
+            // let removed = myFish.splice(3, 1)
 
         }
-
-        else{
-
-          axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople,{
-                session_id: '0' /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
-              })
-              .then(response => {
-
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-
-              /** end of reservation-people update for SESSION_ID **/
-        }
-            
-        // let removed = myFish.splice(3, 1)
 
       },
 
@@ -4627,6 +4703,8 @@ export default {
         console.log(teamName);
         console.log(teamNameId);
 
+        this["disableButton"+col] = false;
+
       /** this if and ELSE statement is for the TEAM NAME update before and after dropping player name **/
         if(this["teamName"+col].length > 1){
 
@@ -4664,10 +4742,10 @@ export default {
         else{
           var teamText = "BOX";
           var boxId = col;
-          var teamName1 = teamText + boxId;
+          var teamNameCreate = teamText + boxId;
 
-          axios.post(process.env.VUE_APP_FC_TEAMS+'/'+teamName1,{
-            name: teamName1
+          axios.post(process.env.VUE_APP_FC_TEAMS+'/'+teamNameCreate,{
+            name: teamNameCreate
           })
 
           .then(response => {
@@ -4696,8 +4774,8 @@ export default {
         console.log("below is the dragged id as person id");
         console.log(this["list"+col][countondrop]);
 
-        this.selected1 = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
-        console.log(this.selected1);
+        this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        console.log(this["selected"+col]);
 
         // var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
         var listLength = this["list"+col].length;
@@ -6780,6 +6858,11 @@ export default {
 
       //     return Array.from(grouped, ([ time, texts ]) => ({ time, texts }))
       //   }
+
+      disableButton: function (){
+        console.log(" INSIDE disabled");
+        /** this.disableButton = true; **/
+      },
 
       fullNameOk() {
         console.log("koiralo la ja");
