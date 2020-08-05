@@ -22,10 +22,6 @@
 
         <b-col lg="2">
           <div id="time" v-html="time"></div>
-                  <!-- <div class="buttons">
-                    <button v-if="!state" @click="resume">Resume</button>
-                    <button v-if="state" @click="pause">Pause</button>
-                  </div> -->
         </b-col>
 
       </b-row>
@@ -64,6 +60,7 @@ export default {
       todaydate: moment().format('YYYY-MM-DD'),
       currenttime: moment().format('h:mm A'),
       state: true,
+      AMPM : '',
       realTimeDisplay: Date.now(),
       interval: null
     }
@@ -106,8 +103,9 @@ export default {
   },
 
   computed: {
+
     time: function() {
-      return this.hours + ":" + this.minutes + ":" + this.seconds;
+      return this.hours + ":" + this.minutes + ":" + this.seconds +' '+this.ampm;
     },
     milliseconds: function() {
       return this.realTimeDisplay;
@@ -118,8 +116,10 @@ export default {
       // var hrs = Math.floor((milli / 3600000) % 24);
       // Using getHours()
       var hrs = new Date().getHours();
+
       if (hrs >= 13) { hrs = hrs - 12 }
       return hrs >= 10 ? hrs : '0' + hrs;
+
     },
     minutes: function() {
       var milli = this.milliseconds;
@@ -131,7 +131,20 @@ export default {
       var sec = Math.ceil((milli % 60000) / 1000).toFixed(0);
       if (sec == 60) { sec = '0' }
       return sec >= 10 ? sec : '0' + sec;
+    },
+
+    ampm: function(){
+      
+      var hrs = new Date().getHours();
+
+      if(hrs >= 12){
+        return 'PM';
+      }
+      else{
+        return 'AM';
+      }
     }
+
   }
 
 };

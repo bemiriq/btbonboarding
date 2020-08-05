@@ -4,7 +4,6 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
 
-
     <b-container class="bv-example-row" id="searchId">
         <!-- Stack the columns on mobile by making one full-width and the other half-width -->
         <b-row>
@@ -15,70 +14,14 @@
             <b-form-input v-model="searchQuery" id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
           </b-col>
 
-          <!-- <b-col cols="6" md="4">
-            
-            <input v-model="searchQuery" placeholder="Search here ... " />
-
-          </b-col> -->
         </b-row>
 
       </b-container>
 
-    <div>
-      <b-row>
-        <!-- start of the left div which has navigation menu -->
-        <b-col lg="2">
 
-          <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="/#/users" active>Check-In</b-list-group-item>
-            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
-            <b-list-group-item href="#">Wrapping up</b-list-group-item>
-            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
-          </b-list-group>
+        <b-modal id="modal-center" centered size="xl" title="New organization Name">
 
-        
-
-        </b-col>
-        <!-- end of navigation menu on left side -->
-
-
-
-        <!-- start of right div which consists of table with all details -->
-        <b-col lg="10"  style="background-color:#fafafa;">
-          
-          <b-container class="bv-example-row">
-            <b-row class="rightHeader">
-              <b-col md="1">Time</b-col>
-              <b-col md="2">Reservation</b-col>
-              <b-col md="1">Mission</b-col>
-              <b-col md="1">Size</b-col>
-              <b-col md="1">Group</b-col>
-              <b-col md="1">Waivers</b-col>
-              <b-col md="1">Arrived</b-col>
-              <b-col md="1">Paid</b-col>
-              <b-col md="1">Release</b-col>
-              <b-col md="1">Late</b-col>
-              <b-col md="1">NoShows</b-col>
-            </b-row>
-          </b-container>
-          <hr>
-          <b-container class="bv-example-row">
-
-            <!-- <td><input type='text' v-model='blog.username'></td>
-            <td><input type='text' v-model='blog.name'></td>
-            <td><input type='text' v-model='blog.email'></td>
-            <td><button v-on:click.prevent="postfirebase">POST TO FIREBASE</button></td> -->
-
-            <!-- <div>
-              <label>Name : </label>
-              <input type="text" v-model="name" placeholder="full name" required>
-              <input type="text" v-model="username" placeholder="username"  required>
-              <input type="text" v-model="email" placeholder="email" required>
-              <button @click="submitName()">Add </button>
-            </div> -->
+        </b-modal>
 
           <b-modal id="modal-xl" centered size="xl" title="TEAM">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
@@ -141,331 +84,110 @@
                             }
                           </b-table>  -->
                       </b-modal>
-          
-<!--           <ul id="example-2">
-  <li v-for="item in timeList" v-bind:key="item">
-   {{ item }}
-  </li>
-</ul> -->
-
-          <!-- filteritems is used as it searches only for customerName and filter out the data -->
-          <!-- <div v-for="post in filterItems(posts)" v-bind:key="post.createdAt"> -->
-
-          <!-- <div v-for="post in sortedArray" v-bind:key="post.createdAt"> -->
-
-          <!-- <div > -->
-            <b-row v-for="item in posts" v-bind:key="item.id" >
-                <b-col class="covertedtime" col lg="1">
-                      {{item.reservation_for}}
-                </b-col>
-
-                <b-col col lg="2">
-                    <div v-on:click="selectItem ($event, posts, item)">
-                      <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
-                    </div>
-
-                      <!-- <b-button v-b-modal.modal-xl variant="outline-info">{{post.customerName}}</b-button> -->
-
-                    <!-- </div> -->
-
-                  <!-- </div> -->
-                    <!-- <br> -->
-                  
-
-                      <!-- div that the display the sub child detail -->
-                      <!-- <div v-if="!item.id" style="width: 900px; margin-left:-35%; border-style: outset; border-color: #138496;">  {{item.arrivalTime}} -->
-
-                        <!-- <div class="row" style="font-weight: bold;">
-                          <b-col md="2">
-                            First Name
-                          </b-col>
-
-                          <b-col md="1">
-                            Last
-                          </b-col>
-
-                          <b-col md="3">
-                            Text Number
-                          </b-col>
 
 
-                          <b-col md="1">
-                            Arrived
-                          </b-col>
 
-                          <b-col md="1">
-                            Waiver
-                          </b-col>
+    <div>
+      <b-row>
+        <!-- start of the left div which has navigation menu -->
+        <b-col lg="2">
 
-                          <b-col md="2">
-                            No Show
-                          </b-col>
+          <b-list-group class="leftMenuDiv">
+            <b-list-group-item href="/#/users" active>Check-In</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
+            <b-list-group-item href="#">Wrapping up</b-list-group-item>
+            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+          </b-list-group>
 
-                        </div>
+        
 
-                       
-                        <div class="row">
+        </b-col>
+        <!-- end of navigation menu on left side -->
 
-                          <b-col md="2">
-                            <! {{post.customerName}}
-                          </b-col>
 
-                          <b-col md="1">
-                            P
-                          </b-col>
 
-                          <b-col md="3">
-                            976 034 7896
-                          </b-col>
+        <!-- start of right div which consists of table with all details -->
+        <b-col lg="10" style="background-color:#fafafa;">
 
-                          <b-col md="1">
-                            <input type="checkbox" id="checkbox" v-model="subchildArrived">
-                          </b-col>
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <!-- <th scope="col">#</th> -->
+                  <th scope="col">Time</th>
+                  <th scope="col">Reservation</th>
+                  <th scope="col">Mission</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Group</th>
+                  <th scope="col">Waivers</th>
+                  <th scope="col">Arrived</th>
+                  <th scope="col">Paid</th>
+                  <th scope="col">Release</th>
+                  <th scope="col">Late</th>
+                  <th scope="col">NoShows</th>
+                </tr>
+              </thead>
+                <tr v-for="item in posts" v-bind:key="item.id">
+                  <td class="covertedtime">
+                    {{item.reservation_time}}
+                  </td>
 
-                          <b-col md="1">
-                            <input type="checkbox" id="checkbox" v-model="subchildWaiver">
-                          </b-col>
+                  <td v-on:click="selectItem ($event, posts, item)">
+                    <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
+                  </td>
 
-                          <b-col md="2">
-                             <input type="checkbox" id="checkbox" v-model="subchildNoShow">
-                          </b-col>
-                          
-                        </div>
-
-                        <hr/>
-
-                        <div class="row">
-                          <b-col sm="3">
-                            <label for="input-small">Game Playing</label>
-                            </b-col>
-                            <b-col sm="9">
-                              <b-form-select v-model="selected2">
-                                <! <option disabled value="">Please select one</option>
-                                <option>Cyberbot</option>
-                                <option>Blockmonster</option>
-                                <! <option>C</option>
-                              </b-form-select>
-                            </b-col> 
-                            <br/>
-                        </div> -->
-
-                      <!-- </div> -->
-                      
-                        <!-- <div v-if="!item.id" class="row" style="background-color:green; width: 380%;">
-                          <div class="row" style="width: 300%;">
-                            <div class="col">
-                              F Name
-                            </div>
-                            <div class="col">
-                              L Name
-                            </div>
-                            <div class="col">
-                              Cellphone
-                            </div>
-                            <div class="col">
-                              Arrived
-                            </div>
-
-                            <div class="col">
-                              Waiver
-                            </div>
-                            <div class="col">
-                              No Show
-                            </div>
-                            
-                          </div>
-
-                          <div class="row" style="width: 300%;">
-                            <div class="col">
-                              <p>Jr Jack</p>
-                            </div>
-
-                            <div class="col">
-                              <p> S </p>
-                            </div>
-
-                            <div class="col">
-                              <p>8175678901</p>
-                            </div>
-
-                            <div class="col">
-                              <input type="checkbox" id="subchildArrived" v-model="subchildArrived">
-                            </div>
-
-                            <div class="col">
-                              <input type="checkbox" id="subchildWaiver" v-model="subchildWaiver">
-                            </div>
-
-                            <div class="col">
-                              <input type="checkbox" id="subchildNoShow" v-model="subchildNoShow">
-                            </div>
-                            
-                          </div> -->
-                        <!-- </div> -->
-                      
-                      <!-- end of sub child idv -->
-
-                    <!-- </div> -->
-
-                </b-col>
-
-                <b-col col lg="1">
-                  <div>
+                  <td>
                     {{item.Mission.name}}
-                  </div>
-                </b-col>
+                  </td>
 
-                <!-- this represents the RESERVATION SIZE -->
-                <b-col col lg="1">
+                  <td>
                     {{item.size}}
-                </b-col>
+                  </td>
 
-                 <!-- this represents the GROUP Name or organization name -->
-                <b-col lg="1">
-                  <!-- <select v-for="organization in organizationDetail" v-bind:key="organization.id"> -->
-                    <div>
-                  <select>
-                    <option value=""> </option>
-                    <option v-for="organization in organizationDetail" v-bind:key="organization.id">{{organization.name}}</option>
-                    <!-- <option>B</option> -->
-                    <!-- <option>C</option> -->
-                  </select>
-                </div>
-                </b-col>
+                  <td>
+                    <select v-model="organizationType">
+                      <option value=""> </option>
+                      <option v-for="organization in organizationDetail" v-bind:key="organization.id">{{organization.name}}</option>
+                    </select>
+                    <p v-if="organizationType == 'Other'">
+                      <!-- {{addOrganization}} -->
+                      <input type="text">
+                    </p>
+                  </td>
 
-                <!-- TOTAL WAIVERS SIGNED -->
-                <b-col col lg="1">
-                  <div>
-                    <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
+                  <td>
                     {{item.Reservation_people.length+item.Reservation_minors.length}}
+                  </td>
 
-                  </div>
-                </b-col>
-                
-                <!-- below defines the ARRIVED VALUE -->
-                <b-col col lg="1">
-                  <div>
+                  <td>
                     {{item.Total_Arrived.arrived}}
-                  </div>
-                </b-col>
+                  </td>
 
-                
+                  <td>
+                    <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
+                    <p v-if="item.paid_amount != item.final_dollar_amount">&#10060;</p>
+                  </td>
 
-                <!-- below defines the Paid or Not data -->
-                <b-col col lg="1">
-                  <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
-                  <div v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</div>
-                  <div v-if="item.paid_amount != item.final_dollar_amount">&#10060;</div>
-                </b-col>
+                  <td>
+                    <input type="checkbox" :value="readyChecked.id"/>
+                  </td>
 
-                <!-- below defines READY -->
-                <b-col col lg="1"><input type="checkbox" :value="readyChecked.id"/></b-col>
+                  <td>
+                    <!-- <p v-if="checkStatus > 15">&#10060;</p> -->
+                    <!-- <p v-else></p> -->
+                    <p class="checkStatus">{{item.time_status}}</p>
+                  </td>
 
-                <!-- below defines LATE -->
-                <b-col col lg="1">
-                  <!-- <input type="checkbox" :value="lateChecked.id"/> -->
-                  {{currentTime}}-{{item.reservation_for}}
-                </b-col>
-
-
-                <!-- defines NO SHOWS -->
-                <b-col col lg="1">No Shows</b-col>
-
-                <!-- <b-col md="1">
-                    <div v-for="readyChecked in post.items" v-bind:key="readyChecked.id">
-                      <input type="checkbox" :value="readyChecked.id" v-model="readyCheckedCategories" @click="readycheck($event)">
-                    </div>
-                </b-col>
-
-                <b-col md="1">
-                  <div v-for="lateChecked in post.items" v-bind:key="lateChecked.id">
-                    <input type="checkbox" :value="lateChecked.id" v-model="lateCheckedCategories" @click="latecheck($event)">
-                  </div>
-                </b-col> -->  
-
-            </b-row>
-
-            <!-- <b-row cols="8" v-show="!onDetailDiv">
-              <b-col md="2">
-                FIRST NAME
-              </b-col>
-
-              <b-col md="1">
-                Initial
-              </b-col>
-
-              <b-col md="2">
-                Cell Number
-              </b-col>
-
-            </b-row> -->
-
-
-            
-          <!-- </div> -->
-
-
-          
-
-
-          <!-- end of filter items search div -->
-
-
-            <!-- <b-row cols="8" class="bottomRightData">
-              <b-col md="2"> 
-                <div v-for="post in posts"  v-bind:key="post.id">
-                   
-                        <div v-for="item in post.items" v-bind:key="item.arrival">
-                            {{item.arrivalTime}}
-                        </div>
-                    </div>
-              </b-col> 
-              <b-col md="3">
-                <div class="col-md-3" v-for="preset in filterItems(posts)" :key="preset.customerName">
-                  <div :id="preset.id">
-                    {{ preset.customerName }}
-                  </div>
-                </div>
-              </b-col>
-              <b-col md="1">5</b-col>
-              <b-col md="2">Alexander P</b-col>
-              <b-col md="1">5</b-col>
-              <b-col md="1">5</b-col>
-              <b-col md="1">
-                <input type="checkbox" id="checkbox" v-model="readyChecked">
-              </b-col>
-              <b-col md="1">
-                <input type="checkbox" id="checkbox" v-model="lateChecked">
-              </b-col>
-            </b-row> -->
-
-
-
-            <!-- table to sort out the data 
-             <div>
-        <b-table striped hover :items="posts" :fields="fieldstable">
-           <template v-slot:cell(posts.post)="data">{{ data.items }}</template>
-
-          <template v-for="post in posts" >    -->
-
-          <!-- <td v-for="item in post.items" v-bind:key="item.arrival">{{ item.arrivalTime }}</td> dont uncomment this    -->
-
-        <!--   <td v-for="item in post.items"  v-bind:key="item.arrival" >
-                      {{item.arrivalTime}}
-                    </td>        
-        </template>
-        </b-table>
-      </div> -->
-
-          </b-container>
+                  <td>
+                    {{ checkNoShows }}
+                  </td>
+                </tr>
+            </table>
 
         </b-col>
         <!-- end of right div which all table -->
-
-
-
-
-
       </b-row>
     </div>
 
@@ -553,6 +275,7 @@ export default {
       subchildNoShow: [],
       selected2: '',
       
+      organizationType:'',
 
       selectedCustomerName: '',
       selectedDate:'',
@@ -594,6 +317,11 @@ export default {
   },
 
   computed: {
+
+    // addOrganization: function(){
+    //   this.$bvModal.show('modal-center');
+    // },
+
     sortedArray: function() {
 
       function compare(a, b) {
@@ -627,7 +355,38 @@ export default {
       return this.posts.sort(compare);
       // console.log(this.posts);
       console.log("S");
+    },
+
+    checkStatus: function(){
+      var currentTime = moment().format('HHmm');
+      var totalLength = this.posts.length;
+
+      var replyDataObj1 = this.posts;
+
+      for(let i=0; i <= totalLength; i++){
+        var reservationTime = this.posts[i].late_status_time;
+        var status = currentTime-reservationTime;
+        
+        replyDataObj1[i]['time_status']=status;
+      }
+
+      return status;
+
+    },
+
+    checkNoShows: function(){
+
+      var totalLength = this.posts.length;
+
+      for(let i=0; i <= totalLength; i++){
+        var noShows = this.posts[i].size - this.posts[i].Total_Arrived.arrived;
+        return noShows;
+      }
+
+      // var noShows = this.posts[0].size - this.posts[0].Total_Arrived.arrived;
+      // return noShows;
     }
+
   },
 
 
@@ -698,13 +457,13 @@ mounted: function(){
 
           for(let i=0; i <= countPostArray; i++){
               
-            // console.log(response.data);
              
             var countReservationPeople = response.data[i].Reservation_people.length;
             var countReservationMinors = response.data[i].Reservation_minors.length;
+            var reservationForConvert = response.data[i].reservation_for;
 
-            // console.log(countReservationMinors);
-            // console.log(countReservationPeople);
+            var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+            var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
 
             var arrivedPerson = 0;
 
@@ -719,22 +478,15 @@ mounted: function(){
 
                 arrivedMinor += response.data[i].Reservation_minors[k].arrived;
             }
-            // console.log(arrivedValue);
 
             var arrived = arrivedPerson + arrivedMinor;
-
-            // console.log(arrived);
-            // for(let k=0; k < countReservationMinors; k++){
-
-            //     replyDataObj1['Reservation_people'][i]={
-            //       "count_arrived": countArrived,
-            //     }
-            // }
 
             replyDataObj1[i]['Total_Arrived']={
                   "arrived": arrived,
             }
 
+            replyDataObj1[i]['reservation_time']=date; /** single data posted to this.posts **/
+            replyDataObj1[i]['late_status_time']=lateStatus;
           }
           /** END of ARRIVED counting PART **/
 
@@ -743,7 +495,7 @@ mounted: function(){
         console.log(error);
       });
 
-    axios.get(process.env.VUE_APP_DTB_ORGANIZATION,{
+    axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
     })
     .then(response => 
@@ -885,51 +637,51 @@ var arrows = document.getElementsByClassName("covertedtime");
     /* the function below displays only one modal for particular customer clicked */
     selectItem (event, posts, item) {
 
-      console.log("SER YYYYYYYYYYYYYYYYYYYY");
-      console.log(item);
-      console.log(event);
-      console.log(posts);
-
       var bookerName = item.Booker.Person.first_name+' '+item.Booker.Person.last_name;
       var missionName = item.Mission.name;
       var teamSizeItem = item.size;
       
       /** conversion of date and time for second part **/
-        var reservation_for = item.reservation_for;
-        console.log(reservation_for);
+        var date = item.reservation_for;
 
-        var arr = reservation_for.split("T");
-        var onlyDate = arr.splice(0,1).join("");
-        console.log(onlyDate);
+        var reservation_for_converted = moment.utc(date).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+        var onlyDate = moment.utc(date).format('MM-DD-YYYY');
+        var timeConverted = moment.utc(date).subtract('hours',4).format('hh:mm A');
 
-        var onlyTime = arr.join("T");
-        console.log(onlyTime);
+        console.log(reservation_for_converted);
 
-        var twoDigits = onlyTime.substring(0, 2);
-        console.log(twoDigits);
-        var time1 = twoDigits-4;
-        console.log(time1);
+        // var arr = reservation_for.split("T");
+        // var onlyDate = arr.splice(0,1).join("");
+        // console.log(onlyDate);
 
-        var time2 = time1-12;
-        console.log(time2);
+        // var onlyTime = arr.join("T");
+        // console.log(onlyTime);
 
-        if(time1 >= 12){
-          console.log("PM");
-          var ampm = "PM";
-        }
-        else{
-          console.log("AM");
-          var ampm = "AM";
-        }
+        // var twoDigits = onlyTime.substring(0, 2);
+        // console.log(twoDigits);
+        // var time1 = twoDigits-4;
+        // console.log(time1);
 
-        var posNegTime = Math.abs(time1);
-        var onlyTime = arr.join("T");
-        var twoDigits = onlyTime.substring(3, 5);
-        console.log(twoDigits);
+        // var time2 = time1-12;
+        // console.log(time2);
 
-        var timeConverted = posNegTime+':'+twoDigits+' '+ampm;
-        var timeConvertedWithoutAMPM = posNegTime+':'+twoDigits;
-        console.log(timeConverted);
+        // if(time1 >= 12){
+        //   console.log("PM");
+        //   var ampm = "PM";
+        // }
+        // else{
+        //   console.log("AM");
+        //   var ampm = "AM";
+        // }
+
+        // var posNegTime = Math.abs(time1);
+        // var onlyTime = arr.join("T");
+        // var twoDigits = onlyTime.substring(3, 5);
+        // console.log(twoDigits);
+
+        // var timeConverted = posNegTime+':'+twoDigits+' '+ampm;
+        // var timeConvertedWithoutAMPM = posNegTime+':'+twoDigits;
+        // console.log(timeConverted);
       /** end of date and time converted for second part **/
 
 
@@ -960,7 +712,7 @@ var arrows = document.getElementsByClassName("covertedtime");
         var playCount = item.Reservation_people[i].Person.Player.play_count;
         var arrived = item.Reservation_people[i].arrived;
         var reservation_people_minor_table_id = item.Reservation_people[i].id;
-        var reservation_for = timeConvertedWithoutAMPM;
+        var reservation_for = reservation_for_converted;
         console.log(player_full_name);
         // var booker_id = response.data[i].Booker.Person.id;
         // var objectValue = i++;
@@ -1013,7 +765,7 @@ var arrows = document.getElementsByClassName("covertedtime");
             var missionId = item.Mission.id;
             var minorArrived = item.Reservation_minors[i].arrived;
             var reservation_people_minor_table_id = item.Reservation_minors[i].id;
-            var reservation_for = timeConvertedWithoutAMPM;
+            var reservation_for = reservation_for_converted;
             // var booker_id = response.data[i].Booker.Person.id;
             // var objectValue = i++;
             console.log(i);

@@ -1,50 +1,12 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-
+    <p class="teamTitle">TEAMS ON DECK</p>
+    <hr>
     <b-container class="bv-example-row">
-      <b-row>
-        <!-- start of the left div which has navigation menu -->
-        <b-col lg="2">
-
-          <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting" active>Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
-            <b-list-group-item href="#">Wrapping up</b-list-group-item>
-            <b-list-group-item href="#foobar" disabled>Social Tagging</b-list-group-item>
-          </b-list-group>
-
-        
-
+      <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
+        <b-col>
+          <p v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>
         </b-col>
-        <!-- end of navigation menu on left side -->
-
-
-
-        <!-- start of right div which consists of table with all details -->
-        <b-col lg="10"  style="background-color:#fafafa;">
-          <b-col>
-            <h2 style="color: #007BFF;">TEAMS ON DECK</h2>
-            <hr/>
-          </b-col>
-          <b-col>
-            <div>
-              <h4>GHOSTBUSTERS</h4>
-              <h4>MARVEL</h4>
-              <h4>THATS MY TEAM</h4>
-              <h4>CHICKIBOMB</h4>
-              <h4>GET IT</h4>
-              <h4>BEAT THE GUN</h4>
-              <h4>LET IT BE</h4>
-              <h4>GUESS THE NAME</h4>
-            </div>
-          </b-col>
-        </b-col>
-
       </b-row>
     </b-container>
 
@@ -52,14 +14,37 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    // HelloWorld
-  }
-};
+  import axios from 'axios';
+
+  export default {
+    name: 'App',
+    components: {
+      // HelloWorld
+    },
+
+    data(){
+      return{
+        teamname: [],
+        teamList: []
+      }
+    },
+
+    mounted: function(){
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
+
+      })
+      .then(response => {
+        console.log(response);
+        this.teamList = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+
+  };
+
 </script>
 
 <style>

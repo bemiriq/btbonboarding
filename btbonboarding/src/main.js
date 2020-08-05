@@ -9,6 +9,7 @@ import Waiting from './Waiting.vue';
 import Onsite from './Onsite.vue';
 import Playing from './Playing.vue';
 import Score from './Score.vue';
+import Bigscreen from './Tvwaiting.vue';
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -40,7 +41,8 @@ const routes = [
 	{ path : '/playing', component: Playing},
 	{ path : '/controlroom', component: Control},
 	{ path : '/score', component: Score},
-	{ path : '/drag', component: Drag}
+	{ path : '/drag', component: Drag},
+	{ path : '/bigscreen', component: Bigscreen}
 ];
 
 const router = new VueRouter({

@@ -325,7 +325,7 @@
                 <!-- start the form here -->
                 <!-- <form id="signup-form" @submit.prevent="processForm"> -->
                 <form id="signup-form">
-                  <b-col  class="border border-info rounded">
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -560,9 +560,14 @@
                                 <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                <b-button block v-else variant="primary" >Send To Waitlist</b-button>
-                                <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                <div v-if="removeWaitlist10 == false">
+                                  <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 10)">Remove Waitlist</b-button>
+                                </div>
                               </b-col>
                             </b-row>
                           </div>
@@ -1884,7 +1889,7 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2265,7 +2270,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 = null){
+    if(dateTime1 != null){
 
       // console.log(dateTime1);
       // const remainderRoute1 = -15 - (start.minute() % 30);
@@ -3105,6 +3110,30 @@ export default {
         disableButton19: false,
         disableButton20: false,
 
+        removeWaitlist10: false,
+        removeWaitlist11: false,
+        removeWaitlist12: false,
+        removeWaitlist13: false,
+        removeWaitlist14: false,
+        removeWaitlist15: false,
+        removeWaitlist16: false,
+        removeWaitlist17: false,
+        removeWaitlist18: false,
+        removeWaitlist19: false,
+        removeWaitlist20: false,
+
+        sendToWishlistClicked10: false,
+        sendToWishlistClicked11: false,
+        sendToWishlistClicked12: false,
+        sendToWishlistClicked13: false,
+        sendToWishlistClicked14: false,
+        sendToWishlistClicked15: false,
+        sendToWishlistClicked16: false,
+        sendToWishlistClicked17: false,
+        sendToWishlistClicked18: false,
+        sendToWishlistClicked19: false,
+        sendToWishlistClicked20: false,
+
         reservationTime1: '',
         playing1: '',
         vs1:'',
@@ -3304,6 +3333,49 @@ export default {
     },
 
     methods: {
+
+      activateTeam(event, value){
+        console.log("team activated");
+        console.log(value);
+
+        console.log(this["list"+value+"sessionid"]);
+
+        var sessionid = this["list"+value+"sessionid"];
+
+        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+          active: 1
+        })
+        .then(response => {
+          console.log(response);
+          this["sendToWishlistClicked"+value] = true;
+          this["removeWaitlist"+value] = true;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+      },
+
+      removeWaitingList(event, value){
+
+        var sessionid = this["list"+value+"sessionid"];
+
+        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+          active: 0
+        })
+        .then(response => {
+          console.log(response);
+          this["sendToWishlistClicked"+value] = false;
+          this["removeWaitlist"+value] = false;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+      },
+
       add: function() {
         this.list.push({ name: "Juan " + id, id: id++ });
         // this.list2.push({ name: "Juan " + id, id: id++ });
@@ -6958,6 +7030,10 @@ export default {
 
 .active{
   background-color:red;
+}
+
+.red {
+  background-color: #90EE90;
 }
 
 </style>
