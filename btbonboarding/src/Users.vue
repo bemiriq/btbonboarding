@@ -18,11 +18,6 @@
 
       </b-container>
 
-
-        <b-modal id="modal-center" centered size="xl" title="New organization Name">
-
-        </b-modal>
-
           <b-modal id="modal-xl" centered size="xl" title="TEAM">
                               <!-- <p class="my-4">Vertically centered modal!</p> -->
                             <!--   <b-row class="my-1" style="background-color: green;">
@@ -52,7 +47,7 @@
                                     <b-col><p>Arrival</p></b-col>
                                     <!-- <b-col><p>Waiver</p></b-col> -->
                                     <b-col><p>Status</p></b-col>
-                                    <b-col><p>Non-Player</p></b-col>
+                                    <b-col><p>Player</p></b-col>
                                   </b-row>
 
                                   <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">
@@ -74,7 +69,13 @@
                                     </b-col>
                                     <!-- <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col> -->
                                     <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col>
-                                    <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col>
+
+                                    <b-col>
+
+                                      <p v-if="fetchlist1.non_player == '1'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
+                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
+
+                                    </b-col>
                                   </b-row>
 
                                 </b-container>
@@ -126,7 +127,7 @@
                   <th scope="col">Paid</th>
                   <th scope="col">Release</th>
                   <th scope="col">Late</th>
-                  <th scope="col">NoShows</th>
+                  <th scope="col">No Shows</th>
                 </tr>
               </thead>
                 <tr v-for="item in posts" v-bind:key="item.id">
@@ -171,17 +172,18 @@
                   </td>
 
                   <td>
-                    <input type="checkbox" :value="readyChecked.id"/>
+                    <p v-if="item.released == '1'"><input type="checkbox" id="jack" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)" checked></p>
+                    <p v-else><input type="checkbox" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)"></p>
                   </td>
 
                   <td>
-                    <!-- <p v-if="checkStatus > 15">&#10060;</p> -->
-                    <!-- <p v-else></p> -->
-                    <p class="checkStatus">{{item.time_status}}</p>
+                    <p v-if="item.late_status_time > 5">&#10060;</p>
+                    <!-- {{item.late_status_time}} -->
                   </td>
 
                   <td>
-                    {{ checkNoShows }}
+                    <!-- {{ checkNoShows }} -->
+                    {{item.no_shows}}
                   </td>
                 </tr>
             </table>
@@ -359,12 +361,12 @@ export default {
 
     checkStatus: function(){
       var currentTime = moment().format('HHmm');
-      var totalLength = this.posts.length;
+      var totalLength = this.clickedPlayerList.length;
 
-      var replyDataObj1 = this.posts;
+      var replyDataObj1 = this.clickedPlayerList;
 
       for(let i=0; i <= totalLength; i++){
-        var reservationTime = this.posts[i].late_status_time;
+        var reservationTime = this.clickedPlayerList[i].late_status_time;
         var status = currentTime-reservationTime;
         
         replyDataObj1[i]['time_status']=status;
@@ -376,12 +378,22 @@ export default {
 
     checkNoShows: function(){
 
-      var totalLength = this.posts.length;
+      var length = this.posts.length;
+
+      var totalLength = length-1;
+
+      var replyDataObj1 = this.posts;
 
       for(let i=0; i <= totalLength; i++){
-        var noShows = this.posts[i].size - this.posts[i].Total_Arrived.arrived;
-        return noShows;
+        console.log(i);
+        var no_shows = this.posts[i].size - this.posts[i].Total_Arrived.arrived;
+        // return no_shows;
+        console.log(no_shows+'value');
+        replyDataObj1[i]['no_shows']=no_shows;
       }
+      console.log(replyDataObj1);
+
+      return no_shows;
 
       // var noShows = this.posts[0].size - this.posts[0].Total_Arrived.arrived;
       // return noShows;
@@ -442,7 +454,7 @@ mounted: function(){
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '22:00:00';
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
       })
     .then(response => 
@@ -461,6 +473,8 @@ mounted: function(){
             var countReservationPeople = response.data[i].Reservation_people.length;
             var countReservationMinors = response.data[i].Reservation_minors.length;
             var reservationForConvert = response.data[i].reservation_for;
+            var reservationId = response.data[i].Reservation_people[0].reservation_id;
+
 
             var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
             var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
@@ -470,6 +484,7 @@ mounted: function(){
             for(let j=0; j < countReservationPeople; j++){
 
                 arrivedPerson += response.data[i].Reservation_people[j].arrived;
+
             }
 
             var arrivedMinor = 0;
@@ -482,11 +497,12 @@ mounted: function(){
             var arrived = arrivedPerson + arrivedMinor;
 
             replyDataObj1[i]['Total_Arrived']={
-                  "arrived": arrived,
+                  "arrived": arrived
             }
 
             replyDataObj1[i]['reservation_time']=date; /** single data posted to this.posts **/
             replyDataObj1[i]['late_status_time']=lateStatus;
+            replyDataObj1[i]['reservation_id']=reservationId;
           }
           /** END of ARRIVED counting PART **/
 
@@ -548,6 +564,33 @@ var arrows = document.getElementsByClassName("covertedtime");
       }
     },
 
+    teamReleasedCheckbox(event, reservation_id){
+
+      console.log(event);
+      console.log(reservation_id);
+
+      if(event.target.checked == true){
+        var realeasedValue = '1';
+      }
+      if(event.target.checked == false){
+        var realeasedValue = '0';
+      }
+
+      console.log(realeasedValue);
+
+        console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+reservation_id);
+        axios.put(process.env.VUE_APP_DATABASE_RESERVATIONS+reservation_id,{
+                released: realeasedValue
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      
+    },
+
     arrivedCheckbox(event, res_people_or_minor_table_id, minor_tag){
       console.log(event);
       console.log(res_people_or_minor_table_id);
@@ -586,6 +629,54 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id);
         axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id,{
                 arrived: arrivedValue
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+      }
+    },
+
+    nonPlayerCheckbox(event, res_people_or_minor_table_id, minor_tag){
+      console.log(event);
+      console.log(res_people_or_minor_table_id);
+      console.log(minor_tag);
+      // console.log(value);
+
+      console.log(event.target.checked);
+
+      if(event.target.checked == true){
+        var non_player_value = '1';
+      }
+      if(event.target.checked == false){
+        var non_player_value = '0';
+      }
+
+      console.log(non_player_value);
+
+      var reservation_table_id = res_people_or_minor_table_id;
+      if(minor_tag == 'M'){
+        console.log('YES MINOR'+non_player_value);
+        axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservation_table_id,{
+            non_player: non_player_value
+          })
+
+          .then(response => 
+            {
+              console.log(response);
+            })
+          .catch(function (error) {
+              console.log(error);
+          });
+      }
+
+      else{
+        console.log('NOT MINOR'+non_player_value);
+        console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id);
+        axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservation_table_id,{
+                non_player: non_player_value
               })
               .then(response => {
                 console.log(response);
@@ -690,12 +781,12 @@ var arrows = document.getElementsByClassName("covertedtime");
       if(item.Reservation_people[0].loop_value == undefined){
         // console.log("undefined cha hai");
         var countReservationPeople = item.Reservation_people.length;
-        // console.log(countReservationPeople);
+        console.log(countReservationPeople);
 
         var replyDataObj1 = item;
         for(let i=0; i < countReservationPeople; i++){
         
-        // console.log(i);
+        console.log(i);
         // console.log(item);
         // console.log(item.Reservation_people);
         // console.log(item.Reservation_people[i]);
@@ -705,15 +796,22 @@ var arrows = document.getElementsByClassName("covertedtime");
         var player_last_name = item.Reservation_people[i].Person.last_name;
         var player_cell_number = item.Reservation_people[i].Person.phone;
         var player_full_name = player_first_name+' '+player_last_name;
-        var player_person_id = item.Reservation_people[i].Person.Player.person_id;
-        var player_id = item.Reservation_people[i].Person.Player.id;
+
+        var player_person_id = item.Reservation_people[i].Person.id;
+
+        // var player_id = item.Reservation_people[i].Person.Player.id;
+
         var missionName = item.Mission.name;
         var missionId = item.Mission.id;
-        var playCount = item.Reservation_people[i].Person.Player.play_count;
+
+        // var playCount = item.Reservation_people[i].Person.Player.play_count;
         var arrived = item.Reservation_people[i].arrived;
+        var non_player_value = item.Reservation_people[i].non_player;
+
         var reservation_people_minor_table_id = item.Reservation_people[i].id;
         var reservation_for = reservation_for_converted;
         console.log(player_full_name);
+        console.log(player_person_id);
         // var booker_id = response.data[i].Booker.Person.id;
         // var objectValue = i++;
             console.log(i);
@@ -721,19 +819,20 @@ var arrows = document.getElementsByClassName("covertedtime");
 
             replyDataObj1['Reservation_people'][i]={
               "person_id": player_person_id,
-              "player_id": player_id,
+              // "player_id": player_id,
               "reservation_people_minor_table_id": reservation_people_minor_table_id,
               "player_first_name": player_first_name,
               "player_last_name": player_last_name,
               "player_full_name": player_full_name,
               "player_cell_number": player_cell_number,
               "minor_tag": "",
-              "play_count": playCount,
+              // "play_count": playCount,
               "mission_name": missionName,
               "mission_id": missionId,
               "loop_value": 1,
               "arrived": arrived,
-              "reservation_for": reservation_for
+              "reservation_for": reservation_for,
+              "non_player": non_player_value
             }
 
             this.clickedPlayerList = replyDataObj1;
@@ -743,6 +842,8 @@ var arrows = document.getElementsByClassName("covertedtime");
             // if(item.Reseservation_people)
 
           }
+
+          
 
           console.log(this.clickedPlayerList.Reservation_people.length);
           var replyDataObj1 = item;
@@ -764,16 +865,15 @@ var arrows = document.getElementsByClassName("covertedtime");
             var missionName = item.Mission.name;
             var missionId = item.Mission.id;
             var minorArrived = item.Reservation_minors[i].arrived;
+            var non_player_minor_value = item.Reservation_minors[i].non_player;
             var reservation_people_minor_table_id = item.Reservation_minors[i].id;
             var reservation_for = reservation_for_converted;
-            // var booker_id = response.data[i].Booker.Person.id;
-            // var objectValue = i++;
+
             console.log(i);
             
             console.log(minorArrived);
             console.log(item.Reservation_minors);
 
-            // var namebana = 'NameMe';
             var objectValue = reservationPeopleLength + i;
             console.log(objectValue);
 
@@ -790,11 +890,12 @@ var arrows = document.getElementsByClassName("covertedtime");
               "mission_name": missionName,
               "mission_id": missionId,
               "arrived": minorArrived,
-              "reservation_for": reservation_for
+              "reservation_for": reservation_for,
+              "non_player": non_player_minor_value
             }
 
-            this.clickedPlayerList = replyDataObj1;
-            console.log(replyDataObj1);
+            // this.clickedPlayerList = replyDataObj1;
+            // console.log(replyDataObj1);
 
           }
       

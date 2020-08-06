@@ -43,7 +43,8 @@
                   <th scope="col">Arrived</th>
                 </tr>
               </thead>
-                <tr v-for="item in clickedPlayerList.Reservation_people" v-bind:key="item.id">
+              <tbody v-for="mainlist in clickedPlayerList" v-bind:key="mainlist.id">
+                  <tr v-for="item in mainlist.Reservation_people" v-bind:key="item.id">
                   <td>
                     <p>{{item.full_name}}</p>
                   </td>
@@ -58,7 +59,9 @@
                     <p v-if="item.arrived == '1'">&#10004;&#65039;</p>
                     <p v-else>&#10060;</p>
                   </td>
+                  <!-- <td>{{item.id}}</td> -->
                 </tr>
+              </tbody>
             </table>
           </b-col>
 
@@ -98,7 +101,7 @@ export default {
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '22:00:00';
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
       })
     .then(response => 
@@ -109,11 +112,13 @@ export default {
         console.log(response.data.length);
 
         // /** Beginning of ARRIVED counting part **/
-         var countPostArray = response.data.length-1;
+         var countPostArray = response.data.length;
         // // console.log(countPostArray);
         //   var replyDataObj1 = this.posts;
 
         this.clickedPlayerList = response.data;
+
+        var replyDataObj1 = this.clickedPlayerList;
 
         for(let i=0; i <= countPostArray; i++){
 
@@ -122,7 +127,7 @@ export default {
           // console.log(response.data[i].Reservation_people[j].Person.phone);
           // console.log(response.data[i].Reservation_people[j].Person.createdAt);
 
-          var replyDataObj1 = this.clickedPlayerList[i];
+          // var replyDataObj1 = this.clickedPlayerList[i];
 
           var countReservationPeopleLength = this.clickedPlayerList[i].Reservation_people.length;
           console.log(countReservationPeopleLength);
@@ -131,6 +136,10 @@ export default {
 
           for (let j=0; j <= countNew; j++){
             console.log(j);
+
+            console.log('MIN O N O ');
+
+
             console.log(this.clickedPlayerList[i].Reservation_people[j].Person.first_name);
             console.log(this.clickedPlayerList[i].Reservation_people[j].Person.last_name);
             console.log(this.clickedPlayerList[i].Reservation_people[j].Person.phone);
@@ -149,7 +158,7 @@ export default {
             var booker_last_name = this.clickedPlayerList[i].Booker.Person.last_name;
             var booker_id = this.clickedPlayerList[i].Booker.Person.id;
 
-            replyDataObj1['Reservation_people'][j]={
+            replyDataObj1[i]['Reservation_people'][j]={
               "f_name": first_name,
               "l_name": last_name,
               "full_name": first_name+' '+last_name,
@@ -163,27 +172,29 @@ export default {
               "arrived": arrived
             }
 
-            this.clickedPlayerList = replyDataObj1;
-            console.log(replyDataObj1);
+            // this.clickedPlayerList = replyDataObj1;
+            // console.log(replyDataObj1);
 
           }
 
-          console.log(replyDataObj1);
+          console.log(this.clickedPlayerList);
 
-          var countReservationMinorLength = replyDataObj1.Reservation_minors.length;
+          var countReservationMinorLength = this.clickedPlayerList[i].Reservation_minors.length;
           console.log(countReservationMinorLength);
 
           var countNewMinor = countReservationMinorLength-1;
 
           for (let j=0; j <= countNewMinor; j++){
 
-            var f_name = replyDataObj1.Reservation_minors[j].Player_minor.first_name;
-            var l_name = replyDataObj1.Reservation_minors[j].Player_minor.last_name;
+            console.log('MIN O N O rerere ');
+            console.log(j);
+            var f_name = this.clickedPlayerList[i].Reservation_minors[j].Player_minor.first_name;
+            var l_name = this.clickedPlayerList[i].Reservation_minors[j].Player_minor.last_name;
             var phoneNumber = phone;
             var waiverSigned = date;
-            var arrivedMinor = replyDataObj1.Reservation_minors[j].arrived;
+            var arrivedMinor = this.clickedPlayerList[i].Reservation_minors[j].arrived;
 
-            replyDataObj1['Reservation_people'][j+countReservationPeopleLength]={
+            replyDataObj1[i]['Reservation_people'][j+countReservationPeopleLength]={
               "f_name": f_name,
               "l_name": l_name,
               "full_name": f_name+' '+l_name,
@@ -197,8 +208,8 @@ export default {
               "arrived": arrivedMinor
             }
 
-            this.clickedPlayerList = replyDataObj1;
-            console.log(replyDataObj1);
+            // this.clickedPlayerList = replyDataObj1;
+            // console.log(replyDataObj1);
 
 
           }

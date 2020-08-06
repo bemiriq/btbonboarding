@@ -1625,13 +1625,13 @@
                           {{element.Person.minorsymbol}}
                         </b-col>
 
-                        <b-col sm="1">
+                        <!-- <b-col sm="1">
                           <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
-                        </b-col>
+                        </b-col> -->
 
-                        <b-col sm="1">
+                        <!-- <b-col sm="1">
                           {{element.Person.Player.play_count}}
-                        </b-col>
+                        </b-col> -->
 
                       </b-row>
 
