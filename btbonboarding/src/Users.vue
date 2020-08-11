@@ -130,12 +130,12 @@
                   <th scope="col">No Shows</th>
                 </tr>
               </thead>
-                <tr v-for="item in posts" v-bind:key="item.id">
+                <tr v-for="(item, index) in posts" v-bind:key="item.id">
                   <td class="covertedtime">
                     {{item.reservation_time}}
                   </td>
 
-                  <td v-on:click="selectItem ($event, posts, item)">
+                  <td v-on:click="selectItem ($event, posts, item, index)">
                     <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
                   </td>
 
@@ -163,7 +163,7 @@
                   </td>
 
                   <td>
-                    {{item.Total_Arrived.arrived}}
+                    {{item.total_arrived}}
                   </td>
 
                   <td>
@@ -177,8 +177,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_status_time > 5">&#10060;</p>
-                    <!-- {{item.late_status_time}} -->
+                    <p v-if="item.late_by > 5">&#10060;</p>
                   </td>
 
                   <td>
@@ -376,7 +375,7 @@ export default {
 
     },
 
-    checkNoShows: function(){
+    checkLateTime: function(){
 
       var length = this.posts.length;
 
@@ -384,9 +383,41 @@ export default {
 
       var replyDataObj1 = this.posts;
 
+      var currentTime = moment().format("HHmm");
+
       for(let i=0; i <= totalLength; i++){
         console.log(i);
-        var no_shows = this.posts[i].size - this.posts[i].Total_Arrived.arrived;
+        var late_by =  currentTime - this.posts[i].late_status_time;
+        // return late_by;
+        console.log(late_by+'value');
+        replyDataObj1[i]['late_by']=late_by;
+      }
+
+      return late_by;
+
+    },
+
+    checkNoShows: function(){
+
+      var length = this.posts.length;
+
+      var totalLength = length;
+      
+      console.log(totalLength);
+
+      var replyDataObj1 = this.posts;
+
+      for(let i=0; i <= totalLength; i++){
+        console.log(i);
+        
+        console.log(this.posts[i].size);
+        
+        console.log(this.posts[0]);
+        console.log(this.posts[1]);
+
+        console.log(this.posts[i].total_arrived);
+
+        var no_shows = this.posts[i].size - this.posts[i].total_arrived;
         // return no_shows;
         console.log(no_shows+'value');
         replyDataObj1[i]['no_shows']=no_shows;
@@ -395,7 +426,7 @@ export default {
 
       return no_shows;
 
-      // var noShows = this.posts[0].size - this.posts[0].Total_Arrived.arrived;
+      // var noShows = this.posts[0].size - this.posts[0].total_arrived.arrived;
       // return noShows;
     }
 
@@ -450,9 +481,10 @@ mounted: function(){
     var starttime='start';
     var endtime='end';
     var currentdate = moment().format("YYYY-MM-DD");
-    var startReservationTime = '10:00:00';
+    var startReservationTime = '13:30:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '22:00:00';
+    var currentTime = moment().format("HHmm");
 
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
@@ -468,7 +500,8 @@ mounted: function(){
           var replyDataObj1 = this.posts;
 
           for(let i=0; i <= countPostArray; i++){
-              
+            
+            // console.log(response.data[i].Reservation_minors.length);
              
             var countReservationPeople = response.data[i].Reservation_people.length;
             var countReservationMinors = response.data[i].Reservation_minors.length;
@@ -478,12 +511,13 @@ mounted: function(){
 
             var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
             var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
+            var lateBy = lateStatus-currentTime;
 
             var arrivedPerson = 0;
 
             for(let j=0; j < countReservationPeople; j++){
 
-                arrivedPerson += response.data[i].Reservation_people[j].arrived;
+              arrivedPerson += response.data[i].Reservation_people[j].arrived;
 
             }
 
@@ -496,13 +530,22 @@ mounted: function(){
 
             var arrived = arrivedPerson + arrivedMinor;
 
-            replyDataObj1[i]['Total_Arrived']={
-                  "arrived": arrived
-            }
+            
 
+            // var arrived = response.data[i].Reservation_minors.length+response.data[i].Reservation_people.length;
+            // console.log(arrived);
+
+            replyDataObj1[i]['total_arrived']=arrived;
+
+            
             replyDataObj1[i]['reservation_time']=date; /** single data posted to this.posts **/
             replyDataObj1[i]['late_status_time']=lateStatus;
             replyDataObj1[i]['reservation_id']=reservationId;
+            replyDataObj1[i]['late_by']=lateBy;
+
+            console.log(currentTime);
+            console.log(lateStatus);
+            console.log("ARRIVED VALUE"+arrived);
           }
           /** END of ARRIVED counting PART **/
 
@@ -726,14 +769,19 @@ var arrows = document.getElementsByClassName("covertedtime");
     // },
 
     /* the function below displays only one modal for particular customer clicked */
-    selectItem (event, posts, item) {
+    selectItem (event, posts, item, index) {
 
-      var bookerName = item.Booker.Person.first_name+' '+item.Booker.Person.last_name;
-      var missionName = item.Mission.name;
-      var teamSizeItem = item.size;
+      console.log(event);
+      console.log(posts);
+      console.log(item);
+      console.log(index);
+
+      var bookerName = this.posts[index].Booker.Person.first_name+' '+this.posts[index].Booker.Person.last_name;
+      var missionName = this.posts[index].Mission.name;
+      var teamSizeItem = this.posts[index].size;
       
       /** conversion of date and time for second part **/
-        var date = item.reservation_for;
+        var date = this.posts[index].reservation_for;
 
         var reservation_for_converted = moment.utc(date).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
         var onlyDate = moment.utc(date).format('MM-DD-YYYY');
@@ -778,9 +826,9 @@ var arrows = document.getElementsByClassName("covertedtime");
 
       /** create object which grabs both MINOR and NON-MINOR in the same column **/
       
-      if(item.Reservation_people[0].loop_value == undefined){
+      if(this.posts[index].Reservation_people[0].loop_value == undefined){
         // console.log("undefined cha hai");
-        var countReservationPeople = item.Reservation_people.length;
+        var countReservationPeople = this.posts[index].Reservation_people.length;
         console.log(countReservationPeople);
 
         var replyDataObj1 = item;
@@ -788,27 +836,27 @@ var arrows = document.getElementsByClassName("covertedtime");
         
         console.log(i);
         // console.log(item);
-        // console.log(item.Reservation_people);
-        // console.log(item.Reservation_people[i]);
-        // console.log(item.Reservation_people[i].Person.first_name);
+        // console.log(this.posts[index].Reservation_people);
+        // console.log(this.posts[index].Reservation_people[i]);
+        // console.log(this.posts[index].Reservation_people[i].Person.first_name);
 
-        var player_first_name = item.Reservation_people[i].Person.first_name;
-        var player_last_name = item.Reservation_people[i].Person.last_name;
-        var player_cell_number = item.Reservation_people[i].Person.phone;
+        var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
+        var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
+        var player_cell_number = this.posts[index].Reservation_people[i].Person.phone;
         var player_full_name = player_first_name+' '+player_last_name;
 
-        var player_person_id = item.Reservation_people[i].Person.id;
+        var player_person_id = this.posts[index].Reservation_people[i].Person.id;
 
-        // var player_id = item.Reservation_people[i].Person.Player.id;
+        // var player_id = this.posts[index].Reservation_people[i].Person.Player.id;
 
-        var missionName = item.Mission.name;
-        var missionId = item.Mission.id;
+        var missionName = this.posts[index].Mission.name;
+        var missionId = this.posts[index].Mission.id;
 
-        // var playCount = item.Reservation_people[i].Person.Player.play_count;
-        var arrived = item.Reservation_people[i].arrived;
-        var non_player_value = item.Reservation_people[i].non_player;
+        // var playCount = this.posts[index].Reservation_people[i].Person.Player.play_count;
+        var arrived = this.posts[index].Reservation_people[i].arrived;
+        var non_player_value = this.posts[index].Reservation_people[i].non_player;
 
-        var reservation_people_minor_table_id = item.Reservation_people[i].id;
+        var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].id;
         var reservation_for = reservation_for_converted;
         console.log(player_full_name);
         console.log(player_person_id);
@@ -839,7 +887,7 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(replyDataObj1);
 
             this.personPhoneNumber = player_cell_number;
-            // if(item.Reseservation_people)
+            // if(this.posts[index].Reseservation_people)
 
           }
 
@@ -848,7 +896,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           console.log(this.clickedPlayerList.Reservation_people.length);
           var replyDataObj1 = item;
           var reservationPeopleLength = this.clickedPlayerList.Reservation_people.length;
-          var countReservationMinor = item.Reservation_minors.length;
+          var countReservationMinor = this.posts[index].Reservation_minors.length;
           console.log(countReservationMinor);
 
           for(let i=0; i < countReservationMinor; i++){
@@ -856,23 +904,23 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(item);
             var nonMinorPhone = this.personPhoneNumber;
 
-            var minor_first_name = item.Reservation_minors[i].Player_minor.last_name;
-            var minor_last_name = item.Reservation_minors[i].Player_minor.first_name;
+            var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
+            var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
             var player_cell_number = nonMinorPhone;
             var minor_full_name = minor_first_name+' '+minor_last_name;
-            var minor_person_id = item.Reservation_minors[i].Player_minor.id;
-            var minor_player_id = item.Reservation_minors[i].Player_minor.player_id;
-            var missionName = item.Mission.name;
-            var missionId = item.Mission.id;
-            var minorArrived = item.Reservation_minors[i].arrived;
-            var non_player_minor_value = item.Reservation_minors[i].non_player;
-            var reservation_people_minor_table_id = item.Reservation_minors[i].id;
+            var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
+            var minor_player_id = this.posts[index].Reservation_minors[i].Player_minor.player_id;
+            var missionName = this.posts[index].Mission.name;
+            var missionId = this.posts[index].Mission.id;
+            var minorArrived = this.posts[index].Reservation_minors[i].arrived;
+            var non_player_minor_value = this.posts[index].Reservation_minors[i].non_player;
+            var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;
             var reservation_for = reservation_for_converted;
 
             console.log(i);
             
             console.log(minorArrived);
-            console.log(item.Reservation_minors);
+            console.log(this.posts[index].Reservation_minors);
 
             var objectValue = reservationPeopleLength + i;
             console.log(objectValue);
@@ -911,7 +959,7 @@ var arrows = document.getElementsByClassName("covertedtime");
       this.teamSize = teamSizeItem;
 
       console.log(bookerName);
-      console.log(reservation_for);
+      // console.log(reservation_for);
       // this.selectedCustomerName = 
       // console.log(this.posts);
       // this.selectedCustomerName = posts.customerName /*this.selectedCustomerName pass the value to data return() */

@@ -43,7 +43,7 @@
                   <th scope="col">Arrived</th>
                 </tr>
               </thead>
-              <tbody v-for="mainlist in clickedPlayerList" v-bind:key="mainlist.id">
+              <tbody v-for="mainlist in clickedPlayerList" v-bind:key="mainlist.id" :items="clickedPlayerList" :current-page="currentPage" :per-page="0">
                   <tr v-for="item in mainlist.Reservation_people" v-bind:key="item.id">
                   <td>
                     <p>{{item.full_name}}</p>
@@ -63,6 +63,13 @@
                 </tr>
               </tbody>
             </table>
+
+
+            <!-- <div id="app"> -->
+                <!-- <b-table show-empty v-for="mainlist in clickedPlayerList" v-bind:key="mainlist.id" :items="mainlist.Reservation_people" :fields="fields" :current-page="currentPage" :per-page="0"></b-table> -->
+                <b-pagination size="md" :total-rows="totalItems" v-model="currentPage" :per-page="perPage"></b-pagination>
+              <!-- </div> -->
+
           </b-col>
 
         </b-col>
@@ -89,11 +96,61 @@ export default {
     return{
       posts: [],
       clickedPlayerList: [],
-      personPhoneNumber: ''
+      personPhoneNumber: '',
+      currentPage: 0,
+      perPage: 2,
+      totalItems: 0,
+
+      fields: [{
+          key: 'full_name',
+          label: 'Full Name'
+        },
+        {
+          key: 'reservation_name',
+          label: 'Reservation Name'
+        },
+        {
+          key: 'cellnumber',
+          label: 'Cellnumber'
+        },
+        {
+          key: 'waiverSignedAt',
+          label: 'Waiver Signed At'
+        },
+        {
+          key: 'mission',
+          label: 'Mission'
+        },
+        {
+          key: 'status',
+          label: 'Status'
+        },
+        {
+          key: 'arrived',
+          label: 'Arrived'
+        }
+      ],
+    }
+  },
+
+  methods: {
+     async fetchData() {
+      this.clickedPlayerList = await fetch(`https://jsonplaceholder.typicode.com/comments?_page=${this.currentPage}&_limit=${this.perPage}`)
+        .then(res => {
+          this.totalItems = parseInt(res.headers.get('x-total-count'), 2)
+
+          return res.json()
+        })
+        .then(items => items)
     }
   },
 
   mounted: function(){
+
+    this.fetchData().catch(error => {
+      console.error(error)
+    });
+
     var starttime='start';
     var endtime='end';
     var currentdate = moment().format("YYYY-MM-DD");
