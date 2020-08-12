@@ -495,7 +495,7 @@ mounted: function(){
         this.posts = response.data;
 
         /** Beginning of ARRIVED counting part **/
-         var countPostArray = response.data.length;
+         var countPostArray = response.data.length-1;
         // console.log(countPostArray);
           var replyDataObj1 = this.posts;
 

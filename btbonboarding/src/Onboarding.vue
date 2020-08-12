@@ -74,7 +74,7 @@
 
                                           <b-col>
                                             <p v-if="teamfetch.Rfid != null">
-                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, index) , activeBtn = 'btn1' "></b-icon>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 10, index) , activeBtn = 'btn1' "></b-icon>
                                             </p>
 
                                             <p v-else>
@@ -354,9 +354,7 @@
                               <b-row>
                                     <b-col sm="1">
                                       <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
-                                      <p v-if="element.rfid_id != null && element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
-
-                                      <p v-if="element.rfidState1 > '0'" style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
@@ -1889,8 +1887,8 @@ export default {
     // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
 
-    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(3, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
@@ -2471,6 +2469,7 @@ export default {
                                   var playerReservationID = response.data[0].reservation_id;
                                   var player_id = response.data[0].Team_player_sessions[j].Player.id;
                                   var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
 
                                   // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
                                   // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
@@ -2507,6 +2506,11 @@ export default {
                                   var teamNameFetched = response.data[0].Team.name;
                                   var teamIdFetch = response.data[0].Team.id;
                                   var selectFetched = response.data[0].mission_id;
+                                  var arrivedValue = response.data[0].active;
+
+                                  console.log(response.data[0]);
+                                  console.log(arrivedValue);
+
 
                                   var teamObjectId = b+10;
                                   console.log(teamObjectId);
@@ -2518,20 +2522,20 @@ export default {
                                   // this.teamName1 = response.data[0].Team.name;
                                   // this.teamIdSideA1 = response.data[0].Team.id;
                                   // this.selected1 = response.data[0].mission_id;
+                                  this["list"+teamObjectId+"sessionid"] = SessionId;
                                   this["teamName"+teamObjectId] = teamNameFetched;
                                   this["teamIdBox"+teamObjectId] = teamIdFetch;
-                                  // this["selected"+teamObjectId] = selectFetched;
+                                  this["selected"+teamObjectId] = selectFetched;
 
-                                  if(selectFetched == '1'){
-                                    this["selected"+teamObjectId] = 'Cyberbot';
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  if(arrivedValue == '1'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
                                   }
-                                  if(selectFetched == '2'){
-                                    this["selected"+teamObjectId] = 'Blockmonster';
+                                  else{
+                                    this['disableButton'+teamObjectId] = true;
                                   }
-
-                                  // var useThisObject = 10+teamObjectId;
-
-                                  // console.log(this["fetchPlayerList"+useThisObject]);
 
                                 }
 
@@ -3134,6 +3138,18 @@ export default {
         sendToWishlistClicked19: false,
         sendToWishlistClicked20: false,
 
+        arrived10: '',
+        arrived11: '',
+        arrived12: '',
+        arrived13: '',
+        arrived14: '',
+        arrived15: '',
+        arrived16: '',
+        arrived17: '',
+        arrived18: '',
+        arrived19: '',
+        arrived20: '',
+
         reservationTime1: '',
         playing1: '',
         vs1:'',
@@ -3368,6 +3384,7 @@ export default {
           console.log(response);
           this["sendToWishlistClicked"+value] = false;
           this["removeWaitlist"+value] = false;
+          this["disableButton"+value] = true;
         })
         .catch(function (error) {
           console.log(error);
@@ -3473,6 +3490,10 @@ export default {
           .then(response => {
             console.log(response);
             console.log(response.data[0].id);
+
+            this.fetchPlayerList[col].Team_player_sessions[index].rfid_id = response.data[0].id; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
+            the RFID_ID value will be added to fetchPlayerList depending on col and index of the column **/
+
               var rfidtag_id = response.data[0].id;
 
               var updateOnTPS = this.fetchPlayerList[col].Team_player_sessions[index].id;
@@ -3539,27 +3560,17 @@ export default {
 
       },
 
-      deleterfidonclick(event, index){
+      deleterfidonclick(event, col, index){
         console.log(event);
         console.log(index);
 
         console.log("delete rfid side A after reload");
 
-         var arr = this.toListFetchRouteA1;
+         var arr = this.fetchPlayerList[col];
 
-         console.log(this.toListFetchRouteA1.Team_player_sessions[index].id);
+         // var number = this.countfunction++;
 
-         var number = this.countfunction++;
-
-         // console.log(this.toListFetchRouteA1[number].rfidState1);
-
-          // var rfid_tag = this.toListFetchRouteA1[index].rfidState1;
-
-          // console.log(arr);
-          console.log(number);
-        
-
-              var updateOnTPS = this.toListFetchRouteA1.Team_player_sessions[index].id;
+              var updateOnTPS = this.fetchPlayerList[col].Team_player_sessions[index].id;
 
               axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
                       // player_id: playerid,
@@ -3567,6 +3578,7 @@ export default {
                     })
                       .then(function (response) {
                         console.log(response);
+
                         // console.log("papa");
                         // this.list2teamplayersessionid = response.data[0].id;
                       })
@@ -3574,6 +3586,9 @@ export default {
                       .catch(function (error) {
                         console.log(error);
                 });
+
+            this.fetchPlayerList[col].Team_player_sessions[index].rfid_id = 0; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
+            the RFID_ID value will be added to fetchPlayerList depending on col and index of the column **/
         
         },
 
