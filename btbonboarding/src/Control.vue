@@ -17,7 +17,7 @@
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="#">Playing</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
@@ -43,7 +43,8 @@
           <b-row>
 
             <!-- starting div for room 1 and room 6 -->
-            <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']">
+            <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
+            <b-col class="border border-dark" v-bind:class="room1StatusColor">
                 <div>
                   <b-row>
                     <b-col>
@@ -132,7 +133,7 @@
 
 
             <!-- starting b-col and div for room 2 and room 7 -->
-            <b-col class="border border-dark" style="background-color: #ff007f;padding-top: 1%;">
+            <b-col class="border border-dark" v-bind:class="room2StatusColor">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 2 </h4>
                   <hr/>
@@ -176,7 +177,7 @@
             <!-- ending div for room 2 and room 7 -->
 
             <!-- starting b-col and div for room 3 and room 8 -->
-            <b-col class="border border-dark" style="background-color: #ffff00;padding-top: 1%;">
+            <b-col class="border border-dark" v-bind:class="room3StatusColor">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 3 </h4>
                   <hr/>
@@ -220,7 +221,7 @@
             <!-- ending div for room 3 and room 8 -->
 
             <!-- starting b-col and div for room 4 and room 9 -->
-            <b-col class="border border-dark" style="background-color: #00ff80;padding-top: 1%;">
+            <b-col class="border border-dark" v-bind:class="room4StatusColor">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 4 </h4>
                   <hr/>
@@ -265,7 +266,7 @@
 
 
             <!-- starting b-col and div for room 5 and room 10 -->
-            <b-col class="border border-dark" style="background-color: #00ff80;padding-top: 1%;">
+            <b-col class="border border-dark" v-bind:class="room5StatusColor">
                 <div>
                   <h4 style="font-weight: bold;"> ROOM 5 </h4>
                   <hr/>
@@ -344,6 +345,8 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+// import VueMqtt from 'vue-mqtt';
+// Vue.use(VueMqtt, 'ws://20.17.0.5:1883/', options);
 
 export default {
   name: 'App',
@@ -362,6 +365,22 @@ export default {
       timerPaused: false,
       interval: null,
       gameStatusByColor: true,
+
+      room1status: null,
+      room1StatusColor: '',
+
+      room2status: null,
+      room2StatusColor: '',
+
+      room3status: null,
+      room3StatusColor: '',
+
+      room4status: null,
+      room4StatusColor: '',
+
+      room5status: null,
+      room5StatusColor: '',
+
       selected: 'A',
         options: [
           { text: 'Ghostbusters'},
@@ -429,12 +448,210 @@ export default {
       if (this.timerRunning == true) {
           this.totalTime--;
       }
+    },
+
+    runMqtt() {
+      // this.interval = setInterval(this.updateCurrentTime, 1000);
+      console.log(" IN SIDE RUN MQTT");
+
+      var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+
+      var vm = this; /** vm is now variable as this which will pass on the value **/
+
+      client.on('connect', function () {
+        client.subscribe('route_status', function (err) {
+          if (!err) {
+            client.publish('presence', 'Hello mqtt')
+          }
+        })
+      })
+
+      client.on('message', function (topic, message) {
+
+        var filterData = message;
+        var x = JSON.parse(filterData);
+
+        var checkSession = x.statusResult[0];
+
+        if(checkSession.Session != null){
+          console.log('MORE');
+          console.log(checkSession.id);
+          console.log(x);
+          console.log(x.statusResult[0].Room_status.name);
+          
+
+          if(x.statusResult[0].Room_status.id == undefined){
+            this.room1status = 0;
+          }
+          else{
+            vm.room1status = x.statusResult[0].Room_status.name;
+            vm.room2status = x.statusResult[1].Room_status.name;
+            vm.room3status = x.statusResult[2].Room_status.name;
+            vm.room4status = x.statusResult[3].Room_status.name;
+            vm.room5status = x.statusResult[4].Room_status.name;
+
+            /** defines the background color following 2 Instructions, 3 Playing, 4 Waiting, 5 Released, 1 Ready **/
+              
+              /** ROOM 1 **/
+                if(vm.room1status == 'Ready'){
+                  // vm.room1StatusColor['background-color'] = '#00ff80';
+                  vm.room1StatusColor = 'greenStatus';
+                }
+
+                if(vm.room1status == 'Instructions'){
+                  vm.room1StatusColor['background-color'] = 'blue';
+                }
+
+                if(vm.room1status == 'Playing'){
+                  // vm.room1StatusColor['background-color'] = 'blue';
+                  vm.room1StatusColor = 'blueStatus';
+                }
+
+                if(vm.room1status == 'Waiting'){
+                  // vm.room1StatusColor['background-color'] = '#ffff00';
+                  vm.room1StatusColor = 'yellowStatus';
+                }
+
+                if(vm.room1status == 'Released'){
+                  vm.room1StatusColor = 'greenStatus';
+                }
+
+                if(vm.room1status == 'Trouble'){
+                  // vm.room1StatusColor['background-color'] = '#ff007f';
+                  vm.room1StatusColor = 'pinkStatus';
+                }
+              /** END OF ROOM 1 **/
+
+              /** ROOM 2 **/
+                if(vm.room2status == 'Ready'){
+                  vm.room2StatusColor = 'greenStatus';
+                }
+
+                if(vm.room2status == 'Instructions'){
+                  vm.room2StatusColor['background-color'] = 'blue';
+                }
+
+                if(vm.room2status == 'Playing'){
+                  vm.room2StatusColor = 'blueStatus';
+                }
+
+                if(vm.room2status == 'Waiting'){
+                  vm.room2StatusColor = 'yellowStatus';
+                }
+
+                if(vm.room2status == 'Released'){
+                  vm.room2StatusColor = 'greenStatus';
+                }
+
+                if(vm.room2status == 'Trouble'){
+                  vm.room2StatusColor = 'pinkStatus';
+                }
+              /** END OF ROOM 2 **/
+
+              /** ROOM 3 **/
+                if(vm.room3status == 'Ready'){
+                  vm.room3StatusColor = 'greenStatus';
+                }
+
+                if(vm.room3status == 'Instructions'){
+                  vm.room3StatusColor['background-color'] = 'blue';
+                }
+
+                if(vm.room3status == 'Playing'){
+                  vm.room3StatusColor = 'blueStatus';
+                }
+
+                if(vm.room3status == 'Waiting'){
+                  vm.room3StatusColor = 'yellowStatus';
+                }
+
+                if(vm.room3status == 'Released'){
+                  vm.room3StatusColor = 'greenStatus';
+                }
+
+                if(vm.room3status == 'Trouble'){
+                  vm.room3StatusColor = 'pinkStatus';
+                }
+              /** END OF ROOM 3 **/
+
+              /** ROOM 4 **/
+                if(vm.room4status == 'Ready'){
+                  vm.room4StatusColor = 'greenStatus';
+                }
+
+                if(vm.room4status == 'Instructions'){
+                  vm.room4StatusColor['background-color'] = 'blue';
+                }
+
+                if(vm.room4status == 'Playing'){
+                  vm.room4StatusColor = 'blueStatus';
+                }
+
+                if(vm.room4status == 'Waiting'){
+                  vm.room4StatusColor = 'yellowStatus';
+                }
+
+                if(vm.room4status == 'Released'){
+                  vm.room4StatusColor = 'greenStatus';
+                }
+
+                if(vm.room4status == 'Trouble'){
+                  vm.room4StatusColor = 'pinkStatus';
+                }
+              /** END OF ROOM 4 **/
+
+              /** ROOM 5 **/
+                if(vm.room5status == 'Ready'){
+                  vm.room5StatusColor = 'greenStatus';
+                }
+
+                if(vm.room5status == 'Instructions'){
+                  vm.room5StatusColor['background-color'] = 'blue';
+                }
+
+                if(vm.room5status == 'Playing'){
+                  vm.room5StatusColor = 'blueStatus';
+                }
+
+                if(vm.room5status == 'Waiting'){
+                  vm.room5StatusColor = 'yellowStatus';
+                }
+
+                if(vm.room5status == 'Released'){
+                  vm.room5StatusColor = 'greenStatus';
+                }
+
+                if(vm.room5status == 'Trouble'){
+                  vm.room5StatusColor = 'pinkStatus';
+                }
+              /** END OF ROOM 5 **/
+
+            /** end of background color game states **/
+          }
+
+        }
+        else{
+          // console.log("less");
+        }
+        // console.log("ROOM STATUS"+room1status);
+
+        // if(room1status > 0){
+        //   this.room1status = '1';
+        // }
+
+      })
+      
+      // console.log(client.subscribe('route_status'));
     }
+
   },
 
 
   mounted: function(){
-    // this.interval = setInterval(this.updateCurrentTime, 1000);
+    
+    this.runMqtt();
+
   },
 
   computed: {
@@ -521,6 +738,22 @@ export default {
   background-color: #00ff80; 
   padding-top: 1%;
 }
+
+.pinkStatus{
+  background-color: #ff007f; 
+  padding-top: 1%;
+}
+
+.yellowStatus{
+  background-color: #ffff00; 
+  padding-top: 1%;
+}
+
+.blueStatus{
+  background-color: #ffff00; 
+  padding-top: 1%;
+}
+
 
 .playingStatus{
   background-color: #007bff;

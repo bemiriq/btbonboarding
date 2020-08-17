@@ -98,7 +98,7 @@
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           </b-list-group>
