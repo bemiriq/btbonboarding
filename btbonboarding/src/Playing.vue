@@ -825,7 +825,7 @@ export default {
               
               /** ROOM 1 **/
                 if(vm.room1status == 'Ready'){
-                  // vm.room1StatusColor['background-color'] = '#00ff80';
+                  // vm.room1StatusColor['background-color'] = '#00ff89';
                   vm.room1StatusColor = 'greenStatus';
                   vm.room1StatusTextColor = 'greenStatusText';
                 }
@@ -853,7 +853,7 @@ export default {
                 }
 
                 if(vm.room1status == 'Trouble'){
-                  // vm.room1StatusColor['background-color'] = '#ff007f';
+                  // vm.room1StatusColor['background-color'] = '#FF1696';
                   vm.room1StatusColor = 'pinkStatus';
                   vm.room1StatusTextColor = 'pinkStatusText';
                 }
@@ -1115,12 +1115,12 @@ export default {
 }
 
 .greenStatus{
-  background-color: #00ff80; 
+  background-color: #00ff89; 
   padding-top: 1%;
 }
 
 .pinkStatus{
-  background-color: #ff007f; 
+  background-color: #FF1696; 
   padding-top: 1%;
 }
 
@@ -1135,12 +1135,12 @@ export default {
 }
 
 .greenStatusText{
-  color: #00ff80;
+  color: #00ff89;
   font-weight: bold;
 }
 
 .pinkStatusText{
-  color: #ff007f;
+  color: #FF1696;
   font-weight: bold;
 }
 
