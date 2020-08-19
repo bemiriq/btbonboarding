@@ -55,7 +55,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h2 v-bind:class="room1StatusTextColor"> {{room1game}} </h2>
+                      <h3 v-bind:class="room1StatusTextColor"> {{room1game}} </h3>
                       <h4 v-bind:class="room1StatusTextColor"> {{room1status}} </h4>
                     </b-col>
                   </b-row>
@@ -96,7 +96,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h2 v-bind:class="room2StatusTextColor"> {{room2game}} </h2>
+                      <h3 v-bind:class="room2StatusTextColor"> {{room2game}} </h3>
                       <h4 v-bind:class="room2StatusTextColor"> {{room2status}} </h4>
                     </b-col>
                   </b-row>
@@ -136,7 +136,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h2 v-bind:class="room3StatusTextColor"> {{room3game}} </h2>
+                      <h3 v-bind:class="room3StatusTextColor"> {{room3game}} </h3>
                       <h4 v-bind:class="room3StatusTextColor"> {{room3status}} </h4>
                     </b-col>
                   </b-row>
@@ -177,7 +177,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h2 v-bind:class="room4StatusTextColor"> {{room4game}} </h2>
+                      <h3 v-bind:class="room4StatusTextColor"> {{room4game}} </h3>
                       <h4 v-bind:class="room4StatusTextColor"> {{room4status}} </h4>
                     </b-col>
                   </b-row>
@@ -218,7 +218,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h2 v-bind:class="room5StatusTextColor"> {{room5game}} </h2>
+                      <h3 v-bind:class="room5StatusTextColor"> {{room5game}} </h3>
                       <h4 v-bind:class="room5StatusTextColor"> {{room5status}} </h4>
                     </b-col>
                   </b-row>
@@ -562,7 +562,22 @@ export default {
               vm.room1currenttime = '10:00';
             }
 
+            if(vm.room1status == 'Waiting'){
+              vm.room1currenttime = '00:00';
+            }
+
             if(vm.room1status == 'Playing'){
+
+              if(currentRoom1Time > '0'){
+                vm.room1currenttime = moment().startOf('day').seconds(currentRoom1Time).format("mm:ss");
+              }
+              else{
+                vm.room1currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room1status == 'Trouble'){
 
               if(currentRoom1Time > '0'){
                 vm.room1currenttime = moment().startOf('day').seconds(currentRoom1Time).format("mm:ss");
@@ -599,6 +614,21 @@ export default {
               vm.room2currenttime = '10:00';
             }
 
+            if(vm.room2status == 'Waiting'){
+              vm.room2currenttime = '00:00';
+            }
+
+            if(vm.room2status == 'Trouble'){
+
+              if(currentRoom2Time > '0'){
+                vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
+              }
+              else{
+                vm.room2currenttime = '00:00';
+              }
+
+            }
+
             if(vm.room2status == 'Playing'){
 
               if(currentRoom2Time > '0'){
@@ -610,6 +640,165 @@ export default {
 
             }
             /** END OF ROOM 2 **/
+
+
+            /** ROOM 3 **/
+
+            var room3gameendtime = x.statusResult[2].game_end;
+            var room3gameendtimeminute = moment(room3gameendtime).format("mm");
+            var room3gameendtimesecond = moment(room3gameendtime).format("ss");
+            var convertMinute3ToSeconds = room3gameendtimeminute*60;
+
+            var gameendtime3 = room3gameendtimeminute+room3gameendtimesecond;
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            console.log(currentTimeValue);
+            console.log(gameendtime3);
+
+            var currentRoom3Time = gameendtime3-currentTimeValue;
+            console.log(currentRoom3Time);
+
+            if(vm.room3status == 'Ready'){
+              vm.room3currenttime = '00:00';
+            }
+
+            if(vm.room3status == 'Instructions'){
+              vm.room3currenttime = '10:00';
+            }
+
+            if(vm.room3status == 'Waiting'){
+              vm.room3currenttime = '00:00';
+            }
+
+            if(vm.room3status == 'Trouble'){
+
+              if(currentRoom3Time > '0'){
+                vm.room3currenttime = moment().startOf('day').seconds(currentRoom3Time).format("mm:ss");
+              }
+              else{
+                vm.room3currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room3status == 'Playing'){
+
+              if(currentRoom3Time > '0'){
+                vm.room3currenttime = moment().startOf('day').seconds(currentRoom3Time).format("mm:ss");
+              }
+              else{
+                vm.room3currenttime = '00:00';
+              }
+
+            }
+            /** END OF ROOM 3 **/
+
+
+            /** ROOM 4 **/
+
+            var room4gameendtime = x.statusResult[3].game_end;
+            var room4gameendtimeminute = moment(room4gameendtime).format("mm");
+            var room4gameendtimesecond = moment(room4gameendtime).format("ss");
+            var convertMinute4ToSeconds = room4gameendtimeminute*60;
+
+            var gameendtime4 = room4gameendtimeminute+room4gameendtimesecond;
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            console.log(currentTimeValue);
+            console.log(gameendtime4);
+
+            var currentRoom4Time = gameendtime4-currentTimeValue;
+            console.log(currentRoom4Time);
+
+            if(vm.room4status == 'Ready'){
+              vm.room4currenttime = '00:00';
+            }
+
+            if(vm.room4status == 'Instructions'){
+              vm.room4currenttime = '10:00';
+            }
+
+            if(vm.room4status == 'Waiting'){
+              vm.room4currenttime = '00:00';
+            }
+
+            if(vm.room4status == 'Trouble'){
+
+              if(currentRoom4Time > '0'){
+                vm.room4currenttime = moment().startOf('day').seconds(currentRoom4Time).format("mm:ss");
+              }
+              else{
+                vm.room4currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room4status == 'Playing'){
+
+              if(currentRoom4Time > '0'){
+                vm.room4currenttime = moment().startOf('day').seconds(currentRoom4Time).format("mm:ss");
+              }
+              else{
+                vm.room4currenttime = '00:00';
+              }
+
+            }
+            /** END OF ROOM 4 **/
+
+
+            /** ROOM 5 **/
+
+            var room5gameendtime = x.statusResult[4].game_end;
+            var room5gameendtimeminute = moment(room5gameendtime).format("mm");
+            var room5gameendtimesecond = moment(room5gameendtime).format("ss");
+            var convertMinute5ToSeconds = room5gameendtimeminute*60;
+
+            var gameendtime5 = room5gameendtimeminute+room5gameendtimesecond;
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            console.log(currentTimeValue);
+            console.log(gameendtime5);
+
+            var currentRoom5Time = gameendtime5-currentTimeValue;
+            console.log(currentRoom5Time);
+
+            if(vm.room5status == 'Ready'){
+              vm.room5currenttime = '00:00';
+            }
+
+            if(vm.room5status == 'Instructions'){
+              vm.room5currenttime = '10:00';
+            }
+
+            if(vm.room5status == 'Waiting'){
+              vm.room5currenttime = '00:00';
+            }
+
+            if(vm.room5status == 'Trouble'){
+
+              if(currentRoom5Time > '0'){
+                vm.room5currenttime = moment().startOf('day').seconds(currentRoom5Time).format("mm:ss");
+              }
+              else{
+                vm.room5currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room5status == 'Playing'){
+
+              if(currentRoom5Time > '0'){
+                vm.room5currenttime = moment().startOf('day').seconds(currentRoom5Time).format("mm:ss");
+              }
+              else{
+                vm.room5currenttime = '00:00';
+              }
+
+            }
+            /** END OF ROOM 5 **/
 
               
             
@@ -941,7 +1130,8 @@ export default {
 }
 
 .blueStatus{
-  color: #ffff00; 
+  background-color: #0000FF;
+  padding-top: 1%;
 }
 
 .greenStatusText{
@@ -960,7 +1150,7 @@ export default {
 }
 
 .blueStatusText{
-  color: #ffff00;
+  color: #0000FF;
   font-weight: bold;
 }
 
