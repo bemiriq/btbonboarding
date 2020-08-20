@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <a href='/'> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
+    <a href='/' v-if="$route.path!=='/bigscreen'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     
     <br/><br/><br/>
 
-    <b-container>
+    <b-container v-if="$route.path!=='/bigscreen'">
       <b-row id="dateTimeDiv">
 
         <b-col lg="5">
