@@ -222,7 +222,7 @@ export default {
   }*/
 
   .teamTitle{
-    font-size: 5em;
+    font-size: 10em;
     /*color: #007BFF;*/
     color: #00ff89;
     margin-top: -2%;
@@ -230,7 +230,7 @@ export default {
   }
 
   .teamName{
-    font-size: 4em;
+    font-size: 7em;
     color: #00ff89;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   }
