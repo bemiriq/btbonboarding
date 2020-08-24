@@ -129,8 +129,91 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: 99%;
-    height: 1000px;
     background-color: black;
+    margin-top: -10%;
+
+  }
+  /*.container{
+    display: none;
+  }*/
+
+  .teamTitle{
+    font-size: 5em;
+    /*color: #007BFF;*/
+    color: #00ff89;
+    margin-top: -2%;
+    font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  }
+
+  .teamName{
+    font-size: 4em;
+    color: #00ff89;
+    font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  }
+
+  img{
+    width: 30%;
+  }
+
+  .lineCross{
+    width: auto;
+    background-color: #00ff89;
+    color: #00ff89;
+    height: 7px;
+    margin-top: 1%;
+    margin-bottom: 3%;
+  }
+
+  .colorHr{
+    color: #00ff89;
+  }
+
+
+  .changeColor0{
+    /*color:red;*/
+    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
+    -moz-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Fx 5+ */
+    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
+    animation: NAME-YOUR-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+  }
+
+  @-webkit-keyframes NAME-YOUR-ANIMATION {
+    0%, 49% {
+      background-color: #00ff89;  /** green **/
+      color: black;
+      /*border: 3px solid #e50000;*/
+    }
+    50%, 100% {
+      background-color: black;
+      color: #00ff89;
+      /*border: 3px solid rgb(117, 209, 63);*/
+    }
+  }
+
+}
+
+
+@media (min-width: 1500px) {
+
+    #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 99.91%;
+    margin-left: 0.1%;
+  }
+
+  .main {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    width: 99%;
+    height: 1000px;
+    background-color: red;
     margin-top: -10%;
 
   }
