@@ -212,7 +212,8 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: 99%;
-    height:100%;
+    min-height:100%;
+    position:relative;
     background-color: black;
     margin-top: -10%;
 
