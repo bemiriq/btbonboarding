@@ -213,9 +213,10 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1747px;
+    height: 1787px;
     background-color: black;
     margin-top: -10%;
+    margin-left: -1%;
 
   }
   /*.container{
