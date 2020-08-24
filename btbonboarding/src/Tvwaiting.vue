@@ -128,7 +128,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99%;
+    width: auto;
+    height: 1000px;
     background-color: black;
     margin-top: -10%;
 
@@ -201,7 +202,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.91%;
+    width: auto;
     margin-left: 0.1%;
   }
 
@@ -211,8 +212,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99%;
-    height: 1800px;
+    width: auto;
+    height: 1747px;
     background-color: black;
     margin-top: -10%;
 
