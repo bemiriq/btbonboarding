@@ -193,7 +193,7 @@ export default {
 }
 
 
-@media (min-width: 1500px) {
+@media (min-width: 2000px) {
 
     #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -212,8 +212,8 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: 99%;
-    height: 1000px;
-    background-color: red;
+    height:100%;
+    background-color: black;
     margin-top: -10%;
 
   }
@@ -222,15 +222,15 @@ export default {
   }*/
 
   .teamTitle{
-    font-size: 10em;
+    font-size: 8em;
     /*color: #007BFF;*/
     color: #00ff89;
-    margin-top: -2%;
+    margin-top: 4%;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   }
 
   .teamName{
-    font-size: 7em;
+    font-size: 5em;
     color: #00ff89;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   }
