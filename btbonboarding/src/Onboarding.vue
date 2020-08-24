@@ -100,7 +100,7 @@
                                           </b-col>
                                           <b-col sm="4">
                                             <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
-                                          <!-- <b-form-input v-model="listings.rfidState1" v-on:blur="focusOutPostRfid" placeholder="San 99"></b-form-input> -->
+
                                           </b-col>
 
                                           <b-col sm="2">

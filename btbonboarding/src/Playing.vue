@@ -1957,7 +1957,7 @@ export default {
   padding-top: 1%;
 }
 
-/** this is the BLUE STATUS background csss **/)
+/** this is the BLUE STATUS background csss **/
 .playingStatus{
   background-color: #0000FF;
   padding-top: 1%;

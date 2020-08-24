@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <a href='/' v-if="$route.path!=='/bigscreen'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     
     <br/><br/><br/>
 

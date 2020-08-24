@@ -6,13 +6,11 @@
       <p class="teamTitle">TEAMS ON DECK</p>
       <hr class="colorHr">
       <hr class="lineCross">
-      <!-- <b-container class="bv-example-row"> -->
         <b-row class="teamName" v-for="(team, index) in teamList" v-bind:key="index.id">
           <b-col>
             <p v-if="team.Session_game_scores == '' " v-bind:class="'changeColor'+index">{{team.Team.name}}</p>
           </b-col>
         </b-row>
-      <!-- </b-container> -->
     </div>
 
   </div>
@@ -169,6 +167,7 @@ export default {
   .colorHr{
     color: #00ff89;
   }
+
 
   .changeColor0{
     /*color:red;*/
