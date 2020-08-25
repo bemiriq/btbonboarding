@@ -722,7 +722,7 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/mqtt');
+      var client  = new mqtt('ws://20.17.0.5:8083/mqtt');
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 
