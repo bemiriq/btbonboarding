@@ -343,6 +343,7 @@
 </template>
 
 <script src="moment.js"></script>
+<script src="./browserMqtt.js"></script>
 
 <script>
 
@@ -517,7 +518,7 @@ export default {
         if(checkElementName == "command"){
           console.log("TRUE INSIDE CHECK ELEMENT NAME");
         }
-        
+
         else{
           var checkSession = x.statusResult[0];
 

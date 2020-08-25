@@ -513,6 +513,7 @@
 </template>
 
 <script src="moment.js"></script>
+<script src="./browserMqtt.js"></script>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
