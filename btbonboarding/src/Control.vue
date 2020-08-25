@@ -348,6 +348,7 @@
 
 import moment from 'moment';
 import axios from 'axios';
+import VueMqtt from 'vue-mqtt';
 
 export default {
   name: 'App',
@@ -516,6 +517,8 @@ export default {
 
         if(checkElementName == "command"){
           console.log("TRUE INSIDE CHECK ELEMENT NAME");
+  
+
         }
         else{
           var checkSession = x.statusResult[0];

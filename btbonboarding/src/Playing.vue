@@ -516,7 +516,7 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-// import VueMqtt from 'vue-mqtt';
+import VueMqtt from 'vue-mqtt';
 // Vue.use(VueMqtt, 'ws://20.17.0.5:1883/', options);
 import moment from 'moment';
 
