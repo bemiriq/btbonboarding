@@ -348,7 +348,6 @@
 
 import moment from 'moment';
 import axios from 'axios';
-import VueMqtt from 'vue-mqtt';
 
 export default {
   name: 'App',
@@ -422,7 +421,7 @@ export default {
       console.log(fetch_source_ip);
 
       var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/mqtt');
 
       var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
 
@@ -496,7 +495,7 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/mqtt');
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 
@@ -517,7 +516,26 @@ export default {
 
         if(checkElementName == "command"){
           console.log("TRUE INSIDE CHECK ELEMENT NAME");
-  
+          
+          // var indexValue = vm.teamName1;
+          // var teamDetail = vm.teamList[indexValue];
+
+          // var fetch_route_status_id = teamDetail.route_id;
+          // console.log(fetch_route_status_id);
+
+          // var fetch_rfid_tag = teamDetail.Team_player_sessions[0].Rfid.tag;
+          // console.log(fetch_rfid_tag);
+
+          // var fetch_source_ip = "";
+          // console.log(fetch_source_ip);
+
+          // var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
+
+          // var obj = JSON.stringify(message);
+
+          // client.publish('route_status', obj, {qos: 1});
+
+          // console.log("DONE ");
 
         }
         else{
