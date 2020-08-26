@@ -421,8 +421,8 @@ export default {
       var fetch_source_ip = "";
       console.log(fetch_source_ip);
 
-      var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      // var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:1883');
 
       var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
 
@@ -495,8 +495,8 @@ export default {
       // this.interval = setInterval(this.updateCurrentTime, 1000);
       console.log(" IN SIDE RUN MQTT");
 
-      var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      // var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:1883');
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 
