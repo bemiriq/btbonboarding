@@ -272,6 +272,10 @@ import axios from 'axios';
   margin-top: 60px;
 }
 
+.gameLogo{
+    width: 20%;
+  }
+
 @media print {
   body * {
     visibility: hidden;
@@ -288,7 +292,7 @@ import axios from 'axios';
   .gameLogo{
     width: 20%;
   }
-  
+
 }
 
 </style>
