@@ -725,11 +725,7 @@ export default {
       // var mqtt = require('mqtt');
       // var client  = mqtt.connect('ws://20.17.0.5:1883');
 
-      var mqtt;
-      var host = '20.17.0.5';
-      var port = '1883';
-
-      var client  = new Paho.MQTT.Client(host, Number(port));
+      var client  = new mqtt.connect('mqtt://20.17.0.5:1883');
 
       // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
 
