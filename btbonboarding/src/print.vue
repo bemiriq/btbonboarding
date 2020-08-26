@@ -191,41 +191,23 @@ import axios from 'axios';
                 }
 
             }
+            else{
+              var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
+              var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
 
-            this.playerNamesList = replyDataObj1;
+              console.log(minorfirstname+' '+minorlastname);
 
-            if(this.teamList[index].Team_player_sessions[j].player_minor_id > 0){
-
-              var minorteamLength = this.teamList[index].Team_player_sessions[j].Player_minor.length;
-
-              for(let k=0; k < minorteamLength; k++){
-
-                var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor[k].last_name;
-                var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor[k].first_name;
-
-                console.log(minorfirstname+' '+minorlastname);
-
-                var countteamplayer = this.playerNamesList.length;
-
-                replyDataObj1[j+countteamplayer]={
+              replyDataObj1[j]={
                   "first_name": minorfirstname,
                   "last_name": minorlastname,
                   "full_name": minorfirstname+' '+minorlastname
                 }
-
-              }
-
-              
-
             }
             
           }
-           
+            
+            console.log(replyDataObj1);
             this.playerNamesList = replyDataObj1;
-
-
-          
-
 
           if(this.teamList[index].Session_game_scores[0].score == undefined){
             this.room1 = '00:00';
