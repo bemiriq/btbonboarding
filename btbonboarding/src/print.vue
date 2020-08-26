@@ -284,6 +284,11 @@ import axios from 'axios';
     left: 0;
     top: 0;
   }
+
+  .gameLogo{
+    width: 20%;
+  }
+  
 }
 
 </style>
