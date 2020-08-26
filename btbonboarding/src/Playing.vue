@@ -729,7 +729,7 @@ export default {
       var host = '20.17.0.5';
       var port = '1883';
 
-      message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
+      // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
 
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
