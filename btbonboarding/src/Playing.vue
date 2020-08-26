@@ -723,7 +723,14 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       // var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:1883');
+      // var client  = mqtt.connect('ws://20.17.0.5:1883');
+
+      var mqtt;
+      var host = '20.17.0.5';
+      var port = '1883';
+
+      message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
+
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 
