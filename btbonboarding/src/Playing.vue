@@ -729,6 +729,8 @@ export default {
       var host = '20.17.0.5';
       var port = '1883';
 
+      var client  = new Paho.MQTT.Client(host, Number(port));
+
       // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
 
 
