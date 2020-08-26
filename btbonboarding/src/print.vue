@@ -1,0 +1,199 @@
+<template>
+  <div id="app">
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+
+  <b-modal id="modal-center" centered title="BootstrapVue">
+    <p class="my-4">Vertically centered modal!</p>
+  </b-modal>
+
+    <div class="bv-example-row" style="width: 80%;margin:auto;">
+      <b-row>
+        <!-- start of the left div which has navigation menu -->
+        <b-col lg="2">
+
+          <b-list-group class="leftMenuDiv">
+            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+            <b-list-group-item href="#">Wrapping up</b-list-group-item>
+            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+          </b-list-group>
+
+        </b-col>
+        <!-- end of navigation menu on left side -->
+
+
+
+        <!-- start of right div which consists of table with all details -->
+        <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
+          <b-col>
+            <b-form-group id="input-group-3" label-for="input-3">
+              <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected">
+                  <option v-for="(item, index) in teamList" v-bind:key="index.id" :value="index">{{item.Team.name}}</option>
+              </b-form-select>
+            </b-form-group>
+          </b-col>
+
+          <b-col v-if="onselect == '1'">
+            <button @click="printWindow('san')">Print</button>
+            <div id="section-to-print">
+
+              <div> LOGO </div>
+
+              <div> TEAM NAME = {{teamname}}</div>
+
+              <br> 
+              <div> PLAYER NAME </div>
+              <div v-for="list in playerNamesList" v-bind:key="list.id">{{list.full_name}}</div>
+
+              <br>
+
+              <div> ROOM 1 SCORE = </div>
+              <div> ROOM 2 SCORE = </div>
+              <div> ROOM 3 SCORE = </div>
+              <div> ROOM 4 SCORE = </div>
+              <div> ROOM 5 SCORE = </div>
+              <div> BOMB TIME = </div>
+              <div> TOTAL SCORE = </div>
+
+            </div>
+          </b-col>
+
+        </b-col>
+
+        
+      </b-row>
+    </div>
+
+  </div>
+
+</template>
+
+<script src="moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+
+<script>
+
+import moment from 'moment';
+import axios from 'axios';
+
+  export default {
+    name: 'App',
+    components: {
+      // HelloWorld
+    },
+
+    data(){
+      return{
+        teamList:[],
+        onselect: '',
+        teamSelectedIndex: '',
+        playerNamesList: [],
+
+        bombtime: '',
+        total_score: '',
+        size: '',
+        winners: '',
+        teamname: '',
+      }
+
+    },
+
+    mounted: function(){
+    
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+      })
+      .then(response => {
+        console.log(response);
+        this.teamList = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    },
+
+    methods:{
+        printWindow: function () {    
+          window.print('section-to-print');
+        },
+
+        teamNameSelected: function (){
+
+          this.onselect = '1';
+
+          var index = this.teamSelectedIndex;
+
+          console.log(index);
+
+          console.log(this.teamList[index]);
+
+          this.bombtime = this.teamList[index].bomb_time;
+          this.total_score = this.teamList[index].total_score;
+          this.size = this.teamList[index].player_count;
+          this.winners = this.teamList[index].winners;
+
+          this.teamname = this.teamList[index].Team.name;
+
+          var teamLength = this.teamList[index].Team_player_sessions.length;
+          console.log(teamLength);
+
+          var replyDataObj1 = this.playerNamesList;
+
+          for(let j=0; j < teamLength; j++){
+
+            var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
+            var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+
+            console.log(playerFirstName+' '+playerLastName);
+
+            replyDataObj1[j]={
+                "first_name": playerFirstName,
+                "last_name": playerLastName,
+                "full_name": playerFirstName+' '+playerLastName
+              }
+            }
+            
+            console.log(replyDataObj1);
+            this.playerNamesList = replyDataObj1;
+          }
+
+    } /** methods closing bracket **/
+
+  };
+
+</script>
+
+<style>
+
+@import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
+/*@import url('./assets/fonts/PixelDigivolve.otf');*/
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+</style>

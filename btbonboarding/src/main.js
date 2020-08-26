@@ -10,6 +10,7 @@ import Onsite from './Onsite.vue';
 import Playing from './Playing.vue';
 import Score from './Score.vue';
 import Bigscreen from './Tvwaiting.vue';
+import Print from './print.vue';
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -42,7 +43,8 @@ const routes = [
 	{ path : '/controlroom', component: Control},
 	{ path : '/score', component: Score},
 	{ path : '/drag', component: Drag},
-	{ path : '/bigscreen', component: Bigscreen}
+	{ path : '/bigscreen', component: Bigscreen},
+	{ path : '/print', component: Print}
 ];
 
 const router = new VueRouter({
