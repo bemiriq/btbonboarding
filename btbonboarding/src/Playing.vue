@@ -722,7 +722,7 @@ export default {
       // this.interval = setInterval(this.updateCurrentTime, 1000);
       console.log(" IN SIDE RUN MQTT");
 
-      // var mqtt = require('mqtt');
+      var mqtt = require('mqtt');
       // var client  = mqtt.connect('ws://20.17.0.5:8083');
 
       var client  = new mqtt.connect('mqtt://20.17.0.5:8083');
