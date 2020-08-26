@@ -135,7 +135,7 @@ import axios from 'axios';
 
     mounted: function(){
     
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
 
       })
       .then(response => {
