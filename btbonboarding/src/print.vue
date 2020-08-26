@@ -41,7 +41,25 @@
             <button @click="printWindow('san')">Print</button>
             <div id="section-to-print">
 
-              <div> LOGO </div>
+              <div>
+                <img v-bind:src="require('./assets/' + roomname5 +'.png')" class="gameLogo"/>
+              </div>
+
+              <div>
+                <img v-bind:src="require('./assets/' + roomname1 +'.png')" class="gameLogo"/>
+              </div>
+
+              <div>
+                <img v-bind:src="require('./assets/' + roomname2 +'.png')" class="gameLogo"/>
+              </div>
+
+              <div>
+                <img v-bind:src="require('./assets/' + roomname3 +'.png')" class="gameLogo"/>
+              </div>
+
+              <div>
+                <img v-bind:src="require('./assets/' + roomname4 +'.png')" class="gameLogo"/>
+              </div>
 
               <div> TEAM NAME = {{teamname}}</div>
 
@@ -51,11 +69,11 @@
 
               <br>
 
-              <div> ROOM 1 SCORE = </div>
-              <div> ROOM 2 SCORE = </div>
-              <div> ROOM 3 SCORE = </div>
-              <div> ROOM 4 SCORE = </div>
-              <div> ROOM 5 SCORE = </div>
+              <div> ROOM 1 SCORE = {{room1}}</div>
+              <div> ROOM 2 SCORE = {{room2}}</div>
+              <div> ROOM 3 SCORE = {{room3}}</div>
+              <div> ROOM 4 SCORE = {{room4}}</div>
+              <div> ROOM 5 SCORE = {{room5}}</div>
               <div> BOMB TIME = </div>
               <div> TOTAL SCORE = </div>
 
@@ -98,6 +116,19 @@ import axios from 'axios';
         size: '',
         winners: '',
         teamname: '',
+
+        room1:'',
+        room2:'',
+        room3:'',
+        room4:'',
+        room5:'',
+
+        roomname1:'',
+        roomname2:'',
+        roomname3:'',
+        roomname4:'',
+        roomname5:'',
+
       }
 
     },
@@ -160,7 +191,66 @@ import axios from 'axios';
             
             console.log(replyDataObj1);
             this.playerNamesList = replyDataObj1;
+
+
+          if(this.teamList[index].Session_game_scores[0].score == undefined){
+            this.room1 = '00:00';
           }
+          else{
+            var room1 = this.teamList[index].Session_game_scores[0].score;
+            this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
+          }
+
+          if(this.teamList[index].Session_game_scores[1].score == undefined){
+            this.room2 = '00:00';
+          }
+          else{
+            var room2 = this.teamList[index].Session_game_scores[1].score;
+            this.room2 = moment().startOf('day').seconds(room2).format("mm:ss");
+          }
+
+          if(this.teamList[index].Session_game_scores[2].score == undefined){
+            this.room3 = '00:00';
+          }
+          else{
+            var room3 = this.teamList[index].Session_game_scores[2].score;
+            this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
+          }
+
+          if(this.teamList[index].Session_game_scores[3].score == undefined){
+            this.room4 = '00:00';
+          }
+          else{
+            var room4 = this.teamList[index].Session_game_scores[3].score;
+            this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
+          }
+
+          if(this.teamList[index].Session_game_scores[4].score == undefined){
+            this.room5 = '00:00';
+          }
+          else{
+            var room5 = this.teamList[index].Session_game_scores[4].score;
+            this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+          }
+
+          /** this will pass all the image name for room 1 to 5 **/
+          if(this.teamList[index].Session_game_scores[0].game_id < 6){
+            this.roomname1 = 'Hack Attack';
+            this.roomname2 = 'Laser Maze';
+            this.roomname3 = 'Echo Chamber';
+            this.roomname4 = 'Floor Grid';
+            this.roomname5 = 'Cyberbot';
+          }
+          if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+            this.roomname1 = 'Sequencer';
+            this.roomname2 = 'Crypto Lazer';
+            this.roomname3 = 'Mad Dash';
+            this.roomname4 = 'Low Battery';
+            this.roomname5 = 'Block Monster';
+          }
+          /** end of image detail for rooms **/
+
+        } /** end of teamname function **/
 
     } /** methods closing bracket **/
 
