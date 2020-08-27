@@ -343,12 +343,15 @@
 </template>
 
 <script src="moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 
 <script>
 
 import moment from 'moment';
 import axios from 'axios';
+
+import VueMqtt from 'vue-mqtt';
+// Vue.use(VueMqtt, 'ws://20.17.0.5:1883/', options);
+
 
 export default {
   name: 'App',
@@ -422,12 +425,7 @@ export default {
       console.log(fetch_source_ip);
 
       var mqtt = require('mqtt');
-      // var client  = mqtt.connect('ws://20.17.0.5:8083');
-
-      var client  = new mqtt.connect('mqtt://20.17.0.5','8083');
-
-      // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
-
+      var client  = mqtt.connect('ws://20.17.0.5:1883/');
 
       var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
 
@@ -501,16 +499,7 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
-      var client  = new mqtt.connect('mqtt://20.17.0.5','8083');
-
-      // var mqtt;
-      // var host = '20.17.0.5';
-      // var port = '8083';
-
-      // var client  = new Paho.MQTT.Client(host, Number(port));
-
-      // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
-
+      var client  = mqtt.connect('mqtt://20.17.0.5:1883/');
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 

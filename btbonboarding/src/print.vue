@@ -40,8 +40,100 @@
           <b-col v-if="onselect == '1'">
             <button @click="printWindow('san')">Print</button>
             <div id="section-to-print">
+              <!-- <b-row>
 
-              <div>
+                <b-col class="firstdiv">
+                  FIRST
+                </b-col>
+                
+                <b-col class="seconddiv">
+                  SECOND
+                </b-col>
+                
+                <b-col class="thirddiv">
+                  THIRD
+                </b-col>
+              
+              </b-row> -->
+
+              <div class="container">
+
+                <div class="row">
+
+                  <div class="col-sm-3 firstdiv">
+                    <div class="missiontitle">MISSION 01:</div>
+                    <div class="maingameImage">
+                      <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
+                    </div>
+                    <div class="hrlength">
+                      <!-- <hr> -->
+                    </div>
+
+                    <div class="gametext">GAMES</div>
+
+                    <div class="gamelogo1">
+                      <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogoChildren" />
+                    </div>
+
+                    <div class="gamelogo2">
+                      <img v-bind:src="require('./assets/' + roomname2 +' Logo.png')" class="gameLogoChildren" />
+                    </div>
+
+                    <div class="gamelogo3">
+                      <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')" class="gameLogoChildren" />
+                    </div>
+
+                    <div class="gamelogo4">
+                      <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')" class="gameLogoChildren" />
+                    </div>
+                    <!-- <div class="gameimage1">
+                      <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogo"/>
+                    </div> -->
+
+
+                  </div>
+
+                  <div class="col-sm seconddiv">
+                    
+                    <div class="btblogo">
+                      <img src="./assets/BTB Logo.png" class="btblogodetail" />
+                    </div>
+
+                    <div class="performanceText">
+                      PERFORMANCE REPORT
+                    </div>
+
+
+                    <div class="playerDiv col-sm">
+                      <!-- <div class="col-sm playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">
+                        {{playername.full_name}}
+                      </div> -->
+
+                      <ul class="list-group list-group-horizontal playertext">
+                        <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li>
+                        <!-- <li class="list-group-item playertext">First item</li> -->
+                      </ul>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm thirddiv">
+
+                    <div class="teamnametext">
+                      YO HO HAI TEAM NAME
+                    </div>
+
+                    <!-- <div class="teamnametext">
+                      08-09-2020
+                    </div> -->
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- <div>
                 <img v-bind:src="require('./assets/' + roomname5 +'.png')" class="gameLogo"/>
               </div>
 
@@ -68,14 +160,14 @@
               <div v-for="list in playerNamesList" v-bind:key="list.id">{{list.full_name}}</div>
 
               <br>
-
+              <div> DATE = {{teamdate}}</div>
               <div> ROOM 1 SCORE = {{room1}}</div>
               <div> ROOM 2 SCORE = {{room2}}</div>
               <div> ROOM 3 SCORE = {{room3}}</div>
               <div> ROOM 4 SCORE = {{room4}}</div>
               <div> ROOM 5 SCORE = {{room5}}</div>
-              <div> BOMB TIME = </div>
-              <div> TOTAL SCORE = </div>
+              <div> BOMB TIME = {{bombtime}}</div>
+              <div> TOTAL SCORE = {{total_score}}</div> -->
 
             </div>
           </b-col>
@@ -109,7 +201,16 @@ import axios from 'axios';
         teamList:[],
         onselect: '',
         teamSelectedIndex: '',
-        playerNamesList: [],
+        playerNamesList: [
+          {full_name:'Sandu Sher'},
+          {full_name:'Alexander Patterson'},
+          {full_name:'Jesse John'},
+          {full_name:'Sandesh Phuyal'},
+          {full_name:'Alexander Patterson'},
+          {full_name:'Chuck Fletcher'}
+        ],
+
+        teamdate: '08/27/2020',
 
         bombtime: '',
         total_score: '',
@@ -135,7 +236,7 @@ import axios from 'axios';
 
     mounted: function(){
     
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
       })
       .then(response => {
@@ -153,120 +254,142 @@ import axios from 'axios';
           window.print('section-to-print');
         },
 
-        teamNameSelected: function (){
+        teamNameSelected: function(){
 
           this.onselect = '1';
 
-          var index = this.teamSelectedIndex;
+          this.teamname = 'SANDU MANDU TEAM';
+          this.room1 = '00:00';
+          this.room2 = '00:00';
+          this.room3 = '00:00';
+          this.room4 = '00:00';
+          this.room5 = '00:00';
 
-          console.log(index);
+          this.roomname1 = 'Hack Attack';
+          this.roomname2 = 'Laser Maze';
+          this.roomname3 = 'Echo Chamber';
+          this.roomname4 = 'Floor Grid';
+          this.roomname5 = 'Cyberbot';
 
-          console.log(this.teamList[index]);
+          this.bombtime = '03:00';
+          this.total_score = '1390';
 
-          this.bombtime = this.teamList[index].bomb_time;
-          this.total_score = this.teamList[index].total_score;
-          this.size = this.teamList[index].player_count;
-          this.winners = this.teamList[index].winners;
+        }
 
-          this.teamname = this.teamList[index].Team.name;
+        // teamNameSelected: function (){
 
-          var teamLength = this.teamList[index].Team_player_sessions.length;
-          console.log(teamLength);
+        //   this.onselect = '1';
 
-          var replyDataObj1 = this.playerNamesList;
+        //   var index = this.teamSelectedIndex;
 
-          for(let j=0; j < teamLength; j++){
+        //   console.log(index);
 
-            if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+        //   console.log(this.teamList[index]);
 
-              var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
-              var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+        //   this.bombtime = this.teamList[index].bomb_time;
+        //   this.total_score = this.teamList[index].total_score;
+        //   this.size = this.teamList[index].player_count;
+        //   this.winners = this.teamList[index].winners;
 
-              console.log(playerFirstName+' '+playerLastName);
+        //   this.teamname = this.teamList[index].Team.name;
 
-              replyDataObj1[j]={
-                  "first_name": playerFirstName,
-                  "last_name": playerLastName,
-                  "full_name": playerFirstName+' '+playerLastName
-                }
+        //   var teamLength = this.teamList[index].Team_player_sessions.length;
+        //   console.log(teamLength);
 
-            }
-            else{
-              var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
-              var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+        //   var replyDataObj1 = this.playerNamesList;
 
-              console.log(minorfirstname+' '+minorlastname);
+        //   for(let j=0; j < teamLength; j++){
 
-              replyDataObj1[j]={
-                  "first_name": minorfirstname,
-                  "last_name": minorlastname,
-                  "full_name": minorfirstname+' '+minorlastname
-                }
-            }
+        //     if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+
+        //       var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
+        //       var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+
+        //       console.log(playerFirstName+' '+playerLastName);
+
+        //       replyDataObj1[j]={
+        //           "first_name": playerFirstName,
+        //           "last_name": playerLastName,
+        //           "full_name": playerFirstName+' '+playerLastName
+        //         }
+
+        //     }
+        //     else{
+        //       var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
+        //       var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+
+        //       console.log(minorfirstname+' '+minorlastname);
+
+        //       replyDataObj1[j]={
+        //           "first_name": minorfirstname,
+        //           "last_name": minorlastname,
+        //           "full_name": minorfirstname+' '+minorlastname
+        //         }
+        //     }
             
-          }
+        //   }
             
-            console.log(replyDataObj1);
-            this.playerNamesList = replyDataObj1;
+        //     console.log(replyDataObj1);
+        //     this.playerNamesList = replyDataObj1;
 
-          if(this.teamList[index].Session_game_scores[0].score == undefined){
-            this.room1 = '00:00';
-          }
-          else{
-            var room1 = this.teamList[index].Session_game_scores[0].score;
-            this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
-          }
+        //   if(this.teamList[index].Session_game_scores[0].score == undefined){
+        //     this.room1 = '00:00';
+        //   }
+        //   else{
+        //     var room1 = this.teamList[index].Session_game_scores[0].score;
+        //     this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
+        //   }
 
-          if(this.teamList[index].Session_game_scores[1].score == undefined){
-            this.room2 = '00:00';
-          }
-          else{
-            var room2 = this.teamList[index].Session_game_scores[1].score;
-            this.room2 = moment().startOf('day').seconds(room2).format("mm:ss");
-          }
+        //   if(this.teamList[index].Session_game_scores[1].score == undefined){
+        //     this.room2 = '00:00';
+        //   }
+        //   else{
+        //     var room2 = this.teamList[index].Session_game_scores[1].score;
+        //     this.room2 = moment().startOf('day').seconds(room2).format("mm:ss");
+        //   }
 
-          if(this.teamList[index].Session_game_scores[2].score == undefined){
-            this.room3 = '00:00';
-          }
-          else{
-            var room3 = this.teamList[index].Session_game_scores[2].score;
-            this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
-          }
+        //   if(this.teamList[index].Session_game_scores[2].score == undefined){
+        //     this.room3 = '00:00';
+        //   }
+        //   else{
+        //     var room3 = this.teamList[index].Session_game_scores[2].score;
+        //     this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
+        //   }
 
-          if(this.teamList[index].Session_game_scores[3].score == undefined){
-            this.room4 = '00:00';
-          }
-          else{
-            var room4 = this.teamList[index].Session_game_scores[3].score;
-            this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
-          }
+        //   if(this.teamList[index].Session_game_scores[3].score == undefined){
+        //     this.room4 = '00:00';
+        //   }
+        //   else{
+        //     var room4 = this.teamList[index].Session_game_scores[3].score;
+        //     this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
+        //   }
 
-          if(this.teamList[index].Session_game_scores[4].score == undefined){
-            this.room5 = '00:00';
-          }
-          else{
-            var room5 = this.teamList[index].Session_game_scores[4].score;
-            this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
-          }
+        //   if(this.teamList[index].Session_game_scores[4].score == undefined){
+        //     this.room5 = '00:00';
+        //   }
+        //   else{
+        //     var room5 = this.teamList[index].Session_game_scores[4].score;
+        //     this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+        //   }
 
-          /** this will pass all the image name for room 1 to 5 **/
-          if(this.teamList[index].Session_game_scores[0].game_id < 6){
-            this.roomname1 = 'Hack Attack';
-            this.roomname2 = 'Laser Maze';
-            this.roomname3 = 'Echo Chamber';
-            this.roomname4 = 'Floor Grid';
-            this.roomname5 = 'Cyberbot';
-          }
-          if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
-            this.roomname1 = 'Sequencer';
-            this.roomname2 = 'Crypto Lazer';
-            this.roomname3 = 'Mad Dash';
-            this.roomname4 = 'Low Battery';
-            this.roomname5 = 'Block Monster';
-          }
-          /** end of image detail for rooms **/
+        //   /** this will pass all the image name for room 1 to 5 **/
+        //   if(this.teamList[index].Session_game_scores[0].game_id < 6){
+        //     this.roomname1 = 'Hack Attack';
+        //     this.roomname2 = 'Laser Maze';
+        //     this.roomname3 = 'Echo Chamber';
+        //     this.roomname4 = 'Floor Grid';
+        //     this.roomname5 = 'Cyberbot';
+        //   }
+        //   if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+        //     this.roomname1 = 'Sequencer';
+        //     this.roomname2 = 'Crypto Lazer';
+        //     this.roomname3 = 'Mad Dash';
+        //     this.roomname4 = 'Low Battery';
+        //     this.roomname5 = 'Block Monster';
+        //   }
+        //   /** end of image detail for rooms **/
 
-        } /** end of teamname function **/
+        // } /** end of teamname function **/
 
     } /** methods closing bracket **/
 
@@ -276,7 +399,7 @@ import axios from 'axios';
 
 <style>
 
-@import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
+@import url(//db.onlinewebfonts.com/c/f6cf6ca17eeb58c1a8ee64d4b3458098?family=Aero+Matics+Stencil);
 /*@import url('./assets/fonts/PixelDigivolve.otf');*/
 
 #app {
@@ -289,24 +412,183 @@ import axios from 'axios';
 }
 
 .gameLogo{
-    width: 20%;
+    width: 10%;
   }
 
 @media print {
   body * {
     visibility: hidden;
+    -webkit-print-color-adjust: exact;
+    /*margin-left: -5%;*/
+    /*width: 90%;*/
   }
+
+   @page {
+      size: auto !important;
+      margin: 0.01cm;
+      margin-left: -3.8cm;
+      margin-top: -15.3cm;
+    }
+
+   /* @page :left{
+      margin-left: 2cm;
+    }*/
+
+    .firstdiv{
+      background-color: #FF1696; /** pink **/
+      margin-left: -5.5cm;
+      /*color: black;*/
+    }
+
+    .seconddiv{
+      background-color: black;
+      color:white;
+/*      margin-right: 5cm;*/
+    }
+
+    .thirddiv{
+      background-color: black;
+      color: white;
+    }
+
+    .missiontitle{
+      color: white !important;
+      /*background-color: green;*/
+      width: 8cm !important;
+      height: 1.5cm !important;
+      margin-top: 1cm;
+      margin-left: 0.1cm;
+      font-size: 0.8cm;
+      font-family: 'Aero Matics Stencil', regular;
+      color: black !important;
+    }
+
+    .maingameImage{
+      width: 2cm !important;
+      height: 3.5cm !important;
+      margin-top: 0.7cm;
+      margin-left: 1.5cm;
+    }
+    
+    .hrlength{
+      width: 9.5cm !important;
+      height: 0.25cm !important;
+      background-color: black !important;
+      margin-top: 4cm;
+      margin-left: -0.4cm;
+    }
+
+    .gametext{
+      width: 3cm !important;
+      height: 1cm !important;
+      background-color: #FF1696 !important;
+      color: black !important;
+      font-size: 0.8cm;
+      font-family: 'Aero Matics Stencil', regular;
+      margin-top: -0.75cm;
+      margin-left: 2.55cm;
+    }
+
+    .gamelogo1{
+      width: 2cm !important;
+      height: 3cm !important;
+      margin-top: 1.2cm;
+      margin-left: 1cm;
+    }
+
+    .gamelogo2{
+      width: 2cm !important;
+      height: 3cm !important;
+      margin-top: 1.2cm;
+      margin-left: 1cm;
+    }
+
+    .gamelogo3{
+      width: 2cm !important;
+      height: 3cm !important;
+      margin-top: 1.2cm;
+      margin-left: 1cm;
+    }
+
+    .gamelogo4{
+      width: 2cm !important;
+      height: 3cm !important;
+      margin-top: 1.2cm;
+      margin-left: 1cm;
+    }
+
+    .btblogo{
+      width: 9cm !important;
+      height: 3.5cm !important;
+      margin-top: 0.7cm;
+      margin-left: 1.5cm;
+    }
+
+    .performanceText{
+      width: 20cm !important;
+      height: 2cm !important;
+      color: white;
+      font-size: 1.5cm;
+      font-family: 'Aero Matics Stencil', regular;
+      margin-top: -1.5cm;
+      /*background-color: black !important;*/
+      margin-left: -1.8cm;
+      /*margin-left: 2.55cm;*/
+    }
+
+    .playerDiv{
+      width: 25cm !important;
+      height: 2cm !important;
+      background-color: black !important;
+      margin-left: 0.3cm;
+    }
+
+    .playertext{
+      width: 22cm !important;
+      height: 3cm !important;
+      background-color: black !important;
+      color: white;
+      font-size: 0.5cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .teamnametext{
+     width: 15cm !important;
+      height: 2cm !important;
+      color: white;
+      font-size: 1.3cm;
+      font-family: 'Aero Matics Stencil', regular;
+      margin-top: -30.8cm;
+      margin-left: 20cm;
+      /*margin-top: -1.5cm;*/
+    }
+  /*@page {size: A4 landscape;max-height:100%; max-width:100%}*/
+
+/*s*/
   #section-to-print, #section-to-print * {
     visibility: visible;
+    width: 37cm;
+    height: 31.45cm;
   }
   #section-to-print {
-    position: absolute;
-    left: 0;
-    top: 0;
+    /*background-color: black !important;*/
+    color: white !important;
+
   }
 
   .gameLogo{
-    width: 20%;
+    width: 6cm !important;
+    height: 6cm !important;
+  }
+
+  .gameLogoChildren{
+    width: 6cm !important;
+    height: 2.5cm !important;
+  }
+
+  .btblogodetail{
+    width: 9cm !important;
+    height: 2cm !important;
   }
 
 }

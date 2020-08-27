@@ -513,12 +513,11 @@
 </template>
 
 <script src="moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-// import VueMqtt from 'vue-mqtt';
-// Vue.use(VueMqtt, 'ws://20.17.0.5:8083/', options);
+import VueMqtt from 'vue-mqtt';
+// Vue.use(VueMqtt, 'ws://20.17.0.5:1883/', options);
 import moment from 'moment';
 
 export default {
@@ -723,24 +722,27 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
-      // var client  = mqtt.connect('ws://20.17.0.5:8083');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
 
-      var client  = new mqtt.connect('mqtt://20.17.0.5','8083');
-
-      // message = new Paho.MQTT.Message("Connected to Sandesh Vue Application");
-
+      console.log(client);
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
 
       client.on('connect', function () {
+
         client.subscribe('route_status', function (err) {
+
+          console.log('san1');
+
           if (!err) {
-            client.publish('presence', 'Hello mqtt')
+            client.publish('presence', 'Message from Sandesh Vue App')
           }
         })
       })
 
       client.on('message', function (topic, message) {
+
+        console.log('san3');
 
         var filterData = message;
         var x = JSON.parse(filterData);
