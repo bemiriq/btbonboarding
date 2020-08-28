@@ -72,19 +72,19 @@
                     <div class="gametext">GAMES</div>
 
                     <div class="gamelogo1">
-                      <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogoChildren" />
+                      <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" v-bind:class="gamestatus" />
                     </div>
 
                     <div class="gamelogo2">
-                      <img v-bind:src="require('./assets/' + roomname2 +' Logo.png')" class="gameLogoChildren" />
+                      <img v-bind:src="require('./assets/' + roomname2 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
                     <div class="gamelogo3">
-                      <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')" class="gameLogoChildren" />
+                      <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
                     <div class="gamelogo4">
-                      <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')" class="gameLogoChildren" />
+                      <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
                     <!-- <div class="gameimage1">
                       <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogo"/>
@@ -104,30 +104,158 @@
                     </div>
 
 
-                    <div class="playerDiv col-sm">
+                    <div class="playerDiv">
                       <!-- <div class="col-sm playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">
                         {{playername.full_name}}
                       </div> -->
 
                       <ul class="list-group list-group-horizontal playertext">
                         <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li>
-                        <!-- <li class="list-group-item playertext">First item</li> -->
                       </ul>
 
                     </div>
 
+                    <!-- <div class="teamnametext"> TEAM </div> -->
+
+                    <div class="teamtext">
+                      TEAM SANDU GANDU MANDU
+                    </div>
+
+                    <div class="datetext">
+                      08-28-2020
+                    </div>
+
+                    <div class="timeEarnedColumn">
+                      TIME EARNED
+                    </div>
+
+                    <div class="timeEarnedRoom1">
+                      00:45
+                    </div>
+
+                    <div class="timeEarnedRoom2">
+                      00:45
+                    </div>
+
+                    <div class="timeEarnedRoom3">
+                      00:45
+                    </div>
+
+                    <div class="timeEarnedRoom4">
+                      00:45
+                    </div>
+
+                    <div class="percentileColumn">
+                      PERCENTILE
+                    </div>
+
+                    <div class="percentileRoom1">
+                      56%
+                    </div>
+
+                    <div class="percentileRoom2">
+                      9%
+                    </div>
+
+                    <div class="percentileRoom3">
+                      20%
+                    </div>
+
+                    <div class="percentileRoom4">
+                      56%
+                    </div>
+
+                    <div class="timeEarnedBox">
+                      
+                    </div>
+
+                    <div class="timeEarnedBoxText">
+                      TIME EARNED TO DEFEAT THE <br>
+                      BLOCK MONSTER
+                    </div>
+
+                    <div class="timeEarnedWhiteBox">
+
+                    </div>
+
+                    <div class="timeEarnedWhiteBoxText">
+                      03:00
+                    </div>
+
+                    <div class="finalResultText">
+                      FINAL RESULTS
+                    </div>
+
+                    <div class="bombDigitDiv">
+            
+                    </div>
+
+                    <div class="bombDigitTitle">
+                      BOMB DIGIT DECODED
+                    </div>
+
+                    <div class="didYouBTBdiv">
+                     <!--  BOMB DIGIT DECODED -->
+                    </div>
+
+                    <div class="didYouBTBTitle">
+                      DID YOU BEAT THE BOMB ?
+                    </div>
+
+                    <div class="bombDigitDecoded">
+                      9
+                    </div>
+
+                    <div class="bombBoolean">
+                      NO
+                    </div>
+
+                    <div class="totalScoreDiv">
+
+                    </div>
+
+                    <div class="overallRankingDiv">
+
+                    </div>
+
+                    <div class="totalScoreTitle">
+                      TOTAL SCORE
+                    </div>
+
+                    <div class="overallRankingTitle">
+                      OVERALL RANKING
+                    </div>
+
+                    <div class="digitsTime">
+                      180 seconds x 9 digits
+                    </div>
+
+                    <div class="digitsTimeCalculation">
+                      1,679
+                    </div>
+
+                    <div class="totalRankings">
+                      2579th out of 10000 teams
+                    </div>
+
+                    <div class="totalRankingsPercantile">
+                      56 % percentile
+                    </div>
+
                   </div>
 
-                  <div class="col-sm thirddiv">
+                  <!-- <div class="col-sm thirddiv"> -->
 
-                    <div class="teamnametext">
+                    <!-- <div class="teamnametext">
                       YO HO HAI TEAM NAME
-                    </div>
+                    </div> -->
+
+                    <!-- <div> SAN </div> -->
 
                     <!-- <div class="teamnametext">
                       08-09-2020
                     </div> -->
-                  </div>
+                  <!-- </div> -->
 
                 </div>
 
@@ -236,7 +364,7 @@ import axios from 'axios';
 
     mounted: function(){
     
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
 
       })
       .then(response => {
@@ -271,8 +399,16 @@ import axios from 'axios';
           this.roomname4 = 'Floor Grid';
           this.roomname5 = 'Cyberbot';
 
+          this.roomname6 = 'Sequencer';
+          this.roomname7 = 'Crypto Lazer';
+          this.roomname8 = 'Mad Dash';
+          this.roomname9 = 'Low Battery';
+          this.roomname10 = 'Block Monster';
+
           this.bombtime = '03:00';
           this.total_score = '1390';
+
+          this.gamestatus = 'gameLogoChildrenMission1';
 
         }
 
@@ -449,6 +585,7 @@ import axios from 'axios';
     .thirddiv{
       background-color: black;
       color: white;
+      height: 20cm !important;
     }
 
     .missiontitle{
@@ -456,7 +593,7 @@ import axios from 'axios';
       /*background-color: green;*/
       width: 8cm !important;
       height: 1.5cm !important;
-      margin-top: 1cm;
+      margin-top: 1.2cm;
       margin-left: 0.1cm;
       font-size: 0.8cm;
       font-family: 'Aero Matics Stencil', regular;
@@ -519,8 +656,8 @@ import axios from 'axios';
 
     .btblogo{
       width: 9cm !important;
-      height: 3.5cm !important;
-      margin-top: 0.7cm;
+      height: 4cm !important;
+      margin-top: 1.1cm;
       margin-left: 1.5cm;
     }
 
@@ -528,11 +665,12 @@ import axios from 'axios';
       width: 20cm !important;
       height: 2cm !important;
       color: white;
-      font-size: 1.5cm;
+      font-size: 1.7cm;
       font-family: 'Aero Matics Stencil', regular;
       margin-top: -1.5cm;
       /*background-color: black !important;*/
-      margin-left: -1.8cm;
+      margin-left: 1.6cm;
+      text-align: left;
       /*margin-left: 2.55cm;*/
     }
 
@@ -540,7 +678,7 @@ import axios from 'axios';
       width: 25cm !important;
       height: 2cm !important;
       background-color: black !important;
-      margin-left: 0.3cm;
+      margin-left: 1.1cm;
     }
 
     .playertext{
@@ -548,20 +686,339 @@ import axios from 'axios';
       height: 3cm !important;
       background-color: black !important;
       color: white;
-      font-size: 0.5cm;
+      font-size: 0.6cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: left;
+      margin-top: 0.2cm;
+    }
+
+    .teamtext{
+      /*background-color: green !important;*/
+      width: 16cm !important;
+      height: 1cm !important;
+      margin-left: 14cm;
+      margin-top: -6.9cm;
+      font-size: 1.4cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: right;
+    }
+
+    .datetext{
+      /*background-color: yellow !important;*/
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: right;
+      margin-left: 25cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 1.5cm;
+      font-size: 0.85cm;
       font-family: 'Aero Matics Stencil', regular;
     }
 
-    .teamnametext{
-     width: 15cm !important;
-      height: 2cm !important;
+    .timeEarnedColumn{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: left;
+      margin-left: 2cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 6cm;
+      font-size: 0.85cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .timeEarnedRoom1{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 1.65cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 1.4cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .timeEarnedRoom2{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 1.65cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .timeEarnedRoom3{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 1.65cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .timeEarnedRoom4{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 1.65cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .percentileColumn{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: left;
+      margin-left: 8.5cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: -16.3cm;
+      font-size: 0.85cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .percentileRoom1{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 8cm;
+      /*padding-left: 3.5cm;*/
+      margin-top: 1.35cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .percentileRoom2{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 8cm;
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .percentileRoom3{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 8cm;
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+    
+    .percentileRoom4{
+      width: 5cm !important;
+      height: 1cm !important;
+      text-align: center;
+      margin-left: 8cm;
+      margin-top: 3.3cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+    }
+
+    .timeEarnedBox{
+      width: 10.5cm !important;
+      height: 2.9cm !important;
+      text-align: center;
+      margin-left: 17cm;
+      margin-top: -17.5cm;
+      background-color: #FF1696;
+    }
+
+    .timeEarnedBoxText{
+      width: 11cm !important;
+      height: 2.7cm !important;
+      text-align: center;
+      margin-left: 16.8cm;
+      margin-top: -2.5cm;
+      font-size: 0.8cm;
+      font-family: 'Aero Matics Stencil', regular;
       color: white;
+    }
+
+    .timeEarnedWhiteBox{
+      width: 10.5cm !important;
+      height: 1.8cm !important;
+      text-align: center;
+      margin-left: 17cm;
+      margin-top: -0.18cm;
+      font-size: 0.8cm;
+      font-family: 'Aero Matics Stencil', regular;
+      color: white;
+      background-color: white;
+    }
+
+    .timeEarnedWhiteBoxText{
+      width: 2cm !important;
+      height: 1.8cm !important;
+      text-align: center;
+      margin-left: 20.9cm;
+      margin-top: -1.8cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+      color: #FF1696;
+    }
+
+    .finalResultText{
+      width: 8cm !important;
+      height: 1.8cm !important;
+      text-align: center;
+      margin-left: 18.5cm;
+      margin-top: 1.5cm;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+      color: white;
+      /*background-color: green;*/
+    }
+
+    .bombDigitDiv{
+      width: 8.5cm !important;
+      height: 1cm !important;
+      margin-left: 13.5cm;
+      margin-top: 1cm;
+      background-color: #FF1696;
+    }
+
+    .bombDigitTitle{
+      width: 8.5cm !important;
+      height: 1cm !important;
+      margin-left: 14.9cm;
+      margin-top: -1cm;
+      color: white;
+      font-size: 0.7cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: left;
+    }
+
+    .didYouBTBdiv{
+      margin-left: 22.5cm;
+      margin-top: -1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      background-color: #FF1696;
+    }
+
+    .didYouBTBTitle{
+      margin-left: 22.5cm;
+      margin-top: -1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      color: white;
+      font-size: 0.7cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .bombDigitDecoded{
+      margin-left: 13.5cm;
+      margin-top: 0.4cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      color: white;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .bombBoolean{
+      margin-left: 22.5cm;
+      margin-top: -1.05cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      color: white;
+      font-size: 1.2cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .totalScoreDiv{
+      background-color: #FF1696;
+      margin-left: 13.5cm;
+      margin-top: 2cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+    }
+
+    .overallRankingDiv{
+      background-color: #FF1696;
+      margin-left: 22.5cm;
+      margin-top: -1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+    }
+
+    .totalScoreTitle{
+      color: white;
+      margin-left: 13.5cm;
+      margin-top: -1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      font-size: 0.7cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .overallRankingTitle{
+      color: white;
+      margin-left: 22.5cm;
+      margin-top: -1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      font-size: 0.7cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .digitsTime{
+      color: white;
+      margin-left: 13.5cm;
+      margin-top: 0.6cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      font-size: 0.65cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .digitsTimeCalculation{
+      color: white;
+      margin-left: 13.5cm;
+      margin-top: 0.1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
       font-size: 1.3cm;
       font-family: 'Aero Matics Stencil', regular;
-      margin-top: -30.8cm;
-      margin-left: 20cm;
-      /*margin-top: -1.5cm;*/
+      text-align: center;
     }
+
+    .totalRankings{
+      color: white;
+      margin-left: 22.5cm;
+      margin-top: -2.1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      font-size: 0.7cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
+    .totalRankingsPercantile{
+      color: white;
+      margin-left: 22.5cm;
+      margin-top: 0.1cm;
+      width: 8.5cm !important;
+      height: 1cm !important;
+      font-size: 1.3cm;
+      font-family: 'Aero Matics Stencil', regular;
+      text-align: center;
+    }
+
   /*@page {size: A4 landscape;max-height:100%; max-width:100%}*/
 
 /*s*/
@@ -581,14 +1038,22 @@ import axios from 'axios';
     height: 6cm !important;
   }
 
-  .gameLogoChildren{
+  .gameLogoChildrenMission1{
     width: 6cm !important;
-    height: 2.5cm !important;
+    height: 3cm !important;
+    padding-left: 1cm;
+  }
+
+  .gameLogoChildrenMission2{
+    width: 7cm !important;
+    height: 5cm !important;
+    margin-top: -1.2cm;
+    padding-left: 0.5cm;
   }
 
   .btblogodetail{
-    width: 9cm !important;
-    height: 2cm !important;
+    width: 10cm !important;
+    height: 2.5cm !important;
   }
 
 }
