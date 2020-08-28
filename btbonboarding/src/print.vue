@@ -61,7 +61,8 @@
                 <div class="row">
 
                   <div class="col-sm-3 firstdiv">
-                    <div class="missiontitle">MISSION 01:</div>
+                    <!-- <div class="missiontitle">MISSION 01:</div> -->
+                    <div class="missiontitle">{{missionTitle}}:</div>
                     <div class="maingameImage">
                       <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
                     </div>
@@ -110,6 +111,7 @@
                       </div> -->
 
                       <ul class="list-group list-group-horizontal playertext">
+                        <!-- <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li> -->
                         <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li>
                       </ul>
 
@@ -118,7 +120,8 @@
                     <!-- <div class="teamnametext"> TEAM </div> -->
 
                     <div class="teamtext">
-                      TEAM SANDU GANDU MANDU
+                      <!-- TEAM SANDU GANDU MANDU -->
+                      {{teamname}}
                     </div>
 
                     <div class="datetext">
@@ -130,19 +133,19 @@
                     </div>
 
                     <div class="timeEarnedRoom1">
-                      00:45
+                      {{room1}}
                     </div>
 
                     <div class="timeEarnedRoom2">
-                      00:45
+                      {{room2}}
                     </div>
 
                     <div class="timeEarnedRoom3">
-                      00:45
+                      {{room3}}
                     </div>
 
                     <div class="timeEarnedRoom4">
-                      00:45
+                      {{room4}}
                     </div>
 
                     <div class="percentileColumn">
@@ -171,7 +174,7 @@
 
                     <div class="timeEarnedBoxText">
                       TIME EARNED TO DEFEAT THE <br>
-                      BLOCK MONSTER
+                      {{missionDetailTitle}}
                     </div>
 
                     <div class="timeEarnedWhiteBox">
@@ -179,7 +182,7 @@
                     </div>
 
                     <div class="timeEarnedWhiteBoxText">
-                      03:00
+                      {{bombtime}}
                     </div>
 
                     <div class="finalResultText">
@@ -231,7 +234,7 @@
                     </div>
 
                     <div class="digitsTimeCalculation">
-                      1,679
+                      {{total_score}}
                     </div>
 
                     <div class="totalRankings">
@@ -329,14 +332,17 @@ import axios from 'axios';
         teamList:[],
         onselect: '',
         teamSelectedIndex: '',
-        playerNamesList: [
-          {full_name:'Sandu Sher'},
-          {full_name:'Alexander Patterson'},
-          {full_name:'Jesse John'},
-          {full_name:'Sandesh Phuyal'},
-          {full_name:'Alexander Patterson'},
-          {full_name:'Chuck Fletcher'}
-        ],
+        // playerNamesList: [
+        //   {full_name:'Sandu Sher'},
+        //   {full_name:'Alexander Patterson'},
+        //   {full_name:'Jesse John'},
+        //   {full_name:'Sandesh Phuyal'},
+        //   {full_name:'Alexander Patterson'},
+        //   {full_name:'Chuck Fletcher'}
+        // ],
+        playerNamesList: [],
+
+        missionDetailTitle:'',
 
         teamdate: '08/27/2020',
 
@@ -382,150 +388,157 @@ import axios from 'axios';
           window.print('section-to-print');
         },
 
-        teamNameSelected: function(){
-
-          this.onselect = '1';
-
-          this.teamname = 'SANDU MANDU TEAM';
-          this.room1 = '00:00';
-          this.room2 = '00:00';
-          this.room3 = '00:00';
-          this.room4 = '00:00';
-          this.room5 = '00:00';
-
-          this.roomname1 = 'Hack Attack';
-          this.roomname2 = 'Laser Maze';
-          this.roomname3 = 'Echo Chamber';
-          this.roomname4 = 'Floor Grid';
-          this.roomname5 = 'Cyberbot';
-
-          this.roomname6 = 'Sequencer';
-          this.roomname7 = 'Crypto Lazer';
-          this.roomname8 = 'Mad Dash';
-          this.roomname9 = 'Low Battery';
-          this.roomname10 = 'Block Monster';
-
-          this.bombtime = '03:00';
-          this.total_score = '1390';
-
-          this.gamestatus = 'gameLogoChildrenMission1';
-
-        }
-
-        // teamNameSelected: function (){
+        // teamNameSelected: function(){
 
         //   this.onselect = '1';
 
-        //   var index = this.teamSelectedIndex;
+        //   this.teamname = 'SANDU MANDU TEAM';
+        //   this.room1 = '00:00';
+        //   this.room2 = '00:00';
+        //   this.room3 = '00:00';
+        //   this.room4 = '00:00';
+        //   this.room5 = '00:00';
 
-        //   console.log(index);
+        //   this.roomname1 = 'Hack Attack';
+        //   this.roomname2 = 'Laser Maze';
+        //   this.roomname3 = 'Echo Chamber';
+        //   this.roomname4 = 'Floor Grid';
+        //   this.roomname5 = 'Cyberbot';
 
-        //   console.log(this.teamList[index]);
+        //   this.roomname6 = 'Sequencer';
+        //   this.roomname7 = 'Crypto Lazer';
+        //   this.roomname8 = 'Mad Dash';
+        //   this.roomname9 = 'Low Battery';
+        //   this.roomname10 = 'Block Monster';
 
-        //   this.bombtime = this.teamList[index].bomb_time;
-        //   this.total_score = this.teamList[index].total_score;
-        //   this.size = this.teamList[index].player_count;
-        //   this.winners = this.teamList[index].winners;
+        //   this.bombtime = '03:00';
+        //   this.total_score = '1390';
 
-        //   this.teamname = this.teamList[index].Team.name;
+        //   this.gamestatus = 'gameLogoChildrenMission1';
 
-        //   var teamLength = this.teamList[index].Team_player_sessions.length;
-        //   console.log(teamLength);
+        // }
 
-        //   var replyDataObj1 = this.playerNamesList;
+        teamNameSelected: function (){
 
-        //   for(let j=0; j < teamLength; j++){
+          this.onselect = '1';
 
-        //     if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+          var index = this.teamSelectedIndex;
 
-        //       var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
-        //       var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+          console.log(index);
 
-        //       console.log(playerFirstName+' '+playerLastName);
+          console.log(this.teamList[index]);
 
-        //       replyDataObj1[j]={
-        //           "first_name": playerFirstName,
-        //           "last_name": playerLastName,
-        //           "full_name": playerFirstName+' '+playerLastName
-        //         }
+          this.bombtime = this.teamList[index].bomb_time;
+          this.total_score = this.teamList[index].total_score;
+          this.size = this.teamList[index].player_count;
+          this.winners = this.teamList[index].winners;
 
-        //     }
-        //     else{
-        //       var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
-        //       var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+          this.teamname = this.teamList[index].Team.name;
 
-        //       console.log(minorfirstname+' '+minorlastname);
+          var teamLength = this.teamList[index].Team_player_sessions.length;
+          console.log(teamLength);
 
-        //       replyDataObj1[j]={
-        //           "first_name": minorfirstname,
-        //           "last_name": minorlastname,
-        //           "full_name": minorfirstname+' '+minorlastname
-        //         }
-        //     }
+          var replyDataObj1 = this.playerNamesList;
+
+          for(let j=0; j < teamLength; j++){
+
+            if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+
+              var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
+              var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+
+              console.log(playerFirstName+' '+playerLastName);
+
+              replyDataObj1[j]={
+                  "first_name": playerFirstName,
+                  "last_name": playerLastName,
+                  "full_name": playerFirstName+' '+playerLastName
+                }
+
+            }
+            else{
+              var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
+              var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+
+              console.log(minorfirstname+' '+minorlastname);
+
+              replyDataObj1[j]={
+                  "first_name": minorfirstname,
+                  "last_name": minorlastname,
+                  "full_name": minorfirstname+' '+minorlastname
+                }
+            }
             
-        //   }
+          }
             
-        //     console.log(replyDataObj1);
-        //     this.playerNamesList = replyDataObj1;
+            console.log(replyDataObj1);
+            this.playerNamesList = replyDataObj1;
 
-        //   if(this.teamList[index].Session_game_scores[0].score == undefined){
-        //     this.room1 = '00:00';
-        //   }
-        //   else{
-        //     var room1 = this.teamList[index].Session_game_scores[0].score;
-        //     this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
-        //   }
+          if(this.teamList[index].Session_game_scores[0].score == undefined){
+            this.room1 = '00:00';
+          }
+          else{
+            var room1 = this.teamList[index].Session_game_scores[0].score;
+            this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
+          }
 
-        //   if(this.teamList[index].Session_game_scores[1].score == undefined){
-        //     this.room2 = '00:00';
-        //   }
-        //   else{
-        //     var room2 = this.teamList[index].Session_game_scores[1].score;
-        //     this.room2 = moment().startOf('day').seconds(room2).format("mm:ss");
-        //   }
+          if(this.teamList[index].Session_game_scores[1].score == undefined){
+            this.room2 = '00:00';
+          }
+          else{
+            var room2 = this.teamList[index].Session_game_scores[1].score;
+            this.room2 = moment().startOf('day').seconds(room2).format("mm:ss");
+          }
 
-        //   if(this.teamList[index].Session_game_scores[2].score == undefined){
-        //     this.room3 = '00:00';
-        //   }
-        //   else{
-        //     var room3 = this.teamList[index].Session_game_scores[2].score;
-        //     this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
-        //   }
+          if(this.teamList[index].Session_game_scores[2].score == undefined){
+            this.room3 = '00:00';
+          }
+          else{
+            var room3 = this.teamList[index].Session_game_scores[2].score;
+            this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
+          }
 
-        //   if(this.teamList[index].Session_game_scores[3].score == undefined){
-        //     this.room4 = '00:00';
-        //   }
-        //   else{
-        //     var room4 = this.teamList[index].Session_game_scores[3].score;
-        //     this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
-        //   }
+          if(this.teamList[index].Session_game_scores[3].score == undefined){
+            this.room4 = '00:00';
+          }
+          else{
+            var room4 = this.teamList[index].Session_game_scores[3].score;
+            this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
+          }
 
-        //   if(this.teamList[index].Session_game_scores[4].score == undefined){
-        //     this.room5 = '00:00';
-        //   }
-        //   else{
-        //     var room5 = this.teamList[index].Session_game_scores[4].score;
-        //     this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
-        //   }
+          if(this.teamList[index].Session_game_scores[4].score == undefined){
+            this.room5 = '00:00';
+          }
+          else{
+            var room5 = this.teamList[index].Session_game_scores[4].score;
+            this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+          }
 
-        //   /** this will pass all the image name for room 1 to 5 **/
-        //   if(this.teamList[index].Session_game_scores[0].game_id < 6){
-        //     this.roomname1 = 'Hack Attack';
-        //     this.roomname2 = 'Laser Maze';
-        //     this.roomname3 = 'Echo Chamber';
-        //     this.roomname4 = 'Floor Grid';
-        //     this.roomname5 = 'Cyberbot';
-        //   }
-        //   if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
-        //     this.roomname1 = 'Sequencer';
-        //     this.roomname2 = 'Crypto Lazer';
-        //     this.roomname3 = 'Mad Dash';
-        //     this.roomname4 = 'Low Battery';
-        //     this.roomname5 = 'Block Monster';
-        //   }
-        //   /** end of image detail for rooms **/
+          /** this will pass all the image name for room 1 to 5 **/
+          if(this.teamList[index].Session_game_scores[0].game_id < 6){
+            this.roomname1 = 'Hack Attack';
+            this.roomname2 = 'Laser Maze';
+            this.roomname3 = 'Echo Chamber';
+            this.roomname4 = 'Floor Grid';
+            this.roomname5 = 'Cyberbot';
+            this.gamestatus = 'gameLogoChildrenMission1'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+            this.missionTitle = 'MISSION 01';
+            this.missionDetailTitle = 'CYBERBOT';
+          }
+          if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+            this.roomname1 = 'Sequencer';
+            this.roomname2 = 'Crypto Lazer';
+            this.roomname3 = 'Mad Dash';
+            this.roomname4 = 'Low Battery';
+            this.roomname5 = 'Block Monster';
+            this.gamestatus = 'gameLogoChildrenMission2'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+            this.missionTitle = 'MISSION 02';
+            this.missionDetailTitle = 'BLOCK MONSTER';
+          }
+          /** end of image detail for rooms **/
 
-        // } /** end of teamname function **/
+
+        } /** end of teamname function **/
 
     } /** methods closing bracket **/
 
