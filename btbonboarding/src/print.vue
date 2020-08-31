@@ -106,10 +106,6 @@
 
 
                     <div class="playerDiv">
-                      <!-- <div class="col-sm playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">
-                        {{playername.full_name}}
-                      </div> -->
-
                       <ul class="list-group list-group-horizontal playertext">
                         <!-- <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li> -->
                         <li class="list-group-item playertext" v-for="playername in playerNamesList" v-bind:key="playername.id">{{playername.full_name}}</li>
@@ -173,7 +169,7 @@
                     </div>
 
                     <div class="timeEarnedBoxText">
-                      TIME EARNED TO DEFEAT THE <br>
+                      TIME EARNED TO DEFEAT THE <br> <!-- BLOCK MONSTER -->
                       {{missionDetailTitle}}
                     </div>
 
@@ -371,6 +367,7 @@ import axios from 'axios';
     mounted: function(){
     
       axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
+      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
       })
       .then(response => {
@@ -388,35 +385,35 @@ import axios from 'axios';
           window.print('section-to-print');
         },
 
-        // teamNameSelected: function(){
+        teamNameSelectedDemo: function(){
 
-        //   this.onselect = '1';
+          this.onselect = '1';
 
-        //   this.teamname = 'SANDU MANDU TEAM';
-        //   this.room1 = '00:00';
-        //   this.room2 = '00:00';
-        //   this.room3 = '00:00';
-        //   this.room4 = '00:00';
-        //   this.room5 = '00:00';
+          this.teamname = 'SANDU MANDU TEAM';
+          this.room1 = '00:00';
+          this.room2 = '00:00';
+          this.room3 = '00:00';
+          this.room4 = '00:00';
+          this.room5 = '00:00';
 
-        //   this.roomname1 = 'Hack Attack';
-        //   this.roomname2 = 'Laser Maze';
-        //   this.roomname3 = 'Echo Chamber';
-        //   this.roomname4 = 'Floor Grid';
-        //   this.roomname5 = 'Cyberbot';
+          this.roomname1 = 'Hack Attack';
+          this.roomname2 = 'Laser Maze';
+          this.roomname3 = 'Echo Chamber';
+          this.roomname4 = 'Floor Grid';
+          this.roomname5 = 'Cyberbot';
 
-        //   this.roomname6 = 'Sequencer';
-        //   this.roomname7 = 'Crypto Lazer';
-        //   this.roomname8 = 'Mad Dash';
-        //   this.roomname9 = 'Low Battery';
-        //   this.roomname10 = 'Block Monster';
+          this.roomname6 = 'Sequencer';
+          this.roomname7 = 'Crypto Lazer';
+          this.roomname8 = 'Mad Dash';
+          this.roomname9 = 'Low Battery';
+          this.roomname10 = 'Block Monster';
 
-        //   this.bombtime = '03:00';
-        //   this.total_score = '1390';
+          this.bombtime = '03:00';
+          this.total_score = '1390';
 
-        //   this.gamestatus = 'gameLogoChildrenMission1';
+          this.gamestatus = 'gameLogoChildrenMission1';
 
-        // }
+        },
 
         teamNameSelected: function (){
 
