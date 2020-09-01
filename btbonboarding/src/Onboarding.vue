@@ -388,10 +388,6 @@
 
                               <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
 
-                                  <!-- <insput v-model="element.id" type="text" disabled style="display: none;"> -->
-
-                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent"></b-form-input> -->
-
                                   <b-row>
 
                                     <b-col sm="2">
@@ -470,12 +466,9 @@
                             <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)"> -->
                               <!-- <p>{{vsselected10}}</p>
                               <p>{{vsselected11}}</p> -->
-                            <b-form-select v-if="vsselected10 == ''" v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
-                              <option v-bind:value="teamName10"> {{ teamName11 }} </option>
-                            </b-form-select>
-
-                            <b-form-select v-else v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
-                              <option v-bind:value="teamName10"> {{ teamName11 }} </option>
+                            <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                              <option> </option>
+                              <option :value="teamName11"> {{ teamName11 }} </option>
                             </b-form-select>
 
                           </b-col>
@@ -673,12 +666,9 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-if="vsselected11 == ''" v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
-                              <option v-bind:value="teamName11"> {{ teamName10 }} </option>
-                            </b-form-select>
-
-                            <b-form-select v-else v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
-                              <option v-bind:value="teamName11"> {{ teamName10 }} </option>
+                            <b-form-select v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
+                              <option> </option>
+                              <option :value="teamName10"> {{ teamName10 }} </option>
                             </b-form-select>
 
                           </b-col>
@@ -1859,7 +1849,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     // console.log(currentdate);
 
-    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(5, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -1911,6 +1901,7 @@ export default {
                 var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
                 var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
                 var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
 
                 var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
                 var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
@@ -1919,7 +1910,8 @@ export default {
                 var missionId = response.data[0].Mission.id;
 
                 console.log(minorLastName+' '+minorFirstName);
-                
+                console.log("RESERVATION ID SOLTA "+minorReservationID);
+
                 var countReservationPeople = response.data[i].Reservation_people.length;
                 var incrementObject = countReservationPeople++;
                 console.log(incrementObject);
@@ -1940,7 +1932,7 @@ export default {
                         "minor" : 'yes',
                         "minorsymbol" : 'M',
                         "player_id" : personSignedWaiverId,
-                        "reservation_id": reservationID,
+                        "reservation_id": minorReservationID,
                         "mission_name" : missionName,
                         "mission_id" : missionId,
                         "Bookerdetail":{
@@ -3047,6 +3039,17 @@ export default {
         vsselected18: '',
         vsselected19: '',
 
+        teamvsteamBoolen10: false,
+        teamvsteamBoolen11: false,
+        teamvsteamBoolen12: false,
+        teamvsteamBoolen13: false,
+        teamvsteamBoolen14: false,
+        teamvsteamBoolen15: false,
+        teamvsteamBoolen16: false,
+        teamvsteamBoolen17: false,
+        teamvsteamBoolen18: false,
+        teamvsteamBoolen19: false,
+
         rfid1: '',
         rfid2: '',
         rfid3: '',
@@ -3722,6 +3725,8 @@ export default {
             var teamSessionId1 = getSessionIdFirstTeam;
             var teamSessionId2 = getSessionIdSecondTeam;
 
+            console.log(getSessionIdFirstTeam);
+            console.log(getSessionIdSecondTeam);
 
             axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName1,{
                     
@@ -4724,8 +4729,15 @@ export default {
         var draggedPlayerId = this["list"+col][newIndex].Person.Player.id; /* this will always select the last player id dragged */
         console.log(draggedPlayerId);
 
-        var reservationid = this["list"+col][countondrop].reservation_id;
-        console.log(reservationid);
+        if(this["list"+col][newIndex].Person.minorsymbol == "M"){
+          var reservationid = this["list"+col][newIndex].Person.reservation_id;
+        }
+        else{
+        var reservationid = this["list"+col][newIndex].reservation_id; 
+        // var reservationid = this["list"+col][newIndex].Person.reservation_id;
+        }
+
+        console.log("RESERVATION ID "+reservationid);
 
         // var teamId = this.teamname1id[0].id;
         var teamId = this["teamname"+col+"id"][0].id;
@@ -4801,6 +4813,7 @@ export default {
                     console.log(response.data);
 
                     this.list2sessionid = response.data[0].id; /** this pass session id to list2sessionid **/
+                    this["list"+col+"sessionid"] = response.data[0].id;
 
                     this.playerSessionDetail2 = response.data[0].id;
                     var sessionIdInserted = response.data[0].id;
@@ -6410,22 +6423,14 @@ export default {
 
         console.log(event); /** this print out the selected values as 1,2,3 for cyberbot,blockmonster, promode**/
 
-        var getSessionId = this.fetchPlayerList[colvalue].Team_player_sessions[0].session_id;
+        // var getSessionId = this.fetchPlayerList[colvalue].Team_player_sessions[0].session_id;
+
+        var getSessionId = this['list'+colvalue+'sessionid'];
 
         var selectedMissionId = event;
 
         console.log("inside on change mission"+selectedMissionId+' '+ getSessionId);
 
-        /* this will always select the last player id dragged */
-        // var draggedPlayerId = this.list2[this.list2.length - 1].id; 
-        // var reservationid = this.list2[0].reservation_id;
-        // var teamId = this.teamname1id[0].id;
-        // var organizationid = this.organizationselected1;
-        // var sessionID = this.list2sessionid;
-
-        // var routeId = 1;
-
-        //   if(teamId > 0){
             axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionId,{
 
               mission_id: selectedMissionId
@@ -6440,7 +6445,6 @@ export default {
             .catch(function (error) {
               console.log(error);
             });
-          // }
 
       },
 
