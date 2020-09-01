@@ -10,7 +10,7 @@ import Onsite from './Onsite.vue';
 import Playing from './Playing.vue';
 import Score from './Score.vue';
 import Bigscreen from './Tvwaiting.vue';
-import Print from './Print.vue';
+import Print from './print.vue';
 import Gamebaysignup from './Gbsignup.vue';
 import Gamebayleaderboard from './Gbleaderboard.vue';
 
