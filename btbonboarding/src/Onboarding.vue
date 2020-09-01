@@ -415,29 +415,9 @@
 
 
                                   </b-row>
-
-                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name + ' / ' + reservationNameDragged1" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" :value="element.Person.first_name + ' ' + element.Person.last_name" disabled @input="inputEvent" v-model="element.fetchPlayerList" ></b-form-input> -->
-                                  <!-- <input v-model="element.first_name" disabled> -->
                               </div>
-                             <!--    <input type="text" :value="item.name" @input="changeList($event, item.id, 'name')" v-model="element.name">
-                                  {{ element.name }}
-                                </div> -->
-
-                                   <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
-                                  <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                                </div> -->
                               </draggable>
                             </div>
-
-                    <!-- </div> end of v-if teamname1 check -->
-
-                    <!-- v-else if teamname not inserted display differnt div with **INSERT TEAM** text -->
-                    <!-- <div v-else> 
-                        <div style="height: 360px; border-style: outset;">
-                          <p id="insertTeamFirst"> ** Add a team name first ** </p>
-                        </div>
-                    </div> -->
 
 
                       <br/>
@@ -583,7 +563,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '11'">&#128163;</p>
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
                                     <b-col sm="1">
@@ -610,18 +590,20 @@
                           <div v-else>
                             <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
 
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+
                               <div class="list-group-item item" v-for="(element, index) in list11" :key="index">
 
                                   <b-row>
 
                                     <b-col sm="2">
 
-                                      <p v-if="list11[index].rfidState1 == null">&#10060;</p>
-                                      <p v-else style='color:green;'>&#9989;</p>
+                                      <p v-if="list11[index].rfidState1 == '' || !list11[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list11[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="7">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
@@ -630,7 +612,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
                                     <b-col sm="1">
@@ -2155,6 +2137,9 @@ export default {
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
+        console.log(boxTime);
+        console.log(routeId);
+
         var replyDataObj1 = b;
 
           replyDataObj1={
@@ -2179,10 +2164,11 @@ export default {
                         console.log(this.onDrop1FunctionLoaded);
 
                         if(response.data.length > 0){
-                          console.log("greater than 0");
-                          // this.teamName1 = response.data[0].Team.name;
-                          // this.teamIdSideA1 = response.data[0].Team.id;
-                          // this.selected1 = response.data[0].mission_id;
+                          console.log("greater than 0" + b);
+
+                          var teamNumber = b+10;
+                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
+                          this['selected'+teamNumber] = response.data[0].mission_id;
 
                           this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
 
@@ -2419,7 +2405,6 @@ export default {
                       })
 
                       .catch(function (error) {
-                        console.log("error at line 1854");
                         console.log(error);
                       });
       }
