@@ -10,7 +10,7 @@ import Onsite from './Onsite.vue';
 import Playing from './Playing.vue';
 import Score from './Score.vue';
 import Bigscreen from './Tvwaiting.vue';
-import Print from './Print.vue';
+// import Print from './Print.vue';
 import Gamebaysignup from './Gbsignup.vue';
 import Gamebayleaderboard from './Gbleaderboard.vue';
 
@@ -46,7 +46,7 @@ const routes = [
 	{ path : '/score', component: Score},
 	{ path : '/drag', component: Drag},
 	{ path : '/bigscreen', component: Bigscreen},
-	{ path : '/print', component: Print},
+	// { path : '/print', component: Print},
 	{ path : '/gbsignup', component: Gamebaysignup},
 	{ path : '/gbleaderboard', component: Gamebayleaderboard}
 ];
