@@ -181,12 +181,13 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 7 ">&#10060; {{item.late_by}}</p>
+                    <p v-if="item.late_by < 7 || item.size != item.total_arrived">&#10060; {{item.late_by}} {{ite.size}} {{item.total_arrived}}</p>
                   </td>
 
                   <td>
                     <!-- {{ checkNoShows }} -->
-                    {{item.Reservation_people.length}} {{item.size}} {{item.no_shows}}
+                    <!-- {{item.Reservation_people.length}} {{item.size}} {{item.no_shows}} -->
+                    {{item.size - item.total_arrived}}
                   </td>
                 </tr>
             </table>
