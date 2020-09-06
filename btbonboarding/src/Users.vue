@@ -67,8 +67,10 @@
                                       <p v-if="fetchlist1.arrived == '1'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
                                       <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
                                     </b-col>
-                                    <!-- <b-col><input type="checkbox" v-model="subchildWaiver"/></b-col> -->
-                                    <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col>
+
+                                    <!-- <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col> -->
+                                    <b-col>{{fetchlist1.minor_tag}}</b-col>
+
 
                                     <b-col>
 
@@ -485,7 +487,7 @@ mounted: function(){
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '22:00:00';
     var currentTime = moment().format("HHmm");
-
+    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
       })
