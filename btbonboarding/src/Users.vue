@@ -169,8 +169,10 @@
                   </td>
 
                   <td>
-                    <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
-                    <p v-if="item.paid_amount != item.final_dollar_amount">&#10060;</p>
+                    <!-- <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
+                    <p v-if="item.paid_amount != item.final_dollar_amount">&#10060;</p> -->
+                    <p v-if="item.final_dollar_amount == '0'" style="color:green;">&#10004;&#65039;</p>
+                    <p v-if="item.final_dollar_amount > '0'">&#10060;</p>
                   </td>
 
                   <td>
@@ -179,7 +181,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by > 5">&#10060;</p>
+                    <p v-if="item.late_by > 5 || item.Reservation_people.length != item.size">&#10060;</p>
                   </td>
 
                   <td>
