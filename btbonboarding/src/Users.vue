@@ -181,7 +181,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 10 || item.Reservation_people.length != item.size">&#10060; {{item.late_by}}</p>
+                    <p v-if="item.late_by < 7 ">&#10060; {{item.late_by}}</p>
                   </td>
 
                   <td>
