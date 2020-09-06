@@ -181,7 +181,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 7 || item.size != item.total_arrived">&#10060; {{item.late_by}} {{ite.size}} {{item.total_arrived}}</p>
+                    <p v-if="item.late_by < 2 || item.size != item.total_arrived">&#10060; {{item.late_by}} {{item.size}} {{item.total_arrived}}</p>
                   </td>
 
                   <td>
