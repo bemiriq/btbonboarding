@@ -181,7 +181,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by > 5 || item.Reservation_people.length != item.size">&#10060;</p>
+                    <p v-if="item.late_by < 10 || item.Reservation_people.length != item.size">&#10060;</p>
                   </td>
 
                   <td>
@@ -391,7 +391,7 @@ export default {
 
       for(let i=0; i <= totalLength; i++){
         console.log(i);
-        var late_by =  currentTime - this.posts[i].late_status_time;
+        var late_by =  this.posts[i].late_status_time - currentTime;
         // return late_by;
         console.log(late_by+'value');
         replyDataObj1[i]['late_by']=late_by;
