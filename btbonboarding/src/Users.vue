@@ -74,7 +74,7 @@
 
                                     <b-col>
 
-                                      <p v-if="fetchlist1.non_player == '1'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
+                                      <p v-if="fetchlist1.non_player == '0'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
                                       <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
 
                                     </b-col>
@@ -181,7 +181,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 2 || item.size != item.total_arrived">&#10060; {{item.late_by}} {{item.size}} {{item.total_arrived}}</p>
+                    <p v-if="item.late_by < 10 || item.size != item.total_arrived">&#10060;</p>
                   </td>
 
                   <td>
@@ -696,10 +696,10 @@ var arrows = document.getElementsByClassName("covertedtime");
       console.log(event.target.checked);
 
       if(event.target.checked == true){
-        var non_player_value = '1';
+        var non_player_value = '0';
       }
       if(event.target.checked == false){
-        var non_player_value = '0';
+        var non_player_value = '1';
       }
 
       console.log(non_player_value);
