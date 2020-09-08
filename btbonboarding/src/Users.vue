@@ -65,10 +65,15 @@
 
                                 </b-container>
 
-                                <div class="modal-footer">
+                                <footer id="modal-xl___BV_modal_footer_" class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal-xs" @click="reloadPageEvent">OK</button>
-                                  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                </div>
+                                </footer>
+
+                                <!-- <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal-xs" @click="reloadPageEvent">OK</button>
+                                </div> -->
+
+
                           <!-- <b-table :fields="fields">
                             <p>{{post.customerName}}</p>
                             <template v-slot:table-caption>This is a table caption.</template>
