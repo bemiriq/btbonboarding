@@ -10,15 +10,15 @@
 
           <b-col cols="10" md="8"></b-col>
 
-          <b-col sm="4">
+          <!-- <b-col sm="4">
             <b-form-input v-model="searchQuery" id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
-          </b-col>
+          </b-col> -->
 
         </b-row>
 
       </b-container>
 
-          <b-modal id="modal-xl" centered size="xl" title="TEAM">
+          <b-modal id="modal-xl" centered size="xl" title="TEAM" @click="reloadPageEvent">
                                 <p>{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}}</p>
                                 <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
                               <br/>
@@ -609,6 +609,11 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    reloadPageEvent: function(){
+      console.log("INSIDE RELOAD FUNCTION");
+    },
+
     filterItems: function(posts) {
       var app = this;
 
