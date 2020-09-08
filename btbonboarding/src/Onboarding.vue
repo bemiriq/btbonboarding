@@ -1913,8 +1913,7 @@ export default {
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime)
-      .then(response => 
-      {
+      .then(response => {
         console.log(response.data);
 
         // for(let i=0; i < response.data.length; i++){
