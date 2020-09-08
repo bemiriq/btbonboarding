@@ -507,18 +507,29 @@ mounted: function(){
             var lateBy = lateStatus-currentTime;
 
             var arrivedPerson = 0;
+            var arrivedNonPlayer = 0;
 
             for(let j=0; j < countReservationPeople; j++){
 
               arrivedPerson += response.data[i].Reservation_people[j].arrived;
 
+              if(response.data[i].Reservation_people[j].arrived == '1'){
+                arrivedNonPlayer += response.data[i].Reservation_people[j].non_player;
+              }
+
             }
 
             var arrivedMinor = 0;
+            var arrivedMinorNonPlayer = 0;
 
             for(let k=0; k < countReservationMinors; k++){
 
                 arrivedMinor += response.data[i].Reservation_minors[k].arrived;
+
+                if(response.data[i].Reservation_minors[k].arrived == '1'){
+                  arrivedMinorNonPlayer += response.data[i].Reservation_minors[k].non_player;
+                }
+
             }
 
             console.log(arrivedPerson+' arrived person');
@@ -526,7 +537,10 @@ mounted: function(){
 
             var arrived = arrivedPerson + arrivedMinor;
 
-            
+            console.log(arrivedNonPlayer+' arrived non player person');
+            console.log(arrivedMinorNonPlayer+' arrived non player minor');
+            var totalNonPlayerArrived = arrivedNonPlayer + arrivedMinorNonPlayer;
+            console.log("TOTAL NON PLAYER = "+totalNonPlayerArrived);
 
             // var arrived = response.data[i].Reservation_minors.length+response.data[i].Reservation_people.length;
             // console.log(arrived);
@@ -538,6 +552,7 @@ mounted: function(){
             replyDataObj1[i]['late_status_time']=lateStatus;
             replyDataObj1[i]['reservation_id']=reservationId;
             replyDataObj1[i]['late_by']=lateBy;
+            replyDataObj1[i]['total_non_player_arrived']=totalNonPlayerArrived;
 
             console.log(currentTime);
             console.log(lateStatus);
