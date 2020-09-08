@@ -2489,7 +2489,7 @@ export default {
     }
 
 
-    if(this.dateTime2AData != null){
+    if(this.dateTime2AData = null){
       console.log("INSIDE DATE TIME 2 A");
 
       console.log(dateTime2A);
