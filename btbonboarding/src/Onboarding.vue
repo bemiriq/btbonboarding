@@ -1912,22 +1912,7 @@ export default {
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
-
-      })
-      .then(response => 
-      {
-        console.log(response.data);
-        var dataRetrieved = response.data;
-        this.dataRetrieved = response.data;
-      })
-      .catch(function (error){
-        // console.log("error at line 1789");
-        console.log(error);
-      });
-
-      console.log(dataRetrieved);
-      console.log(this.dataRetrieved);
+    
 
     // var sideA1route='1';
     // var sideA1time= '2020-06-03%2004:13:42.000000';
@@ -1935,7 +1920,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 != null){
+    if(dateTime1 = null){
 
       // console.log(dateTime1);
       // const remainderRoute1 = -15 - (start.minute() % 30);
@@ -2416,7 +2401,7 @@ export default {
       return {
 
         dataRetrieved: [],
-        
+
         draggedItemObjectId: '',
 
         loadScreen: false,
