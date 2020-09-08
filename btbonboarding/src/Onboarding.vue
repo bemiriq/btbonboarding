@@ -1917,6 +1917,8 @@ export default {
       })
       .then(response => 
       {
+        console.log(response.data);
+        
         for(let i=0; i < response.data.length; i++){
           // console.log("090");
           console.log(i);
@@ -2152,8 +2154,8 @@ export default {
 
         /** end of the latest time at top **/
 
-        this.teamByTime2 = replyDataObj1;
-                      console.log(replyDataObj1);
+        // this.teamByTime2 = replyDataObj1;
+        //               console.log(replyDataObj1);
 
       })
       .catch(function (error){
@@ -2168,7 +2170,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 = null){
+    if(dateTime1 != null){
 
       // console.log(dateTime1);
       // const remainderRoute1 = -15 - (start.minute() % 30);
