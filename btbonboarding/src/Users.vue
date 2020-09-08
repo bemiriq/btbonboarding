@@ -27,9 +27,10 @@
                                     <b-col><p>F Name</p></b-col>
                                     <b-col><p>L Name</p></b-col>
                                     <b-col><p>Text Number</p></b-col>
+                                    <b-col><p>Waiver</p></b-col>
                                     <b-col><p>Arrived</p></b-col>
                                     <!-- <b-col><p>Waiver</p></b-col> -->
-                                    <b-col><p>Minor</p></b-col>
+                                    <b-col><p>Adult/Minor</p></b-col>
                                     <b-col><p>Player</p></b-col>
                                   </b-row>
 
@@ -42,6 +43,7 @@
                                     <b-col>{{fetchlist1.player_first_name}}</b-col>
                                     <b-col>{{fetchlist1.player_last_name}}</b-col>
                                     <b-col>{{fetchlist1.player_cell_number}}</b-col>
+                                    <b-col>YES</b-col>
                                     <!-- <b-col><input type="checkbox" v-model="subchildArrived"/></b-col> -->
                                     <b-col>
                                       <!-- <p v-if="fetchlist1.arrived == '1'">YES</p>
@@ -52,8 +54,8 @@
                                     </b-col>
 
                                     <!-- <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col> -->
-                                    <b-col v-if="fetchlist1.minor_tag == 'M'">YES</b-col>
-                                    <b-col v-else> </b-col>
+                                    <b-col v-if="fetchlist1.minor_tag == 'M'">Minor</b-col>
+                                    <b-col v-else>Adult</b-col>
 
                                     <b-col>
 
