@@ -104,11 +104,13 @@
                   <!-- <th scope="col">#</th> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
+                  <th scope="col">#Size</th>
+                  <th scope="col">Arrived Players</th>
                   <th scope="col">Mission</th>
-                  <th scope="col">Size</th>
                   <th scope="col">Group</th>
-                  <th scope="col">Waivers</th>
-                  <th scope="col">Arrived</th>
+                  <!-- <th scope="col">Waivers</th> -->
+                  <th scope="col">Arrived Non Player</th>
+                  <!-- <th scope="col">Arrived</th> -->
                   <th scope="col">Paid</th>
                   <th scope="col">Release</th>
                   <th scope="col">Late</th>
@@ -125,11 +127,15 @@
                   </td>
 
                   <td>
-                    {{item.Mission.name}}
+                    {{item.size}}
                   </td>
 
                   <td>
-                    {{item.size}}
+                    {{item.total_arrived}}
+                  </td>
+
+                  <td>
+                    {{item.Mission.name}}
                   </td>
 
                   <td>
@@ -144,12 +150,10 @@
                   </td>
 
                   <td>
-                    {{item.Reservation_people.length+item.Reservation_minors.length}}
+                    <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
+                    {{item.Reservation_people.length}}
                   </td>
 
-                  <td>
-                    {{item.total_arrived}}
-                  </td>
 
                   <td>
                     <!-- <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
@@ -168,7 +172,8 @@
                   </td>
 
                   <td>
-                    <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
+                    <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p>
+                    <p v-if="item.size - item.total_arrived < '0'">Pay for {{item.size - item.total_arrived}}</p>
                     {{item.size - item.total_arrived}}
                   </td>
                 </tr>
