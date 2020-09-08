@@ -618,6 +618,7 @@ var arrows = document.getElementsByClassName("covertedtime");
 
     reloadPageEvent: function(){
       console.log("INSIDE RELOAD FUNCTION");
+      window.location.reload(true);
     },
 
     filterItems: function(posts) {
