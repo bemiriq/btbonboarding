@@ -112,15 +112,15 @@
                   <!-- <th scope="col">#</th> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
-                  <th scope="col" style="font-size: 1em;">#</th>
+                  <th scope="col" style="font-size: 2em;">#</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Group</th>
                   <th scope="col">Players Arrived</th>
                   <th scope="col">Spectators Arrived</th>
                   <th scope="col">Paid</th>
-                  <th scope="col">Release</th>
                   <th scope="col">Late</th>
                   <th scope="col">No Shows</th>
+                  <th scope="col">Release</th>
                 </tr>
               </thead>
                 <tr v-for="(item, index) in posts" v-bind:key="item.id">
@@ -174,11 +174,6 @@
                   </td>
 
                   <td>
-                    <p v-if="item.released == '1'"><input type="checkbox" id="jack" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)" checked></p>
-                    <p v-else><input type="checkbox" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)"></p>
-                  </td>
-
-                  <td>
                     <p v-if="item.late_by < 10 || item.size != item.total_arrived">&#10060;</p>
                   </td>
 
@@ -186,6 +181,12 @@
                     <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
                     {{item.size - item.total_player_arrived}}
                   </td>
+
+                  <td>
+                    <p v-if="item.released == '1'"><input type="checkbox" id="jack" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)" checked></p>
+                    <p v-else><input type="checkbox" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)"></p>
+                  </td>
+                  
                 </tr>
             </table>
 
