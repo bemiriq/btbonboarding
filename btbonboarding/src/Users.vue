@@ -52,7 +52,7 @@
                                     </b-col>
 
                                     <!-- <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col> -->
-                                    <b-col>{{fetchlist1.minor_tag}}</b-col>
+                                    <b-col v-if="ftechlist1.minor_tag == 'M'">YES</b-col>
 
 
                                     <b-col>
