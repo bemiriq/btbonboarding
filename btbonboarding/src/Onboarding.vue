@@ -1999,8 +1999,8 @@ export default {
 
                   }
 
-                  this.teamByTime2 = replyDataObj1;
-                      console.log(replyDataObj1);
+                  // this.teamByTime2 = replyDataObj1;
+                  //     console.log(replyDataObj1);
 
               }
 
@@ -2017,140 +2017,143 @@ export default {
           else{
             console.log("conisistsss s ssssssssssssssssssssssssssss");
             
-            for(let i=0; i < response.data.length; i++){
+                for(let i=0; i < response.data.length; i++){
 
-              console.log(i);
-              console.log(response.data[i].Reservation_people.length);
+                  console.log(i);
+                  console.log(response.data[i].Reservation_people.length);
 
-              var booker_last_name = response.data[i].Booker.Person.last_name;
-              var booker_first_name = response.data[i].Booker.Person.first_name;
-              var booker_id = response.data[i].Booker.Person.id;
+                  var booker_last_name = response.data[i].Booker.Person.last_name;
+                  var booker_first_name = response.data[i].Booker.Person.first_name;
+                  var booker_id = response.data[i].Booker.Person.id;
 
-              console.log(booker_last_name);
+                  console.log(booker_last_name);
 
-              for(let j=0; j < response.data[i].Reservation_people.length; j++){
+                  for(let j=0; j < response.data[i].Reservation_people.length; j++){
 
-                console.log(i);
-                console.log(j);
+                    console.log(i);
+                    console.log(j);
 
-                replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-                   // "address": [
-                   //   ccEmailId
-                   //  ]
-                   "id" : booker_id, /** this is the person id for the booker **/
-                   "firstName" : booker_first_name,
-                   "lastName" : booker_last_name
-                }
-
-              this.teamByTime2 = replyDataObj1;
-              console.log(replyDataObj1);
-
-              
-                  
-
-
-            }
-          }
-
-
-          if(response.data[i].Reservation_minors.length > '0'){
-              console.log("GREATER THAN 0 minors 000000000000000 ");
-              console.log(i);
-              // console.log(j);
-
-
-              for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-
-                console.log(response.data[i].Reservation_minors.length);
-
-                var countReservationPeople1 = response.data[i].Reservation_people.length;
-                var incrementObject = countReservationPeople1++;
-                console.log(incrementObject);
-
-                console.log("Troo oooooo");
-                console.log(j);
-                console.log(i);
-
-                var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                console.log(minorReservationsMinorId);
-
-                console.log(response.data[i]);
-
-                var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                console.log(minorPlayerMinorId);
-
-                var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-                console.log(personSignedWaiverId);
-
-                var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-                var missionName = response.data[0].Mission.name;
-                var missionId = response.data[0].Mission.id;
-
-                var reservationID = response.data[i].Reservation_minors[j].reservation_id;
-                console.log(reservationID);
-
-                console.log(minorLastName+' '+minorFirstName);
-                
-
-                replyDataObj1[i]['Reservation_people'][incrementObject]={
-                   // "id" : booker_id,
-                   "person_id": minorPlayerMinorId,
-                   "id": minorReservationsMinorId,
-                   "Person":
-                      {
-                        "Player":{
-                          "id" : minorReservationsMinorId,
-                          "minor": 'yes'
-                        },
-                        "first_name" : minorFirstName,
-                        "last_name" : minorLastName,
-                        "person_id" : minorPlayerMinorId,
-                        "minor" : 'yes',
-                        "minorsymbol" : 'M',
-                        "player_id" : personSignedWaiverId,
-                        "reservation_id": reservationID,
-                        "mission_name" : missionName,
-                        "mission_id" : missionId,
-                        "Bookerdetail":{
-                          "id" : booker_id, /** this is the person id for the booker **/
-                          "firstName" : booker_first_name,
-                          "lastName" : booker_last_name
-                        }
+                    replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+                       // "address": [
+                       //   ccEmailId
+                       //  ]
+                       "id" : booker_id, /** this is the person id for the booker **/
+                       "firstName" : booker_first_name,
+                       "lastName" : booker_last_name
                     }
+
+                  // this.teamByTime2 = replyDataObj1;
+                  // console.log(replyDataObj1);
+
+                  
+                      
+
+
+                }
+              }
+
+
+              if(response.data[i].Reservation_minors.length > '0'){
+                  console.log("GREATER THAN 0 minors 000000000000000 ");
+                  console.log(i);
+                  // console.log(j);
+
+
+                  for(let j=0; j < response.data[i].Reservation_minors.length; j++){
+
+                    console.log(response.data[i].Reservation_minors.length);
+
+                    var countReservationPeople1 = response.data[i].Reservation_people.length;
+                    var incrementObject = countReservationPeople1++;
+                    console.log(incrementObject);
+
+                    console.log("Troo oooooo");
+                    console.log(j);
+                    console.log(i);
+
+                    var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+                    console.log(minorReservationsMinorId);
+
+                    console.log(response.data[i]);
+
+                    var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+                    console.log(minorPlayerMinorId);
+
+                    var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                    console.log(personSignedWaiverId);
+
+                    var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+                    var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+
+                    var missionName = response.data[0].Mission.name;
+                    var missionId = response.data[0].Mission.id;
+
+                    var reservationID = response.data[i].Reservation_minors[j].reservation_id;
+                    console.log(reservationID);
+
+                    console.log(minorLastName+' '+minorFirstName);
+                    
+
+                    replyDataObj1[i]['Reservation_people'][incrementObject]={
+                       // "id" : booker_id,
+                       "person_id": minorPlayerMinorId,
+                       "id": minorReservationsMinorId,
+                       "Person":
+                          {
+                            "Player":{
+                              "id" : minorReservationsMinorId,
+                              "minor": 'yes'
+                            },
+                            "first_name" : minorFirstName,
+                            "last_name" : minorLastName,
+                            "person_id" : minorPlayerMinorId,
+                            "minor" : 'yes',
+                            "minorsymbol" : 'M',
+                            "player_id" : personSignedWaiverId,
+                            "reservation_id": reservationID,
+                            "mission_name" : missionName,
+                            "mission_id" : missionId,
+                            "Bookerdetail":{
+                              "id" : booker_id, /** this is the person id for the booker **/
+                              "firstName" : booker_first_name,
+                              "lastName" : booker_last_name
+                            }
+                        }
+
+                      }
+
+                      // this.teamByTime2 = replyDataObj1;
+                      // console.log(replyDataObj1);
+                      
 
                   }
 
-                  this.teamByTime2 = replyDataObj1;
-                  console.log(replyDataObj1);
-                  
+                } 
 
-              }
+                /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
 
-            } 
+                else{
+                  console.log("NOT ONLY MINORS");
+                }
 
-            /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+            this.loadScreen = false;
 
-            else{
-              console.log("NOT ONLY MINORS");
-            }
-
-          this.loadScreen = false;
-
-        }
+          }
 
 
         }
 
 
         /** this is the function that gets the latest time at top **/
-         this.teamByTime2.sort(function(a,b){
-          return -1;
-          console.log(" PO PE YE");
-        })
+        //  this.teamByTime2.sort(function(a,b){
+        //   return -1;
+        //   console.log(" PO PE YE");
+        // })
 
         /** end of the latest time at top **/
+
+        this.teamByTime2 = replyDataObj1;
+                      console.log(replyDataObj1);
 
       })
       .catch(function (error){
