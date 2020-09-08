@@ -29,7 +29,7 @@
                                     <b-col><p>Text Number</p></b-col>
                                     <b-col><p>Arrived</p></b-col>
                                     <!-- <b-col><p>Waiver</p></b-col> -->
-                                    <b-col><p>Status</p></b-col>
+                                    <b-col><p>Minor</p></b-col>
                                     <b-col><p>Player</p></b-col>
                                   </b-row>
 
@@ -120,12 +120,12 @@
                     {{item.reservation_time}}
                   </td>
 
-                  <td>
-                    {{item.size}}
-                  </td>
-
                   <td v-on:click="selectItem ($event, posts, item, index)">
                     <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
+                  </td>
+
+                  <td>
+                    {{item.size}}
                   </td>
 
                   <td>
@@ -175,7 +175,7 @@
 
                   <td>
                     <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
-                    {{item.size - item.total_arrived}}
+                    {{item.size - item.total_player_arrived}}
                   </td>
                 </tr>
             </table>
