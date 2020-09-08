@@ -1921,7 +1921,7 @@ export default {
           // console.log("090");
           console.log(i);
 
-          this.loadScreen = true;
+          // this.loadScreen = true;
 
           var booker_last_name = response.data[i].Booker.Person.last_name;
           var booker_first_name = response.data[i].Booker.Person.first_name;
@@ -2136,7 +2136,7 @@ export default {
                   console.log("NOT ONLY MINORS");
                 }
 
-            this.loadScreen = false;
+            // this.loadScreen = false;
 
           }
 
@@ -2188,8 +2188,6 @@ export default {
       // var timeUsed = -15;
 
       // this.loadScreen = true;
-
-      console.log('false'+this.loadScreen);
 
       // setTimeout(() => this.loadScreen = false, 5000);
 
