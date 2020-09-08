@@ -1912,7 +1912,24 @@ export default {
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+      })
+      .then(response => 
+      {
+        var dataRetrieved = response.data;
+        this.dataRetrieved = response.data;
+      })
+      .catch(function (error){
+        // console.log("error at line 1789");
+        console.log(error);
+      });
+
+      // console.log(dataRetrieved);
+      console.log("SAN SAN");
+      
+      console.log(this.dataRetrieved);
+
 
     // var sideA1route='1';
     // var sideA1time= '2020-06-03%2004:13:42.000000';
