@@ -27,7 +27,7 @@
                                     <b-col><p>F Name</p></b-col>
                                     <b-col><p>L Name</p></b-col>
                                     <b-col><p>Text Number</p></b-col>
-                                    <b-col><p>Arrival</p></b-col>
+                                    <b-col><p>Arrived</p></b-col>
                                     <!-- <b-col><p>Waiver</p></b-col> -->
                                     <b-col><p>Status</p></b-col>
                                     <b-col><p>Player</p></b-col>
@@ -52,7 +52,7 @@
                                     </b-col>
 
                                     <!-- <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col> -->
-                                    <b-col v-if="ftechlist1.minor_tag == 'M'">YES</b-col>
+                                    <b-col v-if="fetchlist1.minor_tag == 'M'">YES</b-col>
 
 
                                     <b-col>
