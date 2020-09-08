@@ -65,13 +65,9 @@
 
                                 </b-container>
 
-                                <footer id="modal-xl___BV_modal_footer_" class="modal-footer">
+                                <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal-xs" @click="reloadPageEvent">OK</button>
-                                </footer>
-
-                                <!-- <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal-xs" @click="reloadPageEvent">OK</button>
-                                </div> -->
+                                </div>
 
 
                           <!-- <b-table :fields="fields">
@@ -1065,4 +1061,9 @@ var arrows = document.getElementsByClassName("covertedtime");
   margin-top: 1%;
   margin-bottom: 1%;
 }
+
+#modal-xl___BV_modal_footer_{
+  display: none;
+}
+
 </style>
