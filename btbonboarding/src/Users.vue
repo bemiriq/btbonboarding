@@ -104,7 +104,7 @@
                   <!-- <th scope="col">#</th> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
-                  <th scope="col">#Size</th>
+                  <th scope="col">&#35;Size</th>
                   <th scope="col">Arrived Players</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Group</th>
