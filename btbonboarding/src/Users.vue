@@ -150,11 +150,11 @@
                   </td> -->
                   <td>
                     <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
-                    {{item.Reservation_people.length}}
+                    {{item.total_non_player_arrived}}
                   </td>
 
                   <td>
-                    {{item.total_arrived}}
+                    {{item.total_player_arrived}}
                   </td>
 
                   <td>
@@ -508,19 +508,27 @@ mounted: function(){
 
             var arrivedPerson = 0;
             var arrivedNonPlayer = 0;
+            var arrivedPlayer = 0;
 
             for(let j=0; j < countReservationPeople; j++){
 
               arrivedPerson += response.data[i].Reservation_people[j].arrived;
 
+              /** this will count total non player arrived **/
               if(response.data[i].Reservation_people[j].arrived == '1'){
                 arrivedNonPlayer += response.data[i].Reservation_people[j].non_player;
+              }
+
+              /** this will count total player arrived excluding minors for non-player 0 as false **/
+              if(response.data[i].Reservation_people[j].arrived == '0' && response.data[i].Reservation_people[j].non_player == '0'){
+                arrivedPlayer += response.data[i].Reservation_people[j].non_player;
               }
 
             }
 
             var arrivedMinor = 0;
             var arrivedMinorNonPlayer = 0;
+            var arrivedMinorPlayer = 0;
 
             for(let k=0; k < countReservationMinors; k++){
 
@@ -528,6 +536,11 @@ mounted: function(){
 
                 if(response.data[i].Reservation_minors[k].arrived == '1'){
                   arrivedMinorNonPlayer += response.data[i].Reservation_minors[k].non_player;
+                }
+
+                /** this will count total player arrived for minors for non-player 0 as false **/
+                if(response.data[i].Reservation_minors[k].arrived == '0' && response.data[i].Reservation_minors[k].non_player == '0'){
+                  arrivedMinorPlayer += response.data[i].Reservation_minors[k].non_player;
                 }
 
             }
@@ -542,6 +555,11 @@ mounted: function(){
             var totalNonPlayerArrived = arrivedNonPlayer + arrivedMinorNonPlayer;
             console.log("TOTAL NON PLAYER = "+totalNonPlayerArrived);
 
+            console.log(arrivedPlayer+' arrived  player person');
+            console.log(arrivedMinorPlayer+' arrived  player minor');
+            var totalPlayerArrived = arrivedPlayer + arrivedMinorPlayer;
+            console.log("TOTAL  PLAYER = "+totalPlayerArrived);
+
             // var arrived = response.data[i].Reservation_minors.length+response.data[i].Reservation_people.length;
             // console.log(arrived);
 
@@ -553,6 +571,7 @@ mounted: function(){
             replyDataObj1[i]['reservation_id']=reservationId;
             replyDataObj1[i]['late_by']=lateBy;
             replyDataObj1[i]['total_non_player_arrived']=totalNonPlayerArrived;
+            replyDataObj1[i]['total_player_arrived']=totalPlayerArrived;
 
             console.log(currentTime);
             console.log(lateStatus);
