@@ -150,7 +150,7 @@
                   </td> -->
                   <td>
                     <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
-                    {{item.Reservation_people}}
+                    {{item.Reservation_people.length}}
                   </td>
 
                   <td>
