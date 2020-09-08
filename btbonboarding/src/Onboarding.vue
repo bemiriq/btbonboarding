@@ -2168,7 +2168,7 @@ export default {
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
 
-    if(dateTime1 != null){
+    if(dateTime1 = null){
 
       // console.log(dateTime1);
       // const remainderRoute1 = -15 - (start.minute() % 30);
@@ -2489,7 +2489,7 @@ export default {
     }
 
 
-    if(this.dateTime2AData = null){
+    if(this.dateTime2AData != null){
       console.log("INSIDE DATE TIME 2 A");
 
       console.log(dateTime2A);
