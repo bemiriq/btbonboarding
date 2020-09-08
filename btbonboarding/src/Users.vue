@@ -954,9 +954,8 @@ var arrows = document.getElementsByClassName("covertedtime");
       this.$bvModal.show('modal-xl');
 
       /** this function should reload the page **/
-      $('#modal-xl').on('hidden.bs.modal', function () {
-      // $('#my-modal').on('hidden.bs.modal', function () {
-        window.alert('MAKE THIS PAGE THE RELOAD PAGE');
+      $("#modal-xl").on('hide', function () {
+        window.location.reload();
       });
       /** end of reload function **/
 
