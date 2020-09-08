@@ -104,13 +104,11 @@
                   <!-- <th scope="col">#</th> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
-                  <th scope="col">&#35;Size</th>
-                  <th scope="col">Arrived Players</th>
+                  <th scope="col">#Size</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Group</th>
-                  <!-- <th scope="col">Waivers</th> -->
-                  <th scope="col">Arrived Non Player</th>
-                  <!-- <th scope="col">Arrived</th> -->
+                  <th scope="col">Arrived Nonplayer</th>
+                  <th scope="col">Arrived Players</th>
                   <th scope="col">Paid</th>
                   <th scope="col">Release</th>
                   <th scope="col">Late</th>
@@ -122,21 +120,19 @@
                     {{item.reservation_time}}
                   </td>
 
+                  <td>
+                    {{item.size}}
+                  </td>
+
                   <td v-on:click="selectItem ($event, posts, item, index)">
                     <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
                   </td>
 
                   <td>
-                    {{item.size}}
-                  </td>
-
-                  <td>
-                    {{item.total_arrived}}
-                  </td>
-
-                  <td>
                     {{item.Mission.name}}
                   </td>
+
+                  
 
                   <td>
                     <select v-model="organizationType">
@@ -149,11 +145,16 @@
                     </p>
                   </td>
 
+                  <!-- <td>
+                    {{item.Reservation_people.length+item.Reservation_minors.length}}
+                  </td> -->
                   <td>
-                    <!-- {{item.Reservation_people.length+item.Reservation_minors.length}} -->
                     {{item.Reservation_people.length}}
                   </td>
 
+                  <td>
+                    {{item.total_arrived}}
+                  </td>
 
                   <td>
                     <!-- <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
@@ -172,8 +173,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p>
-                    <p v-if="item.size - item.total_arrived < '0'">Pay for {{item.size - item.total_arrived}}</p>
+                    <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
                     {{item.size - item.total_arrived}}
                   </td>
                 </tr>
@@ -959,9 +959,7 @@ var arrows = document.getElementsByClassName("covertedtime");
       this.$bvModal.show('modal-xl');
 
       /** this function should reload the page **/
-      $("#modal-xl").on('hide', function () {
-        window.location.reload();
-      });
+      
       /** end of reload function **/
 
      },
