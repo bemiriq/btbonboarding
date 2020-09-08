@@ -110,11 +110,11 @@
                   <!-- <th scope="col">#</th> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
-                  <th scope="col">#Size</th>
+                  <th scope="col" style="font-size: 1em;">#</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Group</th>
-                  <th scope="col">Nonplayers Arrived</th>
                   <th scope="col">Players Arrived</th>
+                  <th scope="col">Spectators Arrived</th>
                   <th scope="col">Paid</th>
                   <th scope="col">Release</th>
                   <th scope="col">Late</th>
@@ -154,13 +154,14 @@
                   <!-- <td>
                     {{item.Reservation_people.length+item.Reservation_minors.length}}
                   </td> -->
-                  <td>
-                    <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
-                    {{item.total_non_player_arrived}}
-                  </td>
 
                   <td>
                     {{item.total_player_arrived}}
+                  </td>
+
+                  <td>
+                    <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
+                    {{item.total_non_player_arrived}}
                   </td>
 
                   <td>
