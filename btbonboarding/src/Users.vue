@@ -107,8 +107,8 @@
                   <th scope="col">#Size</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Group</th>
-                  <th scope="col">Arrived Nonplayer</th>
-                  <th scope="col">Arrived Players</th>
+                  <th scope="col">Nonplayers Arrived</th>
+                  <th scope="col">Players Arrived</th>
                   <th scope="col">Paid</th>
                   <th scope="col">Release</th>
                   <th scope="col">Late</th>
@@ -149,7 +149,8 @@
                     {{item.Reservation_people.length+item.Reservation_minors.length}}
                   </td> -->
                   <td>
-                    {{item.Reservation_people.length}}
+                    <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
+                    {{item.Reservation_people}}
                   </td>
 
                   <td>
@@ -519,6 +520,9 @@ mounted: function(){
 
                 arrivedMinor += response.data[i].Reservation_minors[k].arrived;
             }
+
+            console.log(arrivedPerson+' arrived person');
+            console.log(arrivedMinor+' arrived minor');
 
             var arrived = arrivedPerson + arrivedMinor;
 
