@@ -19,23 +19,6 @@
       </b-container>
 
           <b-modal id="modal-xl" centered size="xl" title="TEAM">
-                              <!-- <p class="my-4">Vertically centered modal!</p> -->
-                            <!--   <b-row class="my-1" style="background-color: green;">
-                                <b-col style="width:auto;">
-                                   <b-form-input id="input-live" type="checkbox"></b-form-input>
-                                  {{post.customerName}}
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <input type="checkbox" name="">
-                                  <! <b-form-input id="input-small" size="sm" placeholder="RFID 1"></b-form-input> -->
-                                  <!-- <b-form-input id="input-live" v-model="rfid1" :state="rfidState1" aria-describedby="input-live-help input-live-feedback" placeholder="SCAN WRISTBAND 1" trim></b-form-input>
-                                </b-col>
-                              </b-row>-->
-                              
-                                <!-- <b-row>
-                                  <b-col>{{selectedCustomerName}}</b-col>
-                                  <b-col>{{selectedDate}}</b-col>
-                                </b-row> -->
                                 <p>{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}}</p>
                                 <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
                               <br/>
@@ -185,8 +168,7 @@
                   </td>
 
                   <td>
-                    <!-- {{ checkNoShows }} -->
-                    <!-- {{item.Reservation_people.length}} {{item.size}} {{item.no_shows}} -->
+                    <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
                     {{item.size - item.total_arrived}}
                   </td>
                 </tr>
@@ -969,7 +951,15 @@ var arrows = document.getElementsByClassName("covertedtime");
       // console.log(this.posts);
       // this.selectedCustomerName = posts.customerName /*this.selectedCustomerName pass the value to data return() */
       // var bookerName = this.selectedCustomerName
-      this.$bvModal.show('modal-xl')
+      this.$bvModal.show('modal-xl');
+
+      /** this function should reload the page **/
+      $('#modal-xl').on('hidden.bs.modal', function () {
+      // $('#my-modal').on('hidden.bs.modal', function () {
+        window.alert('MAKE THIS PAGE THE RELOAD PAGE');
+      });
+      /** end of reload function **/
+
      },
 
 
