@@ -520,8 +520,8 @@ mounted: function(){
               }
 
               /** this will count total player arrived excluding minors for non-player 0 as false **/
-              if(response.data[i].Reservation_people[j].arrived == '0' && response.data[i].Reservation_people[j].non_player == '0'){
-                arrivedPlayer += response.data[i].Reservation_people[j].non_player;
+              if(response.data[i].Reservation_people[j].arrived == '1' && response.data[i].Reservation_people[j].non_player == '0'){
+                arrivedPlayer += response.data[i].Reservation_people[j].arrived;
               }
 
             }
@@ -539,8 +539,8 @@ mounted: function(){
                 }
 
                 /** this will count total player arrived for minors for non-player 0 as false **/
-                if(response.data[i].Reservation_minors[k].arrived == '0' && response.data[i].Reservation_minors[k].non_player == '0'){
-                  arrivedMinorPlayer += response.data[i].Reservation_minors[k].non_player;
+                if(response.data[i].Reservation_minors[k].arrived == '1' && response.data[i].Reservation_minors[k].non_player == '0'){
+                  arrivedMinorPlayer += response.data[i].Reservation_minors[k].arrived;
                 }
 
             }
