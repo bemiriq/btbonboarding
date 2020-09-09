@@ -2236,6 +2236,8 @@ export default {
         .then(response => {
                         console.log(response);
 
+                        this.fetchAllList = response.data[0];
+
                         this.onDrop1FunctionLoaded = response.data.length;
                         console.log(this.onDrop1FunctionLoaded);
 
@@ -2483,6 +2485,8 @@ export default {
                       .catch(function (error) {
                         console.log(error);
                       });
+
+        console.log(this.fetchAllList);
       }
 
       
@@ -2505,6 +2509,8 @@ export default {
         // teamIdSideB1: '',
         // teamIdSideA2: '',
         // teamIdSideB2: '',
+
+        fetchAllList: [],
 
         teamIdBox1: '',
         teamIdBox2: '',
