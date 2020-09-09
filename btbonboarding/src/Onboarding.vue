@@ -2908,7 +2908,7 @@ export default {
 
       loadAllData(){
         console.log("LOADING ............................");
-      }
+      },
 
       activateTeam(event, value){
         console.log("team activated");
