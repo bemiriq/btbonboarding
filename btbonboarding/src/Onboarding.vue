@@ -412,7 +412,7 @@
 
                 <!-- start the form here -->
                 <!-- <form id="signup-form" @submit.prevent="processForm"> -->
-                <form id="signup-form">
+                <!-- <form id="signup-form"> -->
                   <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
 
                     <b-row class="my-1">
@@ -620,7 +620,7 @@
 
                   </b-col>
 
-                </form>
+                <!-- </form> -->
 
                 <!-- end of the form here -->
 
@@ -630,7 +630,7 @@
              <b-col>
                 <p class="btbSideTitle"><b>SIDE B</b></p>
 
-                <form id="signup-form">
+                <!-- <form id="signup-form"> -->
                   <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }">
 
                     <b-row class="my-1">
@@ -641,7 +641,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input id="input-small" size="md" v-model="teamName11" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input id="input-small" size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -805,7 +805,7 @@
 
                   </b-col>
 
-                </form>
+                <!-- </form> -->
 
                 <!-- end of the form here -->
 
@@ -827,7 +827,7 @@
 
               <b-col>
                 
-                <form id="signup-form">
+                <!-- <form id="signup-form"> -->
                   
                   <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked12 }">
 
@@ -839,7 +839,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input id="input-small" size="md" v-model="teamName12" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input id="input-small" size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -1003,7 +1003,7 @@
 
                   </b-col>
 
-                </form>
+                <!-- </form> -->
 
                 <!-- end of the form here -->
 
