@@ -1912,255 +1912,8 @@ export default {
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response =>
-    var urlLink = process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime;
-    console.log(urlLink);
-    axios.get(urlLink)
-      .then(response => {
-        console.log(response.data);
-
-        // for(let i=0; i < response.data.length; i++){
-        //   // console.log("090");
-        //   console.log(i);
-
-        //   // this.loadScreen = true;
-
-        //   var booker_last_name = response.data[i].Booker.Person.last_name;
-        //   var booker_first_name = response.data[i].Booker.Person.first_name;
-        //   var booker_id = response.data[i].Booker.Person.id;
-
-        //   console.log(booker_first_name +' '+ booker_last_name);
-
-        //   var replyDataObj1 = response.data;
-        //   console.log(replyDataObj1);
-
-        //   console.log(response.data[i].Reservation_people.length);
-        //   var countReservationList = response.data[i].Reservation_people.length;
-        //   /** if the main booker and person is dragged. The code below dislays the minors later on **/
-
-        //   if(countReservationList == '0'){
-
-        //     console.log("check minor now");
-        //     console.log(i);
-
-        //     if(response.data[i].Reservation_minors.length > '0'){
-        //       console.log("GREATER THAN 0 minors ");
-        //       console.log(i);
-
-        //       var k = response.data[i].Reservation_people.length;
-        //       var incrementObject = k++;
-        //       console.log(incrementObject);
-
-        //       for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-        //         console.log("TERRR");
-        //         console.log(j);
-
-        //         var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-        //         var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-        //         var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-        //         var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
-
-        //         var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-        //         var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-        //         var missionName = response.data[0].Mission.name;
-        //         var missionId = response.data[0].Mission.id;
-
-        //         console.log(minorLastName+' '+minorFirstName);
-        //         console.log("RESERVATION ID SOLTA "+minorReservationID);
-
-        //         var countReservationPeople = response.data[i].Reservation_people.length;
-        //         var incrementObject = countReservationPeople++;
-        //         console.log(incrementObject);
-
-        //         replyDataObj1[i]['Reservation_people'][incrementObject]={
-        //            // "id" : booker_id,
-        //            "person_id": minorPlayerMinorId,
-        //            "id": minorReservationsMinorId,
-        //            "Person":
-        //               {
-        //                 "Player":{
-        //                   "id" : minorReservationsMinorId,
-        //                   "minor": 'yes'
-        //                 },
-        //                 "first_name" : minorFirstName,
-        //                 "last_name" : minorLastName,
-        //                 "person_id" : minorPlayerMinorId,
-        //                 "minor" : 'yes',
-        //                 "minorsymbol" : 'M',
-        //                 "player_id" : personSignedWaiverId,
-        //                 "reservation_id": minorReservationID,
-        //                 "mission_name" : missionName,
-        //                 "mission_id" : missionId,
-        //                 "Bookerdetail":{
-        //                   "id" : booker_id, /** this is the person id for the booker **/
-        //                   "firstName" : booker_first_name,
-        //                   "lastName" : booker_last_name
-        //                 }
-        //             }
-
-        //           }
-
-        //           // this.teamByTime2 = replyDataObj1;
-        //           //     console.log(replyDataObj1);
-
-        //       }
-
-        //     } 
-
-        //     /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
-
-        //     else{
-        //       console.log("NOT ONLY MINORS");
-        //     }
-
-        //   }
-
-        //   else{
-        //     console.log("conisistsss s ssssssssssssssssssssssssssss");
-            
-        //         for(let i=0; i < response.data.length; i++){
-
-        //           console.log(i);
-        //           console.log(response.data[i].Reservation_people.length);
-
-        //           var booker_last_name = response.data[i].Booker.Person.last_name;
-        //           var booker_first_name = response.data[i].Booker.Person.first_name;
-        //           var booker_id = response.data[i].Booker.Person.id;
-
-        //           console.log(booker_last_name);
-
-        //           for(let j=0; j < response.data[i].Reservation_people.length; j++){
-
-        //             console.log(i);
-        //             console.log(j);
-
-        //             replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-        //                // "address": [
-        //                //   ccEmailId
-        //                //  ]
-        //                "id" : booker_id, /** this is the person id for the booker **/
-        //                "firstName" : booker_first_name,
-        //                "lastName" : booker_last_name
-        //             }
-
-        //           // this.teamByTime2 = replyDataObj1;
-        //           // console.log(replyDataObj1);
-
-                  
-                      
-
-
-        //         }
-        //       }
-
-
-        //       if(response.data[i].Reservation_minors.length > '0'){
-        //           console.log("GREATER THAN 0 minors 000000000000000 ");
-        //           console.log(i);
-        //           // console.log(j);
-
-
-        //           for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-
-        //             console.log(response.data[i].Reservation_minors.length);
-
-        //             var countReservationPeople1 = response.data[i].Reservation_people.length;
-        //             var incrementObject = countReservationPeople1++;
-        //             console.log(incrementObject);
-
-        //             console.log("Troo oooooo");
-        //             console.log(j);
-        //             console.log(i);
-
-        //             var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-        //             console.log(minorReservationsMinorId);
-
-        //             console.log(response.data[i]);
-
-        //             var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-        //             console.log(minorPlayerMinorId);
-
-        //             var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-        //             console.log(personSignedWaiverId);
-
-        //             var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-        //             var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-        //             var missionName = response.data[0].Mission.name;
-        //             var missionId = response.data[0].Mission.id;
-
-        //             var reservationID = response.data[i].Reservation_minors[j].reservation_id;
-        //             console.log(reservationID);
-
-        //             console.log(minorLastName+' '+minorFirstName);
-                    
-
-        //             replyDataObj1[i]['Reservation_people'][incrementObject]={
-        //                // "id" : booker_id,
-        //                "person_id": minorPlayerMinorId,
-        //                "id": minorReservationsMinorId,
-        //                "Person":
-        //                   {
-        //                     "Player":{
-        //                       "id" : minorReservationsMinorId,
-        //                       "minor": 'yes'
-        //                     },
-        //                     "first_name" : minorFirstName,
-        //                     "last_name" : minorLastName,
-        //                     "person_id" : minorPlayerMinorId,
-        //                     "minor" : 'yes',
-        //                     "minorsymbol" : 'M',
-        //                     "player_id" : personSignedWaiverId,
-        //                     "reservation_id": reservationID,
-        //                     "mission_name" : missionName,
-        //                     "mission_id" : missionId,
-        //                     "Bookerdetail":{
-        //                       "id" : booker_id, /** this is the person id for the booker **/
-        //                       "firstName" : booker_first_name,
-        //                       "lastName" : booker_last_name
-        //                     }
-        //                 }
-
-        //               }
-
-        //               // this.teamByTime2 = replyDataObj1;
-        //               // console.log(replyDataObj1);
-                      
-
-        //           }
-
-        //         } 
-
-        //         /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
-
-        //         else{
-        //           console.log("NOT ONLY MINORS");
-        //         }
-
-        //     // this.loadScreen = false;
-
-        //   }
-
-
-        // }
-
-
-        /** this is the function that gets the latest time at top **/
-        //  this.teamByTime2.sort(function(a,b){
-        //   return -1;
-        //   console.log(" PO PE YE");
-        // })
-
-        /** end of the latest time at top **/
-
-        // this.teamByTime2 = replyDataObj1;
-        //               console.log(replyDataObj1);
-
-      })
-      .catch(function (error){
-        // console.log("error at line 1789");
-        console.log(error);
-      });
+    
+    this.loadAllData();
 
 
     // var sideA1route='1';
@@ -2168,6 +1921,481 @@ export default {
 
     // console.log(sideA1time);
     // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
+
+    if(dateTime1 = null){
+
+      // console.log(dateTime1);
+      // const remainderRoute1 = -15 - (start.minute() % 30);
+      // console.log(remainderRoute1);
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      // console.log(routeDateTime);
+
+      // var sideA1route='1';
+      // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+      var totalBoxes = '10';
+      
+      var timeUsed = -30;
+      // var timeUsed = -15;
+
+      // this.loadScreen = true;
+
+      // setTimeout(() => this.loadScreen = false, 5000);
+
+
+      for(let b=0; b < totalBoxes; b++){
+
+        if (b%2 == 0){
+          var routeId = '1';
+          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+        }
+        else{
+          var routeId = '2';
+        }
+
+        if (b % 2 == 0){
+          console.log(b);
+        }
+
+
+        const remainderRoute1 = timeUsed - (start.minute() % 30);
+        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
+        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+        console.log(boxTime);
+        console.log(routeId);
+
+        var replyDataObj1 = b;
+
+          replyDataObj1={
+            // "first_name": b,
+            "route_id" : routeId,
+            "team_drag_time" : boxTime
+          }
+
+        this.toListFetchRouteA1 = replyDataObj1;
+
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId,{
+
+                      })
+
+                      .then(response => {
+                        console.log(response);
+
+                        this.onDrop1FunctionLoaded = response.data.length;
+                        console.log(this.onDrop1FunctionLoaded);
+
+                        if(response.data.length > 0){
+                          console.log("greater than 0" + b);
+
+                          var teamNumber = b+10;
+                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
+                          this['selected'+teamNumber] = response.data[0].mission_id;
+
+                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
+                          console.log(response.data[0]);
+
+                          this.toListFetchRouteA1 = response.data[0];
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
+
+                          console.log(this.toListFetchRouteA1);
+                          
+                          var replyDataObj3 = response.data[0];
+                          var replyDataObj2 = response.data[0];
+
+                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
+
+                            
+                            console.log(i);
+                            console.log(response.data[0]);
+                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
+
+                            console.log(" IN SID EEEEE ");
+
+
+                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
+
+                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
+                                console.log("S ABA BA BAB ");
+
+                                console.log(response.data[0]);
+                                console.log(response.data[0].Team_player_sessions);
+                                console.log(response.data[0].reservation_id);
+                                console.log(i);
+
+                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
+                                  console.log("IT WAS NULL");
+
+                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
+                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
+                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+
+                                  var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(bombBeater);
+                                  console.log(playerCount);
+
+                                  // this.teamName[] = response.data[0].Team.name;
+                                  // console.log(teamNameFetched);
+
+                                  console.log(playerLastName);
+                                  console.log(playerFirstName);
+                                  console.log(playerId);
+                                  
+                                  console.log(b+" that was B id");
+
+                                  replyDataObj3['Team_player_sessions'][j]['Person']={
+                                   "first_name": playerFirstName,
+                                   "last_name": playerLastName,
+                                   "id": playerId,
+                                   "reservation_id": playerReservationID,
+                                   "player_id": player_id,
+                                   "team_player_session": teamPlayerSessionId,
+                                   "Player":{
+                                    "bomb_beater": bombBeater,
+                                    "player_count": playerCount
+                                   }
+                                  }
+
+                                  console.log("90909090909990909");
+                                  console.log(replyDataObj1);
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+
+
+                                  var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
+                                  console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  console.log(selectFetched);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                  // var useThisObject = 10+teamObjectId;
+
+                                  // console.log(this["fetchPlayerList"+useThisObject]);
+
+                                }
+
+                                else{
+                                  console.log(" P OPO PO PO NULL");
+                                  console.log(response.data[0]);
+
+                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
+                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
+                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
+                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
+
+                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(minorFirstName + ' ' + minorLastName);
+                                  console.log(minorPersonId);
+                                  console.log(minorPlayerSignedWaiverid);
+
+                                  replyDataObj3['Team_player_sessions'][i]['Person']={
+                                     "first_name": minorFirstName,
+                                     "last_name": minorLastName,
+                                     "id": minorPersonId,
+                                     "minor_tag": 'M',
+                                     "reservation_id": playerReservationID,
+                                     "player_id": player_id,
+                                     "team_player_session": teamPlayerSessionId,
+                                     "Player":{
+                                      "minor_tag": 'M',
+                                      "bomb_beater": 1,
+                                      "player_count": 1
+                                     }
+                                  }
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+                                  
+                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
+                                   console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+                                  var arrivedValue = response.data[0].active;
+
+                                  console.log(response.data[0]);
+                                  console.log(arrivedValue);
+
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["list"+teamObjectId+"sessionid"] = SessionId;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
+                                  this["selected"+teamObjectId] = selectFetched;
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  // if(arrivedValue == '1'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = true;
+                                  // }
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                          
+
+                          }
+
+                          // if (trackId > 0) { 
+                            
+                              this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              // console.log("SAAAAAAA");
+                          // }
+
+                      }
+
+                        else{
+                          console.log("less");
+                        }
+
+                      
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+      }
+
+      
+      // this.loadScreen = false;
+
+    }
+
+
+    if(this.dateTime2AData != null){
+      console.log("INSIDE DATE TIME 2 A");
+
+      console.log(dateTime2A);
+      const remainderRoute2 = 0 - (start.minute() % 30);
+      const routeDateTime = moment(start).add(remainderRoute2, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      var sideA2route='1';
+      var sideA2time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+      console.log(sideA2time);
+
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+sideA2time+'/route_id/'+sideA2route,{
+                      // team_vs_team_id : teamSessionId2
+                      })
+
+                      .then(response => {
+                        console.log(response);
+                        // console.log(response.data[0].id);
+
+                        this.onDrop3FunctionLoaded = response.data.length;
+                        console.log(this.onDrop3FunctionLoaded);
+
+                        if(response.data.length > 0){
+                          console.log("greater than 0");
+                          this.teamName3 = response.data[0].Team.name;
+                          this.selected3 = response.data[0].mission_id;
+
+                          this.sideA2BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
+                          console.log(response.data[0]);
+                          // console.log(last_name);
+
+                          this.toListFetchRouteA2 = response.data[0];
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
+
+                          console.log(this.toListFetchRouteA2);
+                          
+                          var replyDataObj1 = response.data[0];
+                          // this.toListFetchRouteA1 = response.data[0].Team_player_sessions[0].Player.Person.first_name;
+
+                          // console.log(response.data[0].Team_player_sessions[1].player_minor_id);
+                          // console.log(response.data[0].Team_player_sessions.length);
+
+                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
+
+                            
+                            console.log(i);
+                            console.log(response.data[0]);
+                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
+                            // console.log(ifPlayerMinor);
+
+                            // var minorLastName = response.data[0].Team_player_sessions[i].Player_minor.last_name;
+                            // var minorFirstName = response.data[0].Reservation_minors[i].Player_minor.last_name;
+                            console.log(" IN SID EEEEE ");
+
+
+                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
+
+                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
+                                console.log("S ABA BA BAB ");
+
+                                console.log(response.data[0]);
+                                // console.log(response.data[0].Team_player_sessions[1].Player_minor.id);
+
+                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
+                                  console.log("IT WAS NULL");
+
+                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
+                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
+                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
+                                  console.log(playerLastName);
+                                  console.log(playerFirstName);
+                                  console.log(playerId);
+
+                                  // var ReservationPeopleId = response.data[0].id;
+
+                                  replyDataObj1['Team_player_sessions'][j]['Person']={
+
+                                   // "id" : booker_id,
+                                   "first_name": playerFirstName,
+                                   "last_name": playerLastName,
+                                   "id": playerId
+                                   // "ReservationPeopleId": ReservationPeopleId
+                                  }
+
+                                  console.log("90909090909990909");
+                                  console.log(replyDataObj1);
+
+                                  this.toListFetchRouteA2 = replyDataObj1;
+
+                                }
+
+                                else{
+                                  console.log(" P OPO PO PO NULL");
+
+                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
+                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
+                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
+                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
+
+                                  console.log(minorFirstName + ' ' + minorLastName);
+                                  console.log(minorPersonId);
+                                  console.log(minorPlayerSignedWaiverid);
+
+                                  console.log("YES > ) 0");
+
+                                  // replyDataObj1['Team_player_sessions'][i]['Player']['Person']={
+                                  replyDataObj1['Team_player_sessions'][i]['Person']={
+
+                                     // "id" : booker_id,
+                                     "first_name": minorFirstName,
+                                     "last_name": minorLastName,
+                                     "id": minorPersonId,
+                                     "minor_tag": 'M',
+                                     "bomb_beater": '',
+                                     "play_count": '1'
+                                  }
+
+                                  this.toListFetchRouteA2 = replyDataObj1;
+
+                                }
+
+                              }
+
+                            }
+
+                          
+
+                          }
+
+                          if (trackId > 0) { 
+                            
+                              this.fetchPlayerList3.push(this.toListFetchRouteA2);
+                              console.log("SAAAAAAA");
+                          }
+
+                      }
+
+                        else{
+                          console.log("less");
+                        }
+
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+    }
+
+      
+
+    // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T01:00:00'+'/'+endtime+'/'+currentdate+'T23:45:00');
 
   },
 
@@ -2677,6 +2905,10 @@ export default {
     },
 
     methods: {
+
+      loadAllData(){
+        console.log("LOADING ............................");
+      }
 
       activateTeam(event, value){
         console.log("team activated");
