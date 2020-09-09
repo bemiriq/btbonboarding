@@ -2234,15 +2234,17 @@ export default {
 
         axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
         .then(response => {
-                        console.log(response);
+            console.log(response);
 
-                        this.fetchAllList = response.data[0];
+            this.fetchAllList = response.data[0];
 
-                        this.onDrop1FunctionLoaded = response.data.length;
-                        console.log(this.onDrop1FunctionLoaded);
+            // this.onDrop1FunctionLoaded = response.data.length;
+            // console.log(this.onDrop1FunctionLoaded);
 
-                        if(response.data.length > 0){
-                          console.log("greater than 0" + b);
+            var totalLength = response.data.length;
+            console.log(totalLength);
+            if(totalLength > 0){
+                          console.log("greater than 0 " + b);
 
                           var teamNumber = b+10;
                           this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
@@ -2250,13 +2252,13 @@ export default {
 
                           this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
 
-                          console.log(response.data[0]);
+                          // console.log(response.data[0]);
 
                           this.toListFetchRouteA1 = response.data[0];
                           var trackId = response.data[0].id;
-                          console.log(trackId);
+                          // console.log(trackId);
 
-                          console.log(this.toListFetchRouteA1);
+                          // console.log(this.toListFetchRouteA1);
                           
                           var replyDataObj3 = response.data[0];
                           var replyDataObj2 = response.data[0];
@@ -2264,8 +2266,8 @@ export default {
                           for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
 
                             
-                            console.log(i);
-                            console.log(response.data[0]);
+                            // console.log(i);
+                            // console.log(response.data[0]);
                             var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
 
                             console.log(" IN SID EEEEE ");
@@ -2276,10 +2278,10 @@ export default {
                               for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
                                 console.log("S ABA BA BAB ");
 
-                                console.log(response.data[0]);
-                                console.log(response.data[0].Team_player_sessions);
-                                console.log(response.data[0].reservation_id);
-                                console.log(i);
+                                // console.log(response.data[0]);
+                                // console.log(response.data[0].Team_player_sessions);
+                                // console.log(response.data[0].reservation_id);
+                                // console.log(i);
 
                                 if(response.data[0].Team_player_sessions[j].Player_minor == null){
                                   console.log("IT WAS NULL");
@@ -2294,15 +2296,15 @@ export default {
                                   var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
                                   var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
 
-                                  console.log(bombBeater);
-                                  console.log(playerCount);
+                                  // console.log(bombBeater);
+                                  // console.log(playerCount);
 
                                   // this.teamName[] = response.data[0].Team.name;
                                   // console.log(teamNameFetched);
 
-                                  console.log(playerLastName);
-                                  console.log(playerFirstName);
-                                  console.log(playerId);
+                                  // console.log(playerLastName);
+                                  // console.log(playerFirstName);
+                                  // console.log(playerId);
                                   
                                   console.log(b+" that was B id");
 
@@ -2320,7 +2322,7 @@ export default {
                                   }
 
                                   console.log("90909090909990909");
-                                  console.log(replyDataObj1);
+                                  // console.log(replyDataObj1);
 
                                   this.toListFetchRouteA1 = replyDataObj3;
 
@@ -2339,7 +2341,7 @@ export default {
                                   var selectFetched = response.data[0].mission_id;
 
                                   var teamObjectId = b+10;
-                                  console.log(teamObjectId);
+                                  // console.log(teamObjectId);
                                   console.log(selectFetched);
                                   // var defineTeam = 'teamName'+teamObjectId;
                                   // console.log(defineTeam);
@@ -2371,7 +2373,7 @@ export default {
 
                                 else{
                                   console.log(" P OPO PO PO NULL");
-                                  console.log(response.data[0]);
+                                  // console.log(response.data[0]);
 
                                   var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
                                   var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
@@ -2419,7 +2421,7 @@ export default {
                                   var selectFetched = response.data[0].mission_id;
                                   var arrivedValue = response.data[0].active;
 
-                                  console.log(response.data[0]);
+                                  // console.log(response.data[0]);
                                   console.log(arrivedValue);
 
 
@@ -2469,7 +2471,7 @@ export default {
 
                           // if (trackId > 0) { 
                             
-                              this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              // this.fetchPlayerList.push(this.toListFetchRouteA1);
                               // console.log("SAAAAAAA");
                           // }
 
@@ -2510,7 +2512,7 @@ export default {
         // teamIdSideA2: '',
         // teamIdSideB2: '',
 
-        fetchAllList: [],
+        fetchAllList: '',
 
         teamIdBox1: '',
         teamIdBox2: '',
