@@ -186,7 +186,7 @@
                     <p v-if="item.released == '1'"><input type="checkbox" id="jack" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)" checked></p>
                     <p v-else><input type="checkbox" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)"></p>
                   </td>
-                  
+
                 </tr>
             </table>
 
@@ -484,7 +484,7 @@ mounted: function(){
     var starttime='start';
     var endtime='end';
     var currentdate = moment().format("YYYY-MM-DD");
-    var startReservationTime = '10:00:00';
+    var startReservationTime = '09:00:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '22:00:00';
     var currentTime = moment().format("HHmm");
