@@ -423,7 +423,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input id="input-small" size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -641,7 +641,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input id="input-small" size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -839,7 +839,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input id="input-small" size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -1027,7 +1027,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 4"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 4"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1147,7 +1147,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 5"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 5"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1231,7 +1231,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 6"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 6"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1325,7 +1325,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 7"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 7"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1409,7 +1409,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 8"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 8"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1503,7 +1503,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 9"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 9"></b-form-input>
                     </b-col>
                   </b-row>
 
@@ -1587,7 +1587,7 @@
                       <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
-                      <b-form-input id="input-small" size="md" placeholder="TEAM NAME 10"></b-form-input>
+                      <b-form-input size="md" placeholder="TEAM NAME 10"></b-form-input>
                     </b-col>
                   </b-row>
 
