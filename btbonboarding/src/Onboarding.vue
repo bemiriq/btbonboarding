@@ -1916,10 +1916,7 @@ export default {
 
       })
       .then(response => 
-      {
-        console.log(response);
-        console.log(response.data);
-        this.fetchAllList = response.data;
+        this.fetchAllList = response.data
 
         /** this is the function that gets the latest time at top **/
         //  this.teamByTime2.sort(function(a,b){
@@ -1932,7 +1929,7 @@ export default {
         // this.teamByTime2 = replyDataObj1;
         //               console.log(replyDataObj1);
 
-      })
+      )
       .catch(function (error){
         // console.log("error at line 1789");
         console.log(error);
