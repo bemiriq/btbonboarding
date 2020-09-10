@@ -2185,7 +2185,7 @@ export default {
       // var sideA1route='1';
       // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
-      var totalBoxes = '9';
+      var totalBoxes = '10';
       
       var timeUsed = -30;
       // var timeUsed = -15;
@@ -2225,7 +2225,10 @@ export default {
 
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
-        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId).then(response => {
+        
+      }
+
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId).then(response => {
             var totalLength = response.data.length;
             console.log(totalLength); 
           })
@@ -2234,7 +2237,6 @@ export default {
           });
           console.log("SANDU SANDU SANDU");
         // console.log(this.fetchAllList);
-      }
 
       
       // this.loadScreen = false;
