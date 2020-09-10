@@ -1920,6 +1920,9 @@ export default {
         console.log(response);
         console.log(response.data);
 
+        var responseDiyo = response.data;
+        return responseDiyo;
+
         for(let i=0; i < response.data.length; i++){
           // console.log("090");
           console.log(i);
@@ -2125,13 +2128,11 @@ export default {
 
                       }
 
-                      // this.teamByTime2 = replyDataObj1;
+                      this.teamByTime2 = replyDataObj1;
                       console.log(replyDataObj1);
                       
 
                   }
-
-                  this.teamByTime2 = replyDataObj1;
 
                 } 
 
@@ -2165,6 +2166,9 @@ export default {
         // console.log("error at line 1789");
         console.log(error);
       });
+
+
+      console.log(responseDiyo);
 
 
     // var sideA1route='1';
