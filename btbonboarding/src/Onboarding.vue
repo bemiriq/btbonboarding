@@ -2002,7 +2002,7 @@ export default {
 
                   }
 
-                  this.teamByTime2 = replyDataObj1;
+                  // this.teamByTime2 = replyDataObj1;
                       console.log(replyDataObj1);
 
               }
@@ -2045,7 +2045,7 @@ export default {
                        "lastName" : booker_last_name
                     }
 
-                  this.teamByTime2 = replyDataObj1;
+                  // this.teamByTime2 = replyDataObj1;
                   console.log(replyDataObj1);
 
                   
@@ -2125,11 +2125,13 @@ export default {
 
                       }
 
-                      this.teamByTime2 = replyDataObj1;
+                      // this.teamByTime2 = replyDataObj1;
                       console.log(replyDataObj1);
                       
 
                   }
+
+                  this.teamByTime2 = replyDataObj1;
 
                 } 
 
