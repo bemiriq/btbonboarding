@@ -2211,7 +2211,7 @@ export default {
           console.log(b);
         }
 
-
+        console.log('BOX'+b+' '+totalBoxes);
         const remainderRoute1 = timeUsed - (start.minute() % 30);
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
@@ -2236,22 +2236,12 @@ export default {
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
         axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId).then(response => {
-            // console.log(response);
-
-            // this.fetchAllList = response.data[0];
-
-            // this.onDrop1FunctionLoaded = response.data.length;
-            // console.log(this.onDrop1FunctionLoaded);
-
             var totalLength = response.data.length;
             console.log(totalLength); 
-
-                      
-                      })
-
-                      .catch(function (error) {
-                        console.log(error);
-                      });
+          })
+          .catch(error => {
+            console.log(error);
+          });
           console.log("SANDU SANDU SANDU");
         // console.log(this.fetchAllList);
       }
