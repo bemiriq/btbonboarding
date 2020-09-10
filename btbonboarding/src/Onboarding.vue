@@ -2227,22 +2227,23 @@ export default {
             "team_drag_time" : boxTime
           }
 
-        this.toListFetchRouteA1 = replyDataObj1;
+        // this.toListFetchRouteA1 = replyDataObj1;
 
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        // this.fetchPlayerList.push(this.toListFetchRouteA1);
+        
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
         axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
         .then(response => {
-            console.log(response);
+            // console.log(response);
 
-            this.fetchAllList = response.data[0];
+            // this.fetchAllList = response.data[0];
 
             // this.onDrop1FunctionLoaded = response.data.length;
             // console.log(this.onDrop1FunctionLoaded);
 
             var totalLength = response.data.length;
-            console.log(totalLength);
+            console.log(totalLength); 
             if(totalLength > 0){
                           console.log("greater than 0 " + b);
 
@@ -2487,8 +2488,8 @@ export default {
                       .catch(function (error) {
                         console.log(error);
                       });
-
-        console.log(this.fetchAllList);
+          console.log("SANDU SANDU SANDU");
+        // console.log(this.fetchAllList);
       }
 
       
@@ -2512,7 +2513,7 @@ export default {
         // teamIdSideA2: '',
         // teamIdSideB2: '',
 
-        fetchAllList: '',
+        // fetchAllList: '',
 
         teamIdBox1: '',
         teamIdBox2: '',
