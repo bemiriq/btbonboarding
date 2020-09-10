@@ -1787,7 +1787,7 @@ export default {
 
     // console.log(process.env.VUE_APP_ROOT_URL);
     // console.log(process.env.VUE_DATABASE_URL);
-    console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS);
+    // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS);
     
     // axios.get(process.env.VUE_APP_DATABASE_MISSION).then(response => (this.missions = response.data ));
 
@@ -1904,8 +1904,8 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     // console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
