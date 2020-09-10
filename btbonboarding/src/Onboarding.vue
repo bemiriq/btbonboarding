@@ -1789,16 +1789,16 @@ export default {
     // console.log(process.env.VUE_DATABASE_URL);
     // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS);
     
-    // axios.get(process.env.VUE_APP_DATABASE_MISSION).then(response => (this.missions = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_MISSION).then(response => (this.missions = response.data ));
 
-    // axios.get(process.env.VUE_APP_DATABASE_PEOPLE).then(response => (this.dataList3 = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_PEOPLE).then(response => (this.dataList3 = response.data ));
 
     /** get all the rfid tag **/
-    // axios.get(process.env.VUE_APP_DATABASE_RFIDS).then(response => (this.rfidTagList = response.data ));
+    axios.get(process.env.VUE_APP_DATABASE_RFIDS).then(response => (this.rfidTagList = response.data ));
 
-    // axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
+    axios.get(process.env.VUE_APP_DTB_RESERVATIONBYTIME).then(response => (this.reservationNameByTime = response.data));
 
-    // axios.get(process.env.VUE_APP_DTB_ORGANIZATION).then(response => (this.organizationList = response.data));
+    axios.get(process.env.VUE_APP_DTB_ORGANIZATION).then(response => (this.organizationList = response.data));
 
     var currenttime = moment().format('h:mm A');
     // console.log(currenttime);
