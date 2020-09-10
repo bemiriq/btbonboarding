@@ -2219,17 +2219,6 @@ export default {
 
         console.log(boxTime);
         console.log(routeId);
-
-        var replyDataObj1 = b;
-
-          replyDataObj1={
-            // "first_name": b,
-            "route_id" : routeId,
-            "team_drag_time" : boxTime
-          }
-
-        console.log(replyDataObj1);
-
         // this.toListFetchRouteA1 = replyDataObj1;
 
         // this.fetchPlayerList.push(this.toListFetchRouteA1);
