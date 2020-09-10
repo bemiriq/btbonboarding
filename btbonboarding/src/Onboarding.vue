@@ -1800,7 +1800,695 @@ export default {
 
     axios.get(process.env.VUE_APP_DTB_ORGANIZATION).then(response => (this.organizationList = response.data));
 
-    this.loadPart();
+    var currenttime = moment().format('h:mm A');
+    // console.log(currenttime);
+
+    const start = moment();
+    /** first time case **/
+    const remainder1 = -15 - (start.minute() % 30);
+    const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
+    const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
+
+    /** second time case **/
+    const remainder2 = 0 - (start.minute() % 30);
+    const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
+    const dateTime2A = moment(start).add(remainder2, "minutes").format(" h:mm a");
+    const dateTime2B = moment(start).add(remainder2, "minutes").format(" h:mm a");
+    // const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
+
+    /** third time case **/
+    const remainder3 = 15 - (start.minute() % 30);
+    const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
+
+     /** forth time case **/
+    const remainder4 = 30 - (start.minute() % 30);
+    const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
+
+    /** fifth time case **/
+    const remainder5 = 45 - (start.minute() % 30);
+    const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
+
+    /** sixth time case **/
+    const remainder6 = 60 - (start.minute() % 30);
+    const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
+
+    // console.log(dateTime1);
+    this.dateTime1Data = dateTime1;
+    this.dateTime1BData = dateTime1B;
+
+    this.dateTime2Data = dateTime2;
+    this.dateTime2AData = dateTime2A;
+    this.dateTime2BData = dateTime2B;
+
+    this.dateTime2Data = dateTime2;
+    this.dateTime2BData = dateTime2;
+    this.dateTime3Data = dateTime3;
+    this.dateTime4Data = dateTime4;
+    this.dateTime5Data = dateTime5;
+    this.dateTime6Data = dateTime6;
+    console.log(this.dateTime1Data);
+    console.log(dateTime1);
+    console.log(dateTime3);
+
+    this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
+    console.log(this.sessionRow1DateTime);
+
+    this.sessionRow2DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
+    console.log(this.sessionRow2DateTime);
+
+    this.sessionRow3DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
+    console.log(this.sessionRow3DateTime);
+
+    /** Auto Genrate Date / Time based upon totalBoxes define **/
+    var totalBoxes = '10';
+      var timeUsed = -30;
+      console.log('false'+this.loadScreen);
+      for(let b=0; b < totalBoxes; b++){
+
+        if (b%2 == 0){
+          var x = 10;
+          var routeId = '1';
+          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+          console.log(timeUsed);
+
+          const start = moment();
+          const remainder1 = timeUsed - (start.minute() % 30);
+          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
+          console.log(dateTime1);
+
+          var i = x+b;
+          this["sessionRow"+i+"DateTime"] = dateTime1;
+          console.log(i);
+          // console.log(x+b);
+        }
+        else{
+
+          var x = 10;
+          var i = x+b;
+
+          const start = moment();
+          const remainder1 = timeUsed - (start.minute() % 30);
+          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
+          console.log(dateTime1);
+
+          var i = x+b;
+          var routeId = '2';
+          this["sessionRow"+i+"DateTime"] = dateTime1;
+        }
+      }
+    /** END of auto generate date/time based upon box **/
+
+    var starttime='start';
+    var endtime='end';
+    // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
+    // console.log(currentdate);
+
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+
+    console.log(startReservationTime);
+    console.log(endReservationTime);
+    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        console.log(response.data);
+
+        for(let i=0; i < response.data.length; i++){
+          // console.log("090");
+          console.log(i);
+
+          // this.loadScreen = true;
+
+          var booker_last_name = response.data[i].Booker.Person.last_name;
+          var booker_first_name = response.data[i].Booker.Person.first_name;
+          var booker_id = response.data[i].Booker.Person.id;
+
+          console.log(booker_first_name +' '+ booker_last_name);
+
+          var replyDataObj1 = response.data;
+          console.log(replyDataObj1);
+
+          console.log(response.data[i].Reservation_people.length);
+          var countReservationList = response.data[i].Reservation_people.length;
+          /** if the main booker and person is dragged. The code below dislays the minors later on **/
+
+          if(countReservationList == '0'){
+
+            console.log("check minor now");
+            console.log(i);
+
+            if(response.data[i].Reservation_minors.length > '0'){
+              console.log("GREATER THAN 0 minors ");
+              console.log(i);
+
+              var k = response.data[i].Reservation_people.length;
+              var incrementObject = k++;
+              console.log(incrementObject);
+
+              for(let j=0; j < response.data[i].Reservation_minors.length; j++){
+                console.log("TERRR");
+                console.log(j);
+
+                var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+                var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+                var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
+
+                var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+                var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+
+                var missionName = response.data[0].Mission.name;
+                var missionId = response.data[0].Mission.id;
+
+                console.log(minorLastName+' '+minorFirstName);
+                console.log("RESERVATION ID SOLTA "+minorReservationID);
+
+                var countReservationPeople = response.data[i].Reservation_people.length;
+                var incrementObject = countReservationPeople++;
+                console.log(incrementObject);
+
+                replyDataObj1[i]['Reservation_people'][incrementObject]={
+                   // "id" : booker_id,
+                   "person_id": minorPlayerMinorId,
+                   "id": minorReservationsMinorId,
+                   "Person":
+                      {
+                        "Player":{
+                          "id" : minorReservationsMinorId,
+                          "minor": 'yes'
+                        },
+                        "first_name" : minorFirstName,
+                        "last_name" : minorLastName,
+                        "person_id" : minorPlayerMinorId,
+                        "minor" : 'yes',
+                        "minorsymbol" : 'M',
+                        "player_id" : personSignedWaiverId,
+                        "reservation_id": minorReservationID,
+                        "mission_name" : missionName,
+                        "mission_id" : missionId,
+                        "Bookerdetail":{
+                          "id" : booker_id, /** this is the person id for the booker **/
+                          "firstName" : booker_first_name,
+                          "lastName" : booker_last_name
+                        }
+                    }
+
+                  }
+
+                  this.teamByTime2 = replyDataObj1;
+                      console.log(replyDataObj1);
+
+              }
+
+            } 
+
+            /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+
+            else{
+              console.log("NOT ONLY MINORS");
+            }
+
+          }
+
+          else{
+            console.log("conisistsss s ssssssssssssssssssssssssssss");
+            
+                for(let i=0; i < response.data.length; i++){
+
+                  console.log(i);
+                  console.log(response.data[i].Reservation_people.length);
+
+                  var booker_last_name = response.data[i].Booker.Person.last_name;
+                  var booker_first_name = response.data[i].Booker.Person.first_name;
+                  var booker_id = response.data[i].Booker.Person.id;
+
+                  console.log(booker_last_name);
+
+                  for(let j=0; j < response.data[i].Reservation_people.length; j++){
+
+                    console.log(i);
+                    console.log(j);
+
+                    replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+                       // "address": [
+                       //   ccEmailId
+                       //  ]
+                       "id" : booker_id, /** this is the person id for the booker **/
+                       "firstName" : booker_first_name,
+                       "lastName" : booker_last_name
+                    }
+
+                  this.teamByTime2 = replyDataObj1;
+                  console.log(replyDataObj1);
+
+                  
+                      
+
+
+                }
+              }
+
+
+              if(response.data[i].Reservation_minors.length > '0'){
+                  console.log("GREATER THAN 0 minors 000000000000000 ");
+                  console.log(i);
+                  // console.log(j);
+
+
+                  for(let j=0; j < response.data[i].Reservation_minors.length; j++){
+
+                    console.log(response.data[i].Reservation_minors.length);
+
+                    var countReservationPeople1 = response.data[i].Reservation_people.length;
+                    var incrementObject = countReservationPeople1++;
+                    console.log(incrementObject);
+
+                    console.log("Troo oooooo");
+                    console.log(j);
+                    console.log(i);
+
+                    var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+                    console.log(minorReservationsMinorId);
+
+                    console.log(response.data[i]);
+
+                    var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+                    console.log(minorPlayerMinorId);
+
+                    var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                    console.log(personSignedWaiverId);
+
+                    var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+                    var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+
+                    var missionName = response.data[0].Mission.name;
+                    var missionId = response.data[0].Mission.id;
+
+                    var reservationID = response.data[i].Reservation_minors[j].reservation_id;
+                    console.log(reservationID);
+
+                    console.log(minorLastName+' '+minorFirstName);
+                    
+
+                    replyDataObj1[i]['Reservation_people'][incrementObject]={
+                       // "id" : booker_id,
+                       "person_id": minorPlayerMinorId,
+                       "id": minorReservationsMinorId,
+                       "Person":
+                          {
+                            "Player":{
+                              "id" : minorReservationsMinorId,
+                              "minor": 'yes'
+                            },
+                            "first_name" : minorFirstName,
+                            "last_name" : minorLastName,
+                            "person_id" : minorPlayerMinorId,
+                            "minor" : 'yes',
+                            "minorsymbol" : 'M',
+                            "player_id" : personSignedWaiverId,
+                            "reservation_id": reservationID,
+                            "mission_name" : missionName,
+                            "mission_id" : missionId,
+                            "Bookerdetail":{
+                              "id" : booker_id, /** this is the person id for the booker **/
+                              "firstName" : booker_first_name,
+                              "lastName" : booker_last_name
+                            }
+                        }
+
+                      }
+
+                      this.teamByTime2 = replyDataObj1;
+                      console.log(replyDataObj1);
+                      
+
+                  }
+
+                } 
+
+                /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+
+                else{
+                  console.log("NOT ONLY MINORS");
+                }
+
+            // this.loadScreen = false;
+
+          }
+
+
+        }
+
+
+        /** this is the function that gets the latest time at top **/
+        //  this.teamByTime2.sort(function(a,b){
+        //   return -1;
+        //   console.log(" PO PE YE");
+        // })
+
+        /** end of the latest time at top **/
+
+        // this.teamByTime2 = replyDataObj1;
+        //               console.log(replyDataObj1);
+
+      })
+      .catch(function (error){
+        // console.log("error at line 1789");
+        console.log(error);
+      });
+
+
+    // var sideA1route='1';
+    // var sideA1time= '2020-06-03%2004:13:42.000000';
+
+    // console.log(sideA1time);
+    // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
+
+    if(dateTime1 != null){
+
+      // console.log(dateTime1);
+      // const remainderRoute1 = -15 - (start.minute() % 30);
+      // console.log(remainderRoute1);
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
+
+      // console.log(routeDateTime);
+
+      // var sideA1route='1';
+      // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+      var totalBoxes = '10';
+      
+      var timeUsed = -30;
+      // var timeUsed = -15;
+
+      // this.loadScreen = true;
+
+      console.log('false'+this.loadScreen);
+
+      // setTimeout(() => this.loadScreen = false, 5000);
+
+
+      for(let b=0; b < totalBoxes; b++){
+
+        if (b%2 == 0){
+          var routeId = '1';
+          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+        }
+        else{
+          var routeId = '2';
+        }
+
+        if (b % 2 == 0){
+          console.log(b);
+        }
+
+
+        const remainderRoute1 = timeUsed - (start.minute() % 30);
+        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
+        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+        console.log(boxTime);
+        console.log(routeId);
+
+        var replyDataObj1 = b;
+
+          replyDataObj1={
+            // "first_name": b,
+            "route_id" : routeId,
+            "team_drag_time" : boxTime
+          }
+
+        this.toListFetchRouteA1 = replyDataObj1;
+
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
+        .then(response => {
+                        console.log(response);
+
+                        this.onDrop1FunctionLoaded = response.data.length;
+                        console.log(this.onDrop1FunctionLoaded);
+
+                        if(response.data.length > 0){
+                          console.log("greater than 0" + b);
+
+                          var teamNumber = b+10;
+                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
+                          this['selected'+teamNumber] = response.data[0].mission_id;
+
+                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
+                          console.log(response.data[0]);
+
+                          this.toListFetchRouteA1 = response.data[0];
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
+
+                          console.log(this.toListFetchRouteA1);
+                          
+                          var replyDataObj3 = response.data[0];
+                          var replyDataObj2 = response.data[0];
+
+                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
+
+                            
+                            console.log(i);
+                            console.log(response.data[0]);
+                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
+
+                            console.log(" IN SID EEEEE ");
+
+
+                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
+
+                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
+                                console.log("S ABA BA BAB ");
+
+                                console.log(response.data[0]);
+                                console.log(response.data[0].Team_player_sessions);
+                                console.log(response.data[0].reservation_id);
+                                console.log(i);
+
+                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
+                                  console.log("IT WAS NULL");
+
+                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
+                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
+                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+
+                                  var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(bombBeater);
+                                  console.log(playerCount);
+
+                                  // this.teamName[] = response.data[0].Team.name;
+                                  // console.log(teamNameFetched);
+
+                                  console.log(playerLastName);
+                                  console.log(playerFirstName);
+                                  console.log(playerId);
+                                  
+                                  console.log(b+" that was B id");
+
+                                  replyDataObj3['Team_player_sessions'][j]['Person']={
+                                   "first_name": playerFirstName,
+                                   "last_name": playerLastName,
+                                   "id": playerId,
+                                   "reservation_id": playerReservationID,
+                                   "player_id": player_id,
+                                   "team_player_session": teamPlayerSessionId,
+                                   "Player":{
+                                    "bomb_beater": bombBeater,
+                                    "player_count": playerCount
+                                   }
+                                  }
+
+                                  console.log("90909090909990909");
+                                  console.log(replyDataObj1);
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+
+
+                                  var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
+                                  console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  console.log(selectFetched);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                  // var useThisObject = 10+teamObjectId;
+
+                                  // console.log(this["fetchPlayerList"+useThisObject]);
+
+                                }
+
+                                else{
+                                  console.log(" P OPO PO PO NULL");
+                                  console.log(response.data[0]);
+
+                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
+                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
+                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
+                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
+
+                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(minorFirstName + ' ' + minorLastName);
+                                  console.log(minorPersonId);
+                                  console.log(minorPlayerSignedWaiverid);
+
+                                  replyDataObj3['Team_player_sessions'][i]['Person']={
+                                     "first_name": minorFirstName,
+                                     "last_name": minorLastName,
+                                     "id": minorPersonId,
+                                     "minor_tag": 'M',
+                                     "reservation_id": playerReservationID,
+                                     "player_id": player_id,
+                                     "team_player_session": teamPlayerSessionId,
+                                     "Player":{
+                                      "minor_tag": 'M',
+                                      "bomb_beater": 1,
+                                      "player_count": 1
+                                     }
+                                  }
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+                                  
+                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
+                                   console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+                                  var arrivedValue = response.data[0].active;
+
+                                  console.log(response.data[0]);
+                                  console.log(arrivedValue);
+
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["list"+teamObjectId+"sessionid"] = SessionId;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
+                                  this["selected"+teamObjectId] = selectFetched;
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  // if(arrivedValue == '1'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = true;
+                                  // }
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                          
+
+                          }
+
+                          // if (trackId > 0) { 
+                            
+                              this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              // console.log("SAAAAAAA");
+                          // }
+
+                      }
+
+                        else{
+                          console.log("less");
+                        }
+
+                      
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+      }
+
+      
+      // this.loadScreen = false;
+
+    }
 
   },
 
@@ -1817,8 +2505,6 @@ export default {
         // teamIdSideB1: '',
         // teamIdSideA2: '',
         // teamIdSideB2: '',
-
-        fetchAllList: '',
 
         teamIdBox1: '',
         teamIdBox2: '',
@@ -2312,707 +2998,6 @@ export default {
     },
 
     methods: {
-
-      loadPart(){
-
-        var currenttime = moment().format('h:mm A');
-            // console.log(currenttime);
-
-            const start = moment();
-            /** first time case **/
-            const remainder1 = -15 - (start.minute() % 30);
-            const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
-            const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
-
-            /** second time case **/
-            const remainder2 = 0 - (start.minute() % 30);
-            const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
-            const dateTime2A = moment(start).add(remainder2, "minutes").format(" h:mm a");
-            const dateTime2B = moment(start).add(remainder2, "minutes").format(" h:mm a");
-            // const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
-
-            /** third time case **/
-            const remainder3 = 15 - (start.minute() % 30);
-            const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
-
-             /** forth time case **/
-            const remainder4 = 30 - (start.minute() % 30);
-            const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
-
-            /** fifth time case **/
-            const remainder5 = 45 - (start.minute() % 30);
-            const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
-
-            /** sixth time case **/
-            const remainder6 = 60 - (start.minute() % 30);
-            const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
-
-            // console.log(dateTime1);
-            this.dateTime1Data = dateTime1;
-            this.dateTime1BData = dateTime1B;
-
-            this.dateTime2Data = dateTime2;
-            this.dateTime2AData = dateTime2A;
-            this.dateTime2BData = dateTime2B;
-
-            this.dateTime2Data = dateTime2;
-            this.dateTime2BData = dateTime2;
-            this.dateTime3Data = dateTime3;
-            this.dateTime4Data = dateTime4;
-            this.dateTime5Data = dateTime5;
-            this.dateTime6Data = dateTime6;
-            console.log(this.dateTime1Data);
-            console.log(dateTime1);
-            console.log(dateTime3);
-
-            this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
-            console.log(this.sessionRow1DateTime);
-
-            this.sessionRow2DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
-            console.log(this.sessionRow2DateTime);
-
-            this.sessionRow3DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
-            console.log(this.sessionRow3DateTime);
-
-            
-                console.log(" INSIDE LOAD PART");
-
-                /** Auto Genrate Date / Time based upon totalBoxes define **/
-            var totalBoxes = '10';
-              var timeUsed = -30;
-              console.log('false'+this.loadScreen);
-              for(let b=0; b < totalBoxes; b++){
-
-                if (b%2 == 0){
-                  var x = 10;
-                  var routeId = '1';
-                  timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-                  console.log(timeUsed);
-
-                  const start = moment();
-                  const remainder1 = timeUsed - (start.minute() % 30);
-                  const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-                  console.log(dateTime1);
-
-                  var i = x+b;
-                  this["sessionRow"+i+"DateTime"] = dateTime1;
-                  console.log(i);
-                  // console.log(x+b);
-                }
-                else{
-
-                  var x = 10;
-                  var i = x+b;
-
-                  const start = moment();
-                  const remainder1 = timeUsed - (start.minute() % 30);
-                  const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-                  console.log(dateTime1);
-
-                  var i = x+b;
-                  var routeId = '2';
-                  this["sessionRow"+i+"DateTime"] = dateTime1;
-                }
-              }
-            /** END of auto generate date/time based upon box **/
-
-            var starttime='start';
-            var endtime='end';
-            // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
-            var currentdate = moment().format("YYYY-MM-DD");
-            // console.log(currentdate);
-
-            var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
-            var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
-
-            console.log(startReservationTime);
-            console.log(endReservationTime);
-            console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
-
-            // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-            axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
-
-              })
-              .then(response => 
-              {
-                console.log(response);
-                console.log(response.data);
-
-                for(let i=0; i < response.data.length; i++){
-                  // console.log("090");
-                  console.log(i);
-
-                  // this.loadScreen = true;
-
-                  var booker_last_name = response.data[i].Booker.Person.last_name;
-                  var booker_first_name = response.data[i].Booker.Person.first_name;
-                  var booker_id = response.data[i].Booker.Person.id;
-
-                  console.log(booker_first_name +' '+ booker_last_name);
-
-                  var replyDataObj1 = response.data;
-                  console.log(replyDataObj1);
-
-                  console.log(response.data[i].Reservation_people.length);
-                  var countReservationList = response.data[i].Reservation_people.length;
-                  /** if the main booker and person is dragged. The code below dislays the minors later on **/
-
-                  if(countReservationList == '0'){
-
-                    console.log("check minor now");
-                    console.log(i);
-
-                    if(response.data[i].Reservation_minors.length > '0'){
-                      console.log("GREATER THAN 0 minors ");
-                      console.log(i);
-
-                      var k = response.data[i].Reservation_people.length;
-                      var incrementObject = k++;
-                      console.log(incrementObject);
-
-                      for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-                        console.log("TERRR");
-                        console.log(j);
-
-                        var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                        var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                        var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-                        var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
-
-                        var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                        var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-                        var missionName = response.data[0].Mission.name;
-                        var missionId = response.data[0].Mission.id;
-
-                        console.log(minorLastName+' '+minorFirstName);
-                        console.log("RESERVATION ID SOLTA "+minorReservationID);
-
-                        var countReservationPeople = response.data[i].Reservation_people.length;
-                        var incrementObject = countReservationPeople++;
-                        console.log(incrementObject);
-
-                        replyDataObj1[i]['Reservation_people'][incrementObject]={
-                           // "id" : booker_id,
-                           "person_id": minorPlayerMinorId,
-                           "id": minorReservationsMinorId,
-                           "Person":
-                              {
-                                "Player":{
-                                  "id" : minorReservationsMinorId,
-                                  "minor": 'yes'
-                                },
-                                "first_name" : minorFirstName,
-                                "last_name" : minorLastName,
-                                "person_id" : minorPlayerMinorId,
-                                "minor" : 'yes',
-                                "minorsymbol" : 'M',
-                                "player_id" : personSignedWaiverId,
-                                "reservation_id": minorReservationID,
-                                "mission_name" : missionName,
-                                "mission_id" : missionId,
-                                "Bookerdetail":{
-                                  "id" : booker_id, /** this is the person id for the booker **/
-                                  "firstName" : booker_first_name,
-                                  "lastName" : booker_last_name
-                                }
-                            }
-
-                          }
-
-                          this.teamByTime2 = replyDataObj1;
-                              console.log(replyDataObj1);
-
-                      }
-
-                    } 
-
-                    /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
-
-                    else{
-                      console.log("NOT ONLY MINORS");
-                    }
-
-                  }
-
-                  else{
-                    console.log("conisistsss s ssssssssssssssssssssssssssss");
-                    
-                        for(let i=0; i < response.data.length; i++){
-
-                          console.log(i);
-                          console.log(response.data[i].Reservation_people.length);
-
-                          var booker_last_name = response.data[i].Booker.Person.last_name;
-                          var booker_first_name = response.data[i].Booker.Person.first_name;
-                          var booker_id = response.data[i].Booker.Person.id;
-
-                          console.log(booker_last_name);
-
-                          for(let j=0; j < response.data[i].Reservation_people.length; j++){
-
-                            console.log(i);
-                            console.log(j);
-
-                            replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-                               // "address": [
-                               //   ccEmailId
-                               //  ]
-                               "id" : booker_id, /** this is the person id for the booker **/
-                               "firstName" : booker_first_name,
-                               "lastName" : booker_last_name
-                            }
-
-                          this.teamByTime2 = replyDataObj1;
-                          console.log(replyDataObj1);
-
-                          
-                              
-
-
-                        }
-                      }
-
-
-                      if(response.data[i].Reservation_minors.length > '0'){
-                          console.log("GREATER THAN 0 minors 000000000000000 ");
-                          console.log(i);
-                          // console.log(j);
-
-
-                          for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-
-                            console.log(response.data[i].Reservation_minors.length);
-
-                            var countReservationPeople1 = response.data[i].Reservation_people.length;
-                            var incrementObject = countReservationPeople1++;
-                            console.log(incrementObject);
-
-                            console.log("Troo oooooo");
-                            console.log(j);
-                            console.log(i);
-
-                            var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                            console.log(minorReservationsMinorId);
-
-                            console.log(response.data[i]);
-
-                            var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                            console.log(minorPlayerMinorId);
-
-                            var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-                            console.log(personSignedWaiverId);
-
-                            var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                            var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-                            var missionName = response.data[0].Mission.name;
-                            var missionId = response.data[0].Mission.id;
-
-                            var reservationID = response.data[i].Reservation_minors[j].reservation_id;
-                            console.log(reservationID);
-
-                            console.log(minorLastName+' '+minorFirstName);
-                            
-
-                            replyDataObj1[i]['Reservation_people'][incrementObject]={
-                               // "id" : booker_id,
-                               "person_id": minorPlayerMinorId,
-                               "id": minorReservationsMinorId,
-                               "Person":
-                                  {
-                                    "Player":{
-                                      "id" : minorReservationsMinorId,
-                                      "minor": 'yes'
-                                    },
-                                    "first_name" : minorFirstName,
-                                    "last_name" : minorLastName,
-                                    "person_id" : minorPlayerMinorId,
-                                    "minor" : 'yes',
-                                    "minorsymbol" : 'M',
-                                    "player_id" : personSignedWaiverId,
-                                    "reservation_id": reservationID,
-                                    "mission_name" : missionName,
-                                    "mission_id" : missionId,
-                                    "Bookerdetail":{
-                                      "id" : booker_id, /** this is the person id for the booker **/
-                                      "firstName" : booker_first_name,
-                                      "lastName" : booker_last_name
-                                    }
-                                }
-
-                              }
-
-                              this.teamByTime2 = replyDataObj1;
-                              console.log(replyDataObj1);
-                              
-
-                          }
-
-                        } 
-
-                        /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
-
-                        else{
-                          console.log("NOT ONLY MINORS");
-                        }
-
-                    // this.loadScreen = false;
-
-                  }
-
-
-                }
-
-
-                /** this is the function that gets the latest time at top **/
-                //  this.teamByTime2.sort(function(a,b){
-                //   return -1;
-                //   console.log(" PO PE YE");
-                // })
-
-                /** end of the latest time at top **/
-
-                // this.teamByTime2 = replyDataObj1;
-                //               console.log(replyDataObj1);
-
-              })
-              .catch(function (error){
-                // console.log("error at line 1789");
-                console.log(error);
-              });
-
-
-    // var sideA1route='1';
-    // var sideA1time= '2020-06-03%2004:13:42.000000';
-
-    // console.log(sideA1time);
-    // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
-
-    if(dateTime1 != null){
-
-      // console.log(dateTime1);
-      // const remainderRoute1 = -15 - (start.minute() % 30);
-      // console.log(remainderRoute1);
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
-
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
-
-      // console.log(routeDateTime);
-
-      // var sideA1route='1';
-      // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
-
-      var totalBoxes = '10';
-      
-      var timeUsed = -30;
-      // var timeUsed = -15;
-
-      // this.loadScreen = true;
-
-      console.log('false'+this.loadScreen);
-
-      // setTimeout(() => this.loadScreen = false, 5000);
-
-
-      for(let b=0; b < totalBoxes; b++){
-
-        if (b%2 == 0){
-          var routeId = '1';
-          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-        }
-        else{
-          var routeId = '2';
-        }
-
-        if (b % 2 == 0){
-          console.log(b);
-        }
-
-
-        const remainderRoute1 = timeUsed - (start.minute() % 30);
-        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
-        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
-
-        console.log(boxTime);
-        console.log(routeId);
-
-        var replyDataObj1 = b;
-
-          replyDataObj1={
-            // "first_name": b,
-            "route_id" : routeId,
-            "team_drag_time" : boxTime
-          }
-
-        this.toListFetchRouteA1 = replyDataObj1;
-
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
-        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
-
-        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
-        .then(response => {
-            console.log(response);
-
-                        this.fetchAllList = response.data[0];
-
-                        // this.onDrop1FunctionLoaded = response.data.length;
-                        // console.log(this.onDrop1FunctionLoaded);
-
-                        if(response.data.length > 0){
-                          console.log("greater than 0" + b);
-
-                          var teamNumber = b+10;
-                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
-                          this['selected'+teamNumber] = response.data[0].mission_id;
-
-                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
-
-                          console.log(response.data[0]);
-
-                          this.toListFetchRouteA1 = response.data[0];
-                          var trackId = response.data[0].id;
-                          console.log(trackId);
-
-                          console.log(this.toListFetchRouteA1);
-                          
-                          var replyDataObj3 = response.data[0];
-                          var replyDataObj2 = response.data[0];
-
-                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
-
-                            
-                            console.log(i);
-                            console.log(response.data[0]);
-                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
-
-                            console.log(" IN SID EEEEE ");
-
-
-                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
-
-                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
-                                console.log("S ABA BA BAB ");
-
-                                console.log(response.data[0]);
-                                console.log(response.data[0].Team_player_sessions);
-                                console.log(response.data[0].reservation_id);
-                                console.log(i);
-
-                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
-                                  console.log("IT WAS NULL");
-
-                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
-                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
-                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
-                                  var playerReservationID = response.data[0].reservation_id;
-                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
-                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
-
-                                  var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
-                                  var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
-
-                                  console.log(bombBeater);
-                                  console.log(playerCount);
-
-                                  // this.teamName[] = response.data[0].Team.name;
-                                  // console.log(teamNameFetched);
-
-                                  console.log(playerLastName);
-                                  console.log(playerFirstName);
-                                  console.log(playerId);
-                                  
-                                  console.log(b+" that was B id");
-
-                                  replyDataObj3['Team_player_sessions'][j]['Person']={
-                                   "first_name": playerFirstName,
-                                   "last_name": playerLastName,
-                                   "id": playerId,
-                                   "reservation_id": playerReservationID,
-                                   "player_id": player_id,
-                                   "team_player_session": teamPlayerSessionId,
-                                   "Player":{
-                                    "bomb_beater": bombBeater,
-                                    "player_count": playerCount
-                                   }
-                                  }
-
-                                  console.log("90909090909990909");
-                                  console.log(replyDataObj1);
-
-                                  this.toListFetchRouteA1 = replyDataObj3;
-
-
-                                  var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
-                                  console.log(replyDataObj2);
-
-                                  replyDataObj2={
-                                   "team_player_session": teamPlayerSessionId
-                                  }
-                                  this.tolist2TPSafterReload = replyDataObj2;
-
-
-                                  var teamNameFetched = response.data[0].Team.name;
-                                  var teamIdFetch = response.data[0].Team.id;
-                                  var selectFetched = response.data[0].mission_id;
-
-                                  var teamObjectId = b+10;
-                                  console.log(teamObjectId);
-                                  console.log(selectFetched);
-                                  // var defineTeam = 'teamName'+teamObjectId;
-                                  // console.log(defineTeam);
-                                  // console.log(teamObjectId);
-
-                                  // this.(defineTeam) = teamNameFetched;
-                                  // this.teamName1 = response.data[0].Team.name;
-                                  // this.teamIdSideA1 = response.data[0].Team.id;
-                                  // this.selected1 = response.data[0].mission_id;
-                                  this["teamName"+teamObjectId] = teamNameFetched;
-                                  this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
-                                  this["vsselected"+teamObjectId] = teamNameFetched;
-
-                                  this["arrived"+teamObjectId] = arrivedValue;
-
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
-
-                                  // var useThisObject = 10+teamObjectId;
-
-                                  // console.log(this["fetchPlayerList"+useThisObject]);
-
-                                }
-
-                                else{
-                                  console.log(" P OPO PO PO NULL");
-                                  console.log(response.data[0]);
-
-                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
-                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
-                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
-                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
-                                  var playerReservationID = response.data[0].reservation_id;
-                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
-                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
-                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
-
-                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
-                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
-
-                                  console.log(minorFirstName + ' ' + minorLastName);
-                                  console.log(minorPersonId);
-                                  console.log(minorPlayerSignedWaiverid);
-
-                                  replyDataObj3['Team_player_sessions'][i]['Person']={
-                                     "first_name": minorFirstName,
-                                     "last_name": minorLastName,
-                                     "id": minorPersonId,
-                                     "minor_tag": 'M',
-                                     "reservation_id": playerReservationID,
-                                     "player_id": player_id,
-                                     "team_player_session": teamPlayerSessionId,
-                                     "Player":{
-                                      "minor_tag": 'M',
-                                      "bomb_beater": 1,
-                                      "player_count": 1
-                                     }
-                                  }
-
-                                  this.toListFetchRouteA1 = replyDataObj3;
-                                  
-                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
-                                   console.log(replyDataObj2);
-
-                                  replyDataObj2={
-                                   "team_player_session": teamPlayerSessionId
-                                  }
-                                  this.tolist2TPSafterReload = replyDataObj2;
-
-                                  var teamNameFetched = response.data[0].Team.name;
-                                  var teamIdFetch = response.data[0].Team.id;
-                                  var selectFetched = response.data[0].mission_id;
-                                  var arrivedValue = response.data[0].active;
-
-                                  console.log(response.data[0]);
-                                  console.log(arrivedValue);
-
-
-                                  var teamObjectId = b+10;
-                                  console.log(teamObjectId);
-                                  // var defineTeam = 'teamName'+teamObjectId;
-                                  // console.log(defineTeam);
-                                  // console.log(teamObjectId);
-
-                                  // this.(defineTeam) = teamNameFetched;
-                                  // this.teamName1 = response.data[0].Team.name;
-                                  // this.teamIdSideA1 = response.data[0].Team.id;
-                                  // this.selected1 = response.data[0].mission_id;
-                                  this["list"+teamObjectId+"sessionid"] = SessionId;
-                                  this["teamName"+teamObjectId] = teamNameFetched;
-                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
-                                  this["selected"+teamObjectId] = selectFetched;
-                                  this["vsselected"+teamObjectId] = teamNameFetched;
-
-                                  this["arrived"+teamObjectId] = arrivedValue;
-
-                                  // if(arrivedValue == '1'){
-                                  //   this['removeWaitlist'+teamObjectId] = true;
-                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
-                                  // }
-                                  // else{
-                                  //   this['disableButton'+teamObjectId] = true;
-                                  // }
-
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
-
-                                }
-
-                              }
-
-                            }
-
-                          
-
-                          }
-
-                          // if (trackId > 0) { 
-                            
-                              this.fetchPlayerList.push(this.toListFetchRouteA1);
-                              // console.log("SAAAAAAA");
-                          // }
-
-                      }
-
-                        else{
-                          console.log("less");
-                        }
-
-                      
-                      })
-
-                      .catch(function (error) {
-                        console.log(error);
-                      });
-
-        console.log(this.fetchAllList);
-      }
-
-      
-      // this.loadScreen = false;
-
-    }
-
-      },
 
       activateTeam(event, value){
         console.log("team activated");
