@@ -2185,7 +2185,7 @@ export default {
       // var sideA1route='1';
       // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
-      var totalBoxes = '10';
+      var totalBoxes = '9';
       
       var timeUsed = -30;
       // var timeUsed = -15;
@@ -2212,6 +2212,7 @@ export default {
         }
 
         console.log('BOX'+b+' '+totalBoxes);
+
         const remainderRoute1 = timeUsed - (start.minute() % 30);
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
