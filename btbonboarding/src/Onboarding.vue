@@ -1859,163 +1859,7 @@ export default {
     this.sessionRow3DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
     console.log(this.sessionRow3DateTime);
 
-    /** Auto Genrate Date / Time based upon totalBoxes define **/
-    var totalBoxes = '10';
-      var timeUsed = -30;
-      console.log('false'+this.loadScreen);
-      for(let b=0; b < totalBoxes; b++){
-
-        if (b%2 == 0){
-          var x = 10;
-          var routeId = '1';
-          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-          console.log(timeUsed);
-
-          const start = moment();
-          const remainder1 = timeUsed - (start.minute() % 30);
-          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-          console.log(dateTime1);
-
-          var i = x+b;
-          this["sessionRow"+i+"DateTime"] = dateTime1;
-          console.log(i);
-          // console.log(x+b);
-        }
-        else{
-
-          var x = 10;
-          var i = x+b;
-
-          const start = moment();
-          const remainder1 = timeUsed - (start.minute() % 30);
-          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-          console.log(dateTime1);
-
-          var i = x+b;
-          var routeId = '2';
-          this["sessionRow"+i+"DateTime"] = dateTime1;
-        }
-      }
-    /** END of auto generate date/time based upon box **/
-
-    var starttime='start';
-    var endtime='end';
-    // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
-    // console.log(currentdate);
-
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
-
-    console.log(startReservationTime);
-    console.log(endReservationTime);
-    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
-
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
-
-      })
-      .then(response => 
-        this.fetchAllList = response.data
-
-        /** this is the function that gets the latest time at top **/
-        //  this.teamByTime2.sort(function(a,b){
-        //   return -1;
-        //   console.log(" PO PE YE");
-        // })
-
-        /** end of the latest time at top **/
-
-        // this.teamByTime2 = replyDataObj1;
-        //               console.log(replyDataObj1);
-
-      )
-      .catch(function (error){
-        // console.log("error at line 1789");
-        console.log(error);
-      });
-
-
-      console.log(this.fetchAllList);
-
-
-    // var sideA1route='1';
-    // var sideA1time= '2020-06-03%2004:13:42.000000';
-
-    // console.log(sideA1time);
-    // console.log(moment().format('YYYY-MM-DD')+'%20'+dateTime1);
-
-    if(dateTime1 != null){
-
-      // console.log(dateTime1);
-      // const remainderRoute1 = -15 - (start.minute() % 30);
-      // console.log(remainderRoute1);
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").subtract(5,'hours').format("HH:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
-
-      // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("h:mm:00"); /** subtractiing 5 hour as my local database MYSQL runs on different timezone **/
-
-      // console.log(routeDateTime);
-
-      // var sideA1route='1';
-      // var sideA1time = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
-
-      var totalBoxes = '10';
-      
-      var timeUsed = -30;
-      // var timeUsed = -15;
-
-      // this.loadScreen = true;
-
-      console.log('false'+this.loadScreen);
-
-      // setTimeout(() => this.loadScreen = false, 5000);
-
-
-      for(let b=0; b < totalBoxes; b++){
-
-        if (b%2 == 0){
-          var routeId = '1';
-          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-        }
-        else{
-          var routeId = '2';
-        }
-
-        if (b % 2 == 0){
-          console.log(b);
-        }
-
-        console.log('BOX'+b+' '+totalBoxes);
-
-        const remainderRoute1 = timeUsed - (start.minute() % 30);
-        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
-        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
-
-        console.log(boxTime);
-        console.log(routeId);
-        // this.toListFetchRouteA1 = replyDataObj1;
-
-        // this.fetchPlayerList.push(this.toListFetchRouteA1);
-
-        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
-
-        
-      }
-
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId).then(response => {
-            var totalLength = response.data.length;
-            console.log(totalLength); 
-          })
-          .catch(error => {
-            console.log(error);
-          });
-          console.log("SANDU SANDU SANDU");
-        // console.log(this.fetchAllList);
-
-      
-      // this.loadScreen = false;
-
-    }
+    this.loadPart();
 
   },
 
@@ -2528,6 +2372,10 @@ export default {
 
     methods: {
 
+      loadPart(){
+        console.log(" INSIDE LOAD PART");
+      },
+      
       activateTeam(event, value){
         console.log("team activated");
         console.log(value);
