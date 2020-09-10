@@ -1800,65 +1800,6 @@ export default {
 
     axios.get(process.env.VUE_APP_DTB_ORGANIZATION).then(response => (this.organizationList = response.data));
 
-    var currenttime = moment().format('h:mm A');
-    // console.log(currenttime);
-
-    const start = moment();
-    /** first time case **/
-    const remainder1 = -15 - (start.minute() % 30);
-    const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
-    const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
-
-    /** second time case **/
-    const remainder2 = 0 - (start.minute() % 30);
-    const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
-    const dateTime2A = moment(start).add(remainder2, "minutes").format(" h:mm a");
-    const dateTime2B = moment(start).add(remainder2, "minutes").format(" h:mm a");
-    // const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
-
-    /** third time case **/
-    const remainder3 = 15 - (start.minute() % 30);
-    const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
-
-     /** forth time case **/
-    const remainder4 = 30 - (start.minute() % 30);
-    const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
-
-    /** fifth time case **/
-    const remainder5 = 45 - (start.minute() % 30);
-    const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
-
-    /** sixth time case **/
-    const remainder6 = 60 - (start.minute() % 30);
-    const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
-
-    // console.log(dateTime1);
-    this.dateTime1Data = dateTime1;
-    this.dateTime1BData = dateTime1B;
-
-    this.dateTime2Data = dateTime2;
-    this.dateTime2AData = dateTime2A;
-    this.dateTime2BData = dateTime2B;
-
-    this.dateTime2Data = dateTime2;
-    this.dateTime2BData = dateTime2;
-    this.dateTime3Data = dateTime3;
-    this.dateTime4Data = dateTime4;
-    this.dateTime5Data = dateTime5;
-    this.dateTime6Data = dateTime6;
-    console.log(this.dateTime1Data);
-    console.log(dateTime1);
-    console.log(dateTime3);
-
-    this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
-    console.log(this.sessionRow1DateTime);
-
-    this.sessionRow2DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
-    console.log(this.sessionRow2DateTime);
-
-    this.sessionRow3DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
-    console.log(this.sessionRow3DateTime);
-
     this.loadPart();
 
   },
@@ -2373,312 +2314,373 @@ export default {
     methods: {
 
       loadPart(){
-        console.log(" INSIDE LOAD PART");
 
-        /** Auto Genrate Date / Time based upon totalBoxes define **/
-    var totalBoxes = '10';
-      var timeUsed = -30;
-      console.log('false'+this.loadScreen);
-      for(let b=0; b < totalBoxes; b++){
+        var currenttime = moment().format('h:mm A');
+            // console.log(currenttime);
 
-        if (b%2 == 0){
-          var x = 10;
-          var routeId = '1';
-          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-          console.log(timeUsed);
+            const start = moment();
+            /** first time case **/
+            const remainder1 = -15 - (start.minute() % 30);
+            const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
+            const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
-          const start = moment();
-          const remainder1 = timeUsed - (start.minute() % 30);
-          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-          console.log(dateTime1);
+            /** second time case **/
+            const remainder2 = 0 - (start.minute() % 30);
+            const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
+            const dateTime2A = moment(start).add(remainder2, "minutes").format(" h:mm a");
+            const dateTime2B = moment(start).add(remainder2, "minutes").format(" h:mm a");
+            // const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
-          var i = x+b;
-          this["sessionRow"+i+"DateTime"] = dateTime1;
-          console.log(i);
-          // console.log(x+b);
-        }
-        else{
+            /** third time case **/
+            const remainder3 = 15 - (start.minute() % 30);
+            const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
 
-          var x = 10;
-          var i = x+b;
+             /** forth time case **/
+            const remainder4 = 30 - (start.minute() % 30);
+            const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
 
-          const start = moment();
-          const remainder1 = timeUsed - (start.minute() % 30);
-          const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
-          console.log(dateTime1);
+            /** fifth time case **/
+            const remainder5 = 45 - (start.minute() % 30);
+            const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
 
-          var i = x+b;
-          var routeId = '2';
-          this["sessionRow"+i+"DateTime"] = dateTime1;
-        }
-      }
-    /** END of auto generate date/time based upon box **/
+            /** sixth time case **/
+            const remainder6 = 60 - (start.minute() % 30);
+            const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
 
-    var starttime='start';
-    var endtime='end';
-    // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
-    // console.log(currentdate);
+            // console.log(dateTime1);
+            this.dateTime1Data = dateTime1;
+            this.dateTime1BData = dateTime1B;
 
-    var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+            this.dateTime2Data = dateTime2;
+            this.dateTime2AData = dateTime2A;
+            this.dateTime2BData = dateTime2B;
 
-    console.log(startReservationTime);
-    console.log(endReservationTime);
-    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+            this.dateTime2Data = dateTime2;
+            this.dateTime2BData = dateTime2;
+            this.dateTime3Data = dateTime3;
+            this.dateTime4Data = dateTime4;
+            this.dateTime5Data = dateTime5;
+            this.dateTime6Data = dateTime6;
+            console.log(this.dateTime1Data);
+            console.log(dateTime1);
+            console.log(dateTime3);
 
-    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+            this.sessionRow1DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
+            console.log(this.sessionRow1DateTime);
 
-      })
-      .then(response => 
-      {
-        console.log(response);
-        console.log(response.data);
+            this.sessionRow2DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
+            console.log(this.sessionRow2DateTime);
 
-        for(let i=0; i < response.data.length; i++){
-          // console.log("090");
-          console.log(i);
+            this.sessionRow3DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
+            console.log(this.sessionRow3DateTime);
 
-          // this.loadScreen = true;
-
-          var booker_last_name = response.data[i].Booker.Person.last_name;
-          var booker_first_name = response.data[i].Booker.Person.first_name;
-          var booker_id = response.data[i].Booker.Person.id;
-
-          console.log(booker_first_name +' '+ booker_last_name);
-
-          var replyDataObj1 = response.data;
-          console.log(replyDataObj1);
-
-          console.log(response.data[i].Reservation_people.length);
-          var countReservationList = response.data[i].Reservation_people.length;
-          /** if the main booker and person is dragged. The code below dislays the minors later on **/
-
-          if(countReservationList == '0'){
-
-            console.log("check minor now");
-            console.log(i);
-
-            if(response.data[i].Reservation_minors.length > '0'){
-              console.log("GREATER THAN 0 minors ");
-              console.log(i);
-
-              var k = response.data[i].Reservation_people.length;
-              var incrementObject = k++;
-              console.log(incrementObject);
-
-              for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-                console.log("TERRR");
-                console.log(j);
-
-                var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-                var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
-
-                var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
-
-                var missionName = response.data[0].Mission.name;
-                var missionId = response.data[0].Mission.id;
-
-                console.log(minorLastName+' '+minorFirstName);
-                console.log("RESERVATION ID SOLTA "+minorReservationID);
-
-                var countReservationPeople = response.data[i].Reservation_people.length;
-                var incrementObject = countReservationPeople++;
-                console.log(incrementObject);
-
-                replyDataObj1[i]['Reservation_people'][incrementObject]={
-                   // "id" : booker_id,
-                   "person_id": minorPlayerMinorId,
-                   "id": minorReservationsMinorId,
-                   "Person":
-                      {
-                        "Player":{
-                          "id" : minorReservationsMinorId,
-                          "minor": 'yes'
-                        },
-                        "first_name" : minorFirstName,
-                        "last_name" : minorLastName,
-                        "person_id" : minorPlayerMinorId,
-                        "minor" : 'yes',
-                        "minorsymbol" : 'M',
-                        "player_id" : personSignedWaiverId,
-                        "reservation_id": minorReservationID,
-                        "mission_name" : missionName,
-                        "mission_id" : missionId,
-                        "Bookerdetail":{
-                          "id" : booker_id, /** this is the person id for the booker **/
-                          "firstName" : booker_first_name,
-                          "lastName" : booker_last_name
-                        }
-                    }
-
-                  }
-
-                  this.teamByTime2 = replyDataObj1;
-                      console.log(replyDataObj1);
-
-              }
-
-            } 
-
-            /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
-
-            else{
-              console.log("NOT ONLY MINORS");
-            }
-
-          }
-
-          else{
-            console.log("conisistsss s ssssssssssssssssssssssssssss");
             
-                for(let i=0; i < response.data.length; i++){
+                console.log(" INSIDE LOAD PART");
 
+                /** Auto Genrate Date / Time based upon totalBoxes define **/
+            var totalBoxes = '10';
+              var timeUsed = -30;
+              console.log('false'+this.loadScreen);
+              for(let b=0; b < totalBoxes; b++){
+
+                if (b%2 == 0){
+                  var x = 10;
+                  var routeId = '1';
+                  timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+                  console.log(timeUsed);
+
+                  const start = moment();
+                  const remainder1 = timeUsed - (start.minute() % 30);
+                  const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
+                  console.log(dateTime1);
+
+                  var i = x+b;
+                  this["sessionRow"+i+"DateTime"] = dateTime1;
                   console.log(i);
-                  console.log(response.data[i].Reservation_people.length);
+                  // console.log(x+b);
+                }
+                else{
+
+                  var x = 10;
+                  var i = x+b;
+
+                  const start = moment();
+                  const remainder1 = timeUsed - (start.minute() % 30);
+                  const dateTime1 = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD h:mm a");
+                  console.log(dateTime1);
+
+                  var i = x+b;
+                  var routeId = '2';
+                  this["sessionRow"+i+"DateTime"] = dateTime1;
+                }
+              }
+            /** END of auto generate date/time based upon box **/
+
+            var starttime='start';
+            var endtime='end';
+            // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
+            var currentdate = moment().format("YYYY-MM-DD");
+            // console.log(currentdate);
+
+            var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
+            var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+
+            console.log(startReservationTime);
+            console.log(endReservationTime);
+            console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+
+            // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
+            axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+              })
+              .then(response => 
+              {
+                console.log(response);
+                console.log(response.data);
+
+                for(let i=0; i < response.data.length; i++){
+                  // console.log("090");
+                  console.log(i);
+
+                  // this.loadScreen = true;
 
                   var booker_last_name = response.data[i].Booker.Person.last_name;
                   var booker_first_name = response.data[i].Booker.Person.first_name;
                   var booker_id = response.data[i].Booker.Person.id;
 
-                  console.log(booker_last_name);
+                  console.log(booker_first_name +' '+ booker_last_name);
 
-                  for(let j=0; j < response.data[i].Reservation_people.length; j++){
-
-                    console.log(i);
-                    console.log(j);
-
-                    replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
-                       // "address": [
-                       //   ccEmailId
-                       //  ]
-                       "id" : booker_id, /** this is the person id for the booker **/
-                       "firstName" : booker_first_name,
-                       "lastName" : booker_last_name
-                    }
-
-                  this.teamByTime2 = replyDataObj1;
+                  var replyDataObj1 = response.data;
                   console.log(replyDataObj1);
 
-                  
-                      
+                  console.log(response.data[i].Reservation_people.length);
+                  var countReservationList = response.data[i].Reservation_people.length;
+                  /** if the main booker and person is dragged. The code below dislays the minors later on **/
 
+                  if(countReservationList == '0'){
 
-                }
-              }
-
-
-              if(response.data[i].Reservation_minors.length > '0'){
-                  console.log("GREATER THAN 0 minors 000000000000000 ");
-                  console.log(i);
-                  // console.log(j);
-
-
-                  for(let j=0; j < response.data[i].Reservation_minors.length; j++){
-
-                    console.log(response.data[i].Reservation_minors.length);
-
-                    var countReservationPeople1 = response.data[i].Reservation_people.length;
-                    var incrementObject = countReservationPeople1++;
-                    console.log(incrementObject);
-
-                    console.log("Troo oooooo");
-                    console.log(j);
+                    console.log("check minor now");
                     console.log(i);
 
-                    var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
-                    console.log(minorReservationsMinorId);
+                    if(response.data[i].Reservation_minors.length > '0'){
+                      console.log("GREATER THAN 0 minors ");
+                      console.log(i);
 
-                    console.log(response.data[i]);
+                      var k = response.data[i].Reservation_people.length;
+                      var incrementObject = k++;
+                      console.log(incrementObject);
 
-                    var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
-                    console.log(minorPlayerMinorId);
+                      for(let j=0; j < response.data[i].Reservation_minors.length; j++){
+                        console.log("TERRR");
+                        console.log(j);
 
-                    var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
-                    console.log(personSignedWaiverId);
+                        var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+                        var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+                        var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                        var minorReservationID = response.data[i].Reservation_minors[j].reservation_id;
 
-                    var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
-                    var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+                        var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+                        var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
 
-                    var missionName = response.data[0].Mission.name;
-                    var missionId = response.data[0].Mission.id;
+                        var missionName = response.data[0].Mission.name;
+                        var missionId = response.data[0].Mission.id;
 
-                    var reservationID = response.data[i].Reservation_minors[j].reservation_id;
-                    console.log(reservationID);
+                        console.log(minorLastName+' '+minorFirstName);
+                        console.log("RESERVATION ID SOLTA "+minorReservationID);
 
-                    console.log(minorLastName+' '+minorFirstName);
-                    
+                        var countReservationPeople = response.data[i].Reservation_people.length;
+                        var incrementObject = countReservationPeople++;
+                        console.log(incrementObject);
 
-                    replyDataObj1[i]['Reservation_people'][incrementObject]={
-                       // "id" : booker_id,
-                       "person_id": minorPlayerMinorId,
-                       "id": minorReservationsMinorId,
-                       "Person":
-                          {
-                            "Player":{
-                              "id" : minorReservationsMinorId,
-                              "minor": 'yes'
-                            },
-                            "first_name" : minorFirstName,
-                            "last_name" : minorLastName,
-                            "person_id" : minorPlayerMinorId,
-                            "minor" : 'yes',
-                            "minorsymbol" : 'M',
-                            "player_id" : personSignedWaiverId,
-                            "reservation_id": reservationID,
-                            "mission_name" : missionName,
-                            "mission_id" : missionId,
-                            "Bookerdetail":{
-                              "id" : booker_id, /** this is the person id for the booker **/
-                              "firstName" : booker_first_name,
-                              "lastName" : booker_last_name
+                        replyDataObj1[i]['Reservation_people'][incrementObject]={
+                           // "id" : booker_id,
+                           "person_id": minorPlayerMinorId,
+                           "id": minorReservationsMinorId,
+                           "Person":
+                              {
+                                "Player":{
+                                  "id" : minorReservationsMinorId,
+                                  "minor": 'yes'
+                                },
+                                "first_name" : minorFirstName,
+                                "last_name" : minorLastName,
+                                "person_id" : minorPlayerMinorId,
+                                "minor" : 'yes',
+                                "minorsymbol" : 'M',
+                                "player_id" : personSignedWaiverId,
+                                "reservation_id": minorReservationID,
+                                "mission_name" : missionName,
+                                "mission_id" : missionId,
+                                "Bookerdetail":{
+                                  "id" : booker_id, /** this is the person id for the booker **/
+                                  "firstName" : booker_first_name,
+                                  "lastName" : booker_last_name
+                                }
                             }
-                        }
+
+                          }
+
+                          this.teamByTime2 = replyDataObj1;
+                              console.log(replyDataObj1);
 
                       }
 
-                      this.teamByTime2 = replyDataObj1;
-                      console.log(replyDataObj1);
-                      
+                    } 
+
+                    /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+
+                    else{
+                      console.log("NOT ONLY MINORS");
+                    }
 
                   }
 
-                } 
+                  else{
+                    console.log("conisistsss s ssssssssssssssssssssssssssss");
+                    
+                        for(let i=0; i < response.data.length; i++){
 
-                /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+                          console.log(i);
+                          console.log(response.data[i].Reservation_people.length);
 
-                else{
-                  console.log("NOT ONLY MINORS");
+                          var booker_last_name = response.data[i].Booker.Person.last_name;
+                          var booker_first_name = response.data[i].Booker.Person.first_name;
+                          var booker_id = response.data[i].Booker.Person.id;
+
+                          console.log(booker_last_name);
+
+                          for(let j=0; j < response.data[i].Reservation_people.length; j++){
+
+                            console.log(i);
+                            console.log(j);
+
+                            replyDataObj1[i]['Reservation_people'][j]['Person']['Bookerdetail']={
+                               // "address": [
+                               //   ccEmailId
+                               //  ]
+                               "id" : booker_id, /** this is the person id for the booker **/
+                               "firstName" : booker_first_name,
+                               "lastName" : booker_last_name
+                            }
+
+                          this.teamByTime2 = replyDataObj1;
+                          console.log(replyDataObj1);
+
+                          
+                              
+
+
+                        }
+                      }
+
+
+                      if(response.data[i].Reservation_minors.length > '0'){
+                          console.log("GREATER THAN 0 minors 000000000000000 ");
+                          console.log(i);
+                          // console.log(j);
+
+
+                          for(let j=0; j < response.data[i].Reservation_minors.length; j++){
+
+                            console.log(response.data[i].Reservation_minors.length);
+
+                            var countReservationPeople1 = response.data[i].Reservation_people.length;
+                            var incrementObject = countReservationPeople1++;
+                            console.log(incrementObject);
+
+                            console.log("Troo oooooo");
+                            console.log(j);
+                            console.log(i);
+
+                            var minorReservationsMinorId = response.data[i].Reservation_minors[j].id;
+                            console.log(minorReservationsMinorId);
+
+                            console.log(response.data[i]);
+
+                            var minorPlayerMinorId = response.data[i].Reservation_minors[j].Player_minor.id;
+                            console.log(minorPlayerMinorId);
+
+                            var personSignedWaiverId = response.data[i].Reservation_minors[j].Player_minor.player_id;
+                            console.log(personSignedWaiverId);
+
+                            var minorLastName = response.data[i].Reservation_minors[j].Player_minor.last_name;
+                            var minorFirstName = response.data[i].Reservation_minors[j].Player_minor.first_name;
+
+                            var missionName = response.data[0].Mission.name;
+                            var missionId = response.data[0].Mission.id;
+
+                            var reservationID = response.data[i].Reservation_minors[j].reservation_id;
+                            console.log(reservationID);
+
+                            console.log(minorLastName+' '+minorFirstName);
+                            
+
+                            replyDataObj1[i]['Reservation_people'][incrementObject]={
+                               // "id" : booker_id,
+                               "person_id": minorPlayerMinorId,
+                               "id": minorReservationsMinorId,
+                               "Person":
+                                  {
+                                    "Player":{
+                                      "id" : minorReservationsMinorId,
+                                      "minor": 'yes'
+                                    },
+                                    "first_name" : minorFirstName,
+                                    "last_name" : minorLastName,
+                                    "person_id" : minorPlayerMinorId,
+                                    "minor" : 'yes',
+                                    "minorsymbol" : 'M',
+                                    "player_id" : personSignedWaiverId,
+                                    "reservation_id": reservationID,
+                                    "mission_name" : missionName,
+                                    "mission_id" : missionId,
+                                    "Bookerdetail":{
+                                      "id" : booker_id, /** this is the person id for the booker **/
+                                      "firstName" : booker_first_name,
+                                      "lastName" : booker_last_name
+                                    }
+                                }
+
+                              }
+
+                              this.teamByTime2 = replyDataObj1;
+                              console.log(replyDataObj1);
+                              
+
+                          }
+
+                        } 
+
+                        /** end of DISPLAY MINORS after PERSON DRAGGED SCENARION **/
+
+                        else{
+                          console.log("NOT ONLY MINORS");
+                        }
+
+                    // this.loadScreen = false;
+
+                  }
+
+
                 }
 
-            // this.loadScreen = false;
 
-          }
+                /** this is the function that gets the latest time at top **/
+                //  this.teamByTime2.sort(function(a,b){
+                //   return -1;
+                //   console.log(" PO PE YE");
+                // })
 
+                /** end of the latest time at top **/
 
-        }
+                // this.teamByTime2 = replyDataObj1;
+                //               console.log(replyDataObj1);
 
-
-        /** this is the function that gets the latest time at top **/
-        //  this.teamByTime2.sort(function(a,b){
-        //   return -1;
-        //   console.log(" PO PE YE");
-        // })
-
-        /** end of the latest time at top **/
-
-        // this.teamByTime2 = replyDataObj1;
-        //               console.log(replyDataObj1);
-
-      })
-      .catch(function (error){
-        // console.log("error at line 1789");
-        console.log(error);
-      });
+              })
+              .catch(function (error){
+                // console.log("error at line 1789");
+                console.log(error);
+              });
 
 
     // var sideA1route='1';
