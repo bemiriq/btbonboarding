@@ -4783,6 +4783,9 @@ export default {
 
               console.log("inside");
 
+              var sessionDateTime = this["sessionRow"+col+"DateTime"];
+              console.log("SESSION DATE TIME "+sessionDateTime);
+
                   console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId);
 
                   axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+id_of_reservation+'/team/'+teamId+'/route/'+routeId,{
@@ -4956,6 +4959,8 @@ export default {
           if(teamId > 0){
 
             console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId);
+            var sessionDateTime = this["sessionRow"+col+"DateTime"];
+            console.log("SESSION DATE TIME "+sessionDateTime);
 
             if(!this["list"+col+"sessionid"] > '0' ){
 
