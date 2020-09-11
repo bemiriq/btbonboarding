@@ -833,13 +833,13 @@
 
                     <b-row class="my-1">
                       <b-col sm="4">
-                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
                       <b-col sm="8">
 
 
-                        <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -1024,13 +1024,13 @@
 
                     <b-row class="my-1">
                       <b-col sm="4">
-                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
                       <b-col sm="8">
 
 
-                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:change="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -1219,7 +1219,7 @@
 
                   <b-row class="my-1">
                     <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
                       <b-form-input size="md" placeholder="TEAM NAME 5"></b-form-input>
