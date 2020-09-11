@@ -503,16 +503,15 @@ mounted: function(){
           var replyDataObj1 = this.posts;
 
           console.log(this.posts);
-          
+
           for(let i=0; i <= countPostArray; i++){
             
             // console.log(response.data[i].Reservation_minors.length);
              
-            var countReservationPeople = response.data[i].Reservation_people.length;
-            var countReservationMinors = response.data[i].Reservation_minors.length;
-            var reservationForConvert = response.data[i].reservation_for;
-            var reservationId = response.data[i].Reservation_people[0].reservation_id;
-
+            var countReservationPeople = replyDataObj1[i].Reservation_people.length;
+            var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
+            var reservationForConvert = replyDataObj1[i].reservation_for;
+            replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
             var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
 
@@ -530,16 +529,16 @@ mounted: function(){
 
             for(let j=0; j < countReservationPeople; j++){
 
-              arrivedPerson += response.data[i].Reservation_people[j].arrived;
+              arrivedPerson += replyDataObj1[i].Reservation_people[j].arrived;
 
               /** this will count total non player arrived **/
-              if(response.data[i].Reservation_people[j].arrived == '1'){
-                arrivedNonPlayer += response.data[i].Reservation_people[j].non_player;
+              if(replyDataObj1[i].Reservation_people[j].arrived == '1'){
+                arrivedNonPlayer += replyDataObj1[i].Reservation_people[j].non_player;
               }
 
               /** this will count total player arrived excluding minors for non-player 0 as false **/
-              if(response.data[i].Reservation_people[j].arrived == '1' && response.data[i].Reservation_people[j].non_player == '0'){
-                arrivedPlayer += response.data[i].Reservation_people[j].arrived;
+              if(replyDataObj1[i].Reservation_people[j].arrived == '1' && replyDataObj1[i].Reservation_people[j].non_player == '0'){
+                arrivedPlayer += replyDataObj1[i].Reservation_people[j].arrived;
               }
 
             }
@@ -550,15 +549,15 @@ mounted: function(){
 
             for(let k=0; k < countReservationMinors; k++){
 
-                arrivedMinor += response.data[i].Reservation_minors[k].arrived;
+                arrivedMinor += replyDataObj1[i].Reservation_minors[k].arrived;
 
-                if(response.data[i].Reservation_minors[k].arrived == '1'){
-                  arrivedMinorNonPlayer += response.data[i].Reservation_minors[k].non_player;
+                if(replyDataObj1[i].Reservation_minors[k].arrived == '1'){
+                  arrivedMinorNonPlayer += replyDataObj1[i].Reservation_minors[k].non_player;
                 }
 
                 /** this will count total player arrived for minors for non-player 0 as false **/
-                if(response.data[i].Reservation_minors[k].arrived == '1' && response.data[i].Reservation_minors[k].non_player == '0'){
-                  arrivedMinorPlayer += response.data[i].Reservation_minors[k].arrived;
+                if(replyDataObj1[i].Reservation_minors[k].arrived == '1' && replyDataObj1[i].Reservation_minors[k].non_player == '0'){
+                  arrivedMinorPlayer += replyDataObj1[i].Reservation_minors[k].arrived;
                 }
 
             }
@@ -578,15 +577,13 @@ mounted: function(){
             var totalPlayerArrived = arrivedPlayer + arrivedMinorPlayer;
             console.log("TOTAL  PLAYER = "+totalPlayerArrived);
 
-            // var arrived = response.data[i].Reservation_minors.length+response.data[i].Reservation_people.length;
+            // var arrived = replyDataObj1[i].Reservation_minors.length+replyDataObj1[i].Reservation_people.length;
             // console.log(arrived);
 
             replyDataObj1[i]['total_arrived']=arrived;
 
-            
-            replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
+          
             replyDataObj1[i]['late_status_time']=lateStatus;
-            replyDataObj1[i]['reservation_id']=reservationId;
             replyDataObj1[i]['late_by']=lateBy;
             replyDataObj1[i]['total_non_player_arrived']=totalNonPlayerArrived;
             replyDataObj1[i]['total_player_arrived']=totalPlayerArrived;
@@ -594,6 +591,9 @@ mounted: function(){
             console.log(currentTime);
             console.log(lateStatus);
             console.log("ARRIVED VALUE"+arrived);
+
+            var reservationId = replyDataObj1[i].Reservation_people[0].reservation_id;
+            replyDataObj1[i]['reservation_id']=reservationId;
           }
           /** END of ARRIVED counting PART **/
 
