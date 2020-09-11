@@ -511,7 +511,6 @@ mounted: function(){
             var countReservationPeople = replyDataObj1[i].Reservation_people.length;
             var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
             var reservationForConvert = replyDataObj1[i].reservation_for;
-            replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
             var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
 
@@ -519,6 +518,9 @@ mounted: function(){
 
             console.log(reservationForConvert);
             console.log(date);
+            console.log(reservationOnlyTime);
+
+            replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
             var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
             var lateBy = lateStatus-currentTime;
