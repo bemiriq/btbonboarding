@@ -833,7 +833,7 @@
 
                     <b-row class="my-1">
                       <b-col sm="4">
-                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
                       <b-col sm="8">
@@ -1922,6 +1922,8 @@ export default {
     this.dateTime5Data = dateTime5;
     this.dateTime6Data = dateTime6;
     console.log(this.dateTime1Data);
+    console.log("DATE TIME BOX 1 "+this.dateTime1Data);
+    console.log("DATE TIME BOX 2 "+this.dateTime2BData);
     console.log(dateTime1);
     console.log(dateTime3);
 
