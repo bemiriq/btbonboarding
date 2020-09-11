@@ -195,7 +195,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     var startReservationTime = '10:00:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = '22:00:00';
+    var endReservationTime = '23:45:00';
 
     axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
