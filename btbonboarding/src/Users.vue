@@ -594,7 +594,7 @@ mounted: function(){
             console.log(lateStatus);
             console.log("ARRIVED VALUE"+arrived);
 
-            var reservationId = replyDataObj1[i].Reservation_people[0].reservation_id;
+            var reservationId = replyDataObj1[i].Reservation_people[0].id; /** id is the reservation id **/
             replyDataObj1[i]['reservation_id']=reservationId;
           }
           /** END of ARRIVED counting PART **/
