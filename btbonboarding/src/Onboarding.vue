@@ -1018,7 +1018,6 @@
 
 
               <b-col>
-                <p class="btbSideTitle"><b>SIDE B</b></p>
 
                 <!-- <form id="signup-form"> -->
                   <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked13 }">
