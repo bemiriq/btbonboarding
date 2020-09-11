@@ -1024,7 +1024,7 @@
 
                     <b-row class="my-1">
                       <b-col sm="4">
-                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
                       <b-col sm="8">
@@ -1219,7 +1219,7 @@
 
                   <b-row class="my-1">
                     <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
+                      <b-form-input type="text" name="reservationTime1" v-model="dateTime2BData" disabled></b-form-input>
                     </b-col>
                     <b-col sm="8">
                       <b-form-input size="md" placeholder="TEAM NAME 5"></b-form-input>
