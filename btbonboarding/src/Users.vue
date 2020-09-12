@@ -596,6 +596,8 @@ mounted: function(){
 
             var reservationId = replyDataObj1[i].id; /** id is the reservation id **/
             replyDataObj1[i]['reservation_id']=reservationId;
+
+            console.log("YO HO DATA ARRAY "+ i);
           }
           /** END of ARRIVED counting PART **/
 
