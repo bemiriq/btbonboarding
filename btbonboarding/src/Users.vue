@@ -169,8 +169,8 @@
                   <td>
                     <!-- <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
                     <p v-if="item.paid_amount != item.final_dollar_amount">&#10060;</p> -->
-                    <p v-if="item.final_dollar_amount == '0'" style="color:green;">&#10004;&#65039;</p>
-                    <p v-if="item.final_dollar_amount > '0'">&#10060;</p>
+                    <p v-if="item.balance == '0'" style="color:green;">&#10004;&#65039;</p>
+                    <p v-if="item.balance > '0'">&#10060;</p>
                   </td>
 
                   <td>

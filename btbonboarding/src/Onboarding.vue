@@ -2355,8 +2355,8 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     // console.log(currentdate);
 
-    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
     console.log(endReservationTime);
