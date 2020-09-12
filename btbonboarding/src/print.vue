@@ -149,19 +149,19 @@
                     </div>
 
                     <div class="percentileRoom1">
-                      56%
+                      <!-- 56% -->
                     </div>
 
                     <div class="percentileRoom2">
-                      9%
+                      <!-- 9% -->
                     </div>
 
                     <div class="percentileRoom3">
-                      20%
+                      <!-- 20% -->
                     </div>
 
                     <div class="percentileRoom4">
-                      56%
+                      <!-- 56% -->
                     </div>
 
                     <div class="timeEarnedBox">

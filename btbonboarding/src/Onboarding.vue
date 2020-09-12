@@ -2306,9 +2306,17 @@ export default {
     this.sessionRow13DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
     console.log(this.sessionRow12DateTime);
 
-    this.sessionRow14DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
-    this.sessionRow15DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
+    this.sessionRow14DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD hh:mm:00");
+    this.sessionRow15DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD hh:mm:00");
     console.log(this.sessionRow14DateTime);
+
+    this.sessionRow16DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD hh:mm:00");
+    this.sessionRow17DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD hh:mm:00");
+    console.log(this.sessionRow16DateTime);
+
+    this.sessionRow18DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD hh:mm:00");
+    this.sessionRow19DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD hh:mm:00");
+    console.log(this.sessionRow18DateTime);
 
     /** Auto Genrate Date / Time based upon totalBoxes define **/
     var totalBoxes = '10';
