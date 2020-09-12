@@ -834,17 +834,21 @@ var arrows = document.getElementsByClassName("covertedtime");
 
       if(this.posts[index].Booker.Person.first_name == null || this.posts[index].Booker.Person.first_name == undefined){
           var booker_first_name = 'DEFAULT';
+          console.log(booker_first_name);
         }
         else{
           var booker_first_name = this.posts[index].Booker.Person.first_name;
+          console.log(booker_first_name);
         }
 
 
       if(this.posts[index].Booker.Person.last_name == null || this.posts[index].Booker.Person.last_name == undefined){
-          var booker_first_name = 'DEFAULT';
+          var booker_last_name = 'DEFAULT';
+          console.log(booker_last_name);
         }
         else{
-          var booker_first_name = this.posts[index].Booker.Person.last_name;
+          var booker_last_name = this.posts[index].Booker.Person.last_name;
+          console.log(booker_last_name);
         }
 
 
@@ -938,16 +942,20 @@ var arrows = document.getElementsByClassName("covertedtime");
 
         if(this.posts[index].Reservation_people[i].Person.first_name == null || this.posts[index].Reservation_people[i].Person.first_name == undefined){
           var player_first_name = 'DEFAULT';
+          console.log(player_first_name);
         }
         else{
           var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
+          console.log(player_first_name);
         }
 
         if(this.posts[index].Reservation_people[i].Person.last_name == null || this.posts[index].Reservation_people[i].Person.last_name == undefined){
           var player_last_name = 'DEFAULT';
+          console.log(player_last_name);
         }
         else{
           var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
+          console.log(player_last_name);
         }
 
         if(this.posts[index].Reservation_people[i].Person.phone == null || this.posts[index].Reservation_people[i].Person.phone == undefined){
@@ -1084,16 +1092,20 @@ var arrows = document.getElementsByClassName("covertedtime");
 
             if(this.posts[index].Reservation_minors[i].Player_minor.last_name == null || this.posts[index].Reservation_minors[i].Player_minor.last_name == undefined){
               var minor_last_name = 'default';
+              console.log(minor_last_name);
             }
             else{
               var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
+              console.log(minor_last_name);
             }
 
             if(this.posts[index].Reservation_minors[i].Player_minor.first_name == null || this.posts[index].Reservation_minors[i].Player_minor.first_name == undefined){
               var minor_first_name = 'default';
+              console.log(minor_first_name);
             }
             else{
               var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
+              console.log(minor_first_name);
             }
 
 
