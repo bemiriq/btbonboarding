@@ -484,7 +484,7 @@ mounted: function(){
     var starttime='start';
     var endtime='end';
     var currentdate = moment().format("YYYY-MM-DD");
-    var startReservationTime = '09:30:00';
+    var startReservationTime = '17:30:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '23:45:00';
     var currentTime = moment().format("HHmm");
@@ -596,8 +596,6 @@ mounted: function(){
 
             var reservationId = replyDataObj1[i].id; /** id is the reservation id **/
             replyDataObj1[i]['reservation_id']=reservationId;
-
-            console.log("YO HO DATA ARRAY "+ i);
           }
           /** END of ARRIVED counting PART **/
 
@@ -834,56 +832,12 @@ var arrows = document.getElementsByClassName("covertedtime");
       console.log(item);
       console.log(index);
 
-      if(this.posts[index].Booker.Person.first_name == null || this.posts[index].Booker.Person.first_name == undefined){
-          var booker_first_name = 'DEFAULT';
-          console.log(booker_first_name);
-        }
-        else{
-          var booker_first_name = this.posts[index].Booker.Person.first_name;
-          console.log(booker_first_name);
-        }
-
-
-      if(this.posts[index].Booker.Person.last_name == null || this.posts[index].Booker.Person.last_name == undefined){
-          var booker_last_name = 'DEFAULT';
-          console.log(booker_last_name);
-        }
-        else{
-          var booker_last_name = this.posts[index].Booker.Person.last_name;
-          console.log(booker_last_name);
-        }
-
-
-      if(this.posts[index].Mission.name == null || this.posts[index].Mission.name == undefined){
-          var missionName = 'DEFAULT';
-        }
-        else{
-          var missionName = this.posts[index].Mission.name;
-        }
-
-      if(this.posts[index].size == null || this.posts[index].size == undefined){
-          var teamSizeItem = '0';
-        }
-        else{
-          var teamSizeItem = this.posts[index].size;
-        }
-
-      // var bookerName = this.posts[index].Booker.Person.first_name+' '+this.posts[index].Booker.Person.last_name;
-      // var missionName = this.posts[index].Mission.name;
-      // var teamSizeItem = this.posts[index].size;
-
-      var bookerName = booker_first_name+' '+booker_last_name;
+      var bookerName = this.posts[index].Booker.Person.first_name+' '+this.posts[index].Booker.Person.last_name;
+      var missionName = this.posts[index].Mission.name;
+      var teamSizeItem = this.posts[index].size;
       
       /** conversion of date and time for second part **/
-
-      if(this.posts[index].reservation_for == null || this.posts[index].reservation_for == undefined){
-          var date = ' ';
-        }
-        else{
-          var date = this.posts[index].reservation_for;
-        }
-
-        // var date = this.posts[index].reservation_for;
+        var date = this.posts[index].reservation_for;
 
         var reservation_for_converted = moment.utc(date).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
         var onlyDate = moment.utc(date).format('MM-DD-YYYY');
@@ -942,103 +896,23 @@ var arrows = document.getElementsByClassName("covertedtime");
         // console.log(this.posts[index].Reservation_people[i]);
         // console.log(this.posts[index].Reservation_people[i].Person.first_name);
 
-        if(this.posts[index].Reservation_people[i].Person.first_name == null || this.posts[index].Reservation_people[i].Person.first_name == undefined){
-          var player_first_name = 'DEFAULT';
-          console.log(player_first_name);
-        }
-        else{
-          var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
-          console.log(player_first_name);
-        }
-
-        if(this.posts[index].Reservation_people[i].Person.last_name == null || this.posts[index].Reservation_people[i].Person.last_name == undefined){
-          var player_last_name = 'DEFAULT';
-          console.log(player_last_name);
-        }
-        else{
-          var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
-          console.log(player_last_name);
-        }
-
-        if(this.posts[index].Reservation_people[i].Person.phone == null || this.posts[index].Reservation_people[i].Person.phone == undefined){
-          var player_cell_number = 'DEFAULT';
-        }
-        else{
-          var player_cell_number = this.this.posts[index].Reservation_people[i].Person.phone;
-        }
-
-        if(this.posts[index].Mission.name == null || this.posts[index].Mission.name == undefined){
-          var missionName = 'DEFAULT';
-        }
-        else{
-          var missionName = this.posts[index].Mission.name;
-        }
-
-
-        if(this.posts[index].Mission.id == null || this.posts[index].Mission.id == undefined){
-          var missionId = 'DEFAULT';
-        }
-        else{
-          var missionId = this.posts[index].Mission.id;
-        }
-
-        if(this.posts[index].Reservation_people[i].arrived == null || this.posts[index].Reservation_people[i].arrived == undefined){
-          var reservation_people_minor_table_id = '0';
-        }
-        else{
-          var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].arrived;
-        }
-
-
-        // var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
-        // var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
-        // var player_cell_number = this.posts[index].Reservation_people[i].Person.phone;
-        // var player_full_name = player_first_name+' '+player_last_name;
-
+        var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
+        var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
+        var player_cell_number = this.posts[index].Reservation_people[i].Person.phone;
         var player_full_name = player_first_name+' '+player_last_name;
 
         var player_person_id = this.posts[index].Reservation_people[i].Person.id;
 
-        if(this.posts[index].Reservation_people[i].Person.id == null || this.posts[index].Reservation_people[i].Person.id == undefined){
-          var player_person_id = '0';
-        }
-        else{
-          var player_person_id = this.posts[index].Reservation_people[i].Person.id;
-        }
-
         // var player_id = this.posts[index].Reservation_people[i].Person.Player.id;
 
-        // var missionName = this.posts[index].Mission.name;
-        // var missionId = this.posts[index].Mission.id;
+        var missionName = this.posts[index].Mission.name;
+        var missionId = this.posts[index].Mission.id;
 
         // var playCount = this.posts[index].Reservation_people[i].Person.Player.play_count;
-        // var arrived = this.posts[index].Reservation_people[i].arrived;
+        var arrived = this.posts[index].Reservation_people[i].arrived;
+        var non_player_value = this.posts[index].Reservation_people[i].non_player;
 
-        if(this.posts[index].Reservation_people[i].arrived == null || this.posts[index].Reservation_people[i].arrived == undefined){
-          var arrived = ' ';
-        }
-        else{
-          var arrived = this.posts[index].Reservation_people[i].arrived;
-        }
-
-        if(this.posts[index].Reservation_people[i].non_player == null || this.posts[index].Reservation_people[i].non_player == undefined){
-          var non_player_value = ' ';
-        }
-        else{
-          var non_player_value = this.posts[index].Reservation_people[i].non_player;
-        }
-
-        if(this.posts[index].Reservation_people[i].id == null || this.posts[index].Reservation_people[i].id == undefined){
-          var reservation_people_minor_table_id = ' ';
-        }
-        else{
-          var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].id;
-        }
-
-
-        // var non_player_value = this.posts[index].Reservation_people[i].non_player;
-
-        // var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].id;
+        var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].id;
         var reservation_for = reservation_for_converted;
         console.log(player_full_name);
         console.log(player_person_id);
@@ -1084,98 +958,19 @@ var arrows = document.getElementsByClassName("covertedtime");
           for(let i=0; i < countReservationMinor; i++){
             
             console.log(item);
+            var nonMinorPhone = this.personPhoneNumber;
 
-            if(this.personPhoneNumber == null || this.personPhoneNumber == undefined){
-              var nonMinorPhone = '123456789';
-            }
-            else{
-              var nonMinorPhone = this.personPhoneNumber;
-            }
-
-            if(this.posts[index].Reservation_minors[i].Player_minor.last_name == null || this.posts[index].Reservation_minors[i].Player_minor.last_name == undefined){
-              var minor_last_name = 'default';
-              console.log(minor_last_name);
-            }
-            else{
-              var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
-              console.log(minor_last_name);
-            }
-
-            if(this.posts[index].Reservation_minors[i].Player_minor.first_name == null || this.posts[index].Reservation_minors[i].Player_minor.first_name == undefined){
-              var minor_first_name = 'default';
-              console.log(minor_first_name);
-            }
-            else{
-              var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
-              console.log(minor_first_name);
-            }
-
-
-            if(this.posts[index].Reservation_minors[i].Player_minor.id == null || this.posts[index].Reservation_minors[i].Player_minor.id == undefined){
-              var minor_person_id = ' ';
-            }
-            else{
-              var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
-            }
-
-            if(this.posts[index].Reservation_minors[i].Player_minor.player_id == null || this.posts[index].Reservation_minors[i].Player_minor.player_id == undefined){
-              var minor_player_id = ' ';
-            }
-            else{
-              var minor_player_id = this.posts[index].Reservation_minors[i].Player_minor.player_id;
-            }
-
-            if(this.posts[index].Mission.name == null || this.posts[index].Mission.name == undefined){
-              var missionName = ' ';
-            }
-            else{
-              var missionName = this.posts[index].Mission.name;
-            }
-
-            if(this.posts[index].Mission.id == null || this.posts[index].Mission.id == undefined){
-              var missionId = '0';
-            }
-            else{
-              var missionId = this.posts[index].Mission.id;;
-            }
-
-            if(this.posts[index].Reservation_minors[i].arrived == null || this.posts[index].Reservation_minors[i].arrived == undefined){
-              var minorArrived = ' ';
-            }
-            else{
-              var minorArrived = this.posts[index].Reservation_minors[i].arrived;;
-            }
-
-            if(this.posts[index].Reservation_minors[i].non_player == null || this.posts[index].Reservation_minors[i].non_player == undefined){
-              var non_player_minor_value = ' ';
-            }
-            else{
-              var non_player_minor_value = this.posts[index].Reservation_minors[i].non_player;;
-            }
-
-            if(this.posts[index].Reservation_minors[i].id == null || this.posts[index].Reservation_minors[i].id == undefined){
-              var reservation_people_minor_table_id = ' ';
-            }
-            else{
-              var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;;
-            }
-
-
-
-            // var nonMinorPhone = this.personPhoneNumber;
-
-            // var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
-            // var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
+            var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
+            var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
             var player_cell_number = nonMinorPhone;
             var minor_full_name = minor_first_name+' '+minor_last_name;
-
-            // var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
-            // var minor_player_id = this.posts[index].Reservation_minors[i].Player_minor.player_id;
-            // var missionName = this.posts[index].Mission.name;
-            // var missionId = this.posts[index].Mission.id;
-            // var minorArrived = this.posts[index].Reservation_minors[i].arrived;
-            // var non_player_minor_value = this.posts[index].Reservation_minors[i].non_player;
-            // var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;
+            var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
+            var minor_player_id = this.posts[index].Reservation_minors[i].Player_minor.player_id;
+            var missionName = this.posts[index].Mission.name;
+            var missionId = this.posts[index].Mission.id;
+            var minorArrived = this.posts[index].Reservation_minors[i].arrived;
+            var non_player_minor_value = this.posts[index].Reservation_minors[i].non_player;
+            var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;
             var reservation_for = reservation_for_converted;
 
             console.log(i);
