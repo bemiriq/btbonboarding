@@ -430,8 +430,12 @@ import axios from 'axios';
           console.log(this.teamList[index]);
 
           var onlyDate = this.teamList[index].updatedAt;
-          var filterByDate = moment(onlyDate).format("MM-DD-YYYY");
+          console.log("ONLY DATE "+onlyDate);
+
+          var filterByDate = moment(onlyDate).format('MM-DD-YYYY');
           this.date = filterByDate;
+
+          console.log(filterByDate);
 
           this.bombtime = this.teamList[index].bomb_time;
           this.total_score = this.teamList[index].total_score;
