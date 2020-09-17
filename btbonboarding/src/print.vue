@@ -587,14 +587,14 @@ import axios from 'axios';
     }
 
     .seconddiv{
-      background-color: black;
-      color:white;
+      background-color: white;
+      /*color:black;*/
 /*      margin-right: 5cm;*/
     }
 
     .thirddiv{
-      background-color: black;
-      color: white;
+      background-color: white;
+      /*color: black;*/
       height: 20cm !important;
     }
 
@@ -674,7 +674,7 @@ import axios from 'axios';
     .performanceText{
       width: 20cm !important;
       height: 2cm !important;
-      color: white;
+      color: purple;
       font-size: 1.7cm;
       font-family: 'Aero Matics Stencil', regular;
       margin-top: -1.5cm;
@@ -687,15 +687,16 @@ import axios from 'axios';
     .playerDiv{
       width: 25cm !important;
       height: 2cm !important;
-      background-color: black !important;
+      background-color: white !important;
       margin-left: 1.1cm;
+      color: black;
     }
 
     .playertext{
       width: 22cm !important;
       height: 3cm !important;
       background-color: black !important;
-      color: white;
+      color: black;
       font-size: 0.6cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: left;
@@ -711,6 +712,7 @@ import axios from 'axios';
       font-size: 1.4cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: right;
+      color: black;
     }
 
     .datetext{
@@ -723,6 +725,7 @@ import axios from 'axios';
       margin-top: 1.5cm;
       font-size: 0.85cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedColumn{
@@ -734,6 +737,7 @@ import axios from 'axios';
       margin-top: 6cm;
       font-size: 0.85cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedRoom1{
@@ -745,6 +749,7 @@ import axios from 'axios';
       margin-top: 1.4cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedRoom2{
@@ -756,6 +761,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedRoom3{
@@ -767,6 +773,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedRoom4{
@@ -778,6 +785,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .percentileColumn{
@@ -789,6 +797,7 @@ import axios from 'axios';
       margin-top: -16.3cm;
       font-size: 0.85cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .percentileRoom1{
@@ -800,6 +809,7 @@ import axios from 'axios';
       margin-top: 1.35cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .percentileRoom2{
@@ -810,6 +820,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .percentileRoom3{
@@ -820,6 +831,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
     
     .percentileRoom4{
@@ -830,6 +842,7 @@ import axios from 'axios';
       margin-top: 3.3cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
+      color: black;
     }
 
     .timeEarnedBox{
@@ -860,7 +873,7 @@ import axios from 'axios';
       margin-top: -0.18cm;
       font-size: 0.8cm;
       font-family: 'Aero Matics Stencil', regular;
-      color: white;
+      color: black;
       background-color: white;
     }
 
@@ -883,7 +896,7 @@ import axios from 'axios';
       margin-top: 1.5cm;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
-      color: white;
+      color: black;
       /*background-color: green;*/
     }
 
@@ -900,7 +913,7 @@ import axios from 'axios';
       height: 1cm !important;
       margin-left: 14.9cm;
       margin-top: -1cm;
-      color: white;
+      color: black;
       font-size: 0.7cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: left;
@@ -930,7 +943,7 @@ import axios from 'axios';
       margin-top: 0.4cm;
       width: 8.5cm !important;
       height: 1cm !important;
-      color: white;
+      color: black;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: center;
@@ -941,7 +954,7 @@ import axios from 'axios';
       margin-top: -1.05cm;
       width: 8.5cm !important;
       height: 1cm !important;
-      color: white;
+      color: black;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: center;
@@ -964,7 +977,7 @@ import axios from 'axios';
     }
 
     .totalScoreTitle{
-      color: white;
+      color: black;
       margin-left: 13.5cm;
       margin-top: -1cm;
       width: 8.5cm !important;
@@ -975,7 +988,7 @@ import axios from 'axios';
     }
 
     .overallRankingTitle{
-      color: white;
+      color: black;
       margin-left: 22.5cm;
       margin-top: -1cm;
       width: 8.5cm !important;
@@ -986,7 +999,7 @@ import axios from 'axios';
     }
 
     .digitsTime{
-      color: white;
+      color: black;
       margin-left: 13.5cm;
       margin-top: 0.6cm;
       width: 8.5cm !important;
@@ -997,7 +1010,7 @@ import axios from 'axios';
     }
 
     .digitsTimeCalculation{
-      color: white;
+      color: black;
       margin-left: 13.5cm;
       margin-top: 0.1cm;
       width: 8.5cm !important;
@@ -1008,7 +1021,7 @@ import axios from 'axios';
     }
 
     .totalRankings{
-      color: white;
+      color: black;
       margin-left: 22.5cm;
       margin-top: -2.1cm;
       width: 8.5cm !important;
@@ -1019,7 +1032,7 @@ import axios from 'axios';
     }
 
     .totalRankingsPercantile{
-      color: white;
+      color: black;
       margin-left: 22.5cm;
       margin-top: 0.1cm;
       width: 8.5cm !important;
@@ -1039,7 +1052,7 @@ import axios from 'axios';
   }
   #section-to-print {
     /*background-color: black !important;*/
-    color: white !important;
+    color: black !important;
 
   }
 
