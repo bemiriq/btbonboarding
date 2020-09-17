@@ -490,8 +490,26 @@ import axios from 'axios';
             this.room1 = '00:00';
           }
           else{
-            var room1 = this.teamList[index].Session_game_scores[0].score;
+            var room1Score = this.teamList[index].Session_game_scores[0].score;
             this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
+
+            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+            var gameId = this.teamList[index].Session_game_scores[0].game_id;
+
+            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room1Score,{
+            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+            })
+            .then(response => {
+              console.log(response);
+              console.log("ABOVE DATA");
+              // this.teamList = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
           }
 
           if(this.teamList[index].Session_game_scores[1].score == undefined){
@@ -719,6 +737,7 @@ import axios from 'axios';
       font-family: 'Aero Matics Stencil', regular;
       text-align: left;
       margin-top: 0.2cm;
+      border:none; /** hide the list border **/
     }
 
     .teamtext{
