@@ -2689,9 +2689,10 @@ export default {
             "team_drag_time" : boxTime
           }
 
-        this.toListFetchRouteA1 = replyDataObj1;
+        // this.toListFetchRouteA1 = replyDataObj1;
 
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        // this.fetchPlayerList.push(this.toListFetchRouteA1);
+        
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
         axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
@@ -2713,6 +2714,7 @@ export default {
                           console.log(response.data[0]);
 
                           // this.toListFetchRouteA1 = response.data[0];
+
                           var trackId = response.data[0].id;
                           console.log(trackId);
 
