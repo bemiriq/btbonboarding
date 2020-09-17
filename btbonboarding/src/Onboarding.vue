@@ -2933,7 +2933,7 @@ export default {
 
                           // if (trackId > 0) { 
                             
-                              // this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              this.fetchPlayerList.push(this.toListFetchRouteA1);
                               
                               // console.log("SAAAAAAA");
                           // }
