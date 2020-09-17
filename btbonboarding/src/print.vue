@@ -495,6 +495,7 @@ import axios from 'axios';
             this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
             this.bombDigitDecoded = this.teamList[index].Session_game_scores[0].level_achieved;
+            this.totalSeconds = this.teamList[index].score;
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
@@ -506,6 +507,12 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
+
+              var fetchedRank = response.data.rank;
+              var filterByTwoDecimal = fetchedRank.toFixed(2);
+              var subtractRank = 100*(1-filterByTwoDecimal);
+              console.log("subtractRank "+subtractRank);
+
               console.log("ABOVE DATA BM");
               // this.teamList = response.data;
             })
