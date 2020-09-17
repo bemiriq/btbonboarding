@@ -873,6 +873,14 @@ var arrows = document.getElementsByClassName("covertedtime");
       }
 
 
+      if(this.posts[index].size == 'undefined'){
+        var teamSizeItem = ' ';
+      }
+      else{
+        var teamSizeItem = this.posts[index].size;
+      }
+
+
       var bookerName = bookerFirstName+' '+bookerLastName;
       // var missionName = this.posts[index].Mission.name;
       // var teamSizeItem = this.posts[index].size;
