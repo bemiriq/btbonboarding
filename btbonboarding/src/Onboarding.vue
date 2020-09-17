@@ -2712,7 +2712,7 @@ export default {
 
                           console.log(response.data[0]);
 
-                          this.toListFetchRouteA1 = response.data[0];
+                          // this.toListFetchRouteA1 = response.data[0];
                           var trackId = response.data[0].id;
                           console.log(trackId);
 
@@ -2929,7 +2929,7 @@ export default {
 
                           // if (trackId > 0) { 
                             
-                             
+                              this.fetchPlayerList.push(this.toListFetchRouteA1);
                               // console.log("SAAAAAAA");
                           // }
 
