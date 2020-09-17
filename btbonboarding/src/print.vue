@@ -97,7 +97,7 @@
                   <div class="col-sm seconddiv">
                     
                     <div class="btblogo">
-                      <img src="./assets/BTB Logo.png" class="btblogodetail"/>
+                      <img src="./assets/btb.png" class="btblogodetail"/>
                     </div>
 
                     <div class="performanceText">
@@ -206,7 +206,8 @@
                     </div>
 
                     <div class="bombBoolean">
-                      NO
+                      <b v-if="bombDigitDecoded > 9">YES</b>
+                      <b v-else>NO</b>
                       <!-- <p v-if="bombDigitDecoded > '9'">YES</p>
                       <p v-else>NO</p> -->
                     </div>
