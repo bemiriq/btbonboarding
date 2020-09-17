@@ -491,7 +491,7 @@ import axios from 'axios';
           }
           else{
             var room1Score = this.teamList[index].Session_game_scores[0].score;
-            this.room1 = moment().startOf('day').seconds(room1).format("mm:ss");
+            this.room1 = moment().startOf('day').seconds(room1Score).format("mm:ss");
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
