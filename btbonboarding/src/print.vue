@@ -588,7 +588,7 @@ import axios from 'axios';
 
     .seconddiv{
       background-color: white;
-      color:white;
+      color:black;
 /*      margin-right: 5cm;*/
     }
 
@@ -674,7 +674,7 @@ import axios from 'axios';
     .performanceText{
       width: 20cm !important;
       height: 2cm !important;
-      color: black;
+      color: purple;
       font-size: 1.7cm;
       font-family: 'Aero Matics Stencil', regular;
       margin-top: -1.5cm;
