@@ -206,7 +206,7 @@
                     </div>
 
                     <div class="bombBoolean">
-                      <p v-if="bombDigitDecoded == '10'">YES</p>
+                      <p v-if="bombDigitDecoded > '9'">YES</p>
                       <p v-else>NO</p>
                     </div>
 
@@ -239,7 +239,7 @@
                     </div>
 
                     <div class="totalRankingsPercantile">
-                      56 % percentile
+                      56 %
                     </div>
 
                   </div>
