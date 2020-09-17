@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="datetext">
-                      08-28-2020
+                      {{date}}
                     </div>
 
                     <div class="timeEarnedColumn">
@@ -169,7 +169,7 @@
                     </div>
 
                     <div class="timeEarnedBoxText">
-                      TIME EARNED TO DEFEAT THE <br> <!-- BLOCK MONSTER -->
+                      TIME EARNED TO DEFEAT <br> <!-- BLOCK MONSTER -->
                       {{missionDetailTitle}}
                     </div>
 
@@ -190,7 +190,7 @@
                     </div>
 
                     <div class="bombDigitTitle">
-                      BOMB DIGIT DECODED
+                      BOMB DIGITS DECODED
                     </div>
 
                     <div class="didYouBTBdiv">
@@ -202,11 +202,12 @@
                     </div>
 
                     <div class="bombDigitDecoded">
-                      9
+                      {{bombDigitDecoded}}
                     </div>
 
                     <div class="bombBoolean">
-                      NO
+                      <p v-if="bombDigitDecoded == '10'">YES</p>
+                      <p v-else>NO</p>
                     </div>
 
                     <div class="totalScoreDiv">
@@ -360,6 +361,9 @@ import axios from 'axios';
         roomname4:'',
         roomname5:'',
 
+        bombDigitDecoded: '',
+        date: ''
+
       }
 
     },
@@ -425,6 +429,10 @@ import axios from 'axios';
 
           console.log(this.teamList[index]);
 
+          var onlyDate = this.teamList[index].updatedAt;
+          var filterByDate = moment(onlyDate).format("MM-DD-YYYY");
+          this.date = filterByDate;
+
           this.bombtime = this.teamList[index].bomb_time;
           this.total_score = this.teamList[index].total_score;
           this.size = this.teamList[index].player_count;
@@ -488,27 +496,28 @@ import axios from 'axios';
           }
 
           if(this.teamList[index].Session_game_scores[2].score == undefined){
+            this.room4 = '00:00';
+          }
+          else{
+            var room4 = this.teamList[index].Session_game_scores[2].score;
+            this.room4 = moment().startOf('day').seconds(room3).format("mm:ss");
+          }
+
+          if(this.teamList[index].Session_game_scores[4].score == undefined){
             this.room3 = '00:00';
           }
           else{
-            var room3 = this.teamList[index].Session_game_scores[2].score;
+            var room3 = this.teamList[index].Session_game_scores[4].score;
             this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
           }
 
           if(this.teamList[index].Session_game_scores[3].score == undefined){
-            this.room4 = '00:00';
-          }
-          else{
-            var room4 = this.teamList[index].Session_game_scores[3].score;
-            this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
-          }
-
-          if(this.teamList[index].Session_game_scores[4].score == undefined){
             this.room5 = '00:00';
           }
           else{
-            var room5 = this.teamList[index].Session_game_scores[4].score;
+            var room5 = this.teamList[index].Session_game_scores[3].score;
             this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+            this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].score;
           }
 
           /** this will pass all the image name for room 1 to 5 **/
@@ -674,11 +683,11 @@ import axios from 'axios';
     .performanceText{
       width: 20cm !important;
       height: 2cm !important;
-      color: black;
+      /*color: black;*/
       font-size: 1.7cm;
       font-family: 'Aero Matics Stencil', regular;
       margin-top: -1.5cm;
-      /*background-color: black !important;*/
+      background-color: white !important;
       margin-left: 1.6cm;
       text-align: left;
       /*margin-left: 2.55cm;*/
@@ -689,7 +698,7 @@ import axios from 'axios';
       height: 2cm !important;
       background-color: white !important;
       margin-left: 1.1cm;
-      color: black;
+      color: white;
     }
 
     .playertext{
@@ -913,7 +922,7 @@ import axios from 'axios';
       height: 1cm !important;
       margin-left: 14.9cm;
       margin-top: -1cm;
-      color: black;
+      color: white;
       font-size: 0.7cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: left;
@@ -977,7 +986,7 @@ import axios from 'axios';
     }
 
     .totalScoreTitle{
-      color: black;
+      color: white;
       margin-left: 13.5cm;
       margin-top: -1cm;
       width: 8.5cm !important;
@@ -988,7 +997,7 @@ import axios from 'axios';
     }
 
     .overallRankingTitle{
-      color: black;
+      color: white;
       margin-left: 22.5cm;
       margin-top: -1cm;
       width: 8.5cm !important;
