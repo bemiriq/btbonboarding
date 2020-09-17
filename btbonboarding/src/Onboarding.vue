@@ -2690,10 +2690,10 @@ export default {
           }
 
         console.log(replyDataObj1);
-        
+
         this.toListFetchRouteA1 = replyDataObj1;
 
-        // this.fetchPlayerList.push(this.toListFetchRouteA1);
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
         
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
@@ -2933,7 +2933,8 @@ export default {
 
                           // if (trackId > 0) { 
                             
-                              this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              // this.fetchPlayerList.push(this.toListFetchRouteA1);
+                              
                               // console.log("SAAAAAAA");
                           // }
 
