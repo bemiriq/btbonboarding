@@ -206,8 +206,9 @@
                     </div>
 
                     <div class="bombBoolean">
-                      <p v-if="bombDigitDecoded > '9'">YES</p>
-                      <p v-else>NO</p>
+                      NO
+                      <!-- <p v-if="bombDigitDecoded > '9'">YES</p>
+                      <p v-else>NO</p> -->
                     </div>
 
                     <div class="totalScoreDiv">
@@ -227,7 +228,7 @@
                     </div>
 
                     <div class="digitsTime">
-                      180 seconds x 9 digits
+                      {{totalSeconds}} seconds x {{bombDigitDecoded}} digits
                     </div>
 
                     <div class="digitsTimeCalculation">
@@ -362,7 +363,8 @@ import axios from 'axios';
         roomname5:'',
 
         bombDigitDecoded: '',
-        date: ''
+        date: '',
+        totalSeconds: ''
 
       }
 
@@ -514,13 +516,16 @@ import axios from 'axios';
             var room3 = this.teamList[index].Session_game_scores[4].score;
             this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
           }
+
           if(this.teamList[index].Session_game_scores[3].score == undefined){
             this.room5 = '00:00';
           }
           else{
             var room5 = this.teamList[index].Session_game_scores[3].score;
+            this.totalSeconds = this.teamList[index].Session_game_scores[3].score;
+
             this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
-            this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].score;
+            this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].level_achieved;
           }
 
           /** this will pass all the image name for room 1 to 5 **/
