@@ -588,13 +588,13 @@ import axios from 'axios';
 
     .seconddiv{
       background-color: white;
-      color:black;
+      /*color:black;*/
 /*      margin-right: 5cm;*/
     }
 
     .thirddiv{
-      background-color: white;
-      color: white;
+      background-color: red;
+      /*color: black;*/
       height: 20cm !important;
     }
 
@@ -689,6 +689,7 @@ import axios from 'axios';
       height: 2cm !important;
       background-color: white !important;
       margin-left: 1.1cm;
+      color: black;
     }
 
     .playertext{
@@ -1051,7 +1052,7 @@ import axios from 'axios';
   }
   #section-to-print {
     /*background-color: black !important;*/
-    color: white !important;
+    color: black !important;
 
   }
 

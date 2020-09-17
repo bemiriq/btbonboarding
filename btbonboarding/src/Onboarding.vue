@@ -610,7 +610,7 @@
 
                     <!-- <div v-if="this.teamName1.length > 1"> checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="fetchPlayerList[10] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[10] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[10].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 10)" @change="deleteTeamPlayerSessionAfterReload1($event, 10)">
@@ -669,9 +669,9 @@
                     </draggable -->
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
+                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
 
@@ -826,7 +826,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[11] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[11] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[11].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 11)" @change="deleteTeamPlayerSessionAfterReload1($event, 11)">
@@ -875,9 +875,9 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
+                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list11" :key="index">
 
@@ -1024,7 +1024,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[12] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[12] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[12].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 12)" @change="deleteTeamPlayerSessionAfterReload1($event, 12)">
@@ -1073,9 +1073,9 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list12" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 12, index)" @change="onDropReservation1($event, 12)">
+                            <draggable id="first" data-source="juju" :list="list12" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 12, index)" @change="onDropReservation1($event, 12)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list12" :key="index">
 
@@ -1215,7 +1215,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[13] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[13] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[13].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 13)" @change="deleteTeamPlayerSessionAfterReload1($event, 13)">
@@ -1264,9 +1264,9 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list13" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 13, index)" @change="onDropReservation1($event, 13)">
+                            <draggable id="first" data-source="juju" :list="list13" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 13, index)" @change="onDropReservation1($event, 13)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list13" :key="index">
 
@@ -1412,7 +1412,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[14] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[14] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[14].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 14)" @change="deleteTeamPlayerSessionAfterReload1($event, 14)">
@@ -1461,9 +1461,9 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)">
+                            <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list14" :key="index">
 
@@ -1592,7 +1592,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[15] > '0'"  style="height: 360px;border-style: outset;">
+                        <div v-if="fetchPlayerList[15] > '0'"  style="height: 420px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList[15].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 15)" @change="deleteTeamPlayerSessionAfterReload1($event, 15)">
@@ -1641,9 +1641,9 @@
 
 
                           <div v-else>
-                            <draggable id="first" data-source="juju" :list="list15" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1($event, 15, index)" @change="onDropReservation1($event, 15)">
+                            <draggable id="first" data-source="juju" :list="list15" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1($event, 15, index)" @change="onDropReservation1($event, 15)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 360px; border-style: outset;" @add="onDrop1"> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 420px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list15" :key="index">
 
@@ -1781,7 +1781,7 @@
                       :list="list8"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 360px; border-style: outset;"
+                      group="a" style="height: 420px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1865,7 +1865,7 @@
                       :list="list9"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 360px; border-style: outset;"
+                      group="a" style="height: 420px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -1959,7 +1959,7 @@
                       :list="list10"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 360px; border-style: outset;"
+                      group="a" style="height: 420px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -2043,7 +2043,7 @@
                       :list="list11"
                       class="list-group"
                       draggable=".item"
-                      group="a" style="height: 360px; border-style: outset;"
+                      group="a" style="height: 420px; border-style: outset;"
                     >
                       <div
                         class="list-group-item item"
@@ -2934,7 +2934,7 @@ export default {
                           // if (trackId > 0) { 
                             
                               this.fetchPlayerList.push(this.toListFetchRouteA1);
-                              
+
                               // console.log("SAAAAAAA");
                           // }
 
