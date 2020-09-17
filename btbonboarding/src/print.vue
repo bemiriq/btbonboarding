@@ -504,7 +504,7 @@ import axios from 'axios';
           }
           else{
             var room4 = this.teamList[index].Session_game_scores[2].score;
-            this.room4 = moment().startOf('day').seconds(room3).format("mm:ss");
+            this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
           }
 
           if(this.teamList[index].Session_game_scores[4].score == undefined){
@@ -514,7 +514,6 @@ import axios from 'axios';
             var room3 = this.teamList[index].Session_game_scores[4].score;
             this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
           }
-
           if(this.teamList[index].Session_game_scores[3].score == undefined){
             this.room5 = '00:00';
           }
