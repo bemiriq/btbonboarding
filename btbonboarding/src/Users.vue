@@ -129,7 +129,16 @@
                   </td>
 
                   <td v-on:click="selectItem ($event, posts, item, index)">
-                    <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button>
+                    <!-- <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button> -->
+
+                    <b-button block pill variant="outline-info" v-if="item.Booker.Person.last_name == 'undefined'">
+                      {{item.Booker.Person.first_name}}
+                    </b-button>
+
+                    <b-button block pill variant="outline-info" v-else>
+                      {{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}
+                    </b-button>
+
                   </td>
 
                   <td>
@@ -960,8 +969,8 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(item);
             var nonMinorPhone = this.personPhoneNumber;
 
-            var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
-            var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
+            var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
+            var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
             var player_cell_number = nonMinorPhone;
             var minor_full_name = minor_first_name+' '+minor_last_name;
             var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
