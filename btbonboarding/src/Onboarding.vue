@@ -2689,7 +2689,9 @@ export default {
             "team_drag_time" : boxTime
           }
 
-        // this.toListFetchRouteA1 = replyDataObj1;
+        console.log(replyDataObj1);
+        
+        this.toListFetchRouteA1 = replyDataObj1;
 
         // this.fetchPlayerList.push(this.toListFetchRouteA1);
         
