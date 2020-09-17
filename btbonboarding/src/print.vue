@@ -510,8 +510,13 @@ import axios from 'axios';
 
               var fetchedRank = response.data.rank;
               var filterByTwoDecimal = fetchedRank.toFixed(2);
-              var subtractRank = 100*(1-filterByTwoDecimal);
+              console.log(filterByTwoDecimal);
+
+              var subtractRank = 1-filterByTwoDecimal;
               console.log("subtractRank "+subtractRank);
+
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
               console.log("ABOVE DATA BM");
               // this.teamList = response.data;
@@ -604,7 +609,7 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
-              console.log("ABOVE DATA HA");
+              console.log("ABOVE DATA FG");
               // this.teamList = response.data;
             })
             .catch(function (error) {
@@ -634,7 +639,7 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
-              console.log("ABOVE DATA HA");
+              console.log("ABOVE DATA LM");
               // this.teamList = response.data;
             })
             .catch(function (error) {
