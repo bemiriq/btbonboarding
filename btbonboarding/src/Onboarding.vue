@@ -2154,7 +2154,8 @@
 
                       <b-row>
                         <b-col sm="8">
-                          {{element.Person.first_name}} {{element.Person.last_name}}
+                          <p v-if="element.Person.last_name == 'undefined'"> {{element.Person.first_name}}</p>
+                          <p v-else> {{element.Person.first_name}} {{element.Person.last_name}} </p>
                         </b-col>
 
                         <b-col sm="1">
