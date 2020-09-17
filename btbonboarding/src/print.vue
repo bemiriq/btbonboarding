@@ -149,19 +149,19 @@
                     </div>
 
                     <div class="percentileRoom1">
-                      <!-- 56% -->
+                      56%
                     </div>
 
                     <div class="percentileRoom2">
-                      <!-- 9% -->
+                      9%
                     </div>
 
                     <div class="percentileRoom3">
-                      <!-- 20% -->
+                      20%
                     </div>
 
                     <div class="percentileRoom4">
-                      <!-- 56% -->
+                      56%
                     </div>
 
                     <div class="timeEarnedBox">
@@ -674,7 +674,7 @@ import axios from 'axios';
     .performanceText{
       width: 20cm !important;
       height: 2cm !important;
-      color: purple;
+      color: black;
       font-size: 1.7cm;
       font-family: 'Aero Matics Stencil', regular;
       margin-top: -1.5cm;
@@ -873,8 +873,8 @@ import axios from 'axios';
       margin-top: -0.18cm;
       font-size: 0.8cm;
       font-family: 'Aero Matics Stencil', regular;
-      color: black;
-      background-color: white;
+      color: white;
+      background-color: black;
     }
 
     .timeEarnedWhiteBoxText{
