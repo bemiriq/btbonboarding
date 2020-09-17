@@ -97,7 +97,7 @@
                   <div class="col-sm seconddiv">
                     
                     <div class="btblogo">
-                      <img src="./assets/BTB Logo.png" class="btblogodetail" />
+                      <img src="./assets/BTB Logo.png" class="btblogodetail"/>
                     </div>
 
                     <div class="performanceText">
@@ -239,7 +239,7 @@
                     </div>
 
                     <div class="totalRankingsPercantile">
-                      56 %
+                      56 % percentile
                     </div>
 
                   </div>
@@ -707,7 +707,7 @@ import axios from 'axios';
     .playertext{
       width: 22cm !important;
       height: 3cm !important;
-      background-color: black !important;
+      background-color: white !important;
       color: black;
       font-size: 0.6cm;
       font-family: 'Aero Matics Stencil', regular;
@@ -966,7 +966,7 @@ import axios from 'axios';
       margin-top: -1.05cm;
       width: 8.5cm !important;
       height: 1cm !important;
-      color: black;
+      color: black !important;
       font-size: 1.2cm;
       font-family: 'Aero Matics Stencil', regular;
       text-align: center;
@@ -1089,6 +1089,7 @@ import axios from 'axios';
   .btblogodetail{
     width: 10cm !important;
     height: 2.5cm !important;
+    color: black;
   }
 
 }
