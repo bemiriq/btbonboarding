@@ -541,7 +541,7 @@ import axios from 'axios';
               var filterIntoPercentile = subtractRank*100;
               console.log(filterIntoPercentile);
 
-              this.bombRoomPercentage = filterIntoPercentile;
+              this.bombRoomPercentage = Math.(filterIntoPercentile);
 
               console.log("ABOVE DATA BM");
               // this.teamList = response.data;
@@ -590,7 +590,7 @@ import axios from 'axios';
               var filterIntoPercentile = subtractRank*100;
               console.log(filterIntoPercentile);
 
-              this.echoChamberPercentage = filterIntoPercentile;
+              this.echoChamberPercentage = Math.(filterIntoPercentile);
 
               console.log("ABOVE DATA EC");
               // this.teamList = response.data;
@@ -641,7 +641,7 @@ import axios from 'axios';
               var filterIntoPercentile = subtractRank*100;
               console.log(filterIntoPercentile);
 
-              this.hackAttackPercentage = filterIntoPercentile;
+              this.hackAttackPercentage = Math.(filterIntoPercentile);
 
               console.log("ABOVE DATA HA");
               // this.teamList = response.data;
@@ -692,7 +692,7 @@ import axios from 'axios';
               var filterIntoPercentile = subtractRank*100;
               console.log(filterIntoPercentile);
 
-              this.floorGridPercentage = filterIntoPercentile;
+              this.floorGridPercentage = Math.(filterIntoPercentile);
 
               console.log("ABOVE DATA FG");
               // this.teamList = response.data;
@@ -742,7 +742,7 @@ import axios from 'axios';
               var filterIntoPercentile = subtractRank*100;
               console.log(filterIntoPercentile);
 
-              this.laserMazePercentage = filterIntoPercentile;
+              this.laserMazePercentage = Math.(filterIntoPercentile);
 
 
               console.log("ABOVE DATA LM");
