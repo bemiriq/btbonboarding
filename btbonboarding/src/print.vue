@@ -149,19 +149,19 @@
                     </div>
 
                     <div class="percentileRoom1">
-                      {{hackAttackPercentage}}
+                      {{hackAttackPercentage}}%
                     </div>
 
                     <div class="percentileRoom2">
-                      {{laserMazePercentage}}
+                      {{laserMazePercentage}}%
                     </div>
 
                     <div class="percentileRoom3">
-                      {{echoChamberPercentage}}
+                      {{echoChamberPercentage}}%
                     </div>
 
                     <div class="percentileRoom4">
-                      {{floorGridPercentage}}
+                      {{floorGridPercentage}}%
                     </div>
 
                     <div class="timeEarnedBox">
