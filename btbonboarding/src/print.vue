@@ -370,7 +370,8 @@ import axios from 'axios';
         echoChamberPercentage: '',
         floorGridPercentage: '',
         bombRoomPercentage: '',
-        hackAttackPercentage: ''
+        hackAttackPercentage: '',
+        totalBombTime: ''
 
       }
 
@@ -445,8 +446,10 @@ import axios from 'axios';
 
           console.log(filterByDate);
 
-          this.totalBombTime = this.teamList[index].bomb_time;
+          var totalBombTime = this.teamList[index].bomb_time;
           this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
+
+          this.totalBombTime = totalBombTime;
 
           this.total_score = this.teamList[index].total_score;
           this.size = this.teamList[index].player_count;
