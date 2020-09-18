@@ -2684,11 +2684,11 @@ export default {
 
         // var replyDataObj1 = b;
 
-        //   replyDataObj1={
-        //     // "first_name": b,
-        //     "route_id" : routeId,
-        //     "team_drag_time" : boxTime
-        //   }
+          replyDataObj1={
+            // "first_name": b,
+            "route_id" : routeId,
+            "team_drag_time" : boxTime
+          }
 
         console.log("VALUE FOR B OUTSIDE "+b);
 
