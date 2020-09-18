@@ -2682,24 +2682,24 @@ export default {
         console.log(boxTime);
         console.log(routeId);
 
-        var replyDataObj1 = b;
+        // var replyDataObj1 = b;
 
-          replyDataObj1={
-            // "first_name": b,
-            "route_id" : routeId,
-            "team_drag_time" : boxTime
-          }
+        //   replyDataObj1={
+        //     // "first_name": b,
+        //     "route_id" : routeId,
+        //     "team_drag_time" : boxTime
+        //   }
 
         console.log("VALUE FOR B OUTSIDE "+b);
 
-        console.log(replyDataObj1);
+        // console.log(replyDataObj1);
 
-        this.toListFetchRouteA1 = replyDataObj1;
+        // this.toListFetchRouteA1 = replyDataObj1;
 
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        // this.fetchPlayerList.push(this.toListFetchRouteA1);
 
-        console.log(this.fetchPlayerList);
-        
+        // console.log(this.fetchPlayerList);
+
         
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
@@ -2726,14 +2726,13 @@ export default {
                           var trackId = response.data[0].id;
                           console.log(trackId);
 
-                          console.log(this.toListFetchRouteA1);
+                          // console.log(this.toListFetchRouteA1);
                           
                           var replyDataObj3 = response.data[0];
                           var replyDataObj2 = response.data[0];
 
                           for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
 
-                            
                             console.log(i);
                             console.log(response.data[0]);
                             var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
