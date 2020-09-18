@@ -2694,10 +2694,12 @@ export default {
 
         // console.log(replyDataObj1);
 
-        // this.toListFetchRouteA1 = replyDataObj1;
+        this.toListFetchRouteA1 = replyDataObj1;
 
-        // console.log(this.fetchPlayerList);
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
 
+        console.log(this.fetchPlayerList);
+        
         
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
@@ -2719,7 +2721,7 @@ export default {
 
                           console.log(response.data[0]);
 
-                          this.toListFetchRouteA1 = response.data[0];
+                          // this.toListFetchRouteA1 = response.data[0];
 
                           var trackId = response.data[0].id;
                           console.log(trackId);
@@ -2731,6 +2733,7 @@ export default {
 
                           for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
 
+                            
                             console.log(i);
                             console.log(response.data[0]);
                             var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
@@ -2947,7 +2950,6 @@ export default {
                           console.log("less");
                         }
 
-                      this.fetchPlayerList.push(this.toListFetchRouteA1);
                       
                       })
 
