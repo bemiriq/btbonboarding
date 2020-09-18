@@ -2698,11 +2698,21 @@ export default {
 
         console.log(this.toListFetchRouteA1);
 
-        console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
+        // console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
 
         // this.fetchPlayerList.push(this.toListFetchRouteA1);
 
         // console.log(this.fetchPlayerList);
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
+        .then(response => {
+                        console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
+                        console.log(response);
+                        console.log(response.data);
+              })
+        .catch(function (error) {
+                        console.log(error);
+                      });
 
         
         // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
