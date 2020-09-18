@@ -149,19 +149,19 @@
                     </div>
 
                     <div class="percentileRoom1">
-                      56%
+                      {{hackAttackPercentage}}
                     </div>
 
                     <div class="percentileRoom2">
-                      9%
+                      {{laserMazePercentage}}
                     </div>
 
                     <div class="percentileRoom3">
-                      20%
+                      {{echoChamberPercentage}}
                     </div>
 
                     <div class="percentileRoom4">
-                      56%
+                      {{floorGridPercentage}}
                     </div>
 
                     <div class="timeEarnedBox">
@@ -365,7 +365,12 @@ import axios from 'axios';
 
         bombDigitDecoded: '',
         date: '',
-        totalSeconds: ''
+        totalSeconds: '',
+        laserMazePercentage: '',
+        echoChamberPercentage: '',
+        floorGridPercentage: '',
+        bombRoomPercentage: '',
+        hackAttackPercentage: ''
 
       }
 
@@ -510,15 +515,19 @@ import axios from 'axios';
 
               var fetchedRank = response.data.rank;
               console.log(fetchedRank);
-              
+
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+              var multipleRank = 100*filterByTwoDecimal;
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+              // var subtractRank = 1-filterByTwoDecimal;
+              // console.log("subtractRank "+subtractRank);
+
+              // var filterIntoPercentile = subtractRank*100;
+              // console.log(filterIntoPercentile);
+
+              this.bombRoomPercentage = multipleRank;
 
               console.log("ABOVE DATA BM");
               // this.teamList = response.data;
@@ -549,6 +558,23 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
+
+              var fetchedRank = response.data.rank;
+              console.log(fetchedRank);
+
+              var filterByTwoDecimal = fetchedRank.toFixed(2);
+              console.log(filterByTwoDecimal);
+
+              var multipleRank = 100*filterByTwoDecimal;
+
+              // var subtractRank = 1-filterByTwoDecimal;
+              // console.log("subtractRank "+subtractRank);
+
+              // var filterIntoPercentile = subtractRank*100;
+              // console.log(filterIntoPercentile);
+
+              this.echoChamberPercentage = multipleRank;
+
               console.log("ABOVE DATA EC");
               // this.teamList = response.data;
             })
@@ -580,6 +606,23 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
+
+              var fetchedRank = response.data.rank;
+              console.log(fetchedRank);
+
+              var filterByTwoDecimal = fetchedRank.toFixed(2);
+              console.log(filterByTwoDecimal);
+
+              var multipleRank = 100*filterByTwoDecimal;
+
+              // var subtractRank = 1-filterByTwoDecimal;
+              // console.log("subtractRank "+subtractRank);
+
+              // var filterIntoPercentile = subtractRank*100;
+              // console.log(filterIntoPercentile);
+
+              this.hackAttackPercentage = multipleRank;
+
               console.log("ABOVE DATA HA");
               // this.teamList = response.data;
             })
@@ -611,6 +654,23 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
+
+              var fetchedRank = response.data.rank;
+              console.log(fetchedRank);
+
+              var filterByTwoDecimal = fetchedRank.toFixed(2);
+              console.log(filterByTwoDecimal);
+
+              var multipleRank = 100*filterByTwoDecimal;
+
+              // var subtractRank = 1-filterByTwoDecimal;
+              // console.log("subtractRank "+subtractRank);
+
+              // var filterIntoPercentile = subtractRank*100;
+              // console.log(filterIntoPercentile);
+
+              this.floorGridPercentage = multipleRank;
+
               console.log("ABOVE DATA FG");
               // this.teamList = response.data;
             })
@@ -641,6 +701,24 @@ import axios from 'axios';
             })
             .then(response => {
               console.log(response);
+
+              var fetchedRank = response.data.rank;
+              console.log(fetchedRank);
+
+              var filterByTwoDecimal = fetchedRank.toFixed(2);
+              console.log(filterByTwoDecimal);
+
+              var multipleRank = 100*filterByTwoDecimal;
+
+              // var subtractRank = 1-filterByTwoDecimal;
+              // console.log("subtractRank "+subtractRank);
+
+              // var filterIntoPercentile = subtractRank*100;
+              // console.log(filterIntoPercentile);
+
+              this.laserMazePercentage = multipleRank;
+
+
               console.log("ABOVE DATA LM");
               // this.teamList = response.data;
             })
