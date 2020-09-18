@@ -2696,9 +2696,9 @@ export default {
 
         // this.toListFetchRouteA1 = replyDataObj1;
 
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        this.fetchPlayerList.push(replyDataObj1);
 
-        // console.log(this.fetchPlayerList);
+        console.log(this.fetchPlayerList);
 
         
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
