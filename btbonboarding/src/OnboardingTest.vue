@@ -453,7 +453,93 @@
           <br/>
         </b-col>
 
+        <!-- start of right div -->
+        <b-col lg="3"  style="background-color:#f0f0f0; height: 650px; overflow:scroll;">
+          <!-- <b>RESERVATIONS</b> -->
+
+          <b-row>
+
+            <b-col>
+              <!-- <br/>
+
+              <draggable :list="dataList3" class="list-group" draggable=".item" group="a" :move="checkMove1">
+                <div
+                  class="list-group-item item"
+                  v-for="element in dataList3"
+                  :key="element.name">
+                  {{ element.last_name }}
+                </div>
+              </draggable> -->
+            
+
+              <br>
+
+              <!-- <div> -->
+                  <!-- <b><p> {{dateTime1Data}} </p></b> -->
+
+              <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
+                <br>
+                <p class="filters">{{reservation.reservation_for | moment}}</p>
+
+                <b v-if="reservation.Booker.Person.last_name == 'undefined'">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+
+                <b v-else>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+
+                <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="getpersonDetails1($event)">
+                  <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.id">
+                      <!-- <p>{{element.Person.first_name}}  {{ element.Person.last_name }} {{element.Person.minorsymbol}}</p> -->
+
+                      <b-row>
+                        <b-col sm="8">
+                          <p v-if="element.Person.last_name == 'undefined'"> {{element.Person.first_name}}</p>
+                          <p v-else> {{element.Person.first_name}} {{element.Person.last_name}}</p>
+                        </b-col>
+
+                        <b-col sm="1">
+                          {{element.Person.minorsymbol}}
+                        </b-col>
+
+                        <!-- <b-col sm="1">
+                          <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
+                        </b-col> -->
+
+                        <!-- <b-col sm="1">
+                          {{element.Person.Player.play_count}}
+                        </b-col> -->
+
+                      </b-row>
+
+                      <!-- <p>S</p> -->
+                  </div>
+                </draggable>
+
+
+                <div slot="footer" class="btn-group list-group-item" role="group" aria-label="Basic example">
+                  
+                  </div>
+
+              </div>
+                
+                <!-- </draggable> -->
+                <br>
+              <!-- </div>   -->
+              <!-- </div> -->
+
+              <br>
+
+            </b-col>
+
+          </b-row>
+
+
+        </b-col>
+        <!-- end of right div -->
+
       </b-row>
+
+
+
     </div>
 
     <!-- <rawDisplayer class="col-2" :value="list" title="List" /> -->
