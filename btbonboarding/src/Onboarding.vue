@@ -2684,24 +2684,24 @@ export default {
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
-        console.log(boxTime);
-        console.log(routeId);
+        // console.log(boxTime);
+        // console.log(routeId);
 
-        var replyDataObj1 = b;
+        // var replyDataObj1 = b;
 
-          replyDataObj1={
-            // "first_name": b,
-            "route_id" : routeId,
-            "team_drag_time" : boxTime
-          }
+        //   replyDataObj1={
+        //     // "first_name": b,
+        //     "route_id" : routeId,
+        //     "team_drag_time" : boxTime
+        //   }
 
-        console.log("VALUE FOR B OUTSIDE "+b);
+        // console.log("VALUE FOR B OUTSIDE "+b);
 
-        // console.log(replyDataObj1);
+        // // console.log(replyDataObj1);
 
-        this.toListFetchRouteA1 = replyDataObj1;
+        // this.toListFetchRouteA1 = replyDataObj1;
 
-        console.log(this.toListFetchRouteA1);
+        // console.log(this.toListFetchRouteA1);
 
         // console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
 
