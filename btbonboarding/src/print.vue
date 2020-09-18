@@ -519,15 +519,15 @@ import axios from 'axios';
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var multipleRank = 100*filterByTwoDecimal;
+              // var multipleRank = 100*filterByTwoDecimal;
 
-              // var subtractRank = 1-filterByTwoDecimal;
-              // console.log("subtractRank "+subtractRank);
+              var subtractRank = 1-filterByTwoDecimal;
+              console.log("subtractRank "+subtractRank);
 
-              // var filterIntoPercentile = subtractRank*100;
-              // console.log(filterIntoPercentile);
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
-              this.bombRoomPercentage = multipleRank;
+              this.bombRoomPercentage = filterIntoPercentile;
 
               console.log("ABOVE DATA BM");
               // this.teamList = response.data;
@@ -565,15 +565,15 @@ import axios from 'axios';
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var multipleRank = 100*filterByTwoDecimal;
+              // var multipleRank = 100*filterByTwoDecimal;
 
-              // var subtractRank = 1-filterByTwoDecimal;
-              // console.log("subtractRank "+subtractRank);
+              var subtractRank = 1-filterByTwoDecimal;
+              console.log("subtractRank "+subtractRank);
 
-              // var filterIntoPercentile = subtractRank*100;
-              // console.log(filterIntoPercentile);
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
-              this.echoChamberPercentage = multipleRank;
+              this.echoChamberPercentage = filterIntoPercentile;
 
               console.log("ABOVE DATA EC");
               // this.teamList = response.data;
@@ -613,15 +613,15 @@ import axios from 'axios';
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var multipleRank = 100*filterByTwoDecimal;
+              // var multipleRank = 100*filterByTwoDecimal;
 
-              // var subtractRank = 1-filterByTwoDecimal;
-              // console.log("subtractRank "+subtractRank);
+              var subtractRank = 1-filterByTwoDecimal;
+              console.log("subtractRank "+subtractRank);
 
-              // var filterIntoPercentile = subtractRank*100;
-              // console.log(filterIntoPercentile);
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
-              this.hackAttackPercentage = multipleRank;
+              this.hackAttackPercentage = filterIntoPercentile;
 
               console.log("ABOVE DATA HA");
               // this.teamList = response.data;
@@ -661,15 +661,15 @@ import axios from 'axios';
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var multipleRank = 100*filterByTwoDecimal;
+              // var multipleRank = 100*filterByTwoDecimal;
 
-              // var subtractRank = 1-filterByTwoDecimal;
-              // console.log("subtractRank "+subtractRank);
+              var subtractRank = 1-filterByTwoDecimal;
+              console.log("subtractRank "+subtractRank);
 
-              // var filterIntoPercentile = subtractRank*100;
-              // console.log(filterIntoPercentile);
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
-              this.floorGridPercentage = multipleRank;
+              this.floorGridPercentage = filterIntoPercentile;
 
               console.log("ABOVE DATA FG");
               // this.teamList = response.data;
@@ -708,15 +708,15 @@ import axios from 'axios';
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
-              var multipleRank = 100*filterByTwoDecimal;
+              // var multipleRank = 100*filterByTwoDecimal;
 
-              // var subtractRank = 1-filterByTwoDecimal;
-              // console.log("subtractRank "+subtractRank);
+              var subtractRank = 1-filterByTwoDecimal;
+              console.log("subtractRank "+subtractRank);
 
-              // var filterIntoPercentile = subtractRank*100;
-              // console.log(filterIntoPercentile);
+              var filterIntoPercentile = subtractRank*100;
+              console.log(filterIntoPercentile);
 
-              this.laserMazePercentage = multipleRank;
+              this.laserMazePercentage = filterIntoPercentile;
 
 
               console.log("ABOVE DATA LM");
