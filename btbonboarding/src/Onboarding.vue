@@ -2666,9 +2666,14 @@ export default {
           timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
           console.log("B EVEN "+b);
         }
-        else{
+        if(b%2 != 0){
           var routeId = '2';
+          timeUsed += 0;
+          console.log("B ODD "+b);
         }
+        // else{
+        //   var routeId = '2';
+        // }
 
         // if (b % 2 == 0){
         //   console.log("B EVEN "+b);
