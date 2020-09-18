@@ -2696,7 +2696,7 @@ export default {
 
         // this.toListFetchRouteA1 = replyDataObj1;
 
-        // this.fetchPlayerList.push(this.toListFetchRouteA1);
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
 
         // console.log(this.fetchPlayerList);
 
