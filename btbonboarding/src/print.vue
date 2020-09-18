@@ -229,7 +229,7 @@
                     </div>
 
                     <div class="digitsTime">
-                      {{totalSeconds}} seconds x {{bombDigitDecoded}} digits
+                      {{totalBombTime}} seconds x {{bombDigitDecoded}} digits
                     </div>
 
                     <div class="digitsTimeCalculation">
@@ -445,7 +445,9 @@ import axios from 'axios';
 
           console.log(filterByDate);
 
-          this.bombtime = this.teamList[index].bomb_time;
+          this.totalBombTime = this.teamList[index].bomb_time;
+          this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
+
           this.total_score = this.teamList[index].total_score;
           this.size = this.teamList[index].player_count;
           this.winners = this.teamList[index].winners;
@@ -514,7 +516,7 @@ import axios from 'axios';
             this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
             this.bombDigitDecoded = this.teamList[index].Session_game_scores[0].level_achieved;
-            this.totalSeconds = this.teamList[index].score;
+            this.totalSeconds = this.teamList[index].bomb_time;
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
