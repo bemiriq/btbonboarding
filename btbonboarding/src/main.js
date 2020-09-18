@@ -13,6 +13,7 @@ import Bigscreen from './Tvwaiting.vue';
 import Print from './print.vue';
 import Gamebaysignup from './Gbsignup.vue';
 import Gamebayleaderboard from './Gbleaderboard.vue';
+import Onboardingtest from './OnboardingTest.vue';
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -48,7 +49,8 @@ const routes = [
 	{ path : '/bigscreen', component: Bigscreen},
 	{ path : '/print', component: Print},
 	{ path : '/gbsignup', component: Gamebaysignup},
-	{ path : '/gbleaderboard', component: Gamebayleaderboard}
+	{ path : '/gbleaderboard', component: Gamebayleaderboard},
+	{ path : '/onboardingtest', component: Onboardingtest}
 ];
 
 const router = new VueRouter({
