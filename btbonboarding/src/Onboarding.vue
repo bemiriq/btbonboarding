@@ -2682,7 +2682,7 @@ export default {
         console.log(boxTime);
         console.log(routeId);
 
-        // var replyDataObj1 = b;
+        var replyDataObj1 = b;
 
           replyDataObj1={
             // "first_name": b,
@@ -2697,6 +2697,8 @@ export default {
         this.toListFetchRouteA1 = replyDataObj1;
 
         console.log(this.toListFetchRouteA1);
+
+        console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
 
         // this.fetchPlayerList.push(this.toListFetchRouteA1);
 
