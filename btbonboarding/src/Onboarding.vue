@@ -2709,6 +2709,10 @@ export default {
 
         // console.log(this.fetchPlayerList);
 
+        console.log('BOX TIME AFTER ARRAY '+boxTime);
+        console.log('ROUTE AFTER ARRAY '+routeId);
+
+
         axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
         .then(response => {
                         console.log("B "+b+" Route "+routeId+" Box Time "+boxTime);
