@@ -491,12 +491,26 @@ import axios from 'axios';
             console.log(replyDataObj1);
             this.playerNamesList = replyDataObj1;
 
+          /** THIS IS MISSION 1 **/
+          // if(){
+
+          // }
+
+          // * THIS IS MISSION 2 *
+          // if(){
+
+          // }
+
+
           /** THIS IS THE BOMB ROOM **/
           if(this.teamList[index].Session_game_scores[0].score == undefined){
             this.room5 = '00:00';
           }
           else{
             var room5Score = this.teamList[index].Session_game_scores[0].score;
+
+            console.log(room5Score);
+
             this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
             this.bombDigitDecoded = this.teamList[index].Session_game_scores[0].level_achieved;
@@ -546,6 +560,9 @@ import axios from 'axios';
           }
           else{
             var room3Score = this.teamList[index].Session_game_scores[2].score;
+
+            console.log(room3Score);
+
             this.room3 = moment().startOf('day').seconds(room3Score).format("mm:ss");
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
@@ -594,6 +611,9 @@ import axios from 'axios';
           }
           else{
             var room1Score = this.teamList[index].Session_game_scores[2].score;
+
+            console.log(room1Score);
+
             this.room1 = moment().startOf('day').seconds(room1Score).format("mm:ss");
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
@@ -642,6 +662,9 @@ import axios from 'axios';
           }
           else{
             var room4Score = this.teamList[index].Session_game_scores[3].score;
+
+            console.log(room4Score);
+
             this.room4 = moment().startOf('day').seconds(room4Score).format("mm:ss");
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
@@ -689,6 +712,9 @@ import axios from 'axios';
           }
           else{
             var room2Score = this.teamList[index].Session_game_scores[4].score;
+
+            console.log(room2Score);
+
             this.room2 = moment().startOf('day').seconds(room2Score).format("mm:ss");
 
             // axios.get(VUE_APP_SESSION_GAME_SCORES)
