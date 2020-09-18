@@ -509,6 +509,8 @@ import axios from 'axios';
               console.log(response);
 
               var fetchedRank = response.data.rank;
+              console.log(fetchedRank);
+              
               var filterByTwoDecimal = fetchedRank.toFixed(2);
               console.log(filterByTwoDecimal);
 
