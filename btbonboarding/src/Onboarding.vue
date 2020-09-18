@@ -2366,7 +2366,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     // console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     console.log(startReservationTime);
@@ -2664,14 +2664,15 @@ export default {
         if (b%2 == 0){
           var routeId = '1';
           timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+          console.log("B EVEN "+b);
         }
         else{
           var routeId = '2';
         }
 
-        if (b % 2 == 0){
-          console.log(b);
-        }
+        // if (b % 2 == 0){
+        //   console.log("B EVEN "+b);
+        // }
 
 
         const remainderRoute1 = timeUsed - (start.minute() % 30);
@@ -2689,6 +2690,8 @@ export default {
             "team_drag_time" : boxTime
           }
 
+        console.log("VALUE FOR B OUTSIDE "+b);
+        
         console.log(replyDataObj1);
 
         this.toListFetchRouteA1 = replyDataObj1;
