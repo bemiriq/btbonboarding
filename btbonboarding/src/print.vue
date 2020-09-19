@@ -65,9 +65,9 @@
                   <div class="col-sm-3 firstdiv">
                     <!-- <div class="missiontitle">MISSION 01:</div> -->
                     <div class="missiontitle">{{missionTitle}}:</div>
-                    <!-- <div class="maingameImage">
+                    <div class="maingameImage">
                       <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
-                    </div> -->
+                    </div>
                     <div class="hrlength">
                       <!-- <hr> -->
                     </div>
@@ -90,7 +90,7 @@
                       <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
-                    
+
                     <!-- <div class="gameimage1">
                       <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogo"/>
                     </div> -->
@@ -800,7 +800,7 @@ import axios from 'axios';
           // }
 
           /** this will pass all the image name for room 1 to 5 **/
-          if(this.teamList[index].Session_game_scores[0].game_id < 6){
+          if(this.teamList[index].Session_game_scores[1].game_id < 6){
             this.roomname1 = 'Hack Attack';
             this.roomname2 = 'Laser Maze';
             this.roomname3 = 'Echo Chamber';
@@ -810,7 +810,7 @@ import axios from 'axios';
             this.missionTitle = 'MISSION 01';
             this.missionDetailTitle = 'CYBERBOT';
           }
-          if(this.teamList[index].Session_game_scores[0].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+          if(this.teamList[index].Session_game_scores[1].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
             this.roomname1 = 'Sequencer';
             this.roomname2 = 'Crypto Lazer';
             this.roomname3 = 'Mad Dash';
