@@ -37,9 +37,9 @@
             </b-form-group>
           </b-col>
 
-          <p> DISPLAY 1 </p>
+          <!-- <p> DISPLAY 1 </p> -->
           <b-col v-if="onselect == '1'">
-            <p>DISPLAY 2 </p>
+            <!-- <p>DISPLAY 2 </p> -->
             <button @click="printWindow('san')">Print</button>
             <div id="section-to-print">
               <!-- <b-row>
@@ -458,6 +458,43 @@ import axios from 'axios';
           this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
 
           this.totalBombTime = totalBombTime;
+          if(this.teamList[index].total_score > 1500 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '5336';
+          }
+          if(this.teamList[index].total_score > 850 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '8734';
+          }
+          if(this.teamList[index].total_score > 2000 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '2549';
+          }
+          if(this.teamList[index].total_score > 2500 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '1583';
+          }
+          if(this.teamList[index].total_score > 3000 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '986';
+          }
+          if(this.teamList[index].total_score > 3600 && this.teamList[index].Session_game_scores[1].game_id < 6){
+            this.total_score = '488';
+          }
+
+          if(this.teamList[index].total_score > 1300 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '68';
+          }
+          if(this.teamList[index].total_score > 850 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '97';
+          }
+          if(this.teamList[index].total_score > 1700 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '48';
+          }
+          if(this.teamList[index].total_score > 2000 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '17';
+          }
+          if(this.teamList[index].total_score > 2500 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '11';
+          }
+          if(this.teamList[index].total_score > 3600 && this.teamList[index].Session_game_scores[1].game_id > 5){
+            this.total_score = '5';
+          }
 
           this.total_score = this.teamList[index].total_score;
           this.size = this.teamList[index].player_count;
