@@ -241,12 +241,12 @@
                     </div>
 
                     <div class="totalRankings">
-                      2579th out of 10000 teams
+                      {{teamRank}}th out of 18443 teams
                     </div>
 
-                    <div class="totalRankingsPercantile">
+                    <!-- <div class="totalRankingsPercantile">
                       56 % percentile
-                    </div>
+                    </div> -->
 
                   </div>
 
@@ -262,7 +262,6 @@
                       08-09-2020
                     </div> -->
                   <!-- </div> -->
-
                 </div>
 
               </div>
@@ -377,7 +376,8 @@ import axios from 'axios';
         floorGridPercentage: '',
         bombRoomPercentage: '',
         hackAttackPercentage: '',
-        totalBombTime: ''
+        totalBombTime: '',
+        teamRank: ''
 
       }
 
@@ -458,42 +458,44 @@ import axios from 'axios';
           this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
 
           this.totalBombTime = totalBombTime;
+          this.total_score = this.teamList[index].total_score;
+
           if(this.teamList[index].total_score > 1500 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '5336';
+            this.teamRank = '5336';
           }
           if(this.teamList[index].total_score > 850 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '8734';
+            this.teamRank = '8734';
           }
           if(this.teamList[index].total_score > 2000 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '2549';
+            this.teamRank = '2549';
           }
           if(this.teamList[index].total_score > 2500 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '1583';
+            this.teamRank = '1583';
           }
           if(this.teamList[index].total_score > 3000 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '986';
+            this.teamRank = '986';
           }
           if(this.teamList[index].total_score > 3600 && this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.total_score = '488';
+            this.teamRank = '488';
           }
 
           if(this.teamList[index].total_score > 1300 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '68';
+            this.teamRank = '68';
           }
           if(this.teamList[index].total_score > 850 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '97';
+            this.teamRank = '97';
           }
           if(this.teamList[index].total_score > 1700 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '48';
+            this.teamRank = '48';
           }
           if(this.teamList[index].total_score > 2000 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '17';
+            this.teamRank = '17';
           }
           if(this.teamList[index].total_score > 2500 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '11';
+            this.teamRank = '11';
           }
           if(this.teamList[index].total_score > 3600 && this.teamList[index].Session_game_scores[1].game_id > 5){
-            this.total_score = '5';
+            this.teamRank = '5';
           }
 
           this.total_score = this.teamList[index].total_score;
