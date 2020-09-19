@@ -404,6 +404,8 @@ import axios from 'axios';
 
         teamNameSelectedDemo: function(){
 
+          console.log("I WAS INSIDE MAN");
+
           this.onselect = '1';
 
           this.teamname = 'SANDU MANDU TEAM';
@@ -818,7 +820,8 @@ import axios from 'axios';
           }
           /** end of image detail for rooms **/
 
-
+          console.log("I WAS OUTSIDE MAN");
+          
         } /** end of teamname function **/
 
     } /** methods closing bracket **/
