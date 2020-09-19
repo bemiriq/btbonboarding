@@ -1327,8 +1327,8 @@ import axios from 'axios';
 
 /*s*/
   #section-to-print, #section-to-print * {
-    /*visibility: visible;*/
-    visibility: hidden;
+    visibility: visible;
+    /*visibility: hidden;*/
     width: 37cm;
     height: 31.45cm;
   }
