@@ -65,9 +65,9 @@
                   <div class="col-sm-3 firstdiv">
                     <!-- <div class="missiontitle">MISSION 01:</div> -->
                     <div class="missiontitle">{{missionTitle}}:</div>
-                    <!-- <div class="maingameImage">
+                    <div class="maingameImage">
                       <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
-                    </div> -->
+                    </div>
                     <div class="hrlength">
                       <!-- <hr> -->
                     </div>
