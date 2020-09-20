@@ -493,7 +493,7 @@ mounted: function(){
     var starttime='start';
     var endtime='end';
     var currentdate = moment().format("YYYY-MM-DD");
-    var startReservationTime = '15:00:00';
+    var startReservationTime = '08:45:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '23:45:00';
     var currentTime = moment().format("HHmm");
