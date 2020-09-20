@@ -183,7 +183,7 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 10 || item.size != item.total_arrived">&#10060;</p>
+                    <p v-if="item.late_by < 10 || item.size != item.total_arrived && item.released !='1' ">&#10060;</p>
                   </td>
 
                   <td>

@@ -2367,16 +2367,21 @@ export default {
     // console.log(currentdate);
 
     var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    if(startReservationTime > '22:00:00'){
-      console.log("AFTER 10 PM");
+    
+    if(startReservationTime > '22:30:00'){
+      console.log("AFTER 10:30 PM");
+      var endReservationTime = moment().add(14, 'minutes').format('HH:mm:ss');
     }
     else{
-      console.log("BEFORE 10 PM");
+      console.log("BEFORE 10:30 PM");
+      var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
     }
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
-    console.log(startReservationTime);
-    console.log(endReservationTime);
+    // var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+
+    console.log("START RESEVATION TIME "+startReservationTime);
+    console.log("END RESERVATION TIME "+endReservationTime);
+
     console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
     // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
