@@ -183,7 +183,10 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 10 || item.size != item.total_arrived && item.released !='1' ">&#10060;</p>
+                    <p v-if="item.late_by < 10 || item.size != item.total_arrived">
+                      <b v-if="item.released > '0'">&#10060;</b>
+                      <b v-else> </b>
+                    </p>
                   </td>
 
                   <td>
@@ -613,17 +616,17 @@ mounted: function(){
         console.log(error);
       });
 
-    axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
+    // axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
-    })
-    .then(response => 
-      {
-        console.log(response);
-        this.organizationDetail = response.data;
-      })
-    .catch(function (error){
-        console.log(error);
-      });
+    // })
+    // .then(response => 
+    //   {
+    //     console.log(response);
+    //     this.organizationDetail = response.data;
+    //   })
+    // .catch(function (error){
+    //     console.log(error);
+    //   });
   },
 
 /* the function below grabs the time fro axios.get(API) and converts to military time */
