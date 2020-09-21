@@ -2367,15 +2367,16 @@ export default {
     // console.log(currentdate);
 
     var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    
-    if(startReservationTime > '22:30:00'){
-      console.log("AFTER 10:30 PM");
-      var endReservationTime = moment().add(14, 'minutes').format('HH:mm:ss');
-    }
-    else{
-      console.log("BEFORE 10:30 PM");
-      var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
-    }
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+
+    // if(startReservationTime > '22:30:00'){
+    //   console.log("AFTER 10:30 PM");
+    //   var endReservationTime = moment().add(14, 'minutes').format('HH:mm:ss');
+    // }
+    // else{
+    //   console.log("BEFORE 10:30 PM");
+    //   var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    // }
 
     // var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
