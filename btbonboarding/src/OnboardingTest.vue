@@ -1555,7 +1555,8 @@ export default {
                 });
 
               }/** end of for loop **/
-
+            })
+            
             .catch(function (error) {
               console.log(error);
             });
