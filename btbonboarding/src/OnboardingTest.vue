@@ -174,7 +174,7 @@
                       </b-col>
                     </b-row>
 
-                          <div v-for="(elemented, index) in list10" :key="index">
+                          <div v-for="elemented in list10" :key="elemented.id">
                             <p> {{elemented.id}} </p>
                           </div>
 
