@@ -1575,28 +1575,32 @@ export default {
               // this.list10 = sessionData;
               // console.log(this.list10);
 
+              /** get the session id all list values now **/
+              // var sessionId = this.sessionIdValue;
+              console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+              axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+
+              })
+              .then(response => {
+                console.log(response.data);
+                console.log("INSIDE GET SESSEION BY ID");
+
+                this.list10 = response.data;
+                
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+              /** end of session id get values list **/
+
+
+
             })
 
             .catch(function (error) {
               console.log(error);
             });
-
-
-            /** get the session id all list values now **/
-            var sessionId = this.sessionIdValue;
-            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
-            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
-
-            })
-            .then(response => {
-              console.log(response.data);
-              console.log("INSIDE GET SESSEION BY ID");
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
-            /** end of session id get values list **/
 
 
           } /** end of first box if loop **/
@@ -1607,6 +1611,8 @@ export default {
           
           } /** end of second box ELSE loop **/
 
+          console.log(this.list10);
+          // console.log(this.tolist10teamplayersessionid);
           console.log("TEAM NAME LENGTH "+this.teamName10.length);
 
         }
