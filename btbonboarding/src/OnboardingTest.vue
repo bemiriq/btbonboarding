@@ -1545,10 +1545,10 @@ export default {
                 var teamPersonId = this["testTeamPlayer"+i];
                 console.log('Team Player Value '+teamPersonId);
 
-                axios.post(VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
-                  player_id: teamPersonId,
-                  team_id: 4,
-                  session_id: sessionId
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{{
+                  // player_id: teamPersonId,
+                  team_id: 4
+                  // session_id: sessionId
                 })
                 .then(response => {
                   console.log(response);
