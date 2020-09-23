@@ -1572,14 +1572,31 @@ export default {
               // console.log(this.tolist10teamplayersessionid);
               var sessionData = response.data;
               this.teamName10 = 'TEST';
-              this.list10 = sessionData;
-              console.log(this.list10);
+              // this.list10 = sessionData;
+              // console.log(this.list10);
 
             })
 
             .catch(function (error) {
               console.log(error);
             });
+
+
+            /** get the session id all list values now **/
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+
+            })
+            .then(response => {
+              console.log(response.data);
+              console.log("INSIDE GET SESSEION BY ID");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+            /** end of session id get values list **/
+            
 
           } /** end of first box if loop **/
 
