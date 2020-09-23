@@ -174,19 +174,17 @@
                       </b-col>
                     </b-row>
 
-                          <div>
-                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
+                          <!-- <div>
+                            <draggable id="first" data-source="juju" :list="list20" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 20, index)" @change="onDropReservation1($event, 20)">
 
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
-
-                              <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
+                              <div class="list-group-item item" v-for="(element, index) in list20" :key="index">
 
                                   <b-row>
 
                                     <b-col sm="2">
 
-                                      <p v-if="list10[index].rfidState1 == '' || !list10[index].rfidState1 > '0'">&#10060;</p>
-                                      <p v-if="list10[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+                                      <p v-if="list20[index].rfidState1 == '' || !list20[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list20[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
@@ -199,7 +197,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
+                                      <p v-if="element.Person.Player.bomb_beater == '20'">&#128163;</p>
                                     </b-col>
 
                                     <b-col sm="1">
@@ -210,7 +208,7 @@
                                   </b-row>
                               </div>
                               </draggable>
-                            </div>
+                            </div> -->
 
 
                       <br/>
@@ -1586,7 +1584,7 @@ export default {
                 console.log("INSIDE GET SESSEION BY ID");
 
                 this.list10 = response.data;
-                
+
               })
               .catch(function (error) {
                 console.log(error);
