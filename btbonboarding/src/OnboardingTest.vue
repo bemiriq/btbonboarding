@@ -1524,6 +1524,31 @@ export default {
                   //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
                   // }
 
+                  /** get the session id all list values now **/
+                  // var sessionId = this.sessionIdValue;
+                                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+                  
+                                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+                  
+                                })
+                                .then(response => {
+                                  console.log(response);
+                                  console.log(response.data);
+                                  console.log("INSIDE GET SESSEION BY ID");
+                  
+                                  this.list10 = response.data;
+                                  console.log("BELOW IS LIST10 DATq");
+                  
+                                  console.log(this.list10);
+                  
+                                })
+                                .catch(function (error) {
+                                  console.log(error);
+                                });
+                  
+                                /** end of session id get values list **/
+
+
                   })/** end of for loop **/
                 .catch(function (error) {
                   console.log(error);
@@ -1538,28 +1563,7 @@ export default {
               // this.list10 = sessionData;
               // console.log(this.list10);
 
-              /** get the session id all list values now **/
-              // var sessionId = this.sessionIdValue;
-              console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
 
-              axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
-
-              })
-              .then(response => {
-                console.log(response.data);
-                console.log("INSIDE GET SESSEION BY ID");
-
-                this.list10 = response.data;
-                console.log("BELOW IS LIST10 DATq");
-
-                console.log(this.list10);
-
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-
-              /** end of session id get values list **/
 
 
 
