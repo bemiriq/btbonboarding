@@ -1545,7 +1545,7 @@ export default {
                 var teamPersonId = this["testTeamPlayer"+i];
                 console.log('Team Player Value '+teamPersonId);
 
-                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{{
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{
                   // player_id: teamPersonId,
                   team_id: 4
                   // session_id: sessionId
@@ -1559,6 +1559,9 @@ export default {
                 });
 
               }/** end of for loop **/
+
+              this.teamName10 = 'TEST';
+              
             })
 
             .catch(function (error) {
