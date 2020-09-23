@@ -1553,6 +1553,10 @@ export default {
                 .then(response => {
                   console.log(response);
                   console.log(response.data);
+
+                  // this["list"+col+"teamplayersessionid"].push(this["tolist"+col+"teamplayersessionid"]);
+                  this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+
                   })/** end of for loop **/
                 .catch(function (error) {
                   console.log(error);
@@ -1560,8 +1564,9 @@ export default {
 
               }/** end of for loop **/
 
+              console.log(this.list10teamplayersessionid);
               this.teamName10 = 'TEST';
-              
+
             })
 
             .catch(function (error) {
