@@ -32,7 +32,7 @@
                                 <b-col sm="12">
                                   <div>
 
-                                      <div v-for="(listings, index) in list10" :key="index">
+                                     <!--  <div v-for="(listings, index) in list10" :key="index">
 
                                         <br/>
                                         <b-row>
@@ -51,7 +51,7 @@
 
                                         </b-row>
 
-                                      </div>
+                                      </div> -->
 
                                   </div>
 
@@ -82,7 +82,7 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div>
+                                  <!-- <div>
 
                                       <div v-for="(listings, index) in list11" :key="index">
 
@@ -105,7 +105,7 @@
 
                                       </div>
 
-                                  </div>
+                                  </div> -->
 
                                 </b-col>
 
