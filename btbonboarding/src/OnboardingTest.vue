@@ -29,33 +29,36 @@
                             <b><p>{{teamName10}} Side A {{dateTime1Data}}</p></b>
 
                               <b-row class="my-1">
-                                <b-col sm="12">
-                                  <div>
-
-                                     <!--  <div v-for="(listings, index) in list10" :key="index">
-
-                                        <br/>
+                                <b-col sm="12" v-if="playerDetail1 =='1'">
                                         <b-row>
-                                          <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                          <b-col sm="6" v-if="playerDetail1 =='1'">
+                                            <b-form-input id="input-live" :value="PLAYER ONE" disabled placeholder="PLAYER ONE"></b-form-input>
+                                            <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
                                           </b-col>
-                                          <b-col sm="4">
-                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
+                                          <b-col sm="4" v-if="playerDetail1 =='1'">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
 
-                                          </b-col>
-
-                                          <b-col sm="2">
-                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 10)"></b-icon>
                                           </b-col>
 
                                         </b-row>
 
-                                      </div> -->
+                                </b-col>
 
-                                  </div>
+                                <b-col sm="12" v-if="playerDetail2 =='1'">
+                                        <b-row>
+                                          <b-col sm="6" v-if="playerDetail2 =='1'">
+                                            <b-form-input id="input-live" :value="PLAYER TWO" disabled placeholder="PLAYER TWO"></b-form-input>
+                                            <!-- <input type="text" v-model="listings.id" disabled style="display:none;"/> -->
+                                          </b-col>
+                                          <b-col sm="4" v-if="playerDetail2 =='1'">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
+
+                                          </b-col>
+
+                                        </b-row>
 
                                 </b-col>
+
                               </b-row>
 
                               <br/>
@@ -148,20 +151,32 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <div class="bv-example-row">
+          <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a">
+            <div class="list-group-item item">
+              <div v-if="playerDetail1 =='1'">
+                PLAYER ONE
+              </div>
 
-            <div v-if="playerDetail1 =='1'">
-              <p> PLAYER ONE </p>
+              <div v-if="playerDetail2 =='1'">
+                PLAYER TWO
+              </div>
+
+              <div v-if="playerDetail3 =='1'">
+                PLAYER THREE
+              </div>
+
+              <div v-if="playerDetail4 =='1'">
+                PLAYER FOUR
+              </div>
+
+              <div v-if="playerDetail5 =='1'">
+                PLAYER FIVE
+              </div>
+
+              <div v-if="playerDetail6 =='1'">
+                PLAYER SIX
+              </div>
             </div>
-
-            <div v-if="playerDetail2 =='1'">
-              <p> PLAYER TWO </p>
-            </div>
-
-            <div v-if="playerDetail3 =='1'">
-              <p> PLAYER THREE </p>
-            </div>
-
           </div>
 
          <!--  <div v-else>
@@ -1289,7 +1304,7 @@ export default {
       hideModalRfidClicked(event, colvalue) {
         console.log(event);
         console.log(colvalue);
-        this.$refs['sideRfidUpdate'+colvalue].hide()
+        // this.$refs['sideRfidUpdate'+colvalue].hide()
       },
 
       // hideModalRfidClicked2() {
