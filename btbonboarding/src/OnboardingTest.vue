@@ -1204,138 +1204,6 @@ export default {
 
     methods: {
 
-      onChangeTeamNumber(event){
-        console.log(event);
-        console.log("I was inside team player function");
-        console.log(this.testTeamNumber);
-        console.log(event.target.value);
-
-        this.testTeamPlayer1 = '53796';
-        this.testTeamPlayer2 = '53797';
-        this.testTeamPlayer3 = '53798';
-        this.testTeamPlayer4 = '53799';
-        this.testTeamPlayer5 = '53800';
-        this.testTeamPlayer6 = '53801';
-
-        var sessionTime = moment().format("YYYY-MM-DD HH:mm:ss");
-        console.log(sessionTime);
-
-        if(this.testTeamNumber > '1'){
-          console.log("Greater THAN 1");
-
-          /** this will add data into first box **/
-          
-          if(this.teamName10.length == '0'){
-
-            console.log("ADD data into first box");
-            var totalPlayer = this.testTeamNumber;
-
-            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
-              test: 1,
-              team_id: 4,
-              active: 1,
-              location_id: 1,
-              mission_id: 1,
-              route_id: 1,
-              player_count: totalPlayer,
-              session_time: sessionTime
-            })
-            .then(response => {
-              console.log(response);
-              console.log(response.data);
-              this.sessionIdValue = response.data.id;
-              var sessionId = response.data.id;
-
-              for(var i=1; i <= totalPlayer; i++){
-                console.log("I value "+i);
-                var teamPersonId = this["testTeamPlayer"+i];
-                console.log('Team Player Value '+teamPersonId);
-
-                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{
-                  // player_id: teamPersonId,
-                  team_id: 4
-                  // session_id: sessionId
-                })
-                .then(response => {
-                  console.log(response);
-                  console.log(response.data);
-
-                  // console.log("inside solti");
-                  //       this.tolist10teamplayersessionid = response.data[0].id;
-
-                  // if (this.tolist10teamplayersessionid > 0) { 
-                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
-                  // }
-
-                  /** get the session id all list values now **/
-                  // var sessionId = this.sessionIdValue;
-                                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
-                  
-                                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
-                  
-                                })
-                                .then(response => {
-                                  console.log(response);
-                                  console.log(response.data);
-                                  console.log("INSIDE GET SESSEION BY ID");
-                  
-                                  this.list10 = response.data;
-                                  console.log("BELOW IS LIST10 DATq");
-                  
-                                  console.log(this.list10);
-                  
-                                })
-                                .catch(function (error) {
-                                  console.log(error);
-                                });
-                  
-                                /** end of session id get values list **/
-
-
-                  })/** end of for loop **/
-                .catch(function (error) {
-                  console.log(error);
-                });
-
-              }/** end of for loop **/
-
-              // console.log(this.list10teamplayersessionid);
-              // console.log(this.tolist10teamplayersessionid);
-              var sessionData = response.data;
-              this.teamName10 = 'TEST';
-              // this.list10 = sessionData;
-              // console.log(this.list10);
-
-
-
-
-
-            })
-
-            .catch(function (error) {
-              console.log(error);
-            });
-
-
-          } /** end of first box if loop **/
-
-          /** this will add data into second box **/
-          else{
-            console.log("ADD data to second box");
-          
-          } /** end of second box ELSE loop **/
-
-          // console.log(this.list10);
-          // console.log(this.tolist10teamplayersessionid);
-          console.log("TEAM NAME LENGTH "+this.teamName10.length);
-
-        }
-        else{
-          console.log("Less THAN 2");
-        }
-
-      },
-
       activateTeam(event, value){
         console.log("team activated");
         console.log(value);
@@ -4585,6 +4453,139 @@ export default {
   },
 
     computed:{
+
+
+      onChangeTeamNumber(event){
+        console.log(event);
+        console.log("I was inside team player function");
+        console.log(this.testTeamNumber);
+        console.log(event.target.value);
+
+        this.testTeamPlayer1 = '53796';
+        this.testTeamPlayer2 = '53797';
+        this.testTeamPlayer3 = '53798';
+        this.testTeamPlayer4 = '53799';
+        this.testTeamPlayer5 = '53800';
+        this.testTeamPlayer6 = '53801';
+
+        var sessionTime = moment().format("YYYY-MM-DD HH:mm:ss");
+        console.log(sessionTime);
+
+        if(this.testTeamNumber > '1'){
+          console.log("Greater THAN 1");
+
+          /** this will add data into first box **/
+          
+          if(this.teamName10.length == '0'){
+
+            console.log("ADD data into first box");
+            var totalPlayer = this.testTeamNumber;
+
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+              test: 1,
+              team_id: 4,
+              active: 1,
+              location_id: 1,
+              mission_id: 1,
+              route_id: 1,
+              player_count: totalPlayer,
+              session_time: sessionTime
+            })
+            .then(response => {
+              console.log(response);
+              console.log(response.data);
+              this.sessionIdValue = response.data.id;
+              var sessionId = response.data.id;
+
+              for(var i=1; i <= totalPlayer; i++){
+                console.log("I value "+i);
+                var teamPersonId = this["testTeamPlayer"+i];
+                console.log('Team Player Value '+teamPersonId);
+
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{
+                  // player_id: teamPersonId,
+                  team_id: 4
+                  // session_id: sessionId
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data);
+
+                  // console.log("inside solti");
+                  //       this.tolist10teamplayersessionid = response.data[0].id;
+
+                  // if (this.tolist10teamplayersessionid > 0) { 
+                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  // }
+
+                  /** get the session id all list values now **/
+                  // var sessionId = this.sessionIdValue;
+                                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+                  
+                                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+                  
+                                })
+                                .then(response => {
+                                  console.log(response);
+                                  console.log(response.data);
+                                  console.log("INSIDE GET SESSEION BY ID");
+                  
+                                  this.list10 = response.data;
+                                  console.log("BELOW IS LIST10 DATq");
+                  
+                                  console.log(this.list10);
+                  
+                                })
+                                .catch(function (error) {
+                                  console.log(error);
+                                });
+                  
+                                /** end of session id get values list **/
+
+
+                  })/** end of for loop **/
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              }/** end of for loop **/
+
+              // console.log(this.list10teamplayersessionid);
+              // console.log(this.tolist10teamplayersessionid);
+              var sessionData = response.data;
+              this.teamName10 = 'TEST';
+              // this.list10 = sessionData;
+              // console.log(this.list10);
+
+
+
+
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+
+
+          } /** end of first box if loop **/
+
+          /** this will add data into second box **/
+          else{
+            console.log("ADD data to second box");
+          
+          } /** end of second box ELSE loop **/
+
+          // console.log(this.list10);
+          // console.log(this.tolist10teamplayersessionid);
+          console.log("TEAM NAME LENGTH "+this.teamName10.length);
+
+        }
+        else{
+          console.log("Less THAN 2");
+        }
+
+      },
 
       // teambytimeRepeat() {
       //     const grouped = this.teamByTime2.reduce((map, { text, time }) => {
