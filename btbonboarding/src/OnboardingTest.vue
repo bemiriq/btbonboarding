@@ -1554,12 +1554,12 @@ export default {
                   console.log(response);
                   console.log(response.data);
 
-                  console.log("inside solti");
-                        this.tolist10teamplayersessionid = response.data[0].id;
+                  // console.log("inside solti");
+                  //       this.tolist10teamplayersessionid = response.data[0].id;
 
-                  if (this.tolist10teamplayersessionid > 0) { 
-                      this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
-                  }
+                  // if (this.tolist10teamplayersessionid > 0) { 
+                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  // }
 
                   })/** end of for loop **/
                 .catch(function (error) {
@@ -1568,9 +1568,12 @@ export default {
 
               }/** end of for loop **/
 
-              console.log(this.list10teamplayersessionid);
-              console.log(this.tolist10teamplayersessionid);
+              // console.log(this.list10teamplayersessionid);
+              // console.log(this.tolist10teamplayersessionid);
+              var sessionData = response.data;
               this.teamName10 = 'TEST';
+              this.list10 = sessionData;
+              console.log(this.list10);
 
             })
 
