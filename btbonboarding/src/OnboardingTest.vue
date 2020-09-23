@@ -1554,10 +1554,12 @@ export default {
                   console.log(response);
                   console.log(response.data);
 
-                  this.list10teamplayersessionid = response.data;
+                  console.log("inside solti");
+                        this.tolist10teamplayersessionid = response.data[0].id;
 
-                  // this["list"+col+"teamplayersessionid"].push(this["tolist"+col+"teamplayersessionid"]);
-                  this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  if (this.tolist10teamplayersessionid > 0) { 
+                      this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  }
 
                   })/** end of for loop **/
                 .catch(function (error) {
