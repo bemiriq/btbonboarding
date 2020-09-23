@@ -1511,6 +1511,9 @@ export default {
         this.testTeamPlayer5 = '53800';
         this.testTeamPlayer6 = '53801';
 
+        var sessionTime = moment().format("YYYY-MM-DD HH:mm:ss");
+        console.log(sessionTime);
+
         if(this.testTeamNumber > '1'){
           console.log("Greater THAN 1");
 
@@ -1528,7 +1531,8 @@ export default {
               location_id: 1,
               mission_id: 1,
               route_id: 1,
-              player_count: totalPlayer
+              player_count: totalPlayer,
+              session_time: sessionTime
             })
             .then(response => {
               console.log(response);
@@ -1536,7 +1540,7 @@ export default {
               this.sessionIdValue = response.data.id;
               var sessionId = response.data.id;
 
-              for(var i=1; i <= totalPlayers; i++){
+              for(var i=1; i <= totalPlayer; i++){
                 console.log("I value "+i);
                 var teamPersonId = this["testTeamPlayer"+i];
                 console.log('Team Player Value '+teamPersonId);
