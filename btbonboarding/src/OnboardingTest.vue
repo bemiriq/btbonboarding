@@ -703,6 +703,7 @@ export default {
         testTeamPlayer5:'',
         testTeamPlayer6:'',
         sessionIdValue: '',
+        tolist10: [],
 
         draggedItemObjectId: '',
 
@@ -4534,10 +4535,14 @@ export default {
                                   console.log(response.data);
                                   console.log("INSIDE GET SESSEION BY ID");
                   
-                                  this.list10 = response.data;
+                                  var list10id = response.data.id;
                                   console.log("BELOW IS LIST10 DATq");
                   
                                   console.log(this.list10);
+
+                                  if (list10id > 0) { 
+                                      this.list10.push(this.tolist10);
+                                  }
                   
                                 })
                                 .catch(function (error) {
@@ -4558,6 +4563,7 @@ export default {
               // console.log(this.tolist10teamplayersessionid);
               var sessionData = response.data;
               this.teamName10 = 'TEST';
+              console.log(this.tolist10);
               // this.list10 = sessionData;
               // console.log(this.list10);
 
