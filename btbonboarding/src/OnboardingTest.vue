@@ -174,41 +174,45 @@
                       </b-col>
                     </b-row>
 
-                          <!-- <div>
-                            <draggable id="first" data-source="juju" :list="list20" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 20, index)" @change="onDropReservation1($event, 20)">
+                          <div>
+                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;">
 
-                              <div class="list-group-item item" v-for="(element, index) in list20" :key="index">
+                              <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
 
                                   <b-row>
 
                                     <b-col sm="2">
 
-                                      <p v-if="list20[index].rfidState1 == '' || !list20[index].rfidState1 > '0'">&#10060;</p>
-                                      <p v-if="list20[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+                                      <!-- <p v-if="list10[index].rfidState1 == '' || !list10[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list10[index].rfidState1 > '0'" style='color:green;'>&#9989;</p> -->
 
                                     </b-col>
 
                                     <b-col sm="7">
-                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                        {{element.Team_player_sessions[index].Player.Person.first_name}} 
+                                        <!-- {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}}) -->
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.minor_tag}}
+                                      <!-- {{element.Person.minor_tag}} -->
+                                      {{element.Mission.id}}
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '20'">&#128163;</p>
+                                      {{element.id}
+                                      <!-- <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p> -->
+                                      }
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <!-- {{element.Person.Player.play_count}} -->
                                     </b-col>
 
 
                                   </b-row>
                               </div>
                               </draggable>
-                            </div> -->
+                            </div>
 
 
                       <br/>
@@ -1588,7 +1592,7 @@ export default {
                 console.log("BELOW IS LIST10 DATq");
 
                 console.log(this.list10);
-                
+
               })
               .catch(function (error) {
                 console.log(error);
