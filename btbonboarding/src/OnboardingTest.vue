@@ -986,6 +986,13 @@ export default {
       return {
 
         testTeamNumber: '',
+        testTeamPlayer1:'',
+        testTeamPlayer2:'',
+        testTeamPlayer3:'',
+        testTeamPlayer4:'',
+        testTeamPlayer5:'',
+        testTeamPlayer6:'',
+        sessionIdValue: '',
 
         draggedItemObjectId: '',
 
@@ -1497,14 +1504,22 @@ export default {
         console.log(this.testTeamNumber);
         console.log(event.target.value);
 
+        this.testTeamPlayer1 = '53796';
+        this.testTeamPlayer2 = '53797';
+        this.testTeamPlayer3 = '53798';
+        this.testTeamPlayer4 = '53799';
+        this.testTeamPlayer5 = '53800';
+        this.testTeamPlayer6 = '53801';
+
         if(this.testTeamNumber > '1'){
           console.log("Greater THAN 1");
 
           /** this will add data into first box **/
           
-          if(this.teamName10 == null){
+          if(this.teamName10.length > '0'){
 
             console.log("ADD data into first box");
+            var totalPlayer = this.testTeamNumber;
 
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
               test: 1,
@@ -1512,11 +1527,35 @@ export default {
               active: 1,
               location_id: 1,
               mission_id: 1,
-              route_id: 1
+              route_id: 1,
+              player_count: totalPlayer
             })
             .then(response => {
               console.log(response);
-            })
+              console.log(response.data);
+              this.sessionIdValue = response.data.id;
+              var sessionId = response.data.id;
+
+              for(var i=1; i <= totalPlayers; i++){
+                console.log("I value "+i);
+                var teamPersonId = this["testTeamPlayer"+i];
+                console.log('Team Player Value '+teamPersonId);
+
+                axios.post(VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
+                  player_id: teamPersonId,
+                  team_id: 4,
+                  session_id: sessionId
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data);
+                  })/** end of for loop **/
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              }/** end of for loop **/
+
             .catch(function (error) {
               console.log(error);
             });
