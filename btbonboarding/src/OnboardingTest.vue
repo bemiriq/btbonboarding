@@ -460,6 +460,20 @@
           <b-row>
 
             <b-col>
+
+              <select v-model="testTeamNumber" @change="onChangeTeamNumber($event)" >
+                <option disabled value="">Please select test team number</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <span>Selected: {{ testTeamNumber }}</span>
+
+            </b-col>
+
+            <b-col>
               <!-- <br/>
 
               <draggable :list="dataList3" class="list-group" draggable=".item" group="a" :move="checkMove1">
@@ -971,6 +985,8 @@ export default {
   data() {
       return {
 
+        testTeamNumber: '',
+
         draggedItemObjectId: '',
 
         loadScreen: false,
@@ -1474,6 +1490,21 @@ export default {
     },
 
     methods: {
+
+      onChangeTeamNumber(event){
+        console.log(event);
+        console.log("I was inside team player function");
+        console.log(this.testTeamNumber);
+        console.log(event.target.value);
+
+        if(this.testTeamNumber > '1'){
+          console.log("Greater THAN 1");
+        }
+        else{
+          console.log("Less THAN 2");
+        }
+
+      },
 
       activateTeam(event, value){
         console.log("team activated");
