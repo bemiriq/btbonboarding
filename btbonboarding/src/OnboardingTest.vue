@@ -150,7 +150,7 @@
 
           <div class="bv-example-row">
 
-            <div v-for="elemented in list10" :key="elemented.id">
+            <div v-for="elemented in list10.Team_player_sessions[0]" :key="elemented.id">
                             <p> {{elemented.id}} </p>
                           </div>
 
