@@ -149,7 +149,7 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" >
+          <draggable class="list-group" draggable=".item" group="a" >
               
             <div class="list-group-item item">
 
