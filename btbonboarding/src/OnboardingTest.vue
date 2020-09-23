@@ -4566,13 +4566,13 @@ export default {
                   
                                 /** end of session id get values list **/
 
-                  this['playerDetail'+i] = 1;
-                  console.log(i +' '+this['playerDetail'+i]);
-
                   })/** end of for loop **/
                 .catch(function (error) {
                   console.log(error);
                 });
+
+                this['playerDetail'+i] = 1;
+                console.log(i +' '+this['playerDetail'+i]);
 
               }/** end of for loop **/
 
