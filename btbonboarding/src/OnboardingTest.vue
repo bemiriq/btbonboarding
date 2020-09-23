@@ -150,8 +150,16 @@
 
           <div class="bv-example-row">
 
-            <div v-for="elemented in list10" :key="elemented.id">
-              <p> {{elemented.id}} </p>
+            <div v-if="playerDetail1 =='1'">
+              <p> PLAYER ONE </p>
+            </div>
+
+            <div v-if="playerDetail2 =='1'">
+              <p> PLAYER TWO </p>
+            </div>
+
+            <div v-if="playerDetail3 =='1'">
+              <p> PLAYER THREE </p>
             </div>
 
           </div>
@@ -704,6 +712,9 @@ export default {
         testTeamPlayer6:'',
         sessionIdValue: '',
         tolist10: [],
+        playerDetail1: '',
+        playerDetail2: '',
+        playerDetail3: '',
 
         draggedItemObjectId: '',
 
@@ -4542,11 +4553,11 @@ export default {
                   
                                   console.log(this.list10);
 
-                                  if (list10id > 0) { 
-                                      this.list10.push(this.tolist10);
-                                      console.log(this.list10);
-                                      console.log(this.tolist10);
-                                  }
+                                  // if (list10id > 0) { 
+                                  //     this.list10.push(this.tolist10);
+                                  //     console.log(this.list10);
+                                  //     console.log(this.tolist10);
+                                  // }
                   
                                 })
                                 .catch(function (error) {
@@ -4555,6 +4566,8 @@ export default {
                   
                                 /** end of session id get values list **/
 
+                  this['playerDetail'+i] = '1';
+                  console.log(this['playerDetail'+i]);
 
                   })/** end of for loop **/
                 .catch(function (error) {
