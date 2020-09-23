@@ -1499,6 +1499,38 @@ export default {
 
         if(this.testTeamNumber > '1'){
           console.log("Greater THAN 1");
+
+          /** this will add data into first box **/
+          
+          if(this.teamName10 == null){
+
+            console.log("ADD data into first box");
+
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+              test: 1,
+              team_id: 4,
+              active: 1,
+              location_id: 1,
+              mission_id: 1,
+              route_id: 1
+            })
+            .then(response => {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+          } /** end of first box if loop **/
+
+          /** this will add data into second box **/
+          else{
+            console.log("ADD data to second box");
+          
+          } /** end of second box ELSE loop **/
+
+          console.log("TEAM NAME LENGTH "+this.teamName10.length);
+
         }
         else{
           console.log("Less THAN 2");
