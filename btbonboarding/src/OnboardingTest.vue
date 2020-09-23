@@ -1516,7 +1516,7 @@ export default {
 
           /** this will add data into first box **/
           
-          if(this.teamName10.length > '0'){
+          if(this.teamName10.length == '0'){
 
             console.log("ADD data into first box");
             var totalPlayer = this.testTeamNumber;
@@ -1556,7 +1556,7 @@ export default {
 
               }/** end of for loop **/
             })
-            
+
             .catch(function (error) {
               console.log(error);
             });
