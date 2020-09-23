@@ -157,6 +157,130 @@
                 PLAYER ONE
               </div>
 
+            </div>
+
+            <div class="list-group-item item">
+
+              <div v-if="playerDetail2 =='1'">
+                PLAYER TWO
+              </div>
+
+            </div>
+
+            <div class="list-group-item item">
+
+              <div v-if="playerDetail3 =='1'">
+                PLAYER THREE
+              </div>
+            </div>
+
+            <div class="list-group-item item">
+              <div v-if="playerDetail4 =='1'">
+                PLAYER FOUR
+              </div>
+            </div>
+
+            <div class="list-group-item item">
+              <div v-if="playerDetail5 =='1'">
+                PLAYER FIVE
+              </div>
+            </div>
+
+            <div class="list-group-item item">
+              <div v-if="playerDetail6 =='1'">
+                PLAYER SIX
+              </div>
+            </div>
+
+          </draggable>
+
+
+          <br/>
+
+          <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+
+                      <div v-if=" selected10 > 0 && selected10 == selected11">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)"> -->
+                              <!-- <p>{{vsselected10}}</p>
+                              <p>{{vsselected11}}</p> -->
+                            <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                              <option> </option>
+                              <option :value="teamName11"> {{ teamName11 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
+                      </div>
+
+            <br/>
+
+             <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
+                        <!-- <b-col sm="3"> -->
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <!-- <div>
+                            <b-button v-b-modal.modal-center variant="info">RFID</b-button>
+                          </div> -->
+                        <!-- </b-col> -->
+
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist10 == false">
+                                  <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 10)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
+
+
+         <!--  <div v-else>
+            <p> NO PLAYER </p>
+          </div> -->
+
+          <br/>
+        </b-col>
+
+        <!-- start of center div which consists of table with all details -->
+        <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
+
+          <draggable class="list-group" draggable=".item" group="a" >
+              
+            <div class="list-group-item item">
+
+              <!-- <div v-if="playerDetail1 =='1'">
+                PLAYER ONE
+              </div>
+
               <div v-if="playerDetail2 =='1'">
                 PLAYER TWO
               </div>
@@ -175,7 +299,7 @@
 
               <div v-if="playerDetail6 =='1'">
                 PLAYER SIX
-              </div>
+              </div> -->
 
             </div>
 
