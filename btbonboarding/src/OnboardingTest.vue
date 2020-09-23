@@ -174,9 +174,9 @@
                       </b-col>
                     </b-row>
 
-                          <div v-for="(element, index) in list10" :key="index">
-                            <p> {{element.Team_player_sessions[index].Player.Person.first_name}} </p>
-                          </div>
+                          <!-- <div v-for="(element, index) in list10" :key="index"> -->
+                            <!-- <p> {{element.Team_player_sessions[index].Player.Person.first_name}} </p> -->
+                          <!-- </div> -->
 
 
                       <br/>
