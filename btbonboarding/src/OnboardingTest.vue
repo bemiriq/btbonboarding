@@ -26,13 +26,13 @@
 
         <!-- <b-modal id="modal-center" ref="sideRfidUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
         <b-modal id="modal-center" ref="sideRfidUpdate10" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName10}} Side A {{dateTime1Data}}</p></b>
+                            <b><p>{{teamName10}} Side A</p></b>
 
                               <b-row class="my-1">
-                                <b-col sm="12" v-if="playerDetail1 == '1' ">
+                                <b-col sm="12">
                                   <div>
-                                    <p>PLAYER ONE</p>
-                                    <input type="text" value=""/>
+
+                                    <p> PLAYER ONE </p>
                                      <!--  <div v-for="(listings, index) in list10" :key="index">
 
                                         <br/>
@@ -149,62 +149,81 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <draggable class="list-group" draggable=".item" group="a" >
-              
-            <div class="list-group-item item">
+          <div class="bv-example-row">
 
-              <div v-if="playerDetail1 =='1'">
-                PLAYER ONE
-              </div>
+            <b-row>
 
-            </div>
+              <b-col>
+                <p class="btbSideTitle"><b>SIDE A</b></p>
 
-            <div class="list-group-item item">
+                <!-- start the form here -->
+                <!-- <form id="signup-form" @submit.prevent="processForm"> -->
+                <!-- <form id="signup-form"> -->
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
 
-              <div v-if="playerDetail2 =='1'">
-                PLAYER TWO
-              </div>
-
-            </div>
-
-            <div class="list-group-item item">
-
-              <div v-if="playerDetail3 =='1'">
-                PLAYER THREE
-              </div>
-            </div>
-
-            <div class="list-group-item item">
-              <div v-if="playerDetail4 =='1'">
-                PLAYER FOUR
-              </div>
-            </div>
-
-            <div class="list-group-item item">
-              <div v-if="playerDetail5 =='1'">
-                PLAYER FIVE
-              </div>
-            </div>
-
-            <div class="list-group-item item">
-              <div v-if="playerDetail6 =='1'">
-                PLAYER SIX
-              </div>
-            </div>
-
-          </draggable>
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
+                      </b-col>
+                      <b-col sm="8">
 
 
-          <br/>
+                        <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-          <b-row>
+
+                      </b-col>
+                    </b-row>
+
+                      <div>
+                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;">
+
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
+
+                              <div class="list-group-item item" v-if="playerDetail1 == '1'">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER ONE
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
+                              <div class="list-group-item item" v-if="playerDetail2 == '2'">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER TWO
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
+                              </draggable>
+                        </div>
+
+
+                      <br/>
+
+                      <b-row>
                         <b-col sm="3">
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                            <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
+                            <!-- <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                            </b-form-select>
+                            </b-form-select> -->
                         </b-col>
                       </b-row>
 
@@ -218,21 +237,38 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)"> -->
-                              <!-- <p>{{vsselected10}}</p>
-                              <p>{{vsselected11}}</p> -->
-                            <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
                               <option> </option>
                               <option :value="teamName11"> {{ teamName11 }} </option>
-                            </b-form-select>
+                            </b-form-select> -->
 
                           </b-col>
                         </b-row>
                       </div>
+                     <!--  <br/>
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Organization</label>
+                        </b-col>
+                        <b-col sm="9">
+                          <b-form-select v-model="organizationselected1" @change="onChange($event)">
+                            <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
+                          </b-form-select>
+                        </b-col>
+                      </b-row> -->
 
-            <br/>
+                      <br />
 
-             <b-row>
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName10}} </b> </p>
+                        <br>
+
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
+
+                      </b-modal>
+
+                      <b-row>
                         <b-col sm="3" style="display: none;">
                           <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
                         </b-col>
@@ -262,52 +298,155 @@
                           </div>
                         </b-row>
 
+                      <br/>
 
-         <!--  <div v-else>
-            <p> NO PLAYER </p>
-          </div> -->
+                  </b-col>
 
-          <br/>
-        </b-col>
+                <!-- </form> -->
 
-        <!-- start of center div which consists of table with all details -->
-        <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
+                <!-- end of the form here -->
 
-          <draggable class="list-group" draggable=".item" group="a" >
-              
-            <div class="list-group-item item">
+              </b-col>
 
-              <!-- <div v-if="playerDetail1 =='1'">
-                PLAYER ONE
-              </div>
+                                                                                        <!-- SIDE 1 B -->
+             <b-col>
+                <p class="btbSideTitle"><b>SIDE B</b></p>
 
-              <div v-if="playerDetail2 =='1'">
-                PLAYER TWO
-              </div>
+                <!-- <form id="signup-form"> -->
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }">
 
-              <div v-if="playerDetail3 =='1'">
-                PLAYER THREE
-              </div>
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
+                      </b-col>
+                      <b-col sm="8">
 
-              <div v-if="playerDetail4 =='1'">
-                PLAYER FOUR
-              </div>
 
-              <div v-if="playerDetail5 =='1'">
-                PLAYER FIVE
-              </div>
+                        <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-              <div v-if="playerDetail6 =='1'">
-                PLAYER SIX
-              </div> -->
 
-            </div>
+                      </b-col>
+                    </b-row>
 
-          </draggable>
+                          <div>
+                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
 
-         <!--  <div v-else>
-            <p> NO PLAYER </p>
-          </div> -->
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
+
+                              <div class="list-group-item item" v-for="(element, index) in list11" :key="index">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                      <p v-if="list11[index].rfidState1 == '' || !list11[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list11[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.play_count}}
+                                    </b-col>
+
+
+                                  </b-row>
+                              </div>
+                              </draggable>
+                        </div>
+
+
+                      <br/>
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected11" v-on:change="onChangeMission1($event, 11)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+                      <div v-if=" selected11 > 0 && selected10 == selected11">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
+                              <option> </option>
+                              <option :value="teamName10"> {{ teamName10 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
+                      </div>
+
+                      <br />
+
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName11}} </b> </p>
+                        <br>
+
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
+
+                      </b-modal>
+
+                      <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
+
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center11 variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist11 == false">
+                                  <b-button block v-if="disableButton11 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 11)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
+
+                      <br/>
+
+                  </b-col>
+
+                <!-- </form> -->
+
+                <!-- end of the form here -->
+
+              </b-col>
+
+            </b-row>
+
+          </div>
 
           <br/>
         </b-col>
@@ -852,13 +991,12 @@ export default {
         testTeamPlayer5:'',
         testTeamPlayer6:'',
         sessionIdValue: '',
-        tolist10: [],
-        playerDetail1: '',
-        playerDetail2: '',
-        playerDetail3: '',
-        playerDetail4: '',
-        playerDetail5: '',
-        playerDetail6: '',
+        playerDetail1:'',
+        playerDetail2:'',
+        playerDetail3:'',
+        playerDetail4:'',
+        playerDetail5:'',
+        playerDetail6:'',
 
         draggedItemObjectId: '',
 
@@ -1363,6 +1501,141 @@ export default {
     },
 
     methods: {
+
+      onChangeTeamNumber(event){
+        console.log(event);
+        console.log("I was inside team player function");
+        console.log(this.testTeamNumber);
+        console.log(event.target.value);
+
+        this.testTeamPlayer1 = '53796';
+        this.testTeamPlayer2 = '53797';
+        this.testTeamPlayer3 = '53798';
+        this.testTeamPlayer4 = '53799';
+        this.testTeamPlayer5 = '53800';
+        this.testTeamPlayer6 = '53801';
+
+        var sessionTime = moment().format("YYYY-MM-DD HH:mm:ss");
+        console.log(sessionTime);
+
+        if(this.testTeamNumber > '1'){
+          console.log("Greater THAN 1");
+
+          /** this will add data into first box **/
+          
+          if(this.teamName10.length == '0'){
+
+            console.log("ADD data into first box");
+            var totalPlayer = this.testTeamNumber;
+
+            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+              test: 1,
+              team_id: 4,
+              active: 1,
+              location_id: 1,
+              mission_id: 1,
+              route_id: 1,
+              player_count: totalPlayer,
+              session_time: sessionTime
+            })
+            .then(response => {
+              console.log(response);
+              console.log(response.data);
+              this.sessionIdValue = response.data.id;
+              var sessionId = response.data.id;
+
+              for(var i=1; i <= totalPlayer; i++){
+                console.log("I value "+i);
+                var teamPersonId = this["testTeamPlayer"+i];
+                console.log('Team Player Value '+teamPersonId);
+
+                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{
+                  // player_id: teamPersonId,
+                  team_id: 4
+                  // session_id: sessionId
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data);
+
+                  // console.log("inside solti");
+                  //       this.tolist10teamplayersessionid = response.data[0].id;
+
+                  // if (this.tolist10teamplayersessionid > 0) { 
+                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  // }
+
+                  /** get the session id all list values now **/
+                  // var sessionId = this.sessionIdValue;
+                                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+                  
+                                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+                  
+                                })
+                                .then(response => {
+                                  console.log(response);
+                                  console.log(response.data);
+                                  console.log("INSIDE GET SESSEION BY ID");
+                  
+                                  this.list10 = response.data;
+                                  console.log("BELOW IS LIST10 DATq");
+                  
+                                  console.log(this.list10);
+                  
+                                })
+                                .catch(function (error) {
+                                  console.log(error);
+                                });
+                  
+                                /** end of session id get values list **/
+
+
+                  })/** end of for loop **/
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              }/** end of for loop **/
+
+              // console.log(this.list10teamplayersessionid);
+              // console.log(this.tolist10teamplayersessionid);
+              var sessionData = response.data;
+              this.teamName10 = 'TEST';
+
+              this['playerDetail'+i] = 1;
+              console.log(i +' '+this['playerDetail'+i]);
+              // this.list10 = sessionData;
+              // console.log(this.list10);
+
+
+
+
+
+            })
+
+            .catch(function (error) {
+              console.log(error);
+            });
+
+
+          } /** end of first box if loop **/
+
+          /** this will add data into second box **/
+          else{
+            console.log("ADD data to second box");
+          
+          } /** end of second box ELSE loop **/
+
+          // console.log(this.list10);
+          // console.log(this.tolist10teamplayersessionid);
+          console.log("TEAM NAME LENGTH "+this.teamName10.length);
+
+        }
+        else{
+          console.log("Less THAN 2");
+        }
+
+      },
 
       activateTeam(event, value){
         console.log("team activated");
@@ -4613,150 +4886,6 @@ export default {
   },
 
     computed:{
-
-
-      onChangeTeamNumber(event){
-        console.log(event);
-        console.log("I was inside team player function");
-        console.log(this.testTeamNumber);
-        // console.log(event.target.value);
-
-        this.testTeamPlayer1 = '53796';
-        this.testTeamPlayer2 = '53797';
-        this.testTeamPlayer3 = '53798';
-        this.testTeamPlayer4 = '53799';
-        this.testTeamPlayer5 = '53800';
-        this.testTeamPlayer6 = '53801';
-
-        var sessionTime = moment().format("YYYY-MM-DD HH:mm:ss");
-        console.log(sessionTime);
-
-        if(this.testTeamNumber > '1'){
-          console.log("Greater THAN 1");
-
-          /** this will add data into first box **/
-          
-          if(this.teamName10.length == '0'){
-
-            console.log("ADD data into first box");
-            var totalPlayer = this.testTeamNumber;
-
-            axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
-              test: 1,
-              team_id: 4,
-              active: 1,
-              location_id: 1,
-              mission_id: 1,
-              route_id: 1,
-              player_count: totalPlayer,
-              session_time: sessionTime
-            })
-            .then(response => {
-              console.log(response);
-              console.log(response.data);
-              this.sessionIdValue = response.data.id;
-              var sessionId = response.data.id;
-
-              for(var i=1; i <= totalPlayer; i++){
-                console.log("I value "+i);
-                var teamPersonId = this["testTeamPlayer"+i];
-                console.log('Team Player Value '+teamPersonId);
-
-                axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+teamPersonId+'/session/'+sessionId,{
-                  // player_id: teamPersonId,
-                  team_id: 4
-                  // session_id: sessionId
-                })
-                .then(response => {
-                  console.log(response);
-                  console.log(response.data);
-
-                  // console.log("inside solti");
-                  //       this.tolist10teamplayersessionid = response.data[0].id;
-
-                  // if (this.tolist10teamplayersessionid > 0) { 
-                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
-                  // }
-
-                  /** get the session id all list values now **/
-                  // var sessionId = this.sessionIdValue;
-                                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
-                  
-                                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
-                  
-                                })
-                                .then(response => {
-                                  console.log(response);
-                                  console.log(response.data);
-                                  this.list10 = response.data;
-
-                                  console.log("INSIDE GET SESSEION BY ID");
-                  
-                                  var list10id = response.data.id;
-                                  console.log("BELOW IS LIST10 DATq");
-                  
-                                  console.log(this.list10);
-
-                                  // if (list10id > 0) { 
-                                  //     this.list10.push(this.tolist10);
-                                  //     console.log(this.list10);
-                                  //     console.log(this.tolist10);
-                                  // }
-                  
-                                })
-                                .catch(function (error) {
-                                  console.log(error);
-                                });
-                  
-                                /** end of session id get values list **/
-
-                  })/** end of for loop **/
-                .catch(function (error) {
-                  console.log(error);
-                });
-
-                this['playerDetail'+i] = 1;
-                console.log(i +' '+this['playerDetail'+i]);
-
-              }/** end of for loop **/
-
-              // console.log(this.list10teamplayersessionid);
-              // console.log(this.tolist10teamplayersessionid);
-              var sessionData = response.data;
-              this.teamName10 = 'TEST';
-              console.log(this.tolist10);
-              // this.list10 = sessionData;
-              // console.log(this.list10);
-
-
-
-
-
-            })
-
-            .catch(function (error) {
-              console.log(error);
-            });
-
-
-          } /** end of first box if loop **/
-
-          /** this will add data into second box **/
-          else{
-            console.log("ADD data to second box");
-          
-          } /** end of second box ELSE loop **/
-
-          // console.log(this.list10);
-          // console.log(this.tolist10teamplayersessionid);
-          console.log("TEAM NAME LENGTH "+this.teamName10.length);
-
-        }
-        else{
-          console.log("Less THAN 2");
-        }
-
-      },
 
       // teambytimeRepeat() {
       //     const grouped = this.teamByTime2.reduce((map, { text, time }) => {
