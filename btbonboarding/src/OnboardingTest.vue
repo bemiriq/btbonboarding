@@ -4459,7 +4459,7 @@ export default {
         console.log(event);
         console.log("I was inside team player function");
         console.log(this.testTeamNumber);
-        console.log(event.target.value);
+        // console.log(event.target.value);
 
         this.testTeamPlayer1 = '53796';
         this.testTeamPlayer2 = '53797';
