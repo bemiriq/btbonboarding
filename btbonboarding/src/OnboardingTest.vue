@@ -32,7 +32,30 @@
                                 <b-col sm="12">
                                   <div>
 
-                                    <p> PLAYER ONE </p>
+                                    <div v-if="playerDetail1 == '1' ">
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input id="input-live" :value="PLAYER ONE" disabled placeholder="PLAYER NAME"></b-form-input>
+                                        </b-col>
+
+                                        <b-col sm="4">
+                                          <b-form-input v-model="" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                    </div>
+
+
+                                    <div v-if="playerDetail2 == '1' ">
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input id="input-live" :value="PLAYER TWO" disabled placeholder="PLAYER NAME"></b-form-input>
+                                        </b-col>
+
+                                        <b-col sm="4">
+                                          <b-form-input v-model="" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                    </div>
                                      <!--  <div v-for="(listings, index) in list10" :key="index">
 
                                         <br/>
@@ -180,7 +203,7 @@
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
-                              <div class="list-group-item item" v-if="playerDetail1 == '1'">
+                              <div class="list-group-item item" v-if="playerDetail1 == '1' ">
 
                                   <b-row>
 
@@ -195,7 +218,7 @@
                                   </b-row>
                               </div>
 
-                              <div class="list-group-item item" v-if="playerDetail2 == '2'">
+                              <div class="list-group-item item" v-if="playerDetail2 == '1' ">
 
                                   <b-row>
 
@@ -1595,6 +1618,9 @@ export default {
                   console.log(error);
                 });
 
+                this['playerDetail'+i] = 1;
+                console.log(i +' '+this['playerDetail'+i]);
+
               }/** end of for loop **/
 
               // console.log(this.list10teamplayersessionid);
@@ -1602,8 +1628,7 @@ export default {
               var sessionData = response.data;
               this.teamName10 = 'TEST';
 
-              this['playerDetail'+i] = 1;
-              console.log(i +' '+this['playerDetail'+i]);
+              
               // this.list10 = sessionData;
               // console.log(this.list10);
 
