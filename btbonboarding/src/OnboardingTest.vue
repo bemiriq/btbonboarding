@@ -179,6 +179,8 @@
 
                               <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
 
+                                <p> {{element.Team_player_sessions[index].Player.Person.first_name}} </p>
+                                
                                   <b-row>
 
                                     <b-col sm="2">
@@ -195,11 +197,11 @@
 
                                     <b-col sm="1">
                                       <!-- {{element.Person.minor_tag}} -->
-                                      {{element.Mission.id}}
+                                      <!-- {{element.Mission.id}} -->
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.id}
+                                      <!-- {{element.id} -->
                                       <!-- <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p> -->
                                       }
                                     </b-col>
@@ -222,9 +224,9 @@
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                            <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
+                            <!-- <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                            </b-form-select>
+                            </b-form-select> -->
                         </b-col>
                       </b-row>
 
@@ -238,13 +240,10 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)"> -->
-                              <!-- <p>{{vsselected10}}</p>
-                              <p>{{vsselected11}}</p> -->
-                            <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
                               <option> </option>
                               <option :value="teamName11"> {{ teamName11 }} </option>
-                            </b-form-select>
+                            </b-form-select> -->
 
                           </b-col>
                         </b-row>
