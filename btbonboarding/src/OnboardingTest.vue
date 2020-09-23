@@ -148,7 +148,7 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <div class="bv-example-row" v-if="list10.length > '0'">
+          <div class="bv-example-row" v-if="list10.id > '0'">
 
             <div v-for="elemented in list10" :key="elemented.id">
               <p> {{elemented.id}} </p>
