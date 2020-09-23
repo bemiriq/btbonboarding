@@ -4566,8 +4566,8 @@ export default {
                   
                                 /** end of session id get values list **/
 
-                  this['playerDetail'+i] = '1';
-                  console.log(this['playerDetail'+i]);
+                  this['playerDetail'+i] = 1;
+                  console.log(i +' '+this['playerDetail'+i]);
 
                   })/** end of for loop **/
                 .catch(function (error) {
