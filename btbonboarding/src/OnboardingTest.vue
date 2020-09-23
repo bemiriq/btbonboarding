@@ -1584,6 +1584,7 @@ export default {
 
             /** get the session id all list values now **/
             var sessionId = this.sessionIdValue;
+            console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
             axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
 
             })
