@@ -1576,6 +1576,7 @@ export default {
               /** get the session id all list values now **/
               // var sessionId = this.sessionIdValue;
               console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+
               axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
 
               })
@@ -1584,7 +1585,10 @@ export default {
                 console.log("INSIDE GET SESSEION BY ID");
 
                 this.list10 = response.data;
+                console.log("BELOW IS LIST10 DATq");
 
+                console.log(this.list10);
+                
               })
               .catch(function (error) {
                 console.log(error);
@@ -1609,7 +1613,7 @@ export default {
           
           } /** end of second box ELSE loop **/
 
-          console.log(this.list10);
+          // console.log(this.list10);
           // console.log(this.tolist10teamplayersessionid);
           console.log("TEAM NAME LENGTH "+this.teamName10.length);
 
