@@ -148,12 +148,16 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <div class="bv-example-row">
+          <div class="bv-example-row" v-if="list10.length > '0'">
 
-            <div v-for="elemented in list10.Team_player_sessions[0]" :key="elemented.id">
-                            <p> {{elemented.id}} </p>
-                          </div>
+            <div v-for="elemented in list10" :key="elemented.id">
+              <p> {{elemented.id}} </p>
+            </div>
 
+          </div>
+
+          <div v-else>
+            <p> NO PLAYER </p>
           </div>
 
           <br/>
