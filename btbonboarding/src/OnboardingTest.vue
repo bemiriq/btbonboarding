@@ -148,7 +148,7 @@
         <!-- start of center div which consists of table with all details -->
         <b-col lg="7" style="background-color:#fafafa; overflow: scroll; height: 650px;">
 
-          <div class="bv-example-row" v-if="list10.id > '0'">
+          <div class="bv-example-row">
 
             <div v-for="elemented in list10" :key="elemented.id">
               <p> {{elemented.id}} </p>
@@ -156,9 +156,9 @@
 
           </div>
 
-          <div v-else>
+         <!--  <div v-else>
             <p> NO PLAYER </p>
-          </div>
+          </div> -->
 
           <br/>
         </b-col>
@@ -4533,6 +4533,8 @@ export default {
                                 .then(response => {
                                   console.log(response);
                                   console.log(response.data);
+                                  this.list10 = response.data;
+
                                   console.log("INSIDE GET SESSEION BY ID");
                   
                                   var list10id = response.data.id;
@@ -4542,6 +4544,8 @@ export default {
 
                                   if (list10id > 0) { 
                                       this.list10.push(this.tolist10);
+                                      console.log(this.list10);
+                                      console.log(this.tolist10);
                                   }
                   
                                 })
