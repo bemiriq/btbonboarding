@@ -498,378 +498,770 @@ import axios from 'axios';
           //   this.teamRank = '5';
           // }
 
+          /** BEGINING OF MISSION 1 IF **/
           if(this.teamList[index].mission_id == '1'){
-            console.log(" IT WAS MISSION 1");
-          }
+                
+                console.log(" IT WAS MISSION 1");
 
-          if(this.teamList[index].mission_id == '2'){
-            console.log(" IT WAS MISSION 2");
-          }
+                this.total_score = this.teamList[index].total_score;
 
-          this.total_score = this.teamList[index].total_score;
-          this.size = this.teamList[index].player_count;
-          this.winners = this.teamList[index].winners;
+                var missionid = this.teamList[index].mission_id;
+                var totalScore = this.teamList[index].total_score;
 
-          this.teamname = this.teamList[index].Team.name;
+                /** THIS WILL PROVIDE US A RANK and RANK % **/
+                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/rank/mission/'+missionid+'/total_score/'+totalScore,{
 
-          var teamLength = this.teamList[index].Team_player_sessions.length;
-          console.log(teamLength);
+                })
+                .then(function (response) {
+                  console.log(response);
+                })
 
-          var replyDataObj1 = this.playerNamesList;
+                .catch(function (error) {
+                  console.log(error);
+                });
+                /** END OF RANK AND RANK % **/
+                
 
-          for(let j=0; j < teamLength; j++){
+                this.size = this.teamList[index].player_count;
+                this.winners = this.teamList[index].winners;
 
-            if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+                this.teamname = this.teamList[index].Team.name;
 
-              var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
-              var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+                var teamLength = this.teamList[index].Team_player_sessions.length;
+                console.log(teamLength);
 
-              console.log(playerFirstName+' '+playerLastName);
+                var replyDataObj1 = this.playerNamesList;
 
-              replyDataObj1[j]={
-                  "first_name": playerFirstName,
-                  "last_name": playerLastName,
-                  "full_name": playerFirstName+' '+playerLastName
+                for(let j=0; j < teamLength; j++){
+
+                  if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
+
+                    var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
+                    var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
+
+                    console.log(playerFirstName+' '+playerLastName);
+
+                    replyDataObj1[j]={
+                        "first_name": playerFirstName,
+                        "last_name": playerLastName,
+                        "full_name": playerFirstName+' '+playerLastName
+                      }
+
+                  }
+                  else{
+                    var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
+                    var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+
+                    console.log(minorfirstname+' '+minorlastname);
+
+                    replyDataObj1[j]={
+                        "first_name": minorfirstname,
+                        "last_name": minorlastname,
+                        "full_name": minorfirstname+' '+minorlastname
+                      }
+                  }
+                  
+                }
+                  
+                  console.log(replyDataObj1);
+                  this.playerNamesList = replyDataObj1;
+
+                /** THIS IS MISSION 1 **/
+                // if(){
+
+                // }
+
+                // * THIS IS MISSION 2 *
+                // if(){
+
+                // }
+
+
+                /** THIS IS THE BOMB ROOM **/
+                if(this.teamList[index].Session_game_scores[5].score == undefined){
+                  this.room5 = '00:00';
+                }
+                else{
+                  var room5Score = this.teamList[index].Session_game_scores[5].score;
+
+                  console.log(room5Score);
+
+                  this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
+
+                  this.bombDigitDecoded = this.teamList[index].Session_game_scores[5].score;
+                  this.totalSeconds = this.teamList[index].bomb_time;
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+                  var gameId = this.teamList[index].Session_game_scores[5].game_id;
+
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room5Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    this.bombRoomPercentage = Math.round(filterIntoPercentile);
+
+                    console.log("ABOVE DATA BM");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                }
+                /** END OF BOMB ROOM **/
+
+                /** THIS IS ECHO CHAMBER ROOM **/
+
+                if(this.teamList[index].Session_game_scores[3].score == undefined){
+                  this.room3 = '00:00';
+                }
+                else{
+                  var room3Score = this.teamList[index].Session_game_scores[3].score;
+
+                  console.log(room3Score);
+
+                  this.room3 = moment().startOf('day').seconds(room3Score).format("mm:ss");
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+                  var gameId = this.teamList[index].Session_game_scores[3].game_id;
+
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room3Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    this.echoChamberPercentage = Math.round(filterIntoPercentile);
+
+                    console.log("ABOVE DATA EC");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
                 }
 
-            }
-            else{
-              var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
-              var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
+                /** END OF ECHO CHAMBER **/
 
-              console.log(minorfirstname+' '+minorlastname);
 
-              replyDataObj1[j]={
-                  "first_name": minorfirstname,
-                  "last_name": minorlastname,
-                  "full_name": minorfirstname+' '+minorlastname
+                /** THIS IS HACK ATTACK ROOM **/
+
+                if(this.teamList[index].Session_game_scores[1].score == undefined){
+                  this.room1 = '00:00';
                 }
-            }
-            
-          }
-            
-            console.log(replyDataObj1);
-            this.playerNamesList = replyDataObj1;
+                else{
+                  var room1Score = this.teamList[index].Session_game_scores[1].score;
 
-          /** THIS IS MISSION 1 **/
-          // if(){
+                  console.log(room1Score);
 
-          // }
+                  this.room1 = moment().startOf('day').seconds(room1Score).format("mm:ss");
 
-          // * THIS IS MISSION 2 *
-          // if(){
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-          // }
+                  var gameId = this.teamList[index].Session_game_scores[1].game_id;
 
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room1Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-          /** THIS IS THE BOMB ROOM **/
-          if(this.teamList[index].Session_game_scores[5].score == undefined){
-            this.room5 = '00:00';
-          }
-          else{
-            var room5Score = this.teamList[index].Session_game_scores[5].score;
+                  })
+                  .then(response => {
+                    console.log(response);
 
-            console.log(room5Score);
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
 
-            this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
 
-            this.bombDigitDecoded = this.teamList[index].Session_game_scores[5].score;
-            this.totalSeconds = this.teamList[index].bomb_time;
+                    // var multipleRank = 100*filterByTwoDecimal;
 
-            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
 
-            var gameId = this.teamList[index].Session_game_scores[5].game_id;
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
 
-            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room5Score,{
-            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+                    this.hackAttackPercentage = Math.round(filterIntoPercentile);
 
-            })
-            .then(response => {
-              console.log(response);
+                    console.log("ABOVE DATA HA");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
-              var fetchedRank = response.data.rank;
-              console.log(fetchedRank);
+                }
 
-              var filterByTwoDecimal = fetchedRank.toFixed(2);
-              console.log(filterByTwoDecimal);
+                /** END OF HACK ATTACK **/
 
-              // var multipleRank = 100*filterByTwoDecimal;
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+                /** THIS IS FLOOR GRID ROOM **/
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+                if(this.teamList[index].Session_game_scores[4].score == undefined){
+                  this.room4 = '00:00';
+                }
+                else{
+                  var room4Score = this.teamList[index].Session_game_scores[4].score;
 
-              this.bombRoomPercentage = Math.round(filterIntoPercentile);
+                  console.log(room4Score);
 
-              console.log("ABOVE DATA BM");
-              // this.teamList = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+                  this.room4 = moment().startOf('day').seconds(room4Score).format("mm:ss");
 
-          }
-          /** END OF BOMB ROOM **/
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-          /** THIS IS ECHO CHAMBER ROOM **/
+                  var gameId = this.teamList[index].Session_game_scores[4].game_id;
 
-          if(this.teamList[index].Session_game_scores[3].score == undefined){
-            this.room3 = '00:00';
-          }
-          else{
-            var room3Score = this.teamList[index].Session_game_scores[3].score;
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room4Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-            console.log(room3Score);
+                  })
+                  .then(response => {
+                    console.log(response);
 
-            this.room3 = moment().startOf('day').seconds(room3Score).format("mm:ss");
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
 
-            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
 
-            var gameId = this.teamList[index].Session_game_scores[3].game_id;
+                    // var multipleRank = 100*filterByTwoDecimal;
 
-            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room3Score,{
-            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
 
-            })
-            .then(response => {
-              console.log(response);
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
 
-              var fetchedRank = response.data.rank;
-              console.log(fetchedRank);
+                    this.floorGridPercentage = Math.round(filterIntoPercentile);
 
-              var filterByTwoDecimal = fetchedRank.toFixed(2);
-              console.log(filterByTwoDecimal);
+                    console.log("ABOVE DATA FG");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
-              // var multipleRank = 100*filterByTwoDecimal;
+                }
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+                /** END OF FLOOR GRID **/
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+                /** THIS IS LASER MAZE ROOM **/
 
-              this.echoChamberPercentage = Math.round(filterIntoPercentile);
+                if(this.teamList[index].Session_game_scores[2].score == undefined){
+                  this.room2 = '00:00';
+                }
+                else{
+                  var room2Score = this.teamList[index].Session_game_scores[2].score;
+
+                  console.log(room2Score);
+
+                  this.room2 = moment().startOf('day').seconds(room2Score).format("mm:ss");
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-              console.log("ABOVE DATA EC");
-              // this.teamList = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+                  var gameId = this.teamList[index].Session_game_scores[2].game_id;
 
-          }
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room2Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-          /** END OF ECHO CHAMBER **/
+                  })
+                  .then(response => {
+                    console.log(response);
 
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
 
-          /** THIS IS HACK ATTACK ROOM **/
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
 
-          if(this.teamList[index].Session_game_scores[1].score == undefined){
-            this.room1 = '00:00';
-          }
-          else{
-            var room1Score = this.teamList[index].Session_game_scores[1].score;
+                    // var multipleRank = 100*filterByTwoDecimal;
 
-            console.log(room1Score);
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
 
-            this.room1 = moment().startOf('day').seconds(room1Score).format("mm:ss");
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
 
-            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+                    var roomPercentage = Math.round(filterIntoPercentile);
 
-            var gameId = this.teamList[index].Session_game_scores[1].game_id;
+                    this.laserMazePercentage = roomPercentage;
 
-            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room1Score,{
-            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-            })
-            .then(response => {
-              console.log(response);
+                    console.log("ABOVE DATA LM");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
-              var fetchedRank = response.data.rank;
-              console.log(fetchedRank);
+                }
 
-              var filterByTwoDecimal = fetchedRank.toFixed(2);
-              console.log(filterByTwoDecimal);
+                /** END OF LASER MAZE **/
 
-              // var multipleRank = 100*filterByTwoDecimal;
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+                // if(this.teamList[index].Session_game_scores[2].score == undefined){
+                //   this.room4 = '00:00';
+                // }
+                // else{
+                //   var room4 = this.teamList[index].Session_game_scores[2].score;
+                //   this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
+                // }
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+                // if(this.teamList[index].Session_game_scores[4].score == undefined){
+                //   this.room3 = '00:00';
+                // }
+                // else{
+                //   var room3 = this.teamList[index].Session_game_scores[4].score;
+                //   this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
+                // }
 
-              this.hackAttackPercentage = Math.round(filterIntoPercentile);
+                // if(this.teamList[index].Session_game_scores[4].score == undefined){
+                //   this.room5 = '00:00';
+                // }
+                // else{
+                //   var room5 = this.teamList[index].Session_game_scores[3].score;
+                //   this.totalSeconds = this.teamList[index].Session_game_scores[3].score;
 
-              console.log("ABOVE DATA HA");
-              // this.teamList = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+                //   this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+                //   this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].level_achieved;
+                // }
 
-          }
+                /** this will pass all the image name for room 1 to 5 **/
+                if(this.teamList[index].Session_game_scores[1].game_id < 6){
+                  this.roomname1 = 'Hack Attack';
+                  this.roomname2 = 'Laser Maze';
+                  this.roomname3 = 'Echo Chamber';
+                  this.roomname4 = 'Floor Grid';
+                  this.roomname5 = 'Cyberbot';
+                  this.gamestatus = 'gameLogoChildrenMission1'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+                  this.missionTitle = 'MISSION 01';
+                  this.missionDetailTitle = 'CYBERBOT';
+                }
+                if(this.teamList[index].Session_game_scores[1].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+                  this.roomname1 = 'Sequencer';
+                  this.roomname2 = 'Crypto Lazer';
+                  this.roomname3 = 'Mad Dash';
+                  this.roomname4 = 'Low Battery';
+                  this.roomname5 = 'Block Monster';
+                  this.gamestatus = 'gameLogoChildrenMission2'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+                  this.missionTitle = 'MISSION 02';
+                  this.missionDetailTitle = 'BLOCK MONSTER';
+                }
+                /** end of image detail for rooms **/
 
-          /** END OF HACK ATTACK **/
+                console.log("I WAS OUTSIDE MAN");
 
+          } /** END OF MISSION 1 IF **/
 
-          /** THIS IS FLOOR GRID ROOM **/
+          if(this.teamList[index].mission_id == '2'){ /** BEGINING OF MISSION 2 **/
+                
+                console.log(" IT WAS MISSION 2");
 
-          if(this.teamList[index].Session_game_scores[4].score == undefined){
-            this.room4 = '00:00';
-          }
-          else{
-            var room4Score = this.teamList[index].Session_game_scores[4].score;
 
-            console.log(room4Score);
+                this.total_score = this.teamList[index].total_score;
+                this.size = this.teamList[index].player_count;
+                this.winners = this.teamList[index].winners;
 
-            this.room4 = moment().startOf('day').seconds(room4Score).format("mm:ss");
+                this.teamname = this.teamList[index].Team.name;
 
-            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+                var teamLength = this.teamList[index].Team_player_sessions.length;
+                console.log(teamLength);
 
-            var gameId = this.teamList[index].Session_game_scores[4].game_id;
+                var replyDataObj1 = this.playerNamesList;
 
-            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room4Score,{
-            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+                for(let j=0; j < teamLength; j++){
 
-            })
-            .then(response => {
-              console.log(response);
+                  if(this.teamList[index].Team_player_sessions[j].player_minor_id == null){
 
-              var fetchedRank = response.data.rank;
-              console.log(fetchedRank);
+                    var playerLastName = this.teamList[index].Team_player_sessions[j].Player.Person.last_name;
+                    var playerFirstName = this.teamList[index].Team_player_sessions[j].Player.Person.first_name;
 
-              var filterByTwoDecimal = fetchedRank.toFixed(2);
-              console.log(filterByTwoDecimal);
+                    console.log(playerFirstName+' '+playerLastName);
 
-              // var multipleRank = 100*filterByTwoDecimal;
+                    replyDataObj1[j]={
+                        "first_name": playerFirstName,
+                        "last_name": playerLastName,
+                        "full_name": playerFirstName+' '+playerLastName
+                      }
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+                  }
+                  else{
+                    var minorlastname = this.teamList[index].Team_player_sessions[j].Player_minor.last_name;
+                    var minorfirstname = this.teamList[index].Team_player_sessions[j].Player_minor.first_name;
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+                    console.log(minorfirstname+' '+minorlastname);
 
-              this.floorGridPercentage = Math.round(filterIntoPercentile);
+                    replyDataObj1[j]={
+                        "first_name": minorfirstname,
+                        "last_name": minorlastname,
+                        "full_name": minorfirstname+' '+minorlastname
+                      }
+                  }
+                  
+                }
+                  
+                  console.log(replyDataObj1);
+                  this.playerNamesList = replyDataObj1;
 
-              console.log("ABOVE DATA FG");
-              // this.teamList = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+                /** THIS IS MISSION 1 **/
+                // if(){
 
-          }
+                // }
 
-          /** END OF FLOOR GRID **/
+                // * THIS IS MISSION 2 *
+                // if(){
 
-          /** THIS IS LASER MAZE ROOM **/
+                // }
 
-          if(this.teamList[index].Session_game_scores[2].score == undefined){
-            this.room2 = '00:00';
-          }
-          else{
-            var room2Score = this.teamList[index].Session_game_scores[2].score;
 
-            console.log(room2Score);
+                /** THIS IS THE BOMB ROOM **/
+                if(this.teamList[index].Session_game_scores[5].score == undefined){
+                  this.room5 = '00:00';
+                }
+                else{
+                  var room5Score = this.teamList[index].Session_game_scores[5].score;
 
-            this.room2 = moment().startOf('day').seconds(room2Score).format("mm:ss");
+                  console.log(room5Score);
 
-            // axios.get(VUE_APP_SESSION_GAME_SCORES)
+                  this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
-            var gameId = this.teamList[index].Session_game_scores[2].game_id;
+                  this.bombDigitDecoded = this.teamList[index].Session_game_scores[5].score;
+                  this.totalSeconds = this.teamList[index].bomb_time;
 
-            axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room2Score,{
-            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-            })
-            .then(response => {
-              console.log(response);
+                  var gameId = this.teamList[index].Session_game_scores[5].game_id;
 
-              var fetchedRank = response.data.rank;
-              console.log(fetchedRank);
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room5Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-              var filterByTwoDecimal = fetchedRank.toFixed(2);
-              console.log(filterByTwoDecimal);
+                  })
+                  .then(response => {
+                    console.log(response);
 
-              // var multipleRank = 100*filterByTwoDecimal;
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
 
-              var subtractRank = 1-filterByTwoDecimal;
-              console.log("subtractRank "+subtractRank);
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
 
-              var filterIntoPercentile = subtractRank*100;
-              console.log(filterIntoPercentile);
+                    // var multipleRank = 100*filterByTwoDecimal;
 
-              var roomPercentage = Math.round(filterIntoPercentile);
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
 
-              this.laserMazePercentage = roomPercentage;
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
 
+                    this.bombRoomPercentage = Math.round(filterIntoPercentile);
 
-              console.log("ABOVE DATA LM");
-              // this.teamList = response.data;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+                    console.log("ABOVE DATA BM");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
-          }
+                }
+                /** END OF BOMB ROOM **/
 
-          /** END OF LASER MAZE **/
+                /** THIS IS ECHO CHAMBER ROOM **/
 
+                if(this.teamList[index].Session_game_scores[3].score == undefined){
+                  this.room3 = '00:00';
+                }
+                else{
+                  var room3Score = this.teamList[index].Session_game_scores[3].score;
 
-          // if(this.teamList[index].Session_game_scores[2].score == undefined){
-          //   this.room4 = '00:00';
-          // }
-          // else{
-          //   var room4 = this.teamList[index].Session_game_scores[2].score;
-          //   this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
-          // }
+                  console.log(room3Score);
 
-          // if(this.teamList[index].Session_game_scores[4].score == undefined){
-          //   this.room3 = '00:00';
-          // }
-          // else{
-          //   var room3 = this.teamList[index].Session_game_scores[4].score;
-          //   this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
-          // }
+                  this.room3 = moment().startOf('day').seconds(room3Score).format("mm:ss");
 
-          // if(this.teamList[index].Session_game_scores[4].score == undefined){
-          //   this.room5 = '00:00';
-          // }
-          // else{
-          //   var room5 = this.teamList[index].Session_game_scores[3].score;
-          //   this.totalSeconds = this.teamList[index].Session_game_scores[3].score;
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-          //   this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
-          //   this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].level_achieved;
-          // }
+                  var gameId = this.teamList[index].Session_game_scores[3].game_id;
 
-          /** this will pass all the image name for room 1 to 5 **/
-          if(this.teamList[index].Session_game_scores[1].game_id < 6){
-            this.roomname1 = 'Hack Attack';
-            this.roomname2 = 'Laser Maze';
-            this.roomname3 = 'Echo Chamber';
-            this.roomname4 = 'Floor Grid';
-            this.roomname5 = 'Cyberbot';
-            this.gamestatus = 'gameLogoChildrenMission1'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
-            this.missionTitle = 'MISSION 01';
-            this.missionDetailTitle = 'CYBERBOT';
-          }
-          if(this.teamList[index].Session_game_scores[1].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
-            this.roomname1 = 'Sequencer';
-            this.roomname2 = 'Crypto Lazer';
-            this.roomname3 = 'Mad Dash';
-            this.roomname4 = 'Low Battery';
-            this.roomname5 = 'Block Monster';
-            this.gamestatus = 'gameLogoChildrenMission2'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
-            this.missionTitle = 'MISSION 02';
-            this.missionDetailTitle = 'BLOCK MONSTER';
-          }
-          /** end of image detail for rooms **/
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room3Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
-          console.log("I WAS OUTSIDE MAN");
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    this.echoChamberPercentage = Math.round(filterIntoPercentile);
+
+                    console.log("ABOVE DATA EC");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                }
+
+                /** END OF ECHO CHAMBER **/
+
+
+                /** THIS IS HACK ATTACK ROOM **/
+
+                if(this.teamList[index].Session_game_scores[1].score == undefined){
+                  this.room1 = '00:00';
+                }
+                else{
+                  var room1Score = this.teamList[index].Session_game_scores[1].score;
+
+                  console.log(room1Score);
+
+                  this.room1 = moment().startOf('day').seconds(room1Score).format("mm:ss");
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+                  var gameId = this.teamList[index].Session_game_scores[1].game_id;
+
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room1Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    this.hackAttackPercentage = Math.round(filterIntoPercentile);
+
+                    console.log("ABOVE DATA HA");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                }
+
+                /** END OF HACK ATTACK **/
+
+
+                /** THIS IS FLOOR GRID ROOM **/
+
+                if(this.teamList[index].Session_game_scores[4].score == undefined){
+                  this.room4 = '00:00';
+                }
+                else{
+                  var room4Score = this.teamList[index].Session_game_scores[4].score;
+
+                  console.log(room4Score);
+
+                  this.room4 = moment().startOf('day').seconds(room4Score).format("mm:ss");
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+                  var gameId = this.teamList[index].Session_game_scores[4].game_id;
+
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room4Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    this.floorGridPercentage = Math.round(filterIntoPercentile);
+
+                    console.log("ABOVE DATA FG");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                }
+
+                /** END OF FLOOR GRID **/
+
+                /** THIS IS LASER MAZE ROOM **/
+
+                if(this.teamList[index].Session_game_scores[2].score == undefined){
+                  this.room2 = '00:00';
+                }
+                else{
+                  var room2Score = this.teamList[index].Session_game_scores[2].score;
+
+                  console.log(room2Score);
+
+                  this.room2 = moment().startOf('day').seconds(room2Score).format("mm:ss");
+
+                  // axios.get(VUE_APP_SESSION_GAME_SCORES)
+
+                  var gameId = this.teamList[index].Session_game_scores[2].game_id;
+
+                  axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room2Score,{
+                  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+                  })
+                  .then(response => {
+                    console.log(response);
+
+                    var fetchedRank = response.data.rank;
+                    console.log(fetchedRank);
+
+                    var filterByTwoDecimal = fetchedRank.toFixed(2);
+                    console.log(filterByTwoDecimal);
+
+                    // var multipleRank = 100*filterByTwoDecimal;
+
+                    var subtractRank = 1-filterByTwoDecimal;
+                    console.log("subtractRank "+subtractRank);
+
+                    var filterIntoPercentile = subtractRank*100;
+                    console.log(filterIntoPercentile);
+
+                    var roomPercentage = Math.round(filterIntoPercentile);
+
+                    this.laserMazePercentage = roomPercentage;
+
+
+                    console.log("ABOVE DATA LM");
+                    // this.teamList = response.data;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+                }
+
+                /** END OF LASER MAZE **/
+
+
+                // if(this.teamList[index].Session_game_scores[2].score == undefined){
+                //   this.room4 = '00:00';
+                // }
+                // else{
+                //   var room4 = this.teamList[index].Session_game_scores[2].score;
+                //   this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
+                // }
+
+                // if(this.teamList[index].Session_game_scores[4].score == undefined){
+                //   this.room3 = '00:00';
+                // }
+                // else{
+                //   var room3 = this.teamList[index].Session_game_scores[4].score;
+                //   this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
+                // }
+
+                // if(this.teamList[index].Session_game_scores[4].score == undefined){
+                //   this.room5 = '00:00';
+                // }
+                // else{
+                //   var room5 = this.teamList[index].Session_game_scores[3].score;
+                //   this.totalSeconds = this.teamList[index].Session_game_scores[3].score;
+
+                //   this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
+                //   this.bombDigitDecoded = this.teamList[index].Session_game_scores[3].level_achieved;
+                // }
+
+                /** this will pass all the image name for room 1 to 5 **/
+                if(this.teamList[index].Session_game_scores[1].game_id < 6){
+                  this.roomname1 = 'Hack Attack';
+                  this.roomname2 = 'Laser Maze';
+                  this.roomname3 = 'Echo Chamber';
+                  this.roomname4 = 'Floor Grid';
+                  this.roomname5 = 'Cyberbot';
+                  this.gamestatus = 'gameLogoChildrenMission1'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+                  this.missionTitle = 'MISSION 01';
+                  this.missionDetailTitle = 'CYBERBOT';
+                }
+                if(this.teamList[index].Session_game_scores[1].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
+                  this.roomname1 = 'Sequencer';
+                  this.roomname2 = 'Crypto Lazer';
+                  this.roomname3 = 'Mad Dash';
+                  this.roomname4 = 'Low Battery';
+                  this.roomname5 = 'Block Monster';
+                  this.gamestatus = 'gameLogoChildrenMission2'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
+                  this.missionTitle = 'MISSION 02';
+                  this.missionDetailTitle = 'BLOCK MONSTER';
+                }
+                /** end of image detail for rooms **/
+
+                console.log("I WAS OUTSIDE MAN");
+
+
+                } /** END OF MISSION 2 IF **/
+
+          
 
         } /** end of teamname function **/
 
