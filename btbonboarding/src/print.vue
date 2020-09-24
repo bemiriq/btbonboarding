@@ -891,6 +891,26 @@ import axios from 'axios';
                 this.size = this.teamList[index].player_count;
                 this.winners = this.teamList[index].winners;
 
+                var missionid = this.teamList[index].mission_id;
+                var totalScore = this.teamList[index].total_score;
+
+                /** THIS WILL PROVIDE US A RANK and RANK % **/
+                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/rank/mission/'+missionid+'/total_score/'+totalScore,{
+
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data.rank);
+                  console.log(response.data.total_session_count);
+                  this.teamRank = response.data.rank;
+                  this.totalTeams = response.data.total_session_count;
+                })
+
+                .catch(function (error) {
+                  console.log(error);
+                });
+                /** END OF RANK AND RANK % **/
+
                 this.teamname = this.teamList[index].Team.name;
 
                 var teamLength = this.teamList[index].Team_player_sessions.length;
