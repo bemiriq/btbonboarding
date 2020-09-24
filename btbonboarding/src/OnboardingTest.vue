@@ -192,11 +192,13 @@
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="/#/users">Check-In</b-list-group-item>
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
-            <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
             <b-list-group-item href="#">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+            <b-list-group-item href="/#/Onboardingtest" active>Onboarding Test</b-list-group-item>
+            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
           </b-list-group>
 
         </b-col>
@@ -588,7 +590,7 @@
               </select>
               <span>Selected: {{ testTeamNumber }}</span> -->
 
-              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)">
+              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)" :options="options">
                 <option disabled value="">Please select number of players</option>
                 <option value="2">2 Players</option>
                 <option value="3">3 Players</option>
@@ -597,7 +599,7 @@
                 <option value="6">6 Players</option>
               </b-form-select>
               <br>
-              <span> SUCCESFULLY CREATED {{testTeamNumber}} PLAYERS TEAM.</span>
+              <span v-if="successText1 == '1'"> SUCCESFULLY CREATED {{testTeamNumber}} PLAYERS TEAM.</span>
 
             </b-col>
 
@@ -1128,6 +1130,9 @@ export default {
         playerDetail4:'',
         playerDetail5:'',
         playerDetail6:'',
+
+        successText1:'',
+        successText2:'',
 
         draggedItemObjectId: '',
 
@@ -1740,7 +1745,7 @@ export default {
               // this.list10 = sessionData;
               // console.log(this.list10);
 
-
+              this.successText1 = '1';
 
 
 
