@@ -241,7 +241,7 @@
                     </div>
 
                     <div class="totalRankings">
-                      {{teamRank}}th out of 18443 teams
+                      {{teamRank}}th out of 18598 teams
                     </div>
 
                     <!-- <div class="totalRankingsPercantile">
@@ -514,13 +514,14 @@ import axios from 'axios';
                 })
                 .then(function (response) {
                   console.log(response);
+                  this.teamRank = response.data.rank;
                 })
 
                 .catch(function (error) {
                   console.log(error);
                 });
                 /** END OF RANK AND RANK % **/
-                
+
 
                 this.size = this.teamList[index].player_count;
                 this.winners = this.teamList[index].winners;
