@@ -339,7 +339,7 @@
 
                       <b-row>
                         <b-col sm="3">
-                        <label for="input-small">Missionn</label>
+                        <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
                             <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
