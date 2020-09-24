@@ -578,7 +578,7 @@
 
             <b-col>
 
-              <select v-model="testTeamNumber" @change="onChangeTeamNumber($event)" >
+              <!-- <select v-model="testTeamNumber" @change="onChangeTeamNumber($event)" >
                 <option disabled value="">Please select test team number</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -586,7 +586,18 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
               </select>
-              <span>Selected: {{ testTeamNumber }}</span>
+              <span>Selected: {{ testTeamNumber }}</span> -->
+
+              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)">
+                <option disabled value="">Please select number of players</option>
+                <option value="2">2 Players</option>
+                <option value="3">3 Players</option>
+                <option value="4">4 Players</option>
+                <option value="5">5 Players</option>
+                <option value="6">6 Players</option>
+              </b-form-select>
+              <br>
+              <span> SUCCESFULLY CREATED {{testTeamNumber}} PLAYERS TEAM.</span>
 
             </b-col>
 
