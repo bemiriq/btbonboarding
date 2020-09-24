@@ -589,9 +589,9 @@
                 <option value="6">6</option>
               </select>
               <span>Selected: {{ testTeamNumber }}</span> -->
-
-              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)" :options="options">
-                <option disabled value="">Please select number of players</option>
+              <br> 
+              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)" :options="options" style="width: auto; margin-left: auto;">
+                <option disabled value="">Select number of players</option>
                 <option value="2">2 Players</option>
                 <option value="3">3 Players</option>
                 <option value="4">4 Players</option>
