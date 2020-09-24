@@ -86,8 +86,8 @@
                       <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
-                    <div class="gamelogo4">
-                      <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
+                    <div class="gamelogo3">
+                      <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
 
