@@ -2060,6 +2060,8 @@ export default {
 
         var updateOnTeamPlayerSessionId = this.list10teamplayersessionid[index];
 
+        var rfid_tag = event;
+
         console.log(this.tolist10teamplayersessionid[index]);
         console.log(this.list10teamplayersessionid[index]);
 
