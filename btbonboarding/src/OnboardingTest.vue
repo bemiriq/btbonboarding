@@ -33,7 +33,7 @@
                                   <b-row>
                                     <b-col>PLAYER ONE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 1">
+                                      <b-form-input placeholder="RFID VALUE 1" value="" v-on:input="posttorfidapi($event, 10, 0)">
 
                                       </b-form-input>
                                     </b-col>
@@ -48,7 +48,69 @@
                                   <b-row>
                                     <b-col>PLAYER TWO</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 2">
+                                      <b-form-input placeholder="RFID VALUE 2" value="" v-on:input="posttorfidapi($event, 10, 1)">
+
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
+
+                              <br/>
+
+
+                              <div v-if="playerDetail3 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER THREE</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 3" value="" v-on:input="posttorfidapi($event, 10, 2)">
+
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
+
+                              <br/>
+
+
+                              <div v-if="playerDetail4 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER FOUR</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 4" value="" v-on:input="posttorfidapi($event, 10, 3)">
+
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
+
+                              <br/>
+
+                              <div v-if="playerDetail5 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER FIVE</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 5" value="" v-on:input="posttorfidapi($event, 10, 4)">
+
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
+
+                              <br/>
+
+                              <div v-if="playerDetail6 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER SIX</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 6" value="" v-on:input="posttorfidapi($event, 10, 5)">
 
                                       </b-form-input>
                                     </b-col>
@@ -1556,11 +1618,11 @@ export default {
                   console.log(response.data);
 
                   // console.log("inside solti");
-                  //       this.tolist10teamplayersessionid = response.data[0].id;
+                  this.tolist10teamplayersessionid = response.data[0].id;
 
-                  // if (this.tolist10teamplayersessionid > 0) { 
-                  //     this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
-                  // }
+                  if (this.tolist10teamplayersessionid > 0) { 
+                      this.list10teamplayersessionid.push(this.tolist10teamplayersessionid);
+                  }
 
                   /** get the session id all list values now **/
                   // var sessionId = this.sessionIdValue;
@@ -1597,8 +1659,9 @@ export default {
 
               }/** end of for loop **/
 
-              // console.log(this.list10teamplayersessionid);
-              // console.log(this.tolist10teamplayersessionid);
+              console.log(this.list10teamplayersessionid);
+              console.log(this.tolist10teamplayersessionid);
+
               var sessionData = response.data;
               this.teamName10 = 'TEST';
 
@@ -1758,6 +1821,10 @@ export default {
 
         if(event.length > 7){
 
+        
+        console.log(this.tolist10teamplayersessionid[index]);
+        console.log(this.list10teamplayersessionid[index]);
+        
         // console.log("inside update rfid side A after reload");
         console.log(event);
          var arr = this.fetchPlayerList[col];
@@ -1930,102 +1997,46 @@ export default {
 
       posttorfidapi(event, col, index){
 
-        // console.log(event);
-        // console.log(col);
-        // console.log(index);
-
-        // var defineListNumber = 12 - col ; /** this defines the column as list2, list4 and list5. As the first box is list2 and second is suppose to be list3 **/
-
-        // console.log(defineListNumber);
-        // var listNumberPositive = Math.abs(defineListNumber);
-        // console.log(listNumberPositive);
-
-        // console.log(this["list"+col]);
+        console.log(event);
+        console.log(col);
+        console.log(index);
 
         if(event.length > 7){
 
-        // console.log("inside update rfid side A");
-        // console.log(event);
-         // var arr = this["list"+col];
+         var updateOnTeamPlayerSessionId = this.tolist10teamplayersessionid[index];
 
-         // console.log(this.list2);
+         console.log (updateOnTeamPlayerSessionId);
 
-         var number = this.countfunction++;
-         // console.log(this["list"+col][index]);
+          // axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
+          //   tag: rfid_tag,
+          // })
+          // .then(response => {
+          //   console.log(response.data[0].id);
+          //   this["list"+col+"rfidcontainer"] = response.data[0].id;
 
-         // console.log(this["list"+col][index].rfidState1);
+          //   var rfidtag_id = response.data[0].id;
 
-          var rfid_tag = this["list"+col][index].rfidState1;
+          //   var updateOnTPS = this["list"+col+"teamplayersessionid"][index];
 
-          // console.log(arr);
-          // console.log(index);
-          // console.log(rfid_tag);
+          //   axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
+          //             rfid_id: rfidtag_id
+          //           })
+          //             .then(function (response) {
+          //               console.log(response);
+          //             })
 
-          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-            tag: rfid_tag,
-          })
-          .then(response => {
-            console.log(response.data[0].id);
-            this["list"+col+"rfidcontainer"] = response.data[0].id;
+          //             .catch(function (error) {
+          //               console.log(error);
+          //       });
 
-            var rfidtag_id = response.data[0].id;
+          //   })
 
-            var updateOnTPS = this["list"+col+"teamplayersessionid"][index];
+           
 
-            axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
-                      // player_id: playerid,
-                      rfid_id: rfidtag_id
-                    })
-                      .then(function (response) {
-                        console.log(response);
-                        // console.log("papa");
-                        // this.list2teamplayersessionid = response.data[0].id;
-                      })
+          // const nextIndex = index + 1;
+         
+          // this.$refs.todos[nextIndex].focus();
 
-                      .catch(function (error) {
-                        console.log(error);
-                });
-
-            })
-
-            /** end of rfid update to team player session table **/
-          .catch(function (error) {
-            console.log(error);
-          });
-
-          var totalPlayers = this["list"+col].length;
-          console.log(totalPlayers);
-          // if()
-          // if(this.list10[index].rfidState1 == '' || !this.list10[index].rfidState1 > '0')
-          for(var i=0; i < totalPlayers; i++){
-            if(this["list"+col][i].rfidState1 == ''){
-              this["disableButton"+col] = false;
-              break;
-            }
-            else{
-
-              if(this["list"+col][i].rfidState1 > '0'){
-                this["disableButton"+col] = true;
-              }
-              else{
-                this["disableButton"+col] = false;
-                break;
-              }
-
-            }
-          }
-
-
-          // console.log(event);
-          // console.log(event.length);
-
-          const nextIndex = index + 1;
-          // console.log(nextIndex);
-          // console.log(this.list2.length);
-
-          
-            this.$refs.todos[nextIndex].focus();
-            // console.log("SWITH TO NEXT");
 
 
         }
