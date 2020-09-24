@@ -513,8 +513,10 @@ import axios from 'axios';
                 axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/rank/mission/'+missionid+'/total_score/'+totalScore,{
 
                 })
-                .then(function (response) {
+                .then(response => {
                   console.log(response);
+                  console.log(response.data.rank);
+                  console.log(response.data.total_session_count);
                   this.teamRank = response.data.rank;
                   this.totalTeams = response.data.total_session_count;
                 })
