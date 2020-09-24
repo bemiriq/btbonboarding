@@ -241,7 +241,7 @@
                     </div>
 
                     <div class="totalRankings">
-                      {{teamRank}}th out of 18598 teams
+                      {{teamRank}}th out of {{totalTeams}} teams
                     </div>
 
                     <!-- <div class="totalRankingsPercantile">
@@ -377,7 +377,8 @@ import axios from 'axios';
         bombRoomPercentage: '',
         hackAttackPercentage: '',
         totalBombTime: '',
-        teamRank: ''
+        teamRank: '',
+        totalTeams: ''
 
       }
 
@@ -515,6 +516,7 @@ import axios from 'axios';
                 .then(function (response) {
                   console.log(response);
                   this.teamRank = response.data.rank;
+                  this.totalTeams = response.data.total_session_count;
                 })
 
                 .catch(function (error) {
