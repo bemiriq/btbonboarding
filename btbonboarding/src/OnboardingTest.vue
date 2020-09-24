@@ -269,6 +269,66 @@
                                   </b-row>
                               </div>
 
+                              <div class="list-group-item item" v-if="playerDetail3 == '1' ">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER THREE
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
+                              <div class="list-group-item item" v-if="playerDetail4 == '1' ">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER FOUR
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
+                              <div class="list-group-item item" v-if="playerDetail5 == '1' ">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER FIVE
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
+                              <div class="list-group-item item" v-if="playerDetail6 == '1' ">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        PLAYER SIX
+                                    </b-col>
+
+                                  </b-row>
+                              </div>
+
                               </draggable>
                         </div>
 
@@ -2006,29 +2066,26 @@ export default {
 
          console.log (updateOnTeamPlayerSessionId);
 
-          // axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-          //   tag: rfid_tag,
-          // })
-          // .then(response => {
-          //   console.log(response.data[0].id);
-          //   this["list"+col+"rfidcontainer"] = response.data[0].id;
+          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
+            tag: rfid_tag,
+          })
+          .then(response => {
+            console.log(response.data[0].id);
 
-          //   var rfidtag_id = response.data[0].id;
+            var rfidtag_id = response.data[0].id;
 
-          //   var updateOnTPS = this["list"+col+"teamplayersessionid"][index];
+            axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTeamPlayerSessionId,{
+                      rfid_id: rfidtag_id
+                    })
+                      .then(function (response) {
+                        console.log(response);
+                      })
 
-          //   axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
-          //             rfid_id: rfidtag_id
-          //           })
-          //             .then(function (response) {
-          //               console.log(response);
-          //             })
+                      .catch(function (error) {
+                        console.log(error);
+                });
 
-          //             .catch(function (error) {
-          //               console.log(error);
-          //       });
-
-          //   })
+            })
 
            
 
