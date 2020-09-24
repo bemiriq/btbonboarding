@@ -28,59 +28,33 @@
         <b-modal id="modal-center" ref="sideRfidUpdate10" centered v-bind:hide-footer="true">
                             <b><p>{{teamName10}} Side A</p></b>
 
-                              <b-row class="my-1">
-                                <b-col sm="12">
-                                  <div>
+                              <div v-if="playerDetail1 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER ONE</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 1">
 
-                                    <div v-if="playerDetail1 == '1' ">
-                                      <b-row>
-                                        <b-col sm="6">
-                                          <b-form-input id="input-live" :value="PLAYER ONE" disabled placeholder="PLAYER NAME"></b-form-input>
-                                        </b-col>
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
 
-                                        <b-col sm="4">
-                                          <b-form-input v-model="" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
-                                        </b-col>
-                                      </b-row>
-                                    </div>
+                              <br/>
 
+                              <div v-if="playerDetail2 == '1' ">
+                                <b-container class="bv-example-row">
+                                  <b-row>
+                                    <b-col>PLAYER TWO</b-col>
+                                    <b-col>
+                                      <b-form-input placeholder="RFID VALUE 2">
 
-                                    <div v-if="playerDetail2 == '1' ">
-                                      <b-row>
-                                        <b-col sm="6">
-                                          <b-form-input id="input-live" :value="PLAYER TWO" disabled placeholder="PLAYER NAME"></b-form-input>
-                                        </b-col>
-
-                                        <b-col sm="4">
-                                          <b-form-input v-model="" ref="todos" v-on:input="posttorfidapi($event, 10, index)" spellcheck="false"></b-form-input>
-                                        </b-col>
-                                      </b-row>
-                                    </div>
-                                     <!--  <div v-for="(listings, index) in list10" :key="index">
-
-                                        <br/>
-                                        <b-row>
-                                          <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
-                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
-                                          </b-col>
-                                          <b-col sm="4">
-                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
-
-                                          </b-col>
-
-                                          <b-col sm="2">
-                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 10)"></b-icon>
-                                          </b-col>
-
-                                        </b-row>
-
-                                      </div> -->
-
-                                  </div>
-
-                                </b-col>
-                              </b-row>
+                                      </b-form-input>
+                                    </b-col>
+                                  </b-row>
+                                </b-container>
+                              </div>
 
                               <br/>
 
