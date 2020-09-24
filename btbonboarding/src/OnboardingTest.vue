@@ -406,14 +406,13 @@
                                 <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist10 == false">
+                                <!-- <div v-if="removeWaitlist10 == false">
                                   <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
-                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 10)">Remove Waitlist</b-button>
-                                </div>
+                                </div> -->
                               </b-col>
                             </b-row>
                           </div>
@@ -542,14 +541,13 @@
                                 <b-button block v-b-modal.modal-center11 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist11 == false">
+                                <!-- <div v-if="removeWaitlist11 == false">
                                   <b-button block v-if="disableButton11 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
-                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 11)">Remove Waitlist</b-button>
-                                </div>
+                                </div> -->
                               </b-col>
                             </b-row>
                           </div>
