@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="gamelogo3">
-                      <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')"  v-bind:class="gamestatus" />
+                      <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
 
@@ -867,7 +867,7 @@ import axios from 'axios';
                 // }
 
                 /** this will pass all the image name for room 1 to 5 **/
-                if(this.teamList[index].Session_game_scores[1].game_id < 6){
+                // if(this.teamList[index].Session_game_scores[1].game_id < 6){
                   this.roomname1 = 'Hack Attack';
                   this.roomname2 = 'Laser Maze';
                   this.roomname3 = 'Echo Chamber';
@@ -876,22 +876,12 @@ import axios from 'axios';
                   this.gamestatus = 'gameLogoChildrenMission1'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
                   this.missionTitle = 'MISSION 01';
                   this.missionDetailTitle = 'CYBERBOT';
-                }
-                if(this.teamList[index].Session_game_scores[1].game_id > 5 && this.teamList[index].Session_game_scores[0].game_id < 11){
-                  this.roomname1 = 'Sequencer';
-                  this.roomname2 = 'Crypto Lazer';
-                  this.roomname3 = 'Mad Dash';
-                  this.roomname4 = 'Low Battery';
-                  this.roomname5 = 'Block Monster';
-                  this.gamestatus = 'gameLogoChildrenMission2'; /** this calls the css based upon the mission , for GAME LOGO SIZE **/
-                  this.missionTitle = 'MISSION 02';
-                  this.missionDetailTitle = 'BLOCK MONSTER';
-                }
                 /** end of image detail for rooms **/
 
                 console.log("I WAS OUTSIDE MAN");
 
           } /** END OF MISSION 1 IF **/
+
 
           if(this.teamList[index].mission_id == '2'){ /** BEGINING OF MISSION 2 **/
                 
