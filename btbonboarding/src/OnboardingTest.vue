@@ -1660,8 +1660,7 @@ export default {
               }/** end of for loop **/
 
               console.log(this.list10teamplayersessionid);
-              console.log(this.tolist10teamplayersessionid);
-
+              // console.log(this.tolist10teamplayersessionid);
               var sessionData = response.data;
               this.teamName10 = 'TEST';
 
@@ -1821,10 +1820,6 @@ export default {
 
         if(event.length > 7){
 
-        
-        console.log(this.tolist10teamplayersessionid[index]);
-        console.log(this.list10teamplayersessionid[index]);
-        
         // console.log("inside update rfid side A after reload");
         console.log(event);
          var arr = this.fetchPlayerList[col];
@@ -2003,7 +1998,11 @@ export default {
 
         if(event.length > 7){
 
-         var updateOnTeamPlayerSessionId = this.tolist10teamplayersessionid[index];
+        var updateOnTeamPlayerSessionId = this.list10teamplayersessionid[index];
+
+        console.log(this.tolist10teamplayersessionid[index]);
+        console.log(this.list10teamplayersessionid[index]);
+
 
          console.log (updateOnTeamPlayerSessionId);
 
