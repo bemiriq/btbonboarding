@@ -895,6 +895,8 @@ import axios from 'axios';
                 var totalScore = this.teamList[index].total_score;
 
                 /** THIS WILL PROVIDE US A RANK and RANK % **/
+                console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/rank/mission/'+missionid+'/total_score/'+totalScore);
+                
                 axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/rank/mission/'+missionid+'/total_score/'+totalScore,{
 
                 })
