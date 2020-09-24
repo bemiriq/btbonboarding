@@ -588,14 +588,14 @@
               <span>Selected: {{ testTeamNumber }}</span> -->
 
               <br> 
-              <b-form-select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)" :options="options" style="width: auto; margin-left: auto;">
+              <select v-model="testTeamNumber" v-on:change="onChangeTeamNumber($event)" :options="options" style="width: auto; margin-left: auto;">
                 <option disabled value="">Select number of players</option>
                 <option value="2">2 Players</option>
                 <option value="3">3 Players</option>
                 <option value="4">4 Players</option>
                 <option value="5">5 Players</option>
                 <option value="6">6 Players</option>
-              </b-form-select>
+              </select>
               <br>
               <span v-if="successText1 == '1'"> SUCCESFULLY CREATED {{testTeamNumber}} PLAYERS TEAM.</span>
 
