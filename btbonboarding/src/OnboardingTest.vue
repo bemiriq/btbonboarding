@@ -248,7 +248,7 @@
                                     </b-col>
 
                                     <b-col sm="7">
-                                        PLAYER ONE
+                                        <p>PLAYER ONE</p>
                                     </b-col>
 
                                   </b-row>
@@ -263,7 +263,7 @@
                                     </b-col>
 
                                     <b-col sm="7">
-                                        PLAYER TWO
+                                       <p>PLAYER TWO</p>
                                     </b-col>
 
                                   </b-row>
@@ -293,7 +293,7 @@
                                     </b-col>
 
                                     <b-col sm="7">
-                                        PLAYER FOUR
+                                        <p>PLAYER FOUR</p>
                                     </b-col>
 
                                   </b-row>
@@ -308,7 +308,7 @@
                                     </b-col>
 
                                     <b-col sm="7">
-                                        PLAYER FIVE
+                                        <p>PLAYER FIVE</p>
                                     </b-col>
 
                                   </b-row>
@@ -323,7 +323,7 @@
                                     </b-col>
 
                                     <b-col sm="7">
-                                        PLAYER SIX
+                                        <p>PLAYER SIX</p>
                                     </b-col>
 
                                   </b-row>
@@ -337,7 +337,7 @@
 
                       <b-row>
                         <b-col sm="3">
-                        <label for="input-small">Mission</label>
+                        <label for="input-small">Missionn</label>
                         </b-col>
                         <b-col sm="9">
                             <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">

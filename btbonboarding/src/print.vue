@@ -1787,11 +1787,10 @@ import axios from 'axios';
     /*visibility: hidden;*/
     width: 37cm;
     height: 31.45cm;
-    color: white; /** this will make the background white before print **/
   }
   #section-to-print {
     /*background-color: black !important;*/
-    color: black !important;
+    color: white !important;
 
   }
 
