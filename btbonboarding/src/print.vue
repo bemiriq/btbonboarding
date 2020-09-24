@@ -40,10 +40,9 @@
           <!-- <p> DISPLAY 1 </p> -->
           <b-col v-if="onselect == '1'">
             <!-- <button @click="printWindow('san')">Print</button> -->
-            <b-button variant="outline-primary" @click="printWindow('san')">PRINT</b-button>
+            <b-button variant="success" @click="printWindow('san')">PRINT NOW</b-button>
 
-            <br/>
-            <br/>
+            <br><br>
 
             <div id="section-to-print">
               <!-- <b-row>
@@ -1788,6 +1787,7 @@ import axios from 'axios';
     /*visibility: hidden;*/
     width: 37cm;
     height: 31.45cm;
+    color: white; /** this will make the background white before print **/
   }
   #section-to-print {
     /*background-color: black !important;*/

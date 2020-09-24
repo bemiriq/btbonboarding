@@ -340,9 +340,9 @@
                         <label for="input-small">Mission</label>
                         </b-col>
                         <b-col sm="9">
-                            <!-- <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
+                            <b-form-select v-model="selected10" v-on:change="onChangeMission1($event, 10)">
                               <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                            </b-form-select> -->
+                            </b-form-select>
                         </b-col>
                       </b-row>
 
@@ -1109,7 +1109,8 @@ export default {
         testTeamPlayer4:'',
         testTeamPlayer5:'',
         testTeamPlayer6:'',
-        sessionIdValue: '',
+        sessionIdValue10: '',
+        sessionIdValue11: '',
         playerDetail1:'',
         playerDetail2:'',
         playerDetail3:'',
@@ -1660,7 +1661,7 @@ export default {
             .then(response => {
               console.log(response);
               console.log(response.data);
-              this.sessionIdValue = response.data.id;
+              this.sessionIdValue10 = response.data.id;
               var sessionId = response.data.id;
 
               for(var i=1; i <= totalPlayer; i++){
@@ -1685,7 +1686,7 @@ export default {
                   }
 
                   /** get the session id all list values now **/
-                  // var sessionId = this.sessionIdValue;
+                  // var sessionId = this.sessionIdValue10;
                                 console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
                   
                                 axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
@@ -4647,7 +4648,7 @@ export default {
 
         // var getSessionId = this.fetchPlayerList[colvalue].Team_player_sessions[0].session_id;
 
-        var getSessionId = this['list'+colvalue+'sessionid'];
+        var getSessionId = this['sessionIdValue'+colvalue];
 
         var selectedMissionId = event;
 
