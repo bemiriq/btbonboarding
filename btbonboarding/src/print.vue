@@ -39,8 +39,12 @@
 
           <!-- <p> DISPLAY 1 </p> -->
           <b-col v-if="onselect == '1'">
-            <!-- <p>DISPLAY 2 </p> -->
-            <button @click="printWindow('san')">Print</button>
+            <!-- <button @click="printWindow('san')">Print</button> -->
+            <b-button variant="outline-primary" @click="printWindow('san')">PRINT</b-button>
+
+            <br/>
+            <br/>
+
             <div id="section-to-print">
               <!-- <b-row>
 
