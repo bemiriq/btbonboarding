@@ -34,7 +34,7 @@
           <b-col>
             <b-form-group id="input-group-3" label-for="input-3">
               <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected">
-                  <option v-for="(item, index) in teamList" v-bind:key="index.id" :value="index">{{item.Team.name}}</option>
+                  <option v-for="(item, index) in teamList" v-bind:key="index.id" :value="id">{{item.Team.name}}</option>
               </b-form-select>
             </b-form-group>
           </b-col>
@@ -391,14 +391,14 @@ import axios from 'axios';
 
     mounted: function(){
       
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
-      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed',{
+      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed',{
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
       })
       .then(response => {
         console.log(response);
-        this.teamList = response.data;
+        // this.teamList = response.data;
       })
       .catch(function (error) {
         console.log(error);
