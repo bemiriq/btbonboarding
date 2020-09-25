@@ -398,7 +398,7 @@ import axios from 'axios';
       })
       .then(response => {
         console.log(response);
-        // this.teamList = response.data;
+        this.teamList = response.data;
       })
       .catch(function (error) {
         console.log(error);
