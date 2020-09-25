@@ -33,7 +33,7 @@
         <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
           <b-col>
             <b-form-group id="input-group-3" label-for="input-3">
-              <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected($event)">
+              <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected()">
                   <option v-for="item in teamList" v-bind:key="item.id" :value="item.id">{{item.Team.name}}</option>
               </b-form-select>
             </b-form-group>
@@ -68,7 +68,7 @@
                   <div class="col-sm-3 firstdiv">
                     <!-- <div class="missiontitle">MISSION 01:</div> -->
                     <div class="missiontitle">{{missionTitle}}:</div>
-                    <!-- <div class="maingameImage">
+                    <div class="maingameImage">
                       <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
                     </div>
                     <div class="hrlength">
@@ -88,7 +88,7 @@
                       <img v-bind:src="require('./assets/' + roomname3 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div>
 
-                    <div class="gamelogo4">
+                    <!-- <div class="gamelogo4">
                       <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
                     </div> -->
 
@@ -384,7 +384,7 @@ import axios from 'axios';
 
     computed:{
 
-        teamNameSelected: function (event){
+        teamNameSelected: function (){
 
           this.onselect = '1';
 
