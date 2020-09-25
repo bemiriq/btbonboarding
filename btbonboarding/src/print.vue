@@ -1329,7 +1329,7 @@ import axios from 'axios';
       size: auto !important;
       margin: 0.01cm;
       margin-left: -3.8cm;
-      margin-top: -20.3cm;
+      margin-top: -18.3cm;
     }
 
    /* @page :left{
