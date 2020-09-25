@@ -244,9 +244,9 @@
                       {{teamRank}}th out of {{totalTeams}} teams
                     </div>
 
-                    <div class="totalRankingsPercantile">
+                    <!-- <div class="totalRankingsPercantile">
                       56 %
-                    </div>
+                    </div> -->
 
                   </div>
 
