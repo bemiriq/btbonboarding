@@ -34,7 +34,7 @@
           <b-col>
             <b-form-group id="input-group-3" label-for="input-3">
               <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected($event)">
-                  <option v-for="item in teamList" v-bind:key="id" :value="id">{{item.Team.name}}</option>
+                  <option v-for="item in teamList" v-bind:key="item.id" :value="item.id">{{item.Team.name}}</option>
               </b-form-select>
             </b-form-group>
           </b-col>
