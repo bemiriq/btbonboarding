@@ -1339,6 +1339,7 @@ import axios from 'axios';
     .firstdiv{
       background-color: #FF1696; /** pink **/
       margin-left: -5.5cm;
+      margin-top: -10px;
       /*color: black;*/
     }
 
