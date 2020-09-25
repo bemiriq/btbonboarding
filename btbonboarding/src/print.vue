@@ -44,6 +44,9 @@
             <!-- <button @click="printWindow('san')">Print</button> -->
             <b-button variant="success" @click="printWindow('san')">PRINT NOW</b-button>
 
+            <br>
+            <br>
+            
             <div id="section-to-print">
               <!-- <b-row>
 
@@ -1329,7 +1332,7 @@ import axios from 'axios';
       size: auto !important;
       margin: 0.01cm;
       margin-left: -3.8cm;
-      margin-top: -17.2cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION **/
+      margin-top: -17.3cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION **/
     }
 
    /* @page :left{
