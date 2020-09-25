@@ -1807,6 +1807,8 @@ import axios from 'axios';
     /*visibility: hidden;*/
     width: 37cm;
     height: 31.45cm;
+    margin-top: -20px;
+    background-color: blue;
   }
   #section-to-print {
     /*background-color: black !important;*/
