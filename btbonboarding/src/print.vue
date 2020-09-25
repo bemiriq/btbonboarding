@@ -1329,7 +1329,7 @@ import axios from 'axios';
       size: auto !important;
       margin: 0.01cm;
       margin-left: -3.8cm;
-      margin-top: -15.3cm;
+      margin-top: -30.3cm;
     }
 
    /* @page :left{
@@ -1339,7 +1339,7 @@ import axios from 'axios';
     .firstdiv{
       background-color: #FF1696; /** pink **/
       margin-left: -5.5cm;
-      margin-top: -10px;
+      /*margin-top: -10px;*/
       /*color: black;*/
     }
 
