@@ -68,11 +68,10 @@
                   <div class="col-sm-3 firstdiv">
                     <!-- <div class="missiontitle">MISSION 01:</div> -->
                     <div class="missiontitle">{{missionTitle}}:</div>
-                    <div class="maingameImage">
+                    <!-- <div class="maingameImage">
                       <img v-bind:src="require('./assets/' + roomname5 +' Logo.png')" class="gameLogo"/>
                     </div>
                     <div class="hrlength">
-                      <!-- <hr> -->
                     </div>
 
                     <div class="gametext">GAMES</div>
@@ -91,11 +90,6 @@
 
                     <div class="gamelogo4">
                       <img v-bind:src="require('./assets/' + roomname4 +' Logo.png')"  v-bind:class="gamestatus" />
-                    </div>
-
-
-                    <!-- <div class="gameimage1">
-                      <img v-bind:src="require('./assets/' + roomname1 +' Logo.png')" class="gameLogo"/>
                     </div> -->
 
 
