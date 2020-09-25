@@ -33,8 +33,8 @@
         <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
           <b-col>
             <b-form-group id="input-group-3" label-for="input-3">
-              <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected">
-                  <option v-for="(item, index) in teamList" v-bind:key="index.id" :value="id">{{item.Team.name}}</option>
+              <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected($event)">
+                  <option v-for="item in teamList" v-bind:key="id" :value="id">{{item.Team.name}}</option>
               </b-form-select>
             </b-form-group>
           </b-col>
@@ -443,13 +443,13 @@ import axios from 'axios';
 
         },
 
-        teamNameSelected: function (){
+        teamNameSelected: function (event){
 
           this.onselect = '1';
 
-          var index = this.teamSelectedIndex;
+          var event = this.teamSelectedIndex;
 
-          console.log(index);
+          console.log(event);
 
           console.log(this.teamList[index]);
 
