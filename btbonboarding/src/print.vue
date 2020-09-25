@@ -459,15 +459,15 @@ import axios from 'axios';
           .then(response => {
             console.log(response);
             console.log(response.data);
-            this.teamClicked = response.data;
+            var teamClicked = response.data;
           })
           .catch(function (error) {
             console.log(error);
           });
 
-          console.log(this.teamClicked);
+          console.log(teamClicked);
 
-          var onlyDate = this.teamClicked.updatedAt;
+          var onlyDate = teamClicked.updatedAt;
           console.log("ONLY DATE "+onlyDate);
 
           var filterByDate = moment(onlyDate).format('MM-DD-YYYY');
