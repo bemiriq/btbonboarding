@@ -44,8 +44,6 @@
             <!-- <button @click="printWindow('san')">Print</button> -->
             <b-button variant="success" @click="printWindow('san')">PRINT NOW</b-button>
 
-            <br><br>
-
             <div id="section-to-print">
               <!-- <b-row>
 
