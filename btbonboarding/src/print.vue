@@ -421,11 +421,13 @@ import axios from 'axios';
 
               console.log("BOMB TIME "+this.teamClicked.bomb_time);
 
-              // var totalBombTime = this.teamClicked.bomb_time;
-              // this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
+              // this.totalBombTime = this.teamClicked.bomb_time;
 
-              // this.totalBombTime = totalBombTime;
-              // this.total_score = this.teamClicked.total_score;
+              var totalBombTime = this.teamClicked.bomb_time;
+              this.bombtime = moment().startOf('day').seconds(totalBombTime).format("mm:ss");
+
+              this.totalBombTime = totalBombTime;
+              this.total_score = this.teamClicked.total_score;
 
               // if(this.teamClicked.total_score > 1500 && this.teamClicked.Session_game_scores[1].game_id < 6){
               //   this.teamRank = '5336';
