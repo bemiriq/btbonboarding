@@ -1811,7 +1811,6 @@ import axios from 'axios';
   #section-to-print {
     /*background-color: black !important;*/
     color: white !important;
-    margin-top: -10px;
 
   }
 
