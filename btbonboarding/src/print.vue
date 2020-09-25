@@ -390,59 +390,7 @@ import axios from 'axios';
 
     },
 
-    mounted: function(){
-      
-      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed',{
-      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
-
-      })
-      .then(response => {
-        console.log(response);
-        this.teamList = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    },
-
-    methods:{
-        printWindow: function () {    
-          window.print('section-to-print');
-        },
-
-        teamNameSelectedDemo: function(){
-
-          console.log("I WAS INSIDE MAN");
-
-          this.onselect = '1';
-
-          this.teamname = 'SANDU MANDU TEAM';
-          this.room1 = '00:00';
-          this.room2 = '00:00';
-          this.room3 = '00:00';
-          this.room4 = '00:00';
-          this.room5 = '00:00';
-
-          this.roomname1 = 'Hack Attack';
-          this.roomname2 = 'Laser Maze';
-          this.roomname3 = 'Echo Chamber';
-          this.roomname4 = 'Floor Grid';
-          this.roomname5 = 'Cyberbot';
-
-          this.roomname6 = 'Sequencer';
-          this.roomname7 = 'Crypto Lazer';
-          this.roomname8 = 'Mad Dash';
-          this.roomname9 = 'Low Battery';
-          this.roomname10 = 'Block Monster';
-
-          this.bombtime = '03:00';
-          this.total_score = '1390';
-
-          this.gamestatus = 'gameLogoChildrenMission1';
-
-        },
+    computed:{
 
         teamNameSelected: function (event){
 
@@ -459,15 +407,15 @@ import axios from 'axios';
           .then(response => {
             console.log(response);
             console.log(response.data);
-            var teamClicked = response.data;
+            this.teamClicked = response.data;
           })
           .catch(function (error) {
             console.log(error);
           });
 
-          console.log(teamClicked);
+          console.log(this.teamClicked);
 
-          var onlyDate = teamClicked.updatedAt;
+          var onlyDate = this.teamClicked.updatedAt;
           console.log("ONLY DATE "+onlyDate);
 
           var filterByDate = moment(onlyDate).format('MM-DD-YYYY');
@@ -1290,6 +1238,62 @@ import axios from 'axios';
           
 
         } /** end of teamname function **/
+
+    },
+
+    mounted: function(){
+      
+      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed',{
+      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+      })
+      .then(response => {
+        console.log(response);
+        this.teamList = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    },
+
+    methods:{
+        printWindow: function () {    
+          window.print('section-to-print');
+        },
+
+        teamNameSelectedDemo: function(){
+
+          console.log("I WAS INSIDE MAN");
+
+          this.onselect = '1';
+
+          this.teamname = 'SANDU MANDU TEAM';
+          this.room1 = '00:00';
+          this.room2 = '00:00';
+          this.room3 = '00:00';
+          this.room4 = '00:00';
+          this.room5 = '00:00';
+
+          this.roomname1 = 'Hack Attack';
+          this.roomname2 = 'Laser Maze';
+          this.roomname3 = 'Echo Chamber';
+          this.roomname4 = 'Floor Grid';
+          this.roomname5 = 'Cyberbot';
+
+          this.roomname6 = 'Sequencer';
+          this.roomname7 = 'Crypto Lazer';
+          this.roomname8 = 'Mad Dash';
+          this.roomname9 = 'Low Battery';
+          this.roomname10 = 'Block Monster';
+
+          this.bombtime = '03:00';
+          this.total_score = '1390';
+
+          this.gamestatus = 'gameLogoChildrenMission1';
+
+        },
 
     } /** methods closing bracket **/
 
