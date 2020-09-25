@@ -465,7 +465,7 @@ import axios from 'axios';
             console.log(error);
           });
 
-          // console.log(this.teamClicked);
+          console.log(this.teamClicked);
 
           var onlyDate = this.teamClicked.updatedAt;
           console.log("ONLY DATE "+onlyDate);
