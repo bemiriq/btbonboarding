@@ -34,7 +34,7 @@ export default {
   },
 
   mounted: function(){
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+30+'/active',{
 
     })
     .then(response => {
@@ -45,7 +45,7 @@ export default {
       console.log(error);
     });
 
-    setTimeout(location.reload.bind(location), 7800);
+    setTimeout(location.reload.bind(location), 8000);
 
   }
 

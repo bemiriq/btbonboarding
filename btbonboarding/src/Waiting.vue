@@ -56,7 +56,7 @@
     },
 
     mounted: function(){
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+30+'/active',{
 
       })
       .then(response => {
