@@ -28,7 +28,7 @@ export default {
 
   data(){
     return{
-      teamname: [],
+      // teamname: [],
       teamList: []
     }
   },
