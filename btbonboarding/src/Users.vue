@@ -214,7 +214,8 @@
     <div class="bv-example-row" style="width:auto;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
       <b-row>
-        <!-- <b-col>Front Desk</b-col> -->
+        <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+        <b-col><a href="/#/Print">Print Score</a></b-col>
         <b-col>On Deck</b-col>
         <!-- <b-col>Room Status</b-col> -->
         <b-col>CCTV</b-col>

@@ -616,10 +616,7 @@
 
               <br>
 
-              <!-- <div> -->
-                  <!-- <b><p> {{dateTime1Data}} </p></b> -->
-
-              <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
+              <!-- <div v-for="reservation in teamByTime2" v-bind:key="reservation.id">
                 <br>
                 <p class="filters">{{reservation.reservation_for | moment}}</p>
 
@@ -627,10 +624,8 @@
 
                 <b v-else>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
 
-                <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="getpersonDetails1($event)">
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.id">
-                      <!-- <p>{{element.Person.first_name}}  {{ element.Person.last_name }} {{element.Person.minorsymbol}}</p> -->
 
                       <b-row>
                         <b-col sm="8">
@@ -642,17 +637,8 @@
                           {{element.Person.minorsymbol}}
                         </b-col>
 
-                        <!-- <b-col sm="1">
-                          <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
-                        </b-col> -->
-
-                        <!-- <b-col sm="1">
-                          {{element.Person.Player.play_count}}
-                        </b-col> -->
-
                       </b-row>
 
-                      <!-- <p>S</p> -->
                   </div>
                 </draggable>
 
@@ -661,12 +647,9 @@
                   
                   </div>
 
-              </div>
+              </div> -->
                 
-                <!-- </draggable> -->
                 <br>
-              <!-- </div>   -->
-              <!-- </div> -->
 
               <br>
 
