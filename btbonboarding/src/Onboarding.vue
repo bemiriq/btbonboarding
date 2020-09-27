@@ -2364,11 +2364,11 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     // console.log(currentdate);
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     // if(startReservationTime > '22:30:00'){
