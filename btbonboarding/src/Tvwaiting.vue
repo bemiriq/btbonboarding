@@ -45,7 +45,7 @@ export default {
       console.log(error);
     });
 
-    // setTimeout(location.reload.bind(location), 8200);
+    setTimeout(location.reload.bind(location), 8200);
 
   }
 
@@ -113,7 +113,7 @@ export default {
 
 }*/
 
-@media (min-width: 992px) {
+@media (min-width: 992px) { /** this defines the css for the BIGGER TV AS WELL **/
 
     #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -132,7 +132,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1200px;
+    height: 1078px;
     background-color: black;
     margin-top: -10%;
 
