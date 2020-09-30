@@ -55,7 +55,7 @@ export default {
 <style>
 @import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
 
-@media (min-width: 2000px) {
+/*@media (min-width: 2000px) {
 
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -76,13 +76,13 @@ export default {
     background-color: black;
 
   }
-  /*.container{
+  .container{
     display: none;
-  }*/
+  }
 
   .teamTitle{
     font-size: 4em;
-    /*color: #007BFF;*/
+    /*color: #007BFF;
     color: #00ff89;
     margin-top: -2%;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
@@ -111,7 +111,7 @@ export default {
     display: none;
   }
 
-}
+}*/
 
 @media (min-width: 992px) {
 
@@ -132,7 +132,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1000px;
+    height: 1200px;
     background-color: black;
     margin-top: -10%;
 
@@ -216,7 +216,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1800px;
+    height: 1900px;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
