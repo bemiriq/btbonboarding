@@ -45,7 +45,7 @@ export default {
       console.log(error);
     });
 
-    setTimeout(location.reload.bind(location), 8200);
+    // setTimeout(location.reload.bind(location), 8200);
 
   }
 
