@@ -34,7 +34,7 @@ export default {
   },
 
   mounted: function(){
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
 
     })
     .then(response => {
@@ -216,7 +216,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1778px;
+    height: 1800px;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
