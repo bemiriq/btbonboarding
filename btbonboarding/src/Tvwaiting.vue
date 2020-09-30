@@ -216,7 +216,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1900px;
+    height: 1850px;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
