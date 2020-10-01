@@ -5237,7 +5237,7 @@ export default {
                     axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationIdForSessionUpdate,{
                       session_id: sessionIdInserted, /** countondrop is length of an array so if its 0 by adding it 1 it will be 1 **/
                       // player_minor_id: minor_id,
-                      reservation_id: id_of_reservation
+                      // reservation_id: id_of_reservation
                     })
                     .then(response => {
                       console.log("INSERTED MINOR VALUE");
@@ -5324,7 +5324,7 @@ export default {
                     axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationIdForSessionUpdate,{
                       session_id: sessionIdInserted, /** countondrop is length of an array so if its 0 by adding it 1 it will be 1 **/
                       // player_minor_id: minor_id,
-                      reservation_id: id_of_reservation
+                      // reservation_id: id_of_reservation
                     })
                     .then(response => {
                       console.log("INSERTED MINOR VALUE");
@@ -5383,7 +5383,7 @@ export default {
                         axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationIdForSessionUpdate,{
                           session_id: sessionIdInserted, /** countondrop is length of an array so if its 0 by adding it 1 it will be 1 **/
                           // player_minor_id: peopleidused,
-                          reservation_id: id_of_reservation
+                          // reservation_id: id_of_reservation
                         })
                         .then(response => {
                           console.log("INSERTED MINOR VALUE");
@@ -5585,30 +5585,30 @@ export default {
                       if(this["list"+col][index].Person.minor == "yes"){
                         console.log("4th TPS , its minor");
                         var draggedPlayerId = this["list"+col][index].Person.player_id; /** this will change the minor updates **/
-                        var draggedMinorId = this["list"+col][countondrop].person_id;
+                        // var draggedMinorId = this["list"+col][countondrop].person_id;
 
                         console.log("dragged player id "+draggedPlayerId);
-                        console.log("minor id used "+draggedMinorId);
+                        console.log("minor id used "+peopleidused);
 
-                        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/player_minor/'+draggedMinorId+'/session/'+sessionIdInserted,{
-                        // session_id: sessionIdInserted,
-                        team_id: teamId,
-                        player_minor_id: draggedMinorId,
-                        // reservation_id: id_of_reservation
-                        reservation_id: reservationid
+                        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/player_minor/'+peopleidused+'/session/'+sessionIdInserted,{
+                          // session_id: sessionIdInserted,
+                          team_id: teamId,
+                          // player_minor_id: draggedMinorId,
+                          // reservation_id: id_of_reservation
+                          reservation_id: reservationid
                         })
                         .then(response => {
 
                           console.log(response.data);
-                          console.log(reservationid);
+                          // console.log(reservationid);
 
-                          var reservationMinorId = response.data.id;
-                          console.log("RESERVATION MINOR ID "+reservationMinorId);
+                          // var reservationMinorId = response.data.id;
+                          console.log("RESERVATION MINOR ID "+reservationIdForSessionUpdate);
 
                           axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationIdForSessionUpdate,{
                               session_id: sessionIdInserted, /** countondrop is length of an array so if its 0 by adding it 1 it will be 1 **/
-                              player_minor_id: peopleidused,
-                              reservation_id: id_of_reservation
+                              // player_minor_id: peopleidused,
+                              // reservation_id: id_of_reservation
                             })
                             .then(response => {
                               console.log("INSERTED MINOR VALUE");
