@@ -5585,12 +5585,13 @@ export default {
                       if(this["list"+col][index].Person.minor == "yes"){
                         console.log("4th TPS , its minor");
                         var draggedPlayerId = this["list"+col][index].Person.player_id; /** this will change the minor updates **/
+                        var draggedMinorId = this["list"+col][index].person_id;
                         // var draggedMinorId = this["list"+col][countondrop].person_id;
 
                         console.log("dragged player id "+draggedPlayerId);
-                        console.log("minor id used "+peopleidused);
+                        console.log("minor id used "+draggedMinorId);
 
-                        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/player_minor/'+peopleidused+'/session/'+sessionIdInserted,{
+                        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+draggedPlayerId+'/player_minor/'+draggedMinorId+'/session/'+sessionIdInserted,{
                           // session_id: sessionIdInserted,
                           team_id: teamId,
                           // player_minor_id: draggedMinorId,
