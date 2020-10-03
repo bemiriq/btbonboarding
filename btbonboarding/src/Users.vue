@@ -18,6 +18,59 @@
 
       </b-container>
 
+          <b-modal id="modal-organization" centered size="md" title="Organization">
+            
+            <!-- <p>  </p> -->
+
+            <!-- <p> {{reservationIdForOrganization}}</p> -->
+
+            
+
+            <!-- <select v-model="organizationTypeList" id="input-large" size="lg" style="text-transform: lowercase">
+              
+            </select> -->
+
+            <br/>
+            <b-row class="my-1">
+              <b-col sm="5">
+                <b>Organization Name</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-input v-model="organizationNameTyped" id="input-large" placeholder="Enter Organization Name" style="text-transform: lowercase"></b-form-input>
+              </b-col>
+            </b-row>
+            <br>
+            <b-row class="my-1">
+              <b-col sm="5">
+                <b>Organization Type</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-select v-model="organizationTypeSelected">
+                  <option v-for="item in organizationTypeList" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                  <!-- <option value="createNewOrganization">Create New</option> -->
+                </b-form-select>
+              </b-col>
+            </b-row>
+
+            <br>
+
+            <b-row class="my-1" v-if="organizationTypeSelected == 'createNewOrganization'">
+              <b-col sm="5">
+                <b>Type Name</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-input v-model="organizationTypeSelectedNew" id="input-large" placeholder="new organization type name" style="text-transform: lowercase"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <br> 
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal-xs" @click="organizationnNameUpdate($event, organizationNameTyped)">SUBMIT</button>
+            </div>
+
+          </b-modal>
+
           <b-modal id="modal-xl" centered size="xl" title="TEAM" @click="reloadPageEvent">
                                 <p>{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}}</p>
                                 <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
@@ -108,6 +161,39 @@
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10" style="background-color:#fafafa;">
 
+          <b-row>
+            <b-col lg="3">
+              <p style="margin-top: 3%; font-size: 1.2em;"><b>Reservation Date</b></p>
+            </b-col>
+
+            <b-col lg="3">
+              <b-input-group class="mb-1">
+
+                <b-form-input
+                  id="example-input"
+                  v-model="dateClicked"
+                  type="text"
+                  placeholder="YYYY-MM-DD"
+                  autocomplete="off"
+                ></b-form-input>
+
+                <b-input-group-append>
+                  <b-form-datepicker
+                    v-model="dateClicked"
+                    button-only
+                    right
+                    locale="en-US"
+                    aria-controls="example-input"
+                    @context="onContext"
+                  ></b-form-datepicker>
+                </b-input-group-append>
+
+              </b-input-group>
+            </b-col>
+          </b-row>
+
+          <br>
+
           <table class="table table-hover">
               <thead>
                 <tr>
@@ -116,7 +202,7 @@
                   <th scope="col">Reservation</th>
                   <th scope="col" style="font-size: 2em;">#</th>
                   <th scope="col">Mission</th>
-                  <th scope="col">Group</th>
+                  <th scope="col">Organization</th> <!-- changed it from GROUP to ORGANIZATION as asked by CHUCK -->
                   <th scope="col">Players Arrived</th>
                   <th scope="col">Spectators Arrived</th>
                   <th scope="col">Paid</th>
@@ -154,14 +240,21 @@
                   
 
                   <td>
-                    <select v-model="organizationType">
+                    <!-- <select v-model="organizationType">
                       <option value=""> </option>
                       <option v-for="organization in organizationDetail" v-bind:key="organization.id">{{organization.name}}</option>
                     </select>
                     <p v-if="organizationType == 'Other'">
-                      <!-- {{addOrganization}} -->
                       <input type="text">
+                    </p> -->
+
+                    <!-- it uses the organization_id from RESERVATION TABLE ONLY -->
+
+                    <p v-if="item.organization_id > '0'"> {{item.Organization.name}} </p>
+                    <p v-else>
+                      <b-button variant="outline-primary" v-on:click="addOrganization($event, index)">ADD</b-button>
                     </p>
+
                   </td>
 
                   <!-- <td>
@@ -267,6 +360,8 @@
   // import App from "./App";
   import Vue from 'vue';
   import moment from 'moment';
+
+  import vSelect from "vue-select";
   // import DateDropdown from 'vue-date-dropdown'; // this for the date dropdown
 
   // import { namesRef } from './firebase';
@@ -276,12 +371,14 @@ export default {
   components: {
     // HelloWorld,
     // ChildComponent
+    vSelect
   },
 
   data(){
     return{
       // url: process.env.VUE_APP_URL,
       // title: process.env.VUE_APP_TITLE,
+      value:'',
       searchQuery: '',
       posts: [],
       organizationDetail: [],
@@ -308,6 +405,17 @@ export default {
       // displayModal: true,
       timeList: [],
       convertedTimeList: '',
+
+      reservationIdForOrganization: '', /* this stores data to update organization_id on reservation table */
+      organizationNameList: [], /* list our all the organization name as for dropdown part */
+      organizationNameTyped: '',
+      organizationTypeSelected: '',
+      organizationTypeSelectedNew: '', /** this will create new organization type name **/
+      newOrganizationTypeId: '', /** new organization type id **/
+
+      selectedReservationDate:'',
+      formatted:'',
+      dateClicked: moment().format('YYYY-MM-DD'),
 
       /** used on firebase **/
       // username: '',
@@ -496,9 +604,14 @@ mounted: function(){
   //       {headers: {'X-API-KEY': 'Af144hp8uKL3ESKoSDlsDR1btaMM4nO1cbdsT8rWvKo'}})
   //    .then(response => (this.posts = response.data.data));
 
+    this.dateClicked = moment().format('YYYY-MM-DD');
+
     var starttime='start';
     var endtime='end';
+
     var currentdate = moment().format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(6, 'days').format("YYYY-MM-DD");
+
     var startReservationTime = '08:45:00';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '23:45:00';
@@ -619,6 +732,21 @@ mounted: function(){
         console.log(error);
       });
 
+        /** this will get us ORGANIZATION TYPE list **/
+          axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
+                // arrived: arrivedValue
+              })
+              .then(response => 
+                {
+                  console.log(response);
+                  this.organizationTypeList = response.data;
+              })
+
+            .catch(function (error){
+              console.log(error);
+            });
+        /** END OF organization type list **/
+
     // axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
     // })
@@ -644,6 +772,262 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    onContext(ctx) {
+        // The date formatted in the locale, or the `label-no-date-selected` string
+        this.formatted = ctx.selectedFormatted;
+        // The following will be an empty string until a valid date is entered
+        this.selectedReservationDate = ctx.selectedYMD;
+
+        console.log("CHANGED DATE");
+        console.log(this.selectedReservationDate);
+        console.log(this.formatted);
+
+
+    /** this will now change the check in list following the date **/
+
+          var starttime='start';
+          var endtime='end';
+
+          // var currentdate = moment().format("YYYY-MM-DD");
+          var convertDate = this.selectedReservationDate;
+
+          var currentdate = moment(convertDate).format("YYYY-MM-DD");
+
+          console.log(currentdate+ ' was the current date format');
+
+          var startReservationTime = '08:45:00';
+          // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+          var endReservationTime = '23:45:00';
+          var currentTime = moment().format("HHmm");
+          console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+          axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+            })
+          .then(response => 
+            {
+              console.log(response);
+              this.posts = response.data;
+
+              /** Beginning of ARRIVED counting part **/
+               var countPostArray = response.data.length-1;
+              // console.log(countPostArray);
+                var replyDataObj1 = this.posts;
+
+                console.log(this.posts);
+
+                for(let i=0; i <= countPostArray; i++){
+                  
+                  // console.log(response.data[i].Reservation_minors.length);
+                   
+                  var countReservationPeople = replyDataObj1[i].Reservation_people.length;
+                  var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
+                  var reservationForConvert = replyDataObj1[i].reservation_for;
+
+                  var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A');
+
+                  console.log(reservationForConvert);
+                  console.log(date);
+                  console.log(reservationOnlyTime);
+
+                  replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
+
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
+                  var lateBy = lateStatus-currentTime;
+
+                  var arrivedPerson = 0;
+                  var arrivedNonPlayer = 0;
+                  var arrivedPlayer = 0;
+
+                  for(let j=0; j < countReservationPeople; j++){
+
+                    arrivedPerson += replyDataObj1[i].Reservation_people[j].arrived;
+
+                    /** this will count total non player arrived **/
+                    if(replyDataObj1[i].Reservation_people[j].arrived == '1'){
+                      arrivedNonPlayer += replyDataObj1[i].Reservation_people[j].non_player;
+                    }
+
+                    /** this will count total player arrived excluding minors for non-player 0 as false **/
+                    if(replyDataObj1[i].Reservation_people[j].arrived == '1' && replyDataObj1[i].Reservation_people[j].non_player == '0'){
+                      arrivedPlayer += replyDataObj1[i].Reservation_people[j].arrived;
+                    }
+
+                  }
+
+                  var arrivedMinor = 0;
+                  var arrivedMinorNonPlayer = 0;
+                  var arrivedMinorPlayer = 0;
+
+                  for(let k=0; k < countReservationMinors; k++){
+
+                      arrivedMinor += replyDataObj1[i].Reservation_minors[k].arrived;
+
+                      if(replyDataObj1[i].Reservation_minors[k].arrived == '1'){
+                        arrivedMinorNonPlayer += replyDataObj1[i].Reservation_minors[k].non_player;
+                      }
+
+                      /** this will count total player arrived for minors for non-player 0 as false **/
+                      if(replyDataObj1[i].Reservation_minors[k].arrived == '1' && replyDataObj1[i].Reservation_minors[k].non_player == '0'){
+                        arrivedMinorPlayer += replyDataObj1[i].Reservation_minors[k].arrived;
+                      }
+
+                  }
+
+                  console.log(arrivedPerson+' arrived person');
+                  console.log(arrivedMinor+' arrived minor');
+
+                  var arrived = arrivedPerson + arrivedMinor;
+
+                  console.log(arrivedNonPlayer+' arrived non player person');
+                  console.log(arrivedMinorNonPlayer+' arrived non player minor');
+                  var totalNonPlayerArrived = arrivedNonPlayer + arrivedMinorNonPlayer;
+                  console.log("TOTAL NON PLAYER = "+totalNonPlayerArrived);
+
+                  console.log(arrivedPlayer+' arrived  player person');
+                  console.log(arrivedMinorPlayer+' arrived  player minor');
+                  var totalPlayerArrived = arrivedPlayer + arrivedMinorPlayer;
+                  console.log("TOTAL  PLAYER = "+totalPlayerArrived);
+
+                  // var arrived = replyDataObj1[i].Reservation_minors.length+replyDataObj1[i].Reservation_people.length;
+                  // console.log(arrived);
+
+                  replyDataObj1[i]['total_arrived']=arrived;
+
+                
+                  replyDataObj1[i]['late_status_time']=lateStatus;
+                  replyDataObj1[i]['late_by']=lateBy;
+                  replyDataObj1[i]['total_non_player_arrived']=totalNonPlayerArrived;
+                  replyDataObj1[i]['total_player_arrived']=totalPlayerArrived;
+
+                  console.log(currentTime);
+                  console.log(lateStatus);
+                  console.log("ARRIVED VALUE"+arrived);
+
+                  var reservationId = replyDataObj1[i].id; /** id is the reservation id **/
+                  replyDataObj1[i]['reservation_id']=reservationId;
+                }
+                /** END of ARRIVED counting PART **/
+
+            })
+          .catch(function (error){
+              console.log(error);
+            });
+
+              /** this will get us ORGANIZATION TYPE list **/
+                axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
+                      // arrived: arrivedValue
+                    })
+                    .then(response => 
+                      {
+                        console.log(response);
+                        this.organizationTypeList = response.data;
+                    })
+
+                  .catch(function (error){
+                    console.log(error);
+                  });
+        /** END OF organization type list **/
+
+
+    /** end of changing reservation date **/ 
+
+
+      },
+
+    // dateDisabled(ymd, date) {
+    //     const weekday = date.getDay();
+    //     const day = date.getDate();
+    //     return weekday === 0 || weekday === 6 || day === 13;
+    //   },
+
+    organizationnNameUpdate: function(event, organizationNameTyped){
+      console.log("Inside add organization name");
+      console.log(event);
+      var orgName = organizationNameTyped.toLowerCase().trim();
+      // console.log('org name lower case '+orgName);
+
+      var reservationId = this.reservationIdForOrganization;
+      var orgTypeName = this.organizationTypeSelected;
+
+      console.log('organization type id '+ orgTypeName);
+
+      console.log(orgName.length);
+
+      if(orgName.length > '1'){
+        console.log('yes greater than 1');
+
+          if(orgTypeName == 'createNewOrganization'){ /** if they click on create new input field for organization type **/
+            var orgTypeName = this.organizationTypeSelectedNew;
+            console.log('Org Type Name was '+orgTypeName);
+            axios.post(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
+                    name: orgTypeName
+                  })
+                  .then(response => {
+                    console.log(response);
+                    console.log(response.data.id);
+                    this.newOrganizationTypeId = response.data.id;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+            // var orgName = this.newOrganizationTypeId;
+          }
+          else{
+            this.newOrganizationTypeId = this.organizationTypeSelected;
+            console.log('Old Organication Type '+ this.newOrganizationTypeId);
+          }
+
+          console.log('Organization ID '+this.newOrganizationTypeId);
+
+          /** this will give the ORGANIZATION ID **/
+          axios.post(process.env.VUE_APP_DTB_ORGANIZATION+'/find_or_create/organization_name/'+orgName,{
+                // arrived: arrivedValue
+                organization_type_id: this.newOrganizationTypeId
+              })
+
+              .then(response => 
+                {
+                  console.log(response);
+                  console.log(response.data);
+                  console.log(response.data[0].id);
+
+                  var organizationId = response.data[0].id;
+
+                  /** NOW UPDATE ORGANIZATION ID on RESERVATION ID **/
+                    axios.put(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+                      organization_id: organizationId
+                    })
+                    .then(response => {
+                      console.log(response);
+
+                      window.location.reload(true);
+
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  /** END OF UPDATE of ORGANIZATION ID on RESERVATION ID **/
+
+                })
+              .catch(function (error) {
+                  console.log(error);
+              });
+          /** END OF ORGANIZATION ID **/
+
+      }
+
+      else{
+        console.log('null organization name');
+      }
+
+
+      
+
+    },
 
     reloadPageEvent: function(){
       console.log("INSIDE RELOAD FUNCTION");
@@ -1219,6 +1603,37 @@ var arrows = document.getElementsByClassName("covertedtime");
 
      },
 
+     addOrganization(event, index) {
+
+      console.log("event "+event+" index "+ index);
+
+      console.log(this.posts[index]);
+
+      var reservationIdForOrganization = this.posts[index].reservation_id;
+
+      console.log(reservationIdForOrganization);
+
+      this.reservationIdForOrganization = reservationIdForOrganization;
+
+      axios.get(process.env.VUE_APP_DTB_ORGANIZATION,{
+
+        })
+      .then(response => 
+        {
+          console.log(response);
+          this.organizationNameList = response.data;
+        }
+      )
+      .catch(function (error){
+        console.log(error);
+      });
+
+      console.log("inside add organization");
+
+      this.$bvModal.show('modal-organization');
+
+     },
+
 
       removeDuplicates () {
           this.timeList = [ ...new Set(this.timeList) ]
@@ -1269,6 +1684,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 }
 
 #modal-xl___BV_modal_footer_{
+  display: none;
+}
+
+#modal-organization___BV_modal_footer_{
   display: none;
 }
 
