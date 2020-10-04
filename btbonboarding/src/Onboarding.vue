@@ -567,11 +567,11 @@
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Playing</b-list-group-item>
-            <b-list-group-item href="#">Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+            <b-list-group-item href="/#/Print">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
-            <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item>
-            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
+            <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
+            <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
           </b-list-group>
 
         </b-col>
@@ -2208,6 +2208,34 @@
 
     <!-- <rawDisplayer class="col-2" :value="dataList3" title="dataList3" /> -->
 
+    <br><br>
+
+    <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
+
+      <b-row>
+        <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+        <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
+        <b-col>On Deck</b-col>
+        <!-- <b-col>Room Status</b-col> -->
+        <b-col>CCTV</b-col>
+        <b-col><a href="/#/controlroom">Control Room</a></b-col>
+        <b-col>Photo Bomb</b-col>
+        <b-col>Bomb Vision</b-col>
+        <b-col>Stats</b-col>
+        <b-col>Support</b-col>
+        <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+        <b-col>Photo Bomb</b-col>
+        <!-- <b-col> | </b-col> -->
+        <b-col><a href="https://app.joinhomebase.com/accounts/sign_in" target="_blank">Homebase</a></b-col>
+        <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+        <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
+
+      </b-row>
+
+    </div>
+
+    <br>
+
   </div>
 </template>
 
@@ -2366,9 +2394,9 @@ export default {
     var endtime='end';
     // var currentdate = moment().subtract(6, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
-    // console.log(currentdate);
+    console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     // if(startReservationTime > '22:30:00'){

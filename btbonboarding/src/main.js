@@ -50,7 +50,8 @@ const routes = [
 	{ path : '/print', component: Print},
 	{ path : '/gbsignup', component: Gamebaysignup},
 	{ path : '/gbleaderboard', component: Gamebayleaderboard},
-	{ path : '/onboardingtest', component: Onboardingtest}
+	{ path : '/onboardingtest', component: Onboardingtest},
+	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 
 const router = new VueRouter({

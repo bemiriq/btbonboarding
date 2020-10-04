@@ -17,11 +17,11 @@
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="#">Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Playing" active>Status Screen</b-list-group-item>
+            <b-list-group-item href="/#/Print">Wrapping up</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
-            <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item>
-            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
+            <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
+            <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
           </b-list-group>
 
         </b-col>
@@ -318,28 +318,33 @@
 
     <br/>
 
-<!--     <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold;">
+    <br/>
 
-      <b-row>
-        <b-col>Front Desk</b-col>
-        <b-col>On Deck</b-col>
-        <b-col>Room Status</b-col>
-        <b-col>CCTV</b-col>
-        <b-col><a href="/#/controlroom">Control Room</a></b-col>
-        <b-col>Photo Bomb</b-col>
-        <b-col>Bomb Vision</b-col>
-        <b-col>Stats</b-col>
-        <b-col>Support</b-col>
-        <b-col>EOD</b-col>
-        <b-col>Photo Bomb</b-col>
-        <b-col> | </b-col>
-        <b-col>Homebase</b-col>
-        <b-col>Xola</b-col>
-        <b-col>Square</b-col>
+        <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
-      </b-row>
+          <b-row>
+            <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+            <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
+            <b-col>On Deck</b-col>
+            <!-- <b-col>Room Status</b-col> -->
+            <b-col>CCTV</b-col>
+            <b-col><a href="/#/controlroom">Control Room</a></b-col>
+            <b-col>Photo Bomb</b-col>
+            <b-col>Bomb Vision</b-col>
+            <b-col>Stats</b-col>
+            <b-col>Support</b-col>
+            <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+            <b-col>Photo Bomb</b-col>
+            <!-- <b-col> | </b-col> -->
+            <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
+            <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+            <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
 
-    </div> -->
+          </b-row>
+
+        </div>
+
+    <br/>
 
   </div>
 </template>
