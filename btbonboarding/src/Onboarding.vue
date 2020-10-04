@@ -564,7 +564,7 @@
 
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="/#/users">Check-In</b-list-group-item>
-            <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
+            <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
             <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
