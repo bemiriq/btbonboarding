@@ -204,7 +204,7 @@
 
         <!-- SIDE A 2 -->
         <b-modal id="modal-center12" ref="sideRfidUpdate12" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName12}} Side A {{dateTime2Data}}</p></b>
+                            <b><p>{{teamName12}} on Side A {{dateTime2Data}}</p></b>
 
                               <b-row class="my-1">
                                 <b-col sm="12">
@@ -296,7 +296,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center13" ref="sideRfidUpdate13" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName13}} on Side B for {{dateTime1BData}}</p></b>
+                            <b><p>{{teamName13}} on Side B for {{dateTime2Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -385,7 +385,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center14" ref="sideRfidUpdate14" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName14}} on Side B for {{dateTime1BData}}</p></b>
+                            <b><p>{{teamName14}} on Side A for {{dateTime3Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -474,7 +474,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center15" ref="sideRfidUpdate15" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName15}} on Side B for {{dateTime1BData}}</p></b>
+                            <b><p>{{teamName15}} on Side B for {{dateTime3Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -559,6 +559,365 @@
  <!-- end of sibe B 3 and BOX 6 -->
 
 
+         <!-- sibe A 4 and BOX 7 -->
+
+                <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
+                <b-modal id="modal-center16" ref="sideRfidUpdate16" centered v-bind:hide-footer="true">
+                            <b><p>{{teamName16}} on Side B for {{dateTime4Data}}</p></b>
+                           
+                           <b-row class="my-1">
+                                <b-col sm="12">
+
+                                  <div v-if="fetchPlayerList[16] > '0' ">
+                                    <!-- element in fetchPlayerList[16].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[16].Team_player_sessions" :key="index">
+                                        <b-row>
+                                          <b-col >
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          </b-col>
+
+                                          <b-col>
+
+                                            <p v-if="teamfetch.Rfid != null">
+                                            <!-- VALUE -->
+                                              <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
+                                                {{teamfetch.Rfid.tag}}
+                                              </b-form-input>
+                                            </p>
+                                            <p v-else>
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 16, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                :class="{active: activeBtn === 'btn1' }"></b-form-input>
+                                            </p>
+                                          </b-col>
+
+                                          <b-col>
+                                            <p v-if="teamfetch.Rfid != null">
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 16, index) , activeBtn = 'btn1' "></b-icon>
+                                            </p>
+
+                                            <p v-else>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='' " ></b-icon>
+                                            </p>
+
+                                          </b-col>
+
+                                        </b-row>
+                                    </div>
+
+                                  </div>
+
+                                  <div v-else>
+
+                                      <div v-for="(listings, index) in list16" :key="index">
+
+                                        <br/>
+                                        <b-row>
+                                          <b-col sm="6">
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                          </b-col>
+                                          <b-col sm="4">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 16, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
+
+                                          </b-col>
+
+                                          <b-col sm="2">
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 16)"></b-icon>
+                                          </b-col>
+
+                                        </b-row>
+
+                                      </div>
+
+                                  </div>
+
+                                </b-col>
+                              </b-row>
+
+                              <!-- end of row that displays fetch data from mounted -->
+
+                              <br/>
+                              <b-row>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked($event, 16);">SAVE & CLOSE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+         <!-- end of sibe A 4 and BOX 7 -->
+
+
+      <!-- sibe B 4 and BOX 8 -->
+
+                <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
+                <b-modal id="modal-center17" ref="sideRfidUpdate17" centered v-bind:hide-footer="true">
+                            <b><p>{{teamName17}} on Side B for {{dateTime4Data}}</p></b>
+                           
+                           <b-row class="my-1">
+                                <b-col sm="12">
+
+                                  <div v-if="fetchPlayerList[17] > '0' ">
+                                    <!-- element in fetchPlayerList[17].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[17].Team_player_sessions" :key="index">
+                                        <b-row>
+                                          <b-col >
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          </b-col>
+
+                                          <b-col>
+
+                                            <p v-if="teamfetch.Rfid != null">
+                                            <!-- VALUE -->
+                                              <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
+                                                {{teamfetch.Rfid.tag}}
+                                              </b-form-input>
+                                            </p>
+                                            <p v-else>
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 17, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                :class="{active: activeBtn === 'btn1' }"></b-form-input>
+                                            </p>
+                                          </b-col>
+
+                                          <b-col>
+                                            <p v-if="teamfetch.Rfid != null">
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 17, index) , activeBtn = 'btn1' "></b-icon>
+                                            </p>
+
+                                            <p v-else>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='' " ></b-icon>
+                                            </p>
+
+                                          </b-col>
+
+                                        </b-row>
+                                    </div>
+
+                                  </div>
+
+                                  <div v-else>
+
+                                      <div v-for="(listings, index) in list17" :key="index">
+
+                                        <br/>
+                                        <b-row>
+                                          <b-col sm="6">
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                          </b-col>
+                                          <b-col sm="4">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 17, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
+
+                                          </b-col>
+
+                                          <b-col sm="2">
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 17)"></b-icon>
+                                          </b-col>
+
+                                        </b-row>
+
+                                      </div>
+
+                                  </div>
+
+                                </b-col>
+                              </b-row>
+
+                              <!-- end of row that displays fetch data from mounted -->
+
+                              <br/>
+                              <b-row>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked($event, 17);">SAVE & CLOSE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+         <!-- end of sibe B , BOX 8 -->
+
+
+        <!-- sibe A BOX 9 -->
+
+                <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
+                <b-modal id="modal-center18" ref="sideRfidUpdate18" centered v-bind:hide-footer="true">
+                            <b><p>{{teamName18}} on Side A for {{dateTime5Data}}</p></b>
+                           
+                           <b-row class="my-1">
+                                <b-col sm="12">
+
+                                  <div v-if="fetchPlayerList[18] > '0' ">
+                                    <!-- element in fetchPlayerList[18].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[18].Team_player_sessions" :key="index">
+                                        <b-row>
+                                          <b-col >
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          </b-col>
+
+                                          <b-col>
+
+                                            <p v-if="teamfetch.Rfid != null">
+                                            <!-- VALUE -->
+                                              <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
+                                                {{teamfetch.Rfid.tag}}
+                                              </b-form-input>
+                                            </p>
+                                            <p v-else>
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 18, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                :class="{active: activeBtn === 'btn1' }"></b-form-input>
+                                            </p>
+                                          </b-col>
+
+                                          <b-col>
+                                            <p v-if="teamfetch.Rfid != null">
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 18, index) , activeBtn = 'btn1' "></b-icon>
+                                            </p>
+
+                                            <p v-else>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='' " ></b-icon>
+                                            </p>
+
+                                          </b-col>
+
+                                        </b-row>
+                                    </div>
+
+                                  </div>
+
+                                  <div v-else>
+
+                                      <div v-for="(listings, index) in list18" :key="index">
+
+                                        <br/>
+                                        <b-row>
+                                          <b-col sm="6">
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                          </b-col>
+                                          <b-col sm="4">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 18, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
+
+                                          </b-col>
+
+                                          <b-col sm="2">
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 18)"></b-icon>
+                                          </b-col>
+
+                                        </b-row>
+
+                                      </div>
+
+                                  </div>
+
+                                </b-col>
+                              </b-row>
+
+                              <!-- end of row that displays fetch data from mounted -->
+
+                              <br/>
+                              <b-row>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked($event, 18);">SAVE & CLOSE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+         <!-- end of sibe A , BOX 9 -->
+
+
+
+        <!-- sibe B , BOX 10 -->
+
+                <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
+                <b-modal id="modal-center19" ref="sideRfidUpdate19" centered v-bind:hide-footer="true">
+                            <b><p>{{teamName19}} on Side B for {{dateTime5Data}}</p></b>
+                           
+                           <b-row class="my-1">
+                                <b-col sm="12">
+
+                                  <div v-if="fetchPlayerList[19] > '0' ">
+                                    <!-- element in fetchPlayerList[19].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[19].Team_player_sessions" :key="index">
+                                        <b-row>
+                                          <b-col >
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          </b-col>
+
+                                          <b-col>
+
+                                            <p v-if="teamfetch.Rfid != null">
+                                            <!-- VALUE -->
+                                              <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
+                                                {{teamfetch.Rfid.tag}}
+                                              </b-form-input>
+                                            </p>
+                                            <p v-else>
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 19, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                :class="{active: activeBtn === 'btn1' }"></b-form-input>
+                                            </p>
+                                          </b-col>
+
+                                          <b-col>
+                                            <p v-if="teamfetch.Rfid != null">
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 19, index) , activeBtn = 'btn1' "></b-icon>
+                                            </p>
+
+                                            <p v-else>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='' " ></b-icon>
+                                            </p>
+
+                                          </b-col>
+
+                                        </b-row>
+                                    </div>
+
+                                  </div>
+
+                                  <div v-else>
+
+                                      <div v-for="(listings, index) in list19" :key="index">
+
+                                        <br/>
+                                        <b-row>
+                                          <b-col sm="6">
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <input type="text" v-model="listings.id" disabled style="display:none;"/>
+                                          </b-col>
+                                          <b-col sm="4">
+                                            <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 19, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"></b-form-input>
+
+                                          </b-col>
+
+                                          <b-col sm="2">
+                                            <b-icon icon="trash-fill" font-scale="1.5" @click="deleteRfidBeforeReload($event, index, 19)"></b-icon>
+                                          </b-col>
+
+                                        </b-row>
+
+                                      </div>
+
+                                  </div>
+
+                                </b-col>
+                              </b-row>
+
+                              <!-- end of row that displays fetch data from mounted -->
+
+                              <br/>
+                              <b-row>
+                                <b-col><b-button block variant="info" v-on:click="hideModalRfidClicked($event, 19);">SAVE & CLOSE</b-button></b-col>
+                                <br/>
+                              </b-row>
+                              <br/>
+
+                            </b-modal>
+
+         <!-- end of sibe B BOX 10 -->
+
+
+
+
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
 
@@ -568,7 +927,7 @@
             <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Print">Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
             <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
@@ -1389,15 +1748,20 @@
 
           <br/>
 
-          <div class="bv-example-row">
+          
+
+
+
+
+
+
+          <div class="bv-example-row"> <!-- div that open / close for Box 5 and Box 6 -->
 
             <b-row>
 
-<!-- SIDE A BOX 5 -->
+              <b-col> <!-- bc-col that OPENED for SIDE A BOX number 5 -->
 
-              <b-col>
-
-                <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked14 }">
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked14 }">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1407,12 +1771,11 @@
                       <b-col sm="8">
 
 
-                        <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 5" v-on:change="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
                     </b-row>
-
 
                         <div v-if="fetchPlayerList[14] > '0'"  style="height: 440px;border-style: outset;">
 
@@ -1423,7 +1786,6 @@
 
                               <b-row>
                                     <b-col sm="1">
-                                      <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
@@ -1438,7 +1800,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                      <p v-if="element.Person.Player.bomb_beater == '14'">&#128163;</p>
                                     </b-col>
 
                                     <b-col sm="1">
@@ -1460,12 +1822,8 @@
 
                         </div>
 
-
-
                           <div v-else>
                             <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)">
-
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
                               <div class="list-group-item item" v-for="(element, index) in list14" :key="index">
 
@@ -1487,7 +1845,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                      <p v-if="element.Person.Player.bomb_beater == '14'">&#128163;</p>
                                     </b-col>
 
                                     <b-col sm="1">
@@ -1516,7 +1874,8 @@
 
                       <br />
 
-                      <div v-if=" selected14 > 0 && selected12 == selected14">
+
+                      <div v-if=" selected14 > 0 && selected14 == selected11">
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
@@ -1547,6 +1906,12 @@
                         <b-col sm="3" style="display: none;">
                           <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
                         </b-col>
+                        <!-- <b-col sm="3"> -->
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <!-- <div>
+                            <b-button v-b-modal.modal-center variant="info">RFID</b-button>
+                          </div> -->
+                        <!-- </b-col> -->
 
                           <div style="width: 70%; margin:auto;">
                             <b-row>
@@ -1571,13 +1936,17 @@
 
                   </b-col>
 
-              </b-col>
+              </b-col> <!-- END FOR BOX NUMBER 5 -->
 
-<!-- SIDE B BOX 3 or BOX 15 -->
-              <b-col>
-              <!-- <br/> -->
+            
 
-                <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked15 }">
+            <!-- SIDE B BOX NUMBER 6 -->
+
+             <b-col>
+                <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
+
+                <!-- <form id="signup-form"> -->
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked15 }">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1587,7 +1956,7 @@
                       <b-col sm="8">
 
 
-                        <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:change="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
@@ -1696,7 +2065,7 @@
 
                       <br />
 
-                      <div v-if=" selected15 > 0 && selected12 == selected15">
+                      <div v-if=" selected15 > 0 && selected10 == selected15">
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
@@ -1751,368 +2120,789 @@
 
                   </b-col>
 
-              </b-col>
+                <!-- </form> -->
+
+                <!-- end of the form here -->
+
+              </b-col> <!-- b-col that close for BOX 6 -->
+
+
 
             </b-row>
 
-          </div>
-          <!-- end of container display all the records -->
+          </div> <!-- div that close for BOX 5 and BOX 6 -->
+
+
+
+
+
+
 
           <br/>
 
-          <div class="bv-example-row">
+          <div class="bv-example-row"> <!-- div that open / close for Box 7 and Box 8 -->
 
             <b-row>
 
-              <b-col>
+              <b-col> <!-- bc-col that OPENED for SIDE A BOX number 7 -->
 
-                <b-col  class="border border-info rounded">
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked16 }">
 
-                  <b-row class="my-1">
-                    <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
-                    </b-col>
-                    <b-col sm="8">
-                      <b-form-input size="md" placeholder="TEAM NAME 7"></b-form-input>
-                    </b-col>
-                  </b-row>
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
+                      </b-col>
+                      <b-col sm="8">
 
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list8"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 440px; border-style: outset;"
-                    >
-                      <div
-                        class="list-group-item item"
-                        v-for="element in list8"
-                        :key="element.name"
-                      >
-                        {{ element.name }}
+
+                        <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+
+
+                      </b-col>
+                    </b-row>
+
+                        <div v-if="fetchPlayerList[16] > '0'"  style="height: 440px;border-style: outset;">
+
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList[16].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          @add="onDrop1AfterReload($event, 16)" @change="deleteTeamPlayerSessionAfterReload1($event, 16)">
+
+                            <div class="list-group-item item" v-for="element in fetchPlayerList[16].Team_player_sessions" :key="element.id">
+
+                              <b-row>
+                                    <b-col sm="1">
+                                      <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-else>&#10060;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="8">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '16'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.player_count}}
+                                    </b-col>
+
+                                  </b-row>
+
+                            </div>
+                          </draggable>
+
+                          <draggable>
+                              <!-- <transition-group> -->
+                                  <div v-for="element in myArray" :key="element.id" style="background-color: yellow; height: 300px;">
+                                      {{element.Person.first_name}}
+                                  </div>
+                              <!-- </transition-group> -->
+                          </draggable>
+
+                        </div>
+
+                          <div v-else>
+                            <draggable id="first" data-source="juju" :list="list16" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 16, index)" @change="onDropReservation1($event, 16)">
+
+                              <div class="list-group-item item" v-for="(element, index) in list16" :key="index">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                      <p v-if="list16[index].rfidState1 == '' || !list16[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list16[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '16'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.play_count}}
+                                    </b-col>
+
+
+                                  </b-row>
+                              </div>
+                              </draggable>
+                            </div>
+
+
+                      <br/>
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected16" v-on:change="onChangeMission1($event, 16)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+
+                      <div v-if=" selected16 > 0 && selected16 == selected17">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-model="vsselected16" v-on:change="onChangeTeamVsTeam1($event, 16)">
+                              <option> </option>
+                              <option :value="teamName17"> {{ teamName17 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
                       </div>
 
-                         <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
+                      <br />
 
-                     <br/>
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName16}} </b> </p>
+                        <br>
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
+
+                      </b-modal>
+
+                      <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
+                        <!-- <b-col sm="3"> -->
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <!-- <div>
+                            <b-button v-b-modal.modal-center variant="info">RFID</b-button>
+                          </div> -->
+                        <!-- </b-col> -->
+
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center16 variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist16 == false">
+                                  <b-button block v-if="disableButton16 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 16)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
+
+                      <br/>
+
+                  </b-col>
+
+              </b-col> <!-- END FOR BOX NUMBER 7 -->
+
+            
+
+            <!-- SIDE B BOX NUMBER 8 -->
+
+             <b-col>
+                <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
+
+                <!-- <form id="signup-form"> -->
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked17 }">
+
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected7">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
+                      <b-col sm="8">
+
+
+                        <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+
+
                       </b-col>
                     </b-row>
 
-                    <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected3">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                        <div v-if="fetchPlayerList[17] > '0'"  style="height: 440px;border-style: outset;">
 
-                    <br/>
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList[17].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          @add="onDrop1AfterReload($event, 17)" @change="deleteTeamPlayerSessionAfterReload1($event, 17)">
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                            <div class="list-group-item item" v-for="element in fetchPlayerList[17].Team_player_sessions" :key="element.id">
 
-                </b-col>
+                              <b-row>
+                                    <b-col sm="1">
+                                      <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
+                                      <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-else>&#10060;</p>
 
-              </b-col>
+                                    </b-col>
 
-              <b-col>
-              <!-- <br/> -->
+                                    <b-col sm="8">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
 
-                <b-col  class="border border-info rounded">
+                                    <b-col sm="1">
+                                      {{element.Person.Player.minor_tag}}
+                                    </b-col>
 
-                  <b-row class="my-1">
-                    <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
-                    </b-col>
-                    <b-col sm="8">
-                      <b-form-input size="md" placeholder="TEAM NAME 8"></b-form-input>
-                    </b-col>
-                  </b-row>
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                    </b-col>
 
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list9"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 440px; border-style: outset;"
-                    >
-                      <div
-                        class="list-group-item item"
-                        v-for="element in list9"
-                        :key="element.name"
-                      >
-                        {{ element.name }}
+                                    <b-col sm="1">
+                                      {{element.Person.Player.player_count}}
+                                    </b-col>
+
+                                  </b-row>
+
+                            </div>
+                          </draggable>
+
+                          <draggable>
+                              <!-- <transition-group> -->
+                                  <div v-for="element in myArray" :key="element.id" style="background-color: yellow; height: 300px;">
+                                      {{element.Person.first_name}}
+                                  </div>
+                              <!-- </transition-group> -->
+                          </draggable>
+
+                        </div>
+
+
+
+                          <div v-else>
+                            <draggable id="first" data-source="juju" :list="list17" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 17, index)" @change="onDropReservation1($event, 17)">
+
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
+
+                              <div class="list-group-item item" v-for="(element, index) in list17" :key="index">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                      <p v-if="list17[index].rfidState1 == '' || !list17[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list17[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.play_count}}
+                                    </b-col>
+
+
+                                  </b-row>
+                              </div>
+                              </draggable>
+                            </div>
+
+
+                      <br/>
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected17" v-on:change="onChangeMission1($event, 17)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+                      <div v-if=" selected17 > 0 && selected16 == selected17">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-model="vsselected17" v-on:change="onChangeTeamVsTeam1($event, 17)">
+                              <option> </option>
+                              <option :value="teamName16"> {{ teamName16 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
                       </div>
-                      <!--
-                         <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
 
-                     <br/>
+                      <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected8">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName17}} </b> </p>
+                        <br>
 
-                    <br />
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected8">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      </b-modal>
 
-                    <br />
+                      <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center17 variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist17 == false">
+                                  <b-button block v-if="disableButton17 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 17)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
 
-                </b-col>
+                      <br/>
 
-              </b-col>
+                  </b-col>
+
+                <!-- </form> -->
+
+                <!-- end of the form here -->
+
+              </b-col> <!-- b-col that close for BOX 8 -->
+
+
 
             </b-row>
 
-          </div>
-          <!-- end of container display all the records -->
+          </div> <!-- div that close for BOX 7 and BOX 8 -->
+
+
+
+
 
           <br/>
 
-          <div class="bv-example-row">
+          <div class="bv-example-row"> <!-- div that open / close for Box 9 and Box 10 -->
 
             <b-row>
 
-              <b-col>
+              <b-col> <!-- bc-col that OPENED for SIDE A BOX number 9 -->
 
-                <b-col  class="border border-info rounded">
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked18 }">
 
-                  <b-row class="my-1">
-                    <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
-                    </b-col>
-                    <b-col sm="8">
-                      <b-form-input size="md" placeholder="TEAM NAME 9"></b-form-input>
-                    </b-col>
-                  </b-row>
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
+                      </b-col>
+                      <b-col sm="8">
 
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list10"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 440px; border-style: outset;"
-                    >
-                      <div
-                        class="list-group-item item"
-                        v-for="element in list10"
-                        :key="element.name"
-                      >
-                        {{ element.name }}
+
+                        <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+
+
+                      </b-col>
+                    </b-row>
+
+                        <div v-if="fetchPlayerList[18] > '0'"  style="height: 440px;border-style: outset;">
+
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList[18].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          @add="onDrop1AfterReload($event, 18)" @change="deleteTeamPlayerSessionAfterReload1($event, 18)">
+
+                            <div class="list-group-item item" v-for="element in fetchPlayerList[18].Team_player_sessions" :key="element.id">
+
+                              <b-row>
+                                    <b-col sm="1">
+                                      <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-else>&#10060;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="8">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '18'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.player_count}}
+                                    </b-col>
+
+                                  </b-row>
+
+                            </div>
+                          </draggable>
+
+                          <draggable>
+                              <!-- <transition-group> -->
+                                  <div v-for="element in myArray" :key="element.id" style="background-color: yellow; height: 300px;">
+                                      {{element.Person.first_name}}
+                                  </div>
+                              <!-- </transition-group> -->
+                          </draggable>
+
+                        </div>
+
+                          <div v-else>
+                            <draggable id="first" data-source="juju" :list="list18" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 18, index)" @change="onDropReservation1($event, 18)">
+
+                              <div class="list-group-item item" v-for="(element, index) in list18" :key="index">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                      <p v-if="list18[index].rfidState1 == '' || !list18[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list18[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '18'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.play_count}}
+                                    </b-col>
+
+
+                                  </b-row>
+                              </div>
+                              </draggable>
+                            </div>
+
+
+                      <br/>
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected18" v-on:change="onChangeMission1($event, 18)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+
+                      <div v-if=" selected18 > 0 && selected18 == selected11">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-model="vsselected18" v-on:change="onChangeTeamVsTeam1($event, 18)">
+                              <option> </option>
+                              <option :value="teamName19"> {{ teamName19 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
                       </div>
 
-                         <!-- <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
+                      <br />
 
-                     <br/>
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName18}} </b> </p>
+                        <br>
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
+
+                      </b-modal>
+
+                      <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
+                        <!-- <b-col sm="3"> -->
+                          <!-- <b-button variant="info">RFID</b-button> -->
+                          <!-- <div>
+                            <b-button v-b-modal.modal-center variant="info">RFID</b-button>
+                          </div> -->
+                        <!-- </b-col> -->
+
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center18 variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist18 == false">
+                                  <b-button block v-if="disableButton18 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 18)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
+
+                      <br/>
+
+                  </b-col>
+
+              </b-col> <!-- END FOR BOX NUMBER 9 -->
+
+            
+
+            <!-- SIDE B BOX NUMBER 10 -->
+
+             <b-col>
+                <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
+
+                <!-- <form id="signup-form"> -->
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked19 }">
+
+                    <b-row class="my-1">
+                      <b-col sm="4">
+                        <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
+                        <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected9">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
+                      <b-col sm="8">
+
+
+                        <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+
+
                       </b-col>
                     </b-row>
 
-                    <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected9">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                        <div v-if="fetchPlayerList[19] > '0'"  style="height: 440px;border-style: outset;">
 
-                    <br/>
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList[19].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          @add="onDrop1AfterReload($event, 19)" @change="deleteTeamPlayerSessionAfterReload1($event, 19)">
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                            <div class="list-group-item item" v-for="element in fetchPlayerList[19].Team_player_sessions" :key="element.id">
 
-                </b-col>
+                              <b-row>
+                                    <b-col sm="1">
+                                      <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
+                                      <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
+                                      <p v-else>&#10060;</p>
 
-              </b-col>
+                                    </b-col>
 
-              <b-col>
-              <!-- <br/> -->
+                                    <b-col sm="8">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
 
-                <b-col  class="border border-info rounded">
+                                    <b-col sm="1">
+                                      {{element.Person.Player.minor_tag}}
+                                    </b-col>
 
-                  <b-row class="my-1">
-                    <b-col sm="4">
-                      <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
-                    </b-col>
-                    <b-col sm="8">
-                      <b-form-input size="md" placeholder="TEAM NAME 10"></b-form-input>
-                    </b-col>
-                  </b-row>
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                    </b-col>
 
-                  <draggable
-                      id="first"
-                      data-source="juju"
-                      :list="list11"
-                      class="list-group"
-                      draggable=".item"
-                      group="a" style="height: 440px; border-style: outset;"
-                    >
-                      <div
-                        class="list-group-item item"
-                        v-for="element in list11"
-                        :key="element.name"
-                      >
-                        {{ element.name }}
+                                    <b-col sm="1">
+                                      {{element.Person.Player.player_count}}
+                                    </b-col>
+
+                                  </b-row>
+
+                            </div>
+                          </draggable>
+
+                          <draggable>
+                              <!-- <transition-group> -->
+                                  <div v-for="element in myArray" :key="element.id" style="background-color: yellow; height: 300px;">
+                                      {{element.Person.first_name}}
+                                  </div>
+                              <!-- </transition-group> -->
+                          </draggable>
+
+                        </div>
+
+
+
+                          <div v-else>
+                            <draggable id="first" data-source="juju" :list="list19" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 19, index)" @change="onDropReservation1($event, 19)">
+
+                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
+
+                              <div class="list-group-item item" v-for="(element, index) in list19" :key="index">
+
+                                  <b-row>
+
+                                    <b-col sm="2">
+
+                                      <p v-if="list19[index].rfidState1 == '' || !list19[index].rfidState1 > '0'">&#10060;</p>
+                                      <p v-if="list19[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
+
+                                    </b-col>
+
+                                    <b-col sm="7">
+                                        {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.minor_tag}}
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
+                                    </b-col>
+
+                                    <b-col sm="1">
+                                      {{element.Person.Player.play_count}}
+                                    </b-col>
+
+
+                                  </b-row>
+                              </div>
+                              </draggable>
+                            </div>
+
+
+                      <br/>
+
+                      <b-row>
+                        <b-col sm="3">
+                        <label for="input-small">Mission</label>
+                        </b-col>
+                        <b-col sm="9">
+                            <b-form-select v-model="selected19" v-on:change="onChangeMission1($event, 19)">
+                              <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                            </b-form-select>
+                        </b-col>
+                      </b-row>
+
+                      <br />
+
+                      <div v-if=" selected19 > 0 && selected18 == selected19">
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-model="vsselected19" v-on:change="onChangeTeamVsTeam1($event, 19)">
+                              <option> </option>
+                              <option :value="teamName18"> {{ teamName18 }} </option>
+                            </b-form-select>
+
+                          </b-col>
+                        </b-row>
                       </div>
-                      <!--
-                         <button class="btn btn-secondary" @click="add">Add</button> -->
-                        <!-- <button class="btn btn-secondary" @click="replace">Replace</button> 
-                      </div> -->
-                    </draggable>
 
-                     <br/>
+                      <br />
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Playing</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="selected10">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Cyberbot</option>
-                          <option>Blockmonster</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
+                        <p> You are going to update data for <b> {{teamName19}} </b> </p>
+                        <br>
 
-                    <br />
+                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
+                        <br>
 
-                    <b-row>
-                      <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
-                        <b-form-select v-model="vsselected10">
-                          <!-- <option disabled value="">Please select one</option> -->
-                          <option>Team Name 1 </option>
-                          <option>Team Name 2</option>
-                          <option>Team Name 3</option>
-                          <!-- <option>C</option> -->
-                        </b-form-select>
-                      </b-col>
-                    </b-row>
+                      </b-modal>
 
-                    <br />
+                      <b-row>
+                        <b-col sm="3" style="display: none;">
+                          <b-button variant="primary" v-b-modal.modal-1 v-on:click="checkPlayerId1();">Update</b-button>
+                        </b-col>
 
-                    <b-row>
-                      <b-col sm="3">
-                        <b-button variant="primary">Update</b-button>
-                      </b-col>
-                      <b-col sm="3">
-                        <b-button variant="info">RFID</b-button>
-                      </b-col>
-                    </b-row>
-                    <br/>
+                          <div style="width: 70%; margin:auto;">
+                            <b-row>
+                              <b-col>
+                                <b-button block v-b-modal.modal-center19 variant="info">Assign RFID</b-button>
+                              </b-col>
+                              <b-col>
+                                <div v-if="removeWaitlist19 == false">
+                                  <b-button block v-if="disableButton19 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
+                                  <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
+                                </div>
+                                <div v-else>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 19)">Remove Waitlist</b-button>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </div>
+                        </b-row>
 
-                </b-col>
+                      <br/>
 
-              </b-col>
+                  </b-col>
+
+                <!-- </form> -->
+
+                <!-- end of the form here -->
+
+              </b-col> <!-- b-col that close for BOX 10 -->
+
+
 
             </b-row>
 
-          </div>
-          <!-- end of container display all the records -->
+          </div> <!-- div that close for BOX 9 and BOX 10 -->
+
+    <!-- end of container display all the records -->
+
+
 
         </b-col>
         <!-- end of center div -->
@@ -2392,23 +3182,13 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(6, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
-    // if(startReservationTime > '22:30:00'){
-    //   console.log("AFTER 10:30 PM");
-    //   var endReservationTime = moment().add(14, 'minutes').format('HH:mm:ss');
-    // }
-    // else{
-    //   console.log("BEFORE 10:30 PM");
-    //   var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
-    // }
-
-    // var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
     console.log("START RESEVATION TIME "+startReservationTime);
     console.log("END RESERVATION TIME "+endReservationTime);
@@ -2701,22 +3481,297 @@ export default {
       // setTimeout(() => this.loadScreen = false, 5000);
 
 
-      for(let b=0; b < totalBoxes; b++){
+      for(let b=0; b < totalBoxes; b++){ 
 
         if (b%2 == 0){
           var routeId = '1';
           timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-        }
+          const remainderRoute1 = timeUsed - (start.minute() % 30);
+        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
+        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+        console.log(boxTime);
+        console.log(routeId);
+
+        var replyDataObj1 = b;
+
+          replyDataObj1={
+            // "first_name": b,
+            "route_id" : routeId,
+            "team_drag_time" : boxTime
+          }
+
+        console.log(replyDataObj1);
+
+        this.toListFetchRouteA1 = replyDataObj1;
+
+        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        
+        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
+        .then(response => {
+                        console.log(response);
+
+                        this.onDrop1FunctionLoaded = response.data.length;
+                        console.log(this.onDrop1FunctionLoaded);
+
+                        if(response.data.length > 0){
+                          console.log("greater than 0" + b);
+
+                          var teamNumber = b+10;
+                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
+                          this['selected'+teamNumber] = response.data[0].mission_id;
+
+                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
+                          console.log(response.data[0]);
+
+                          // this.toListFetchRouteA1 = response.data[0];
+
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
+
+                          console.log(this.toListFetchRouteA1);
+                          
+                          var replyDataObj3 = response.data[0];
+                          var replyDataObj2 = response.data[0];
+
+                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
+
+                            
+                            console.log(i);
+                            console.log(response.data[0]);
+                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
+
+                            console.log(" IN SID EEEEE ");
+
+
+                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
+
+                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
+                                console.log("S ABA BA BAB ");
+
+                                console.log(response.data[0]);
+                                console.log(response.data[0].Team_player_sessions);
+                                console.log(response.data[0].reservation_id);
+                                console.log(i);
+
+                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
+                                  console.log("IT WAS NULL");
+
+                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
+                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
+                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+
+                                  var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(bombBeater);
+                                  console.log(playerCount);
+
+                                  // this.teamName[] = response.data[0].Team.name;
+                                  // console.log(teamNameFetched);
+
+                                  console.log(playerLastName);
+                                  console.log(playerFirstName);
+                                  console.log(playerId);
+                                  
+                                  console.log(b+" that was B id");
+
+                                  replyDataObj3['Team_player_sessions'][j]['Person']={
+                                   "first_name": playerFirstName,
+                                   "last_name": playerLastName,
+                                   "id": playerId,
+                                   "reservation_id": playerReservationID,
+                                   "player_id": player_id,
+                                   "team_player_session": teamPlayerSessionId,
+                                   "Player":{
+                                    "bomb_beater": bombBeater,
+                                    "player_count": playerCount
+                                   }
+                                  }
+
+                                  console.log("90909090909990909");
+                                  console.log(replyDataObj1);
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+
+
+                                  var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
+                                  console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  console.log(selectFetched);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                  // var useThisObject = 10+teamObjectId;
+
+                                  // console.log(this["fetchPlayerList"+useThisObject]);
+
+                                }
+
+                                else{
+                                  console.log(" P OPO PO PO NULL");
+                                  console.log(response.data[0]);
+
+                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
+                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
+                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
+                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
+
+                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(minorFirstName + ' ' + minorLastName);
+                                  console.log(minorPersonId);
+                                  console.log(minorPlayerSignedWaiverid);
+
+                                  replyDataObj3['Team_player_sessions'][i]['Person']={
+                                     "first_name": minorFirstName,
+                                     "last_name": minorLastName,
+                                     "id": minorPersonId,
+                                     "minor_tag": 'M',
+                                     "reservation_id": playerReservationID,
+                                     "player_id": player_id,
+                                     "team_player_session": teamPlayerSessionId,
+                                     "Player":{
+                                      "minor_tag": 'M',
+                                      "bomb_beater": 1,
+                                      "player_count": 1
+                                     }
+                                  }
+
+                                  this.toListFetchRouteA1 = replyDataObj3;
+                                  
+                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
+                                   console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+                                  var arrivedValue = response.data[0].active;
+
+                                  console.log(response.data[0]);
+                                  console.log(arrivedValue);
+
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["list"+teamObjectId+"sessionid"] = SessionId;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
+                                  this["selected"+teamObjectId] = selectFetched;
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  // if(arrivedValue == '1'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = true;
+                                  // }
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                            this.fetchPlayerList.push(this.toListFetchRouteA1);
+
+                          }
+
+                          // if (trackId > 0) { 
+
+                              // console.log("SAAAAAAA");
+                          // }
+
+                      }
+
+                        else{
+                          console.log("less");
+                        }
+
+                      
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+
+                    console.log( " B KO VALUE "+ b);
+
+        } /** END OF IF LOOP **/
+
+
         else{
+
+          console.log( " B KO VALUE "+ b);
+
           var routeId = '2';
-        }
-
-        if (b % 2 == 0){
-          console.log(b);
-        }
-
-
-        const remainderRoute1 = timeUsed - (start.minute() % 30);
+          const remainderRoute1 = timeUsed - (start.minute() % 30);
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
@@ -2992,7 +4047,12 @@ export default {
                       .catch(function (error) {
                         console.log(error);
                       });
-      }
+
+        } /** END OF ELSE LOOP **/
+
+
+        
+      } /** END OF FOR LOOP **/
 
       
       // this.loadScreen = false;

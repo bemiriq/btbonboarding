@@ -13,7 +13,7 @@
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting" active>Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Print">Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
             <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
@@ -25,11 +25,23 @@
             <p class="teamTitle1">TEAMS ON DECK</p>
             <hr>
             <b-container class="bv-example-row">
+
               <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
+
                 <b-col>
                   <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>
                 </b-col>
+
+                <b-col>
+                  <p class="teamList" v-if="team.Session_game_scores == ''">{{team.player_count}}</p>
+                </b-col>
+
+                <b-col>
+                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
+                </b-col>
+
               </b-row>
+
             </b-container>
         </b-col>
       </b-row>
@@ -131,6 +143,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 0.4em;
 }
 </style>

@@ -18,7 +18,7 @@
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing" active>Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Print">Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
             <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
@@ -1196,6 +1196,7 @@ export default {
 
             var currentRoom6Time = gameendtime6-currentTimeValue;
             console.log(currentRoom6Time);
+            console.log("SIDE B ROOM 1 time above");
 
             if(vm.room6status == 'Ready'){
               vm.room6currenttime = '00:00';

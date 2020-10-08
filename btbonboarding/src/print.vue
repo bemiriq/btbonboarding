@@ -18,7 +18,7 @@
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Print" active>Wrapping up</b-list-group-item>
+            <b-list-group-item href="/#/Print" active>Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
             <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
