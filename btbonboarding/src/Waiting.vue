@@ -41,10 +41,10 @@
                 </b-col>
 
                 <b-col>
-                  <p v-if="team.Session_game_scores == '' ">
+                  <div v-if="team.Session_game_scores == '' ">
                     <p class="teamList" v-if="team.Team_player_sessions.length == team.player_count" style='color:green;'>&#9989;</p>
                     <p v-else>&#10060;</p>
-                  </p>
+                  </div>
                 </b-col>
 
               </b-row>
