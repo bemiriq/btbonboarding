@@ -15,6 +15,9 @@
         <span class="sr-only">LOADED</span>
       </div> -->
 
+    <p style="font-size: 2em;"><b>Two Box Onboarding</b></p>
+    
+    <hr>
 
     <div class="bv-example-row" id="mainContainer">
 
@@ -924,7 +927,7 @@
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="/#/users">Check-In</b-list-group-item>
             <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
-            <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding" active>One Box Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
