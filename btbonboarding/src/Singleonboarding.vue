@@ -16,7 +16,7 @@
       </div> -->
 
     <p style="font-size: 2em;"><b>Two Box Onboarding</b></p>
-    
+
     <hr>
 
     <div class="bv-example-row" id="mainContainer">
@@ -927,7 +927,7 @@
           <b-list-group class="leftMenuDiv">
             <b-list-group-item href="/#/users">Check-In</b-list-group-item>
             <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
-            <b-list-group-item href="/#/Onboarding" active>One Box Onboarding</b-list-group-item>
+            <b-list-group-item href="/#/Onboarding" active>Two Box Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
@@ -1529,31 +1529,31 @@ export default {
 
     const start = moment();
     /** first time case **/
-    const remainder1 = -15 - (start.minute() % 30);
+    const remainder1 = 0 - (start.minute() % 30);
     const dateTime1 = moment(start).add(remainder1, "minutes").format(" h:mm a");
     const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
     /** second time case **/
-    const remainder2 = 0 - (start.minute() % 30);
+    const remainder2 = 15 - (start.minute() % 30);
     const dateTime2 = moment(start).add(remainder2, "minutes").format(" h:mm a");
     const dateTime2A = moment(start).add(remainder2, "minutes").format(" h:mm a");
     const dateTime2B = moment(start).add(remainder2, "minutes").format(" h:mm a");
     // const dateTime1B = moment(start).add(remainder1, "minutes").format(" h:mm a");
 
     /** third time case **/
-    const remainder3 = 15 - (start.minute() % 30);
+    const remainder3 = 30 - (start.minute() % 30);
     const dateTime3 = moment(start).add(remainder3, "minutes").format(" h:mm a");
 
      /** forth time case **/
-    const remainder4 = 30 - (start.minute() % 30);
+    const remainder4 = 45 - (start.minute() % 30);
     const dateTime4 = moment(start).add(remainder4, "minutes").format(" h:mm a");
 
     /** fifth time case **/
-    const remainder5 = 45 - (start.minute() % 30);
+    const remainder5 = 60 - (start.minute() % 30);
     const dateTime5 = moment(start).add(remainder5, "minutes").format(" h:mm a");
 
     /** sixth time case **/
-    const remainder6 = 60 - (start.minute() % 30);
+    const remainder6 = 75 - (start.minute() % 30);
     const dateTime6 = moment(start).add(remainder6, "minutes").format(" h:mm a");
 
     // console.log(dateTime1);
