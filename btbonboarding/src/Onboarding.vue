@@ -3486,6 +3486,7 @@ export default {
         if (b%2 == 0){
         
         var routeId = '1';
+
         timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
         const remainderRoute1 = timeUsed - (start.minute() % 30);
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
@@ -3741,6 +3742,8 @@ export default {
                             }
 
                             this.fetchPlayerList.push(this.toListFetchRouteA1);
+
+                            console.log(this.fetchPlayerList);
 
                           }
 
@@ -4033,6 +4036,8 @@ export default {
                             
                               this.fetchPlayerList.push(this.toListFetchRouteA1);
 
+                              console.log(this.fetchPlayerList);
+                              
                               // console.log("SAAAAAAA");
                           // }
 
