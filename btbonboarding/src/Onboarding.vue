@@ -29,9 +29,9 @@
                               <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[10] > '0' ">
-                                    <!-- element in fetchPlayerList[10].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[10].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList0[1] > '0' ">
+                                    <!-- element in fetchPlayerList0.Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList0[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -40,13 +40,12 @@
                                           <b-col>
 
                                             <p v-if="teamfetch.Rfid != null">
-                                            <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 10, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 0, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -121,9 +120,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[11] > '0' ">
-                                    <!-- element in fetchPlayerList[11].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[11].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList1[1] > '0' ">
+                                    <!-- element in fetchPlayerList1.Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList1[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -138,7 +137,7 @@
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 11, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 1, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -952,7 +951,10 @@
                 <!-- start the form here -->
                 <!-- <form id="signup-form" @submit.prevent="processForm"> -->
                 <!-- <form id="signup-form"> -->
-                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
+
+
+                  <!-- <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }"> -->
+                  <b-col class="border border-info rounded">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -971,16 +973,15 @@
 
                     <!-- <div v-if="this.teamName1.length > 1"> checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="fetchPlayerList[10] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList0[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[10].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList0[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 10)" @change="deleteTeamPlayerSessionAfterReload1($event, 10)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[10].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
-                                      <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
@@ -1008,11 +1009,9 @@
                           </draggable>
 
                           <draggable>
-                              <!-- <transition-group> -->
                                   <div v-for="element in myArray" :key="element.id" style="background-color: yellow; height: 300px;">
                                       {{element.Person.first_name}}
                                   </div>
-                              <!-- </transition-group> -->
                           </draggable>
 
                         </div>
@@ -1142,13 +1141,13 @@
                                 <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist10 == false">
-                                  <b-button block v-if="disableButton10 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist0 == false">
+                                  <b-button block v-if="disableButton0 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 0)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 10)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -1170,7 +1169,8 @@
                 <p class="btbSideTitle"><b>SIDE B</b></p>
 
                 <!-- <form id="signup-form"> -->
-                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }">
+                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }"> -->
+                    <b-col class="border border-info rounded">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1187,12 +1187,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[11] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList1[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[11].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList1[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 11)" @change="deleteTeamPlayerSessionAfterReload1($event, 11)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[11].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList1[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -1327,13 +1327,13 @@
                                 <b-button block v-b-modal.modal-center11 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist11 == false">
-                                  <b-button block v-if="disableButton11 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist1 == false">
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 1)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 11)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 1)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -1368,7 +1368,10 @@
                 <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
 
                 <!-- <form id="signup-form"> -->
-                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked12 }">
+
+                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked12 }"> -->
+
+                  <b-col class="border border-info rounded">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1385,12 +1388,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[12] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList2[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[12].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList2[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 12)" @change="deleteTeamPlayerSessionAfterReload1($event, 12)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[12].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList2[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -1525,13 +1528,13 @@
                                 <b-button block v-b-modal.modal-center12 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist12 == false">
-                                  <b-button block v-if="disableButton12 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist2 == false">
+                                  <b-button block v-if="disableButton2 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 2)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 12)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 2)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -1559,7 +1562,9 @@
               <b-col>
 
                 <!-- <form id="signup-form"> -->
-                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked13 }">
+                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked13 }"> -->
+
+                    <b-col class="border border-info rounded">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1576,12 +1581,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[13] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList3[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[13].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList3[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 13)" @change="deleteTeamPlayerSessionAfterReload1($event, 13)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[13].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList3[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -1716,13 +1721,13 @@
                                 <b-button block v-b-modal.modal-center13 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist13 == false">
-                                  <b-button block v-if="disableButton13 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist3 == false">
+                                  <b-button block v-if="disableButton3 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 3)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 13)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 3)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -1919,13 +1924,13 @@
                                 <b-button block v-b-modal.modal-center14 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist14 == false">
-                                  <b-button block v-if="disableButton14 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist4 == false">
+                                  <b-button block v-if="disableButton4 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 4)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 14)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 4)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -2103,13 +2108,13 @@
                                 <b-button block v-b-modal.modal-center15 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist15 == false">
-                                  <b-button block v-if="disableButton15 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist5 == false">
+                                  <b-button block v-if="disableButton5 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 5)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 15)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 5)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -2304,13 +2309,13 @@
                                 <b-button block v-b-modal.modal-center16 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist16 == false">
-                                  <b-button block v-if="disableButton16 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist6 == false">
+                                  <b-button block v-if="disableButton6 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 6)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 16)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 6)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -2488,13 +2493,13 @@
                                 <b-button block v-b-modal.modal-center17 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist17 == false">
-                                  <b-button block v-if="disableButton17 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist7 == false">
+                                  <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 7)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 17)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 7)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -2687,13 +2692,13 @@
                                 <b-button block v-b-modal.modal-center18 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist18 == false">
-                                  <b-button block v-if="disableButton18 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist8 == false">
+                                  <b-button block v-if="disableButton8 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 8)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 18)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 8)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -2871,13 +2876,13 @@
                                 <b-button block v-b-modal.modal-center19 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
-                                <div v-if="removeWaitlist19 == false">
-                                  <b-button block v-if="disableButton19 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
+                                <div v-if="removeWaitlist9 == false">
+                                  <b-button block v-if="disableButton9 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 9)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
-                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 19)">Remove Waitlist</b-button>
+                                  <b-button block variant="warning" v-on:click="removeWaitingList($event, 9)">Remove Waitlist</b-button>
                                 </div>
                               </b-col>
                             </b-row>
@@ -3182,7 +3187,7 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(9, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
@@ -3484,18 +3489,9 @@ export default {
       for(let b=0; b < totalBoxes; b++){ 
 
         if (b%2 == 0){
-        
-        var routeId = '1';
-
-        timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
-
-        }
-
-        else{
-          var routeId = '2';
-        }
-        
-        const remainderRoute1 = timeUsed - (start.minute() % 30);
+          var routeId = '1';
+          timeUsed += 15; /** each time its 0 , 2 , 4, 6, 8 on array will add 15 minutes as for the time **/
+          const remainderRoute1 = timeUsed - (start.minute() % 30);
         const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
         var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
 
@@ -3512,9 +3508,13 @@ export default {
 
         console.log(replyDataObj1);
 
-        this.toListFetchRouteA1 = replyDataObj1;
+        // this.toListFetchRouteA1 = replyDataObj1;
 
-        this.fetchPlayerList.push(this.toListFetchRouteA1);
+        this['toListFetch'+b] = replyDataObj1;
+
+        // this.fetchPlayerList.push(this.toListFetchRouteA1);
+
+        this['fetchPlayerList'+b].push(this['toListFetch'+b]);
         
         console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
 
@@ -3541,7 +3541,7 @@ export default {
                           var trackId = response.data[0].id;
                           console.log(trackId);
 
-                          console.log(this.toListFetchRouteA1);
+                          // console.log(this.toListFetchRouteA1);
                           
                           var replyDataObj3 = response.data[0];
                           var replyDataObj2 = response.data[0];
@@ -3607,7 +3607,8 @@ export default {
                                   console.log("90909090909990909");
                                   console.log(replyDataObj1);
 
-                                  this.toListFetchRouteA1 = replyDataObj3;
+                                  // this.toListFetchRouteA1 = replyDataObj3;
+                                  this['toListFetch'+b] = replyDataObj3;
 
 
                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
@@ -3689,7 +3690,296 @@ export default {
                                      }
                                   }
 
-                                  this.toListFetchRouteA1 = replyDataObj3;
+                                  // this.toListFetchRouteA1 = replyDataObj3;
+                                  this['toListFetch'+b] = replyDataObj3;
+
+                                   var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
+                                   console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+                                  var arrivedValue = response.data[0].active;
+
+                                  console.log(response.data[0]);
+                                  console.log(arrivedValue);
+
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["list"+teamObjectId+"sessionid"] = SessionId;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["teamIdBox"+teamObjectId] = teamIdFetch;
+                                  this["selected"+teamObjectId] = selectFetched;
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  // if(arrivedValue == '1'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = true;
+                                  // }
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                            console.log('B KO VALUE FOR IF '+ b);
+
+                            // this.fetchPlayerList.push(this.toListFetchRouteA1);
+                            this['fetchPlayerList'+b].push(this['toListFetch'+b]);
+
+                          }
+
+                          // if (trackId > 0) { 
+
+                              // console.log("SAAAAAAA");
+                          // }
+
+                      }
+
+                        else{
+                          console.log("less");
+                        }
+
+                      
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+
+                    console.log( " B KO VALUE "+ b);
+
+        } /** END OF IF LOOP **/
+
+
+        else{
+
+          console.log( " B KO VALUE "+ b);
+
+          var routeId = '2';
+          const remainderRoute1 = timeUsed - (start.minute() % 30);
+        const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
+        var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
+
+        console.log(boxTime);
+        console.log(routeId);
+
+        var replyDataObj1 = b;
+
+          replyDataObj1={
+            // "first_name": b,
+            "route_id" : routeId,
+            "team_drag_time" : boxTime
+          }
+
+        console.log(replyDataObj1);
+
+        this['toListFetch'+b] = replyDataObj1;
+
+        this['fetchPlayerList'+b].push(this['toListFetch'+b]);
+        
+        console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
+        .then(response => {
+                        console.log(response);
+
+                        this.onDrop1FunctionLoaded = response.data.length;
+                        console.log(this.onDrop1FunctionLoaded);
+
+                        if(response.data.length > 0){
+                          console.log("greater than 0" + b);
+
+                          var teamNumber = b+10;
+                          this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
+                          this['selected'+teamNumber] = response.data[0].mission_id;
+
+                          this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
+
+                          console.log(response.data[0]);
+
+                          // this['toListFetch'+b] = response.data[0];
+
+                          var trackId = response.data[0].id;
+                          console.log(trackId);
+
+                          console.log(this['toListFetch'+b]);
+                          
+                          var replyDataObj3 = response.data[0];
+                          var replyDataObj2 = response.data[0];
+
+                          for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
+
+                            
+                            console.log(i);
+                            console.log(response.data[0]);
+                            var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
+
+                            console.log(" IN SID EEEEE ");
+
+
+                            if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
+
+                              for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
+                                console.log("S ABA BA BAB ");
+
+                                console.log(response.data[0]);
+                                console.log(response.data[0].Team_player_sessions);
+                                console.log(response.data[0].reservation_id);
+                                console.log(i);
+
+                                if(response.data[0].Team_player_sessions[j].Player_minor == null){
+                                  console.log("IT WAS NULL");
+
+                                  var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
+                                  var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
+                                  var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+
+                                  var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(bombBeater);
+                                  console.log(playerCount);
+
+                                  // this.teamName[] = response.data[0].Team.name;
+                                  // console.log(teamNameFetched);
+
+                                  console.log(playerLastName);
+                                  console.log(playerFirstName);
+                                  console.log(playerId);
+                                  
+                                  console.log(b+" that was B id");
+
+                                  replyDataObj3['Team_player_sessions'][j]['Person']={
+                                   "first_name": playerFirstName,
+                                   "last_name": playerLastName,
+                                   "id": playerId,
+                                   "reservation_id": playerReservationID,
+                                   "player_id": player_id,
+                                   "team_player_session": teamPlayerSessionId,
+                                   "Player":{
+                                    "bomb_beater": bombBeater,
+                                    "player_count": playerCount
+                                   }
+                                  }
+
+                                  console.log("90909090909990909");
+                                  console.log(replyDataObj1);
+
+                                  this['toListFetch'+b] = replyDataObj3;
+
+
+                                  var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
+                                  console.log(replyDataObj2);
+
+                                  replyDataObj2={
+                                   "team_player_session": teamPlayerSessionId
+                                  }
+                                  this.tolist2TPSafterReload = replyDataObj2;
+
+
+                                  var teamNameFetched = response.data[0].Team.name;
+                                  var teamIdFetch = response.data[0].Team.id;
+                                  var selectFetched = response.data[0].mission_id;
+
+                                  var teamObjectId = b+10;
+                                  console.log(teamObjectId);
+                                  console.log(selectFetched);
+                                  // var defineTeam = 'teamName'+teamObjectId;
+                                  // console.log(defineTeam);
+                                  // console.log(teamObjectId);
+
+                                  // this.(defineTeam) = teamNameFetched;
+                                  // this.teamName1 = response.data[0].Team.name;
+                                  // this.teamIdSideA1 = response.data[0].Team.id;
+                                  // this.selected1 = response.data[0].mission_id;
+                                  this["teamName"+teamObjectId] = teamNameFetched;
+                                  this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
+                                  this["vsselected"+teamObjectId] = teamNameFetched;
+
+                                  this["arrived"+teamObjectId] = arrivedValue;
+
+                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                    this['removeWaitlist'+teamObjectId] = true;
+                                    this["sendToWishlistClicked"+teamObjectId] = true;
+                                  }
+                                  else{
+                                    this['disableButton'+teamObjectId] = false;
+                                  }
+
+                                  // var useThisObject = 10+teamObjectId;
+
+                                  // console.log(this["fetchPlayerList"+useThisObject]);
+
+                                }
+
+                                else{
+                                  console.log(" P OPO PO PO NULL");
+                                  console.log(response.data[0]);
+
+                                  var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
+                                  var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
+                                  var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
+                                  var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
+                                  var playerReservationID = response.data[0].reservation_id;
+                                  var player_id = response.data[0].Team_player_sessions[j].Player.id;
+                                  var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
+                                  var SessionId = response.data[0].Team_player_sessions[j].session_id;
+
+                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  console.log(minorFirstName + ' ' + minorLastName);
+                                  console.log(minorPersonId);
+                                  console.log(minorPlayerSignedWaiverid);
+
+                                  replyDataObj3['Team_player_sessions'][i]['Person']={
+                                     "first_name": minorFirstName,
+                                     "last_name": minorLastName,
+                                     "id": minorPersonId,
+                                     "minor_tag": 'M',
+                                     "reservation_id": playerReservationID,
+                                     "player_id": player_id,
+                                     "team_player_session": teamPlayerSessionId,
+                                     "Player":{
+                                      "minor_tag": 'M',
+                                      "bomb_beater": 1,
+                                      "player_count": 1
+                                     }
+                                  }
+
+                                  this['toListFetch'+b] = replyDataObj3;
                                   
                                    var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
                                    console.log(replyDataObj2);
@@ -3748,13 +4038,15 @@ export default {
 
                             }
 
-                            this.fetchPlayerList.push(this.toListFetchRouteA1);
-
-                            console.log(this.fetchPlayerList);
+                          
 
                           }
 
                           // if (trackId > 0) { 
+
+                              console.log('B KO VALUE FOR ELSE '+ b);
+                            
+                              this['fetchPlayerList'+b].push(this['toListFetch'+b]);
 
                               // console.log("SAAAAAAA");
                           // }
@@ -3772,296 +4064,7 @@ export default {
                         console.log(error);
                       });
 
-                    console.log( " B KO VALUE "+ b);
-
-        } /** END OF IF LOOP **/
-
-
-        // else{
-
-        //   console.log( " B KO VALUE "+ b);
-
-        //   var routeId = '2';
-        //   const remainderRoute1 = timeUsed - (start.minute() % 30);
-        // const routeDateTime = moment(start).add(remainderRoute1, "minutes").format("HH:mm:00");
-        // var boxTime = moment().format('YYYY-MM-DD')+'%20'+routeDateTime;
-
-        // console.log(boxTime);
-        // console.log(routeId);
-
-        // var replyDataObj1 = b;
-
-        //   replyDataObj1={
-        //     // "first_name": b,
-        //     "route_id" : routeId,
-        //     "team_drag_time" : boxTime
-        //   }
-
-        // console.log(replyDataObj1);
-
-        // this.toListFetchRouteA1 = replyDataObj1;
-
-        // this.fetchPlayerList.push(this.toListFetchRouteA1);
-        
-        // console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId);
-
-        // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/session_time/'+boxTime+'/route_id/'+routeId)
-        // .then(response => {
-        //                 console.log(response);
-
-        //                 this.onDrop1FunctionLoaded = response.data.length;
-        //                 console.log(this.onDrop1FunctionLoaded);
-
-        //                 if(response.data.length > 0){
-        //                   console.log("greater than 0" + b);
-
-        //                   var teamNumber = b+10;
-        //                   this['teamName'+teamNumber] = response.data[0].Team.name; /** [0] in this case as its define using single objects **/
-        //                   this['selected'+teamNumber] = response.data[0].mission_id;
-
-        //                   this.sideA1BookerNameFetched = response.data[0].Reservation.Booker.Person.first_name +' '+ response.data[0].Reservation.Booker.Person.last_name;
-
-        //                   console.log(response.data[0]);
-
-        //                   // this.toListFetchRouteA1 = response.data[0];
-
-        //                   var trackId = response.data[0].id;
-        //                   console.log(trackId);
-
-        //                   console.log(this.toListFetchRouteA1);
-                          
-        //                   var replyDataObj3 = response.data[0];
-        //                   var replyDataObj2 = response.data[0];
-
-        //                   for(let i=0; i < response.data[0].Team_player_sessions.length; i++){
-
-                            
-        //                     console.log(i);
-        //                     console.log(response.data[0]);
-        //                     var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
-
-        //                     console.log(" IN SID EEEEE ");
-
-
-        //                     if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
-
-        //                       for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
-        //                         console.log("S ABA BA BAB ");
-
-        //                         console.log(response.data[0]);
-        //                         console.log(response.data[0].Team_player_sessions);
-        //                         console.log(response.data[0].reservation_id);
-        //                         console.log(i);
-
-        //                         if(response.data[0].Team_player_sessions[j].Player_minor == null){
-        //                           console.log("IT WAS NULL");
-
-        //                           var playerLastName = response.data[0].Team_player_sessions[j].Player.Person.last_name;
-        //                           var playerFirstName = response.data[0].Team_player_sessions[j].Player.Person.first_name;
-        //                           var playerId = response.data[0].Team_player_sessions[j].Player.Person.id;
-        //                           var playerReservationID = response.data[0].reservation_id;
-        //                           var player_id = response.data[0].Team_player_sessions[j].Player.id;
-        //                           var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
-
-        //                           var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
-        //                           var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
-
-        //                           console.log(bombBeater);
-        //                           console.log(playerCount);
-
-        //                           // this.teamName[] = response.data[0].Team.name;
-        //                           // console.log(teamNameFetched);
-
-        //                           console.log(playerLastName);
-        //                           console.log(playerFirstName);
-        //                           console.log(playerId);
-                                  
-        //                           console.log(b+" that was B id");
-
-        //                           replyDataObj3['Team_player_sessions'][j]['Person']={
-        //                            "first_name": playerFirstName,
-        //                            "last_name": playerLastName,
-        //                            "id": playerId,
-        //                            "reservation_id": playerReservationID,
-        //                            "player_id": player_id,
-        //                            "team_player_session": teamPlayerSessionId,
-        //                            "Player":{
-        //                             "bomb_beater": bombBeater,
-        //                             "player_count": playerCount
-        //                            }
-        //                           }
-
-        //                           console.log("90909090909990909");
-        //                           console.log(replyDataObj1);
-
-        //                           this.toListFetchRouteA1 = replyDataObj3;
-
-
-        //                           var replyDataObj2 = response.data[0].Team_player_sessions[j].Person.team_player_session;
-        //                           console.log(replyDataObj2);
-
-        //                           replyDataObj2={
-        //                            "team_player_session": teamPlayerSessionId
-        //                           }
-        //                           this.tolist2TPSafterReload = replyDataObj2;
-
-
-        //                           var teamNameFetched = response.data[0].Team.name;
-        //                           var teamIdFetch = response.data[0].Team.id;
-        //                           var selectFetched = response.data[0].mission_id;
-
-        //                           var teamObjectId = b+10;
-        //                           console.log(teamObjectId);
-        //                           console.log(selectFetched);
-        //                           // var defineTeam = 'teamName'+teamObjectId;
-        //                           // console.log(defineTeam);
-        //                           // console.log(teamObjectId);
-
-        //                           // this.(defineTeam) = teamNameFetched;
-        //                           // this.teamName1 = response.data[0].Team.name;
-        //                           // this.teamIdSideA1 = response.data[0].Team.id;
-        //                           // this.selected1 = response.data[0].mission_id;
-        //                           this["teamName"+teamObjectId] = teamNameFetched;
-        //                           this["selected"+teamObjectId] = selectFetched; /** this passes the value of mission to selected(COLVALUE) **/
-        //                           this["vsselected"+teamObjectId] = teamNameFetched;
-
-        //                           this["arrived"+teamObjectId] = arrivedValue;
-
-        //                           if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-        //                             this['removeWaitlist'+teamObjectId] = true;
-        //                             this["sendToWishlistClicked"+teamObjectId] = true;
-        //                           }
-        //                           else{
-        //                             this['disableButton'+teamObjectId] = false;
-        //                           }
-
-        //                           // var useThisObject = 10+teamObjectId;
-
-        //                           // console.log(this["fetchPlayerList"+useThisObject]);
-
-        //                         }
-
-        //                         else{
-        //                           console.log(" P OPO PO PO NULL");
-        //                           console.log(response.data[0]);
-
-        //                           var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
-        //                           var minorFirstName = response.data[0].Team_player_sessions[j].Player_minor.first_name;
-        //                           var minorPersonId = response.data[0].Team_player_sessions[j].Player_minor.id;
-        //                           var minorPlayerSignedWaiverid = response.data[0].Team_player_sessions[j].Player_minor.player_id;
-        //                           var playerReservationID = response.data[0].reservation_id;
-        //                           var player_id = response.data[0].Team_player_sessions[j].Player.id;
-        //                           var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
-        //                           var SessionId = response.data[0].Team_player_sessions[j].session_id;
-
-        //                           // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
-        //                           // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
-
-        //                           console.log(minorFirstName + ' ' + minorLastName);
-        //                           console.log(minorPersonId);
-        //                           console.log(minorPlayerSignedWaiverid);
-
-        //                           replyDataObj3['Team_player_sessions'][i]['Person']={
-        //                              "first_name": minorFirstName,
-        //                              "last_name": minorLastName,
-        //                              "id": minorPersonId,
-        //                              "minor_tag": 'M',
-        //                              "reservation_id": playerReservationID,
-        //                              "player_id": player_id,
-        //                              "team_player_session": teamPlayerSessionId,
-        //                              "Player":{
-        //                               "minor_tag": 'M',
-        //                               "bomb_beater": 1,
-        //                               "player_count": 1
-        //                              }
-        //                           }
-
-        //                           this.toListFetchRouteA1 = replyDataObj3;
-                                  
-        //                            var replyDataObj2 = response.data[0].Team_player_sessions[j].id;
-        //                            console.log(replyDataObj2);
-
-        //                           replyDataObj2={
-        //                            "team_player_session": teamPlayerSessionId
-        //                           }
-        //                           this.tolist2TPSafterReload = replyDataObj2;
-
-        //                           var teamNameFetched = response.data[0].Team.name;
-        //                           var teamIdFetch = response.data[0].Team.id;
-        //                           var selectFetched = response.data[0].mission_id;
-        //                           var arrivedValue = response.data[0].active;
-
-        //                           console.log(response.data[0]);
-        //                           console.log(arrivedValue);
-
-
-        //                           var teamObjectId = b+10;
-        //                           console.log(teamObjectId);
-        //                           // var defineTeam = 'teamName'+teamObjectId;
-        //                           // console.log(defineTeam);
-        //                           // console.log(teamObjectId);
-
-        //                           // this.(defineTeam) = teamNameFetched;
-        //                           // this.teamName1 = response.data[0].Team.name;
-        //                           // this.teamIdSideA1 = response.data[0].Team.id;
-        //                           // this.selected1 = response.data[0].mission_id;
-        //                           this["list"+teamObjectId+"sessionid"] = SessionId;
-        //                           this["teamName"+teamObjectId] = teamNameFetched;
-        //                           this["teamIdBox"+teamObjectId] = teamIdFetch;
-        //                           this["selected"+teamObjectId] = selectFetched;
-        //                           this["vsselected"+teamObjectId] = teamNameFetched;
-
-        //                           this["arrived"+teamObjectId] = arrivedValue;
-
-        //                           // if(arrivedValue == '1'){
-        //                           //   this['removeWaitlist'+teamObjectId] = true;
-        //                           //   this["sendToWishlistClicked"+teamObjectId] = true;
-        //                           // }
-        //                           // else{
-        //                           //   this['disableButton'+teamObjectId] = true;
-        //                           // }
-
-        //                           if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-        //                             this['removeWaitlist'+teamObjectId] = true;
-        //                             this["sendToWishlistClicked"+teamObjectId] = true;
-        //                           }
-        //                           else{
-        //                             this['disableButton'+teamObjectId] = false;
-        //                           }
-
-        //                         }
-
-        //                       }
-
-        //                     }
-
-                          
-
-        //                   }
-
-        //                   // if (trackId > 0) { 
-                            
-        //                       this.fetchPlayerList.push(this.toListFetchRouteA1);
-
-        //                       console.log(this.fetchPlayerList);
-
-        //                       // console.log("SAAAAAAA");
-        //                   // }
-
-        //               }
-
-        //                 else{
-        //                   console.log("less");
-        //                 }
-
-                      
-        //               })
-
-        //               .catch(function (error) {
-        //                 console.log(error);
-        //               });
-
-        // } /** END OF ELSE LOOP **/
+        } /** END OF ELSE LOOP **/
 
 
         
@@ -4070,7 +4073,7 @@ export default {
       
       // this.loadScreen = false;
 
-    // }
+    }
 
   },
 
@@ -4315,29 +4318,29 @@ export default {
         selected19: '',
         selected20: '',
 
-        disableButton10: false,
-        disableButton11: false,
-        disableButton12: false,
-        disableButton13: false,
-        disableButton14: false,
-        disableButton15: false,
-        disableButton16: false,
-        disableButton17: false,
-        disableButton18: false,
-        disableButton19: false,
-        disableButton20: false,
+        disableButton0: false,
+        disableButton1: false,
+        disableButton2: false,
+        disableButton3: false,
+        disableButton4: false,
+        disableButton5: false,
+        disableButton6: false,
+        disableButton7: false,
+        disableButton8: false,
+        disableButton9: false,
+        // disableButton10: false,
 
-        removeWaitlist10: false,
-        removeWaitlist11: false,
-        removeWaitlist12: false,
-        removeWaitlist13: false,
-        removeWaitlist14: false,
-        removeWaitlist15: false,
-        removeWaitlist16: false,
-        removeWaitlist17: false,
-        removeWaitlist18: false,
-        removeWaitlist19: false,
-        removeWaitlist20: false,
+        removeWaitlist0: false,
+        removeWaitlist1: false,
+        removeWaitlist2: false,
+        removeWaitlist3: false,
+        removeWaitlist4: false,
+        removeWaitlist5: false,
+        removeWaitlist6: false,
+        removeWaitlist7: false,
+        removeWaitlist8: false,
+        removeWaitlist9: false,
+        // removeWaitlist0: false,
 
         sendToWishlistClicked10: false,
         sendToWishlistClicked11: false,
@@ -4350,6 +4353,30 @@ export default {
         sendToWishlistClicked18: false,
         sendToWishlistClicked19: false,
         sendToWishlistClicked20: false,
+
+        toListFetch0:'',
+        toListFetch1:'',
+        toListFetch2:'',
+        toListFetch3:'',
+        toListFetch4:'',
+        toListFetch5:'',
+        toListFetch6:'',
+        toListFetch7:'',
+        toListFetch8:'',
+        toListFetch9:'',
+        // toListFetch10:'',
+
+        fetchPlayerList0:[],
+        fetchPlayerList1:[],
+        fetchPlayerList2:[],
+        fetchPlayerList3:[],
+        fetchPlayerList4:[],
+        fetchPlayerList5:[],
+        fetchPlayerList6:[],
+        fetchPlayerList7:[],
+        fetchPlayerList8:[],
+        fetchPlayerList9:[],
+        // fetchPlayerList10:[],
 
         arrived10: '',
         arrived11: '',
@@ -4606,7 +4633,22 @@ export default {
 
       removeWaitingList(event, value){
 
+        console.log(event);
+        console.log(value);
+
         var sessionid = this["list"+value+"sessionid"];
+        console.log(sessionid);
+
+        if(sessionid == undefined){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
+          console.log('YES');
+
+          var sessionid = this['fetchPlayerList'+value][1].id; /** session id is defined using id **/
+
+        }
+
+        else{
+          console.log('No');
+        }
 
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
           active: 0
@@ -4616,6 +4658,7 @@ export default {
           this["sendToWishlistClicked"+value] = false;
           this["removeWaitlist"+value] = false;
           this["disableButton"+value] = true;
+          console.log(" Deactivated Waitlist for Box "+ value);
         })
         .catch(function (error) {
           console.log(error);
@@ -4705,9 +4748,11 @@ export default {
 
         // console.log("inside update rfid side A after reload");
         console.log(event);
-         var arr = this.fetchPlayerList[col];
+         var arr = this['fetchPlayerList'+col];
 
-         console.log(this.fetchPlayerList[col].Team_player_sessions[index].id);
+         console.log(arr);
+
+         console.log(this['fetchPlayerList'+col][1].Team_player_sessions[index].id);
 
          var number = this.countfunction++;
 
@@ -4724,12 +4769,12 @@ export default {
             console.log(response);
             console.log(response.data[0].id);
 
-            this.fetchPlayerList[col].Team_player_sessions[index].rfid_id = response.data[0].id; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
+            this['fetchPlayerList'+col][1].Team_player_sessions[index].rfid_id = response.data[0].id; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
             the RFID_ID value will be added to fetchPlayerList depending on col and index of the column **/
 
               var rfidtag_id = response.data[0].id;
 
-              var updateOnTPS = this.fetchPlayerList[col].Team_player_sessions[index].id;
+              var updateOnTPS = this['fetchPlayerList'+col][1].Team_player_sessions[index].id;
 
               axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
                       // player_id: playerid,
@@ -5619,9 +5664,9 @@ export default {
           // var fetchIndex = e.draggedContext.index;
           // console.log(fetchIndex);
 
-          console.log(this.fetchPlayerList[boxObjectId]);
+          console.log(this['fetchPlayerList'+boxObjectId]);
 
-          var deleteId = this.fetchPlayerList[boxObjectId];
+          var deleteId = this['fetchPlayerList'+boxObjectId];
 
           var updateNullOnReservationPeople = event.removed.element.id;
           console.log(updateNullOnReservationPeople);
@@ -7074,53 +7119,53 @@ export default {
 
         console.log(event);
 
-        var countLastPlayerDragged = this.fetchPlayerList[boxObjectId].Team_player_sessions.length-1;
+        var countLastPlayerDragged = this['fetchPlayerList'+boxObjectId].Team_player_sessions.length-1;
         console.log(countLastPlayerDragged);
-        console.log(this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged]);
+        console.log(this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged]);
 
-        // var lastPlayerDraggedId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
+        // var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
         // console.log(lastPlayerDraggedId);
 
-        var sessionIdAfterReload1 = this.fetchPlayerList[boxObjectId].id; /** this is the session id **/
+        var sessionIdAfterReload1 = this['fetchPlayerList'+boxObjectId].id; /** this is the session id **/
         console.log(sessionIdAfterReload1);
 
-        var checkReservationId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].reservation_id;
+        var checkReservationId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].reservation_id;
         console.log(checkReservationId);
 
-        var teamIdFetched = this.fetchPlayerList[boxObjectId].team_id;
+        var teamIdFetched = this['fetchPlayerList'+boxObjectId].team_id;
 
-        var reservationIdToUpdateSession = this.fetchPlayerList[boxObjectId].reservation_id;
+        var reservationIdToUpdateSession = this['fetchPlayerList'+boxObjectId].reservation_id;
 
         console.log("used the drag event");
         // console.log(event);
         console.log(this.onDrop1FunctionLoaded);
-        console.log(this.fetchPlayerList[boxObjectId].mission_id);
-        console.log(this.fetchPlayerList[boxObjectId].reservation_id);
-        console.log(this.fetchPlayerList[boxObjectId].team_id);
-        console.log(this.fetchPlayerList[boxObjectId].route_id);
-        console.log(this.fetchPlayerList[boxObjectId].team_vs_team_id);
-        console.log(this.fetchPlayerList[boxObjectId].id);
+        console.log(this['fetchPlayerList'+boxObjectId].mission_id);
+        console.log(this['fetchPlayerList'+boxObjectId].reservation_id);
+        console.log(this['fetchPlayerList'+boxObjectId].team_id);
+        console.log(this['fetchPlayerList'+boxObjectId].route_id);
+        console.log(this['fetchPlayerList'+boxObjectId].team_vs_team_id);
+        console.log(this['fetchPlayerList'+boxObjectId].id);
 
-        var checkIfMinor = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.minor;
+        var checkIfMinor = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.minor;
         console.log(checkIfMinor);
 
         if(checkIfMinor == "yes"){
           console.log(" 09 ");
-          var lastPlayerDraggedId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
+          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
           console.log(lastPlayerDraggedId);
 
           console.log(lastPlayerDraggedId);
 
-          var checkPlayerIdforMinor = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.player_id;
+          var checkPlayerIdforMinor = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.player_id;
           console.log(checkPlayerIdforMinor);
 
-          var checkDraggedMinorId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.person_id;
+          var checkDraggedMinorId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.person_id;
           console.log(checkDraggedMinorId);
 
-          var checkReservationMinorId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
+          var checkReservationMinorId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
           console.log(checkReservationMinorId);
 
-          var checkMReservationId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.reservation_id;
+          var checkMReservationId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.reservation_id;
           console.log(checkMReservationId);
           
           // axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+lastPlayerDraggedId+'/session/'+sessionIdAfterReload1,{
@@ -7142,7 +7187,7 @@ export default {
                 var team_player_session_id = response.data.id;
                 console.log(team_player_session_id);
 
-                // this.fetchPlayerList[boxObjectId].push(this.fetchPlayerList[boxObjectId][countLastPlayerDragged].team_player_session_id);
+                // this['fetchPlayerList'+boxObjectId].push(this['fetchPlayerList'+boxObjectId][countLastPlayerDragged].team_player_session_id);
 
 
                 axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+checkReservationMinorId,{
@@ -7196,10 +7241,10 @@ export default {
 
         else{ /** NOT MINOR **/
 
-          var lastPlayerDraggedId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
+          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
           console.log(lastPlayerDraggedId);
 
-            var checkReservationPlayerId = this.fetchPlayerList[boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
+            var checkReservationPlayerId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
 
             console.log(checkReservationPlayerId);
 
@@ -7225,7 +7270,7 @@ export default {
                       console.log("LA YO HO HAI COUNT"+countLastPlayerDragged);
                     }
 
-                    // this.fetchPlayerList[boxObjectId].push(this.fetchPlayerList[boxObjectId][countLastPlayerDragged].team_player_session_id);
+                    // this['fetchPlayerList'+boxObjectId].push(this['fetchPlayerList'+boxObjectId][countLastPlayerDragged].team_player_session_id);
 
 
                   axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+checkReservationPlayerId,{
