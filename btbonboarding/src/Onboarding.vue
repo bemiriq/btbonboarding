@@ -1143,7 +1143,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist0 == false">
                                   <b-button block v-if="disableButton0 == true" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 0)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -1329,7 +1329,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist1 == false">
                                   <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 1)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -3187,12 +3187,12 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
 
     console.log("START RESEVATION TIME "+startReservationTime);
@@ -4377,6 +4377,19 @@ export default {
         fetchPlayerList8:[],
         fetchPlayerList9:[],
         // fetchPlayerList10:[],
+
+        arrived0: '',
+        arrived1: '',
+        arrived2: '',
+        arrived3: '',
+        arrived4: '',
+        arrived5: '',
+        arrived6: '',
+        arrived7: '',
+        arrived8: '',
+        arrived9: '',
+        // arrived10: '',
+        // arrived10: '',
 
         arrived10: '',
         arrived11: '',
