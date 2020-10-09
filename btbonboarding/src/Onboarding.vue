@@ -953,8 +953,8 @@
                 <!-- <form id="signup-form"> -->
 
 
-                  <!-- <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }"> -->
-                  <b-col class="border border-info rounded">
+                  <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
+                  <!-- <b-col class="border border-info rounded"> -->
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1141,6 +1141,7 @@
                                 <b-button block v-b-modal.modal-center variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist0 == false">
                                   <b-button block v-if="disableButton0 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
@@ -1149,6 +1150,7 @@
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -1169,8 +1171,8 @@
                 <p class="btbSideTitle"><b>SIDE B</b></p>
 
                 <!-- <form id="signup-form"> -->
-                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }"> -->
-                    <b-col class="border border-info rounded">
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked11 }">
+                    <!-- <b-col class="border border-info rounded"> -->
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1326,7 +1328,9 @@
                               <b-col>
                                 <b-button block v-b-modal.modal-center11 variant="info">Assign RFID</b-button>
                               </b-col>
+
                               <b-col>
+
                                 <div v-if="removeWaitlist1 == false">
                                   <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
@@ -1335,7 +1339,9 @@
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 1)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
+
                             </b-row>
                           </div>
                         </b-row>
@@ -1369,9 +1375,9 @@
 
                 <!-- <form id="signup-form"> -->
 
-                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked12 }"> -->
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked12 }">
 
-                  <b-col class="border border-info rounded">
+                  <!-- <b-col class="border border-info rounded"> -->
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1528,14 +1534,16 @@
                                 <b-button block v-b-modal.modal-center12 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist2 == false">
-                                  <b-button block v-if="disableButton2 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 2)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -1562,9 +1570,7 @@
               <b-col>
 
                 <!-- <form id="signup-form"> -->
-                  <!-- <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked13 }"> -->
-
-                    <b-col class="border border-info rounded">
+                  <b-col  class="border border-info rounded" :class="{ red : sendToWishlistClicked13 }">
 
                     <b-row class="my-1">
                       <b-col sm="4">
@@ -1721,14 +1727,16 @@
                                 <b-button block v-b-modal.modal-center13 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist3 == false">
-                                  <b-button block v-if="disableButton3 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 3)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -1924,14 +1932,16 @@
                                 <b-button block v-b-modal.modal-center14 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist4 == false">
-                                  <b-button block v-if="disableButton4 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 4)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -2108,14 +2118,16 @@
                                 <b-button block v-b-modal.modal-center15 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist5 == false">
-                                  <b-button block v-if="disableButton5 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 5)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -2309,14 +2321,16 @@
                                 <b-button block v-b-modal.modal-center16 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist6 == false">
-                                  <b-button block v-if="disableButton6 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 6)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -2493,14 +2507,16 @@
                                 <b-button block v-b-modal.modal-center17 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist7 == false">
-                                  <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 7)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -2692,14 +2708,16 @@
                                 <b-button block v-b-modal.modal-center18 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist8 == false">
-                                  <b-button block v-if="disableButton8 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 8)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -2876,14 +2894,16 @@
                                 <b-button block v-b-modal.modal-center19 variant="info">Assign RFID</b-button>
                               </b-col>
                               <b-col>
+
                                 <div v-if="removeWaitlist9 == false">
-                                  <b-button block v-if="disableButton9 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
                                   <b-button block variant="warning" v-on:click="removeWaitingList($event, 9)">Remove Waitlist</b-button>
                                 </div>
+
                               </b-col>
                             </b-row>
                           </div>
@@ -3555,6 +3575,15 @@ export default {
 
                             console.log(" IN SID EEEEE ");
 
+                            var checkTeamActive = response.data[0].active;
+                            console.log('check team active value '+ checkTeamActive);
+
+                            if(checkTeamActive > '0'){
+                              this['removeWaitlist'+b] = true;
+                              var newValue = b+10;
+                              this['sendToWishlistClicked'+newValue] = true;
+                            }
+
 
                             if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
 
@@ -3843,7 +3872,17 @@ export default {
                             console.log(response.data[0]);
                             var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
 
-                            console.log(" IN SID EEEEE ");
+                            console.log(" IN SID EEEEE "); 
+
+                            /** this part checks the team was activated or not **/
+                            var checkTeamActive = response.data[0].active;
+
+                            if(checkTeamActive > '0'){
+                              this['removeWaitlist'+b] = true;
+                              var newValue = b+10;
+                              this['sendToWishlistClicked'+newValue] = true;
+                            }
+                            /** end of Team Activation Function **/
 
 
                             if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
@@ -4625,17 +4664,32 @@ export default {
         console.log("team activated");
         console.log(value);
 
-        console.log(this["list"+value+"sessionid"]);
+        var newValue = value;
+        console.log('new value '+newValue);
 
-        var sessionid = this["list"+value+"sessionid"];
+        console.log(this["list"+newValue+"sessionid"]);
+
+        var sessionid = this["list"+newValue+"sessionid"];
+
+        if(sessionid == undefined || !sessionid > '0'){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
+          console.log('YES');
+          var deductValue = value-10;
+          console.log('deducted value '+deductValue);
+          var sessionid = this['fetchPlayerList'+deductValue][1].id; /** session id is defined using id **/
+        }
+
+        else{
+          console.log('No');
+        }
 
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
           active: 1
         })
         .then(response => {
           console.log(response);
-          this["sendToWishlistClicked"+value] = true;
-          this["removeWaitlist"+value] = true;
+          this["sendToWishlistClicked"+newValue] = true;
+          var deductValue = value-10;
+          this["removeWaitlist"+deductValue] = true;
         })
         .catch(function (error) {
           console.log(error);
@@ -4652,7 +4706,7 @@ export default {
         var sessionid = this["list"+value+"sessionid"];
         console.log(sessionid);
 
-        if(sessionid == undefined){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
+        if(sessionid == undefined || !sessionid > '0'){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
           console.log('YES');
 
           var sessionid = this['fetchPlayerList'+value][1].id; /** session id is defined using id **/
@@ -4668,9 +4722,10 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this["sendToWishlistClicked"+value] = false;
+          var newValue = value+10;
+          this["sendToWishlistClicked"+newValue] = false;
           this["removeWaitlist"+value] = false;
-          this["disableButton"+value] = true;
+          this["disableButton"+newValue] = true;
           console.log(" Deactivated Waitlist for Box "+ value);
         })
         .catch(function (error) {
@@ -7777,6 +7832,19 @@ export default {
         // var getSessionId = this.fetchPlayerList[colvalue].Team_player_sessions[0].session_id;
 
         var getSessionId = this['list'+colvalue+'sessionid'];
+
+        console.log(getSessionId);
+
+        if(getSessionId == undefined || !getSessionId > '0'){
+          console.log(' YES undefined');
+          var newColValue = colvalue-10;
+          console.log('new col value for session id '+ newColValue);
+          var getSessionId = this['fetchPlayerList'+newColValue][1].id;
+          console.log(getSessionId);
+        }
+        else{
+          console.log('Defined');
+        }
 
         var selectedMissionId = event;
 
