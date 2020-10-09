@@ -1530,7 +1530,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist2 == false">
                                   <b-button block v-if="disableButton2 == true" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 2)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -1723,7 +1723,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist3 == false">
                                   <b-button block v-if="disableButton3 == true" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 3)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -1926,7 +1926,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist4 == false">
                                   <b-button block v-if="disableButton4 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 4)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -2110,7 +2110,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist5 == false">
                                   <b-button block v-if="disableButton5 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 5)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -2311,7 +2311,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist6 == false">
                                   <b-button block v-if="disableButton6 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 6)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -2495,7 +2495,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist7 == false">
                                   <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 7)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -2694,7 +2694,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist8 == false">
                                   <b-button block v-if="disableButton8 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 8)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -2878,7 +2878,7 @@
                               <b-col>
                                 <div v-if="removeWaitlist9 == false">
                                   <b-button block v-if="disableButton9 == false" variant="primary" disabled>Send To Waitlist</b-button>
-                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 9)">Send To Waitlist</b-button>
+                                  <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
                                 <div v-else>
@@ -3187,12 +3187,12 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
-    // var currentdate = moment().format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
     console.log("START RESEVATION TIME "+startReservationTime);
