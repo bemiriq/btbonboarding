@@ -208,9 +208,8 @@
                               <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[12] > '0' ">
-                                    <!-- element in fetchPlayerList[12].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[12].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList2[1] > '0' ">
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList2[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -300,9 +299,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[13] > '0' ">
+                                  <div v-if="fetchPlayerList3[1] > '0' ">
                                     <!-- element in fetchPlayerList[13].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[13].Team_player_sessions" :key="index">
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList3[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -389,9 +388,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[14] > '0' ">
+                                  <div v-if="fetchPlayerList4[1] > '0' ">
                                     <!-- element in fetchPlayerList[14].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[14].Team_player_sessions" :key="index">
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList4[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -478,9 +477,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[15] > '0' ">
-                                    <!-- element in fetchPlayerList[15].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[15].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList5[1] > '0' ">
+                                    <!-- element in fetchPlayerList5[1].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList5[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -567,9 +566,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[16] > '0' ">
-                                    <!-- element in fetchPlayerList[16].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[16].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList6[1] > '0' ">
+                                    <!-- element in fetchPlayerList6[1].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList6[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -656,9 +655,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[17] > '0' ">
-                                    <!-- element in fetchPlayerList[17].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[17].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList7[1] > '0' ">
+                                    <!-- element in fetchPlayerList7[1].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList7[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -745,9 +744,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[18] > '0' ">
-                                    <!-- element in fetchPlayerList[18].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[18].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList8[1] > '0' ">
+                                    <!-- element in fetchPlayerList8[1].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList8[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -835,9 +834,9 @@
                            <b-row class="my-1">
                                 <b-col sm="12">
 
-                                  <div v-if="fetchPlayerList[19] > '0' ">
-                                    <!-- element in fetchPlayerList[19].Team_player_sessions -->
-                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[19].Team_player_sessions" :key="index">
+                                  <div v-if="fetchPlayerList9[1] > '0' ">
+                                    <!-- element in fetchPlayerList9[1].Team_player_sessions -->
+                                    <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList9[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
@@ -1143,7 +1142,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist0 == false">
-                                  <b-button block v-if="disableButton0 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton0 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -1332,7 +1331,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist1 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton1 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -1536,7 +1535,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist2 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton2 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -1729,7 +1728,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist3 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton3 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -1790,12 +1789,12 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList[14] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList4[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[14].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList4[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 14)" @change="deleteTeamPlayerSessionAfterReload1($event, 14)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[14].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList4[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -1934,7 +1933,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist4 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton4 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -1978,12 +1977,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[15] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList5[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[15].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList5[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 15)" @change="deleteTeamPlayerSessionAfterReload1($event, 15)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[15].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList5[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -2120,7 +2119,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist5 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton5 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -2179,12 +2178,12 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList[16] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList6[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[16].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList6[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 16)" @change="deleteTeamPlayerSessionAfterReload1($event, 16)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[16].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList6[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -2323,7 +2322,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist6 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton6 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -2367,12 +2366,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[17] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList7[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[17].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList7[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 17)" @change="deleteTeamPlayerSessionAfterReload1($event, 17)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[17].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList7[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -2509,7 +2508,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist7 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -2566,12 +2565,12 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList[18] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList8[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[18].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList8[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 18)" @change="deleteTeamPlayerSessionAfterReload1($event, 18)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[18].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList8[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -2710,7 +2709,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist8 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton8 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -2754,12 +2753,12 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList[19] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList9[1] > '0'"  style="height: 440px;border-style: outset;">
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList[19].Team_player_sessions" class="list-group" draggable=".item" group="a" 
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList9[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 19)" @change="deleteTeamPlayerSessionAfterReload1($event, 19)">
 
-                            <div class="list-group-item item" v-for="element in fetchPlayerList[19].Team_player_sessions" :key="element.id">
+                            <div class="list-group-item item" v-for="element in fetchPlayerList9[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
                                     <b-col sm="1">
@@ -2896,7 +2895,7 @@
                               <b-col>
 
                                 <div v-if="removeWaitlist9 == false">
-                                  <b-button block v-if="disableButton1 == true" variant="primary" disabled>Send To Waitlist</b-button>
+                                  <b-button block v-if="disableButton9 == false" variant="primary" disabled>Send To Waitlist</b-button>
                                   <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
                                   <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                                 </div>
@@ -3207,12 +3206,12 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'minutes').format('HH:mm:ss');
 
 
     console.log("START RESEVATION TIME "+startReservationTime);
@@ -3583,6 +3582,11 @@ export default {
                               var newValue = b+10;
                               this['sendToWishlistClicked'+newValue] = true;
                             }
+                            else{
+                              this['disableButton'+b] = true;
+                              // var newValue = b+10;
+                              // this['sendToWishlistClicked'+newValue] = false;
+                            }
 
 
                             if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
@@ -3877,11 +3881,16 @@ export default {
                             /** this part checks the team was activated or not **/
                             var checkTeamActive = response.data[0].active;
 
-                            if(checkTeamActive > '0'){
-                              this['removeWaitlist'+b] = true;
-                              var newValue = b+10;
-                              this['sendToWishlistClicked'+newValue] = true;
-                            }
+                              if(checkTeamActive > '0'){
+                                this['removeWaitlist'+b] = true;
+                                var newValue = b+10;
+                                this['sendToWishlistClicked'+newValue] = true;
+                              }
+                              else{
+                                this['disableButton'+b] = true;
+                                // var newValue = b+10;
+                                // this['sendToWishlistClicked'+newValue] = false;
+                              }
                             /** end of Team Activation Function **/
 
 
@@ -4703,7 +4712,9 @@ export default {
         console.log(event);
         console.log(value);
 
-        var sessionid = this["list"+value+"sessionid"];
+        var newValueSession = value+10;
+
+        var sessionid = this["list"+newValueSession+"sessionid"];
         console.log(sessionid);
 
         if(sessionid == undefined || !sessionid > '0'){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
@@ -4725,7 +4736,7 @@ export default {
           var newValue = value+10;
           this["sendToWishlistClicked"+newValue] = false;
           this["removeWaitlist"+value] = false;
-          this["disableButton"+newValue] = true;
+          this["disableButton"+value] = true;
           console.log(" Deactivated Waitlist for Box "+ value);
         })
         .catch(function (error) {
@@ -4875,6 +4886,30 @@ export default {
           
           this.$refs.todosAfterReload[nextIndex].focus();
           console.log("SWITH TO NEXT");
+
+
+          var newValue = col-10;
+          var totalPlayers = this["fetchPlayerList"+col][1].length;
+          console.log(totalPlayers);
+
+          for(var i=0; i < totalPlayers; i++){
+
+            if(this["fetchPlayerList"+col][1][i].rfidState1 == ''){
+              this["disableButton"+newValue] = true;
+              break;
+            }
+            else{
+
+              if(this["fetchPlayerList"+col][1][i].rfidState1 > '0'){
+                this["disableButton"+newValue] = false;
+              }
+              else{
+                this["disableButton"+newValue] = true;
+                break;
+              }
+
+            }
+          } /** close out the FOR LOOP **/
         
         }
 
@@ -4888,7 +4923,9 @@ export default {
 
         this["list"+col][index].rfidState1 = ''; /** this will make input field blank on UI part **/
 
-        this["disableButton"+col] = false; /** this will disable the SEND TO WAITLIST BUTTON **/
+        var newValue = col-10;
+
+        this["disableButton"+newValue] = false; /** this will disable the SEND TO WAITLIST BUTTON **/
 
         var teamPlayerSessionId = this["list"+col+"teamplayersessionid"][index];
 
@@ -5056,17 +5093,20 @@ export default {
           // if()
           // if(this.list10[index].rfidState1 == '' || !this.list10[index].rfidState1 > '0')
           for(var i=0; i < totalPlayers; i++){
+
+            var newValue = col-10;
+
             if(this["list"+col][i].rfidState1 == ''){
-              this["disableButton"+col] = false;
+              this["disableButton"+newValue] = false;
               break;
             }
             else{
 
               if(this["list"+col][i].rfidState1 > '0'){
-                this["disableButton"+col] = true;
+                this["disableButton"+newValue] = true;
               }
               else{
-                this["disableButton"+col] = false;
+                this["disableButton"+newValue] = false;
                 break;
               }
 
