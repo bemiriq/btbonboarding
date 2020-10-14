@@ -33,13 +33,20 @@
                                     <!-- element in fetchPlayerList0.Team_player_sessions -->
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList0[1].Team_player_sessions" :key="index">
                                         <b-row>
-                                          <b-col >
+                                          <b-col sm="6">
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                           </b-col>
 
-                                          <b-col>
+                                          <b-col sm="4">
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <!-- <p v-if="teamfetch.rfid_id != '0'">
+                                              YES RFID
+                                            </p>
+                                            <p v-else>
+                                              NO RFID
+                                            </p> -->
+
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
@@ -50,7 +57,7 @@
                                             </p>
                                           </b-col>
 
-                                          <b-col>
+                                          <b-col sm="2">
                                             <p v-if="teamfetch.Rfid != null">
                                               <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 10, index) , activeBtn = 'btn1' "></b-icon>
                                             </p>
@@ -124,13 +131,13 @@
                                     <!-- element in fetchPlayerList1.Team_player_sessions -->
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList1[1].Team_player_sessions" :key="index">
                                         <b-row>
-                                          <b-col >
+                                          <b-col sm="6">
                                              <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
                                           </b-col>
 
-                                          <b-col>
+                                          <b-col sm="4">
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
@@ -142,7 +149,7 @@
                                             </p>
                                           </b-col>
 
-                                          <b-col>
+                                          <b-col sm="2">
                                             <p v-if="teamfetch.Rfid != null">
                                               <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleterfidonclick($event, 11, index) , activeBtn = 'btn1' "></b-icon>
                                             </p>
@@ -217,14 +224,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 12, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 2, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -309,14 +316,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 13, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 3, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -398,14 +405,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 14, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 4, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -487,14 +494,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 15, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 5, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -576,14 +583,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 16, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 6, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -665,14 +672,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 17, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 7, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -754,14 +761,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 18, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 8, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -844,14 +851,14 @@
 
                                           <b-col>
 
-                                            <p v-if="teamfetch.Rfid != null">
+                                            <p v-if="teamfetch.rfid_id > '0'">
                                             <!-- VALUE -->
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
                                             </p>
                                             <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 19, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 9, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
                                                 :class="{active: activeBtn === 'btn1' }"></b-form-input>
                                             </p>
                                           </b-col>
@@ -975,7 +982,7 @@
                         <div v-if="fetchPlayerList0[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList0[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 10)" @change="deleteTeamPlayerSessionAfterReload1($event, 10)">
+                          @add="onDrop1AfterReload($event, 0)" @change="deleteTeamPlayerSessionAfterReload1($event, 0)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
@@ -986,7 +993,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -994,9 +1005,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -1191,7 +1208,7 @@
                         <div v-if="fetchPlayerList1[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList1[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 11)" @change="deleteTeamPlayerSessionAfterReload1($event, 11)">
+                          @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList1[1].Team_player_sessions" :key="element.id">
 
@@ -1203,7 +1220,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -1211,9 +1232,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -1396,7 +1423,7 @@
                         <div v-if="fetchPlayerList2[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList2[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 12)" @change="deleteTeamPlayerSessionAfterReload1($event, 12)">
+                          @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList2[1].Team_player_sessions" :key="element.id">
 
@@ -1408,7 +1435,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -1416,9 +1447,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -1589,7 +1626,7 @@
                         <div v-if="fetchPlayerList3[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList3[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 13)" @change="deleteTeamPlayerSessionAfterReload1($event, 13)">
+                          @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList3[1].Team_player_sessions" :key="element.id">
 
@@ -1601,7 +1638,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -1609,9 +1650,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -1792,7 +1839,7 @@
                         <div v-if="fetchPlayerList4[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList4[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 14)" @change="deleteTeamPlayerSessionAfterReload1($event, 14)">
+                          @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList4[1].Team_player_sessions" :key="element.id">
 
@@ -1803,7 +1850,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -1811,9 +1862,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '14'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -1980,7 +2037,7 @@
                         <div v-if="fetchPlayerList5[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList5[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 15)" @change="deleteTeamPlayerSessionAfterReload1($event, 15)">
+                          @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList5[1].Team_player_sessions" :key="element.id">
 
@@ -1992,7 +2049,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2000,9 +2061,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -2181,7 +2248,7 @@
                         <div v-if="fetchPlayerList6[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList6[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 16)" @change="deleteTeamPlayerSessionAfterReload1($event, 16)">
+                          @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList6[1].Team_player_sessions" :key="element.id">
 
@@ -2192,7 +2259,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2200,9 +2271,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '16'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -2369,7 +2446,7 @@
                         <div v-if="fetchPlayerList7[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList7[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 17)" @change="deleteTeamPlayerSessionAfterReload1($event, 17)">
+                          @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList7[1].Team_player_sessions" :key="element.id">
 
@@ -2381,7 +2458,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2389,9 +2470,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -2568,7 +2655,7 @@
                         <div v-if="fetchPlayerList8[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList8[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 18)" @change="deleteTeamPlayerSessionAfterReload1($event, 18)">
+                          @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList8[1].Team_player_sessions" :key="element.id">
 
@@ -2579,7 +2666,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2587,9 +2678,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '18'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -2756,7 +2853,7 @@
                         <div v-if="fetchPlayerList9[1] > '0'"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList9[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 19)" @change="deleteTeamPlayerSessionAfterReload1($event, 19)">
+                          @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList9[1].Team_player_sessions" :key="element.id">
 
@@ -2768,7 +2865,11 @@
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                        {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
+                                    </b-col>
+
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2776,9 +2877,15 @@
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
-                                      <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
-                                    </b-col>
+                                    <!-- checks on the minor or player first then displays beat_bomber logo -->
+                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+
+                                      <b-col v-else>
+                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                      </b-col>
+                                    <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
                                       {{element.Person.Player.player_count}}
@@ -3206,7 +3313,7 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(14, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(19, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
@@ -3674,13 +3781,13 @@ export default {
 
                                   this["arrived"+teamObjectId] = arrivedValue;
 
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
+                                  // if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = false;
+                                  // }
 
                                   // var useThisObject = 10+teamObjectId;
 
@@ -3701,7 +3808,8 @@ export default {
                                   var teamPlayerSessionId = response.data[0].Team_player_sessions[j].id;
                                   var SessionId = response.data[0].Team_player_sessions[j].session_id;
 
-                                  // var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
+                                  var bombBeater = response.data[0].Team_player_sessions[j].Player_minor.bomb_beater;
+                                  console.log('BOMBBEATERRRRRRRRRRRRRRRRRRR '+bombBeater);
                                   // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
 
                                   console.log(minorFirstName + ' ' + minorLastName);
@@ -3718,7 +3826,7 @@ export default {
                                      "team_player_session": teamPlayerSessionId,
                                      "Player":{
                                       "minor_tag": 'M',
-                                      "bomb_beater": 1,
+                                      "bomb_beater": bombBeater,
                                       "player_count": 1
                                      }
                                   }
@@ -3769,13 +3877,13 @@ export default {
                                   //   this['disableButton'+teamObjectId] = true;
                                   // }
 
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
+                                  // if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = false;
+                                  // }
 
                                 }
 
@@ -3881,13 +3989,24 @@ export default {
                             /** this part checks the team was activated or not **/
                             var checkTeamActive = response.data[0].active;
 
+                            console.log('CHECK TEAMMMMMMMMMMMMMMMMMMMM ACTIVEEEEEEEEEEEEEEEEEE '+ checkTeamActive);
                               if(checkTeamActive > '0'){
+                                console.log('IN IN IN');
+
                                 this['removeWaitlist'+b] = true;
                                 var newValue = b+10;
                                 this['sendToWishlistClicked'+newValue] = true;
                               }
+
                               else{
+
                                 this['disableButton'+b] = true;
+
+                                // this['sendToWishlistClicked'+newValue] = false;
+                                
+                                console.log(this['sendToWishlistClicked'+newValue]);
+
+                                console.log("OUT OUT OUT");
                                 // var newValue = b+10;
                                 // this['sendToWishlistClicked'+newValue] = false;
                               }
@@ -3978,13 +4097,13 @@ export default {
 
                                   this["arrived"+teamObjectId] = arrivedValue;
 
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
+                                  // if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   // this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = false;
+                                  // }
 
                                   // var useThisObject = 10+teamObjectId;
 
@@ -4072,13 +4191,13 @@ export default {
                                   //   this['disableButton'+teamObjectId] = true;
                                   // }
 
-                                  if(response.data[0].Team_player_sessions[j].Rfid > '0'){
-                                    this['removeWaitlist'+teamObjectId] = true;
-                                    this["sendToWishlistClicked"+teamObjectId] = true;
-                                  }
-                                  else{
-                                    this['disableButton'+teamObjectId] = false;
-                                  }
+                                  // if(response.data[0].Team_player_sessions[j].Rfid > '0'){
+                                  //   this['removeWaitlist'+teamObjectId] = true;
+                                  //   this["sendToWishlistClicked"+teamObjectId] = true;
+                                  // }
+                                  // else{
+                                  //   this['disableButton'+teamObjectId] = false;
+                                  // }
 
                                 }
 
@@ -4823,7 +4942,7 @@ export default {
         console.log(col);
         console.log(index);
 
-        if(event.length > 7){
+        if(event.length > 7 && event.length < 9){ /** you need to right code to upload only 8 digits for rfid value **/
 
         // console.log("inside update rfid side A after reload");
         console.log(event);
@@ -4948,12 +5067,20 @@ export default {
         console.log(index);
 
         console.log("delete rfid side A after reload");
+        if(col > '9'){
+          var newCol = col-10;
+        }
+        else{
+          var newCol = col;
+        }      
 
-         var arr = this.fetchPlayerList[col];
+         // var arr = this['fetchPlayerList'+newCol];
 
          // var number = this.countfunction++;
 
-              var updateOnTPS = this.fetchPlayerList[col].Team_player_sessions[index].id;
+              var updateOnTPS = this['fetchPlayerList'+newCol][1].Team_player_sessions[index].id;
+
+              console.log(updateOnTPS);
 
               axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
                       // player_id: playerid,
@@ -4970,14 +5097,14 @@ export default {
                         console.log(error);
                 });
 
-            this.fetchPlayerList[col].Team_player_sessions[index].rfid_id = 0; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
+            this['fetchPlayerList'+newCol][1].Team_player_sessions[index].rfid_id = 0; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS
             the RFID_ID value will be added to fetchPlayerList depending on col and index of the column **/
         
         },
 
       posttorfidapiAfterReload2(event, index){
 
-        if(event.length > 7){
+        if(event.length > 7 && event.length < 9){
 
          var arr = this.toListFetchRouteB1;
 
@@ -5037,7 +5164,7 @@ export default {
 
         // console.log(this["list"+col]);
 
-        if(event.length > 7){
+        if(event.length > 7 && event.length < 9){
 
         // console.log("inside update rfid side A");
         // console.log(event);
@@ -5365,8 +5492,30 @@ export default {
             console.log(teamName1);
             console.log(teamName2);
 
-            var teamSessionId1 = getSessionIdFirstTeam;
-            var teamSessionId2 = getSessionIdSecondTeam;
+
+            // var getSessionIdFirstTeam = this['fetchPlayerList'+colvalue1][1].Team_player_sessions[0].session_id;
+            // var getSessionIdSecondTeam = this['fetchPlayerList'+colvalue1][1].Team_player_sessions[0].session_id;
+
+            // var teamSessionId1 = getSessionIdFirstTeam;
+            // var teamSessionId2 = getSessionIdSecondTeam;
+
+            if(!this['list'+colvalue1+'sessionid'] > '0'){
+              console.log('YES NUll');
+              console.log(colvalue2);
+
+              var newValue1 = colvalue1-10;
+              var newValue2 = colvalue2-10;
+
+              console.log(newValue1);
+              console.log(newValue2);
+
+              var getSessionIdFirstTeam = this['fetchPlayerList'+newValue1][1].id;
+              var getSessionIdSecondTeam = this['fetchPlayerList'+newValue2][1].id;
+            }
+
+            else{
+              console.log('no null');
+            }
 
             console.log(getSessionIdFirstTeam);
             console.log(getSessionIdSecondTeam);
@@ -5380,11 +5529,11 @@ export default {
                       var teamNameId = response.data[0].id;
                       console.log(teamNameId);
 
-                      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId1);
+                      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdSecondTeam);
 
                       /** this will update session id on team_vs_team_id for SIDE A 1 **/
-                      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId1,{
-                        team_vs_team_id : teamSessionId2
+                      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdSecondTeam,{
+                        team_vs_team_id : getSessionIdFirstTeam
                       })
                         .then(response => {
                           console.log(response);
@@ -5398,8 +5547,8 @@ export default {
                       
                       /**this will update session id on team_vs_team_id for SIDE B 1 **/
 
-                        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId2,{
-                            team_vs_team_id : teamSessionId1
+                        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdFirstTeam,{
+                            team_vs_team_id : getSessionIdSecondTeam
                             })
 
                             .then(response => {
@@ -7227,53 +7376,60 @@ export default {
 
         console.log(event);
 
-        var countLastPlayerDragged = this['fetchPlayerList'+boxObjectId].Team_player_sessions.length-1;
+        console.log(this['fetchPlayerList'+boxObjectId]);
+
+        var countLastPlayerDragged = this['fetchPlayerList'+boxObjectId].length;
         console.log(countLastPlayerDragged);
-        console.log(this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged]);
+
+        // console.log(this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged]);
 
         // var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
         // console.log(lastPlayerDraggedId);
 
-        var sessionIdAfterReload1 = this['fetchPlayerList'+boxObjectId].id; /** this is the session id **/
+        var sessionIdAfterReload1 = this['fetchPlayerList'+boxObjectId][1].id; /** this is the session id **/
         console.log(sessionIdAfterReload1);
 
-        var checkReservationId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].reservation_id;
+        var newIndex = event.newIndex;
+
+        var checkReservationId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].reservation_id;
         console.log(checkReservationId);
 
-        var teamIdFetched = this['fetchPlayerList'+boxObjectId].team_id;
+        var teamIdFetched = this['fetchPlayerList'+boxObjectId][1].team_id;
+        console.log(teamIdFetched);
 
-        var reservationIdToUpdateSession = this['fetchPlayerList'+boxObjectId].reservation_id;
+        var reservationIdToUpdateSession = this['fetchPlayerList'+boxObjectId][1].reservation_id;
+        console.log(reservationIdToUpdateSession);
 
         console.log("used the drag event");
         // console.log(event);
         console.log(this.onDrop1FunctionLoaded);
-        console.log(this['fetchPlayerList'+boxObjectId].mission_id);
-        console.log(this['fetchPlayerList'+boxObjectId].reservation_id);
-        console.log(this['fetchPlayerList'+boxObjectId].team_id);
-        console.log(this['fetchPlayerList'+boxObjectId].route_id);
-        console.log(this['fetchPlayerList'+boxObjectId].team_vs_team_id);
-        console.log(this['fetchPlayerList'+boxObjectId].id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].mission_id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].reservation_id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].team_id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].route_id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].team_vs_team_id);
+        console.log(this['fetchPlayerList'+boxObjectId][1].id);
 
-        var checkIfMinor = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.minor;
+        var checkIfMinor = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.minor;
         console.log(checkIfMinor);
 
         if(checkIfMinor == "yes"){
           console.log(" 09 ");
-          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
+          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.Player.id;
           console.log(lastPlayerDraggedId);
 
           console.log(lastPlayerDraggedId);
 
-          var checkPlayerIdforMinor = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.player_id;
+          var checkPlayerIdforMinor = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.player_id;
           console.log(checkPlayerIdforMinor);
 
-          var checkDraggedMinorId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.person_id;
+          var checkDraggedMinorId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.person_id;
           console.log(checkDraggedMinorId);
 
-          var checkReservationMinorId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
+          var checkReservationMinorId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].id;
           console.log(checkReservationMinorId);
 
-          var checkMReservationId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.reservation_id;
+          var checkMReservationId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.reservation_id;
           console.log(checkMReservationId);
           
           // axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+lastPlayerDraggedId+'/session/'+sessionIdAfterReload1,{
@@ -7349,10 +7505,10 @@ export default {
 
         else{ /** NOT MINOR **/
 
-          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].Person.Player.id;
+          var lastPlayerDraggedId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].Person.Player.id;
           console.log(lastPlayerDraggedId);
 
-            var checkReservationPlayerId = this['fetchPlayerList'+boxObjectId].Team_player_sessions[countLastPlayerDragged].id;
+            var checkReservationPlayerId = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions[newIndex].id;
 
             console.log(checkReservationPlayerId);
 
@@ -7366,7 +7522,7 @@ export default {
 
                   console.log(response.data);
 
-                   console.log("LA YO HO HAI COUNT"+countLastPlayerDragged);
+                   console.log("LA YO HO HAI COUNT"+newIndex);
 
                     var team_player_session_id = response.data.id;
                     console.log(team_player_session_id);
@@ -7375,10 +7531,10 @@ export default {
 
                     if (this.tolist2TPSafterReload > 0) { 
                       this.list2TPSafterReload.push(this.tolist2TPSafterReload);
-                      console.log("LA YO HO HAI COUNT"+countLastPlayerDragged);
+                      console.log("LA YO HO HAI COUNT"+newIndex);
                     }
 
-                    // this['fetchPlayerList'+boxObjectId].push(this['fetchPlayerList'+boxObjectId][countLastPlayerDragged].team_player_session_id);
+                    // this['fetchPlayerList'+boxObjectId].push(this['fetchPlayerList'+boxObjectId][newIndex].team_player_session_id);
 
 
                   axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+checkReservationPlayerId,{
