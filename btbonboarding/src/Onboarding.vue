@@ -1002,21 +1002,23 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.minor_tag}}
+                                      <!-- {{element.Person.Player.minor_tag}} -->
+                                      M
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
-                                        <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
+                                      <b-col sm="1" v-if="!element.player_minor_id > '0'">
+                                        <p v-if="!element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
                                       <b-col v-else>
-                                        <p v-if="element.Person.Player.bomb_beater > '0'">&#128163;</p>
+                                        <p v-if="!element.Person.Player.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <!-- {{element.Person.Player.player_count}} -->
+                                      1
                                     </b-col>
 
                                   </b-row>
