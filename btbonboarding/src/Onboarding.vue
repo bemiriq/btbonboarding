@@ -987,17 +987,17 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="2">
+                                    <b-col sm="1">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="7" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
