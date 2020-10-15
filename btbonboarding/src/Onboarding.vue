@@ -3345,12 +3345,12 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    var currentdate = moment().subtract(20, 'days').format("YYYY-MM-DD");
-    // var currentdate = moment().format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(20, 'days').format("YYYY-MM-DD");
+    var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
     var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(4, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
     console.log("START RESEVATION TIME "+startReservationTime);
