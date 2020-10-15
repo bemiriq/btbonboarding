@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a href='/users' v-if="$route.path!=='/bigscreen'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
+    <a href='/#/users' v-if="$route.path!=='/bigscreen'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
     
     <br/><br/><br/>
 
