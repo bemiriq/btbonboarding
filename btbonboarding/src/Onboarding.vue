@@ -1106,12 +1106,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <!-- <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)"> -->
-                              <!-- <p>{{vsselected10}}</p>
-                              <p>{{vsselected11}}</p> -->
-                            <b-form-select v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                            <b-form-select v-if="!teamVsTeam10 > '0'" v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
                               <option> </option>
                               <option :value="teamName11"> {{ teamName11 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName10" v-on:change="onChangeTeamVsTeam1($event, 10)">
+                              <option :value="teamName11" checked> {{ teamName11 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -1318,7 +1320,7 @@
                       <br />
 
                       <div v-if=" selected11 > 0 && selected10 == selected11">
-                        <b-row>
+                        <!-- <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
                           </b-col>
@@ -1330,7 +1332,27 @@
                             </b-form-select>
 
                           </b-col>
+                        </b-row> -->
+
+                        <b-row>
+                          <b-col sm="3">
+                          <label for="input-small">Battle Mode</label>
+                          </b-col>
+                          <b-col sm="9">
+
+                            <b-form-select v-if="!teamVsTeam11 > '0'" v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
+                              <option> </option>
+                              <option :value="teamName10"> {{ teamName10 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName11" v-on:change="onChangeTeamVsTeam1($event, 11)">
+                              <option :value="teamName10" checked> {{ teamName10 }} </option>
+                              <option value=""> </option>
+                            </b-form-select>
+
+                          </b-col>
                         </b-row>
+
                       </div>
 
                       <br />
@@ -1539,9 +1561,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected12" v-on:change="onChangeTeamVsTeam1($event, 12)">
+                            <b-form-select v-if="!teamVsTeam12 > '0'" v-model="vsselected12" v-on:change="onChangeTeamVsTeam1($event, 12)">
                               <option> </option>
                               <option :value="teamName13"> {{ teamName13 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName12" v-on:change="onChangeTeamVsTeam1($event, 12)">
+                              <option :value="teamName13" checked> {{ teamName13 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -1742,9 +1769,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected13" v-on:change="onChangeTeamVsTeam1($event, 13)">
+                            <b-form-select v-if="!teamVsTeam13 > '0'" v-model="vsselected13" v-on:change="onChangeTeamVsTeam1($event, 13)">
                               <option> </option>
                               <option :value="teamName12"> {{ teamName12 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName13" v-on:change="onChangeTeamVsTeam1($event, 13)">
+                              <option :value="teamName12" checked> {{ teamName12 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -3313,12 +3345,12 @@ export default {
 
     var starttime='start';
     var endtime='end';
-    // var currentdate = moment().subtract(19, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(20, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(4, 'hours').format('HH:mm:ss');
 
 
     console.log("START RESEVATION TIME "+startReservationTime);
@@ -3696,6 +3728,36 @@ export default {
                             }
 
 
+                            /** if clause to pass along team vs team id **/
+                            var checkTeamVsTeam = response.data[0].team_vs_team_id;
+                            console.log(checkTeamVsTeam);
+                            if(checkTeamVsTeam > '0'){
+                              console.log("YES MANNNNNNNN GREATER RRRRRRRRRRRRRRR "+ b);
+
+                              var newValue = b+10;
+                              
+                              var value = newValue+1; /** add one to get side B team name **/
+
+                              this['teamVsTeam'+newValue] = '1';
+
+                              console.log(this['teamName'+newValue]);
+                              console.log(value);
+
+                              console.log(this['teamName'+newValue]); /** side B team name **/
+
+                              var getTeam = this['teamName'+newValue];
+
+                              this['bothTeamName'+value] = getTeam;
+
+                            }
+
+                            else{
+                              console.log(" NOY GREATERRRR");
+                            }
+
+                            /** end of team vs team id **/
+
+
                             if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
 
                               for(let j=0; j < response.data[0].Team_player_sessions.length; j++){
@@ -4011,6 +4073,33 @@ export default {
                                 // this['sendToWishlistClicked'+newValue] = false;
                               }
                             /** end of Team Activation Function **/
+
+
+                              /** if clause to pass along team vs team id **/
+                              var checkTeamVsTeam = response.data[0].team_vs_team_id;
+                              console.log(checkTeamVsTeam);
+                              if(checkTeamVsTeam > '0'){
+                                console.log("YES MANNNNNNNN GREATER RRRRRRRRRRRRRRR "+ b);
+
+                                var newValue = b+10;
+                                
+                                var value = newValue-1; /** add one to get side B team name **/
+
+                                this['teamVsTeam'+newValue] = '1';
+
+                                /** side B team name **/
+                                var getTeam = this['teamName'+newValue];
+
+                                this['bothTeamName'+value] = getTeam;
+
+                              }
+
+                              else{
+                                console.log(" NOY GREATERRRR");
+                              }
+
+                              /** end of team vs team id **/
+
 
 
                             if(response.data[0].Team_player_sessions[i].Player.Person.id > 0){
@@ -4569,6 +4658,30 @@ export default {
         arrived18: '',
         arrived19: '',
         arrived20: '',
+
+        teamVsTeam10: '0',
+        teamVsTeam11: '0',
+        teamVsTeam12: '0',
+        teamVsTeam13: '0',
+        teamVsTeam14: '0',
+        teamVsTeam15: '0',
+        teamVsTeam16: '0',
+        teamVsTeam17: '0',
+        teamVsTeam18: '0',
+        teamVsTeam19: '0',
+        teamVsTeam20: '0',
+
+        bothTeamName10: '',
+        bothTeamName11: '',
+        bothTeamName12: '',
+        bothTeamName13: '',
+        bothTeamName14: '',
+        bothTeamName15: '',
+        bothTeamName16: '',
+        bothTeamName17: '',
+        bothTeamName18: '',
+        bothTeamName19: '',
+        bothTeamName20: '',
 
         reservationTime1: '',
         playing1: '',
@@ -5393,47 +5506,50 @@ export default {
 
         console.log(this['vsselected'+colvalue]);
 
-        if(this['vsselected'+colvalue] == ''){
-          console.log("LESS OR NULL VALUES");
+        // console.log(this['vsselected'+colvalue].length);
+
+        if(!event.length > '0'){
+            
+            console.log("LESS OR NULL VALUES");
 
             if(colvalue%2 != '0'){
-                var colvalue1 = 11-1;
-                var colvalue2 = 11+0;
-              }
-              if(colvalue%2 == '0'){
-                var colvalue1 = 10+0;
-                var colvalue2 = 10+1;
-              }
+                var colvalue1 = colvalue-1;
+                var colvalue2 = colvalue+0;
+            }
+            if(colvalue%2 == '0'){
+                var colvalue1 = colvalue+0;
+                var colvalue2 = colvalue+1;
+            }
 
-              var getSessionIdFirstTeam = this.fetchPlayerList[colvalue1].Team_player_sessions[0].session_id;
-              var getSessionIdSecondTeam = this.fetchPlayerList[colvalue2].Team_player_sessions[0].session_id;
+            var getSessionIdFirstTeam = this['list'+colvalue1+'sessionid'];
+            var getSessionIdSecondTeam = this['list'+colvalue2+'sessionid'];
 
-              var teamName1 = this.fetchPlayerList[colvalue1].Team.name;
-              var teamName2 = this.fetchPlayerList[colvalue2].Team.name;
+            var teamName1 = this['teamName'+colvalue1];
+            var teamName2 = this['teamName'+colvalue2];
 
-              console.log(teamName1);
-              console.log(teamName2);
+            console.log(teamName1);
+            console.log(teamName2);
 
-              var teamSessionId1 = getSessionIdFirstTeam;
-              var teamSessionId2 = getSessionIdSecondTeam;
-              console.log(teamSessionId2 +' '+ teamSessionId1);
+            if(!this['list'+colvalue1+'sessionid'] > '0'){
+              console.log('YES NUll');
+              console.log(colvalue2);
 
-              console.log(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName1);
+              var newValue1 = colvalue1-10;
+              var newValue2 = colvalue2-10;
 
-              axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName1,{
-                    
-                  })
-                    .then(response => {
-                      console.log(response);
-                      console.log(response.data[0].id);
-                      var teamNameId = response.data[0].id;
-                      console.log(teamNameId);
+              console.log(newValue1);
+              console.log(newValue2);
 
-                      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId1);
+              var getSessionIdFirstTeam = this['fetchPlayerList'+newValue1][1].id;
+              var getSessionIdSecondTeam = this['fetchPlayerList'+newValue2][1].id;
+            }
 
-                      /** this will update session id on team_vs_team_id for SIDE A 1 **/
-                      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId1,{
-                        team_vs_team_id : teamSessionId2
+            else{
+              console.log('no null');
+            }
+
+                      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdFirstTeam,{
+                        team_vs_team_id : '0'
                       })
                         .then(response => {
                           console.log(response);
@@ -5447,8 +5563,8 @@ export default {
                       
                       /**this will update session id on team_vs_team_id for SIDE B 1 **/
 
-                        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+teamSessionId2,{
-                            team_vs_team_id : teamSessionId1
+                        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdSecondTeam,{
+                            team_vs_team_id : '0'
                             })
 
                             .then(response => {
@@ -5459,28 +5575,21 @@ export default {
                               console.log(error);
                             });
 
+              this['bothTeamName'+colvalue1] = ''; /** this updates the team name auto on SIDE B 1 **/
+              this['bothTeamName'+colvalue2] = ''; /** this updates the team name auto on SIDE B 1 **/
 
-                        /** end of team_vs_team_id for side B 1 **/
-                    })
-
-                    .catch(function (error) {
-                      console.log(error);
-                    });
-              
-              this['vsselected'+colvalue1] = this['teamName'+colvalue2]; /** this updates the team name auto on SIDE B 1 **/
-              this['vsselected'+colvalue2] = this['teamName'+colvalue1]; /** this updates the team name auto on SIDE B 1 **/
         } /** END OF IF FOR TEAM PLAYER SESSION **/
 
         else{
           console.log("MORE VALUESSSSSSSSSSSSSSSSSSSSSS");
 
             if(colvalue%2 != '0'){
-                var colvalue1 = 11-1;
-                var colvalue2 = 11+0;
+                var colvalue1 = colvalue-1;
+                var colvalue2 = colvalue+0;
             }
             if(colvalue%2 == '0'){
-                var colvalue1 = 10+0;
-                var colvalue2 = 10+1;
+                var colvalue1 = colvalue+0;
+                var colvalue2 = colvalue+1;
             }
 
             var getSessionIdFirstTeam = this['list'+colvalue1+'sessionid'];
@@ -5491,13 +5600,6 @@ export default {
 
             console.log(teamName1);
             console.log(teamName2);
-
-
-            // var getSessionIdFirstTeam = this['fetchPlayerList'+colvalue1][1].Team_player_sessions[0].session_id;
-            // var getSessionIdSecondTeam = this['fetchPlayerList'+colvalue1][1].Team_player_sessions[0].session_id;
-
-            // var teamSessionId1 = getSessionIdFirstTeam;
-            // var teamSessionId2 = getSessionIdSecondTeam;
 
             if(!this['list'+colvalue1+'sessionid'] > '0'){
               console.log('YES NUll');
@@ -5571,6 +5673,9 @@ export default {
 
             this['vsselected'+colvalue1] = this['teamName'+colvalue2]; /** this updates the team name auto on SIDE B 1 **/
             this['vsselected'+colvalue2] = this['teamName'+colvalue1]; /** this updates the team name auto on SIDE B 1 **/
+
+            this['bothTeamName'+colvalue1] = this['teamName'+colvalue2];
+            this['bothTeamName'+colvalue2] = this['teamName'+colvalue1];
 
             console.log(this['teamName'+colvalue2]);
             console.log(this['teamName'+colvalue1]);
