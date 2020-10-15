@@ -278,8 +278,8 @@
                   </td>
 
                   <td>
-                    <p v-if="item.late_by < 15 || item.size != item.total_arrived">
-                      <b v-if="!item.released == '1'">&#10060; {{item.late_by}} min</b>
+                    <p v-if="item.late_by < '15' || item.size != item.total_arrived">
+                      <b v-if="!item.released == '1' && item.late_by < '15'">&#10060; {{item.late_by}} min</b>
                       <b v-else> </b>
                     </p>
                   </td>
