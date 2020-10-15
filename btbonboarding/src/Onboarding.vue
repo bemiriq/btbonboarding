@@ -987,17 +987,17 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="2">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="9" v-else>
+                                    <b-col sm="8" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -1060,7 +1060,7 @@
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="8">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
@@ -1763,6 +1763,7 @@
                       <br />
 
                       <div v-if=" selected13 > 0 && selected12 == selected13">
+
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
@@ -1781,6 +1782,7 @@
 
                           </b-col>
                         </b-row>
+
                       </div>
 
                       <br />
@@ -1977,19 +1979,26 @@
 
 
                       <div v-if=" selected14 > 0 && selected14 == selected11">
+
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected14" v-on:change="onChangeTeamVsTeam1($event, 14)">
+                            <b-form-select v-if="!teamVsTeam14 > '0'" v-model="vsselected14" v-on:change="onChangeTeamVsTeam1($event, 14)">
                               <option> </option>
                               <option :value="teamName15"> {{ teamName15 }} </option>
                             </b-form-select>
 
+                            <b-form-select v-else v-model="bothTeamName14" v-on:change="onChangeTeamVsTeam1($event, 14)">
+                              <option :value="teamName15" checked> {{ teamName15 }} </option>
+                              <option value=""> </option>
+                            </b-form-select>
+
                           </b-col>
                         </b-row>
+
                       </div>
 
                       <br />
@@ -2179,19 +2188,26 @@
                       <br />
 
                       <div v-if=" selected15 > 0 && selected10 == selected15">
+
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected15" v-on:change="onChangeTeamVsTeam1($event, 15)">
+                            <b-form-select v-if="!teamVsTeam15 > '0'" v-model="vsselected15" v-on:change="onChangeTeamVsTeam1($event, 15)">
                               <option> </option>
                               <option :value="teamName14"> {{ teamName14 }} </option>
                             </b-form-select>
 
+                            <b-form-select v-else v-model="bothTeamName15" v-on:change="onChangeTeamVsTeam1($event, 15)">
+                              <option :value="teamName14" checked> {{ teamName14 }} </option>
+                              <option value=""> </option>
+                            </b-form-select>
+
                           </b-col>
                         </b-row>
+
                       </div>
 
                       <br />
@@ -2392,9 +2408,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected16" v-on:change="onChangeTeamVsTeam1($event, 16)">
+                            <b-form-select v-if="!teamVsTeam16 > '0'" v-model="vsselected16" v-on:change="onChangeTeamVsTeam1($event, 16)">
                               <option> </option>
                               <option :value="teamName17"> {{ teamName17 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName16" v-on:change="onChangeTeamVsTeam1($event, 16)">
+                              <option :value="teamName17" checked> {{ teamName17 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -2594,9 +2615,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected17" v-on:change="onChangeTeamVsTeam1($event, 17)">
+                            <b-form-select v-if="!teamVsTeam17 > '0'" v-model="vsselected17" v-on:change="onChangeTeamVsTeam1($event, 17)">
                               <option> </option>
                               <option :value="teamName16"> {{ teamName16 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName17" v-on:change="onChangeTeamVsTeam1($event, 17)">
+                              <option :value="teamName16" checked> {{ teamName16 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -2799,9 +2825,14 @@
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected18" v-on:change="onChangeTeamVsTeam1($event, 18)">
+                            <b-form-select v-if="!teamVsTeam18 > '0'" v-model="vsselected18" v-on:change="onChangeTeamVsTeam1($event, 18)">
                               <option> </option>
                               <option :value="teamName19"> {{ teamName19 }} </option>
+                            </b-form-select>
+
+                            <b-form-select v-else v-model="bothTeamName18" v-on:change="onChangeTeamVsTeam1($event, 18)">
+                              <option :value="teamName19" checked> {{ teamName19 }} </option>
+                              <option value=""> </option>
                             </b-form-select>
 
                           </b-col>
@@ -2995,19 +3026,26 @@
                       <br />
 
                       <div v-if=" selected19 > 0 && selected18 == selected19">
+                        
                         <b-row>
                           <b-col sm="3">
                           <label for="input-small">Battle Mode</label>
                           </b-col>
                           <b-col sm="9">
 
-                            <b-form-select v-model="vsselected19" v-on:change="onChangeTeamVsTeam1($event, 19)">
+                            <b-form-select v-if="!teamVsTeam19 > '0'" v-model="vsselected19" v-on:change="onChangeTeamVsTeam1($event, 19)">
                               <option> </option>
                               <option :value="teamName18"> {{ teamName18 }} </option>
                             </b-form-select>
 
+                            <b-form-select v-else v-model="bothTeamName19" v-on:change="onChangeTeamVsTeam1($event, 19)">
+                              <option :value="teamName18" checked> {{ teamName18 }} </option>
+                              <option value=""> </option>
+                            </b-form-select>
+
                           </b-col>
                         </b-row>
+
                       </div>
 
                       <br />
@@ -3349,7 +3387,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
 
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
