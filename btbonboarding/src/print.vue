@@ -1373,7 +1373,6 @@ import axios from 'axios';
       margin-left: -5.5cm;
       /*margin-top: -10px;*/
       /*color: black;*/
-      height: 50cm; /** this prints the pink part exactly following SECTION TO PRINT height **/
     }
 
     .seconddiv{
@@ -1840,7 +1839,7 @@ import axios from 'axios';
     visibility: visible;
     /*visibility: hidden;*/
     width: 37cm;
-    height: 28cm; /** this is the part that defines the height of the page **/
+    height: 28.5cm; /** this is the part that defines the height of the page **/
   }
   #section-to-print {
     /*background-color: black !important;*/
