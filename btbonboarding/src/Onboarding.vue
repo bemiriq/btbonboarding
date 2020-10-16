@@ -6242,7 +6242,7 @@ export default {
 
         console.log(event);
 
-        if(event.removed.element.Person.first_name.length == undefined || event.removed.element.Person.first_name.length == null){
+        if(event.removed == undefined || event.removed == null){
           console.log('DRAGGED PLAYER NAME WAS NULL');
         }
 
