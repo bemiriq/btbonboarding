@@ -1358,11 +1358,11 @@ import axios from 'axios';
   }
 
    @page {
-      size: auto !important;
+      size: 15cm !important;
       margin: 0.01cm;
       margin-left: -3.8cm;
       margin-top: -14.8cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
-      height: 20cm;
+      height: 15cm;
     }
 
    /* @page :left{
