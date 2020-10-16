@@ -1361,7 +1361,7 @@ import axios from 'axios';
       size: auto !important;
       margin: 0.01cm;
       margin-left: -3.8cm;
-      margin-top: -14.8cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
+      margin-top: -12cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
     }
 
    /* @page :left{
@@ -1371,7 +1371,7 @@ import axios from 'axios';
     .firstdiv{
       background-color: #FF1696; /** pink **/
       margin-left: -5.5cm;
-      margin-top: 5px;
+      /*margin-top: 5px;*/
       /*color: black;*/
     }
 
@@ -1839,7 +1839,7 @@ import axios from 'axios';
     visibility: visible;
     /*visibility: hidden;*/
     width: 37cm;
-    height: 28.5cm; /** this is the part that defines the height of the page **/
+    height: 28cm; /** this is the part that defines the height of the page **/
   }
   #section-to-print {
     /*background-color: black !important;*/
