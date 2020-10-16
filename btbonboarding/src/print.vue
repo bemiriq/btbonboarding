@@ -1839,7 +1839,7 @@ import axios from 'axios';
     visibility: visible;
     /*visibility: hidden;*/
     width: 37cm;
-    height: 28.5cm; /** this is the part that defines the height of the page **/
+    height: 28.9cm; /** this is the part that defines the height of the page **/
   }
   #section-to-print {
     /*background-color: black !important;*/
