@@ -1373,7 +1373,7 @@ import axios from 'axios';
       margin-left: -5.5cm;
       /*margin-top: -10px;*/
       /*color: black;*/
-      height: 31cm; /** this prints the pink part exactly following SECTION TO PRINT height **/
+      height: 50cm; /** this prints the pink part exactly following SECTION TO PRINT height **/
     }
 
     .seconddiv{
