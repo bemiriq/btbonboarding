@@ -1361,7 +1361,7 @@ import axios from 'axios';
       size: auto !important;
       /*margin: 0.01cm;*/
       margin-left: -3.8cm;
-      margin-top: -14.5cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
+      margin-top: -14.8cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
       /*height: 18cm;*/
     }
 
@@ -1840,7 +1840,7 @@ import axios from 'axios';
     visibility: visible;
     /*visibility: hidden;*/
     width: 37cm;
-    height: 31.45cm;
+    height: 20cm; /** this is the part that defines the height of the page **/
   }
   #section-to-print {
     /*background-color: black !important;*/
