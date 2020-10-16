@@ -3384,7 +3384,7 @@ export default {
     var starttime='start';
     var endtime='end';
 
-    
+
     // var currentdate = moment().subtract(20, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate);
@@ -6241,6 +6241,10 @@ export default {
       onDropReservation1(event, col){
 
         console.log(event);
+
+        if(event.removed.element.Person.first_name.length == 'undefined' || event.removed.element.Person.first_name.length == 'null'){
+          console.log('DRAGGED PLAYER NAME WAS NULL');
+        }
 
         if(event.removed.element.Person.first_name.length > '1'){
 
