@@ -1359,10 +1359,9 @@ import axios from 'axios';
 
    @page {
       size: auto !important;
-      /*margin: 0.01cm;*/
+      margin: 0.01cm;
       margin-left: -3.8cm;
       margin-top: -14.8cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
-      /*height: 18cm;*/
     }
 
    /* @page :left{
@@ -1374,6 +1373,7 @@ import axios from 'axios';
       margin-left: -5.5cm;
       /*margin-top: -10px;*/
       /*color: black;*/
+      height: 28cm; /** this prints the pink part exactly following SECTION TO PRINT height **/
     }
 
     .seconddiv{
