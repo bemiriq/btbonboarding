@@ -733,6 +733,7 @@ export default {
       console.log(client);
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
+      var pl = playSound;
 
       client.on('connect', function () {
 
@@ -1239,7 +1240,7 @@ export default {
               console.log('ROOM 2 Playing 1');
               var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
               console.log(playSound);
-              playSound.play();
+              pl.play();
 
               if(currentRoom6Time > '0'){
                 vm.room6currenttime = moment().startOf('day').seconds(currentRoom6Time).format("mm:ss");
