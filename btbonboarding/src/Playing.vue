@@ -1000,6 +1000,12 @@ export default {
 
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
+
+                console.log("INSIDE ROOM 2");
+                var playSound = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
+                console.log(playSound);
+                playSound.play();
+
               }
               else{
                 vm.room2currenttime = '00:00';
