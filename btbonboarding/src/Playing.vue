@@ -1001,15 +1001,12 @@ export default {
             }
 
             if(vm.room2status == 'Playing'){
-              console.log('ROOM 2 Playing 1');
+
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
 
                 console.log("INSIDE ROOM 2");
                 console.log('ROOM 2 Playing 2');
-                var playSound = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
-                console.log(playSound);
-                playSound.play();
 
               }
               else{
@@ -1239,6 +1236,11 @@ export default {
 
             if(vm.room6status == 'Playing'){
 
+              console.log('ROOM 2 Playing 1');
+              var playSound = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
+              console.log(playSound);
+              playSound.play();
+              
               if(currentRoom6Time > '0'){
                 vm.room6currenttime = moment().startOf('day').seconds(currentRoom6Time).format("mm:ss");
               }
