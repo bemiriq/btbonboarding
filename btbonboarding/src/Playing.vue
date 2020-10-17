@@ -1237,11 +1237,6 @@ export default {
 
             if(vm.room6status == 'Playing'){
 
-              console.log('ROOM 2 Playing 1');
-              var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
-              console.log(playSound);
-              pl.play();
-
               if(currentRoom6Time > '0'){
                 vm.room6currenttime = moment().startOf('day').seconds(currentRoom6Time).format("mm:ss");
               }
@@ -1299,8 +1294,14 @@ export default {
 
             if(vm.room7status == 'Playing'){
 
+              console.log('ROOM 3 Playing 1');
+              var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
+              console.log(playSound);
+              pl.play();
+
               if(currentRoom7Time > '0'){
                 vm.room7currenttime = moment().startOf('day').seconds(currentRoom7Time).format("mm:ss");
+
               }
               else{
                 vm.room7currenttime = '00:00';
