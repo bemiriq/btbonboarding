@@ -971,22 +971,26 @@ export default {
 
             if(vm.room2status == 'Ready'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 READY');
             }
 
             if(vm.room2status == 'Released'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 Released');
             }
 
             if(vm.room2status == 'Instructions Playing'){
               vm.room2currenttime = '10:00';
+              console.log('ROOM 2 Instructions Playing');
             }
 
             if(vm.room2status == 'Waiting'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 Waiting');
             }
 
             if(vm.room2status == 'Trouble'){
-
+              console.log('ROOM 2 Triuble');
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
               }
@@ -997,17 +1001,19 @@ export default {
             }
 
             if(vm.room2status == 'Playing'){
-
+              console.log('ROOM 2 Playing 1');
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
 
                 console.log("INSIDE ROOM 2");
+                console.log('ROOM 2 Playing 2');
                 var playSound = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
                 console.log(playSound);
                 playSound.play();
 
               }
               else{
+                console.log('ROOM 2 Playing 3');
                 vm.room2currenttime = '00:00';
               }
 
