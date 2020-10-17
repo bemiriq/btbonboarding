@@ -1237,10 +1237,10 @@ export default {
             if(vm.room6status == 'Playing'){
 
               console.log('ROOM 2 Playing 1');
-              var playSound = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
+              var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
               console.log(playSound);
               playSound.play();
-              
+
               if(currentRoom6Time > '0'){
                 vm.room6currenttime = moment().startOf('day').seconds(currentRoom6Time).format("mm:ss");
               }
