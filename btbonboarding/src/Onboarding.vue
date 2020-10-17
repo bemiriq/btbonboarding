@@ -6242,11 +6242,10 @@ export default {
 
         console.log(event);
 
-        if(event.removed == undefined || event.removed == null){
-          console.log('DRAGGED PLAYER NAME WAS NULL');
-        }
+        if(!event.removed == undefined || !event.removed == null){
+          console.log('DRAGGED PLAYER NAME WAS NOT NULL');
 
-        if(event.removed.element.Person.first_name.length > '1'){
+          if(event.removed.element.Person.first_name.length > '1'){
 
           console.log(col);
           console.log(event.removed.element.Person.first_name);
@@ -6371,6 +6370,14 @@ export default {
             // let removed = myFish.splice(3, 1)
 
         }
+
+        } /** end of if for loop **/
+
+        else{
+          console.log(" DRAGGED PLAYER NAME WAS NOT NULL");
+        }
+
+        
 
       },
 
