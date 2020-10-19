@@ -18,6 +18,221 @@
 
       </b-container>
 
+          <!-- this modal will add the reservation that did not show up from xola to our database -->
+          <b-modal id="modal-addReservation" centered size="md" title="Add Reservation">
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Email-id</b>
+              </b-col>
+              <b-col sm="6">
+                <b-form-input v-model="addBookerEmail" id="input-large" placeholder="Enter Email-id" v-on:keyup.enter="getDetailByEmail"></b-form-input>
+              </b-col>
+              <b-col sm="1">
+                <b-input-group-prepend is-text>
+                  <b-icon icon="search" v-on:click="getDetailByEmail"></b-icon>
+                </b-input-group-prepend>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>First Name</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerFirstName" id="input-large" placeholder="Enter First Name"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Last Name</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerLastName" id="input-large" placeholder="Enter Last Name"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Cellphone</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerPhoneNumber" id="input-large" placeholder="Enter Phone Number"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Team Size</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerTeamSize" id="input-large" placeholder="Enter Team Size"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Reservation Date</b>
+              </b-col>
+              <b-col sm="8">
+                <b-input-group class="mb-1">
+
+                <b-form-input
+                  id="example-input"
+                  v-model="addReservationDate"
+                  type="text"
+                  placeholder="YYYY-MM-DD"
+                  autocomplete="off"
+                ></b-form-input>
+
+                <b-input-group-append>
+                  <b-form-datepicker
+                    v-model="addReservationDate"
+                    button-only
+                    right
+                    locale="en-US"
+                    aria-controls="example-input"
+                    @context="onContext"
+                  ></b-form-datepicker>
+                </b-input-group-append>
+
+              </b-input-group>
+
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Reservation Time</b>
+              </b-col>
+              <b-col sm="8">
+                <b-row>
+
+                  <b-col sm="4">
+                    <b-form-select v-model="reservationTimeHourly" class="mb-3">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </b-form-select>
+                  </b-col>
+
+                  <b-col sm="4">
+                    <b-form-select v-model="reservationTimeQuaterly" class="mb-3">
+                      <option value="00"> 00 </option>
+                      <option value="15"> 15 </option>
+                      <option value="30"> 30 </option>
+                      <option value="45"> 45 </option>
+                    </b-form-select>
+                  </b-col>
+
+                  <b-col sm="4">
+                    <b-form-select v-model="reservationAmPm" class="mb-3">
+                      <option value="AM"> AM </option>
+                      <option value="PM"> PM </option>
+                    </b-form-select>
+                  </b-col>
+
+                </b-row>
+              </b-col>
+            </b-row>
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Mission</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-select v-model="addBookerMission" class="mb-3">
+                  <option value="1"> Cyberbot </option>
+                  <option value="2"> Block Monster </option>
+                  <option value="3"> Cyberbot Pro </option>
+                  <option value="4"> Cyberbot Halloween </option>
+                </b-form-select>
+              </b-col>
+            </b-row>
+
+
+            <b-row class="my-1">
+              <b-col>
+                <p style="text-align:center; text-transform:uppercase; font-weight:bold; "> Add XOLA DETAILS BELOW </p>
+              </b-col>
+            </b-row>
+
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Xola Order Id</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerXolaOrderId" id="input-large" placeholder="Enter Xola Order Id"></b-form-input>
+              </b-col>
+            </b-row>
+
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Xola Booker Id</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addXolaBookerId" id="input-large" placeholder="Enter Xola Booker Id"></b-form-input>
+              </b-col>
+            </b-row>
+
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Xola Item Id</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerXolaItemId" id="input-large" placeholder="Enter Xola Item Id"></b-form-input>
+              </b-col>
+            </b-row>
+
+
+            <b-row class="my-1">
+              <b-col sm="4">
+                <b>Xola Traveler Id</b>
+              </b-col>
+              <b-col sm="8">
+                <b-form-input v-model="addBookerXolaTravelerId" id="input-large" placeholder="Enter Xola Traveler Id"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <br>
+
+            <b-row class="my-1">
+
+              <b-col>
+
+              </b-col>
+
+
+              <b-col v-if="addBookerFirstName.length == 0 || addBookerEmail.length == 0 || addBookerPhoneNumber.length == 0 || addBookerTeamSize.length == 0  
+              || reservationTimeQuaterly.length == 0 || reservationTimeHourly.length == 0 || reservationAmPm.length == 0 || addBookerMission.length == 0 || addBookerXolaTravelerId.length == 0 || addBookerXolaItemId.length == 0 || addBookerXolaOrderId.length == 0 || addXolaBookerId.length == 0">
+                <b-button variant="primary" v-on:click="clickedSubmitReservation" disabled>Submit Reservation</b-button>
+              </b-col>
+              <b-col v-else>
+                <b-button variant="primary" v-on:click="clickedSubmitReservation">Submit Reservation</b-button>
+              </b-col>
+
+            </b-row>
+
+            <br>
+
+          </b-modal>
+          <!-- end of Add Reservation Modal -->
+
+
+
           <b-modal id="modal-organization" centered size="md" title="Organization">
             
             <!-- <p>  </p> -->
@@ -161,8 +376,8 @@
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10" style="background-color:#fafafa;">
 
-          <b-row>
-            <b-col lg="3">
+          <b-row style="margin-top: 1%">
+            <b-col lg="2">
               <p style="margin-top: 3%; font-size: 1.2em;"><b>Reservation Date</b></p>
             </b-col>
 
@@ -190,6 +405,16 @@
 
               </b-input-group>
             </b-col>
+
+            <b-col lg="3">
+              <b-button variant="outline-primary" v-on:click="addReservation();"> Add Reservation </b-button>
+            </b-col>
+
+
+            <b-col lg="3">
+              <b-form-input id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
+            </b-col>
+
           </b-row>
 
           <br>
@@ -219,7 +444,7 @@
                   <td v-on:click="selectItem ($event, posts, item, index)">
                     <!-- <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button> -->
 
-                    <b-button block pill variant="outline-info" v-if="item.Booker.Person.last_name == 'undefined'">
+                    <b-button block pill variant="outline-info" v-if="item.Booker.Person.last_name == 'undefined' ">
                       {{item.Booker.Person.first_name}}
                     </b-button>
 
@@ -416,6 +641,24 @@ export default {
       selectedReservationDate:'',
       formatted:'',
       dateClicked: moment().format('YYYY-MM-DD'),
+
+      /** below is to add new reservation **/
+      addBookerFirstName: '',
+      addBookerLastName: '',
+      addBookerEmail: '',
+      addBookerPhoneNumber: '',
+      addBookerMission: '',
+      addBookerTeamSize:'',
+      addReservationDate: moment().format('YYYY-MM-DD'),
+      reservationTimeHourly: '',
+      reservationTimeQuaterly: '',
+      reservationAmPm:'',
+
+      addBookerXolaOrderId: '',
+      addBookerXolaTravelerId: '',
+      addBookerXolaItemId: '',
+      addXolaBookerId: '',
+      /** end of new reservation detail **/
 
       /** used on firebase **/
       // username: '',
@@ -772,6 +1015,150 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    getDetailByEmail(){
+      console.log('inside email function');
+
+      console.log(this.addBookerEmail.length);
+      console.log('value' + this.addBookerEmail);
+
+      if(this.addBookerEmail.length > '10'){
+        console.log('email used was greater than 10');
+
+        var email = this.addBookerEmail;
+
+        axios.post(process.env.VUE_APP_DATABASE_PEOPLE+'find_or_create/'+email,{
+
+        })
+        .then(response => {
+          console.log(response);
+          console.log(response.data[0].id);
+
+          this.addBookerFirstName = response.data[0].first_name;
+          this.addBookerLastName = response.data[0].last_name;
+          this.addBookerPhoneNumber = response.data[0].phone;
+
+        })
+
+
+      }
+      else{
+        console.log('Email field was empty or less than 10');
+      }
+    },
+
+    clickedSubmitReservation(){
+      console.log('submitted reservation');
+
+      var firstName = this.addBookerFirstName.toLowerCase();
+      var lastName = this.addBookerLastName.toLowerCase();
+      var phoneNumber = this.addBookerPhoneNumber;
+      var bookerEmail = this.addBookerEmail.toLowerCase();
+      var mission = this.addBookerMission;
+      var teamSize = this.addBookerTeamSize;
+
+      var amPm = this.reservationAmPm;
+      if(amPm == 'AM'){
+        console.log('AM');
+        var b = this.reservationTimeHourly;
+      }
+      if(amPm == 'PM'){
+        console.log( 'PM ');
+        var b = parseInt(this.reservationTimeHourly);
+        b += 12;
+      }
+
+      var reservationDateTime = this.addReservationDate+' '+b+':'+parseInt(this.reservationTimeQuaterly)+':00';
+      console.log(reservationDateTime);
+
+      /** find or create person **/
+      console.log(firstName);
+      console.log(lastName);
+      console.log(bookerEmail);
+
+        axios.post(process.env.VUE_APP_DATABASE_PEOPLE+'find_or_create/email/'+bookerEmail+'/first_name/'+firstName+'/last_name/'+lastName,{
+          phone: phoneNumber
+        })
+        .then(response => {
+          console.log("Added to people table on url loaded with value");
+          console.log(response);
+          console.log(response.data[0].id); 
+
+          var peopleId = response.data[0].id;
+
+          /** axios post to PLAYERS TABLE **/
+          axios.post(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId,{
+
+          })
+          .then(response => {
+            console.log(response);
+            console.log(response.data[0].id);
+
+            var personId = response.data[0].id;
+
+            /** find or create booker **/
+            var xolaBookerId = this.addXolaBookerId;
+            axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/'+xolaBookerId,{
+              person_id: personId
+            })
+            .then(response => {
+              console.log("Xola Booker Id response below");
+              console.log(response);
+              
+
+              var bookerId = response.data[0].id;
+
+              /** find or create reservation **/
+
+              var xolaOrderId = this.addBookerXolaOrderId;
+              var xolaItemId = this.addBookerXolaItemId;
+              var xolaExperienceItemId = this.addBookerXolaTravelerId;
+              var totalAmount = parseInt(teamSize)*44.95;
+
+              axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/xola_order_id/'+xolaOrderId+'/xola_item_id/'+xolaItemId,{
+                size: teamSize,
+                booker_id: bookerId,
+                final_dollar_amount: totalAmount,
+                reservation_for: reservationDateTime,
+                location_id: 1,
+                mission_id: mission,
+                experience_item_id: xolaItemId
+              })
+              .then(response => {
+                console.log(response);
+
+                this.reloadPageEvent();
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+              /** end of find or create reservation **/
+
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            /** end of find or create booker **/
+
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** END OF axios post PLAYER detail **/
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      /** end of find or create person **/
+
+
+    },
 
     onContext(ctx) {
         // The date formatted in the locale, or the `label-no-date-selected` string
@@ -1635,6 +2022,12 @@ var arrows = document.getElementsByClassName("covertedtime");
      },
 
 
+     addReservation(){
+      console.log('Add Reservation Bruh');
+      this.$bvModal.show('modal-addReservation');
+     },
+
+
       removeDuplicates () {
           this.timeList = [ ...new Set(this.timeList) ]
         }
@@ -1688,6 +2081,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 }
 
 #modal-organization___BV_modal_footer_{
+  display: none;
+}
+
+#modal-addReservation___BV_modal_footer_{
   display: none;
 }
 
