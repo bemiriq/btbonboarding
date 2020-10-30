@@ -300,6 +300,7 @@
                                     <!-- <b-col><p>Waiver</p></b-col> -->
                                     <b-col><p>Adult/Minor</p></b-col>
                                     <b-col><p>Player</p></b-col>
+                                    <b-col><p>Session</p></b-col>
                                   </b-row>
 
                                   <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">
@@ -331,6 +332,18 @@
                                       <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
 
                                     </b-col>
+
+                                    <!-- reservation people and minor session update -->
+                                    <b-col>
+
+                                      <p v-if="fetchlist1.reservation_session_id > '0'"><input type="checkbox" id="jule" value="fetchlist1.player_first_name" v-on:click="updateReservationSession($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
+                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="updateReservationSession($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
+
+                                    </b-col>
+
+                                    <!-- end of reservation people/minor update -->
+
+
                                   </b-row>
 
                                 </b-container>
@@ -1524,6 +1537,43 @@ var arrows = document.getElementsByClassName("covertedtime");
       }
     },
 
+    updateReservationSession(event, res_people_or_minor_table_id, minor_tag){
+      console.log(event);
+      console.log(res_people_or_minor_table_id);
+      console.log(minor_tag);
+      console.log(event.target.checked);
+
+      if(minor_tag == 'M'){
+        console.log('Minors as player');
+        axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+res_people_or_minor_table_id,{
+            session_id: 0
+          })
+
+          .then(response => 
+            {
+              console.log(response);
+            })
+          .catch(function (error) {
+              console.log(error);
+          });
+      }
+
+      else{
+        console.log('Player not minor');
+
+        axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+res_people_or_minor_table_id,{
+                session_id: 0
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
+
+    },
+
     nonPlayerCheckbox(event, res_people_or_minor_table_id, minor_tag){
       console.log(event);
       console.log(res_people_or_minor_table_id);
@@ -1783,10 +1833,22 @@ var arrows = document.getElementsByClassName("covertedtime");
 
         if(this.posts[index].Reservation_people[i].id == 'undefined'){
           var reservation_people_minor_table_id = ' ';
+          var reservation_people_minor_only_id = ' ';
         }
         else{
           var reservation_people_minor_table_id = this.posts[index].Reservation_people[i].id;
+          var reservation_people_minor_only_id = ' ';
         }
+
+        // console.log(this.posts[index].Reservation_people[i].session_id);
+
+        if(this.posts[index].Reservation_people[i].session_id == 'undefined'){
+          var reservation_people_session_id = ' ';
+        }
+        else{
+          var reservation_people_session_id = this.posts[index].Reservation_people[i].session_id;
+        }
+
 
         // var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
         // var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
@@ -1825,7 +1887,8 @@ var arrows = document.getElementsByClassName("covertedtime");
               "loop_value": 1,
               "arrived": arrived,
               "reservation_for": reservation_for,
-              "non_player": non_player_value
+              "non_player": non_player_value,
+              "reservation_session_id": reservation_people_session_id
             }
 
             this.clickedPlayerList = replyDataObj1;
@@ -1921,6 +1984,15 @@ var arrows = document.getElementsByClassName("covertedtime");
                 var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;
               }
 
+              console.log(this.posts[index].Reservation_minors[i]);
+
+              if(this.posts[index].Reservation_minors[i].session_id == 'undefined'){
+                var reservation_people_session_id = ' ';
+              }
+              else{
+                var reservation_people_session_id = this.posts[index].Reservation_minors[i].session_id;
+              }
+
 
             // var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
             // var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
@@ -1957,7 +2029,8 @@ var arrows = document.getElementsByClassName("covertedtime");
               "mission_id": missionId,
               "arrived": minorArrived,
               "reservation_for": reservation_for,
-              "non_player": non_player_minor_value
+              "non_player": non_player_minor_value,
+              "reservation_session_id": reservation_people_session_id
             }
 
             // this.clickedPlayerList = replyDataObj1;
