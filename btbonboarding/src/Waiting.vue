@@ -28,11 +28,11 @@
 
               <b-row>
 
-                <b-col> TEAM NAME </b-col>
-                <b-col> TEAM SIZE </b-col>
+                <b-col><p class="teamList"> TEAM NAME </p></b-col>
+                <b-col><p class="teamList"> TEAM SIZE </p></b-col>
 
               </b-row>
-              
+
               <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
                 <b-col>
                   <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>

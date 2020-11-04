@@ -5994,7 +5994,7 @@ export default {
                 var reservationPeopleId = response.data[0].id;
 
                 /** this will update the reservation people id , column name session_id into 0 **/
-                axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
+                axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
                   session_id: 0
                 })
                 .then(response => {
