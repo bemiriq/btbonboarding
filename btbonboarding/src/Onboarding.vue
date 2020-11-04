@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div style="width: 88%; margin:auto; margin-top: 2%;">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
@@ -16,7 +16,7 @@
       </div> -->
 
 
-    <div class="bv-example-row" id="mainContainer">
+    <div class="bv-example-row">
 
       <b-row>
 
@@ -24,7 +24,7 @@
 
         <!-- <b-modal id="modal-center" ref="sideRfidUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
         <b-modal id="modal-center" ref="sideRfidUpdate10" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName10}} Side A {{dateTime1Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName10}} Side A {{dateTime1Data}}</p></b>
 
                               <b-row class="my-1">
                                 <b-col sm="12">
@@ -34,7 +34,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList0[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col sm="6">
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col sm="4">
@@ -46,15 +46,24 @@
                                               NO RFID
                                             </p> -->
 
-                                            <p v-if="teamfetch.rfid_id > '0'">
+                                            <div v-if="teamfetch.rfid_id > '0'">
                                               <b-form-input v-model="teamfetch.Rfid.tag" disabled style="background-color: #33FF90;color:#33FF90;">
                                                 {{teamfetch.Rfid.tag}}
                                               </b-form-input>
-                                            </p>
-                                            <p v-else>
-                                                <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 0, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
-                                                :class="{active: activeBtn === 'btn1' }"></b-form-input>
-                                            </p>
+                                            </div>
+                                            <div v-else>
+                                                <!-- <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="posttorfidapiAfterReload($event, 0, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false"
+                                                :class="{active: activeBtn === 'btn1' }"></b-form-input> -->
+
+                                                <b-form-input v-model="teamfetch.rfidState1" v-on:input="posttorfidapiAfterReload($event, 0, index)" :style="!teamfetch.rfid_id ? { 'background-color': 'white' } : null">
+                                                </b-form-input>
+
+                                            </div>
+
+                                            <div v-if="teamfetch.rfidState1 > '' "> EMPTY </div>
+                                            <div v-else> NOT </div>
+
+
                                           </b-col>
 
                                           <b-col sm="2">
@@ -63,7 +72,7 @@
                                             </p>
 
                                             <p v-else>
-                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='' " ></b-icon>
+                                              <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='', deleterfidonclick($event, 10 , index)" ></b-icon>
                                             </p>
 
                                           </b-col>
@@ -80,7 +89,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -122,7 +131,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center11" ref="sideRfidUpdate11" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName11}} on Side B for {{dateTime1BData}}</p></b>
+                            <b><p class="capitalLetters">{{teamName11}} on Side B for {{dateTime1BData}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -132,7 +141,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList1[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col sm="6">
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col sm="4">
@@ -172,7 +181,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -210,7 +219,7 @@
 
         <!-- SIDE A 2 -->
         <b-modal id="modal-center12" ref="sideRfidUpdate12" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName12}} on Side A {{dateTime2Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName12}} on Side A {{dateTime2Data}}</p></b>
 
                               <b-row class="my-1">
                                 <b-col sm="12">
@@ -219,7 +228,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList2[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -259,7 +268,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -301,7 +310,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center13" ref="sideRfidUpdate13" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName13}} on Side B for {{dateTime2Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName13}} on Side B for {{dateTime2Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -311,7 +320,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList3[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -351,7 +360,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -390,7 +399,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center14" ref="sideRfidUpdate14" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName14}} on Side A for {{dateTime3Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName14}} on Side A for {{dateTime3Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -400,7 +409,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList4[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -440,7 +449,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -479,7 +488,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center15" ref="sideRfidUpdate15" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName15}} on Side B for {{dateTime3Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName15}} on Side B for {{dateTime3Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -488,8 +497,8 @@
                                     <!-- element in fetchPlayerList5[1].Team_player_sessions -->
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList5[1].Team_player_sessions" :key="index">
                                         <b-row>
-                                          <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                          <b-col>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -529,7 +538,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -568,7 +577,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center16" ref="sideRfidUpdate16" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName16}} on Side B for {{dateTime4Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName16}} on Side B for {{dateTime4Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -578,7 +587,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList6[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -618,7 +627,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -657,7 +666,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center17" ref="sideRfidUpdate17" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName17}} on Side B for {{dateTime4Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName17}} on Side B for {{dateTime4Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -667,7 +676,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList7[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -707,7 +716,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -746,7 +755,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center18" ref="sideRfidUpdate18" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName18}} on Side A for {{dateTime5Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName18}} on Side A for {{dateTime5Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -756,7 +765,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList8[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -796,7 +805,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -836,7 +845,7 @@
 
                 <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
                 <b-modal id="modal-center19" ref="sideRfidUpdate19" centered v-bind:hide-footer="true">
-                            <b><p>{{teamName19}} on Side B for {{dateTime5Data}}</p></b>
+                            <b><p class="capitalLetters">{{teamName19}} on Side B for {{dateTime5Data}}</p></b>
                            
                            <b-row class="my-1">
                                 <b-col sm="12">
@@ -846,7 +855,7 @@
                                     <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList9[1].Team_player_sessions" :key="index">
                                         <b-row>
                                           <b-col >
-                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                             <b-form-input id="input-live" :value="teamfetch.Person.first_name +' '+teamfetch.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                           </b-col>
 
                                           <b-col>
@@ -886,7 +895,7 @@
                                         <br/>
                                         <b-row>
                                           <b-col sm="6">
-                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME"></b-form-input>
+                                            <b-form-input id="input-live" :value="listings.Person.first_name +' ' + listings.Person.last_name" disabled placeholder="PLAYER NAME" class="capitalLetters"></b-form-input>
                                             <input type="text" v-model="listings.id" disabled style="display:none;"/>
                                           </b-col>
                                           <b-col sm="4">
@@ -962,24 +971,26 @@
                   <b-col class="border border-info rounded" :class="{ red : sendToWishlistClicked10 }">
                   <!-- <b-col class="border border-info rounded"> -->
 
-                    <b-row class="my-1">
+                    <b-row class="my-2">
                       <b-col sm="4">
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
+                      </b-col>
 
+                      <b-col sm="1">
+                        <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon>
                       </b-col>
                     </b-row>
 
 
                     <!-- <div v-if="this.teamName1.length > 1"> checks at first if the team name is inserted or not / if not it will disable drag -->
 
-                        <div v-if="fetchPlayerList0[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList0[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;" >
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList0[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 0)" @change="deleteTeamPlayerSessionAfterReload1($event, 0)">
@@ -987,26 +998,26 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="2">
+                                    <b-col sm="0">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'" style="text-transform: capitalize">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -1044,7 +1055,7 @@
                       </div>
                     </draggable -->
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -1053,22 +1064,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list10[index].rfidState1 == '' || !list10[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list10[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8">
+                                    <b-col sm="9" style="text-transform: capitalize">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
                                     </b-col>
 
@@ -1207,7 +1218,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList1[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList1[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList1[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)">
@@ -1215,27 +1226,27 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList1[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -1265,7 +1276,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -1274,22 +1285,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list11[index].rfidState1 == '' || !list11[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list11[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -1442,7 +1453,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList2[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList2[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList2[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)">
@@ -1457,20 +1468,20 @@
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -1500,7 +1511,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list12" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 12, index)" @change="onDropReservation1($event, 12)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -1509,22 +1520,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list12[index].rfidState1 == '' || !list12[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list12[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -1650,7 +1661,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList3[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList3[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList3[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)">
@@ -1665,20 +1676,20 @@
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -1708,7 +1719,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list13" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 13, index)" @change="onDropReservation1($event, 13)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -1717,22 +1728,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list13[index].rfidState1 == '' || !list13[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list13[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -1870,7 +1881,7 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList4[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList4[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList4[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)">
@@ -1878,26 +1889,26 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList4[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -1925,29 +1936,29 @@
 
                         </div>
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)">
 
                               <div class="list-group-item item" v-for="(element, index) in list14" :key="index">
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list14[index].rfidState1 == '' || !list14[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list14[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '14'">&#128163;</p>
                                     </b-col>
 
@@ -2075,7 +2086,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList5[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList5[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList5[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)">
@@ -2083,27 +2094,27 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList5[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -2133,7 +2144,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list15" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 15, index)" @change="onDropReservation1($event, 15)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -2142,22 +2153,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list15[index].rfidState1 == '' || !list15[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list15[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -2293,7 +2304,7 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList6[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList6[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList6[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)">
@@ -2301,26 +2312,26 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList6[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -2348,29 +2359,29 @@
 
                         </div>
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list16" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 16, index)" @change="onDropReservation1($event, 16)">
 
                               <div class="list-group-item item" v-for="(element, index) in list16" :key="index">
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list16[index].rfidState1 == '' || !list16[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list16[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '16'">&#128163;</p>
                                     </b-col>
 
@@ -2496,7 +2507,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList7[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList7[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList7[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)">
@@ -2504,18 +2515,18 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList7[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
@@ -2524,7 +2535,7 @@
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -2554,7 +2565,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list17" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 17, index)" @change="onDropReservation1($event, 17)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -2563,22 +2574,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list17[index].rfidState1 == '' || !list17[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list17[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -2710,7 +2721,7 @@
                       </b-col>
                     </b-row>
 
-                        <div v-if="fetchPlayerList8[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList8[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList8[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)">
@@ -2718,26 +2729,26 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList8[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -2765,29 +2776,29 @@
 
                         </div>
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list18" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 18, index)" @change="onDropReservation1($event, 18)">
 
                               <div class="list-group-item item" v-for="(element, index) in list18" :key="index">
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list18[index].rfidState1 == '' || !list18[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list18[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '18'">&#128163;</p>
                                     </b-col>
 
@@ -2913,7 +2924,7 @@
                     </b-row>
 
 
-                        <div v-if="fetchPlayerList9[1] > '0'"  style="height: 440px;border-style: outset;">
+                        <div v-if="fetchPlayerList9[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList9[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
                           @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)">
@@ -2921,27 +2932,27 @@
                             <div class="list-group-item item" v-for="element in fetchPlayerList9[1].Team_player_sessions" :key="element.id">
 
                               <b-row>
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <!-- <p v-if="element.rfid_id != null && element.rfid_id > 0" style='font-size:17px; color:green;'>&#9989;</p> -->
                                       <p v-if="element.rfid_id > 0 " style='font-size:17px; color:green;'>&#9989;</p>
                                       <p v-else>&#10060;</p>
 
                                     </b-col>
 
-                                    <b-col sm="8" v-if="element.player_minor_id > '0'">
+                                    <b-col sm="9" v-if="element.player_minor_id > '0'">
                                         {{element.Player_minor.first_name}} {{element.Player_minor.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="8" v-else>
+                                    <b-col sm="9" v-else>
                                         {{element.Person.first_name}} {{element.Person.last_name}} ( {{sideA1BookerNameFetched}} )
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.Player.minor_tag}}
                                     </b-col>
 
                                     <!-- checks on the minor or player first then displays beat_bomber logo -->
-                                      <b-col sm="1" v-if="element.player_minor_id > '0'">
+                                      <b-col sm="0" v-if="element.player_minor_id > '0'">
                                         <p v-if="element.Player_minor.bomb_beater > '0'">&#128163;</p>
                                       </b-col>
 
@@ -2971,7 +2982,7 @@
 
 
 
-                          <div v-else>
+                          <div v-else class="capitalLetters">
                             <draggable id="first" data-source="juju" :list="list19" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 19, index)" @change="onDropReservation1($event, 19)">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
@@ -2980,22 +2991,22 @@
 
                                   <b-row>
 
-                                    <b-col sm="2">
+                                    <b-col sm="0">
 
                                       <p v-if="list19[index].rfidState1 == '' || !list19[index].rfidState1 > '0'">&#10060;</p>
                                       <p v-if="list19[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
 
                                     </b-col>
 
-                                    <b-col sm="7">
+                                    <b-col sm="9">
                                         {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       {{element.Person.minor_tag}}
                                     </b-col>
 
-                                    <b-col sm="1">
+                                    <b-col sm="0">
                                       <p v-if="element.Person.Player.bomb_beater == '1'">&#128163;</p>
                                     </b-col>
 
@@ -3136,9 +3147,9 @@
                 <br>
                 <p class="filters">{{reservation.reservation_for | moment}}</p>
 
-                <b v-if="reservation.Booker.Person.last_name == 'undefined'">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+                <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
 
-                <b v-else>{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+                <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="getpersonDetails1($event)">
@@ -3147,8 +3158,8 @@
 
                       <b-row>
                         <b-col sm="8">
-                          <p v-if="element.Person.last_name == 'undefined'"> {{element.Person.first_name}}</p>
-                          <p v-else> {{element.Person.first_name}} {{element.Person.last_name}}</p>
+                          <p v-if="element.Person.last_name == 'undefined'" style="text-transform: capitalize"> {{element.Person.first_name}}</p>
+                          <p v-else style="text-transform: capitalize"> {{element.Person.first_name}} {{element.Person.last_name}}</p>
                         </b-col>
 
                         <b-col sm="1">
@@ -3385,7 +3396,7 @@ export default {
     var endtime='end';
 
 
-    // var currentdate = moment().subtract(36, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(40, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
@@ -3584,7 +3595,6 @@ export default {
 
                     console.log(minorLastName+' '+minorFirstName);
                     
-
                     replyDataObj1[i]['Reservation_people'][incrementObject]={
                        // "id" : booker_id,
                        "person_id": minorPlayerMinorId,
@@ -5903,6 +5913,55 @@ export default {
       // posttorfidapi(event){
       //   console.log("sandes man");
       // },
+
+      emptyBox(event, col){
+        console.log(event);
+        console.log(col);
+
+        if(this['list'+col+'sessionid'] > '0'){
+
+          console.log('before reload code');
+
+          // var deleteSessionId = this['list'+col+'sessionid'];
+
+          // axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+
+          // })
+          // .then(response => {
+          //   console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
+          // })
+          // .catch(error => {
+          //   console.log(error);
+          // });
+
+        } /** if clause closed **/
+
+        else{
+          var newCol = col-10;
+          console.log(newCol);
+          console.log(this['fetchPlayerList'+newCol][1].id);
+
+          // var deleteSessionId = this['fetchPlayerList'+newCol][1].id;
+
+          // axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+
+          // })
+          // .then(response => {
+          //   console.log("Deleted Id from BOX "+newCol+ 'session id was' + deleteSessionId);
+          // })
+          // .catch(error => {
+          //   console.log(error);
+          // });
+
+          /** below code will update the reservation_minor and reservation_people session id into NULL **/
+
+
+
+          /** end of session id empty **/
+
+        } /** else clause closed **/
+
+      },
 
       posttoapi(event, col){
 
@@ -9333,8 +9392,8 @@ export default {
 
 #mainContainer{
   /*background-color: green;*/
-  width: 80%;
-  margin:auto;
+  width: auto;
+  background-color: yellow;
 }
 
 .displayBorder{
@@ -9363,6 +9422,10 @@ export default {
 
 .red {
   background-color: #90EE90;
+}
+
+.capitalLetters{
+  text-transform: capitalize;
 }
 
 </style>
