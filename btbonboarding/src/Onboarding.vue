@@ -3414,7 +3414,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
@@ -5959,17 +5959,17 @@ export default {
           console.log(newCol);
           console.log(this['fetchPlayerList'+newCol][1].id);
 
-          // var deleteSessionId = this['fetchPlayerList'+newCol][1].id;
+          var deleteSessionId = this['fetchPlayerList'+newCol][1].id;
 
-          // axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
 
-          // })
-          // .then(response => {
-          //   console.log("Deleted Id from BOX "+newCol+ 'session id was' + deleteSessionId);
-          // })
-          // .catch(error => {
-          //   console.log(error);
-          // });
+          })
+          .then(response => {
+            console.log("Deleted Id from BOX "+newCol+ 'session id was' + deleteSessionId);
+          })
+          .catch(error => {
+            console.log(error);
+          });
 
           /** below code will update the reservation_minor and reservation_people session id into NULL **/
 
@@ -6010,12 +6010,14 @@ export default {
                 console.log(error);
               });
 
-              console.log('i ko value '+i);
-                  console.log('team player session length value '+ teamPlayerSessionLength);
+              // console.log('i ko value '+i);
+
+                  // console.log('team player session length value '+ teamPlayerSessionLength);
 
                   var lastValueTeamPlayerSessionLength = teamPlayerSessionLength-1;
                   if(i == lastValueTeamPlayerSessionLength){
                     console.log('RELOAD HAPPENS HERE');
+                    window.location.reload(true);
                   }
 
 
