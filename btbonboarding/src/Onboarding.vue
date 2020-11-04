@@ -5999,14 +5999,6 @@ export default {
                 })
                 .then(response => {
                   console.log(response);
-
-                  console.log('i ko value '+i);
-                  console.log('team player session length value '+ teamPlayerSessionLength);
-
-                  if(i == teamPlayerSessionLength){
-                    console.log('RELOAD HAPPENS HERE');
-                  }
-
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -6017,6 +6009,14 @@ export default {
               .catch(function (error) {
                 console.log(error);
               });
+
+              console.log('i ko value '+i);
+                  console.log('team player session length value '+ teamPlayerSessionLength);
+
+                  if(i == teamPlayerSessionLength){
+                    console.log('RELOAD HAPPENS HERE');
+                  }
+                  
 
             }
 
