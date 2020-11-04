@@ -6013,10 +6013,11 @@ export default {
               console.log('i ko value '+i);
                   console.log('team player session length value '+ teamPlayerSessionLength);
 
-                  if(i == teamPlayerSessionLength){
+                  var lastValueTeamPlayerSessionLength = teamPlayerSessionLength-1;
+                  if(i == lastValueTeamPlayerSessionLength){
                     console.log('RELOAD HAPPENS HERE');
                   }
-                  
+
 
             }
 
