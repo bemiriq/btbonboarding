@@ -20,6 +20,18 @@
 
       <b-row>
 
+        <!-- <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true"> -->
+        <b-modal id="modal-emptyBox10" centered v-bind:hide-footer="true">
+          <p><b> Are you sure you want to delete Box ?</b></p>
+          
+          <br>
+
+          <b-row>
+            <b-col><b-button variant="primary" @click="emptyBox($event, 10)">YES</b-button></b-col>
+            <b-col><b-button variant="info">NO</b-button></b-col>
+          </b-row>
+        </b-modal>
+
         <!-- list for all rfid b-modal -->
 
         <!-- <b-modal id="modal-center" ref="sideRfidUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
@@ -983,7 +995,9 @@
                       </b-col>
 
                       <b-col sm="1">
-                        <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon>
+                        <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox10></b-icon>
+
                       </b-col>
                     </b-row>
 
@@ -5922,17 +5936,21 @@ export default {
 
           console.log('before reload code');
 
-          // var deleteSessionId = this['list'+col+'sessionid'];
+          var deleteSessionId = this['list'+col+'sessionid'];
 
-          // axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
 
-          // })
-          // .then(response => {
-          //   console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
-          // })
-          // .catch(error => {
-          //   console.log(error);
-          // });
+          })
+          .then(response => {
+            console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+          /** below code will empty session_id column into null for reservation minor/players **/
+
+          /** update reservation minor **/
 
         } /** if clause closed **/
 
@@ -5955,11 +5973,36 @@ export default {
 
           /** below code will update the reservation_minor and reservation_people session id into NULL **/
 
+          var teamPlayerSessionLength = this['fetchPlayerList'+newCol][1].Team_player_sessions.length;
+          console.log('length '+teamPlayerSessionLength);
 
+            for(var i=0; i < teamPlayerSessionLength; i++){
+              console.log(i);
+
+              var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
+              var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Player.person_id;
+              console.log(getReservationId);
+              console.log(getPersonId);
+
+              axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+getPersonId+'/reservation/'+getReservationId,{
+                // session_id: 0
+              })
+              .then(response => {
+                console.log(response);
+                console.log(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+            }
 
           /** end of session id empty **/
 
         } /** else clause closed **/
+
+        console.log("INSIDE RELOAD FUNCTION");
+        // window.location.reload(true);
 
       },
 
