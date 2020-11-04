@@ -1234,13 +1234,18 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
+                      <b-col sm="7">
 
 
                         <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
+
+                      <b-col sm="1">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox11></b-icon>
+                      </b-col>
+
                     </b-row>
 
 
@@ -3426,7 +3431,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
