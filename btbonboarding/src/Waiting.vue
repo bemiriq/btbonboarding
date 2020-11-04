@@ -28,8 +28,8 @@
 
               <b-row>
 
-                <b-col><p class="teamList"> TEAM NAME </p></b-col>
-                <b-col><p class="teamList"> TEAM SIZE </p></b-col>
+                <b-col><p class="teamTitle1"> TEAM NAME </p></b-col>
+                <b-col><p class="teamTitle1"> TEAM SIZE </p></b-col>
 
               </b-row>
 
