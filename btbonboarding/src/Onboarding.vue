@@ -27,7 +27,7 @@
           <br>
 
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, 10),emptyBoxReload()">YES</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, 10)">YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
           </b-row>
         </b-modal>
@@ -39,7 +39,7 @@
           <br>
 
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, 11),emptyBoxReload()">YES</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, 11)">YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
           </b-row>
         </b-modal>
