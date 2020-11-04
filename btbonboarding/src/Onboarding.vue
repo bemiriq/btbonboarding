@@ -3414,7 +3414,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(4, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(6, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
@@ -5990,6 +5990,29 @@ export default {
               .then(response => {
                 console.log(response);
                 console.log(response.data);
+                
+                var reservationPeopleId = response.data[0].id;
+
+                /** this will update the reservation people id , column name session_id into 0 **/
+                axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
+                  session_id: 0
+                })
+                .then(response => {
+                  console.log(response);
+
+                  console.log('i ko value '+i);
+                  console.log('team player session length value '+ teamPlayerSessionLength);
+
+                  if(i == teamPlayerSessionLength){
+                    console.log('RELOAD HAPPENS HERE');
+                  }
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+                /** end of session id update on RESERVATION PEOPLE TABLE **/
+
               })
               .catch(function (error) {
                 console.log(error);

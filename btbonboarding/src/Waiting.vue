@@ -26,26 +26,32 @@
             <hr>
             <b-container class="bv-example-row">
 
-              <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
+              <b-row>
 
+                <b-col> TEAM NAME </b-col>
+                <b-col> TEAM SIZE </b-col>
+
+              </b-row>
+              
+              <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
                 <b-col>
                   <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>
                 </b-col>
 
-                <b-col>
+<!--                 <b-col>
                   <p class="teamList" v-if="team.Session_game_scores == ''">{{team.player_count}}</p>
-                </b-col>
+                </b-col> -->
 
                 <b-col>
                   <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
                 </b-col>
 
-                <b-col>
+                <!-- <b-col>
                   <div v-if="team.Session_game_scores == '' ">
                     <p class="teamList" v-if="team.Team_player_sessions.length == team.player_count" style='color:green;'>&#9989;</p>
                     <p v-else>&#10060;</p>
                   </div>
-                </b-col>
+                </b-col> -->
 
               </b-row>
 
