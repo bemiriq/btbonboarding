@@ -22,12 +22,24 @@
 
         <!-- <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true"> -->
         <b-modal id="modal-emptyBox10" centered v-bind:hide-footer="true">
-          <p><b> Are you sure you want to delete Box ?</b></p>
+          <p><b> Are you sure you want to empty BOX 1 ?</b></p>
           
           <br>
 
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, 10)">YES</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, 10),emptyBoxReload()">YES</b-button></b-col>
+            <b-col><b-button variant="info">NO</b-button></b-col>
+          </b-row>
+        </b-modal>
+
+
+        <b-modal id="modal-emptyBox11" centered v-bind:hide-footer="true">
+          <p><b> Are you sure you want to empty BOX 2 ?</b></p>
+          
+          <br>
+
+          <b-row>
+            <b-col><b-button variant="primary" @click="emptyBox($event, 11),emptyBoxReload()">YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
           </b-row>
         </b-modal>
@@ -6010,26 +6022,16 @@ export default {
                 console.log(error);
               });
 
-              // console.log('i ko value '+i);
-
-                  // console.log('team player session length value '+ teamPlayerSessionLength);
-
-                  var lastValueTeamPlayerSessionLength = teamPlayerSessionLength-1;
-                  if(i == lastValueTeamPlayerSessionLength){
-                    console.log('RELOAD HAPPENS HERE');
-                    window.location.reload(true);
-                  }
-
-
             }
 
           /** end of session id empty **/
 
         } /** else clause closed **/
 
-        console.log("INSIDE RELOAD FUNCTION");
-        // window.location.reload(true);
+      },
 
+      emptyBoxReload(){
+        window.location.reload(true);
       },
 
       posttoapi(event, col){
