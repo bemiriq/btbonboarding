@@ -1006,7 +1006,7 @@
 
                       </b-col>
 
-                      <b-col sm="1">
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                         <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox10></b-icon>
 
@@ -1242,7 +1242,7 @@
 
                       </b-col>
 
-                      <b-col sm="1">
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox11></b-icon>
                       </b-col>
 
