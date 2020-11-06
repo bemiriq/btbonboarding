@@ -300,7 +300,7 @@
                                     <!-- <b-col><p>Waiver</p></b-col> -->
                                     <b-col><p>Adult/Minor</p></b-col>
                                     <b-col><p>Player</p></b-col>
-                                    <b-col><p>Session</p></b-col>
+                                    <b-col><p>Assigned</p></b-col>
                                   </b-row>
 
                                   <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">

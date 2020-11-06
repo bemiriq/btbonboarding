@@ -21,28 +21,19 @@
       <b-row>
 
         <!-- <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true"> -->
-        <b-modal id="modal-emptyBox10" centered v-bind:hide-footer="true">
-          <p><b> Are you sure you want to empty BOX 1 ?</b></p>
-          
+        <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true">
+          <p><b> Are you sure you want empty the box values ?</b></p>
+            
           <br>
-
+          {{emptyBoxValue}}
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, 10)">YES</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)">YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
           </b-row>
+
         </b-modal>
 
 
-        <b-modal id="modal-emptyBox11" centered v-bind:hide-footer="true">
-          <p><b> Are you sure you want to empty BOX 2 ?</b></p>
-          
-          <br>
-
-          <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, 11)">YES</b-button></b-col>
-            <b-col><b-button variant="info">NO</b-button></b-col>
-          </b-row>
-        </b-modal>
 
         <!-- list for all rfid b-modal -->
 
@@ -1008,7 +999,7 @@
 
                       <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                         <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
-                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox10></b-icon>
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 10"></b-icon>
 
                       </b-col>
                     </b-row>
@@ -1053,7 +1044,8 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <!-- {{element.Player.play_count}} -->
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -1102,7 +1094,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -1110,7 +1102,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -1243,7 +1235,7 @@
                       </b-col>
 
                       <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox11></b-icon>
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 11"></b-icon>
                       </b-col>
 
                     </b-row>
@@ -1287,7 +1279,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -1328,7 +1320,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -1336,7 +1328,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -1474,13 +1466,20 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
+                      <b-col sm="7">
 
 
                         <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 12"></b-icon>
+
+                      </b-col>
+
                     </b-row>
 
 
@@ -1522,7 +1521,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -1563,7 +1562,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -1571,7 +1570,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -1682,13 +1681,18 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:change="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
+                      </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 13"></b-icon>
 
                       </b-col>
+
                     </b-row>
 
 
@@ -1730,7 +1734,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -1771,7 +1775,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -1779,7 +1783,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -1903,13 +1907,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 14"></b-icon>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList4[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
@@ -1949,7 +1956,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -1986,7 +1993,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -1994,7 +2001,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -2107,13 +2114,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:change="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 15"></b-icon>
+                      </b-col>
+
                     </b-row>
 
 
@@ -2155,7 +2165,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -2196,7 +2206,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -2204,7 +2214,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -2326,13 +2336,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 16"></b-icon>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList6[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
@@ -2372,7 +2385,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -2409,7 +2422,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -2417,7 +2430,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -2528,13 +2541,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 17"></b-icon>
+                      </b-col>
+
                     </b-row>
 
 
@@ -2576,7 +2592,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -2617,7 +2633,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -2625,7 +2641,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -2743,13 +2759,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 18"></b-icon>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList8[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
@@ -2789,7 +2808,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -2826,7 +2845,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -2834,7 +2853,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -2945,13 +2964,16 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="8">
-
+                      <b-col sm="7">
 
                         <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
-
                       </b-col>
+
+                      <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 19"></b-icon>
+                      </b-col>
+
                     </b-row>
 
 
@@ -2993,7 +3015,7 @@
                                     <!-- end of the bomb beater value for minor and players -->
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.player_count}}
+                                      <p v-if="element.Player.play_count > '1' ">R</p>
                                     </b-col>
 
                                   </b-row>
@@ -3034,7 +3056,7 @@
                                     </b-col>
 
                                     <b-col sm="0">
-                                      {{element.Person.minor_tag}}
+                                      {{element.Person.minorsymbol}}
                                     </b-col>
 
                                     <b-col sm="0">
@@ -3042,7 +3064,7 @@
                                     </b-col>
 
                                     <b-col sm="1">
-                                      {{element.Person.Player.play_count}}
+                                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
                                     </b-col>
 
 
@@ -3202,7 +3224,7 @@
                         </b-col> -->
 
                         <!-- <b-col sm="1">
-                          {{element.Person.Player.play_count}}
+                          <p v-if="element.Person.Player.play_count > '1' ">R</p>
                         </b-col> -->
 
                       </b-row>
@@ -3427,12 +3449,12 @@ export default {
     var endtime='end';
 
 
-    // var currentdate = moment().subtract(40, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-    var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
 
@@ -4424,6 +4446,9 @@ export default {
 
         checkReader:'',
         draggedTeamPlayerSessionId:'',
+
+        emptyBoxValue: '',
+
         // teamIdSideA1: '',
         // teamIdSideB1: '',
         // teamIdSideA2: '',
@@ -5949,9 +5974,97 @@ export default {
         console.log(event);
         console.log(col);
 
-        if(this['list'+col+'sessionid'] > '0'){
+        if(this['list'+col].length > '0'){
 
           console.log('before reload code');
+
+          /** below code will empty session_id column into null for reservation minor/players **/
+
+          console.log(this['list'+col]);
+          console.log(this['list'+col].length);
+
+          var teamPlayerSessionLength = this['list'+col].length;
+          console.log('length '+teamPlayerSessionLength);
+
+            for(var i=0; i < teamPlayerSessionLength; i++){
+              console.log(i);
+
+              console.log(this['list'+col][i].Person.minor);
+
+              if(this['list'+col][i].Person.minor == 'yes'){ /** teamPlayerSession[i] is minor **/
+
+                  var getReservationId = this['list'+col][i].Person.reservation_id;
+                  var getPersonId = this['list'+col][i].Person.person_id;
+                  console.log(getReservationId);
+                  console.log(getPersonId);
+
+                  axios.post(process.env.VUE_APP_RESERVATION_MINORS+'/find_or_create/player_minor/'+getPersonId+'/reservation/'+getReservationId,{
+                    // session_id: 0
+                  })
+                  .then(response => {
+                    console.log(response);
+                    console.log(response.data);
+                    
+                    var reservationPeopleId = response.data[0].id;
+
+                    /** this will update the reservation people id , column name session_id into 0 **/
+                    axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationPeopleId,{
+                      session_id: 0
+                    })
+                    .then(response => {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                    /** end of session id update on RESERVATION PEOPLE TABLE **/
+
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+
+              }/** end of minor IF clause **/
+
+              /** else is for player **/
+              else{
+                  var getReservationId = this['list'+col][i].reservation_id;
+                  var getPersonId = this['list'+col][i].person_id;
+                  console.log(getReservationId);
+                  console.log(getPersonId);
+
+                  axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+getPersonId+'/reservation/'+getReservationId,{
+                    // session_id: 0
+                  })
+                  .then(response => {
+                    console.log(response);
+                    console.log(response.data);
+                    
+                    var reservationPeopleId = response.data[0].id;
+
+                    /** this will update the reservation people id , column name session_id into 0 **/
+                    axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
+                      session_id: 0
+                    })
+                    .then(response => {
+                      console.log(response);
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                    /** end of session id update on RESERVATION PEOPLE TABLE **/
+
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              }/** end of else clause for players only **/
+
+            }
+
+          /** end of session id empty **/
+
 
           var deleteSessionId = this['list'+col+'sessionid'];
 
@@ -5960,33 +6073,18 @@ export default {
           })
           .then(response => {
             console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
+            this.emptyBoxReload();
           })
           .catch(error => {
             console.log(error);
           });
-
-          /** below code will empty session_id column into null for reservation minor/players **/
-
-          /** update reservation minor **/
 
         } /** if clause closed **/
 
         else{
+
           var newCol = col-10;
           console.log(newCol);
-          console.log(this['fetchPlayerList'+newCol][1].id);
-
-          var deleteSessionId = this['fetchPlayerList'+newCol][1].id;
-
-          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
-
-          })
-          .then(response => {
-            console.log("Deleted Id from BOX "+newCol+ 'session id was' + deleteSessionId);
-          })
-          .catch(error => {
-            console.log(error);
-          });
 
           /** below code will update the reservation_minor and reservation_people session id into NULL **/
 
@@ -5994,42 +6092,95 @@ export default {
           console.log('length '+teamPlayerSessionLength);
 
             for(var i=0; i < teamPlayerSessionLength; i++){
+              
               console.log(i);
+              console.log(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].player_minor_id);
 
-              var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
-              var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Player.person_id;
-              console.log(getReservationId);
-              console.log(getPersonId);
+              if(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].player_minor_id > '0'){ /** if player is minor **/
+                var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
+                var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].player_minor_id;
+                console.log(getReservationId);
+                console.log(getPersonId);
 
-              axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+getPersonId+'/reservation/'+getReservationId,{
-                // session_id: 0
-              })
-              .then(response => {
-                console.log(response);
-                console.log(response.data);
-                
-                var reservationPeopleId = response.data[0].id;
-
-                /** this will update the reservation people id , column name session_id into 0 **/
-                axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
-                  session_id: 0
+                axios.post(process.env.VUE_APP_RESERVATION_MINORS+'/find_or_create/player_minor/'+getPersonId+'/reservation/'+getReservationId,{
+                  // session_id: 0
                 })
                 .then(response => {
                   console.log(response);
+                  console.log(response.data);
+                  
+                  var reservationPeopleId = response.data[0].id;
+
+                  /** this will update the reservation people id , column name session_id into 0 **/
+                  console.log(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationPeopleId);
+
+                  axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationPeopleId,{
+                    session_id: 0
+                  })
+                  .then(response => {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                  /** end of session id update on RESERVATION PEOPLE TABLE **/
+
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
-                /** end of session id update on RESERVATION PEOPLE TABLE **/
+              } /** end of PLAYER MINOR IF clause **/
 
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+              else{ /** else PLAYER **/
+                var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
+                var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Player.person_id;
+                console.log(getReservationId);
+                console.log(getPersonId);
+
+                axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+getPersonId+'/reservation/'+getReservationId,{
+                  // session_id: 0
+                })
+                .then(response => {
+                  console.log(response);
+                  console.log(response.data);
+                  
+                  var reservationPeopleId = response.data[0].id;
+
+                  /** this will update the reservation people id , column name session_id into 0 **/
+                  axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationPeopleId,{
+                    session_id: 0
+                  })
+                  .then(response => {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+                  /** end of session id update on RESERVATION PEOPLE TABLE **/
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              } /** end of ELSE clause **/
+              
 
             }
 
           /** end of session id empty **/
+
+          var deleteSessionId = this['fetchPlayerList'+newCol][1].id;
+
+          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+
+          })
+          .then(response => {
+            this.emptyBoxReload();
+          })
+          .catch(error => {
+            console.log(error);
+          });
 
         } /** else clause closed **/
 
@@ -6037,6 +6188,7 @@ export default {
 
       emptyBoxReload(){
         window.location.reload(true);
+        // console.log(' SANDU MANDU');
       },
 
       posttoapi(event, col){
