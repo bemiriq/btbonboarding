@@ -25,7 +25,7 @@
           <p><b> Are you sure you want empty the box values ?</b></p>
             
           <br>
-          {{emptyBoxValue}}
+          <!-- {{emptyBoxValue}} -->
           <b-row>
             <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)">YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
@@ -75,8 +75,8 @@
 
                                             </div>
 
-                                            <div v-if="teamfetch.rfidState1 > '' "> EMPTY </div>
-                                            <div v-else> NOT </div>
+                                            <!-- <div v-if="teamfetch.rfidState1 > '' "> EMPTY </div>
+                                            <div v-else> NOT </div> -->
 
 
                                           </b-col>
@@ -1148,28 +1148,8 @@
                           </b-col>
                         </b-row>
                       </div>
-                     <!--  <br/>
-                      <b-row>
-                        <b-col sm="3">
-                        <label for="input-small">Organization</label>
-                        </b-col>
-                        <b-col sm="9">
-                          <b-form-select v-model="organizationselected1" @change="onChange($event)">
-                            <option v-for="option in organizationList" v-bind:value="option.id" :key="option.id"> {{ option.name }} </option>
-                          </b-form-select>
-                        </b-col>
-                      </b-row> -->
 
                       <br />
-
-                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
-                        <p> You are going to update data for <b> {{teamName10}} </b> </p>
-                        <br>
-
-                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
-                        <br>
-
-                      </b-modal>
 
                       <b-row>
                         <b-col sm="3" style="display: none;">
@@ -1617,15 +1597,6 @@
                       </div>
 
                       <br />
-
-                      <b-modal id="modal-1" ref="my-modal-submit-id" title="BTB Onboarding " centered v-bind:hide-footer="true">
-                        <p> You are going to update data for <b> {{teamName12}} </b> </p>
-                        <br>
-
-                          <b-button variant="primary" v-on:click="submitFirstNameList(); hideModal();">SUBMIT</b-button>
-                        <br>
-
-                      </b-modal>
 
                       <b-row>
                         <b-col sm="3" style="display: none;">
@@ -3449,8 +3420,8 @@ export default {
     var endtime='end';
 
 
-    // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
     var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
@@ -6196,87 +6167,70 @@ export default {
         console.log(col);
         console.log(event);
 
-        var teamIdSide = this["teamIdSide"+col];
+        // var teamIdSide = this["teamIdSide"+col];
         var teamName = this["teamName"+col];
-        console.log(teamIdSide);
-        console.log(teamName);
+        // console.log(teamIdSide);
+        // console.log(teamName);
 
-        if(teamIdSide > 0){
-          console.log(this["teamName"+col]);
+        var newCol = col-10;
 
-          axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamIdSide,{
-            name: teamName
-          })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        // console.log();
 
-        }
-
-        else{
-
-          var newCol = col-10;
-          console.log(newCol);
-
-          
-              
-            axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
               name: teamName
             })
             .then(response => {
               
-              console.log(response);
+            console.log(response);
 
-              this["teamname"+col+"id"] = response.data;
-              this["teamIdSide"+col] = response.data[0].id;
+            this["teamname"+col+"id"] = response.data;
+            this["teamIdSide"+col] = response.data[0].id;
 
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+            console.log(response.data);
+            console.log(response.data[0].id);
 
+              if(this['list'+col+'sessionid'] > 0){
 
-          if(this['fetchPlayerList'+newCol].length > '1'){
-             
-            console.log(this['fetchPlayerList'+newCol][1].Team.id);
-              console.log(this['fetchPlayerList'+newCol][1].Team.name);
+                var sessionId = this['list'+col+'sessionid'];
+                var newTeamId = this["teamIdSide"+col];
+                console.log(sessionId+' as '+newTeamId);
 
-              var oldTeamName = this['fetchPlayerList'+newCol][1].Team.name;
-              var oldTeamId = this['fetchPlayerList'+newCol][1].Team.id;
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+                            team_id: newTeamId
+                          })
+                          .then(response => {
+                            console.log(response);
+                          })
+                          .catch(function (error) {
+                            console.log(error);
+                          });
+              }
 
-              axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
-                  // name: teamName
-                })
-                .then(response => {
-                  console.log(response);
-                  console.log(response.data[0].id);
+              if(this['fetchPlayerList'+newCol][1].team_id > 0){
 
-                  var newTeamId = response.data[0].id;
+                    var sessionId = this['fetchPlayerList'+newCol][1].Team_player_sessions[0].session_id;
+                    var newTeamId = this["teamIdSide"+col];
 
-                  var sessionId = this['fetchPlayerList'+newCol][1].Team_player_sessions[0].session_id;
+                    console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+                    
+                      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+                        team_id: newTeamId
+                      })
+                      .then(response => {
+                        console.log(response.data);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
 
-                    axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
-                      team_id: newTeamId
-                    })
-                    .then(response => {
-                      console.log(response.data);
-                    })
-                    .catch(function (error) {
-                      console.log(error);
-                    });
+              } 
 
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-          }
+          })
 
-        }/** end of ELSE **/
-          
-          
+        .catch(function (error) {
+          console.log(error);
+        });
+
       },
 
       posttoapi2(event){
@@ -7623,9 +7577,9 @@ export default {
 
           console.log( "  lo lo l ol o lo lo");
 
-          var teamText = "BOX";
-          var boxId = col;
-          var teamNameCreate = teamText + boxId;
+          var teamNameInt = col-9;
+          var teamText = "TEAM NAME ";
+          var teamNameCreate = teamText + teamNameInt;
 
           console.log(teamNameCreate);
           console.log(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamNameCreate);
@@ -9407,64 +9361,55 @@ export default {
         axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdTwo = response.data.slice(-1)});
       },
 
-      submitFirstNameList(){
+      // submitFirstNameList(){
 
-        axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
-        name: this.teamName10,
-        })
-        .then(function (response) {
-          console.log(response);
-          // axios.get('http://localhost:9090/people/').then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        })
+      //   var teamname = this.teamName10;
 
-        .catch(function (error) {
-          console.log(error);
-        });
+      //   axios.post(process.env.VUE_APP_DATABASE_TEAMS,{
+      //   name: this.teamName10,
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
 
-        // this will fetch the last team id 
-        // axios.get(process.env.VUE_APP_DATABASE_TEAMS).then(response => {this.lastTeamIdOne = response.data.slice(-1)});
-        var filterPlayerId1 = this.lastTeamIdOne[0];
-        var lastTeamId = filterPlayerId1['id'];
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
 
-        /** starting of axios post for SESSION TABLE **/
-        axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
-          mission_id: this.selected1,
-          team_id: lastTeamId + 1
-        })
-        .then(function (response) {
-          console.log(response);
-        })
+      //   var filterPlayerId1 = this.lastTeamIdOne[0];
+      //   var lastTeamId = filterPlayerId1['id'];
 
-        .catch(function (error) {
-          console.log(error);
-        });
+      //   /** starting of axios post for SESSION TABLE **/
+      //   axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+      //     mission_id: this.selected1,
+      //     team_id: lastTeamId + 1
+      //   })
+      //   .then(function (response) {
+      //     console.log(response);
+      //   })
 
-        /** end of session table post **/
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
 
-        // console.log(lastTeamId);
+      //   /** end of session table post **/
 
-        var arr = this.list2;
-        // console.log(arr);
-        for(var i=0; i < arr.length; i++){
-          // console.log("WAS here as well");
-          // console.log(arr[i]['first_name']);
-          // console.log(arr[i]['id']);
+      //   var arr = this.list2;
 
-          var teamId = lastTeamId + 1;
-          var playerId = arr[i]['id'];
+      //   for(var i=0; i < arr.length; i++){
 
-          // var arr2 = this.rfidSideA1;
-          axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
+      //     var teamId = lastTeamId + 1;
+      //     var playerId = arr[i]['id'];
 
-            team_id: lastTeamId + 1,
-            player_id: arr[i]['id'],
-            rfid_id: arr[i]['rfidState1']
-            // rfid_id: rfidSideA1
-            // player_id: sand + 1
+      //     axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
 
-          });
-        }
-      },
+      //       team_id: lastTeamId + 1,
+      //       player_id: arr[i]['id'],
+      //       rfid_id: arr[i]['rfidState1']
+
+      //     });
+      //   }
+      // },
 
 
       submitFirstNameList2(){
