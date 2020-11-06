@@ -6059,6 +6059,12 @@ export default {
 
           /** below code will update the reservation_minor and reservation_people session id into NULL **/
 
+          /** if the player is dragged out and the box only consists of team name , this part will delete that **/
+          // if(this['fetchPlayerList'+newCol][1].team_drag_time.length > '0'){
+          //   console.log('yes undefined');
+
+          // }
+
           var teamPlayerSessionLength = this['fetchPlayerList'+newCol][1].Team_player_sessions.length;
           console.log('length '+teamPlayerSessionLength);
 
