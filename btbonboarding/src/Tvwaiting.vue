@@ -121,8 +121,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.91%;
-    margin-left: 0.1%;
+    width: 99.99%;
+    margin: auto;
   }
 
   .main {
@@ -205,8 +205,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
-    margin-left: 0.1%;
+    width: 99.99%; /** width: auto; **/
+    /*margin-left: 0.1%;*/
   }
 
   .main {

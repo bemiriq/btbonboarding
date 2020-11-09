@@ -27,10 +27,21 @@
           <br>
           <!-- {{emptyBoxValue}} -->
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)">YES</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)" >YES</b-button></b-col>
             <b-col><b-button variant="info">NO</b-button></b-col>
           </b-row>
 
+        </b-modal>
+
+        <!-- this modal is used to let front desk staff to drag out after they select 6 player -->
+        <b-modal id="modal-checkMoveBox" centered v-bind:hide-footer="true">
+          <b-row>
+            <p class="playerModalText"><b> This box contains 6 players team, to enable dragging out player please click yes.</b></p>
+          </b-row> 
+          <b-row class="my-1">
+            <b-col sm="2"><b-button variant="primary" @click="checkMoveButton($event, checkMoveButtonValue), $bvModal.hide('modal-checkMoveBox')" >YES</b-button></b-col>
+            <b-col sm="2"><b-button variant="info" @click="$bvModal.hide('modal-checkMoveBox')">NO</b-button></b-col>
+          </b-row>
         </b-modal>
 
 
@@ -991,7 +1002,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -1000,17 +1011,30 @@
                       <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                         <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 10"></b-icon>
-
                       </b-col>
+
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove10 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 10" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
+<!--                     <b-row class="my-2">
+                      <b-col v-if="checkMove10 == false">
+                        <b-col>Maximum 6 players
+                          
+                        </b-col>
+                      </b-col>
+                    </b-row> -->
 
                     <!-- <div v-if="this.teamName1.length > 1"> checks at first if the team name is inserted or not / if not it will disable drag -->
 
                         <div v-if="fetchPlayerList0[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;" >
 
-                          <draggable id="first" data-source="juju" :list="fetchPlayerList0[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 0)" @change="deleteTeamPlayerSessionAfterReload1($event, 0)">
+                          <draggable id="first" data-source="juju" :list="fetchPlayerList0[1].Team_player_sessions" class="list-group" draggable=".item" group="a"
+                          @add="onDrop1AfterReload($event, 0)" @change="deleteTeamPlayerSessionAfterReload1($event, 0)" :disabled="!checkMove10">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList0[1].Team_player_sessions" :key="element.id">
 
@@ -1045,7 +1069,7 @@
 
                                     <b-col sm="1">
                                       <!-- {{element.Player.play_count}} -->
-                                      <p v-if="element.Player.play_count > '1' ">R</p>
+                                      <!-- <p v-if="element.Player.play_count > '1' ">R</p> -->
                                     </b-col>
 
                                   </b-row>
@@ -1074,9 +1098,7 @@
                     </draggable -->
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)">
-
-                            <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
+                            <draggable id="first" data-source="juju" :list="list10" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 10, index)" @change="onDropReservation1($event, 10)" :disabled="!checkMove10" >
 
                               <div class="list-group-item item" v-for="(element, index) in list10" :key="index">
 
@@ -1137,11 +1159,11 @@
 
                             <b-form-select v-if="!teamVsTeam10 > '0'" v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
                               <option> </option>
-                              <option :value="teamName11"> {{ teamName11 }} </option>
+                              <option :value="teamName11" style="text-transform: capitalize;"> {{ teamName11 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName10" v-on:change="onChangeTeamVsTeam1($event, 10)">
-                              <option :value="teamName11" checked> {{ teamName11 }} </option>
+                              <option :value="teamName11" style="text-transform: capitalize;" checked> {{ teamName11 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -1206,7 +1228,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime1Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
 
                         <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
@@ -1218,13 +1240,19 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 11"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove11 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 11" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList1[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList1[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)">
+                          @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)"  :disabled="!checkMove11">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList1[1].Team_player_sessions" :key="element.id">
 
@@ -1280,7 +1308,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)">
+                            <draggable id="first" data-source="juju" :list="list11" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 11, index)" @change="onDropReservation1($event, 11)"  :disabled="!checkMove11">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -1342,7 +1370,7 @@
 
                             <b-form-select v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
                               <option> </option>
-                              <option :value="teamName10"> {{ teamName10 }} </option>
+                              <option :value="teamName10" style="text-transform: capitalize;"> {{ teamName10 }} </option>
                             </b-form-select>
 
                           </b-col>
@@ -1356,11 +1384,11 @@
 
                             <b-form-select v-if="!teamVsTeam11 > '0'" v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
                               <option> </option>
-                              <option :value="teamName10"> {{ teamName10 }} </option>
+                              <option :value="teamName10" style="text-transform: capitalize;"> {{ teamName10 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName11" v-on:change="onChangeTeamVsTeam1($event, 11)">
-                              <option :value="teamName10" checked> {{ teamName10 }} </option>
+                              <option :value="teamName10" style="text-transform: capitalize;" checked> {{ teamName10 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -1446,7 +1474,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
 
                         <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
@@ -1460,13 +1488,19 @@
 
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove12 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 12" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList2[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList2[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)">
+                          @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)" :disabled="!checkMove12">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList2[1].Team_player_sessions" :key="element.id">
 
@@ -1522,7 +1556,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list12" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 12, index)" @change="onDropReservation1($event, 12)">
+                            <draggable id="first" data-source="juju" :list="list12" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 12, index)" @change="onDropReservation1($event, 12)" :disabled="!checkMove12">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -1584,11 +1618,11 @@
 
                             <b-form-select v-if="!teamVsTeam12 > '0'" v-model="vsselected12" v-on:change="onChangeTeamVsTeam1($event, 12)">
                               <option> </option>
-                              <option :value="teamName13"> {{ teamName13 }} </option>
+                              <option :value="teamName13" style="text-transform: capitalize;"> {{ teamName13 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName12" v-on:change="onChangeTeamVsTeam1($event, 12)">
-                              <option :value="teamName13" checked> {{ teamName13 }} </option>
+                              <option :value="teamName13" style="text-transform: capitalize;" checked> {{ teamName13 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -1652,7 +1686,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime2Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:change="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -1664,13 +1698,19 @@
 
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove13 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 13" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList3[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList3[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)">
+                          @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)" :disabled="!checkMove13">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList3[1].Team_player_sessions" :key="element.id">
 
@@ -1726,7 +1766,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list13" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 13, index)" @change="onDropReservation1($event, 13)">
+                            <draggable id="first" data-source="juju" :list="list13" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 13, index)" @change="onDropReservation1($event, 13)" :disabled="!checkMove13">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -1789,11 +1829,11 @@
 
                             <b-form-select v-if="!teamVsTeam13 > '0'" v-model="vsselected13" v-on:change="onChangeTeamVsTeam1($event, 13)">
                               <option> </option>
-                              <option :value="teamName12"> {{ teamName12 }} </option>
+                              <option :value="teamName12" style="text-transform: capitalize;"> {{ teamName12 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName13" v-on:change="onChangeTeamVsTeam1($event, 13)">
-                              <option :value="teamName12" checked> {{ teamName12 }} </option>
+                              <option :value="teamName12" style="text-transform: capitalize;" checked> {{ teamName12 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -1878,7 +1918,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -1888,12 +1928,18 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 14"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove14 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 14" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList4[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList4[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)">
+                          @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)" :disabled="!checkMove14">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList4[1].Team_player_sessions" :key="element.id">
 
@@ -1946,7 +1992,7 @@
                         </div>
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)">
+                            <draggable id="first" data-source="juju" :list="list14" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 14, index)" @change="onDropReservation1($event, 14)" :disabled="!checkMove14">
 
                               <div class="list-group-item item" v-for="(element, index) in list14" :key="index">
 
@@ -2008,11 +2054,11 @@
 
                             <b-form-select v-if="!teamVsTeam14 > '0'" v-model="vsselected14" v-on:change="onChangeTeamVsTeam1($event, 14)">
                               <option> </option>
-                              <option :value="teamName15"> {{ teamName15 }} </option>
+                              <option :value="teamName15" style="text-transform: capitalize;"> {{ teamName15 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName14" v-on:change="onChangeTeamVsTeam1($event, 14)">
-                              <option :value="teamName15" checked> {{ teamName15 }} </option>
+                              <option :value="teamName15" style="text-transform: capitalize;" checked> {{ teamName15 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -2085,7 +2131,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime3Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:change="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -2095,13 +2141,19 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 15"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove15 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 15" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList5[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList5[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)">
+                          @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)" :disabled="!checkMove15">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList5[1].Team_player_sessions" :key="element.id">
 
@@ -2157,7 +2209,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list15" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 15, index)" @change="onDropReservation1($event, 15)">
+                            <draggable id="first" data-source="juju" :list="list15" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 15, index)" @change="onDropReservation1($event, 15)" :disabled="!checkMove15">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -2220,11 +2272,11 @@
 
                             <b-form-select v-if="!teamVsTeam15 > '0'" v-model="vsselected15" v-on:change="onChangeTeamVsTeam1($event, 15)">
                               <option> </option>
-                              <option :value="teamName14"> {{ teamName14 }} </option>
+                              <option :value="teamName14" style="text-transform: capitalize;"> {{ teamName14 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName15" v-on:change="onChangeTeamVsTeam1($event, 15)">
-                              <option :value="teamName14" checked> {{ teamName14 }} </option>
+                              <option :value="teamName14" style="text-transform: capitalize;" checked> {{ teamName14 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -2307,7 +2359,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -2317,12 +2369,18 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 16"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove16 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 16" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList6[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList6[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)">
+                          @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)" :disabled="!checkMove16">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList6[1].Team_player_sessions" :key="element.id">
 
@@ -2375,7 +2433,7 @@
                         </div>
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list16" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 16, index)" @change="onDropReservation1($event, 16)">
+                            <draggable id="first" data-source="juju" :list="list16" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 16, index)" @change="onDropReservation1($event, 16)" :disabled="!checkMove16">
 
                               <div class="list-group-item item" v-for="(element, index) in list16" :key="index">
 
@@ -2436,11 +2494,11 @@
 
                             <b-form-select v-if="!teamVsTeam16 > '0'" v-model="vsselected16" v-on:change="onChangeTeamVsTeam1($event, 16)">
                               <option> </option>
-                              <option :value="teamName17"> {{ teamName17 }} </option>
+                              <option :value="teamName17" style="text-transform: capitalize;"> {{ teamName17 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName16" v-on:change="onChangeTeamVsTeam1($event, 16)">
-                              <option :value="teamName17" checked> {{ teamName17 }} </option>
+                              <option :value="teamName17" style="text-transform: capitalize;" checked> {{ teamName17 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -2512,7 +2570,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime4Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -2522,13 +2580,19 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 17"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove17 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 17" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList7[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList7[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)">
+                          @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)" :disabled="!checkMove17">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList7[1].Team_player_sessions" :key="element.id">
 
@@ -2584,7 +2648,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list17" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 17, index)" @change="onDropReservation1($event, 17)">
+                            <draggable id="first" data-source="juju" :list="list17" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 17, index)" @change="onDropReservation1($event, 17)" :disabled="!checkMove17">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -2646,11 +2710,11 @@
 
                             <b-form-select v-if="!teamVsTeam17 > '0'" v-model="vsselected17" v-on:change="onChangeTeamVsTeam1($event, 17)">
                               <option> </option>
-                              <option :value="teamName16"> {{ teamName16 }} </option>
+                              <option :value="teamName16" style="text-transform: capitalize;"> {{ teamName16 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName17" v-on:change="onChangeTeamVsTeam1($event, 17)">
-                              <option :value="teamName16" checked> {{ teamName16 }} </option>
+                              <option :value="teamName16" style="text-transform: capitalize;" checked> {{ teamName16 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -2730,7 +2794,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -2740,12 +2804,18 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 18"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove18 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 18" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
                         <div v-if="fetchPlayerList8[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList8[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)">
+                          @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)" :disabled="!checkMove18">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList8[1].Team_player_sessions" :key="element.id">
 
@@ -2798,7 +2868,7 @@
                         </div>
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list18" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 18, index)" @change="onDropReservation1($event, 18)">
+                            <draggable id="first" data-source="juju" :list="list18" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 18, index)" @change="onDropReservation1($event, 18)" :disabled="!checkMove18">
 
                               <div class="list-group-item item" v-for="(element, index) in list18" :key="index">
 
@@ -2859,11 +2929,11 @@
 
                             <b-form-select v-if="!teamVsTeam18 > '0'" v-model="vsselected18" v-on:change="onChangeTeamVsTeam1($event, 18)">
                               <option> </option>
-                              <option :value="teamName19"> {{ teamName19 }} </option>
+                              <option :value="teamName19" style="text-transform: capitalize;"> {{ teamName19 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName18" v-on:change="onChangeTeamVsTeam1($event, 18)">
-                              <option :value="teamName19" checked> {{ teamName19 }} </option>
+                              <option :value="teamName19" style="text-transform: capitalize;" checked> {{ teamName19 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -2935,7 +3005,7 @@
                         <b-form-input type="text" name="reservationTime1" v-model="dateTime5Data" disabled></b-form-input>
                         <!-- {{timeListText | fetchList1}} -->
                       </b-col>
-                      <b-col sm="7">
+                      <b-col sm="6">
 
                         <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -2945,13 +3015,19 @@
                         <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 19"></b-icon>
                       </b-col>
 
+                      <b-col sm="1" class="checkMoveEditIcon">
+                        <b-col v-if="checkMove19 == false">
+                          <b-icon icon="pencil-square" v-b-modal.modal-checkMoveBox @click="checkMoveButtonValue = 19" font-scale="1.5"></b-icon>
+                        </b-col>
+                      </b-col>
+
                     </b-row>
 
 
                         <div v-if="fetchPlayerList9[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                           <draggable id="first" data-source="juju" :list="fetchPlayerList9[1].Team_player_sessions" class="list-group" draggable=".item" group="a" 
-                          @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)">
+                          @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)" :disabled="!checkMove19">
 
                             <div class="list-group-item item" v-for="element in fetchPlayerList9[1].Team_player_sessions" :key="element.id">
 
@@ -3007,7 +3083,7 @@
 
 
                           <div v-else class="capitalLetters">
-                            <draggable id="first" data-source="juju" :list="list19" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 19, index)" @change="onDropReservation1($event, 19)">
+                            <draggable id="first" data-source="juju" :list="list19" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1($event, 19, index)" @change="onDropReservation1($event, 19)" :disabled="!checkMove19">
 
                             <!-- <draggable id="first" data-source="juju" :list="list2" class="list-group" draggable=".item" group="a" style="height: 440px; border-style: outset;" @add="onDrop1"> -->
 
@@ -3070,11 +3146,11 @@
 
                             <b-form-select v-if="!teamVsTeam19 > '0'" v-model="vsselected19" v-on:change="onChangeTeamVsTeam1($event, 19)">
                               <option> </option>
-                              <option :value="teamName18"> {{ teamName18 }} </option>
+                              <option :value="teamName18" style="text-transform: capitalize;"> {{ teamName18 }} </option>
                             </b-form-select>
 
                             <b-form-select v-else v-model="bothTeamName19" v-on:change="onChangeTeamVsTeam1($event, 19)">
-                              <option :value="teamName18" checked> {{ teamName18 }} </option>
+                              <option :value="teamName18" style="text-transform: capitalize;" checked> {{ teamName18 }} </option>
                               <option value=""> </option>
                             </b-form-select>
 
@@ -3420,11 +3496,11 @@ export default {
     var endtime='end';
 
 
-    // var currentdate = moment().subtract(2, 'days').format("YYYY-MM-DD");
-    var currentdate = moment().format("YYYY-MM-DD");
+    var currentdate = moment().subtract(4, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(10, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 
@@ -4006,6 +4082,8 @@ export default {
 
                                   this["arrived"+teamObjectId] = arrivedValue;
 
+
+
                                   // if(arrivedValue == '1'){
                                   //   this['removeWaitlist'+teamObjectId] = true;
                                   //   this["sendToWishlistClicked"+teamObjectId] = true;
@@ -4028,10 +4106,14 @@ export default {
 
                             }
 
-                            console.log('B KO VALUE FOR IF '+ b);
-
-                            // this.fetchPlayerList.push(this.toListFetchRouteA1);
+                            /** below code pushes the whole value to fetchPlayerList **/
                             this['fetchPlayerList'+b].push(this['toListFetch'+b]);
+
+                            /** if clause display button EDIT 6 PLAYERS **/
+                            if(this['fetchPlayerList'+b][1].Team_player_sessions.length == '6'){
+                              var newValue = 10+b;
+                              this['checkMove'+newValue] = false;
+                            }
 
                           }
 
@@ -4379,8 +4461,11 @@ export default {
                             
                               this['fetchPlayerList'+b].push(this['toListFetch'+b]);
 
-                              // console.log("SAAAAAAA");
-                          // }
+                              /** if clause display button EDIT 6 PLAYERS **/
+                                if(this['fetchPlayerList'+b][1].Team_player_sessions.length == '6'){
+                                  var newValue = 10+b;
+                                  this['checkMove'+newValue] = false;
+                                }
 
                       }
 
@@ -4419,6 +4504,19 @@ export default {
         draggedTeamPlayerSessionId:'',
 
         emptyBoxValue: '',
+        checkMoveButtonValue: '',
+
+        /** this will disable the push for more than 6 players **/
+        checkMove10: true,
+        checkMove11: true,
+        checkMove12: true,
+        checkMove13: true,
+        checkMove14: true,
+        checkMove15: true,
+        checkMove16: true,
+        checkMove17: true,
+        checkMove18: true,
+        checkMove19: true,
 
         // teamIdSideA1: '',
         // teamIdSideB1: '',
@@ -4979,6 +5077,12 @@ export default {
 
     methods: {
 
+      checkMoveButton(event,col){
+        console.log(event);
+        console.log(col);
+        this['checkMove'+col] = true;
+      },
+
       activateTeam(event, value){
         console.log("team activated");
         console.log(value);
@@ -5136,6 +5240,13 @@ export default {
         if(event.length > 7 && event.length < 9){ /** you need to right code to upload only 8 digits for rfid value **/
 
         // console.log("inside update rfid side A after reload");
+
+        /** this below part will check the rfid for unique values **/
+        var totalPlayers = this["fetchPlayerList"+col][1].Team_player_sessions.length;
+        console.log(totalPlayers);
+
+        /** end of RFID unique values **/
+
         console.log(event);
          var arr = this['fetchPlayerList'+col];
 
@@ -5175,12 +5286,16 @@ export default {
                         // this.fetchPlayerList[col].Team_player_sessions[index].rfid_id = rfidtag_id;
                         // console.log("papa");
                         // this.list2teamplayersessionid = response.data[0].id;
+
+                        /** delete if same reader update **/
+
                       })
 
                       .catch(function (error) {
                         console.log(error);
                 });
 
+            return
 
             })
 
@@ -5188,6 +5303,8 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
+
+          
 
           const nextIndex = index + 1;
           console.log(nextIndex);
@@ -5220,6 +5337,49 @@ export default {
 
             }
           } /** close out the FOR LOOP **/
+
+          for(var i=0; i < totalPlayers; i++){
+
+                          console.log(i);
+                          console.log(index);
+                          console.log(event);
+                          console.log(col);
+                          console.log(this['fetchPlayerList'+col][1]);
+
+                          var newRfidValue = this['fetchPlayerList'+col][1].Team_player_sessions[i].rfidState1;
+                          console.log(newRfidValue);
+
+                          if(event == newRfidValue){
+                            console.log(' YUP SAME VALUE');
+
+                            /** delete the value if same rfid reader used **/
+
+                            var updateOnTPS = this['fetchPlayerList'+col][1].Team_player_sessions[index].id;
+
+                            console.log(updateOnTPS);
+
+                            axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
+                                    // player_id: playerid,
+                                    rfid_id: 0
+                                  })
+                                    .then(function (response) {
+                                      console.log(response);
+
+                                      // console.log("papa");
+                                      // this.list2teamplayersessionid = response.data[0].id;
+                                    })
+
+                                    .catch(function (error) {
+                                      console.log(error);
+                              });
+
+                            this['fetchPlayerList'+newCol][1].Team_player_sessions[index].rfid_id = 0;
+
+                          }
+
+                        }
+
+                        /** end of same reader update **/
         
         }
 
@@ -6868,11 +7028,12 @@ export default {
         console.log(col);
         console.log(event);
         var index = event.newIndex;
-        
-        // console.log("0909090");
-        // console.log(e);
-        // // var index = e.draggedContext.index;
-        // console.log(this.draggedTeamPlayerSessionId);
+        console.log(index);
+
+        if(index == '5'){ /** later on change this to '5' so that it will disable for 6 players **/
+          console.log(col);
+          this['checkMove'+col] = false;
+        }
 
         var teamName = this["teamName"+col];
         var teamNameId = this["teamIdSide"+col];
@@ -8522,8 +8683,23 @@ export default {
         console.log("below is the dragged id as person iddd");
 
         console.log(event);
+        console.log(col);
 
         console.log(this['fetchPlayerList'+boxObjectId]);
+
+        /** this will enable the button **/
+        if(col < 10){
+
+          var newCol = 10+col;
+          
+          console.log('inside');
+
+          if(this['fetchPlayerList'+boxObjectId][1].Team_player_sessions.length > '5'){
+            console.log(newCol);
+            this['checkMove'+newCol] = false;
+          }
+
+        } /** end of if clause for checkMove update **/
 
         var countLastPlayerDragged = this['fetchPlayerList'+boxObjectId][1].Team_player_sessions.length;
         console.log(countLastPlayerDragged);
@@ -9605,6 +9781,14 @@ export default {
 
 .capitalLetters{
   text-transform: capitalize;
+}
+
+.playerModalText{
+  margin-left: 5%;
+}
+
+.checkMoveEditIcon{
+  margin-left: -1.7%; margin-top: 1.4%; color: #2c3e50;
 }
 
 </style>

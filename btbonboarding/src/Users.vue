@@ -457,7 +457,7 @@
                   <td v-on:click="selectItem ($event, posts, item, index)">
                     <!-- <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button> -->
 
-                    <b-button block pill variant="outline-info" v-if="item.Booker.Person.last_name == 'undefined' ">
+                    <b-button block pill variant="outline-info" style="text-transform: capitalize;" v-if="item.Booker.Person.last_name == 'null' || item.Booker.Person.last_name == 'undefined' ">
                       {{item.Booker.Person.first_name}}
                     </b-button>
 
@@ -524,7 +524,10 @@
 
                   <td>
                     <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
-                    {{item.size - item.total_player_arrived}}
+                    <!-- {{item.size - item.total_player_arrived}} -->
+
+                    <p v-if="item.size-item.total_player_arrived < '0'">{{item.size}}+{{item.total_player_arrived-item.size}}</p>
+                    <p v-else>{{item.size - item.total_player_arrived}}</p>
                   </td>
 
                   <td>
