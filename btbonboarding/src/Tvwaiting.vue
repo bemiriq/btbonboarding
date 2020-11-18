@@ -45,7 +45,7 @@ export default {
       console.log(error);
     });
 
-    // setTimeout(location.reload.bind(location), 8200);
+    setTimeout(location.reload.bind(location), 8200);
 
   }
 
@@ -132,7 +132,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.7%;
+    width: 99.5%;
     height: 1078px;
     background-color: black;
     margin-top: -10%;
