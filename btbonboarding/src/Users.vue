@@ -217,7 +217,7 @@
 
 
               <b-col v-if="addBookerFirstName.length == 0 || addBookerEmail.length == 0 || addBookerPhoneNumber.length == 0 || addBookerTeamSize.length == 0  
-              || reservationTimeQuaterly.length == 0 || reservationTimeHourly.length == 0 || reservationAmPm.length == 0 || addBookerMission.length == 0 || addBookerXolaTravelerId.length == 0 || addBookerXolaItemId.length == 0 || addBookerXolaOrderId.length == 0 || addXolaBookerId.length == 0">
+              || reservationTimeQuaterly.length == 0 || reservationTimeHourly.length == 0 || reservationAmPm.length == 0 || addBookerMission.length == 0">
                 <b-button variant="primary" v-on:click="clickedSubmitReservation" disabled>Submit Reservation</b-button>
               </b-col>
               <b-col v-else>

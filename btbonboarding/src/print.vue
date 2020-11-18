@@ -35,7 +35,7 @@
 
           <b-col lg="4" style="margin-top: 2%;">
             <b-row>
-              <b-col lg="4" style="margin-top: 2%;"> Date Select </b-col>
+              <b-col lg="4" style="margin-top: 2%;"> Select Date </b-col>
               <b-col>
                 <b-input-group class="mb-1">
 
