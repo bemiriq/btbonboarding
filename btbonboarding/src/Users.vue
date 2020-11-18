@@ -1114,9 +1114,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 
             /** find or create booker **/
             // var xolaBookerId = this.addXolaBookerId;
-            var xolaBookerId = 'btbtest123456789';
+            var defaultId = 'btbdefaultid'+this.addBookerPhoneNumber;
+            var xolaBookerId = defaultId;
             axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/'+xolaBookerId,{
-              person_id: personId
+              person_id: peopleId /** this will update people id from people table not person id **/
             })
             .then(response => {
               console.log("Xola Booker Id response below");
@@ -1130,9 +1131,9 @@ var arrows = document.getElementsByClassName("covertedtime");
               // var xolaOrderId = this.addBookerXolaOrderId;
               // var xolaItemId = this.addBookerXolaItemId;
               // var xolaExperienceItemId = this.addBookerXolaTravelerId;
-              var xolaOrderId = 'btbtest123456789';
-              var xolaItemId = 'btbtest123456789';
-              var xolaExperienceItemId = 'btbtest123456789';
+              var xolaOrderId = defaultId;
+              var xolaItemId = defaultId;
+              var xolaExperienceItemId = defaultId;
               var totalAmount = parseInt(teamSize)*44.95;
 
               axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/xola_order_id/'+xolaOrderId+'/xola_item_id/'+xolaItemId,{
