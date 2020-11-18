@@ -136,7 +136,7 @@ export default {
     height: 1078px;
     background-color: black;
     margin-top: -10%;
-    margin-right: -5%;
+    margin-left: -10%;
 
   }
   /*.container{
