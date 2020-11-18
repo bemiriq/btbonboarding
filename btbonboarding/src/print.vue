@@ -1426,7 +1426,7 @@ import axios from 'axios';
     .firstdiv{
       background-color: #FF1696; /** pink **/
       margin-left: -5.5cm;
-      height: 31.2cm !important; /** this changes the pink background height **/
+      height: 31.4cm !important; /** this changes the pink background height **/
       margin-top: -4cm; /** added margin-top when it messed up with new printer**/
       /*color: black;*/
     }
