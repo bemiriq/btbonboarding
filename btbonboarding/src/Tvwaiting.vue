@@ -136,7 +136,8 @@ export default {
     height: 1078px;
     background-color: black;
     margin-top: -10%;
-    margin-left: 1%; /** shifts to the right **/
+    margin-left: auto; /** shifts to the right **/
+    margin-right: auto;
   }
   /*.container{
     display: none;
