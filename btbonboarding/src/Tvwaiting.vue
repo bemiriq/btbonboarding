@@ -123,7 +123,7 @@ export default {
     color: #2c3e50;
     /*width: auto;*/
     margin: auto;
-     background-color: black;
+     /*background-color: black;*/
   }
 
   .main {
@@ -132,7 +132,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /*width: auto;*/
+    width: 98%;
     height: 1078px;
     background-color: black;
     margin-top: -10%;
@@ -206,8 +206,6 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /*width: auto;*/ 
-    background-color: black;
   }
 
   .main {
@@ -216,20 +214,15 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /*width: auto;*/
     height: 1078px;
-    background-color: black;
+    background-color: yellow;
     margin-top: -10%;
     margin-left: -1%;
 
   }
-  /*.container{
-    display: none;
-  }*/
 
   .teamTitle{
     font-size: 8em;
-    /*color: #007BFF;*/
     color: #00ff89;
     margin-top: 4%;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
@@ -246,7 +239,6 @@ export default {
   }
 
   .lineCross{
-    /*width: auto;*/
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
@@ -261,22 +253,20 @@ export default {
 
   .changeColor0{
     /*color:red;*/
-    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
-    -moz-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Fx 5+ */
-    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
-    animation: NAME-YOUR-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
+    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  
+    -moz-animation: NAME-YOUR-ANIMATION 1s infinite; 
+    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  
+    animation: NAME-YOUR-ANIMATION 1s infinite;
   }
 
   @-webkit-keyframes NAME-YOUR-ANIMATION {
     0%, 49% {
-      background-color: #00ff89;  /** green **/
+      background-color: #00ff89;
       color: black;
-      /*border: 3px solid #e50000;*/
     }
     50%, 100% {
       background-color: black;
       color: #00ff89;
-      /*border: 3px solid rgb(117, 209, 63);*/
     }
   }
 
