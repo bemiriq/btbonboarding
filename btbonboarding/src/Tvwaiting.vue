@@ -121,7 +121,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
+    /*width: auto;*/
     margin: auto;
      background-color: black;
   }
@@ -132,7 +132,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
+    /*width: auto;*/
     height: 1078px;
     background-color: black;
     margin-top: -10%;
@@ -161,7 +161,7 @@ export default {
   }
 
   .lineCross{
-    width: auto;
+    /*width: auto;*/
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
@@ -206,8 +206,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto; /** width: auto; **/
-    /*margin-left: 0.1%;*/
+    /*width: auto;*/ 
     background-color: black;
   }
 
@@ -217,7 +216,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
+    /*width: auto;*/
     height: 1078px;
     background-color: black;
     margin-top: -10%;
@@ -247,7 +246,7 @@ export default {
   }
 
   .lineCross{
-    width: auto;
+    /*width: auto;*/
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
