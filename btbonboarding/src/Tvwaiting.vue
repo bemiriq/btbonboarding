@@ -45,7 +45,7 @@ export default {
       console.log(error);
     });
 
-    setTimeout(location.reload.bind(location), 8200);
+    // setTimeout(location.reload.bind(location), 8200);
 
   }
 
@@ -123,6 +123,7 @@ export default {
     color: #2c3e50;
     width: 99.99%;
     margin: auto;
+     background-color: black;
   }
 
   .main {
@@ -207,6 +208,7 @@ export default {
     color: #2c3e50;
     width: 99.99%; /** width: auto; **/
     /*margin-left: 0.1%;*/
+    background-color: black;
   }
 
   .main {
