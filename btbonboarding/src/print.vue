@@ -1415,8 +1415,8 @@ import axios from 'axios';
    @page {
       size: auto !important;
       margin: 0.01cm;
-      margin-left: -3.8cm;
-      margin-top: -14.9cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
+      margin-left: -3.7cm;
+      margin-top: -14.6cm; /** THIS WILL MOVE THE WHOLE HEIGHT FOR CERTIFICATE OF COMPLETION 14.9cm exact size **/
     }
 
    /* @page :left{
