@@ -132,7 +132,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1078px;
+    height: 100%;
     background-color: black;
     margin-top: -10%;
 
@@ -216,7 +216,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1700px;
+    height: 100%;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
