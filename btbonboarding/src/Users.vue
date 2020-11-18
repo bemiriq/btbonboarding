@@ -161,7 +161,7 @@
             </b-row>
 
 
-            <b-row class="my-1">
+            <!-- <b-row class="my-1">
               <b-col>
                 <p style="text-align:center; text-transform:uppercase; font-weight:bold; "> Add XOLA DETAILS BELOW </p>
               </b-col>
@@ -205,7 +205,7 @@
               <b-col sm="8">
                 <b-form-input v-model="addBookerXolaTravelerId" id="input-large" placeholder="Enter Xola Traveler Id"></b-form-input>
               </b-col>
-            </b-row>
+            </b-row> -->
 
             <br>
 
@@ -1113,7 +1113,8 @@ var arrows = document.getElementsByClassName("covertedtime");
             var personId = response.data[0].id;
 
             /** find or create booker **/
-            var xolaBookerId = this.addXolaBookerId;
+            // var xolaBookerId = this.addXolaBookerId;
+            var xolaBookerId = 'btbtest123456789';
             axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/'+xolaBookerId,{
               person_id: personId
             })
@@ -1126,9 +1127,12 @@ var arrows = document.getElementsByClassName("covertedtime");
 
               /** find or create reservation **/
 
-              var xolaOrderId = this.addBookerXolaOrderId;
-              var xolaItemId = this.addBookerXolaItemId;
-              var xolaExperienceItemId = this.addBookerXolaTravelerId;
+              // var xolaOrderId = this.addBookerXolaOrderId;
+              // var xolaItemId = this.addBookerXolaItemId;
+              // var xolaExperienceItemId = this.addBookerXolaTravelerId;
+              var xolaOrderId = 'btbtest123456789';
+              var xolaItemId = 'btbtest123456789';
+              var xolaExperienceItemId = 'btbtest123456789';
               var totalAmount = parseInt(teamSize)*44.95;
 
               axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/xola_order_id/'+xolaOrderId+'/xola_item_id/'+xolaItemId,{
