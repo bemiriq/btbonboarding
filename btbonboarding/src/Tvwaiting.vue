@@ -160,7 +160,7 @@ export default {
   }
 
   .lineCross{
-    width: auto;
+    width: 95%;
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
