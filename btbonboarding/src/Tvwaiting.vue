@@ -121,7 +121,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.99%;
+    width: auto;
     margin: auto;
      background-color: black;
   }
@@ -133,7 +133,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 100%;
+    height: 1078px;
     background-color: black;
     margin-top: -10%;
 
@@ -206,7 +206,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.99%; /** width: auto; **/
+    width: auto; /** width: auto; **/
     /*margin-left: 0.1%;*/
     background-color: black;
   }
@@ -218,7 +218,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 100%;
+    height: 1078px;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
