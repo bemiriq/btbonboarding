@@ -121,9 +121,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /*width: auto;*/
+    width: 99.99%;
     margin: auto;
-     /*background-color: black;*/
   }
 
   .main {
@@ -132,12 +131,11 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99%;
+    width: auto;
     height: 1078px;
     background-color: black;
     margin-top: -10%;
-    margin-left: auto; /** shifts to the right **/
-    margin-right: auto;
+
   }
   /*.container{
     display: none;
@@ -152,7 +150,7 @@ export default {
   }
 
   .teamName{
-    font-size: 4em;
+    font-size: 3.7em;
     color: #00ff89;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   }
@@ -162,7 +160,7 @@ export default {
   }
 
   .lineCross{
-    /*width: auto;*/
+    width: auto;
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
@@ -207,6 +205,8 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    width: 99.99%; /** width: auto; **/
+    /*margin-left: 0.1%;*/
   }
 
   .main {
@@ -215,15 +215,20 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    height: 1078px;
-    background-color: yellow;
+    width: auto;
+    height: 1700px;
+    background-color: black;
     margin-top: -10%;
     margin-left: -1%;
 
   }
+  /*.container{
+    display: none;
+  }*/
 
   .teamTitle{
     font-size: 8em;
+    /*color: #007BFF;*/
     color: #00ff89;
     margin-top: 4%;
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
@@ -240,6 +245,7 @@ export default {
   }
 
   .lineCross{
+    width: auto;
     background-color: #00ff89;
     color: #00ff89;
     height: 7px;
@@ -254,20 +260,22 @@ export default {
 
   .changeColor0{
     /*color:red;*/
-    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  
-    -moz-animation: NAME-YOUR-ANIMATION 1s infinite; 
-    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  
-    animation: NAME-YOUR-ANIMATION 1s infinite;
+    -webkit-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Safari 4+ */
+    -moz-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Fx 5+ */
+    -o-animation: NAME-YOUR-ANIMATION 1s infinite;  /* Opera 12+ */
+    animation: NAME-YOUR-ANIMATION 1s infinite;  /* IE 10+, Fx 29+ */
   }
 
   @-webkit-keyframes NAME-YOUR-ANIMATION {
     0%, 49% {
-      background-color: #00ff89;
+      background-color: #00ff89;  /** green **/
       color: black;
+      /*border: 3px solid #e50000;*/
     }
     50%, 100% {
       background-color: black;
       color: #00ff89;
+      /*border: 3px solid rgb(117, 209, 63);*/
     }
   }
 
