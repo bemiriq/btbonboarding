@@ -29,8 +29,39 @@
 
 
 
+
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
+
+          <b-col lg="4" style="margin-top: 2%;">
+            <b-row>
+              <b-col lg="4" style="margin-top: 2%;"> Date Select </b-col>
+              <b-col>
+                <b-input-group class="mb-1">
+
+                  <b-form-input
+                    id="example-input"
+                    v-model="dateClicked"
+                    type="text"
+                    placeholder="YYYY-MM-DD"
+                    autocomplete="off"></b-form-input>
+
+                  <b-input-group-append>
+                    <b-form-datepicker
+                      v-model="dateClicked"
+                      button-only
+                      right
+                      locale="en-US"
+                      aria-controls="example-input" @context="onContext"
+                    ></b-form-datepicker>
+                  </b-input-group-append>
+
+                </b-input-group>
+              </b-col>
+            </b-row>
+          </b-col>
+
+          <br>
           <b-col>
             <b-form-group id="input-group-3" label-for="input-3">
               <b-form-select v-model="teamSelectedIndex" v-on:change="teamNameSelected($event)">
@@ -408,7 +439,8 @@ import axios from 'axios';
         hackAttackPercentage: '',
         totalBombTime: '',
         teamRank: '',
-        totalTeams: ''
+        totalTeams: '',
+        dateClicked: moment().format('YYYY-MM-DD')
 
       }
 
@@ -1274,7 +1306,10 @@ import axios from 'axios';
     mounted: function(){
       
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+40+'/active',{
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed',{
+      
+      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/completed/date/'+this.dateClicked);
+
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed/date/'+this.dateClicked,{
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
 
       })
@@ -1324,6 +1359,26 @@ import axios from 'axios';
           this.gamestatus = 'gameLogoChildrenMission1';
 
         },
+
+        onContext(){
+          console.log('inside');
+          var dateSelected = this.dateClicked;
+          console.log(dateSelected);
+
+          /** axios get team completed by date **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed/date/'+dateSelected,{
+            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
+
+            })
+            .then(response => {
+              console.log(response);
+              this.teamList = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          /** end of TEAM COMPLETED axios get **/
+        }
 
     } /** methods closing bracket **/
 
