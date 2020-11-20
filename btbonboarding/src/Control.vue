@@ -735,19 +735,26 @@ export default {
         console.log(response.data);
 
         this.rfidTagForTeam = response.data.Team_player_sessions[0].Rfid.tag;
-        console.log(response.data.Team_player_sessions[0].Rfid.tag);
+        var rfidTagUsed =response.data.Team_player_sessions[0].Rfid.tag;
+
+        var mqtt = require('mqtt');
+        var client  = mqtt.connect('ws://20.17.0.5:8083/');
+        console.log(client);
+        var vm = this;
+        client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"1", "rfid_tag": rfidTagUsed,}'); /** route_status_id is room number **/
+
       })
       .catch(function (error){
         console.log(error);
       });
 
 
-      console.log('rfid tag for team '+this.rfidTagForTeam);
+      // console.log('rfid tag for team '+this.rfidTagForTeam);
 
-      var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      console.log(client);
-      var vm = this;
+      // var mqtt = require('mqtt');
+      // var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      // console.log(client);
+      // var vm = this;
 
       // var rfid_tag = '';
 
