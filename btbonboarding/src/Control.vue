@@ -720,6 +720,12 @@ export default {
 
     resetTeam(event, room){
       console.log('team reset on room '+room);
+
+      var mqtt = require('mqtt');
+        var client  = mqtt.connect('ws://20.17.0.5:8083/');
+        console.log(client);
+        var vm = this;
+        client.publish('reset', '{route_status_id":"1"}');
     },
 
     clickedTeamName(){
@@ -743,26 +749,12 @@ export default {
         var vm = this;
         client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"1", "rfid_tag": "'+rfidTagUsed+'"}'); /** route_status_id is room number **/
 
+        this.$root.$emit('bv::hide::modal', 'modal-startTeam', '#btnShow');
+
       })
       .catch(function (error){
         console.log(error);
       });
-
-
-      // console.log('rfid tag for team '+this.rfidTagForTeam);
-
-      // var mqtt = require('mqtt');
-      // var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      // console.log(client);
-      // var vm = this;
-
-      // var rfid_tag = '';
-
-      // client.publish('sans_channel', 'START TEAM ON HACK ATTACK 1 from SANDESH APPLICATION');
-      // client.publish('server/commands', '{command:"tap", route:"a", route_status_id:"1" }'); /** route_status_id is room number **/
-
-      // console.log('inside clickedTeamName()');
-      // this.$root.$emit('bv::show::modal', 'modal-startConfirmation', '#btnShow');
     },
 
     timerRun() {
