@@ -741,7 +741,7 @@ export default {
         var client  = mqtt.connect('ws://20.17.0.5:8083/');
         console.log(client);
         var vm = this;
-        client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"1", "rfid_tag": rfidTagUsed,}'); /** route_status_id is room number **/
+        client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"1", "rfid_tag": 'rfidTagUsed',}'); /** route_status_id is room number **/
 
       })
       .catch(function (error){
