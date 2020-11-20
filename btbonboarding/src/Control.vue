@@ -17,7 +17,7 @@
             <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
-            <b-list-group-item href="/#/Playing" active>Status Screen</b-list-group-item>
+            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
@@ -27,107 +27,81 @@
         </b-col>
         <!-- end of navigation menu on left side -->
 
+        <b-modal id="modal-startTeam" centered v-bind:hide-footer="true">
+          <p class="warning"><b> TEAM LIST</b></p>
+        
+            <b-form-select v-model="teamSessionId" class="mb-3">
+              <option v-for="item in teamList" v-bind:key="item.id" v-bind:value="item.id">{{item.Team.name}}</option>
+            </b-form-select>
 
+            <b-button @click="clickedTeamName()">START NOW</b-button>
+        </b-modal>
 
+        <b-modal id="modal-startConfirmation" centered v-bind:hide-footer="true">
+          <p class="warning"><b> Start TEAM NAME on ROOM 1</b></p>
+
+        </b-modal>
+
+        <!-- SIDE A status screen -->
         <!-- start of right div which consists of table with all details -->
-        <b-col lg="10" style="background-color:#fafafa; font-weight: bold;">
-
-          <!-- <b-row class="alert alert-primary" role="alert">
-            <b-col class="col-6"><p id="blinking"> ARBITER DISCONNECTED INFORMATION </p></b-col>
-            <b-col> PAUSE </b-col>
-            <b-col> PLAY </b-col>
-            <b-col> ROOM TIME </b-col>
-            <b-col> BOMB TIME </b-col>
-          </b-row> -->
+        <b-col lg="10" style="background-color:#fafafa; font-weight: bold;" v-show="sideAdiv">
           <b-row>
-            <b-col>CONTROL ROOM SIDE A</b-col>
+           
+            <b-col>
+              <b-button :pressed="true" variant="info" v-on:click="sideAdiv = !sideAdiv; sideBdiv = !sideBdiv;" size="lg">SIDE A</b-button>
+            </b-col>
+             <b-col><p class="sideHeading">SIDE A</p></b-col>
+            <b-col>
+              <b-button variant="outline-info" v-on:click="sideAdiv = !sideAdiv; sideBdiv = !sideBdiv;" size="lg">SIDE B</b-button>
+            </b-col>
           </b-row>
+
           <b-row>
 
             <!-- starting div for room 1 and room 6 -->
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room1StatusColor">
+
                 <div>
+                  <img v-bind:src="require('./assets/' + room1game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div>
+                  <b-button @click="startTeam(event,1), teamRoomNumber = 1">START</b-button>
+                  <b-button @click="resetTeam(event,1), teamRoomNumber = 1">RESET</b-button>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <h4 style="font-weight: bold;"> ROOM 1 </h4>
+                      <p v-bind:class="room1StatusTextColor" class="roomNameGame"> {{room1game}} </p>
+                      <p v-bind:class="room1StatusTextColor" class="roomGameStatus"> {{room1status}} </p>
                     </b-col>
-                    <b-col> 
-                      <div v-on:click="room1pauseDiv = !room1pauseDiv ; room1playDiv = !room1playDiv ;">
-
-                        <div v-show="!room1playDiv" @click="timerPause">
-                          <img src="./assets/icons/pause1.png"/>
-                          <!-- <p>PLAY</p> -->
-                        </div>
-
-                        <div v-show="!room1pauseDiv" @click="timerRun">
-                          <img src="./assets/icons/play4.png" />
-                          <!-- <p>PAUSED</p> -->
-                        </div>
-
-                      </div>
-                      <!-- <span :class="{red: !alwaysAccordionMode }">Tabs</span>
-                      <span :class="{red: alwaysAccordionMode }">Accordion</span> -->
-                     </b-col>
                   </b-row>
-                  <hr/>
-                </div>
-
-                <!-- <div><div id="time" v-html="time"></div>
-                  <div class="buttons">
-                    <button v-if="!state" @click="resume">Resume</button>
-                    <button v-if="state" @click="pause">Pause</button>
-                  </div>
-                </div> -->
-
-                <div>
-                  <!-- <select v-model="selected">
-                    <option v-for="option in options" v-bind:value="option.text" v-bind:key="option.text">
-                      {{ option.text }}
-                    </option>
-                  </select> -->
-                  <span>Teamname</span>
-
-                  <b-form-group id="input-group-3" label-for="input-3">
-                    <b-form-select v-model="teamName1" v-on:change="teamNameSelected">
-                        <option v-for="(item, index) in teamList" v-bind:key="index.id" :value="index">{{item.Team.name}}</option>
-                    </b-form-select>
-                  </b-form-group>
-
-                </div>
-                <br/>
-                
-                <div>
-                  <div id="bombTime">Bomb Time {{room1bombtime}}  </div>
                 </div>
 
                 <br/>
 
                 <div>
-                  <p>Game Ops IP = 192.168.1.105</p>
-                  <p>Room Ops IP = 192.168.1.116</p>
+                  <h2 class="bombTimeText"> {{room1currenttime}} </h2>
                 </div>
 
                 <br/>
 
-
-                <div id="add30sec">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="totalTime += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="totalTime -= 30"> - 30 sec </button></b-col>
-                  </b-row>
-                </div>
-
-
-
-                <div id="resetStartButton">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info" @click="timerReset">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info" @click="timerRun">START</button></b-col>
-                  </b-row>
+                <div>
+                  <p class="teamNameText"> {{room1teamname}} </p>
                 </div>
 
                 <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room1teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p>
+                </div>
 
             </b-col>
             <!-- end b-col and div for room 1 and room 6 -->
@@ -135,189 +109,412 @@
 
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room2StatusColor">
-                <div>
-                  <h4 style="font-weight: bold;"> ROOM 2 </h4>
-                  <hr/>
 
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
-                </div>
-
-                <br/>
-                
                 <div>
-                  <p id="bombTime"> Bomb Time : + 4:50 </p>
+                  <img v-bind:src="require('./assets/' + room2game +'.png')" class="gameLogo"/>
                 </div>
 
                 <br/>
 
                 <div>
-                  <p>Game Ops IP = 192.168.1.106</p>
-                  <p>Room Ops IP = 192.168.1.117</p>
+                  <b-button @click="startTeam(event,2), teamRoomNumber = 2">START</b-button>
+                  <b-button @click="resetTeam(event,2), teamRoomNumber = 2">RESET</b-button>
                 </div>
 
                 <br/>
 
-
-                <div id="add30sec">
+                <div class="blackBackgroundOverText">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter -= 30"> - 30 sec </button></b-col>
+                   <b-col>
+                      <p v-bind:class="room2StatusTextColor" class="roomNameGame"> {{room2game}} </p>
+                      <p v-bind:class="room2StatusTextColor" class="roomGameStatus"> {{room2status}} </p>
+                    </b-col>
                   </b-row>
                 </div>
 
+                <br/>
 
+                <div>
+                  <h2 class="bombTimeText"> {{room2currenttime}} </h2>
+                </div>
 
-                <div id="resetStartButton">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info">START</button></b-col>
-                  </b-row>
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room2teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room2teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room2timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room2bombtime}} </p>
                 </div>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
 
-            <!-- starting b-col and div for room 3 and room 8 -->
+            <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room3StatusColor">
-                <div>
-                  <h4 style="font-weight: bold;"> ROOM 3 </h4>
-                  <hr/>
 
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
-                </div>
-
-                <br/>
-                
                 <div>
-                  <p id="bombTime"> Bomb Time : + 3:30 </p>
+                  <img v-bind:src="require('./assets/' + room3game +'.png')" class="gameLogo"/>
                 </div>
 
                 <br/>
 
-                <div>
-                  <p>Game Ops IP = 192.168.1.107</p>
-                  <p>Room Ops IP = 192.168.1.118</p>
-                </div>
-
-                <br/>
-
-
-                <div id="add30sec">
+                <div class="blackBackgroundOverText">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter -= 30"> - 30 sec </button></b-col>
+                    <b-col>
+                      <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p>
+                      <p v-bind:class="room3StatusTextColor" class="roomGameStatus"> {{room3status}} </p>
+                    </b-col>
                   </b-row>
                 </div>
 
+                <br/>
 
+                <div>
+                  <h2 class="bombTimeText"> {{room3currenttime}} </h2>
+                </div>
 
-                <div id="resetStartButton">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info">START</button></b-col>
-                  </b-row>
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room3teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room3teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room3timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room3bombtime}} </p>
                 </div>
 
             </b-col>
-            <!-- ending div for room 3 and room 8 -->
+            <!-- ending div for room 2 and room 7 -->
 
-            <!-- starting b-col and div for room 4 and room 9 -->
+
+            <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room4StatusColor">
-                <div>
-                  <h4 style="font-weight: bold;"> ROOM 4 </h4>
-                  <hr/>
 
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
-                </div>
-
-                <br/>
-                
                 <div>
-                  <p id="bombTime"> Bomb Time : + 2:35 </p>
+                  <img v-bind:src="require('./assets/' + room4game +'.png')" class="gameLogo"/>
                 </div>
 
                 <br/>
 
-                <div>
-                  <p>Game Ops IP = 192.168.1.108</p>
-                  <p>Room Ops IP = 192.168.1.119</p>
-                </div>
-
-                <br/>
-
-
-                <div id="add30sec">
+                <div class="blackBackgroundOverText">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter -= 30"> - 30 sec </button></b-col>
+                    <b-col>
+                      <p v-bind:class="room4StatusTextColor" class="roomNameGame"> {{room4game}} </p>
+                      <p v-bind:class="room4StatusTextColor" class="roomGameStatus"> {{room4status}} </p>
+                    </b-col>
                   </b-row>
                 </div>
 
+                <br/>
 
+                <div>
+                  <h2 class="bombTimeText"> {{room4currenttime}} </h2>
+                </div>
 
-                <div id="resetStartButton">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info">START</button></b-col>
-                  </b-row>
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room4teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room4teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room4timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room4bombtime}} </p>
                 </div>
 
             </b-col>
-            <!-- ending div for room 4 and room 9 -->
+            <!-- ending div for room 2 and room 7 -->
 
 
-            <!-- starting b-col and div for room 5 and room 10 -->
+            <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room5StatusColor">
-                <div>
-                  <h4 style="font-weight: bold;"> ROOM 5 </h4>
-                  <hr/>
 
-                  <h5 style="font-weight: bold;"> TEAM NAME </h5>
-                </div>
-
-                <br/>
-                
                 <div>
-                  <p id="bombTime"> Bomb Time : + 5:25 </p>
+                  <img v-bind:src="require('./assets/' + room5game +'.png')" class="gameLogo"/>
                 </div>
 
                 <br/>
 
-                <div>
-                  <p>Game Ops IP = 192.168.1.109</p>
-                  <p>Room Ops IP = 192.168.1.120</p>
-                </div>
-
-                <br/>
-
-
-                <div id="add30sec">
+                <div class="blackBackgroundOverText">
                   <b-row>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter += 30"> + 30 sec </button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-light" v-on:click="room1counter -= 30"> - 30 sec </button></b-col>
+                    <b-col>
+                      <p v-bind:class="room5StatusTextColor" class="roomNameGame"> {{room5game}} </p>
+                      <p v-bind:class="room5StatusTextColor" class="roomGameStatus"> {{room5status}} </p>
+                    </b-col>
                   </b-row>
                 </div>
 
+                <br/>
 
+                <div>
+                  <h2 class="bombTimeText"> {{room5currenttime}} </h2>
+                </div>
 
-                <div id="resetStartButton">
-                  <b-row>
-                    <b-col><button type="button" class="btn btn-outline-info">RESET</button></b-col>
-                    <b-col><button type="button" class="btn btn-outline-info">START</button></b-col>
-                  </b-row>
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room5teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room5teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room5timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room5bombtime}} </p>
                 </div>
 
             </b-col>
-            <!-- ending div for room 5 and room 10 -->
 
           </b-row>
         </b-col>
 
+        <!-- END of SIDE A status screen -->
+
+
+
+        <!-- SIDE B -->
+
+        <b-col lg="10" style="background-color:#fafafa; font-weight: bold;" id="sideBdiv" v-show="!sideBdiv">
+          <b-row>
+            <!-- <b-col><p class="sideHeading">SIDE A</p></b-col> -->
+            <b-col>
+              <b-button variant="outline-info" v-on:click="sideAdiv = !sideAdiv; sideBdiv = !sideBdiv;" size="lg">SIDE A</b-button>
+            </b-col>
+            <b-col><p class="sideHeading">SIDE B</p></b-col>
+            <b-col>
+              <b-button :pressed="true" variant="info" v-on:click="sideAdiv = !sideAdiv; sideBdiv = !sideBdiv;" size="lg">SIDE B</b-button>
+            </b-col>
+          </b-row>
+
+
+          <b-row>
+
+            <!-- starting div for room 1 and room 6 -->
+            <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
+            <b-col class="border border-dark" v-bind:class="room6StatusColor">
+
+                <div>
+                  <img v-bind:src="require('./assets/' + room6game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room6StatusTextColor" class="roomNameGame"> {{room6game}} </p>
+                      <p v-bind:class="room6StatusTextColor" class="roomGameStatus"> {{room6status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room6currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room6teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room6teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room6timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room6bombtime}} </p>
+                </div>
+
+            </b-col>
+            <!-- end b-col and div for room 1 and room 6 -->
+
+
+            <!-- starting b-col and div for room 2 and room 7 -->
+            <b-col class="border border-dark" v-bind:class="room7StatusColor">
+
+                <div>
+                  <img v-bind:src="require('./assets/' + room7game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room7StatusTextColor" class="roomNameGame"> {{room7game}} </p>
+                      <p v-bind:class="room7StatusTextColor" class="roomGameStatus"> {{room7status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room7currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room7teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room7teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room7timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room7bombtime}} </p>
+                </div>
+
+            </b-col>
+            <!-- ending div for room 2 and room 7 -->
+
+            <!-- starting b-col and div for room 2 and room 7 -->
+            <b-col class="border border-dark" v-bind:class="room8StatusColor">
+
+                <div>
+                  <img v-bind:src="require('./assets/' + room8game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame"> {{room8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room8currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room8teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room8teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room8timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room8bombtime}} </p>
+                </div>
+
+            </b-col>
+            <!-- ending div for room 2 and room 7 -->
+
+
+            <!-- starting b-col and div for room 2 and room 7 -->
+            <b-col class="border border-dark" v-bind:class="room9StatusColor">
+
+                <div>
+                  <img v-bind:src="require('./assets/' + room9game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room9StatusTextColor" class="roomNameGame"> {{room9game}} </p>
+                      <p v-bind:class="room9StatusTextColor" class="roomGameStatus"> {{room9status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room9currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room9teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room9teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room9timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room9bombtime}} </p>
+                </div>
+
+            </b-col>
+            <!-- ending div for room 2 and room 7 -->
+
+
+            <!-- starting b-col and div for room 2 and room 7 -->
+            <b-col class="border border-dark" v-bind:class="room10StatusColor">
+
+                <div>
+                  <img v-bind:src="require('./assets/' + room10game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room10StatusTextColor" class="roomNameGame"> {{room10game}} </p>
+                      <p v-bind:class="room10StatusTextColor" class="roomGameStatus"> {{room10status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room10currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  <p class="teamNameText"> {{room10teamname}} </p>
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room10teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room10timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room10bombtime}} </p>
+                </div>
+
+            </b-col>
+
+          </b-row>
+        </b-col>
+
+
+
+        <!-- END OF SIDE B -->
+
       </b-row>
     </div>
 
-    <br/>
+    
 
+    <br/>
     <br/>
 
         <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
@@ -352,13 +549,11 @@
 <script src="moment.js"></script>
 
 <script>
-
-import moment from 'moment';
-import axios from 'axios';
-
+// import HelloWorld from './components/HelloWorld.vue'
 import VueMqtt from 'vue-mqtt';
 // Vue.use(VueMqtt, 'ws://20.17.0.5:1883/', options);
-
+import moment from 'moment';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -368,6 +563,10 @@ export default {
 
   data(){
     return{
+
+      rfidTagForTeam: 0,
+      teamSessionId: 0,
+      teamRoomNumber: 0,
       room1counter: 130,
       room1pauseDiv: true,
       room1playDiv: false,
@@ -377,24 +576,118 @@ export default {
       timerPaused: false,
       interval: null,
       gameStatusByColor: true,
-      teamList: [],
 
       room1status: null,
       room1StatusColor: '',
-      room1bombtime: '',
-      teamName1: '',
+      room1StatusTextColor: '',
 
       room2status: null,
       room2StatusColor: '',
+      room2StatusTextColor: '',
 
       room3status: null,
       room3StatusColor: '',
+      room3StatusTextColor: '',
 
       room4status: null,
       room4StatusColor: '',
+      room4StatusTextColor: '',
 
       room5status: null,
       room5StatusColor: '',
+      room5StatusTextColor: '',
+
+      room6status: null,
+      room6StatusColor: '',
+      room6StatusTextColor: '',
+
+      room7status: null,
+      room7StatusColor: '',
+      room7StatusTextColor: '',
+
+      room8status: null,
+      room8StatusColor: '',
+      room8StatusTextColor: '',
+
+      room9status: null,
+      room9StatusColor: '',
+      room9StatusTextColor: '',
+
+      room10status: null,
+      room10StatusColor: '',
+      room10StatusTextColor: '',
+
+      room1game: '',
+      room2game: '',
+      room3game: '',
+      room4game: '',
+      room5game: '',
+      room6game: '',
+      room7game: '',
+      room8game: '',
+      room9game: '',
+      room10game: '',
+
+      room1teamsize: '',
+      room2teamsize: '',
+      room3teamsize: '',
+      room4teamsize: '',
+      room5teamsize: '',
+      room6teamsize: '',
+      room7teamsize: '',
+      room8teamsize: '',
+      room9teamsize: '',
+      room10teamsize: '',
+
+      room1teamname: '',
+      room2teamname: '',
+      room3teamname: '',
+      room4teamname: '',
+      room5teamname: '',
+      room6teamname: '',
+      room7teamname: '',
+      room8teamname: '',
+      room9teamname: '',
+      room10teamname: '',
+
+      room1bombtime: '',
+      room2bombtime: '',
+      room3bombtime: '',
+      room4bombtime: '',
+      room5bombtime: '',
+      room6bombtime: '',
+      room7bombtime: '',
+      room8bombtime: '',
+      room9bombtime: '',
+      room10bombtime: '',
+
+      room1timeearned: '',
+      room2timeearned: '',
+      room3timeearned: '',
+      room4timeearned: '',
+      room5timeearned: '',
+      room6timeearned: '',
+      room7timeearned: '',
+      room8timeearned: '',
+      room9timeearned: '',
+      room10timeearned: '',
+
+      room1currenttime: '',
+      room2currenttime: '',
+      room3currenttime: '',
+      room4currenttime: '',
+      room5currenttime: '',
+      room6currenttime: '',
+      room7currenttime: '',
+      room8currenttime: '',
+      room9currenttime: '',
+      room10currenttime: '',
+
+
+      sideAdiv: true,
+      sideBdiv:true,
+
+      teamList: [],
 
       selected: 'A',
         options: [
@@ -415,41 +708,54 @@ export default {
     
   },
 
-
   methods: {
 
-    teamNameSelected(){
-      var indexValue = this.teamName1;
-      var teamDetail = this.teamList[indexValue];
+    startTeam(event,room){
 
-      var fetch_route_status_id = teamDetail.route_id;
-      console.log(fetch_route_status_id);
+      console.log('team start on room '+ room);
 
-      var fetch_rfid_tag = teamDetail.Team_player_sessions[0].Rfid.tag;
-      console.log(fetch_rfid_tag);
+      this.$root.$emit('bv::show::modal', 'modal-startTeam', '#btnShow');
 
-      var fetch_source_ip = "";
-      console.log(fetch_source_ip);
+    },
+
+    resetTeam(event, room){
+      console.log('team reset on room '+room);
+    },
+
+    clickedTeamName(){
+      console.log("room number "+this.teamRoomNumber);
+      console.log("session id of team "+this.teamSessionId);
+
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.teamSessionId,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        console.log(response.data);
+
+        this.rfidTagForTeam = response.data.Team_player_sessions[0].Rfid.tag;
+        console.log(response.data.Team_player_sessions[0].Rfid.tag);
+      })
+      .catch(function (error){
+        console.log(error);
+      });
+
+
+      console.log('rfid tag for team '+this.rfidTagForTeam);
 
       var mqtt = require('mqtt');
-      var client  = mqtt.connect('ws://20.17.0.5:1883/');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      console.log(client);
+      var vm = this;
 
-      var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
+      // var rfid_tag = '';
 
-      var obj = JSON.stringify(message);
+      // client.publish('sans_channel', 'START TEAM ON HACK ATTACK 1 from SANDESH APPLICATION');
+      // client.publish('server/commands', '{command:"tap", route:"a", route_status_id:"1" }'); /** route_status_id is room number **/
 
-      var checkElementName = Object.keys(message)[0];
-
-      console.log(message);
-
-      if(checkElementName == "command"){
-        console.log("TRUE");
-        client.publish('server_commands', obj, {qos: 1});
-      }
-      else{
-        console.log("FALSE");
-      }
-
+      // console.log('inside clickedTeamName()');
+      // this.$root.$emit('bv::show::modal', 'modal-startConfirmation', '#btnShow');
     },
 
     timerRun() {
@@ -506,53 +812,35 @@ export default {
       console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
-      var client  = mqtt.connect('mqtt://20.17.0.5:1883/');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+
+      console.log(client);
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
+      // var pl = playSound;
 
       client.on('connect', function () {
+
         client.subscribe('route_status', function (err) {
+
+          console.log('san1');
+
           if (!err) {
-            client.publish('presence', 'Hello mqtt')
+            client.publish('presence', 'Message from Sandesh Vue App')
           }
         })
       })
 
       client.on('message', function (topic, message) {
 
+        console.log('san3');
+
         var filterData = message;
         var x = JSON.parse(filterData);
 
-        var checkElementName = Object.keys(x)[0];
+        var checkSession = x.statusResult[0];
 
-        if(checkElementName == "command"){
-          console.log("TRUE INSIDE CHECK ELEMENT NAME");
-          
-          // var indexValue = vm.teamName1;
-          // var teamDetail = vm.teamList[indexValue];
-
-          // var fetch_route_status_id = teamDetail.route_id;
-          // console.log(fetch_route_status_id);
-
-          // var fetch_rfid_tag = teamDetail.Team_player_sessions[0].Rfid.tag;
-          // console.log(fetch_rfid_tag);
-
-          // var fetch_source_ip = "";
-          // console.log(fetch_source_ip);
-
-          // var message = {command: "tap", route_status_id: fetch_route_status_id, rfid_tag: fetch_rfid_tag, source_ip: fetch_source_ip};
-
-          // var obj = JSON.stringify(message);
-
-          // client.publish('route_status', obj, {qos: 1});
-
-          // console.log("DONE ");
-
-        }
-        else{
-          var checkSession = x.statusResult[0];
-
-          if(checkSession.Session != null){
+        if(checkSession.Session != null){
           console.log('MORE');
           console.log(checkSession.id);
           console.log(x);
@@ -768,22 +1056,26 @@ export default {
 
             if(vm.room2status == 'Ready'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 READY');
             }
 
             if(vm.room2status == 'Released'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 Released');
             }
 
             if(vm.room2status == 'Instructions Playing'){
               vm.room2currenttime = '10:00';
+              console.log('ROOM 2 Instructions Playing');
             }
 
             if(vm.room2status == 'Waiting'){
               vm.room2currenttime = '00:00';
+              console.log('ROOM 2 Waiting');
             }
 
             if(vm.room2status == 'Trouble'){
-
+              console.log('ROOM 2 Triuble');
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
               }
@@ -797,8 +1089,13 @@ export default {
 
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
+
+                console.log("INSIDE ROOM 2");
+                console.log('ROOM 2 Playing 2');
+
               }
               else{
+                console.log('ROOM 2 Playing 3');
                 vm.room2currenttime = '00:00';
               }
 
@@ -993,6 +1290,7 @@ export default {
 
             var currentRoom6Time = gameendtime6-currentTimeValue;
             console.log(currentRoom6Time);
+            console.log("SIDE B ROOM 1 time above");
 
             if(vm.room6status == 'Ready'){
               vm.room6currenttime = '00:00';
@@ -1080,8 +1378,14 @@ export default {
 
             if(vm.room7status == 'Playing'){
 
+              // console.log('ROOM 3 Playing 1');
+              // var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
+              // console.log(playSound);
+              // pl.play();
+
               if(currentRoom7Time > '0'){
                 vm.room7currenttime = moment().startOf('day').seconds(currentRoom7Time).format("mm:ss");
+
               }
               else{
                 vm.room7currenttime = '00:00';
@@ -1609,14 +1913,11 @@ export default {
         else{
           // console.log("less");
         }
-        /** END OF IF / ELSE statement checkSession.session is NULL or NOT **/
-      
-      }
+        // console.log("ROOM STATUS"+room1status);
 
-
-
-
-        
+        // if(room1status > 0){
+        //   this.room1status = '1';
+        // }
 
       })
       
@@ -1628,16 +1929,20 @@ export default {
 
   mounted: function(){
     
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10+'/active',{
 
-    })
-    .then(response => {
-      console.log(response);
-      this.teamList = response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/20',{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        console.log(response.data);
+
+        this.teamList = response.data;
+      })
+      .catch(function (error){
+        console.log(error);
+      });
 
     this.runMqtt();
 
