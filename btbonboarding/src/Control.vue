@@ -725,7 +725,7 @@ export default {
         var client  = mqtt.connect('ws://20.17.0.5:8083/');
         console.log(client);
         var vm = this;
-        client.publish('reset', '{route_status_id":"1"}');
+        client.publish('sever/commands', '{"command":"reset", "route_status_id":"1"}');
     },
 
     clickedTeamName(){
