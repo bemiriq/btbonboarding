@@ -37,6 +37,12 @@
             <b-button @click="clickedTeamName()">START NOW</b-button>
         </b-modal>
 
+        <b-modal id="modal-resetTeam" centered v-bind:hide-footer="true">
+          <p class="warning"><b> You are going to reset HACK ATTACK ?</b></p>
+            <b-button @click="confirmedResetTeam()">OK</b-button>
+            <b-button @click="hideResetModal()">CANCEL</b-button>
+        </b-modal>
+
         <b-modal id="modal-startConfirmation" centered v-bind:hide-footer="true">
           <p class="warning"><b> Start TEAM NAME on ROOM 1</b></p>
 
@@ -720,12 +726,20 @@ export default {
 
     resetTeam(event, room){
       console.log('team reset on room '+room);
+      this.$root.$emit('bv::show::modal', 'modal-resetTeam', '#btnShow');
+    },
 
+    confirmedResetTeam(){
+      console.log('room number '+this.teamRoomNumber);
       var mqtt = require('mqtt');
-        var client  = mqtt.connect('ws://20.17.0.5:8083/');
-        console.log(client);
-        var vm = this;
-        client.publish('sever/commands', '{"command":"reset", "route_status_id":"1"}');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      console.log(client);
+      var vm = this;
+      client.publish('server/commands', '{"command":"reset", "route_status_id":"1"}');
+    },
+
+    hideResetModal(){
+      this.$root.$emit('bv::hide::modal', 'modal-resetTeam', '#btnShow');
     },
 
     clickedTeamName(){
