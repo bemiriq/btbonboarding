@@ -38,7 +38,7 @@
         </b-modal>
 
         <b-modal id="modal-resetTeam" centered v-bind:hide-footer="true">
-          <p class="warning"><b> You are going to reset HACK ATTACK ?</b></p>
+          <p class="warning"><b> You are going to reset {{resetRoomName}} ?</b></p>
             <b-button @click="confirmedResetTeam()">OK</b-button>
             <b-button @click="hideResetModal()">CANCEL</b-button>
         </b-modal>
@@ -62,37 +62,32 @@
             </b-col>
           </b-row>
 
-          <b-row>
+          <b-row v-if="backButton == 0">
+            <b-col><b-button @click="backButton = 1, editTime = 1">Room Time</b-button></b-col>
+            <b-col><b-button @click="backButton = 1, editScore = 1">Edit Score</b-button></b-col>
+          </b-row>
 
+          <b-row v-else>
+            <b-col><b-button @click="backButton = 0, editScore = 0, editTime = 0">Back</b-button></b-col>
+          </b-row>
+
+          <b-row>
             <!-- starting div for room 1 and room 6 -->
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room1StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room1game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div>
-                  <b-button @click="startTeam(event,1), teamRoomNumber = 1">START</b-button>
-                  <b-button @click="resetTeam(event,1), teamRoomNumber = 1">RESET</b-button>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room1StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room1StatusTextColor" class="roomNameGame"> {{room1game}} </p>
-                      <p v-bind:class="room1StatusTextColor" class="roomGameStatus"> {{room1status}} </p>
+                      <p class="roomNameGame"> {{room1game}} </p>
+                      <p class="roomGameStatus"> {{room1status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room1currenttime}} </h2>
                 </div>
 
@@ -102,34 +97,42 @@
                   <p class="teamNameText"> {{room1teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room1teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room1timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room1bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
                   <p class="sizeAndTimeDetail"> SESSION ID : {{room1SessionId}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
 
-                <b-row>
+                <div>
+                  <b-button @click="startTeam(event,1), teamRoomNumber = 1">START</b-button>
+                </div>
+
+                <div>
+                  <b-button @click="resetTeam(event,1), teamRoomNumber = 1">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,a)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
                   <b-col><b-button @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,-30)">-30:00</b-button></b-col>
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,30)">+30:00</b-button></b-col>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,-30)">-00:30</b-button></b-col>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,30)">+00:30</b-button></b-col>
                   <b-col><b-button @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
                 </b-row>
 
                 <br>
 
-                <b-row>
+                <b-row v-if="editScore == '1'">
                   <b-col><b-button @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
                   <b-col><b-button @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
                   <b-col><b-button @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
                   <b-col><b-button @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
-                </b-row>
-
-                <br>
-
-                <b-row>
-                  <b-col><b-button @click="skipInstruction($event,1,a)">SKIP</b-button></b-col>
                 </b-row>
 
             </b-col>
@@ -595,6 +598,14 @@ export default {
   data(){
     return{
 
+      backButton: 0,
+      editTime: 0, /** this will define div to display and hide for editTime **/
+      editScore: 0,
+
+      skipValue: 0,
+
+      resetRoomName: '', /** this will display room name while resetting **/
+
       rfidTagForTeam: 0,
       teamSessionId: 0,
       teamRoomNumber: 0,
@@ -772,11 +783,13 @@ export default {
     },
 
     resetTeam(event, room){
-      console.log('team reset on room '+room);
+      console.log(this['room'+room+'game']);
+      this.resetRoomName = this['room'+room+'game'];
       this.$root.$emit('bv::show::modal', 'modal-resetTeam', '#btnShow');
     },
 
     confirmedResetTeam(){
+
       console.log('room number '+this.teamRoomNumber);
       var roomId = this.teamRoomNumber;
       var mqtt = require('mqtt');
@@ -784,6 +797,9 @@ export default {
       console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"reset", "route_status_id":"'+roomId+'"}');
+
+      this.skipValue = 0; /** hides the skip button **/
+
       this.$root.$emit('bv::hide::modal', 'modal-resetTeam', '#btnShow');
     },
 
@@ -812,6 +828,8 @@ export default {
         console.log(client);
         var vm = this;
         client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"'+roomId+'", "rfid_tag": "'+rfidTagUsed+'"}'); /** route_status_id is room number **/
+
+        this.skipValue = 1; /** 1 will make the SKIP BUTTON to be displayed **/
 
         this.$root.$emit('bv::hide::modal', 'modal-startTeam', '#btnShow');
 
@@ -861,6 +879,7 @@ export default {
       console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"skip_instructions",  "route_status_id":"'+roomId+'", "route":"'+side+'", "room":"'+roomId+'"}');
+      this.skipValue = 0;
     },
 
     timerRun() {
@@ -2181,15 +2200,16 @@ export default {
 .bombTimeText{
   font-size: 2em;
   font-weight: bold;
-  color: black;
+  color: white;
   font-family: 'Pixel Digivolve Cyrillic', sans-serif;
 }
 
 .teamNameText{
   font-weight: bold;
-  font-size: 1.3em;
+  font-size: 1.5em;
   color: black;
   font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  text-align: left;
 }
 
 .sizeAndTimeDetail{
@@ -2197,6 +2217,7 @@ export default {
   font-size: 1.1em;
   color: black;
   font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  text-align: left;
 }
 
 .greenStatus{
