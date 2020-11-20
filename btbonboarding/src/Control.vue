@@ -736,6 +736,7 @@ export default {
       console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"reset", "route_status_id":"1"}');
+      this.$root.$emit('bv::hide::modal', 'modal-resetTeam', '#btnShow');
     },
 
     hideResetModal(){
