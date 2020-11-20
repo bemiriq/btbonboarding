@@ -105,9 +105,17 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room1teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room1SessionId}} </p>
                   <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p>
                   <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p>
                 </div>
+
+                <b-row>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,-30)">-30:00</b-button></b-col>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,30)">+30:00</b-button></b-col>
+                  <b-col><b-button @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
+                </b-row>
 
             </b-col>
             <!-- end b-col and div for room 1 and room 6 -->
@@ -278,10 +286,12 @@
                   <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room5timeearned}} </p>
                   <p class="sizeAndTimeDetail"> BOMB TIME  {{room5bombtime}} </p>
                 </div>
-
             </b-col>
 
+
           </b-row>
+
+
         </b-col>
 
         <!-- END of SIDE A status screen -->
@@ -645,6 +655,17 @@ export default {
       room9teamsize: '',
       room10teamsize: '',
 
+      room1SessionId:'',
+      room2SessionId:'',
+      room3SessionId:'',
+      room4SessionId:'',
+      room5SessionId:'',
+      room6SessionId:'',
+      room7SessionId:'',
+      room8SessionId:'',
+      room9SessionId:'',
+      room10SessionId:'',
+
       room1teamname: '',
       room2teamname: '',
       room3teamname: '',
@@ -772,6 +793,22 @@ export default {
       .catch(function (error){
         console.log(error);
       });
+    },
+
+    editTimeForTeam(event,roomId,side,timeValue){
+      console.log(event);
+      console.log('room number '+roomId);
+      console.log('side '+side);
+      console.log('time value '+timeValue);
+      console.log(this['room'+roomId+'SessionId']);
+
+      var teamSessionId = this['room'+roomId+'SessionId'];
+      var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      console.log(client);
+      var vm = this;
+      client.publish('server/commands', '{"command":"change_room_time",  "route_status_id":"'+roomId+'", "route":"'+side+'", "room":"'+roomId+'", "seconds": "'+timeValue+'"}');
+
     },
 
     timerRun() {
@@ -903,6 +940,17 @@ export default {
             vm.room8teamsize = x.statusResult[7].Session.player_count;
             vm.room9teamsize = x.statusResult[8].Session.player_count;
             vm.room10teamsize = x.statusResult[9].Session.player_count;
+
+            vm.room1SessionId = x.statusResult[0].Session.id;
+            vm.room2SessionId = x.statusResult[1].Session.id;
+            vm.room3SessionId = x.statusResult[2].Session.id;
+            vm.room4SessionId = x.statusResult[3].Session.id;
+            vm.room5SessionId = x.statusResult[4].Session.id;
+            vm.room6SessionId = x.statusResult[5].Session.id;
+            vm.room7SessionId = x.statusResult[6].Session.id;
+            vm.room8SessionId = x.statusResult[7].Session.id;
+            vm.room9SessionId = x.statusResult[8].Session.id;
+            vm.room10SessionId = x.statusResult[9].Session.id;
 
             vm.room1teamname = x.statusResult[0].Session.Team.name;
             vm.room2teamname = x.statusResult[1].Session.Team.name;
