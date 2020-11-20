@@ -117,6 +117,21 @@
                   <b-col><b-button @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
                 </b-row>
 
+                <br>
+
+                <b-row>
+                  <b-col><b-button @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
+                  <b-col><b-button @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
+                  <b-col><b-button @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
+                  <b-col><b-button @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row>
+                  <b-col><b-button @click="skipInstruction($event,1,a)">SKIP</b-button></b-col>
+                </b-row>
+
             </b-col>
             <!-- end b-col and div for room 1 and room 6 -->
 
@@ -666,6 +681,17 @@ export default {
       room9SessionId:'',
       room10SessionId:'',
 
+      room1GameId:'',
+      room2GameId:'',
+      room3GameId:'',
+      room4GameId:'',
+      room5GameId:'',
+      room6GameId:'',
+      room7GameId:'',
+      room8GameId:'',
+      room9GameId:'',
+      room10GameId:'',
+
       room1teamname: '',
       room2teamname: '',
       room3teamname: '',
@@ -811,6 +837,32 @@ export default {
 
     },
 
+    editScoreForTeam(event,roomId,side,scoreValue){
+      console.log(event);
+      console.log('room number '+roomId);
+      console.log('side '+side);
+      console.log('score value '+scoreValue);
+      console.log(this['room'+roomId+'SessionId']);
+
+      var teamGameId = this['room'+roomId+'GameId'];
+      var teamSessionId = this['room'+roomId+'SessionId'];
+      var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      console.log(client);
+      var vm = this;
+      client.publish('server/commands', '{"command":"add_score", "route_status_id":"'+roomId+'", "game_id":"'+teamGameId+'", "session_id":"'+teamSessionId+'","route":"'+side+'", "room":"'+roomId+'", "score": "'+scoreValue+'"}');
+
+    },
+
+    skipInstruction($event,roomId,side){
+      var teamSessionId = this['room'+roomId+'SessionId'];
+      var mqtt = require('mqtt');
+      var client  = mqtt.connect('ws://20.17.0.5:8083/');
+      console.log(client);
+      var vm = this;
+      client.publish('server/commands', '{"command":"skip_instructions",  "route_status_id":"'+roomId+'", "route":"'+side+'", "room":"'+roomId+'"}');
+    },
+
     timerRun() {
       this.timerRunning = true;
       this.message = 'Greatness is within sight!!!';
@@ -951,6 +1003,17 @@ export default {
             vm.room8SessionId = x.statusResult[7].Session.id;
             vm.room9SessionId = x.statusResult[8].Session.id;
             vm.room10SessionId = x.statusResult[9].Session.id;
+
+            vm.room1GameId = x.statusResult[0].Game.id;
+            vm.room2GameId = x.statusResult[1].Game.id;
+            vm.room3GameId = x.statusResult[2].Game.id;
+            vm.room4GameId = x.statusResult[3].Game.id;
+            vm.room5GameId = x.statusResult[4].Game.id;
+            vm.room6GameId = x.statusResult[5].Game.id;
+            vm.room7GameId = x.statusResult[6].Game.id;
+            vm.room8GameId = x.statusResult[7].Game.id;
+            vm.room9GameId = x.statusResult[8].Game.id;
+            vm.room10GameId = x.statusResult[9].Game.id;
 
             vm.room1teamname = x.statusResult[0].Session.Team.name;
             vm.room2teamname = x.statusResult[1].Session.Team.name;
