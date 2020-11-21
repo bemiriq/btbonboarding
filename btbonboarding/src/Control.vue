@@ -1136,16 +1136,16 @@ export default {
       room9teamname: '',
       room10teamname: '',
 
-      room1bombtime: '',
-      room2bombtime: '',
-      room3bombtime: '',
-      room4bombtime: '',
-      room5bombtime: '',
-      room6bombtime: '',
-      room7bombtime: '',
-      room8bombtime: '',
-      room9bombtime: '',
-      room10bombtime: '',
+      room1bombtime: 0,
+      room2bombtime: 0,
+      room3bombtime: 0,
+      room4bombtime: 0,
+      room5bombtime: 0,
+      room6bombtime: 0,
+      room7bombtime: 0,
+      room8bombtime: 0,
+      room9bombtime: 0,
+      room10bombtime: 0,
 
       room1timeearned: '',
       room2timeearned: '',
@@ -1220,7 +1220,7 @@ export default {
       var vm = this;
       client.publish('server/commands', '{"command":"reset", "route_status_id":"'+roomId+'"}');
 
-      this.skipValue = 0; /** hides the skip button **/
+      this['skipValue'+roomId] = 1; /** hides the skip button **/
 
       this.$root.$emit('bv::hide::modal', 'modal-resetTeam', '#btnShow');
     },
@@ -1251,7 +1251,9 @@ export default {
         var vm = this;
         client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"'+roomId+'", "rfid_tag": "'+rfidTagUsed+'"}'); /** route_status_id is room number **/
 
-        this.skipValue = 1; /** 1 will make the SKIP BUTTON to be displayed **/
+        // this.skipValue = 1; /** 1 will make the SKIP BUTTON to be displayed **/
+
+        this['skipValue'+roomId] = 1;
 
         this.$root.$emit('bv::hide::modal', 'modal-startTeam', '#btnShow');
 
@@ -1505,7 +1507,14 @@ export default {
 
           /** bomb room time **/
             var convertroom1bombtime = x.statusResult[0].Session.bomb_time;
-            vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss"); /** this is the line that throws an error and make the white background for CONTROL PANEL **/
+
+            // if(convertroom1bombtime > 0){
+            //   vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            // }
+            // else{
+            //   vm.room1bombtime = 0;
+            // }
 
             var convertroom2bombtime = x.statusResult[1].Session.bomb_time;
             vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
