@@ -62,15 +62,6 @@
             </b-col>
           </b-row>
 
-          <b-row v-if="backButton == 0">
-            <b-col><b-button @click="backButton = 1, editTime = 1">Room Time</b-button></b-col>
-            <b-col><b-button @click="backButton = 1, editScore = 1">Edit Score</b-button></b-col>
-          </b-row>
-
-          <b-row v-else>
-            <b-col><b-button @click="backButton = 0, editScore = 0, editTime = 0">Back</b-button></b-col>
-          </b-row>
-
           <b-row>
             <!-- starting div for room 1 and room 6 -->
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
@@ -79,8 +70,8 @@
                 <div style="background-color: room1StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p class="roomNameGame"> {{room1game}} </p>
-                      <p class="roomGameStatus"> {{room1status}} </p>
+                      <p class="roomNameTop"> {{room1game}} </p>
+                      <p class="teamNameText"> {{room1status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -107,12 +98,12 @@
                   <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
 
-                <div>
-                  <b-button @click="startTeam(event,1), teamRoomNumber = 1">START</b-button>
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,1), teamRoomNumber = 1">START</b-button>
                 </div>
 
-                <div>
-                  <b-button @click="resetTeam(event,1), teamRoomNumber = 1">RESET</b-button>
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,1), teamRoomNumber = 1">RESET</b-button>
                 </div>
 
                 <div v-if="skipValue == '1'">
@@ -120,20 +111,37 @@
                 </div>
 
                 <b-row v-if="editTime == '1'">
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,-30)">-00:30</b-button></b-col>
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,30)">+00:30</b-button></b-col>
-                  <b-col><b-button @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
                 </b-row>
 
                 <br>
 
                 <b-row v-if="editScore == '1'">
-                  <b-col><b-button @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
-                  <b-col><b-button @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
-                  <b-col><b-button @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
-                  <b-col><b-button @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
                 </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- end b-col and div for room 1 and room 6 -->
@@ -142,31 +150,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room2StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room2game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div>
-                  <b-button @click="startTeam(event,2), teamRoomNumber = 2">START</b-button>
-                  <b-button @click="resetTeam(event,2), teamRoomNumber = 2">RESET</b-button>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room2StatusTextColor;">
                   <b-row>
-                   <b-col>
-                      <p v-bind:class="room2StatusTextColor" class="roomNameGame"> {{room2game}} </p>
-                      <p v-bind:class="room2StatusTextColor" class="roomGameStatus"> {{room2status}} </p>
+                    <b-col>
+                      <p class="roomNameTop"> {{room2game}} </p>
+                      <p class="teamNameText"> {{room2status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room2currenttime}} </h2>
                 </div>
 
@@ -176,12 +171,60 @@
                   <p class="teamNameText"> {{room2teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room2teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room2timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room2bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room2timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room2bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room2SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,2), teamRoomNumber = 2">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,2), teamRoomNumber = 2">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,a)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,2,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,2,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,2,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,2,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,2,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,2,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,2,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,2,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -189,24 +232,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room3StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room3game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room3StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p>
-                      <p v-bind:class="room3StatusTextColor" class="roomGameStatus"> {{room3status}} </p>
+                      <p class="roomNameTop"> {{room3game}} </p>
+                      <p class="teamNameText"> {{room3status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room3currenttime}} </h2>
                 </div>
 
@@ -216,12 +253,60 @@
                   <p class="teamNameText"> {{room3teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room3teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room3timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room3bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room3timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room3bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room3SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,3), teamRoomNumber = 3">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,3), teamRoomNumber = 3">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,a)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,3,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,3,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,3,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,3,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,3,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,3,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,3,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,3,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -230,24 +315,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room4StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room4game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                 <div style="background-color: room4StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room4StatusTextColor" class="roomNameGame"> {{room4game}} </p>
-                      <p v-bind:class="room4StatusTextColor" class="roomGameStatus"> {{room4status}} </p>
+                      <p class="roomNameTop"> {{room4game}} </p>
+                      <p class="teamNameText"> {{room4status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room4currenttime}} </h2>
                 </div>
 
@@ -257,12 +336,60 @@
                   <p class="teamNameText"> {{room4teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room4teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room4timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room4bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room4timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room4bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room4SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,4), teamRoomNumber = 4">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,4), teamRoomNumber = 4">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,a)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,4,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,4,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,4,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,4,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,4,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,4,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,4,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,4,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -271,24 +398,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room5StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room5game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room5StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room5StatusTextColor" class="roomNameGame"> {{room5game}} </p>
-                      <p v-bind:class="room5StatusTextColor" class="roomGameStatus"> {{room5status}} </p>
+                      <p class="roomNameTop"> {{room5game}} </p>
+                      <p class="teamNameText"> {{room5status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room5currenttime}} </h2>
                 </div>
 
@@ -298,12 +419,61 @@
                   <p class="teamNameText"> {{room5teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room5teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room5timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room5bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room5timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room5bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room5SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,5), teamRoomNumber = 5">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,5), teamRoomNumber = 5">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,a)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,5,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,5,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,5,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,5,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,5,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,5,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,5,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,5,a,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
+
             </b-col>
 
 
@@ -337,24 +507,18 @@
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room6StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room6game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room6StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room6StatusTextColor" class="roomNameGame"> {{room6game}} </p>
-                      <p v-bind:class="room6StatusTextColor" class="roomGameStatus"> {{room6status}} </p>
+                      <p class="roomNameTop"> {{room6game}} </p>
+                      <p class="teamNameText"> {{room6status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room6currenttime}} </h2>
                 </div>
 
@@ -364,12 +528,60 @@
                   <p class="teamNameText"> {{room6teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room6teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room6timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room6bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room6timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room6bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room6SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,6), teamRoomNumber = 6">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,6), teamRoomNumber = 6">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,b)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,6,b,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,6,b,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,6,b,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,6,b,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,6,b,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,6,b,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,6,b,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,6,b,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- end b-col and div for room 1 and room 6 -->
@@ -378,24 +590,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room7StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room7game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room7StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room7StatusTextColor" class="roomNameGame"> {{room7game}} </p>
-                      <p v-bind:class="room7StatusTextColor" class="roomGameStatus"> {{room7status}} </p>
+                      <p class="roomNameTop"> {{room7game}} </p>
+                      <p class="teamNameText"> {{room7status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room7currenttime}} </h2>
                 </div>
 
@@ -405,12 +611,60 @@
                   <p class="teamNameText"> {{room7teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room7teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room7timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room7bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room7timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room7bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room7SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,7), teamRoomNumber = 7">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,7), teamRoomNumber = 7">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,b)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,7,b,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,7,b,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,7,b,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,7,b,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,7,b,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,7,b,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,7,b,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,7,b,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -418,24 +672,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room8StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room8game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room8StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame"> {{room8game}} </p>
-                      <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
+                      <p class="roomNameTop"> {{room8game}} </p>
+                      <p class="teamNameText"> {{room8status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room8currenttime}} </h2>
                 </div>
 
@@ -445,12 +693,60 @@
                   <p class="teamNameText"> {{room8teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room8teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room8timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room8bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room8timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room8bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room8SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,8), teamRoomNumber = 8">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,8), teamRoomNumber = 8">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,b)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,8,b,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,8,b,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,8,b,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,8,b,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,8,b,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,8,b,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,8,b,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,8,b,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -459,24 +755,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room9StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room9game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room9StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room9StatusTextColor" class="roomNameGame"> {{room9game}} </p>
-                      <p v-bind:class="room9StatusTextColor" class="roomGameStatus"> {{room9status}} </p>
+                      <p class="roomNameTop"> {{room9game}} </p>
+                      <p class="teamNameText"> {{room9status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room9currenttime}} </h2>
                 </div>
 
@@ -486,12 +776,60 @@
                   <p class="teamNameText"> {{room9teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room9teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room9timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room9bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room9timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room9bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room9SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,9), teamRoomNumber = 9">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,9), teamRoomNumber = 9">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,b)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,9,b,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,9,b,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,9,b,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,9,b,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,9,b,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,9,b,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,9,b,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,9,b,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
 
             </b-col>
             <!-- ending div for room 2 and room 7 -->
@@ -500,24 +838,18 @@
             <!-- starting b-col and div for room 2 and room 7 -->
             <b-col class="border border-dark" v-bind:class="room10StatusColor">
 
-                <div>
-                  <img v-bind:src="require('./assets/' + room10game +'.png')" class="gameLogo"/>
-                </div>
-
-                <br/>
-
-                <div class="blackBackgroundOverText">
+                <div style="background-color: room10StatusTextColor;">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room10StatusTextColor" class="roomNameGame"> {{room10game}} </p>
-                      <p v-bind:class="room10StatusTextColor" class="roomGameStatus"> {{room10status}} </p>
+                      <p class="roomNameTop"> {{room10game}} </p>
+                      <p class="teamNameText"> {{room10status}} </p>
                     </b-col>
                   </b-row>
                 </div>
 
                 <br/>
 
-                <div>
+                <div style="background-color: black; height: 7%;">
                   <h2 class="bombTimeText"> {{room10currenttime}} </h2>
                 </div>
 
@@ -527,14 +859,64 @@
                   <p class="teamNameText"> {{room10teamname}} </p>
                 </div>
 
-                <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room10teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room10timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room10bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room10timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room10bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room10SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
                 </div>
 
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,10), teamRoomNumber = 10">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,10), teamRoomNumber = 10">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue == '1'">
+                  <b-button @click="skipInstruction($event,1,b)">SKIP</b-button>
+                </div>
+
+                <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,10,b,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,10,b,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,10,b,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,10,b,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,10,b,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,10,b,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,10,b,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,10,b,10)">+10</b-button></b-col>
+                </b-row>
+
+                <br/>
+
             </b-col>
+
+
 
           </b-row>
         </b-col>
@@ -544,6 +926,29 @@
         <!-- END OF SIDE B -->
 
       </b-row>
+        <br/>
+        <b-row v-if="backButton == 0">
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col><b-button block variant="info" @click="backButton = 1, editTime = 1 ,startReset = 0">Room Time</b-button></b-col>
+            <b-col><b-button block variant="info" @click="backButton = 1, editScore = 1, startReset = 0">Edit Score</b-button></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+          </b-row>
+
+          <b-row v-else>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col><b-button block variant="info" @click="backButton = 0, editTime = 0, editScore = 0, startReset = 1">Back</b-button></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+          </b-row>
+
     </div>
 
     
@@ -603,6 +1008,7 @@ export default {
       editScore: 0,
 
       skipValue: 0,
+      startReset: 1,
 
       resetRoomName: '', /** this will display room name while resetting **/
 
@@ -2212,6 +2618,14 @@ export default {
   text-align: left;
 }
 
+.roomNameTop{
+  font-weight: bold;
+  font-size: 1.4em;
+  color: black;
+  font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  text-align: left;
+}
+
 .sizeAndTimeDetail{
   font-weight: bold;
   font-size: 1.1em;
@@ -2268,6 +2682,14 @@ export default {
 
 .sideBbutton{
   margin-left: 1%;
+}
+
+.resetButton{
+  margin-top: 5%;
+}
+
+.editTimeMargin{
+  margin-top: 2%;
 }
 
 </style>
