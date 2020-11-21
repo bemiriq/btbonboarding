@@ -39,13 +39,22 @@
 
         <b-modal id="modal-resetTeam" centered v-bind:hide-footer="true">
           <p class="warning"><b> You are going to reset {{resetRoomName}} ?</b></p>
-            <b-button @click="confirmedResetTeam()">OK</b-button>
-            <b-button @click="hideResetModal()">CANCEL</b-button>
+          <b-row>
+            <b-col>
+              <b-button @click="confirmedResetTeam()" variant="danger">OK</b-button>
+            </b-col>
+            <b-col>
+              <b-button @click="hideResetModal()" variant="primary">CANCEL</b-button>
+            </b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+            <b-col></b-col>
+          </b-row>
         </b-modal>
 
         <b-modal id="modal-startConfirmation" centered v-bind:hide-footer="true">
           <p class="warning"><b> Start TEAM NAME on ROOM 1</b></p>
-
         </b-modal>
 
         <!-- SIDE A status screen -->
@@ -107,7 +116,7 @@
                 </div>
 
                 <div v-if="skipValue1 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,1,a)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,1,a)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -139,12 +148,6 @@
 
                 <b-row v-if="editScore == '1'" class="editTimeMargin">
                   <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
-                </b-row>
-
-                <br/>
-
-                <b-row v-if="editTime == '1'">
-                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,10,b,-60)">-01:00</b-button></b-col>
                 </b-row>
 
                 <br/>
@@ -196,7 +199,7 @@
                 </div>
 
                 <div v-if="skipValue2 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,2,a)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,2,a)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -278,7 +281,7 @@
                 </div>
 
                 <div v-if="skipValue3 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,3,a)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,3,a)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -361,7 +364,7 @@
                 </div>
 
                 <div v-if="skipValue4 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,4,a)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,4,a)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -408,7 +411,8 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room5game}} </p>
-                      <p class="teamNameText"> {{room5status}} </p>
+                      <p class="teamNameText" v-if=" room5status == 'Photobomb Running'"> PB Running </p>
+                      <p class="teamNameText" v-else> {{room5status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -444,7 +448,7 @@
                 </div>
 
                 <div v-if="skipValue5 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,5,a)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,5,a)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -553,7 +557,7 @@
                 </div>
 
                 <div v-if="skipValue6 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,6,b)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,6,b)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -636,7 +640,7 @@
                 </div>
 
                 <div v-if="skipValue7 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,7,b)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,7,b)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -718,7 +722,7 @@
                 </div>
 
                 <div v-if="skipValue8 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,8,b)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,8,b)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -801,7 +805,7 @@
                 </div>
 
                 <div v-if="skipValue9 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,9,b)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,9,b)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -884,7 +888,7 @@
                 </div>
 
                 <div v-if="skipValue10 == '1'">
-                  <b-col><b-button block variant="warning" class="resetButton" @click="skipInstruction($event,10,b)">Skip</b-button></b-col>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,10,b)">Skip</b-button>
                 </div>
 
                 <b-row v-if="editTime == '1'">
@@ -946,6 +950,7 @@
           </b-row>
 
           <b-row v-else>
+            <b-col></b-col>
             <b-col></b-col>
             <b-col></b-col>
             <b-col></b-col>
@@ -1220,7 +1225,7 @@ export default {
       var vm = this;
       client.publish('server/commands', '{"command":"reset", "route_status_id":"'+roomId+'"}');
 
-      this['skipValue'+roomId] = 1; /** hides the skip button **/
+      this['skipValue'+roomId] = 0; /** hides the skip button **/
 
       this.$root.$emit('bv::hide::modal', 'modal-resetTeam', '#btnShow');
     },
@@ -1507,14 +1512,15 @@ export default {
 
           /** bomb room time **/
             var convertroom1bombtime = x.statusResult[0].Session.bomb_time;
-            vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss"); /** this is the line that throws an error and make the white background for CONTROL PANEL **/
+            // vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss"); 
+            /** this is the line that throws an error and make the white background for CONTROL PANEL **/
 
-            // if(convertroom1bombtime > 0){
-            //   vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
-            // }
-            // else{
-            //   vm.room1bombtime = 0;
-            // }
+            if(convertroom1bombtime > 0){
+              vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            }
+            else{
+              vm.room1bombtime = 0;
+            }
 
             var convertroom2bombtime = x.statusResult[1].Session.bomb_time;
             vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
