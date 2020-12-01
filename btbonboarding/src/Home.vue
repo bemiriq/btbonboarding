@@ -12,7 +12,7 @@
             <b-list-group-item href="http://localhost:8080/#/users">Check-In</b-list-group-item>
             <b-list-group-item href="http://localhost:8080/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="#">Onboarding</b-list-group-item>
-            <b-list-group-item href="#foobar">Waiting</b-list-group-item>
+            <b-list-group-item href="#foobar">Teams On Deck</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>
             <b-list-group-item href="#">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>

@@ -16,7 +16,7 @@
             <b-list-group-item href="/#/users">Check-In</b-list-group-item>
             <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
@@ -94,7 +94,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room1teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
+                  <p class="teamNameText" v-if="room1teamname.length > 15" style="font-size: 1.1em;"> {{room1teamname}}</p>
+                  <p v-else class="teamNameText"> {{room1teamname}}</p>
                 </div>
 
                 <div>
@@ -177,7 +179,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room2teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room2teamname}} </p> -->
+                  <p class="teamNameText" v-if="room2teamname.length > 15" style="font-size: 1.1em;"> {{room2teamname}}</p>
+                  <p v-else class="teamNameText"> {{room2teamname}}</p>
                 </div>
 
                 <div>
@@ -259,7 +263,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room3teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room3teamname}} </p> -->
+                  <p class="teamNameText" v-if="room3teamname.length > 15" style="font-size: 1.1em;"> {{room3teamname}}</p>
+                  <p v-else class="teamNameText"> {{room3teamname}}</p>
                 </div>
 
                 <div>
@@ -342,7 +348,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room4teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room4teamname}} </p> -->
+                  <p class="teamNameText" v-if="room4teamname.length > 15" style="font-size: 1.1em;"> {{room4teamname}}</p>
+                  <p v-else class="teamNameText"> {{room4teamname}}</p>
                 </div>
 
                 <div>
@@ -426,7 +434,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room5teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
+                  <p class="teamNameText" v-if="room5teamname.length > 15" style="font-size: 1.1em;"> {{room5teamname}}</p>
+                  <p v-else class="teamNameText"> {{room5teamname}}</p>
                 </div>
 
                 <div>
@@ -535,7 +545,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room6teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room6teamname}} </p> -->
+                  <p class="teamNameText" v-if="room6teamname.length > 15" style="font-size: 1.1em;"> {{room6teamname}}</p>
+                  <p v-else class="teamNameText"> {{room6teamname}}</p>
                 </div>
 
                 <div>
@@ -618,7 +630,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room7teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room7teamname}} </p> -->
+                  <p class="teamNameText" v-if="room7teamname.length > 15" style="font-size: 1.1em;"> {{room7teamname}}</p>
+                  <p v-else class="teamNameText"> {{room7teamname}}</p>
                 </div>
 
                 <div>
@@ -700,7 +714,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room8teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room8teamname}} </p> -->
+                  <p class="teamNameText" v-if="room8teamname.length > 15" style="font-size: 1.1em;"> {{room8teamname}}</p>
+                  <p v-else class="teamNameText"> {{room8teamname}}</p>
                 </div>
 
                 <div>
@@ -783,7 +799,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room9teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room9teamname}} </p> -->
+                  <p class="teamNameText" v-if="room9teamname.length > 15" style="font-size: 1.1em;"> {{room9teamname}}</p>
+                  <p v-else class="teamNameText"> {{room9teamname}}</p>
                 </div>
 
                 <div>
@@ -866,7 +884,9 @@
                 <br/>
 
                 <div>
-                  <p class="teamNameText"> {{room10teamname}} </p>
+                  <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
+                  <p class="teamNameText" v-if="room10teamname.length > 15" style="font-size: 1.1em;"> {{room10teamname}}</p>
+                  <p v-else class="teamNameText"> {{room10teamname}}</p>
                 </div>
 
                 <div>

@@ -371,7 +371,7 @@
             <b-list-group-item href="/#/users" active>Check-In</b-list-group-item>
             <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting">Waiting</b-list-group-item>
+            <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
@@ -500,7 +500,8 @@
                   </td> -->
 
                   <td>
-                    {{item.total_player_arrived}}
+                    <p v-if="item.size-item.total_player_arrived < '0'" style="color:red;font-size: 1.1em;"><b>{{item.total_player_arrived}}</b></p>
+                    <p v-else>{{item.total_player_arrived}}</p>
                   </td>
 
                   <td>
@@ -526,8 +527,12 @@
                     <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
                     <!-- {{item.size - item.total_player_arrived}} -->
 
-                    <p v-if="item.size-item.total_player_arrived < '0'">{{item.size}}+{{item.total_player_arrived-item.size}}</p>
-                    <p v-else>{{item.size - item.total_player_arrived}}</p>
+                    <!-- <p v-if="item.size-item.total_player_arrived < '0'">{{item.size}}+{{item.total_player_arrived-item.size}}</p>
+                    <p v-else>{{item.size - item.total_player_arrived}}</p> -->
+
+                    <p v-if="item.size-item.total_player_arrived > '0'">{{item.size-item.total_player_arrived}}</p>
+                    <p v-else>0</p>
+
                   </td>
 
                   <td>

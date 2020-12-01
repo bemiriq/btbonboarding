@@ -8,7 +8,8 @@
       <hr class="lineCross">
         <b-row class="teamName" v-for="(team, index) in teamList" v-bind:key="index.id">
           <b-col>
-            <p v-if="team.Session_game_scores == '' " v-bind:class="'changeColor'+index">{{team.Team.name}}</p>
+            <p v-if="team.Session_game_scores == '' && team.team_vs_team_id > '0' && team.route_id =='1'" v-bind:class="'changeColor'+index">{{team.Team.name}} VS {{team.Team_vs_team.Team.name}}</p>
+            <p v-if="team.Session_game_scores == '' && !team.team_vs_team_id > '0'" v-bind:class="'changeColor'+index">{{team.Team.name}}</p>
           </b-col>
         </b-row>
     </div>
