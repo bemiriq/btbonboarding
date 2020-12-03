@@ -56,6 +56,58 @@
         </b-modal>
 
 
+        <!-- this modal is used to reloadReservation -->
+        <b-modal id="modal-reloadReservation" centered v-bind:hide-footer="true">
+          <b-row>
+            <!-- <p class="playerModalText"><b> This box contains. {{reservationSessionId}}</b></p> -->
+          </b-row>
+
+          <b-container class="bv-example-row" fluid="lg">
+            <b-row style="font-weight:bold;">
+              <b-col cols="6"><p>Full Name</p></b-col>
+              <b-col cols="2"><p>Player</p></b-col>
+              <b-col cols="2"><p>Assigned</p></b-col>
+            </b-row>
+
+            <b-row v-for="reservationListings in clickedReservationId.Reservation_people" v-bind:key="reservationListings.id">
+              <b-col style="text-transform: capitalize;" cols="6">{{reservationListings.Person.first_name}} {{reservationListings.Person.last_name}}</b-col>
+              
+              <b-col>
+                <p>A</p>
+              </b-col>
+
+              <b-col>
+                <p v-if="reservationListings.session_id > '0'"><input type="checkbox" id="jule" value="reservationListings.Person.first_name" v-on:click="updateReservationSession($event, reservationListings.player_minor_id = 0, reservationListings.person_id, reservationListings.id)" checked></p>
+                <p v-else><input type="checkbox" value="reservationListings.Person.first_name" disabled></p>
+              </b-col>
+
+            </b-row>
+
+            <b-row v-for="reservationListings in clickedReservationId.Reservation_minors" v-bind:key="reservationListings.id">
+              <b-col style="text-transform: capitalize;" cols="6">{{reservationListings.Player_minor.first_name}} {{reservationListings.Player_minor.last_name}}</b-col>
+              
+              <b-col>
+                <p>M</p>
+              </b-col>
+
+              <b-col>
+                <p v-if="reservationListings.session_id > '0'"><input type="checkbox" id="jule" value="reservationListings.Player_minor.first_name" v-on:click="updateReservationSession($event, reservationListings.player_minor_id = 'M', reservationListings.player_minor_id, reservationListings.id)" checked></p>
+
+                <p v-else><input type="checkbox" value="reservationListings.player_first_name" v-on:click="updateReservationSession($event, reservationListings.reservation_people_minor_table_id, reservationListings.minor_tag)" disabled></p>
+              </b-col>
+
+            </b-row>
+
+          </b-container>
+        
+          <hr>
+          <b-row class="my-1" style="margin-left: 2%;">
+            <b-col sm="2"><b-button variant="primary" v-on:click="emptyBoxReload">YES</b-button></b-col>
+            <b-col><b-button variant="info" @click="hideReloadReservationModal()">NO</b-button></b-col>
+          </b-row>
+        </b-modal>
+
+
 
         <!-- list for all rfid b-modal -->
 
@@ -3419,9 +3471,9 @@
                 <br>
                 <p class="filters">{{reservation.reservation_for | moment}}</p>
 
-                <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+                <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}- <button>R</button> </b>
 
-                <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}</b>
+                <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}} - <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b>
 
                 <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="onDragBackReservation()">
@@ -3668,11 +3720,11 @@ export default {
     var endtime='end';
 
 
-    // var currentdate = moment().subtract(25, 'days').format("YYYY-MM-DD");
+    // var currentdate = moment().subtract(29, 'days').format("YYYY-MM-DD");
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(1, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
     var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
     this.startReservationTime = startReservationTime;
@@ -4712,6 +4764,9 @@ export default {
 
         draggedItemObjectId: '',
 
+        reservationSessionId: '',
+        clickedReservationId: [],
+
         loadScreen: false,
 
         playersAdded1: 0,
@@ -5311,6 +5366,60 @@ export default {
 
     methods: {
 
+      updateReservationSession(event, minorOrNot, personId, reservationId){
+        console.log(event);
+        console.log(minorOrNot);
+        console.log(personId);
+        console.log(reservationId);
+        console.log(event.target.checked);
+
+        if(minorOrNot == 'M'){
+          console.log('Minors as player');
+          axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationId,{
+              session_id: 0
+            })
+
+            .then(response => 
+              {
+                console.log(response);
+              })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        else{
+          console.log('Player not minor');
+
+          axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+reservationId,{
+                  session_id: 0
+                })
+                .then(response => {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+          }
+
+      },
+
+      reservationDetail(event,reservationId){
+        console.log(reservationId);
+        axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+
+        })
+        .then(response =>
+        {
+          console.log(response);
+          this.clickedReservationId = response.data;
+        })
+        .catch(function (error){
+          console.log(error);
+        });
+
+      },
+
       onDragBackReservation(){
 
           console.log('Inside drop back rservation function');
@@ -5738,6 +5847,10 @@ export default {
 
       hideEmptyBoxModal(){
         this.$root.$emit('bv::hide::modal', 'modal-emptyBox', '#btnShow');
+      },
+
+      hideReloadReservationModal(){
+        this.$root.$emit('bv::hide::modal', 'modal-reloadReservation', '#btnShow');
       },
 
       posttorfidapiAfterReload(event, col , index){
@@ -6637,13 +6750,14 @@ export default {
           })
           .then(response => {
             console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
-            // this.emptyBoxReload();
+            this.emptyBoxReload();
           })
           .catch(error => {
             console.log(error);
           });
 
 
+          // this.emptyBoxReload();
 
         } /** if clause closed **/
 
@@ -6745,6 +6859,13 @@ export default {
               } /** end of ELSE clause **/
               
 
+              if(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].length == '0'){
+                console.log('yes 0 0 0 mf');
+              }
+              else{
+                console.log('not 0 0 0 0 mf');
+              }
+
             }
 
           /** end of session id empty **/
@@ -6755,19 +6876,24 @@ export default {
 
           })
           .then(response => {
-            // this.emptyBoxReload();
+            console.log(response);
+            this.emptyBoxReload();
           })
           .catch(error => {
             console.log(error);
           });
 
+          // this.emptyBoxReload();
+
         } /** else clause closed **/
 
-
+        // return this.emptyBoxReload();
 
       },
 
       emptyBoxReload(){
+        // let results = await emptyBox();
+        // console.log('maya in in');
         window.location.reload(true);
         // console.log(' SANDU MANDU');
       },
