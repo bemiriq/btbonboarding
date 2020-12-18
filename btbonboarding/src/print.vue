@@ -1433,11 +1433,11 @@ import axios from 'axios';
           })
           .then(response =>{
             console.log(response.data);
-            this.sessionGameScoreRoom1 = response.data.Session_game_scores[1].score;
-            this.sessionGameScoreRoom2 = response.data.Session_game_scores[2].score;
-            this.sessionGameScoreRoom3 = response.data.Session_game_scores[3].score;
-            this.sessionGameScoreRoom4 = response.data.Session_game_scores[4].score;
-            this.sessionGameScoreRoom5 = response.data.Session_game_scores[5].score;
+            this.sessionGameScoreRoom1 = response.data.Session_game_scores[0].score;
+            this.sessionGameScoreRoom2 = response.data.Session_game_scores[1].score;
+            this.sessionGameScoreRoom3 = response.data.Session_game_scores[2].score;
+            this.sessionGameScoreRoom4 = response.data.Session_game_scores[3].score;
+            this.sessionGameScoreRoom5 = response.data.Session_game_scores[4].score;
 
             if(response.data.Session_game_scores[1].game_id == '1'){
               this.sessionGameRoomName1 = 'Hack Attack';
@@ -1446,11 +1446,11 @@ import axios from 'axios';
               this.sessionGameRoomName4 = 'Floor Grid';
               this.sessionGameRoomName5 = 'Cyberbot';
 
-              this.sessionGameId1 = response.data.Session_game_scores[1].game_id;
-              this.sessionGameId2 = response.data.Session_game_scores[2].game_id;
-              this.sessionGameId3 = response.data.Session_game_scores[3].game_id;
-              this.sessionGameId4 = response.data.Session_game_scores[4].game_id;
-              this.sessionGameId5 = response.data.Session_game_scores[5].game_id;
+              this.sessionGameId1 = response.data.Session_game_scores[0].game_id;
+              this.sessionGameId2 = response.data.Session_game_scores[1].game_id;
+              this.sessionGameId3 = response.data.Session_game_scores[2].game_id;
+              this.sessionGameId4 = response.data.Session_game_scores[3].game_id;
+              this.sessionGameId5 = response.data.Session_game_scores[4].game_id;
 
             }
 
