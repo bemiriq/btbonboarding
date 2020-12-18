@@ -666,7 +666,7 @@ import axios from 'axios';
 
 
                     /** THIS IS THE BOMB ROOM **/
-                    if(this.teamClicked.Session_game_scores[5].score == undefined){
+                    if(this.teamClicked.Session_game_scores[4].score == undefined){
                       this.room5 = '00:00';
                     }
                     else{
@@ -718,11 +718,11 @@ import axios from 'axios';
 
                     /** THIS IS ECHO CHAMBER ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[3].score == undefined){
+                    if(this.teamClicked.Session_game_scores[2].score == undefined){
                       this.room3 = '00:00';
                     }
                     else{
-                      var room3Score = this.teamClicked.Session_game_scores[3].score;
+                      var room3Score = this.teamClicked.Session_game_scores[2].score;
 
                       console.log(room3Score);
 
@@ -769,11 +769,11 @@ import axios from 'axios';
 
                     /** THIS IS HACK ATTACK ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[1].score == undefined){
+                    if(this.teamClicked.Session_game_scores[0].score == undefined){
                       this.room1 = '00:00';
                     }
                     else{
-                      var room1Score = this.teamClicked.Session_game_scores[1].score;
+                      var room1Score = this.teamClicked.Session_game_scores[0].score;
 
                       console.log(room1Score);
 
@@ -820,11 +820,11 @@ import axios from 'axios';
 
                     /** THIS IS FLOOR GRID ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    if(this.teamClicked.Session_game_scores[3].score == undefined){
                       this.room4 = '00:00';
                     }
                     else{
-                      var room4Score = this.teamClicked.Session_game_scores[4].score;
+                      var room4Score = this.teamClicked.Session_game_scores[3].score;
 
                       console.log(room4Score);
 
@@ -870,11 +870,11 @@ import axios from 'axios';
 
                     /** THIS IS LASER MAZE ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[2].score == undefined){
+                    if(this.teamClicked.Session_game_scores[1].score == undefined){
                       this.room2 = '00:00';
                     }
                     else{
-                      var room2Score = this.teamClicked.Session_game_scores[2].score;
+                      var room2Score = this.teamClicked.Session_game_scores[1].score;
 
                       console.log(room2Score);
 
@@ -922,28 +922,28 @@ import axios from 'axios';
                     /** END OF LASER MAZE **/
 
 
-                    // if(this.teamClicked.Session_game_scores[2].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[1].score == undefined){
                     //   this.room4 = '00:00';
                     // }
                     // else{
-                    //   var room4 = this.teamClicked.Session_game_scores[2].score;
+                    //   var room4 = this.teamClicked.Session_game_scores[1].score;
                     //   this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
                     // }
 
-                    // if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[3].score == undefined){
                     //   this.room3 = '00:00';
                     // }
                     // else{
-                    //   var room3 = this.teamClicked.Session_game_scores[4].score;
+                    //   var room3 = this.teamClicked.Session_game_scores[3].score;
                     //   this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
                     // }
 
-                    // if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[3].score == undefined){
                     //   this.room5 = '00:00';
                     // }
                     // else{
-                    //   var room5 = this.teamClicked.Session_game_scores[3].score;
-                    //   this.totalSeconds = this.teamClicked.Session_game_scores[3].score;
+                    //   var room5 = this.teamClicked.Session_game_scores[2].score;
+                    //   this.totalSeconds = this.teamClicked.Session_game_scores[2].score;
 
                     //   this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
                     //   this.bombDigitDecoded = this.teamClicked.Session_game_scores[3].level_achieved;
@@ -1049,7 +1049,7 @@ import axios from 'axios';
 
 
                     /** THIS IS THE BOMB ROOM **/
-                    if(this.teamClicked.Session_game_scores[5].score == undefined){
+                    if(this.teamClicked.Session_game_scores[4].score == undefined){
                       this.room5 = '00:00';
                     }
                     else{
@@ -1101,11 +1101,11 @@ import axios from 'axios';
 
                     /** THIS IS MAD DASH ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[3].score == undefined){
+                    if(this.teamClicked.Session_game_scores[2].score == undefined){
                       this.room3 = '00:00';
                     }
                     else{
-                      var room3Score = this.teamClicked.Session_game_scores[3].score;
+                      var room3Score = this.teamClicked.Session_game_scores[2].score;
 
                       console.log(room3Score);
 
@@ -1152,11 +1152,11 @@ import axios from 'axios';
 
                     /** THIS IS SEQUENCER ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[1].score == undefined){
+                    if(this.teamClicked.Session_game_scores[0].score == undefined){
                       this.room1 = '00:00';
                     }
                     else{
-                      var room1Score = this.teamClicked.Session_game_scores[1].score;
+                      var room1Score = this.teamClicked.Session_game_scores[0].score;
 
                       console.log(room1Score);
 
@@ -1203,11 +1203,11 @@ import axios from 'axios';
 
                     /** THIS IS LOW BATTERY ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    if(this.teamClicked.Session_game_scores[3].score == undefined){
                       this.room4 = '00:00';
                     }
                     else{
-                      var room4Score = this.teamClicked.Session_game_scores[4].score;
+                      var room4Score = this.teamClicked.Session_game_scores[3].score;
 
                       console.log(room4Score);
 
@@ -1253,11 +1253,11 @@ import axios from 'axios';
 
                     /** THIS IS CRYPTO LAZERS ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[2].score == undefined){
+                    if(this.teamClicked.Session_game_scores[1].score == undefined){
                       this.room2 = '00:00';
                     }
                     else{
-                      var room2Score = this.teamClicked.Session_game_scores[2].score;
+                      var room2Score = this.teamClicked.Session_game_scores[1].score;
 
                       console.log(room2Score);
 
@@ -1305,28 +1305,28 @@ import axios from 'axios';
                     /** END OF CRYPTO LAZERS **/
 
 
-                    // if(this.teamClicked.Session_game_scores[2].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[1].score == undefined){
                     //   this.room4 = '00:00';
                     // }
                     // else{
-                    //   var room4 = this.teamClicked.Session_game_scores[2].score;
+                    //   var room4 = this.teamClicked.Session_game_scores[1].score;
                     //   this.room4 = moment().startOf('day').seconds(room4).format("mm:ss");
                     // }
 
-                    // if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[3].score == undefined){
                     //   this.room3 = '00:00';
                     // }
                     // else{
-                    //   var room3 = this.teamClicked.Session_game_scores[4].score;
+                    //   var room3 = this.teamClicked.Session_game_scores[3].score;
                     //   this.room3 = moment().startOf('day').seconds(room3).format("mm:ss");
                     // }
 
-                    // if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    // if(this.teamClicked.Session_game_scores[3].score == undefined){
                     //   this.room5 = '00:00';
                     // }
                     // else{
-                    //   var room5 = this.teamClicked.Session_game_scores[3].score;
-                    //   this.totalSeconds = this.teamClicked.Session_game_scores[3].score;
+                    //   var room5 = this.teamClicked.Session_game_scores[2].score;
+                    //   this.totalSeconds = this.teamClicked.Session_game_scores[2].score;
 
                     //   this.room5 = moment().startOf('day').seconds(room5).format("mm:ss");
                     //   this.bombDigitDecoded = this.teamClicked.Session_game_scores[3].level_achieved;
