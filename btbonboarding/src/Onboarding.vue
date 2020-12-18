@@ -4197,7 +4197,7 @@ export default {
     var currentdate = moment().format("YYYY-MM-DD");
     console.log(currentdate+ ' date used for reservation');
 
-    var startReservationTime = moment().subtract(3, 'hours').format('HH:mm:ss');
+    var startReservationTime = moment().subtract(3, 'hours').format('hh:mm:ss');
     var endReservationTime = moment().add(3, 'hours').format('HH:mm:ss');
 
     this.startReservationTime = startReservationTime;
@@ -6484,6 +6484,8 @@ export default {
 
                                   var bombBeater = response.data[0].Team_player_sessions[j].Player.bomb_beater;
                                   var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
+
+                                  // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
 
                                   console.log(bombBeater);
                                   console.log(playerCount);
@@ -9008,8 +9010,6 @@ export default {
           var updateNullOnReservationPeople = event.removed.element.id;
           console.log(updateNullOnReservationPeople);
 
-          // var deleteTeamPlayerSessionId = e.draggedContext.element.Person.team_player_session;
-          // var deleteTeamPlayerSessionId = this.tolist2TPSafterReload[boxObjectId];
           var deleteTeamPlayerSessionId = event.removed.element.Person.team_player_session;
           console.log(deleteTeamPlayerSessionId);
 
@@ -9258,8 +9258,9 @@ export default {
                   // console.log(sessionPlayerCount);
                   // console.log(sessionIdDragged);
 
+                  var teamSize = this['list'+col].length;
                   axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdDragged,{
-                    player_count: sessionPlayerCount-1 /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                    player_count: teamSize /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
                   })
                   .then(response => {
 
@@ -9286,7 +9287,7 @@ export default {
 
             /** this will update the reservation_people **/
 
-            console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople);
+            // console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/'+updateNullOnReservationPeople);
 
             if(event.removed.element.Person.minor == "yes"){
 
