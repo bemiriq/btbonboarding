@@ -6130,7 +6130,13 @@ export default {
                 var bombBeater = this['grabAllMostRecentTeam'][0][b].Team_player_sessions[i].Player.bomb_beater;
                 var playerCount = this['grabAllMostRecentTeam'][0][b].Team_player_sessions[i].Player.play_count;
 
-                var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
+                // var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
+                if(this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name != null){
+                  var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
+                }
+                else{
+                  var booker_first_name = 'Empty';
+                }
 
                 if(this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.last_name != null){
                   var booker_last_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.last_name;
@@ -6201,8 +6207,15 @@ export default {
                 var teamPlayerSessionId = this['grabAllMostRecentTeam'][0][b].Team_player_sessions[i].id;
                 var SessionId = this['grabAllMostRecentTeam'][0][b].Team_player_sessions[i].session_id;
 
-                var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
+                // var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
                 // var booker_last_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.last_name;
+
+                if(this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name != null){
+                  var booker_first_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.first_name;
+                }
+                else{
+                  var booker_first_name = 'Empty';
+                }
 
                 if(this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.last_name != null){
                   var booker_last_name = this['grabAllMostRecentTeam'][0][b].Reservation.Booker.Person.last_name;
