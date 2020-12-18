@@ -1439,7 +1439,7 @@ import axios from 'axios';
             this.sessionGameScoreRoom4 = response.data.Session_game_scores[3].score;
             this.sessionGameScoreRoom5 = response.data.Session_game_scores[4].score;
 
-            if(response.data.Session_game_scores[1].game_id == '1'){
+            if(response.data.Session_game_scores[0].game_id == '1'){
               this.sessionGameRoomName1 = 'Hack Attack';
               this.sessionGameRoomName2 = 'Laser Maze';
               this.sessionGameRoomName3 = 'Echo Chamber';
@@ -1454,18 +1454,18 @@ import axios from 'axios';
 
             }
 
-            if(response.data.Session_game_scores[1].game_id == '11'){
+            if(response.data.Session_game_scores[0].game_id == '11'){
               this.sessionGameRoomName1 = 'Sequencer';
               this.sessionGameRoomName2 = 'Crypto Lasers';
               this.sessionGameRoomName3 = 'Mad Dash';
               this.sessionGameRoomName4 = 'Low Battery';
               this.sessionGameRoomName5 = 'Block Monster';
 
-              this.sessionGameId1 = response.data.Session_game_scores[1].game_id;
-              this.sessionGameId2 = response.data.Session_game_scores[2].game_id;
-              this.sessionGameId3 = response.data.Session_game_scores[3].game_id;
-              this.sessionGameId4 = response.data.Session_game_scores[4].game_id;
-              this.sessionGameId5 = response.data.Session_game_scores[5].game_id;
+              this.sessionGameId1 = response.data.Session_game_scores[0].game_id;
+              this.sessionGameId2 = response.data.Session_game_scores[1].game_id;
+              this.sessionGameId3 = response.data.Session_game_scores[2].game_id;
+              this.sessionGameId4 = response.data.Session_game_scores[3].game_id;
+              this.sessionGameId5 = response.data.Session_game_scores[4].game_id;
             }
 
           })
