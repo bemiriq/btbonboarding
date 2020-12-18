@@ -18,6 +18,58 @@
 
       </b-container>
 
+      <!-- this modal will hide/unhide reservation name -->
+
+        <b-modal id="modal-updateReservation" centered size="md" title="Update Reservation" v-bind:hide-footer="true" v-bind:hide-header="true">
+
+            <!-- <b-row v-for="item in (index,posts)" v-bind:key="fetchlist1.id" style="margin-top: 1%;">
+              <b-col sm="4">
+                <b-col style="text-transform: capitalize;">{{fetchlist1.player_first_name}}</b-col>
+              </b-col>
+            </b-row> -->
+          <table class="table">
+            <tr>
+              <th>Reservation Time</th>
+              <th>Reservation Name</th>
+              <th>Cancel</th>
+            </tr>
+
+            <tr v-for="item in getAllReservationList" v-bind:key="item.id">
+              <td class="covertedtime">
+                {{item.reservation_time}}
+              </td>
+              <td>
+                {{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}
+              </td>
+              <td>
+                <input type="checkbox" checked v-if="!item.reservation_cancelled > '0'" @click="updateReservationCreated($event,item.id,1)"/>
+                <input type="checkbox" v-else  @click="updateReservationCreated($event,item.id,0)"/>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td><b-button variant="info" @click="reloadPageEvent()">Update</b-button></td>
+            </tr>
+
+          </table>
+            <!-- <b-row class="my-1">
+              <b-col sm="4">
+                <b>Email-id</b>
+              </b-col>
+              <b-col sm="6">
+                <b-form-input v-model="addBookerEmail" id="input-large" placeholder="Enter Email-id" v-on:keyup.enter="getDetailByEmail"></b-form-input>
+              </b-col>
+            </b-row> -->
+            <!-- <b-button v-on:click="reloadPageEvent()">OK</b-button> -->
+
+            <!-- <b-button v-on:click="hideUpdateReservationModal()">Cancel</b-button> -->
+
+        </b-modal>
+
+      <!-- end of modal to hide/unhide reservation -->
+
           <!-- this modal will add the reservation that did not show up from xola to our database -->
           <b-modal id="modal-addReservation" centered size="md" title="Add Reservation">
 
@@ -419,10 +471,13 @@
               </b-input-group>
             </b-col>
 
-            <b-col lg="3">
+            <b-col lg="2">
               <b-button variant="outline-primary" v-on:click="addReservation();"> Add Reservation </b-button>
             </b-col>
 
+            <b-col lg="2">
+              <b-button variant="outline-info" v-on:click="updateReservation();"> Update Reservation </b-button>
+            </b-col>
 
             <b-col lg="3">
               <b-form-input id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
@@ -689,6 +744,7 @@ export default {
 
       readyCheckedCategories:[],
       lateCheckedCategories:[],
+      getAllReservationList:[],
 
       onDetailDiv: true,
       itemId: true,
@@ -1036,6 +1092,22 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    updateReservationCreated(event,reservationId,updateValue){
+      console.log(event);
+      console.log(reservationId);
+      console.log(updateValue);
+      axios.put(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+        reservation_cancelled: updateValue
+      })
+      .then(response => {
+        console.log(response);
+        // this.reloadPageEvent();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
 
     getDetailByEmail(){
       console.log('inside email function');
@@ -2113,10 +2185,65 @@ var arrows = document.getElementsByClassName("covertedtime");
       this.$bvModal.show('modal-addReservation');
      },
 
+     updateReservation(){
 
-      removeDuplicates () {
-          this.timeList = [ ...new Set(this.timeList) ]
-        }
+      console.log(this.dateClicked);
+      var currentdate = this.dateClicked;
+      var startReservationtime = '08:45:00';
+      var endResevationtime = '23:50:00';
+
+      axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'getall_checkin/start/'+currentdate+'T'+startReservationtime+'/end/'+currentdate+'T'+endResevationtime,{
+
+      })
+      .then(response => 
+        {
+          console.log(response);
+
+          console.log(response);
+        this.getAllReservationList = response.data;
+
+        /** Beginning of ARRIVED counting part **/
+         var countPostArray = response.data.length-1;
+        // console.log(countPostArray);
+          var replyDataObj1 = this.getAllReservationList;
+
+          console.log(this.getAllReservationList);
+
+          for(let i=0; i <= countPostArray; i++){
+            
+            // console.log(response.data[i].Reservation_minors.length);
+             
+            
+            var reservationForConvert = replyDataObj1[i].reservation_for;
+            var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
+            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
+
+            console.log(reservationForConvert);
+            console.log(date);
+            console.log(reservationOnlyTime);
+
+            var reservationId = replyDataObj1[i].id; /** id is the reservation id **/
+            replyDataObj1[i]['reservation_id']=reservationId;
+            replyDataObj1[i]['reservation_time']=reservationOnlyTime;
+          }
+          /** END of ARRIVED counting PART **/
+
+        })
+      .catch(function (error){
+        console.log(error);
+      });
+
+      this.$bvModal.show('modal-updateReservation');
+
+     },
+
+     hideUpdateReservationModal(){
+      this.$bvModal.hide('modal-updateReservation');
+     },
+
+  removeDuplicates () {
+    this.timeList = [ ...new Set(this.timeList) ]
+  }
 
   }
 

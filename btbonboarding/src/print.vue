@@ -3,8 +3,78 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
-  <b-modal id="modal-center" centered title="BootstrapVue">
-    <p class="my-4">Vertically centered modal!</p>
+  <b-modal id="modal-updateScore" centered v-bind:hide-footer="true" v-bind:hide-header="true">
+
+    <!-- this part will display the room name and score to edit -->
+                                    <div class="list-group-item item">
+                                      <br>
+
+                                      <b><p class="capitalLetters">Update Scores / Team Name</p></b>
+
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input v-model="teamtitle" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="text" placeholder="Update team name" v-model="teamname"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                      <br/>
+                                      <b-row>
+                                      
+                                        <b-col sm="6">
+                                          <b-form-input v-model="sessionGameRoomName1" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="number" v-model="sessionGameScoreRoom1"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                      <br/>
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input v-model="sessionGameRoomName2" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="number" v-model="sessionGameScoreRoom2"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                      <br/>
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input v-model="sessionGameRoomName3" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="number" v-model="sessionGameScoreRoom3"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                      <br/>
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input v-model="sessionGameRoomName4" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="number" v-model="sessionGameScoreRoom4"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+                                      <br/>
+                                      <b-row>
+                                        <b-col sm="6">
+                                          <b-form-input v-model="sessionGameRoomName5" disabled></b-form-input>
+                                        </b-col>
+                                        <b-col>
+                                          <b-form-input type="number" v-model="sessionGameScoreRoom5"></b-form-input>
+                                        </b-col>
+                                      </b-row>
+
+                                      <br/>
+                                      <b-row>
+                                        <b-col sm="2" style="margin-left: 30%;"><b-button variant="primary" @click="updateScore(),updateTeamName()" >YES</b-button></b-col>
+                                        <b-col sm="2"><b-button variant="info" @click="hideUpdateScoreModal()">NO</b-button></b-col>
+                                      </b-row>
+
+                                    </div>
+                                    <!-- end of DISPLAY SCORE AND ROOMS -->
+
   </b-modal>
 
     <div class="bv-example-row" style="width: 80%;margin:auto;">
@@ -74,6 +144,7 @@
           <b-col v-if="onselect == '1'">
             <!-- <button @click="printWindow('san')">Print</button> -->
             <b-button variant="success" @click="printWindow('san')">PRINT NOW</b-button>
+            <b-button variant="primary" v-b-modal.modal-updateScore style="margin-left: 2%;color:white;" @click="editGameScore()">UPDATE SCORE</b-button>
 
             <br>
             <br>
@@ -440,7 +511,29 @@ import axios from 'axios';
         totalBombTime: '',
         teamRank: '',
         totalTeams: '',
-        dateClicked: moment().format('YYYY-MM-DD')
+        dateClicked: moment().format('YYYY-MM-DD'),
+
+        sessionGameScoreRoom1: '',
+        sessionGameScoreRoom2: '',
+        sessionGameScoreRoom3: '',
+        sessionGameScoreRoom4: '',
+        sessionGameScoreRoom5: '',
+
+        sessionGameId1: '',
+        sessionGameId2: '',
+        sessionGameId3: '',
+        sessionGameId4: '',
+        sessionGameId5: '',
+
+        sessionGameRoomName1: '',
+        sessionGameRoomName2: '',
+        sessionGameRoomName3: '',
+        sessionGameRoomName4: '',
+        sessionGameRoomName5: '',
+
+        teamSessionId: '',
+        teamtitle: 'Team Name',
+        missionTitle: ''
 
       }
 
@@ -465,6 +558,8 @@ import axios from 'axios';
           .then(response => {
             console.log(response);
             console.log(response.data);
+
+            this.teamSessionId = response.data.id;
             this.teamClicked = response.data;
 
             console.log(this.teamClicked);
@@ -486,44 +581,6 @@ import axios from 'axios';
 
               this.totalBombTime = totalBombTime;
               this.total_score = this.teamClicked.total_score;
-
-              // if(this.teamClicked.total_score > 1500 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '5336';
-              // }
-              // if(this.teamClicked.total_score > 850 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '8734';
-              // }
-              // if(this.teamClicked.total_score > 2000 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '2549';
-              // }
-              // if(this.teamClicked.total_score > 2500 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '1583';
-              // }
-              // if(this.teamClicked.total_score > 3000 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '986';
-              // }
-              // if(this.teamClicked.total_score > 3600 && this.teamClicked.Session_game_scores[1].game_id < 6){
-              //   this.teamRank = '488';
-              // }
-
-              // if(this.teamClicked.total_score > 1300 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '68';
-              // }
-              // if(this.teamClicked.total_score > 850 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '97';
-              // }
-              // if(this.teamClicked.total_score > 1700 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '48';
-              // }
-              // if(this.teamClicked.total_score > 2000 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '17';
-              // }
-              // if(this.teamClicked.total_score > 2500 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '11';
-              // }
-              // if(this.teamClicked.total_score > 3600 && this.teamClicked.Session_game_scores[1].game_id > 5){
-              //   this.teamRank = '5';
-              // }
 
               /** BEGINING OF MISSION 1 IF **/
               if(this.teamClicked.mission_id == '1'){
@@ -1324,6 +1381,197 @@ import axios from 'axios';
     },
 
     methods:{
+
+      reloadPage(){
+        console.log("INSIDE RELOAD FUNCTION");
+        window.location.reload(true);
+      },
+
+      updateTeamName(){
+        var teamName = this.teamname;
+        var sessionid = this.teamSessionId;
+
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
+
+        })
+        .then(response => {
+          console.log(response);
+          console.log('update on session id now');
+          var newTeamId = response.data[0].id;
+          console.log(newTeamId);
+
+          axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
+            team_id: newTeamId
+          })
+          .then(response => {
+            console.log(response);
+            this.reloadPage();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      },
+
+      hideUpdateScoreModal(){
+        this.$root.$emit('bv::hide::modal', 'modal-updateScore', '#btnShow');
+        this.checkRfidReader = 0;
+      },
+
+      editGameScore(){
+        console.log("inside edit game score bruh");
+        
+          var sessionId = this.teamSessionId;
+
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+
+          })
+          .then(response =>{
+            console.log(response.data);
+            this.sessionGameScoreRoom1 = response.data.Session_game_scores[1].score;
+            this.sessionGameScoreRoom2 = response.data.Session_game_scores[2].score;
+            this.sessionGameScoreRoom3 = response.data.Session_game_scores[3].score;
+            this.sessionGameScoreRoom4 = response.data.Session_game_scores[4].score;
+            this.sessionGameScoreRoom5 = response.data.Session_game_scores[5].score;
+
+            if(response.data.Session_game_scores[1].game_id == '1'){
+              this.sessionGameRoomName1 = 'Hack Attack';
+              this.sessionGameRoomName2 = 'Laser Maze';
+              this.sessionGameRoomName3 = 'Echo Chamber';
+              this.sessionGameRoomName4 = 'Floor Grid';
+              this.sessionGameRoomName5 = 'Cyberbot';
+
+              this.sessionGameId1 = response.data.Session_game_scores[1].game_id;
+              this.sessionGameId2 = response.data.Session_game_scores[2].game_id;
+              this.sessionGameId3 = response.data.Session_game_scores[3].game_id;
+              this.sessionGameId4 = response.data.Session_game_scores[4].game_id;
+              this.sessionGameId5 = response.data.Session_game_scores[5].game_id;
+
+            }
+
+            if(response.data.Session_game_scores[1].game_id == '11'){
+              this.sessionGameRoomName1 = 'Sequencer';
+              this.sessionGameRoomName2 = 'Crypto Lasers';
+              this.sessionGameRoomName3 = 'Mad Dash';
+              this.sessionGameRoomName4 = 'Low Battery';
+              this.sessionGameRoomName5 = 'Block Monster';
+
+              this.sessionGameId1 = response.data.Session_game_scores[1].game_id;
+              this.sessionGameId2 = response.data.Session_game_scores[2].game_id;
+              this.sessionGameId3 = response.data.Session_game_scores[3].game_id;
+              this.sessionGameId4 = response.data.Session_game_scores[4].game_id;
+              this.sessionGameId5 = response.data.Session_game_scores[5].game_id;
+            }
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+      },
+
+      updateScore(){
+        console.log('Inside updateScore');
+
+          var sessionid = this.teamSessionId;
+
+          var gameId1 = this.sessionGameId1;
+          var gameScore1 = this.sessionGameScoreRoom1;
+
+          var gameId2 = this.sessionGameId2;
+          var gameScore2 = this.sessionGameScoreRoom2;
+
+          var gameId3 = this.sessionGameId3;
+          var gameScore3 = this.sessionGameScoreRoom3;
+
+          var gameId4 = this.sessionGameId4;
+          var gameScore4 = this.sessionGameScoreRoom4;
+
+          var gameId5 = this.sessionGameId5;
+          var gameScore5 = this.sessionGameScoreRoom5;
+
+          console.log('game id 1'+ gameId1);
+
+          /** post game id 1 score **/
+          axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+gameId1+'/session/'+sessionid,{
+            score: gameScore1
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** post game id 2 score **/
+          axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+gameId2+'/session/'+sessionid,{
+            score: gameScore2
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+          /** post game id 3 score **/
+          axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+gameId3+'/session/'+sessionid,{
+            score: gameScore3
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+          /** post game id 4 score **/
+          axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+gameId4+'/session/'+sessionid,{
+            score: gameScore4
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** post game id 5 score **/
+          axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+gameId5+'/session/'+sessionid,{
+            score: gameScore5
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** this will update the new total score, if they made any changes **/
+          axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_and_total_score/session/'+sessionid,{
+            // score: gameScore1
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        
+      },
+
         printWindow: function () {    
           window.print('section-to-print');
         },
