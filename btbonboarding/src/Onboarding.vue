@@ -6150,8 +6150,8 @@ methods: {
 
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
-      var startTime = moment('09:00 AM', 'HH:mm A').subtract('hours',4).format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).subtract('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
+      var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
       // var endTime = moment('08:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
@@ -6182,8 +6182,8 @@ methods: {
     else{
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
-      var startTime = moment('09:00 AM', 'HH:mm A').subtract('hours',4).format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).subtract('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
+      var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
       // var endTime = moment('08:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
