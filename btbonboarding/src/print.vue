@@ -666,22 +666,22 @@ import axios from 'axios';
 
 
                     /** THIS IS THE BOMB ROOM **/
-                    if(this.teamClicked.Session_game_scores[4].score == undefined){
+                    if(this.teamClicked.Session_game_scores[5].score == undefined){
                       this.room5 = '00:00';
                     }
                     else{
-                      var room5Score = this.teamClicked.Session_game_scores[4].score;
+                      var room5Score = this.teamClicked.Session_game_scores[5].score;
 
                       console.log(room5Score);
 
                       this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
-                      this.bombDigitDecoded = this.teamClicked.Session_game_scores[4].score;
+                      this.bombDigitDecoded = this.teamClicked.Session_game_scores[5].score;
                       this.totalSeconds = this.teamClicked.bomb_time;
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[4].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[5].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room5Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
@@ -718,11 +718,11 @@ import axios from 'axios';
 
                     /** THIS IS ECHO CHAMBER ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[2].score == undefined){
+                    if(this.teamClicked.Session_game_scores[3].score == undefined){
                       this.room3 = '00:00';
                     }
                     else{
-                      var room3Score = this.teamClicked.Session_game_scores[2].score;
+                      var room3Score = this.teamClicked.Session_game_scores[3].score;
 
                       console.log(room3Score);
 
@@ -730,7 +730,7 @@ import axios from 'axios';
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[2].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[3].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room3Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
@@ -769,11 +769,11 @@ import axios from 'axios';
 
                     /** THIS IS HACK ATTACK ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[0].score == undefined){
+                    if(this.teamClicked.Session_game_scores[1].score == undefined){
                       this.room1 = '00:00';
                     }
                     else{
-                      var room1Score = this.teamClicked.Session_game_scores[0].score;
+                      var room1Score = this.teamClicked.Session_game_scores[1].score;
 
                       console.log(room1Score);
 
@@ -781,7 +781,7 @@ import axios from 'axios';
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[0].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[1].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room1Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
@@ -820,11 +820,11 @@ import axios from 'axios';
 
                     /** THIS IS FLOOR GRID ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[3].score == undefined){
+                    if(this.teamClicked.Session_game_scores[4].score == undefined){
                       this.room4 = '00:00';
                     }
                     else{
-                      var room4Score = this.teamClicked.Session_game_scores[3].score;
+                      var room4Score = this.teamClicked.Session_game_scores[4].score;
 
                       console.log(room4Score);
 
@@ -832,7 +832,7 @@ import axios from 'axios';
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[3].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[4].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room4Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
@@ -870,11 +870,11 @@ import axios from 'axios';
 
                     /** THIS IS LASER MAZE ROOM **/
 
-                    if(this.teamClicked.Session_game_scores[1].score == undefined){
+                    if(this.teamClicked.Session_game_scores[2].score == undefined){
                       this.room2 = '00:00';
                     }
                     else{
-                      var room2Score = this.teamClicked.Session_game_scores[1].score;
+                      var room2Score = this.teamClicked.Session_game_scores[2].score;
 
                       console.log(room2Score);
 
@@ -882,7 +882,7 @@ import axios from 'axios';
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[1].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[2].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room2Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
