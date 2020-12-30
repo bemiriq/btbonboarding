@@ -4267,7 +4267,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(49, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(60, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
@@ -6148,10 +6148,11 @@ methods: {
         this.grabAllMostRecentTeam.shift();
       }
 
-      // var useDate = moment().format('2020-10-31');
       var useDate = moment().format('YYYY-MM-DD');
-      var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).subtract('minutes',10).format('T'+'HH:mm:00');
+      // var useDate = moment().format('2020-10-31');
+      var startTime = moment('09:00 AM', 'HH:mm A').subtract('hours',4).format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).subtract('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
+      // var endTime = moment('08:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
       console.log(endTime);
@@ -6179,11 +6180,11 @@ methods: {
     }
 
     else{
-      // var useDate = moment().format('YYYY-MM-DD');
-      // var useDate = moment().format('2020-10-31');
       var useDate = moment().format('YYYY-MM-DD');
-      var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).subtract('minutes',10).format('T'+'HH:mm:00');
+      // var useDate = moment().format('2020-10-31');
+      var startTime = moment('09:00 AM', 'HH:mm A').subtract('hours',4).format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).subtract('hours',4).subtract('minutes',10).format('T'+'HH:mm:00');
+      // var endTime = moment('08:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
       console.log(endTime);
