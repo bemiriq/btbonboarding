@@ -1283,7 +1283,8 @@
                         <!-- <b-form-input type="text" name="reservationTime1" disabled>{{formatedReservationFor(item.createdAt)}}</b-form-input> -->
                         <p style="width: auto; height : 38px; background-color:#e9ecef; padding-top: 7%; margin-left: 4%;">{{formatTimeAddFour(item.session_time)}}</p>
                       </b-col>
-                      <b-col sm="7">
+                      <!-- <b-col sm=
+                        "7"> -->
 
                         <b-form-input size="md" v-model="item.Team.name" placeholder="TEAM NAME 1" v-on:change="previousTeamUpdate($event, index)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -1325,7 +1326,8 @@
                       <p>{{formatTimeAddFour(item.createdAt)}}</p>
                     </b-col>
 
-                  </b-row>
+                  <!-- </b-row> -->
+
 
                     <div style="height: 440px;border-style: outset;">
                       <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
@@ -1468,7 +1470,8 @@
                             <b-col sm="4">
                               <p style="width: auto; height : 38px; background-color:#e9ecef; padding-top: 7%;">{{formatTimeAddFour(item.createdAt)}}</p>
                             </b-col>
-                            <b-col sm="7">
+                            <!-- <b-c
+                              ol sm="7"> -->
 
                               <b-form-input size="md" v-model="fetchPlayerList[index].Team.name" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
@@ -1510,7 +1513,8 @@
                               <p>{{formatTimeAddFour(item.createdAt)}}</p>
                             </b-col>
 
-                          </b-row>
+                          <!-- </b-r
+                            ow> -->
 
                           <div style="height: 440px;border-style: outset;">
                             <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
@@ -5247,7 +5251,8 @@ methods: {
   },
 
   formatTimeAddFour(date){
-    return moment(date).add('hours', 4).format('h:mm a');
+    // return moment(date).add('hours', 4).format('h:mm a');
+    return moment(date).format('h:mm a');
   },
 
   previousTeamUpdate(event, arrayValue){
