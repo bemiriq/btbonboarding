@@ -4267,11 +4267,11 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  var currentdate = moment().subtract(49, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(49, 'days').format("YYYY-MM-DD");
 // var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(4, 'hours').format('hh:mm:ss');
+var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
@@ -6148,7 +6148,8 @@ methods: {
         this.grabAllMostRecentTeam.shift();
       }
 
-      var useDate = moment().format('2020-10-31');
+      // var useDate = moment().format('2020-10-31');
+      var useDate = moment().format('YYYY-MM-DD');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
       var endTime = moment(this.sessionRow10DateTime).subtract('minutes',10).format('T'+'HH:mm:00');
 
@@ -6179,7 +6180,8 @@ methods: {
 
     else{
       // var useDate = moment().format('YYYY-MM-DD');
-      var useDate = moment().format('2020-10-31');
+      // var useDate = moment().format('2020-10-31');
+      var useDate = moment().format('YYYY-MM-DD');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
       var endTime = moment(this.sessionRow10DateTime).subtract('minutes',10).format('T'+'HH:mm:00');
 
