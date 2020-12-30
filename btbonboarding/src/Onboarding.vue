@@ -1466,7 +1466,8 @@
 
                           <b-row class="my-2" style="margin-top:-2% !important;">
                             <b-col sm="4">
-                              <p style="width: auto; height : 38px; background-color:#e9ecef; padding-top: 7%;">{{formatTimeAddFour(item.createdAt)}}</p>
+                              <!-- <b-form-input type="text" name="reservationTime1" disabled>{{formatedReservationFor(item.createdAt)}}</b-form-input> -->
+                              <p style="width: auto; height : 38px; background-color:#e9ecef; padding-top: 7%; margin-left: 4%;">{{formatTimeAddFour(item.session_time)}}</p>
                             </b-col>
                             <b-col sm="7">
 
