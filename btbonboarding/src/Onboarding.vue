@@ -5247,7 +5247,7 @@ methods: {
   },
 
   formatTimeAddFour(date){
-    return moment(date).add('0', minutes).format('h:mm A');
+    return moment(date).format('h:mm A');
     // return moment(date).add('hours', 4).format('h:mm a');
   },
 
