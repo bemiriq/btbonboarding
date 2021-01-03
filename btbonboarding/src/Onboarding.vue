@@ -1264,15 +1264,14 @@
 
             </b-row>
             <hr>
-            <b-row>
+            <!-- <b-row>
               <b-col>
-                <!-- index 0 2 4 -->
-                <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                   
                   <div>
-                    <!-- {{index}} -->
-                    <div v-if="fetchPlayerList[index].route_id == '1' ">
-                      {{formatTimeAddFour(item.session_time)}}
+                    {{index}}
+                    <div v-if="fetchPlayerList[index].route_id == '1'">
+                      {{formatTimeAddFour(item.session_time)}} + {{fetchPlayerList[index].route_id}}
                     </div>
                     <div v-else>
                       GRAY
@@ -1285,13 +1284,12 @@
               </b-col>
 
               <b-col>
-                <!-- index 1 3 5 -->
-                <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                   
                   <div>
-                    <!-- {{index}} -->
-                    <div v-if="fetchPlayerList[index].route_id == '2' ">
-                      {{formatTimeAddFour(item.session_time)}}
+                    {{index}}
+                    <div v-if="fetchPlayerList[index].route_id == '2'">
+                      {{formatTimeAddFour(item.session_time)}} + {{fetchPlayerList[index].route_id}}
                     </div>
                     <div v-else>
                       GRAY
@@ -1302,7 +1300,7 @@
                 </div>
               </b-col>
             </b-row>
-            <hr>
+            <hr> -->
             <b-row>
 
               <!-- previous button clicked display SIDE A b-col or column -->
@@ -1310,7 +1308,7 @@
               <b-col>
                 <!-- <p class="btbSideTitle"><b>SIDE A</b></p> -->
 
-                <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
 
                   <div v-if="fetchPlayerList[index].route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
@@ -1479,9 +1477,9 @@
 
                         </div>
 
-                        <!--  <div v-if="fetchPlayerList[index].route_id == '2' " style="background-color: #E9EcEf; height: 707px;">
+                         <div v-else style="background-color: #E9EcEf; height: 707px;">
 
-                        </div> -->
+                        </div>
 
                       </div>
                     </b-col>
@@ -1494,7 +1492,7 @@
 
                       <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
 
-                      <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                      <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                         <!-- <p>id {{index}}</p> -->
 
                         <!-- <div style="background-color: yellow;">{{index}} col</div> -->
@@ -1665,9 +1663,9 @@
 
                         </div>
 
-                         <!-- <div v-if="fetchPlayerList[index].route_id == '1' " style="background-color: #E9EcEf; height: 707px;">
+                         <div v-else style="background-color: #E9EcEf; height: 707px;">
 
-                        </div> -->
+                        </div>
 
                       </div>
                     </b-col>
@@ -5279,6 +5277,11 @@ data() {
 
 methods: {
 
+  reverseBoxArray(value){
+    console.log('inside reverse box array');
+    return value.slice().reverse();
+  },
+
  formatedReservationFor(date){
     // console.log(date);
     return moment(date).format('h:mm A');
@@ -6484,8 +6487,9 @@ methods: {
       
       // console.log(replyDataObj3.sort().reverse());
 
-      this.fetchPlayerList.push(replyDataObj3);
       // this.fetchPlayerList.reverse();
+      this.fetchPlayerList.push(replyDataObj3);
+      // this.fetchPlayerList.reverse(replyDataObj3);
 
     } /** b for loop closed **/
 
