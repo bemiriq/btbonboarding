@@ -1265,11 +1265,50 @@
             </b-row>
             <hr>
             <b-row>
+              <b-col>
+                index 0 2 4
+                <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                  
+                  <div>
+                    {{index}}
+                    <div v-if="fetchPlayerList[index].route_id == '1' ">
+                      {{formatTimeAddFour(item.session_time)}}
+                    </div>
+                    <div v-else>
+                      GRAY
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </b-col>
+
+              <b-col>
+                index 1 3 5
+                <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
+                  
+                  <div>
+                    {{index}}
+                    <div v-if="fetchPlayerList[index].route_id == '2' ">
+                      {{formatTimeAddFour(item.session_time)}}
+                    </div>
+                    <div v-else>
+                      GRAY
+                    </div>
+
+                  </div>
+                  
+                </div>
+              </b-col>
+            </b-row>
+            <hr>
+            <b-row>
 
               <!-- previous button clicked display SIDE A b-col or column -->
 
               <b-col>
-                <p class="btbSideTitle"><b>SIDE A</b></p>
+                <!-- <p class="btbSideTitle"><b>SIDE A</b></p> -->
 
                 <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
 
@@ -1277,7 +1316,6 @@
                   <div v-if="fetchPlayerList[index].route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
                     
                     <br>
-
                     <b-row class="my-2" style="margin-top:-2% !important;">
                       <b-col sm="4">
                         <!-- <b-form-input type="text" name="reservationTime1" disabled>{{formatedReservationFor(item.createdAt)}}</b-form-input> -->
@@ -1441,9 +1479,9 @@
 
                         </div>
 
-                        <div v-else style="background-color: #E9EcEf; height: 707px;">
-                          <!-- <p>NO VALUE</p> -->
-                        </div>
+                        <!--  <div v-if="fetchPlayerList[index].route_id == '2' " style="background-color: #E9EcEf; height: 707px;">
+
+                        </div> -->
 
                       </div>
                     </b-col>
@@ -1454,7 +1492,7 @@
 
                     <b-col>
 
-                      <p class="btbSideTitle"><b>SIDE B</b></p>
+                      <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
 
                       <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
                         <!-- <p>id {{index}}</p> -->
@@ -1627,9 +1665,9 @@
 
                         </div>
 
-                        <div v-else style="background-color: #E9EcEf; height: 707px;">
-                          <!-- <p>NO VALUE</p> -->
-                        </div>
+                         <!-- <div v-if="fetchPlayerList[index].route_id == '1' " style="background-color: #E9EcEf; height: 707px;">
+
+                        </div> -->
 
                       </div>
                     </b-col>
@@ -4021,12 +4059,12 @@
               <br>
               <p class="filters">{{reservation.reservation_for | moment}}</p>
 
-              <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize">{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}- <button>R</button> </b>
+              <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize" >{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}- <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button> </b>
 
               <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}} - <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b>
 
               <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
-                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="onDragBackReservation()">
+                <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="onDragBackReservation(),onDragBackReservation()">
                   <div class="list-group-item item" v-for="element in reservation.Reservation_people" :key="element.id">
                     <!-- <p>{{element.Person.first_name}}  {{ element.Person.last_name }} {{element.Person.minorsymbol}}</p> -->
 
@@ -4268,7 +4306,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(60, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(63, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
@@ -6447,7 +6485,7 @@ methods: {
       // console.log(replyDataObj3.sort().reverse());
 
       this.fetchPlayerList.push(replyDataObj3);
-      this.fetchPlayerList.reverse();
+      // this.fetchPlayerList.reverse();
 
     } /** b for loop closed **/
 
@@ -7356,7 +7394,7 @@ reservationDetail(event,reservationId){
 
 onDragBackReservation(){
 
-  console.log('Inside drop back rservation function');
+  console.log('Inside drop back reservation function');
 
   console.log("START RESEVATION TIME "+this.startReservationTime);
   console.log("END RESERVATION TIME "+this.endReservationTime);
@@ -7396,7 +7434,7 @@ onDragBackReservation(){
 
             console.log(response.data[i].Reservation_people.length);
             var countReservationList = response.data[i].Reservation_people.length;
-            /** if the main booker and person is dragged. The code below dislays the minors later on **/
+            /** if the main booker and person is dragged. The code below displays the minors later on **/
 
             if(countReservationList == '0'){
 

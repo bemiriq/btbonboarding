@@ -18,6 +18,47 @@
 
       </b-container>
 
+      <!-- the modal below is for the VOUCHERS -->
+      <b-modal id="modal-vouchers" centered size="lg" title="Email Vouchers" v-bind:hide-footer="true">
+        <p style="text-transform: capitalize; font-weight: bold;">{{voucherReservationName}} Reservation / {{convertReservationTime(voucherReservationTime)}} / Size {{voucherReservationSize}}</p>
+        <br>
+        <div><p style="line-height: 35px;"> You are going to send out voucher for 
+
+          <select v-model="voucherNumberSelected" v-on:change="getVoucherCode($event,voucherNumberSelected)" v-if="voucherSizeDisable == '1'" disabled>
+            <option disabled value=""> </option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>10</option>
+          </select>
+
+          <select v-model="voucherNumberSelected" v-on:change="getVoucherCode($event,voucherNumberSelected)" v-else>
+            <option disabled value=""> </option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>10</option>
+          </select>
+
+         people. Using the code <input type="text" v-model="voucherCodeGenrated" disabled> and email as <b>{{voucherEmail}}</b> or via phone <b>{{voucherPhoneNumber}}</b>.
+       </p>
+        </div>
+        <br>
+        <b-row class="my-1">
+          <b-col v-if="voucherSendEmailButtonActivate == '1'"><b-button variant="info">Send Email</b-button></b-col>
+          <b-col v-else><b-button variant="info" disabled>Send Email</b-button></b-col>
+          <!-- <b-col v-on:click="hideVoucherModal"><b-button variant="warning">Cancel</b-button></b-col> -->
+        </b-row>
+
+      </b-modal>
+      <!-- end of VOUCHERS modal -->
+
       <!-- this modal will hide/unhide reservation name -->
 
         <b-modal id="modal-updateReservation" centered size="md" title="Update Reservation" v-bind:hide-footer="true" v-bind:hide-header="true">
@@ -584,9 +625,16 @@
 
                     <!-- <p v-if="item.size-item.total_player_arrived < '0'">{{item.size}}+{{item.total_player_arrived-item.size}}</p>
                     <p v-else>{{item.size - item.total_player_arrived}}</p> -->
+                    <div v-if="item.vouchers > '0'" style="margin-top: -13%;">
 
-                    <p v-if="item.size-item.total_player_arrived > '0'">{{item.size-item.total_player_arrived}}</p>
-                    <p v-else>0</p>
+                      <span style="font-size: 30px; color:#007bff;" v-on:click="forwardedEmailVouchers($event, item.reservation_id)">&#9993;</span>
+
+                    </div>
+
+                    <div v-else>
+                      <p v-if="item.size-item.total_player_arrived > '0'"><a v-on:click="noShowsVoucher($event, item.reservation_id)" style="color: #007bff;font-weight: bold;">{{item.size-item.total_player_arrived}}</a></p>
+                      <p v-else>0</p>
+                    </div>
 
                   </td>
 
@@ -691,6 +739,16 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+
+      voucherReservationName:'',
+      voucherReservationSize:'',
+      voucherReservationTime:'',
+      voucherEmail: '',
+      voucherPhoneNumber: '',
+      voucherNumberSelected: '',
+      voucherCodeGenrated: '',
+      voucherSendEmailButtonActivate: '0',
+      voucherSizeDisable: '0',
       
       organizationType:'',
 
@@ -1092,6 +1150,125 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    convertReservationTime(date){
+      return moment(date).format('h:mm A');
+      console.log(date);
+    },
+
+    hideVoucherModal(){
+      this.$bvModal.hide('modal-vouchers');
+    },
+
+    getVoucherCode(event, totalVoucher){
+      console.log(event);
+      console.log('size of vouchers '+totalVoucher);
+      if(totalVoucher > '0'){
+        this.voucherSendEmailButtonActivate = '1';
+        this.voucherCodeGenrated = 'axios get code for size '+' '+totalVoucher;
+      }
+      else{
+        this.voucherCodeGenrated = ' ';
+      }
+      
+    },
+
+    forwardedEmailVouchers(event,reservationId){
+      axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+        
+      })
+      .then(response => {
+        console.log(response);
+        var firstName = response.data.Booker.Person.first_name;
+        var lastName = response.data.Booker.Person.last_name;
+
+        if(firstName == null || firstName == 'undefined'){
+          var firstName = ' ';
+        }
+        if(lastName == null || lastName == 'undefined'){
+          var lastName = ' ';
+        }
+
+        this.voucherReservationName = firstName+' '+lastName;
+        this.voucherReservationTime = response.data.reservation_for;
+        this.voucherReservationSize = response.data.size;
+
+        var peopleId = response.data.Booker.Person.id;
+        /** this will get the booker email and phone number using its person_id **/
+        axios.get(process.env.VUE_APP_DATABASE_PEOPLE+peopleId,{
+        
+        })
+        .then(response => {
+          console.log(response);
+          this.voucherSizeDisable = '1'; /** this will disable dropdown once the voucher email was sent **/
+          
+          this.voucherEmail = response.data.email;
+          this.voucherPhoneNumber = response.data.phone;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        /** end of get for person_id **/
+
+        /**  this will get us the detail for voucher ID used **/
+        this.voucherNumberSelected = '3';
+        this.voucherCodeGenrated = 'XAH89U';
+        this.voucherSendEmailButtonActivate = '1';
+        /** end of get voucher detail **/
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      this.$bvModal.show('modal-vouchers');
+    },
+
+    noShowsVoucher(event, reservationId){
+      console.log(event);
+      console.log('reservation id is '+reservationId);
+
+      axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+        
+      })
+      .then(response => {
+        console.log(response);
+        var firstName = response.data.Booker.Person.first_name;
+        var lastName = response.data.Booker.Person.last_name;
+
+        if(firstName == null || firstName == 'undefined'){
+          var firstName = ' ';
+        }
+        if(lastName == null || lastName == 'undefined'){
+          var lastName = ' ';
+        }
+
+        this.voucherReservationName = firstName+' '+lastName;
+        this.voucherReservationTime = response.data.reservation_for;
+        this.voucherReservationSize = response.data.size;
+
+        var peopleId = response.data.Booker.Person.id;
+        /** this will get the booker email and phone number using its person_id **/
+        axios.get(process.env.VUE_APP_DATABASE_PEOPLE+peopleId,{
+        
+        })
+        .then(response => {
+          console.log(response);
+          this.voucherEmail = response.data.email;
+          this.voucherPhoneNumber = response.data.phone;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        /** end of get for person_id **/
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      this.$bvModal.show('modal-vouchers');
+    },
 
     updateReservationCreated(event,reservationId,updateValue){
       console.log(event);
