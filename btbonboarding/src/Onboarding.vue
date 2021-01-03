@@ -1266,11 +1266,11 @@
             <hr>
             <b-row>
               <b-col>
-                index 0 2 4
+                <!-- index 0 2 4 -->
                 <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
                   
                   <div>
-                    {{index}}
+                    <!-- {{index}} -->
                     <div v-if="fetchPlayerList[index].route_id == '1' ">
                       {{formatTimeAddFour(item.session_time)}}
                     </div>
@@ -1285,11 +1285,11 @@
               </b-col>
 
               <b-col>
-                index 1 3 5
+                <!-- index 1 3 5 -->
                 <div v-for="(item,index) in fetchPlayerList" :key="item.id" class="border border-info rounded">
                   
                   <div>
-                    {{index}}
+                    <!-- {{index}} -->
                     <div v-if="fetchPlayerList[index].route_id == '2' ">
                       {{formatTimeAddFour(item.session_time)}}
                     </div>
@@ -6191,7 +6191,7 @@ methods: {
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).add('hours',3).subtract('minutes',10).format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',5).format('T'+'HH:mm:00');
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
@@ -6223,7 +6223,7 @@ methods: {
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).add('hours',3).subtract('minutes',10).format('T'+'HH:mm:00');
+      var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',5).format('T'+'HH:mm:00');
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
