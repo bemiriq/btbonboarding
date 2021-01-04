@@ -1364,8 +1364,8 @@
                   </b-row>
 
                     <div style="height: 440px;border-style: outset;">
-                      <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
-                        <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions.slice().reverse()" :key="element.id">
+                      <draggable id="first" data-source="juju" :list="item.Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
+                        <div class="list-group-item item" v-for="element in item.Team_player_sessions" :key="element.id">
 
                           <b-row>
                             <b-col sm="0">
@@ -1550,8 +1550,8 @@
                           </b-row>
 
                           <div style="height: 440px;border-style: outset;">
-                            <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
-                              <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions.slice().reverse()" :key="element.id">
+                            <draggable id="first" data-source="juju" :list="item.Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
+                              <div class="list-group-item item" v-for="element in item.Team_player_sessions" :key="element.id">
 
                                 <b-row>
                                   <b-col sm="0">
@@ -4304,11 +4304,11 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(63, 'days').format("YYYY-MM-DD");
-var currentdate = moment().format("YYYY-MM-DD");
+  var currentdate = moment().subtract(63, 'days').format("YYYY-MM-DD");
+// var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
+var startReservationTime = moment().subtract(10, 'hours').format('hh:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
@@ -6191,8 +6191,8 @@ methods: {
         this.grabAllMostRecentTeam.shift();
       }
 
-      var useDate = moment().format('YYYY-MM-DD');
-      // var useDate = moment().format('2020-10-31');
+      // var useDate = moment().format('YYYY-MM-DD');
+      var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
       var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',5).format('T'+'HH:mm:00');
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
@@ -6223,8 +6223,8 @@ methods: {
     }
 
     else{
-      var useDate = moment().format('YYYY-MM-DD');
-      // var useDate = moment().format('2020-10-31');
+      // var useDate = moment().format('YYYY-MM-DD');
+      var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
       var endTime = moment(this.sessionRow10DateTime).add('hours',4).subtract('minutes',5).format('T'+'HH:mm:00');
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
