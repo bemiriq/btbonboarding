@@ -1311,7 +1311,7 @@
                 <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
 
-                  <div v-if="item[index].route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
+                  <div v-if="item.route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
                     
                     <br>
                     <b-row class="my-2" style="margin-top:-2% !important;">
@@ -1496,7 +1496,7 @@
                         <!-- <p>id {{index}}</p> -->
 
                         <!-- <div style="background-color: yellow;">{{index}} col</div> -->
-                        <div v-if="item[index].route_id == '2' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
+                        <div v-if="item.route_id == '2' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
 
                           <br>
 
