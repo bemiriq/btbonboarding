@@ -1365,7 +1365,7 @@
 
                     <div style="height: 440px;border-style: outset;">
                       <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
-                        <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions" :key="element.id">
+                        <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions.splice().reverse()" :key="element.id">
 
                           <b-row>
                             <b-col sm="0">
@@ -1551,7 +1551,7 @@
 
                           <div style="height: 440px;border-style: outset;">
                             <draggable id="first" data-source="juju" :list="fetchPlayerList[index].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" @add="previousTeamAdd($event, index)" @change="deletePlayerFromTeam($event, index)">
-                              <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions" :key="element.id">
+                              <div class="list-group-item item" v-for="element in fetchPlayerList[index].Team_player_sessions.splice().reverse()" :key="element.id">
 
                                 <b-row>
                                   <b-col sm="0">
