@@ -79,7 +79,7 @@
               <td class="covertedtime">
                 {{item.reservation_time}}
               </td>
-              <td>
+              <td style="text-transform:capitalize;">
                 {{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}
               </td>
               <td>
@@ -1201,7 +1201,7 @@ var arrows = document.getElementsByClassName("covertedtime");
         .then(response => {
           console.log(response);
           this.voucherSizeDisable = '1'; /** this will disable dropdown once the voucher email was sent **/
-          
+
           this.voucherEmail = response.data.email;
           this.voucherPhoneNumber = response.data.phone;
         })

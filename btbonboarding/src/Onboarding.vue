@@ -1326,7 +1326,7 @@
                       </b-col>
 
                       <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-previousDeleteBox @click="previousTeamArrayValue = index"></b-icon>
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-previousDeleteBox @click="previuosTeamArrayValueFunction($event,index)"></b-icon>
                       </b-col>
                     </b-row>
 
@@ -1456,7 +1456,7 @@
                             <div style="width: 70%; margin:auto;">
                               <b-row>
                                 <b-col>
-                                  <b-button block v-b-modal.modal-previousTeamRfid variant="info" @click="previousTeamArrayValue = index , previousTeamEnableRfidModal = '1' , previousRouteValue = 'A'">Assign RFID</b-button>
+                                  <b-button block v-b-modal.modal-previousTeamRfid variant="info" @click="previuosTeamArrayValueFunction($event,index), previousTeamEnableRfidModal = '1' , previousRouteValue = 'A'">Assign RFID</b-button>
                                 </b-col>
                                 <b-col>
 
@@ -1512,7 +1512,7 @@
                             </b-col>
 
                             <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                              <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-previousDeleteBox @click="previousTeamArrayValue = index"></b-icon>
+                              <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-previousDeleteBox @click="previuosTeamArrayValueFunction($event,index)"></b-icon>
                             </b-col>
                           </b-row>
 
@@ -1642,7 +1642,7 @@
                             <div style="width: 70%; margin:auto;">
                               <b-row>
                                 <b-col>
-                                  <b-button block v-b-modal.modal-previousTeamRfid variant="info" @click="previousTeamArrayValue = index , previousTeamEnableRfidModal = '1', previousRouteValue = 'B'">Assign RFID</b-button>
+                                  <b-button block v-b-modal.modal-previousTeamRfid variant="info" @click="previuosTeamArrayValueFunction($event,index) , previousTeamEnableRfidModal = '1', previousRouteValue = 'B'">Assign RFID</b-button>
                                 </b-col>
                                 <b-col>
 
@@ -4304,7 +4304,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(63, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(66, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
@@ -5277,6 +5277,14 @@ data() {
 
 methods: {
 
+  previuosTeamArrayValueFunction(event,arrayValue){
+    console.log(event);
+    console.log(arrayValue);
+    console.log(this.fetchPlayerList.length);
+
+    this.previousTeamArrayValue = this.fetchPlayerList.length-1-arrayValue;
+  },
+
   reverseBoxArray(value){
     console.log('inside reverse box array');
     return value.slice().reverse();
@@ -5484,7 +5492,10 @@ methods: {
     console.log(event);
     console.log(arrayValue);
 
-    console.log(this.fetchPlayerList[arrayValue].Team_player_sessions.length);
+    var newArrayValue = this.fetchPlayerList.length-1-arrayValue;
+    console.log(newArrayValue);
+
+    console.log(this.fetchPlayerList[newArrayValue].Team_player_sessions.length);
 
     if(event.removed.element.Person.first_name.length > '1'){
       // console.log(col);
@@ -5521,7 +5532,7 @@ methods: {
           console.log('else reservation id '+reservationId);
         }
 
-        var sessionId = this.fetchPlayerList[arrayValue].id;
+        var sessionId = this.fetchPlayerList[newArrayValue].id;
         console.log('session id was '+sessionId);
 
         /** this will update session id column as 0 on RESERVATION MINOR table **/
@@ -5575,7 +5586,7 @@ methods: {
         });
 
         /** this will update the player_count column on session table **/
-        var countPlayers = this.fetchPlayerList[arrayValue].Team_player_sessions.length;
+        var countPlayers = this.fetchPlayerList[newArrayValue].Team_player_sessions.length;
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
           player_count: countPlayers
         })
@@ -5619,7 +5630,7 @@ methods: {
           console.log('else reservation id '+reservationId);
         }
 
-        var sessionId = this.fetchPlayerList[arrayValue].id;
+        var sessionId = this.fetchPlayerList[newArrayValue].id;
         console.log('session id was '+sessionId);
 
         /** this will update session id column as 0 on RESERVATION PEOPLE table **/
@@ -5660,7 +5671,7 @@ methods: {
         });
 
         /** this will update the player_count column on session table **/
-        var countPlayers = this.fetchPlayerList[arrayValue].Team_player_sessions.length;
+        var countPlayers = this.fetchPlayerList[newArrayValue].Team_player_sessions.length;
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
           player_count: countPlayers
         })
@@ -5677,36 +5688,44 @@ methods: {
   },
 
   previousTeamAdd(event, arrayValue){
+    console.log(event);
     console.log(arrayValue);
-    var sessionId = this.fetchPlayerList[arrayValue].id;
+
+    console.log(this.fetchPlayerList.length);
+
+    var newArrayValue = this.fetchPlayerList.length-1-arrayValue;
+    console.log(newArrayValue);
+
+    var sessionId = this.fetchPlayerList[newArrayValue].id;
     console.log(sessionId);
     console.log('inside team previous');
 
     var teamPlayerSessionArrayId = event.newIndex;
+    console.log(teamPlayerSessionArrayId+ ' team players session array id');
 
-    console.log(this.fetchPlayerList[arrayValue].Team_player_sessions.length);
+    console.log(this.fetchPlayerList[newArrayValue].Team_player_sessions.length);
 
-    if(this.fetchPlayerList[arrayValue].Team_player_sessions.length < '7'){ /** check if TPS is greater than 6 player or not **/
+    if(this.fetchPlayerList[newArrayValue].Team_player_sessions.length < '7'){ /** check if TPS is greater than 6 player or not **/
       /** below if/else defines if its minor or not **/
 
       console.log('less than 6');
 
-      if(this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.minor != 'yes'){ /** its a >18 age player **/
+      if(this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.minor != 'yes'){ /** its a >18 age player **/
         console.log('Player not minor');
 
-        var reservationPeopleId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].id;
+        var reservationPeopleId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].id;
         console.log(reservationPeopleId);
 
-        var personId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].person_id;
+        var personId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].person_id;
         console.log(personId);
 
-        var reservationId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].reservation_id;
+        var reservationId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].reservation_id;
         console.log(reservationId);
 
-        var teamId = this.fetchPlayerList[arrayValue].Team.id;
+        var teamId = this.fetchPlayerList[newArrayValue].Team.id;
         console.log(teamId);
 
-        var playerId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.Player.id;
+        var playerId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.Player.id;
         console.log(playerId);
 
         /** this will update on Reservation People table on column called session_id **/
@@ -5721,7 +5740,7 @@ methods: {
         });
 
         /** this will update play_count on SESSION table **/
-        var playerSize = this.fetchPlayerList[arrayValue].Team_player_sessions.length;
+        var playerSize = this.fetchPlayerList[newArrayValue].Team_player_sessions.length;
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
           player_count: playerSize
         })
@@ -5746,22 +5765,22 @@ methods: {
 
       }
 
-      if(this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.minor == 'yes'){
+      if(this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.minor == 'yes'){
         console.log('Minor is a player');
 
-        var reservationMinorId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].id;
+        var reservationMinorId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].id;
         console.log(reservationMinorId);
 
-        var personId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].person_id;
+        var personId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].person_id;
         console.log(personId);
 
-        var reservationId = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.reservation_id;
+        var reservationId = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.reservation_id;
         console.log(reservationId);
 
-        var personPlayerid = this.fetchPlayerList[arrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.player_id;
+        var personPlayerid = this.fetchPlayerList[newArrayValue].Team_player_sessions[teamPlayerSessionArrayId].Person.player_id;
         console.log(personPlayerid);
 
-        var teamId = this.fetchPlayerList[arrayValue].Team.id;
+        var teamId = this.fetchPlayerList[newArrayValue].Team.id;
         console.log(teamId);
 
         console.log(process.env.VUE_APP_RESERVATION_MINORS+'/'+reservationMinorId);
@@ -5778,7 +5797,7 @@ methods: {
         });
 
         /** this will update play_count on SESSION table **/
-        var playerSize = this.fetchPlayerList[arrayValue].Team_player_sessions.length;
+        var playerSize = this.fetchPlayerList[newArrayValue].Team_player_sessions.length;
         axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
           player_count: playerSize
         })
@@ -8637,6 +8656,9 @@ add: function() {
 
     var teamPlayerSessionLength = this.fetchPlayerList[arrayValue].Team_player_sessions.length;
 
+    console.log('session id '+sessionId);
+    console.log(teamPlayerSessionLength);
+
     for(var i=0; i < teamPlayerSessionLength; i++){
 
       /** check if its minor or player **/
@@ -8705,20 +8727,20 @@ add: function() {
         });
 
         /** checks if the Team Player Session is 0 and deletes the session column **/
-        if(!countPlayers > '0'){
-          console.log('inside session delete function');
-          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+        // if(!countPlayers > '0'){
+        //   console.log('inside session delete function');
+        //   axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
 
-          })
-          .then(response => {
-            console.log(response);
-            console.log('session deleted when TPS was 0');
-            console.log(response.data.session_id);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        }
+        //   })
+        //   .then(response => {
+        //     console.log(response);
+        //     console.log('session deleted when TPS was 0');
+        //     console.log(response.data.session_id);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+        // }
         
 
 
@@ -8790,24 +8812,36 @@ add: function() {
         });
 
         /** checks if the Team Player Session is 0 and deletes the session column **/
-        if(countPlayers == '0'){
-          console.log('inside session delete function');
-          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+        // if(countPlayers == '0'){
+        //   console.log('inside session delete function');
+        //   axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
 
-          })
-          .then(response => {
-            console.log(response);
-            console.log('session deleted when TPS was 0');
-            console.log(response.data.session_id);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        }
+        //   })
+        //   .then(response => {
+        //     console.log(response);
+        //     console.log('session deleted when TPS was 0');
+        //     console.log(response.data.session_id);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+        // }
 
       } /** end of ELSE Loop to check ifs minor or player**/
 
     }/** END of for Loop **/
+
+    axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+
+    })
+    .then(response => {
+       console.log(response);
+      console.log('session deleted when TPS was 0');
+      console.log(response.data.session_id);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
   },
 
