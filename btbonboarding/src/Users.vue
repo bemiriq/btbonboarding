@@ -632,7 +632,8 @@
                     </div>
 
                     <div v-else>
-                      <p v-if="item.size-item.total_player_arrived > '0'"><a v-on:click="noShowsVoucher($event, item.reservation_id)" style="color: #007bff;font-weight: bold;">{{item.size-item.total_player_arrived}}</a></p>
+                      <!-- <p v-if="item.size-item.total_player_arrived > '0'"><a v-on:click="noShowsVoucher($event, item.reservation_id)" style="color: #007bff;font-weight: bold;">{{item.size-item.total_player_arrived}}</a></p> -->
+                      <p v-if="item.size-item.total_player_arrived > '0'">{{item.size-item.total_player_arrived}}</p>
                       <p v-else>0</p>
                     </div>
 

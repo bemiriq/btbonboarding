@@ -1306,7 +1306,7 @@
               <!-- previous button clicked display SIDE A b-col or column -->
 
               <b-col>
-                <!-- <p class="btbSideTitle"><b>SIDE A</b></p> -->
+                <p class="btbSideTitle"><b>SIDE A</b></p>
 
                 <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
@@ -1490,7 +1490,7 @@
 
                     <b-col>
 
-                      <!-- <p class="btbSideTitle"><b>SIDE B</b></p> -->
+                      <p class="btbSideTitle"><b>SIDE B</b></p>
 
                       <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                         <!-- <p>id {{index}}</p> -->
