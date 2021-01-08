@@ -18,6 +18,90 @@
 
       </b-container>
 
+      <!-- the modal display all the recent waiver list -->
+      <b-modal id="modal-waiverList" centered size="lg" title="Waiver List" v-bind:hide-footer="true" v-bind:hide-header="true">
+        <!-- <p style="margin:auto;">List of People</p> -->
+        <b-row>
+          <b-col><h3>WAIVER LIST</h3></b-col>
+          <b-col lg="2">
+            <b-form-select v-model="limitReservationList" :options="options" class="mb-3" v-on:change="waiverList();">
+                        <!-- <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option> -->
+                        <b-form-select-option value="5">10</b-form-select-option>
+                        <b-form-select-option value="10">20</b-form-select-option>
+                        <b-form-select-option value="15">30</b-form-select-option>
+                        <b-form-select-option value="20">40</b-form-select-option>
+                      </b-form-select>
+          </b-col>
+        </b-row>
+        <hr>
+        <div id="modalScrollable">
+          <table class="table table-borderless">
+            <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Reservation Name</th>
+                  </tr>
+            </thead>
+
+              <tbody v-for="(element,index) in waiverLists" :key="element.id" style="text-transform: capitalize;">
+                <td>{{element.first_name}}</td>
+                <td>
+                  <p v-if="element.last_name == 'null'">  </p>
+                  <p v-else>{{element.last_name}}</p>
+                </td>
+                <td>A</td>
+                <td>
+                  <b-col>
+                    <b-form-select style="text-transform:capitalize;" v-on:change="changedReservation($event,index,'player')">
+                      <option v-for="elementDropdown in reservationLists" :value="elementDropdown.id" v-bind:key="elementDropdown.id">{{elementDropdown.Booker.Person.first_name}} {{elementDropdown.Booker.Person.last_name}}</option>
+                    </b-form-select>
+                  </b-col>
+                </td>
+              </tbody>
+
+              <tbody v-for="(elementMinor,index) in waiverListsMinor" :key="elementMinor.id" style="text-transform: capitalize;">
+                <td>{{elementMinor.first_name}}</td>
+                <td>
+                  <p v-if="elementMinor.last_name == 'null'">  </p>
+                  <p v-else>{{elementMinor.last_name}}</p></td>
+                  <td>M</td>
+                  <td>
+                    <b-col>
+                    <b-form-select style="text-transform:capitalize;" v-on:change="changedReservation($event,index,'minor')">
+                      <option v-for="elementDropdown in reservationLists" :value="elementDropdown.id" v-bind:key="elementDropdown.id">{{elementDropdown.Booker.Person.first_name}} {{elementDropdown.Booker.Person.last_name}}</option>
+                    </b-form-select>
+                  </b-col>
+                  </td>
+              </tbody>
+
+          </table>
+
+        </div>
+
+        <!-- <table class="table table-hover">
+          <thead>
+                <tr>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                </tr>
+          </thead>
+            <tbody v-for="element in waiverListsMinor" :key="element.id" style="text-transform: capitalize;">
+              <td>{{element.first_name}}</td>
+              <td>{{element.last_name}}</td>
+            </tbody>
+        </table> -->
+
+        <b-row class="my-1">
+          <b-col><b-button variant="info" v-on:click="reloadPageEvent()">Submit</b-button></b-col>
+          <!-- <b-col v-on:click="hideVoucherModal"><b-button variant="warning">Cancel</b-button></b-col> -->
+        </b-row>
+
+      </b-modal>
+      <!-- end of WAIVER LIST modal -->
+
       <!-- the modal below is for the VOUCHERS -->
       <b-modal id="modal-vouchers" centered size="lg" title="Email Vouchers" v-bind:hide-footer="true">
         <p style="text-transform: capitalize; font-weight: bold;">{{voucherReservationName}} Reservation / {{convertReservationTime(voucherReservationTime)}} / Size {{voucherReservationSize}}</p>
@@ -482,12 +566,12 @@
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10" style="background-color:#fafafa;">
 
-          <b-row style="margin-top: 1%">
+          <b-row style="margin-top: 1%;">
             <b-col lg="2">
-              <p style="margin-top: 3%; font-size: 1.2em;"><b>Reservation Date</b></p>
+              <p style="margin-top: 3%; font-size: 1.1em;"><b>Reservation Date</b></p>
             </b-col>
 
-            <b-col lg="3">
+            <b-col lg="2">
               <b-input-group class="mb-1">
 
                 <b-form-input
@@ -517,11 +601,15 @@
             </b-col>
 
             <b-col lg="2">
-              <b-button variant="outline-info" v-on:click="updateReservation();"> Update Reservation </b-button>
+              <b-button variant="outline-primary" v-on:click="updateReservation();"> Update Reservation </b-button>
             </b-col>
 
-            <b-col lg="3">
-              <b-form-input id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
+            <b-col lg="2">
+              <b-button variant="outline-primary" v-on:click="waiverList();"> Waiver List </b-button>
+            </b-col>
+
+            <b-col lg="2">
+              <b-form-input id="input-large" size="md" placeholder="Search here ... "></b-form-input>
             </b-col>
 
           </b-row>
@@ -740,6 +828,12 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+
+      waiverLists: [],
+      waiverListsMinor: [],
+      reservationLists: [],
+      updateReservationId: '',
+      limitReservationList: '5',
 
       voucherReservationName:'',
       voucherReservationSize:'',
@@ -1151,6 +1245,131 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    changedReservation(event,index,checkPlayer){
+      console.log(event);
+      console.log(index);
+      console.log(checkPlayer);
+      if(checkPlayer == 'minor'){
+        console.log('Yes Minor');
+
+        var reservationId = event;
+        var player_minor_id = this.waiverListsMinor[index].id;
+
+        console.log(reservationId);
+        console.log(player_minor_id);
+
+        axios.post(process.env.VUE_APP_RESERVATION_MINORS+'/find_or_create/player_minor/'+player_minor_id+'/reservation/'+reservationId,{
+          // session_id: 0
+        })
+        .then(response => {
+          console.log(response);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      }
+      else{
+        console.log('Player');
+        var reservationId = event;
+        var personId = this.waiverLists[index].id;
+
+        console.log(reservationId);
+        console.log(personId);
+
+        console.log(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+personId+'/reservation/'+reservationId);
+
+        axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+personId+'/reservation/'+reservationId,{
+              // session_id: 0
+            })
+        .then(response => {
+          console.log(response);
+          // console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      }
+    },
+
+    waiverList(){
+
+      this.dateClicked = moment().format('YYYY-MM-DD');
+
+      var starttime='start';
+      var endtime='end';
+
+      var currentdate = moment().format("YYYY-MM-DD");
+      // var currentdate = moment().subtract(69, 'days').format("YYYY-MM-DD");
+
+      var startPeopleTime = '08:45:00';
+      var endPeopleTime = '23:45:00';
+      var currentTime = moment().format("HHmm");
+
+      var listLimit = this.limitReservationList;
+
+      // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime);
+      // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime,{
+
+      //   })
+      console.log(process.env.VUE_APP_DATABASE_PEOPLE+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime+'/limit/'+listLimit);
+      axios.get(process.env.VUE_APP_DATABASE_PEOPLE+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime+'/limit/'+listLimit,{
+
+        })
+      .then(response => 
+        {
+          console.log(response);
+
+          this.waiverLists = response.data;
+
+        })
+      .catch(function (error){
+          console.log(error);
+        });
+
+
+        /** the below code is for the MINORS LIST **/
+      console.log(process.env.VUE_APP_PLAYER_MINORS+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime+'/limit/'+listLimit);
+      axios.get(process.env.VUE_APP_PLAYER_MINORS+starttime+'/'+currentdate+'T'+startPeopleTime+'/'+endtime+'/'+currentdate+'T'+endPeopleTime+'/limit/'+listLimit,{
+
+        })
+      .then(response => 
+        {
+          console.log(response);
+
+          this.waiverListsMinor = response.data;
+
+        })
+      .catch(function (error){
+          console.log(error);
+        });
+
+
+      var startReservationtime = moment().subtract(1, 'hours').format("HH:mm:00");
+      var endResevationtime = moment().add(1, 'hours').format("HH:mm:00");
+
+      console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationtime+'/'+endtime+'/'+currentdate+'T'+endResevationtime);
+      axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationtime+'/'+endtime+'/'+currentdate+'T'+endResevationtime,{
+
+        })
+      .then(response => 
+        {
+          console.log(response);
+
+          this.reservationLists = response.data;
+
+        })
+      .catch(function (error){
+          console.log(error);
+        });
+
+        /** END of MINORS LIST **/
+
+      this.$bvModal.show('modal-waiverList');
+    },
 
     convertReservationTime(date){
       return moment(date).format('h:mm A');
@@ -2477,6 +2696,12 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 #modal-addReservation___BV_modal_footer_{
   display: none;
+}
+
+#modalScrollable{
+  height: 500px;
+  overflow-y: auto;
+  /*background-color: red;*/
 }
 
 </style>
