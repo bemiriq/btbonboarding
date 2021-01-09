@@ -1303,10 +1303,10 @@ var arrows = document.getElementsByClassName("covertedtime");
       var endtime='end';
 
       var currentdate = moment().format("YYYY-MM-DD");
-      // var currentdate = moment().subtract(69, 'days').format("YYYY-MM-DD");
+      // var currentdate = moment("2020-11-04").format("YYYY-MM-DD");
 
       var startPeopleTime = '08:45:00';
-      var endPeopleTime = '23:45:00';
+      var endPeopleTime = '23:55:00';
       var currentTime = moment().format("HHmm");
 
       var listLimit = this.limitReservationList;
