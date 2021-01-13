@@ -604,12 +604,21 @@
               <b-button variant="outline-primary" v-on:click="updateReservation();"> Update Reservation </b-button>
             </b-col>
 
-            <b-col lg="2">
-              <b-button variant="outline-primary" v-on:click="waiverList();"> Waiver List </b-button>
+            <b-col lg="1">
+              <b-button variant="outline-primary" v-on:click="waiverList();"> Waivers </b-button>
             </b-col>
 
-            <b-col lg="2">
-              <b-form-input id="input-large" size="md" placeholder="Search here ... "></b-form-input>
+            <!-- <b-col lg="2">
+              <b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
+            </b-col> -->
+            <b-col lg="3">
+              <b-input-group size="md">
+                <b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
+                <b-input-group-prepend>
+                  <span class="input-group-text" v-on:click="searchPlayers()" v-if="searchedText.length > '1'">&#128270;</span>
+                  <span class="input-group-text" v-else disabled>&#128270;</span>
+                </b-input-group-prepend>
+              </b-input-group>
             </b-col>
 
           </b-row>
@@ -828,6 +837,8 @@ export default {
       subchildWaiver: [],
       subchildNoShow: [],
       selected2: '',
+
+      searchedText:'',
 
       waiverLists: [],
       waiverListsMinor: [],
@@ -1655,6 +1666,149 @@ var arrows = document.getElementsByClassName("covertedtime");
 
     },
 
+    searchPlayers(){
+      console.log('san search search');
+      console.log(this.searchedText);
+
+      var searchThisText = this.searchedText;
+      console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/search/'+searchThisText);
+
+          axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/search/'+searchThisText,{
+
+            })
+          .then(response => 
+            {
+              console.log(response);
+              this.posts = response.data;
+
+              /** Beginning of ARRIVED counting part **/
+               var countPostArray = response.data.length-1;
+              // console.log(countPostArray);
+                var replyDataObj1 = this.posts;
+
+                console.log(this.posts);
+
+                for(let i=0; i <= countPostArray; i++){
+                  
+                  // console.log(response.data[i].Reservation_minors.length);
+                   
+                  var countReservationPeople = replyDataObj1[i].Reservation_people.length;
+                  var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
+                  var reservationForConvert = replyDataObj1[i].reservation_for;
+
+                  var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
+
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
+
+                  console.log(reservationForConvert);
+                  console.log(date);
+                  console.log(reservationOnlyTime);
+
+                  replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
+
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
+                  console.log(lateStatus);
+
+                  var currentTime = moment(response.data.createdAt).subtract('hours',5).format("HHmm");
+                  console.log('current time '+currentTime);
+
+                  var lateBy = lateStatus-currentTime;
+
+                  var arrivedPerson = 0;
+                  var arrivedNonPlayer = 0;
+                  var arrivedPlayer = 0;
+
+                  for(let j=0; j < countReservationPeople; j++){
+
+                    arrivedPerson += replyDataObj1[i].Reservation_people[j].arrived;
+
+                    /** this will count total non player arrived **/
+                    if(replyDataObj1[i].Reservation_people[j].arrived == '1'){
+                      arrivedNonPlayer += replyDataObj1[i].Reservation_people[j].non_player;
+                    }
+
+                    /** this will count total player arrived excluding minors for non-player 0 as false **/
+                    if(replyDataObj1[i].Reservation_people[j].arrived == '1' && replyDataObj1[i].Reservation_people[j].non_player == '0'){
+                      arrivedPlayer += replyDataObj1[i].Reservation_people[j].arrived;
+                    }
+
+                  }
+
+                  var arrivedMinor = 0;
+                  var arrivedMinorNonPlayer = 0;
+                  var arrivedMinorPlayer = 0;
+
+                  for(let k=0; k < countReservationMinors; k++){
+
+                      arrivedMinor += replyDataObj1[i].Reservation_minors[k].arrived;
+
+                      if(replyDataObj1[i].Reservation_minors[k].arrived == '1'){
+                        arrivedMinorNonPlayer += replyDataObj1[i].Reservation_minors[k].non_player;
+                      }
+
+                      /** this will count total player arrived for minors for non-player 0 as false **/
+                      if(replyDataObj1[i].Reservation_minors[k].arrived == '1' && replyDataObj1[i].Reservation_minors[k].non_player == '0'){
+                        arrivedMinorPlayer += replyDataObj1[i].Reservation_minors[k].arrived;
+                      }
+
+                  }
+
+                  console.log(arrivedPerson+' arrived person');
+                  console.log(arrivedMinor+' arrived minor');
+
+                  var arrived = arrivedPerson + arrivedMinor;
+
+                  console.log(arrivedNonPlayer+' arrived non player person');
+                  console.log(arrivedMinorNonPlayer+' arrived non player minor');
+                  var totalNonPlayerArrived = arrivedNonPlayer + arrivedMinorNonPlayer;
+                  console.log("TOTAL NON PLAYER = "+totalNonPlayerArrived);
+
+                  console.log(arrivedPlayer+' arrived  player person');
+                  console.log(arrivedMinorPlayer+' arrived  player minor');
+                  var totalPlayerArrived = arrivedPlayer + arrivedMinorPlayer;
+                  console.log("TOTAL  PLAYER = "+totalPlayerArrived);
+
+                  // var arrived = replyDataObj1[i].Reservation_minors.length+replyDataObj1[i].Reservation_people.length;
+                  // console.log(arrived);
+
+                  replyDataObj1[i]['total_arrived']=arrived;
+
+                
+                  replyDataObj1[i]['late_status_time']=lateStatus;
+                  replyDataObj1[i]['late_by']=lateBy;
+                  replyDataObj1[i]['total_non_player_arrived']=totalNonPlayerArrived;
+                  replyDataObj1[i]['total_player_arrived']=totalPlayerArrived;
+
+                  console.log(currentTime);
+                  console.log(lateStatus);
+                  console.log("ARRIVED VALUE"+arrived);
+
+                  var reservationId = replyDataObj1[i].id; /** id is the reservation id **/
+                  replyDataObj1[i]['reservation_id']=reservationId;
+                }
+                /** END of ARRIVED counting PART **/
+
+            })
+          .catch(function (error){
+              console.log(error);
+            });
+
+              /** this will get us ORGANIZATION TYPE list **/
+                axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
+                      // arrived: arrivedValue
+                    })
+                    .then(response => 
+                      {
+                        console.log(response);
+                        this.organizationTypeList = response.data;
+                    })
+
+                  .catch(function (error){
+                    console.log(error);
+                  });
+        /** END OF organization type list **/
+    },
+
     onContext(ctx) {
         // The date formatted in the locale, or the `label-no-date-selected` string
         this.formatted = ctx.selectedFormatted;
@@ -2202,6 +2356,8 @@ var arrows = document.getElementsByClassName("covertedtime");
         var timeConverted = moment.utc(date).subtract('hours',5).format('hh:mm A');
 
         console.log(reservation_for_converted);
+        console.log(index);
+        console.log(this.posts[index]);
 
         // var arr = reservation_for.split("T");
         // var onlyDate = arr.splice(0,1).join("");
