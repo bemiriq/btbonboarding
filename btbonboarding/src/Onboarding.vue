@@ -4241,24 +4241,24 @@ console.log("DATE TIME BOX 2 "+this.dateTime2BData);
 console.log(dateTime1);
 console.log(dateTime3);
 
-this.sessionRow10DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
-this.sessionRow11DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD hh:mm:00");
+this.sessionRow10DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD HH:mm:00");
+this.sessionRow11DateTime = moment(start).add(remainder1, "minutes").format("YYYY-MM-DD HH:mm:00");
 console.log(this.sessionRow10DateTime);
 
-this.sessionRow12DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
-this.sessionRow13DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD hh:mm:00");
+this.sessionRow12DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD HH:mm:00");
+this.sessionRow13DateTime = moment(start).add(remainder2, "minutes").format("YYYY-MM-DD HH:mm:00");
 console.log(this.sessionRow12DateTime);
 
-this.sessionRow14DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD hh:mm:00");
-this.sessionRow15DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD hh:mm:00");
+this.sessionRow14DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD HH:mm:00");
+this.sessionRow15DateTime = moment(start).add(remainder3, "minutes").format("YYYY-MM-DD HH:mm:00");
 console.log(this.sessionRow14DateTime);
 
-this.sessionRow16DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD hh:mm:00");
-this.sessionRow17DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD hh:mm:00");
+this.sessionRow16DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD HH:mm:00");
+this.sessionRow17DateTime = moment(start).add(remainder4, "minutes").format("YYYY-MM-DD HH:mm:00");
 console.log(this.sessionRow16DateTime);
 
-this.sessionRow18DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD hh:mm:00");
-this.sessionRow19DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD hh:mm:00");
+this.sessionRow18DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD HH:mm:00");
+this.sessionRow19DateTime = moment(start).add(remainder5, "minutes").format("YYYY-MM-DD HH:mm:00");
 console.log(this.sessionRow18DateTime);
 
 /** Auto Genrate Date / Time based upon totalBoxes define **/
@@ -4279,8 +4279,8 @@ for(let b=0; b < totalBoxes; b++){
     console.log(dateTime1);
 
     var i = x+b;
-    this["sessionRow"+i+"DateTime"] = dateTime1;
-    console.log(i);
+    // this["sessionRow"+i+"DateTime"] = dateTime1;
+    // console.log(i);
       // console.log(x+b);
     }
     else{
@@ -4295,7 +4295,7 @@ for(let b=0; b < totalBoxes; b++){
 
       var i = x+b;
       var routeId = '2';
-      this["sessionRow"+i+"DateTime"] = dateTime1;
+      // this["sessionRow"+i+"DateTime"] = dateTime1;
     }
   }
   /** END of auto generate date/time based upon box **/
@@ -4304,7 +4304,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(66, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(71, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
@@ -8936,23 +8936,176 @@ add: function() {
           });
         }/** end of else clause for players only **/
 
+        var tallyLoop = i+1;
+        var deleteSessionId = this['list'+col+'sessionid'];
+        var getPersonId = this['list'+col][i].Person.Player.id;
+
+        if(tallyLoop==teamPlayerSessionLength){
+          console.log('if i value was '+i+'and team player sessin length was '+teamPlayerSessionLength);
+          console.log('reload page here');
+          console.log('player id '+getPersonId);
+          console.log('session id '+deleteSessionId);
+
+          if(this['list'+col][i].Person.minor == 'yes'){
+            console.log('if i value '+i+' is minor');
+
+            var getMainPersonId = this['list'+col][i].Person.player_id;
+            var getMinorPersonId = this['list'+col][i].person_id;
+
+            axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+getMainPersonId+'/player_minor/'+getMinorPersonId+'/session/'+deleteSessionId,{
+
+              })
+            .then(response => {
+                
+              console.log(response);
+
+              var teamPlayerId = response.data[0].id;
+              console.log(teamPlayerId);
+
+              axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+              })
+              .catch(function(error){
+                console.log(error);
+              })
+
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          }
+          else{
+            console.log('else i value '+i+' is not minor');
+            axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+getPersonId+'/session/'+deleteSessionId,{
+
+              })
+            .then(response => {
+                
+              console.log(response);
+
+              var teamPlayerId = response.data[0].id;
+              console.log(teamPlayerId);
+
+              axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+              })
+              .catch(function(error){
+                console.log(error);
+              })
+
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          }
+
+          axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
+
+          })
+          .then(response => {
+            console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
+            this.reloadPageEvent();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        }
+        else{
+          console.log('else i value was '+i+'and team player sessin length was '+teamPlayerSessionLength);
+          console.log('player id '+getPersonId);
+          console.log('session id '+deleteSessionId);
+          
+          /** check if its minor or not **/
+
+          if(this['list'+col][i].Person.minor == 'yes'){
+            console.log('if i value '+i+' is minor');
+
+            var getMinorPersonId = this['list'+col][i].person_id;
+            var getMainPersonId = this['list'+col][i].Person.player_id;
+
+            console.log(getMinorPersonId);
+            console.log(getMainPersonId);
+
+            console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+getMainPersonId+'/player_minor/'+getMinorPersonId+'/session/'+deleteSessionId);
+
+            axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+getMainPersonId+'/player_minor/'+getMinorPersonId+'/session/'+deleteSessionId,{
+
+              })
+            .then(response => {
+                
+              console.log(response);
+
+              var teamPlayerId = response.data[0].id;
+              console.log(teamPlayerId);
+
+              axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+              })
+              .catch(function(error){
+                console.log(error);
+              })
+
+            })
+            .catch(error => {
+              console.log(error);
+            });
+
+            
+          }
+          else{
+            console.log('else i value '+i+' is not minor');
+            console.log(getPersonId);
+
+            axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+getPersonId+'/session/'+deleteSessionId,{
+
+              })
+            .then(response => {
+                
+              console.log(response);
+
+              var teamPlayerId = response.data[0].id;
+              console.log(teamPlayerId);
+
+              axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+              })
+              .catch(function(error){
+                console.log(error);
+              })
+
+            })
+            .catch(error => {
+              console.log(error);
+            });
+
+            
+          }
+
+
+          /** end of if/else for minor or not **/
+
+        }
+
       }
 
       /** end of session id empty **/
-
-
-      var deleteSessionId = this['list'+col+'sessionid'];
-
-      axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+deleteSessionId,{
-
-      })
-      .then(response => {
-        console.log("Deleted Id from BOX "+col+ 'session id was' + deleteSessionId);
-        this.emptyBoxReload();
-      })
-      .catch(error => {
-        console.log(error);
-      });
 
 
       // this.emptyBoxReload();
