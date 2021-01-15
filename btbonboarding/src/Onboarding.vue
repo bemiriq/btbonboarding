@@ -4304,7 +4304,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(71, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(72, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
@@ -5306,8 +5306,15 @@ methods: {
     console.log(arrayValue);
     console.log(event);
 
+    var newArrayValue = this.fetchPlayerList.length-1-arrayValue;
+    console.log(newArrayValue);
+
+    var sessionId = this.fetchPlayerList[newArrayValue].id;
+    console.log(sessionId);
+    console.log('inside team previous');
+
     var teamName = event;
-    var sessionId = this.fetchPlayerList[arrayValue].id;
+    // var sessionId = this.fetchPlayerList[arrayValue].id;
 
     axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+teamName,{
 
@@ -6213,7 +6220,15 @@ methods: {
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
+
+      if(moment(this.sessionRow10DateTime).format('HH') > '18'){
+        var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+      }
+      else{
+        var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
+      }
+
+      // var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
@@ -6245,7 +6260,15 @@ methods: {
       var useDate = moment().format('YYYY-MM-DD');
       // var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
-      var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
+
+      console.log(moment(this.sessionRow10DateTime).format('HH'));
+
+      if(moment(this.sessionRow10DateTime).format('HH') > '18'){
+        var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+      }
+      else{
+        var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
+      }
       // var endTime = moment('18:00 PM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log(startTime);
@@ -9112,7 +9135,7 @@ add: function() {
 
     } /** if clause closed **/
 
-    else{
+    else{ /** else the player are on fetchPlayerList **/
 
       var newCol = col-10;
       console.log(newCol);
@@ -9125,14 +9148,18 @@ add: function() {
       for(var i=0; i < teamPlayerSessionLength; i++){
 
         console.log(i);
-        console.log('player minord id ' + this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.person_id);
-        console.log('reservation minord id ' + this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id);
+        console.log('player minor id ' + this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.person_id);
+        console.log('team player session minor id ' + this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id);
+        console.log('reservation id  for minor ' + this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id);
 
-        if(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.Player.minor == 'yes'){ /** if player is minor **/
-          var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.reservation_id; /** this is reservation id **/
-          var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.person_id; /** this is player minor id **/
-          console.log(getReservationId);
+        /** the loop below will check the MINOR/PLAYER and update reservation minors **/
+        if(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.Player.minor == 'yes'){
+
+          var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id; /** this is reservation id **/
+          var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].player_minor_id; /** this is player minor id **/
+          console.log('minor reservation id '+getReservationId);
           console.log(getPersonId);
+          console.log ( ' i i i i i i '+i);
 
           console.log(process.env.VUE_APP_RESERVATION_MINORS+'/find_or_create/player_minor/'+getPersonId+'/reservation/'+getReservationId);
 
@@ -9140,6 +9167,7 @@ add: function() {
               // session_id: 0
             })
           .then(response => {
+            console.log(i);
             console.log(response);
             console.log(response.data);
 
@@ -9163,12 +9191,13 @@ add: function() {
           .catch(function (error) {
             console.log(error);
           });
-        } /** end of PLAYER MINOR IF clause **/
 
-        else{ /** else PLAYER **/
-          var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
+        }
+
+        else{
+           var getReservationId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].reservation_id;
           var getPersonId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].Person.Player.person_id;
-          console.log(getReservationId);
+          console.log('player reservation id '+getReservationId);
           console.log(getPersonId);
 
           axios.post(process.env.VUE_APP_RESERVATION_PEOPLE+'/find_or_create/person/'+getPersonId+'/reservation/'+getReservationId,{
@@ -9197,15 +9226,66 @@ add: function() {
             console.log(error);
           });
 
-        } /** end of ELSE clause **/
-
-
-        if(this['fetchPlayerList'+newCol][1].Team_player_sessions[i].length == '0'){
-          console.log('yes 0 0 0 mf');
         }
-        else{
-          console.log('not 0 0 0 0 mf');
-        }
+        /** END OF RESERVATION MINOR/PLAYER UPDATE **/
+
+        /** below will delete the team player session values for MINORS **/
+        var reloadedTallyLoop = i+1;
+        
+        if(reloadedTallyLoop == teamPlayerSessionLength){
+            console.log('if /  minor / reloaded array');
+            console.log(reloadedTallyLoop+' and i is '+i);
+            console.log(teamPlayerSessionLength);
+            console.log('team player session id '+this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id);
+
+            var reloadTeamPlayerId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id;
+            var reloadDeleteSessionId = this['fetchPlayerList'+newCol][1].session_id;
+
+            axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+reloadTeamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+
+                axios.delete(process.env.VUE_APP_DATABASE_SESSIONS+'/'+reloadDeleteSessionId,{
+
+                })
+                .then(response => {
+                  console.log(response);
+                  this.reloadPageEvent();
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+
+              })
+              .catch(function(error){
+                console.log(error);
+              });
+
+          }
+
+          else{
+            console.log('else / minor / reloaded array');
+            console.log(reloadedTallyLoop+' and i is '+i);
+            console.log(teamPlayerSessionLength);
+            console.log('team player session id '+this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id);
+
+            var reloadTeamPlayerId = this['fetchPlayerList'+newCol][1].Team_player_sessions[i].id;
+            axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+reloadTeamPlayerId,{
+
+              })
+              .then(response =>{
+                console.log('deleted');
+                console.log(response);
+              })
+              .catch(function(error){
+                console.log(error);
+              });
+
+          }
+          /** END OF team player session delete for minors **/
 
       }
 
@@ -9218,7 +9298,7 @@ add: function() {
       })
       .then(response => {
         console.log(response);
-        this.emptyBoxReload();
+        // this.emptyBoxReload();
       })
       .catch(error => {
         console.log(error);
