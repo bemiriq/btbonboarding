@@ -20,7 +20,27 @@
 
     <b-row>
 
-      <!-- the modal below will display rfid reader detail on previous button clicked -->
+      <!-- the modal below will display modal to check if the TPS and RFID is scanned or not -->
+
+      <b-modal id="modal-playersDetail" centered v-bind:hide-footer="true">
+        <b-row>
+          <b-col><b>PLAYER NAMES</b></b-col>
+          <b-col><b>RFID SCANNED</b></b-col>
+        </b-row>
+        <br>
+        <div v-for="element in playerDetailsArray" v-bind:key="element.id">
+          <b-row>
+            <b-col style="text-transform:capitalize;">{{element[0].player_name}}</b-col>
+            <b-col>
+              <p v-if="element[0].rfid_id > '0'" style='font-size:17px; color:green;'>&#9989;</p>
+              <p v-else>&#10060;</p>
+            </b-col>
+          </b-row>
+        </div>
+      </b-modal>
+
+      <!-- end of MODAL to check TPS and RFID value -->
+
 
       <b-modal id="modal-previousTeamRfid" centered v-bind:hide-footer="true" v-bind:hide-header="false">
         <!-- <p class="warning"><b> You are inside previous button rfid and array value is {{previousTeamArrayValue}}</b></p> -->
@@ -1335,10 +1355,6 @@
                       <b>Players Added</b>
                     </b-col>
 
-                  <!-- <b-col>
-                    <p>Created Time: {{onboardedCreatedTime1}}</p>
-                  </b-col> -->
-
                   <b-col>
                     <b>Xola Reservation</b>
                   </b-col>
@@ -1715,10 +1731,6 @@
                       <b>Players Added</b>
                     </b-col>
 
-                  <!-- <b-col>
-                    <p>Created Time: {{onboardedCreatedTime1}}</p>
-                  </b-col> -->
-
                   <b-col>
                     <b>Xola Reservation</b>
                   </b-col>
@@ -1731,7 +1743,7 @@
 
                 <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime1 > '0' && playersAdded1 > '0'">
                   <b-col>
-                    <p>{{playersAdded1}}</p>
+                    <b-button v-on:click="playerDetailSession(10);" size="sm" variant="link"><b>{{playersAdded1}}</b></b-button>
                   </b-col>
 
                   <!-- <b-col>
@@ -1991,7 +2003,7 @@
 
                 <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime2 > '0' && playersAdded2 > '0'">
                   <b-col>
-                    <p>{{playersAdded2}}</p>
+                    <b-button v-on:click="playerDetailSession(11);" size="sm" variant="link"><b>{{playersAdded2}}</b></b-button>
                   </b-col>
 
                   <!-- <b-col>
@@ -2008,10 +2020,12 @@
 
                 </b-row>
 
+
+
                 <div v-if="fetchPlayerList1[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList1[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)"  :disabled="!checkMove11">
+                  @add="onDrop1AfterReload($event, 1)" @change="deleteTeamPlayerSessionAfterReload1($event, 1)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList1[1].Team_player_sessions" :key="element.id">
 
@@ -2258,16 +2272,45 @@
                 </b-row>
 
 
-                <b-row class="my-6">
+
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded3}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime3 > '0' && playersAdded3 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(12);" size="sm" variant="link"><b>{{playersAdded3}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime3}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime3}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList2[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList2[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)" :disabled="!checkMove12">
+                  @add="onDrop1AfterReload($event, 2)" @change="deleteTeamPlayerSessionAfterReload1($event, 2)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList2[1].Team_player_sessions" :key="element.id">
 
@@ -2475,16 +2518,44 @@
                 </b-row>
 
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded4}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime4 > '0' && playersAdded4 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(13);" size="sm" variant="link"><b>{{playersAdded4}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime4}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime4}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList3[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList3[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)" :disabled="!checkMove13">
+                  @add="onDrop1AfterReload($event, 3)" @change="deleteTeamPlayerSessionAfterReload1($event, 3)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList3[1].Team_player_sessions" :key="element.id">
 
@@ -2707,16 +2778,44 @@
 
                 </b-row>
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded5}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime5 > '0' && playersAdded5 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(14);" size="sm" variant="link"><b>{{playersAdded5}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime5}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime5}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList4[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList4[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)" :disabled="!checkMove14">
+                  @add="onDrop1AfterReload($event, 4)" @change="deleteTeamPlayerSessionAfterReload1($event, 4)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList4[1].Team_player_sessions" :key="element.id">
 
@@ -2928,16 +3027,44 @@
                 </b-row>
 
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded6}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime6 > '0' && playersAdded6 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(15);" size="sm" variant="link"><b>{{playersAdded6}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime6}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime6}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList5[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList5[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)" :disabled="!checkMove15">
+                  @add="onDrop1AfterReload($event, 5)" @change="deleteTeamPlayerSessionAfterReload1($event, 5)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList5[1].Team_player_sessions" :key="element.id">
 
@@ -3161,16 +3288,44 @@
 
                 </b-row>
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded7}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime7 > '0' && playersAdded7 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(16);" size="sm" variant="link"><b>{{playersAdded7}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime7}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime7}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList6[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList6[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)" :disabled="!checkMove16">
+                  @add="onDrop1AfterReload($event, 6)" @change="deleteTeamPlayerSessionAfterReload1($event, 6)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList6[1].Team_player_sessions" :key="element.id">
 
@@ -3380,16 +3535,44 @@
                 </b-row>
 
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded8}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime8 > '0' && playersAdded8 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(17);" size="sm" variant="link"><b>{{playersAdded8}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime8}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime8}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList7[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList7[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)" :disabled="!checkMove17">
+                  @add="onDrop1AfterReload($event, 7)" @change="deleteTeamPlayerSessionAfterReload1($event, 7)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList7[1].Team_player_sessions" :key="element.id">
 
@@ -3609,16 +3792,44 @@
 
                 </b-row>
 
-                <b-row class="my-6">
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
+
                   <b-col>
-                    <b>Players Added : {{playersAdded9}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+                
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime9 > '0' && playersAdded9 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(18);" size="sm" variant="link"><b>{{playersAdded9}}</b></b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime9}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime9}}</p>
+                  </b-col>
+
                 </b-row>
 
-                <div v-if="fetchPlayerList8[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
+                <div v-if="fetchPlayerList8[1] > '0'" class="capitalLetters" style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList8[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)" :disabled="!checkMove18">
+                  @add="onDrop1AfterReload($event, 8)" @change="deleteTeamPlayerSessionAfterReload1($event, 8)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList8[1].Team_player_sessions" :key="element.id">
 
@@ -3827,17 +4038,44 @@
 
                 </b-row>
 
+                <b-row class="my-6" style="font-size: 0.9em;">
+                    <b-col>
+                      <b>Players Added</b>
+                    </b-col>
 
-                <b-row class="my-6">
                   <b-col>
-                    <b>Players Added : {{playersAdded10}}</b>
+                    <b>Xola Reservation</b>
                   </b-col>
+
+                  <b-col>
+                    <b>Onboarded Time</b>
+                  </b-col>
+
+                </b-row>
+
+                <b-row class="my-6" style="font-size: 0.9em; margin-top: 0%;" v-if="onboardedCreatedTime10 > '0' && playersAdded10 > '0'">
+                  <b-col>
+                    <b-button v-on:click="playerDetailSession(19);" size="sm" variant="link"><b>{{playersAdded10}</b>}</b-button>
+                  </b-col>
+
+                  <!-- <b-col>
+                    <p>Created Time: {{onboardedCreatedTime1}}</p>
+                  </b-col> -->
+
+                  <b-col>
+                    <p>{{xolaReservationTime10}}</p>
+                  </b-col>
+
+                  <b-col>
+                    <p>{{onboardedTime10}}</p>
+                  </b-col>
+
                 </b-row>
 
                 <div v-if="fetchPlayerList9[1] > '0'" class="capitalLetters"  style="height: 440px;border-style: outset;">
 
                   <draggable id="first" data-source="juju" :list="fetchPlayerList9[1].Team_player_sessions" class="list-group myBoxValue" draggable=".item" group="a" 
-                  @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)" :disabled="!checkMove19">
+                  @add="onDrop1AfterReload($event, 9)" @change="deleteTeamPlayerSessionAfterReload1($event, 9)">
 
                   <div class="list-group-item item" v-for="element in fetchPlayerList9[1].Team_player_sessions" :key="element.id">
 
@@ -4304,11 +4542,11 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(72, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(74, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
+var startReservationTime = moment().subtract(12, 'hours').format('hh:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
@@ -4606,6 +4844,10 @@ data() {
     previousButtonLimitValue: 0, /** this value defines the limit part for get_all check in **/
     previousTeamPlayerSessionId: '', /** this will get updated when the user drag the player id out from a box **/
     previousRouteValue: '', /** this will route value for a team box when user will try to update value for RFID BOX **/
+
+    playerDetailValue: '', /** this will store the value of list10sessionid before reload for modal-playersDetail **/
+    playerDetailsArray: [], /** this will store the session id ARRAY value clicked on before reload **/
+    playerDetailsName: [],
     
     fetchList: [],
     teamName: [],
@@ -5276,6 +5518,133 @@ data() {
 },
 
 methods: {
+
+  playerDetailSession(colValue){
+    console.log('col value is '+colValue);
+    console.log(this['list'+colValue+'sessionid']);
+
+    var newColValue = colValue-10;
+    console.log(newColValue);
+
+    this.playerDetailsArray.splice(this.playerDetailsArray);
+
+    var sessionId = this['list'+colValue+'sessionid'];
+    console.log('session id was '+sessionId);
+
+    if(this['fetchPlayerList'+newColValue][1] == null){
+      /** below axios will update the team_id on SESSION TABLE **/
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/session/'+sessionId,{
+        // team_id: teamId
+      })
+      .then(response => {
+        console.log(response);
+        // this.playerDetailsArray = response.data;
+        // this.playerDetailsName = response.data.Player.person_id;
+
+        var playerDetailLength = response.data.length;
+
+        for(let b=0; b < playerDetailLength; b++){
+          console.log(playerDetailLength);
+          console.log(response.data[b].Player.person_id);
+
+          var checkMinor = response.data[b].player_minor_id;
+          var rfidValue = response.data[b].rfid_id;
+
+          console.log(rfidValue+ ' was the rfid value');
+
+          if(checkMinor > '0'){
+            console.log('minor hai solti');
+
+            axios.get(process.env.VUE_APP_PLAYER_MINORS+checkMinor,{
+
+            })
+            .then(response => 
+              {
+                console.log(response);
+                console.log(response.data.first_name);
+
+                let playerArray = [{
+                  'player_name': response.data.first_name+ ' ' +response.data.last_name,
+                  'id': response.data.id,
+                  'rfid_id': rfidValue
+                }];
+
+                this.playerDetailsArray.push(playerArray);
+                // this.playerDetailsArray.push(response.data.first_name+ ' ' +response.data.last_name);
+              })
+            .catch(function (error){
+                console.log(error);
+              });
+
+          }
+          else{
+            console.log('not minor hai solta');
+
+            console.log(rfidValue+ ' was the rfid value');
+
+            var peopleId = response.data[b].Player.person_id;
+            axios.get(process.env.VUE_APP_DATABASE_PEOPLE+peopleId,{
+
+            })
+            .then(response => 
+              {
+                console.log(response);
+                console.log(response.data.first_name);
+
+                let playerArray = [{
+                  'player_name': response.data.first_name+ ' ' +response.data.last_name,
+                  'id': response.data.id,
+                  'rfid_id': rfidValue
+                }];
+
+                this.playerDetailsArray.push(playerArray);
+
+                // this.playerDetailsArray.push(response.data.first_name+ ' ' +response.data.last_name);
+              })
+            .catch(function (error){
+                console.log(error);
+              });
+          }
+
+          // this['playerDetailsName'].push(response.data[b].Player.person_id);
+
+        }
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      /** end of team_id update on SESSION TABLE **/
+    }/** end of if loop **/
+    
+    else{
+      console.log('reloaded click click');
+      console.log(this['fetchPlayerList'+newColValue][1]);
+
+      var playerDetailLength = this['fetchPlayerList'+newColValue][1].Team_player_sessions.length;
+
+      for(let b=0; b < playerDetailLength; b++){
+        console.log('player detail length');
+
+        var first_name = this['fetchPlayerList'+newColValue][1].Team_player_sessions[b].Person.first_name;
+        var last_name = this['fetchPlayerList'+newColValue][1].Team_player_sessions[b].Person.last_name;
+        var rfid_id = this['fetchPlayerList'+newColValue][1].Team_player_sessions[b].rfid_id;
+        var id = this['fetchPlayerList'+newColValue][1].Team_player_sessions[b].id;
+
+        let playerArray = [{
+          'player_name': first_name+' '+last_name,
+          'id': id,
+          'rfid_id': rfid_id
+        }];
+
+        this.playerDetailsArray.push(playerArray);
+      }
+
+    }
+
+    this.$root.$emit('bv::show::modal', 'modal-playersDetail', '#btnShow');
+
+  },
 
   previuosTeamArrayValueFunction(event,arrayValue){
     console.log(event);
@@ -10346,6 +10715,7 @@ inputEvent3(e) {
           if(!this["list"+col+"sessionid"] > '0' ){
 
             console.log("inside");
+
 
             var sessionDateTime = this["sessionRow"+col+"DateTime"];
             console.log("SESSION DATE TIME "+sessionDateTime);

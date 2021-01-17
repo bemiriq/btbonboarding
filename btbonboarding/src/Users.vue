@@ -1314,7 +1314,7 @@ var arrows = document.getElementsByClassName("covertedtime");
       var endtime='end';
 
       var currentdate = moment().format("YYYY-MM-DD");
-      // var currentdate = moment("2020-11-04").format("YYYY-MM-DD");
+      // var currentdate = moment("2020-11-01").format("YYYY-MM-DD");
 
       var startPeopleTime = '08:45:00';
       var endPeopleTime = '23:55:00';
