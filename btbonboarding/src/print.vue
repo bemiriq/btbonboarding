@@ -1049,22 +1049,22 @@ import axios from 'axios';
 
 
                     /** THIS IS THE BOMB ROOM **/
-                    if(this.teamClicked.Session_game_scores[0].score == undefined){
+                    if(this.teamClicked.Session_game_scores[5].score == undefined){
                       this.room5 = '00:00';
                     }
                     else{
-                      var room5Score = this.teamClicked.Session_game_scores[0].score;
+                      var room5Score = this.teamClicked.Session_game_scores[5].score;
 
                       console.log(room5Score);
 
                       this.room5 = moment().startOf('day').seconds(room5Score).format("mm:ss");
 
-                      this.bombDigitDecoded = this.teamClicked.Session_game_scores[0].score;
+                      this.bombDigitDecoded = this.teamClicked.Session_game_scores[5].score;
                       this.totalSeconds = this.teamClicked.bomb_time;
 
                       // axios.get(VUE_APP_SESSION_GAME_SCORES)
 
-                      var gameId = this.teamClicked.Session_game_scores[0].game_id;
+                      var gameId = this.teamClicked.Session_game_scores[5].game_id;
 
                       axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/rank/game/'+gameId+'/score/'+room5Score,{
                       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+10,{
