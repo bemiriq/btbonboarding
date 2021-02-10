@@ -1342,7 +1342,7 @@
 
                 <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
-                  <p>session id {{item.id}}</p>
+                  <!-- <p>session id {{item.id}}</p> -->
 
                   <div v-if="item.route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
                     
@@ -1524,7 +1524,7 @@
 
                       <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                        
-                        <p>session id {{item.id}}</p>
+                        <!-- <p>session id {{item.id}}</p> -->
 
                         <!-- <div style="background-color: yellow;">{{index}} col</div> -->
                         <div v-if="item.route_id == '2' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
