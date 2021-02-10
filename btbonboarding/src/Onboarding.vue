@@ -63,14 +63,26 @@
               </b-col>
 
               <b-col sm="3">
-                <div v-if="teamfetch.rfid_id > '0'">
-                  <b-form-input disabled style="background-color: #33FF90;color:#33FF90;" ref="todosAfterReload">
+                <!-- <div v-if="teamfetch.rfid_id > 0 || !teamfetch.rfidState1 == ''">
+                  <b-form-input disabled style="background-color: #33FF90;color:#33FF90;">
                   </b-form-input>
                 </div>
                 <div v-else>
                   <b-form-input v-model="teamfetch.rfidState1" ref="todosAfterReload" v-on:input="previousTeamRfidUpdate($event, previousTeamArrayValue, index)">
                   </b-form-input>
+                </div> -->
 
+                <div v-if="teamfetch.rfid_id > '0'">
+                  <b-form-input disabled style="background-color: #33FF90;color:#33FF90;">
+                    
+                  </b-form-input>
+                  <p>P</p>
+                </div>
+
+                <div v-else>
+                  <b-form-input v-model="teamfetch.rfidState1" v-on:input="previousTeamRfidUpdate($event, previousTeamArrayValue, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null">
+                  </b-form-input>
+                  <p>S</p>
                 </div>
 
               </b-col>
@@ -1330,7 +1342,7 @@
 
                 <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
-                 <!--  <p>id {{index}}</p> -->
+                  <p>session id {{item.id}}</p>
 
                   <div v-if="item.route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
                     
@@ -1512,7 +1524,7 @@
 
                       <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
                        
-                       <!--  <p>id {{index}}</p> -->
+                        <p>session id {{item.id}}</p>
 
                         <!-- <div style="background-color: yellow;">{{index}} col</div> -->
                         <div v-if="item.route_id == '2' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
@@ -4546,12 +4558,12 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  var currentdate = moment().subtract(101, 'days').format("YYYY-MM-DD");
-// var currentdate = moment().format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(103, 'days').format("YYYY-MM-DD");
+var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(10, 'hours').format('hh:mm:ss');
-var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
+var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
 this.endReservationTime = endReservationTime;
@@ -5807,15 +5819,15 @@ methods: {
   },
 
   previousTeamRfidUpdate(rfidValue,arrayValue,playerIndex){
-    console.log(rfidValue);
-    console.log(arrayValue);
-    console.log(playerIndex);
-    console.log(rfidValue.length);
+    console.log('rfid value '+rfidValue);
+    console.log('array value '+arrayValue);
+    console.log('player object index value '+playerIndex);
+    console.log('rfid length '+rfidValue.length);
 
     if(rfidValue.length > 7 && rfidValue.length < 9){ /** you need to right code to upload only 8 digits for rfid value **/
 
       axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfidValue,{
-        tag: rfidValue,
+        tag: rfidValue
       })
       .then(response => {
         console.log(response);
@@ -5828,7 +5840,11 @@ methods: {
 
                 var updateRfidOnTpsId = this.fetchPlayerList[arrayValue].Team_player_sessions[playerIndex].id;
 
+                console.log(' updated rfid on TPS id '+updateRfidOnTpsId);
+
                 this.fetchPlayerList[arrayValue].Team_player_sessions[playerIndex].rfid_id = response.data[0].id;
+
+                console.log(' rfid input field change background color '+this.fetchPlayerList[arrayValue].Team_player_sessions[playerIndex].rfid_id);
 
                 axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateRfidOnTpsId,{
                   rfid_id: rfidtag_id
@@ -6063,6 +6079,8 @@ methods: {
     console.log(event);
     console.log(arrayValue);
 
+    console.log(event.newIndex+' that is the object of player dragged');
+
     console.log(this.fetchPlayerList.length);
 
     var newArrayValue = this.fetchPlayerList.length-1-arrayValue;
@@ -6124,12 +6142,18 @@ methods: {
         });
 
         /** this will find/create column on team player session table **/
-        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_only/find_or_create/player/'+playerId+'/session/'+sessionId,{
+        axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+playerId+'/session/'+sessionId,{
           team_id: teamId,
           reservation_id: reservationId
         })
         .then(response =>{
           console.log(response);
+
+          /** when the TPS is created , the id passed along was not correct so manually adding Team Player Session Id value to fetchPlayerList[array] **/
+          this.fetchPlayerList[newArrayValue].Team_player_sessions[event.newIndex].id = response.data[0].id;
+
+          console.log('team player session id passed as '+this.fetchPlayerList[newArrayValue].Team_player_sessions[event.newIndex].id);
+
         })
         .catch(function (error) {
           console.log(error);
@@ -6198,7 +6222,7 @@ methods: {
       /** end of if/else loop to check player or minor **/
     }
     else{
-      console.log('greate than 6');
+      console.log('greater than 6');
 
     }
   },
