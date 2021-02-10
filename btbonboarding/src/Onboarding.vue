@@ -1330,6 +1330,7 @@
 
                 <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
 
+                 <!--  <p>id {{index}}</p> -->
 
                   <div v-if="item.route_id == '1' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
                     
@@ -1432,8 +1433,9 @@
                               <label for="input-small">Mission</label>
                             </b-col>
                             <b-col sm="8">
-                              <b-form-select v-model="fetchPlayerList[index].mission_id" v-on:change="previousChangeMission($event, index)">
-                                <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                              <!-- <p>{{item.mission_id}}</p> -->
+                              <b-form-select v-model="item.mission_id" v-on:change="previousChangeMission($event, index, item.id)">
+                                <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
                               </b-form-select>
                             </b-col>
                           </b-row>
@@ -1509,7 +1511,8 @@
                       <p class="btbSideTitle"><b>SIDE B</b></p>
 
                       <div v-for="(item,index) in fetchPlayerList.slice().reverse()" :key="item.id" class="border border-info rounded">
-                        <!-- <p>id {{index}}</p> -->
+                       
+                       <!--  <p>id {{index}}</p> -->
 
                         <!-- <div style="background-color: yellow;">{{index}} col</div> -->
                         <div v-if="item.route_id == '2' " :class="{'previousDivColor' : fetchPlayerList[index].active == '1'}">
@@ -1618,8 +1621,9 @@
                               <label for="input-small">Mission</label>
                             </b-col>
                             <b-col sm="8">
-                              <b-form-select v-model="fetchPlayerList[index].mission_id" v-on:change="previousChangeMission($event, index)">
-                                <option v-for="item in missions" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                              <!-- <p>{{item.mission_id}}</p> -->
+                              <b-form-select v-model="item.mission_id" v-on:change="previousChangeMission($event, index, item.id)">
+                                <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
                               </b-form-select>
                             </b-col>
                           </b-row>
@@ -4542,11 +4546,11 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(74, 'days').format("YYYY-MM-DD");
-var currentdate = moment().format("YYYY-MM-DD");
+  var currentdate = moment().subtract(101, 'days').format("YYYY-MM-DD");
+// var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
+var startReservationTime = moment().subtract(10, 'hours').format('hh:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
@@ -5759,15 +5763,7 @@ methods: {
 
   },
 
-  previousChangeMission(event, arrayValue){
-
-    console.log(event); /** this print out the selected values as 1,2,3 for cyberbot,blockmonster, promode**/
-
-    console.log('array value '+arrayValue);
-
-    var sessionId = this.fetchPlayerList[arrayValue].id;
-
-    console.log(sessionId+ ' is session id');
+  previousChangeMission(event, arrayValue, sessionId){
 
     var selectedMissionId = event;
 
@@ -10603,6 +10599,10 @@ inputEvent3(e) {
 
         console.log("below is the dragged id as person id");
         console.log(this["list"+col][countondrop]);
+
+        console.log('mission id mission id mission id was '+this.missions[missionid-1].id);
+        console.log('mission name mission name mission name was '+this.missions[missionid-1].name);
+        console.log('actual mission id mission id was '+missionid);
 
         this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
         console.log(this["selected"+col]);
