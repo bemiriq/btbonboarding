@@ -6614,7 +6614,7 @@ methods: {
 
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
         // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
-        useDate = moment().add('days',1).format('YYYY-MM-DD');
+        var endDate = moment().add('days',1).format('YYYY-MM-DD');
         var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
         console.log('end time INISDE if loop is '+endTime);
       }
@@ -6629,9 +6629,9 @@ methods: {
       console.log(startTime);
       console.log(endTime);
 
-      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+useDate+endTime+'.000Z'+'/limit/'+limitValue);
+      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+endDate+endTime+'.000Z'+'/limit/'+limitValue);
 
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+useDate+endTime+'.000Z'+'/limit/'+limitValue,{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+endDate+endTime+'.000Z'+'/limit/'+limitValue,{
 
       })
       .then(response => {
@@ -6660,7 +6660,7 @@ methods: {
 
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
         // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
-        useDate = moment().add('days',1).format('YYYY-MM-DD');
+        var endDate = moment().add('days',1).format('YYYY-MM-DD');
         var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
         console.log('end time INISDE if loop is '+endTime);
       }
@@ -6672,9 +6672,9 @@ methods: {
       console.log(startTime);
       console.log(endTime);
 
-      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+useDate+endTime+'.000Z'+'/limit/2');
+      console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+endDate+endTime+'.000Z'+'/limit/2');
 
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+useDate+endTime+'.000Z'+'/limit/2',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+useDate+startTime+'.000Z'+'/end/'+endDate+endTime+'.000Z'+'/limit/2',{
 
       })
       .then(response => {
