@@ -6611,10 +6611,11 @@ methods: {
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
 
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
-        var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+        // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+        var endTime = moment(this.sessionRow10DateTime).add('day',1).subtract('minutes',5).format('T'+'HH:mm:00');
       }
       else{
-        var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
+        var endTime = moment(this.sessionRow10DateTime).add('hours',1).subtract('minutes',5).format('T'+'hh:mm:00');
       }
 
       // var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
