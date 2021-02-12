@@ -6611,10 +6611,11 @@ methods: {
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
 
       console.log('session row date time used is '+this.sessionRow10DateTime);
-      
+
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
         // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
-        var endTime = moment(this.sessionRow10DateTime).add('days',1).subtract('minutes',5).format('T'+'HH:mm:00');
+        useDate = moment().add('days',1).format('YYYY-MM-DD');
+        var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
         console.log('end time INISDE if loop is '+endTime);
       }
       else{
@@ -6658,7 +6659,10 @@ methods: {
       console.log(moment(this.sessionRow10DateTime).format('HH'));
 
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
+        // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+        useDate = moment().add('days',1).format('YYYY-MM-DD');
         var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
+        console.log('end time INISDE if loop is '+endTime);
       }
       else{
         var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
