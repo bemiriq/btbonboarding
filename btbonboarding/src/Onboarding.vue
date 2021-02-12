@@ -6610,12 +6610,16 @@ methods: {
       // var useDate = moment().format('2020-10-31');
       var startTime = moment('09:00 AM', 'HH:mm A').format('T'+'HH:mm:00');
 
+      console.log('session row date time used is '+this.sessionRow10DateTime);
+      
       if(moment(this.sessionRow10DateTime).format('HH') > '18'){
         // var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
-        var endTime = moment(this.sessionRow10DateTime).add('day',1).subtract('minutes',5).format('T'+'HH:mm:00');
+        var endTime = moment(this.sessionRow10DateTime).add('days',1).subtract('minutes',5).format('T'+'HH:mm:00');
+        console.log('end time INISDE if loop is '+endTime);
       }
       else{
         var endTime = moment(this.sessionRow10DateTime).add('hours',1).subtract('minutes',5).format('T'+'hh:mm:00');
+        console.log('end time INISDE else loop is '+endTime);
       }
 
       // var endTime = moment(this.sessionRow10DateTime).add('hours',5).subtract('minutes',5).format('T'+'HH:mm:00');
