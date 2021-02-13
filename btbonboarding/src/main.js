@@ -15,6 +15,7 @@ import Gamebaysignup from './Gbsignup.vue';
 import Gamebayleaderboard from './Gbleaderboard.vue';
 import Onboardingtest from './OnboardingTest.vue';
 import Singleonboarding from './Singleonboarding.vue';
+import Playerdetails from './Playerdetails.vue';
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -53,6 +54,7 @@ const routes = [
 	{ path : '/gbleaderboard', component: Gamebayleaderboard},
 	{ path : '/onboardingtest', component: Onboardingtest},
 	{ path : '/Singleonboarding', component: Singleonboarding},
+	{ path : '/Playerdetails', component: Playerdetails},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 
