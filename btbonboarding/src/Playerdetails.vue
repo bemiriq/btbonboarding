@@ -159,7 +159,7 @@
 
     console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/100'));
 
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/100',{
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/400',{
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
 
       })
