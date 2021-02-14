@@ -6619,7 +6619,7 @@ methods: {
         console.log('end time INISDE if loop is '+endTime);
       }
       else{
-        var endTime = moment(this.sessionRow10DateTime).add('hours',1).subtract('minutes',5).format('T'+'hh:mm:00');
+        var endTime = moment(this.sessionRow10DateTime).add('hours',1).subtract('minutes',5).format('T'+'HH:mm:00');
         var endDate = moment().format('YYYY-MM-DD');
         console.log('end time INISDE else loop is '+endTime);
       }

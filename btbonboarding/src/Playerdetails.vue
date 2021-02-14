@@ -77,7 +77,12 @@
       <p v-else></p></td>
       <td style="text-transform:capitalize;">{{item.Team.name}}</td>
       <td>
-      <p v-if="!detail.player_minor_id > 0" ref="changeDate">{{detail.Player.Person.date_of_birth}}</p>
+      <p v-if="!detail.player_minor_id > 0" style="
+  display:inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
       <p v-else>{{detail.Player_minor.date_of_birth}}</p>
       </td>
       <td>{{detail.Player.Person.email}}</td>
@@ -146,11 +151,11 @@
 
     console.log(moment().format('YYYY-MM-DD'));
 
-    // var startDate = moment().subtract('days',7).format('YYYY-MM-DD');
-    // var endDate = moment().add('days',6).format('YYYY-MM-DD');
+    var startDate = moment().subtract('days',7).format('YYYY-MM-DD');
+    var endDate = moment().add('days',6).format('YYYY-MM-DD');
 
-    var startDate = moment().format('YYYY-MM-DD');
-    var endDate = moment().add('days',1).format('YYYY-MM-DD');
+    // var startDate = moment().format('YYYY-MM-DD');
+    // var endDate = moment().add('days',1).format('YYYY-MM-DD');
 
     console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/100'));
 
@@ -165,13 +170,7 @@
       .catch(function (error) {
         console.log(error);
       });
-    },
-
-    methods: {
-    changeDate(){
-    console.log('change date here');
     }
-   }
 
   };
 
