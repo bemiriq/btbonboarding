@@ -151,11 +151,11 @@
 
     console.log(moment().format('YYYY-MM-DD'));
 
-    var startDate = moment().subtract('days',7).format('YYYY-MM-DD');
-    var endDate = moment().add('days',6).format('YYYY-MM-DD');
+    // var startDate = moment().subtract('days',7).format('YYYY-MM-DD');
+    // var endDate = moment().add('days',6).format('YYYY-MM-DD');
 
-    // var startDate = moment().format('YYYY-MM-DD');
-    // var endDate = moment().add('days',1).format('YYYY-MM-DD');
+    var startDate = moment().format('YYYY-MM-DD');
+    var endDate = moment().add('days',1).format('YYYY-MM-DD');
 
     console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/100'));
 
