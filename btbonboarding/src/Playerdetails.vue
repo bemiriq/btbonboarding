@@ -22,73 +22,81 @@
         </b-col>
 
         <b-col lg="10">
-            <p class="teamTitle1">PLAYERS DETAIL</p>
-            <!-- <hr> -->
-            <!-- <b-container class="bv-example-row">
+        	<b-row>
+	        	<b-col lg="3">
+	              <b-input-group class="mb-1">
 
-              <b-row>
+	                <b-form-input
+	                  id="example-input"
+	                  v-model="dateClicked"
+	                  type="text"
+	                  placeholder="YYYY-MM-DD"
+	                  autocomplete="off"
+	                ></b-form-input>
 
-                <b-col><p class="teamTitle1"> First Name </p></b-col>
-                <b-col><p class="teamTitle1"> Last Name </p></b-col>
+	                <b-input-group-append>
+	                  <b-form-datepicker
+	                    v-model="dateClicked"
+	                    button-only
+	                    right
+	                    locale="en-US"
+	                    aria-controls="example-input"
+	                    @context="onContext"
+	                  ></b-form-datepicker>
+	                </b-input-group-append>
 
-              </b-row>
+	              </b-input-group>
+	            </b-col>
 
-              <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
-                <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>
-                </b-col>
+	            <b-col lg="5">
+	            	<p class="teamTitle1">PLAYERS DETAIL</p>
+	        	</b-col>
+        	</b-row>
 
-                <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
-                </b-col>
-
-              </b-row>
-
-            </b-container> -->
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Minor/Adult</th>
-      <th scope="col">Handle</th>
-      <th scope="col">Team Name</th>
-      <th scope="col">Date of Birth</th>
-      <th scope="col">Email</th>
-    </tr>
-  </thead>
-  <tbody v-for="item in teamList" v-bind:key="item.id">
-    <tr v-for="detail in item.Team_player_sessions" v-bind:key="detail.id">
-      <!-- <th scope="row">1</th> -->
-      <td style="text-transform:capitalize;">
-      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.first_name}}</p>
-      <p v-else>{{detail.Player_minor.first_name}}</p>
-      </td>
-      <td style="text-transform:capitalize;">
-      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.last_name}}</p>
-      <p v-else>{{detail.Player_minor.last_name}}</p>
-      </td>
-      <td style="text-transform:capitalize;">
-      <p v-if="!detail.player_minor_id > 0">Adult</p>
-      <p v-else>Minor</p>
-      </td>
-      <td>
-      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.instagram}}</p>
-      <p v-else></p></td>
-      <td style="text-transform:capitalize;">{{item.Team.name}}</td>
-      <td>
-      <p v-if="!detail.player_minor_id > 0" style="
-  display:inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
-      <p v-else>{{detail.Player_minor.date_of_birth}}</p>
-      </td>
-      <td>{{detail.Player.Person.email}}</td>
-    </tr>
-  </tbody>
-</table>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">First</th>
+			      <th scope="col">Last</th>
+			      <th scope="col">Minor/Adult</th>
+			      <th scope="col">Handle</th>
+			      <th scope="col">Team Name</th>
+			      <th scope="col">Date of Birth</th>
+			      <th scope="col">Email</th>
+			    </tr>
+			  </thead>
+			  <tbody v-for="item in teamList" v-bind:key="item.id">
+			    <tr v-for="detail in item.Team_player_sessions" v-bind:key="detail.id">
+			      <!-- <th scope="row">1</th> -->
+			      <td style="text-transform:capitalize;">
+			      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.first_name}}</p>
+			      <p v-else>{{detail.Player_minor.first_name}}</p>
+			      </td>
+			      <td style="text-transform:capitalize;">
+			      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.last_name}}</p>
+			      <p v-else>{{detail.Player_minor.last_name}}</p>
+			      </td>
+			      <td style="text-transform:capitalize;">
+			      <p v-if="!detail.player_minor_id > 0">Adult</p>
+			      <p v-else>Minor</p>
+			      </td>
+			      <td>
+			      <p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.instagram}}</p>
+			      <p v-else></p></td>
+			      <td style="text-transform:capitalize;">{{item.Team.name}}</td>
+			      <td>
+			      <p v-if="!detail.player_minor_id > 0" style="
+			  display:inline-block;
+			  white-space: nowrap;
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			  max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
+			      <p v-else>{{detail.Player_minor.date_of_birth}}</p>
+			      </td>
+			      <td>{{detail.Player.Person.email}}</td>
+			    </tr>
+			  </tbody>
+			</table>
             
         </b-col>
       </b-row>
@@ -143,7 +151,10 @@
     data(){
       return{
         teamname: [],
-        teamList: []
+        teamList: [],
+        dateClicked: '',
+        selectedReservationDate: '',
+        formatted: ''
       }
     },
 
@@ -156,10 +167,11 @@
 
     var startDate = moment().format('YYYY-MM-DD');
     var endDate = moment().add('days',1).format('YYYY-MM-DD');
+    this.dateClicked = startDate;
+    
+    console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500'));
 
-    console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/100'));
-
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_onboarded_team/start/'+startDate+'/end/'+endDate+'/limit/400',{
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500',{
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
 
       })
@@ -170,6 +182,66 @@
       .catch(function (error) {
         console.log(error);
       });
+    },
+
+    methods:{
+    	onContext(ctx) {
+        // The date formatted in the locale, or the `label-no-date-selected` string
+        this.formatted = ctx.selectedFormatted;
+        // The following will be an empty string until a valid date is entered
+        this.selectedReservationDate = ctx.selectedYMD;
+
+        console.log("CHANGED DATE");
+        console.log(this.selectedReservationDate);
+        console.log(this.formatted);
+
+
+    /** this will now change the check in list following the date **/
+
+          var starttime='start';
+          var endtime='end';
+
+          // var currentdate = moment().format("YYYY-MM-DD");
+          var convertDate = this.selectedReservationDate;
+
+          var startDate = moment(convertDate).format("YYYY-MM-DD");
+
+          console.log(startDate+ ' was the current date.');
+
+          var endDate = moment(convertDate).add('days',1).format('YYYY-MM-DD');
+
+          // var startReservationTime = '08:45:00';
+          // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+          // var endReservationTime = '23:45:00';
+          // var currentTime = moment().format("HHmm");
+          // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+         
+
+         // var startDate = moment().format('YYYY-MM-DD');
+	    // var endDate = moment().add('days',1).format('YYYY-MM-DD');
+	    // this.dateClicked = this.selectedReservationDate;
+
+	    console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500'));
+
+	    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500',{
+	      // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
+
+	      })
+	      .then(response => {
+	        console.log(response);
+	        this.teamList = response.data;
+	      })
+	      .catch(function (error) {
+	        console.log(error);
+	      });
+
+           
+
+
+    /** end of changing reservation date **/ 
+
+
+      },
     }
 
   };
