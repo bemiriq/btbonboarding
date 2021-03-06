@@ -477,8 +477,8 @@
                                     <!-- <b-col><p>Waiver</p></b-col> -->
                                     <b-col><p>Adult/Minor</p></b-col>
                                     <b-col><p>Player</p></b-col>
+                                    <b-col><p>Tags</p></b-col>
                                     <b-col><p>Assigned</p></b-col>
-                                    <!-- <b-col><p>Tags</p></b-col> -->
                                   </b-row>
 
                                   <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">
@@ -511,6 +511,13 @@
 
                                     </b-col>
 
+                                    <!-- this code works for bomb_beater -->
+                                    <b-col>
+                                      <span v-if="fetchlist1.player_repeaters > '1'">R{{fetchlist1.player_repeaters}}</span>
+                                      <span v-if="fetchlist1.player_bomb_beater_status > '0'">&nbsp; &#128163;</span>
+                                    </b-col>
+                                    <!-- end of working bomb beater -->
+
                                     <!-- reservation people and minor session update -->
                                     <b-col>
 
@@ -521,12 +528,6 @@
 
                                     <!-- end of reservation people/minor update -->
                                     <!-- player_bomb_beater_status -->
-
-                                    <!-- this code works for bomb_beater -->
-                                    <!-- <b-col>
-                                      <p v-if="fetchlist1.player_bomb_beater_status > '0'">&#128163;</p>
-                                    </b-col> -->
-                                    <!-- end of working bomb beater -->
 
 
                                   </b-row>
@@ -2423,12 +2424,20 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
 
-        // if(this.posts[index].Reservation_people[i].Person.Player.bomb_beater == 'undefined'){
-        //   var bomb_beater = '0';
-        // }
-        // else{
-        //   var bomb_beater = this.posts[index].Reservation_people[i].Person.Player.bomb_beater;
-        // }
+        if(this.posts[index].Reservation_people[i].Person.Player.bomb_beater == 'undefined'){
+          var bomb_beater = '0';
+        }
+        else{
+          var bomb_beater = this.posts[index].Reservation_people[i].Person.Player.bomb_beater;
+        }
+
+        /** below code is for the REPEATERS **/
+        if(this.posts[index].Reservation_people[i].Person.Player.play_count == 'undefined'){
+          var repeated_players = '0';
+        }
+        else{
+          var repeated_players = this.posts[index].Reservation_people[i].Person.Player.play_count;
+        }
 
 
 
@@ -2548,9 +2557,9 @@ var arrows = document.getElementsByClassName("covertedtime");
               "arrived": arrived,
               "reservation_for": reservation_for,
               "non_player": non_player_value,
-              "reservation_session_id": reservation_people_session_id
-
-              // "player_bomb_beater_status": bomb_beater
+              "reservation_session_id": reservation_people_session_id,
+              "player_bomb_beater_status": bomb_beater,
+              "player_repeaters": repeated_players
             }
 
             this.clickedPlayerList = replyDataObj1;
@@ -2578,12 +2587,12 @@ var arrows = document.getElementsByClassName("covertedtime");
 
             // console.log(this.posts[index].Reservation_minors[i].Player_minor.bomb_beater);
 
-            // if(this.posts[index].Reservation_minors[i].Player_minor.bomb_beater == 'undefined'){
-            //     var minor_bomb_beater = 0;
-            //   }
-            //   else{
-            //     var minor_bomb_beater = this.posts[index].Reservation_minors[i].Player_minor.bomb_beater;
-            //   }
+            if(this.posts[index].Reservation_minors[i].Player_minor.bomb_beater == 'undefined'){
+                var minor_bomb_beater = 0;
+              }
+              else{
+                var minor_bomb_beater = this.posts[index].Reservation_minors[i].Player_minor.bomb_beater;
+              }
 
 
 
@@ -2705,8 +2714,8 @@ var arrows = document.getElementsByClassName("covertedtime");
               "arrived": minorArrived,
               "reservation_for": reservation_for,
               "non_player": non_player_minor_value,
-              "reservation_session_id": reservation_people_session_id
-              // "player_bomb_beater_status": minor_bomb_beater
+              "reservation_session_id": reservation_people_session_id,
+              "player_bomb_beater_status": minor_bomb_beater
             }
 
             // this.clickedPlayerList = replyDataObj1;
