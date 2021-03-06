@@ -675,7 +675,7 @@
                   <td>
                     {{item.Mission.name}}
                     <!-- <span v-if="item.battlemode > '0' " style="color:black; font-size: 1.5em;"> | &#9755; &#9756; </span> -->
-                    <span v-if="item.battlemode > '0' "> | Battle Mode</span>
+                    <p v-if="item.battlemode > '0'"><b> Battle Mode</b></p>
 
                   </td>
 
