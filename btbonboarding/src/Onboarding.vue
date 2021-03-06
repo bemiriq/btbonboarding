@@ -4313,7 +4313,8 @@
 
               <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize" >{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}- <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button> </b>
 
-              <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}} - <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b>
+              <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}} 
+                <span v-if="reservation.battlemode > '0' "> <br> Battle Mode </span> <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b>
 
               <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="onDragBackReservation(),onDragBackReservation()">
@@ -4558,12 +4559,12 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(103, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
 var startReservationTime = moment().subtract(2, 'hours').format('hh:mm:ss');
-var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
+var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
 this.endReservationTime = endReservationTime;
