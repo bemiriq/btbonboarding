@@ -4,568 +4,26 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
 
-    <b-container class="bv-example-row" id="searchId">
-        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-        <b-row>
 
-          <b-col cols="10" md="8"></b-col>
 
-          <!-- <b-col sm="4">
-            <b-form-input v-model="searchQuery" id="input-large" size="lg" placeholder="Search here ... "></b-form-input>
-          </b-col> -->
+    <div style="margin-top: 1%;">
 
-        </b-row>
-
-      </b-container>
-
-      <!-- the modal display all the recent waiver list -->
-      <b-modal id="modal-waiverList" centered size="lg" title="Waiver List" v-bind:hide-footer="true" v-bind:hide-header="true">
-        <!-- <p style="margin:auto;">List of People</p> -->
-        <b-row>
-          <b-col><h3>WAIVER LIST</h3></b-col>
-          <b-col lg="2">
-            <b-form-select v-model="limitReservationList" :options="options" class="mb-3" v-on:change="waiverList();">
-                        <!-- <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option> -->
-                        <b-form-select-option value="5">10</b-form-select-option>
-                        <b-form-select-option value="10">20</b-form-select-option>
-                        <b-form-select-option value="15">30</b-form-select-option>
-                        <b-form-select-option value="20">40</b-form-select-option>
-                      </b-form-select>
-          </b-col>
-        </b-row>
-        <hr>
-        <div id="modalScrollable">
-          <table class="table table-borderless">
-            <thead>
-                  <tr>
-                    <!-- <th scope="col">#</th> -->
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Reservation Name</th>
-                  </tr>
-            </thead>
-
-              <tbody v-for="(element,index) in waiverLists" :key="element.id" style="text-transform: capitalize;">
-                <td>{{element.first_name}}</td>
-                <td>
-                  <p v-if="element.last_name == 'null'">  </p>
-                  <p v-else>{{element.last_name}}</p>
-                </td>
-                <td>A</td>
-                <td>
-                  <b-col>
-                    <b-form-select style="text-transform:capitalize;" v-on:change="changedReservation($event,index,'player')">
-                      <option v-for="elementDropdown in reservationLists" :value="elementDropdown.id" v-bind:key="elementDropdown.id">{{elementDropdown.Booker.Person.first_name}} {{elementDropdown.Booker.Person.last_name}}</option>
-                    </b-form-select>
-                  </b-col>
-                </td>
-              </tbody>
-
-              <tbody v-for="(elementMinor,index) in waiverListsMinor" :key="elementMinor.id" style="text-transform: capitalize;">
-                <td>{{elementMinor.first_name}}</td>
-                <td>
-                  <p v-if="elementMinor.last_name == 'null'">  </p>
-                  <p v-else>{{elementMinor.last_name}}</p></td>
-                  <td>M</td>
-                  <td>
-                    <b-col>
-                    <b-form-select style="text-transform:capitalize;" v-on:change="changedReservation($event,index,'minor')">
-                      <option v-for="elementDropdown in reservationLists" :value="elementDropdown.id" v-bind:key="elementDropdown.id">{{elementDropdown.Booker.Person.first_name}} {{elementDropdown.Booker.Person.last_name}}</option>
-                    </b-form-select>
-                  </b-col>
-                  </td>
-              </tbody>
-
-          </table>
-
-        </div>
-
-        <!-- <table class="table table-hover">
-          <thead>
-                <tr>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                </tr>
-          </thead>
-            <tbody v-for="element in waiverListsMinor" :key="element.id" style="text-transform: capitalize;">
-              <td>{{element.first_name}}</td>
-              <td>{{element.last_name}}</td>
-            </tbody>
-        </table> -->
-
-        <b-row class="my-1">
-          <b-col><b-button variant="info" v-on:click="reloadPageEvent()">Submit</b-button></b-col>
-          <!-- <b-col v-on:click="hideVoucherModal"><b-button variant="warning">Cancel</b-button></b-col> -->
-        </b-row>
-
-      </b-modal>
-      <!-- end of WAIVER LIST modal -->
-
-      <!-- the modal below is for the VOUCHERS -->
-      <b-modal id="modal-vouchers" centered size="lg" title="Email Vouchers" v-bind:hide-footer="true">
-        <p style="text-transform: capitalize; font-weight: bold;">{{voucherReservationName}} Reservation / {{convertReservationTime(voucherReservationTime)}} / Size {{voucherReservationSize}}</p>
-        <br>
-        <div><p style="line-height: 35px;"> You are going to send out voucher for 
-
-          <select v-model="voucherNumberSelected" v-on:change="getVoucherCode($event,voucherNumberSelected)" v-if="voucherSizeDisable == '1'" disabled>
-            <option disabled value=""> </option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>10</option>
-          </select>
-
-          <select v-model="voucherNumberSelected" v-on:change="getVoucherCode($event,voucherNumberSelected)" v-else>
-            <option disabled value=""> </option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>10</option>
-          </select>
-
-         people. Using the code <input type="text" v-model="voucherCodeGenrated" disabled> and email as <b>{{voucherEmail}}</b> or via phone <b>{{voucherPhoneNumber}}</b>.
-       </p>
-        </div>
-        <br>
-        <b-row class="my-1">
-          <b-col v-if="voucherSendEmailButtonActivate == '1'"><b-button variant="info">Send Email</b-button></b-col>
-          <b-col v-else><b-button variant="info" disabled>Send Email</b-button></b-col>
-          <!-- <b-col v-on:click="hideVoucherModal"><b-button variant="warning">Cancel</b-button></b-col> -->
-        </b-row>
-
-      </b-modal>
-      <!-- end of VOUCHERS modal -->
-
-      <!-- this modal will hide/unhide reservation name -->
-
-        <b-modal id="modal-updateReservation" centered size="md" title="Update Reservation" v-bind:hide-footer="true" v-bind:hide-header="true">
-
-            <!-- <b-row v-for="item in (index,posts)" v-bind:key="fetchlist1.id" style="margin-top: 1%;">
-              <b-col sm="4">
-                <b-col style="text-transform: capitalize;">{{fetchlist1.player_first_name}}</b-col>
-              </b-col>
-            </b-row> -->
-          <table class="table">
-            <tr>
-              <th>Reservation Time</th>
-              <th>Reservation Name</th>
-              <th>Cancel</th>
-            </tr>
-
-            <tr v-for="item in getAllReservationList" v-bind:key="item.id">
-              <td class="covertedtime">
-                {{item.reservation_time}}
-              </td>
-              <td style="text-transform:capitalize;">
-                {{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}
-              </td>
-              <td>
-                <input type="checkbox" checked v-if="!item.reservation_cancelled > '0'" @click="updateReservationCreated($event,item.id,1)"/>
-                <input type="checkbox" v-else  @click="updateReservationCreated($event,item.id,0)"/>
-              </td>
-            </tr>
-
-            <tr>
-              <td></td>
-              <td></td>
-              <td><b-button variant="info" @click="reloadPageEvent()">Update</b-button></td>
-            </tr>
-
-          </table>
-            <!-- <b-row class="my-1">
-              <b-col sm="4">
-                <b>Email-id</b>
-              </b-col>
-              <b-col sm="6">
-                <b-form-input v-model="addBookerEmail" id="input-large" placeholder="Enter Email-id" v-on:keyup.enter="getDetailByEmail"></b-form-input>
-              </b-col>
-            </b-row> -->
-            <!-- <b-button v-on:click="reloadPageEvent()">OK</b-button> -->
-
-            <!-- <b-button v-on:click="hideUpdateReservationModal()">Cancel</b-button> -->
-
-        </b-modal>
-
-      <!-- end of modal to hide/unhide reservation -->
-
-          <!-- this modal will add the reservation that did not show up from xola to our database -->
-          <b-modal id="modal-addReservation" centered size="md" title="Add Reservation">
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Email-id</b>
-              </b-col>
-              <b-col sm="6">
-                <b-form-input v-model="addBookerEmail" id="input-large" placeholder="Enter Email-id" v-on:keyup.enter="getDetailByEmail"></b-form-input>
-              </b-col>
-              <b-col sm="1">
-                <b-input-group-prepend is-text>
-                  <b-icon icon="search" v-on:click="getDetailByEmail"></b-icon>
-                </b-input-group-prepend>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>First Name</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerFirstName" id="input-large" placeholder="Enter First Name"></b-form-input>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Last Name</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerLastName" id="input-large" placeholder="Enter Last Name"></b-form-input>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Cellphone</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerPhoneNumber" id="input-large" placeholder="Enter Phone Number"></b-form-input>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Team Size</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerTeamSize" id="input-large" placeholder="Enter Team Size"></b-form-input>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Reservation Date</b>
-              </b-col>
-              <b-col sm="8">
-                <b-input-group class="mb-1">
-
-                <b-form-input
-                  id="example-input"
-                  v-model="addReservationDate"
-                  type="text"
-                  placeholder="YYYY-MM-DD"
-                  autocomplete="off"
-                ></b-form-input>
-
-                <b-input-group-append>
-                  <b-form-datepicker
-                    v-model="addReservationDate"
-                    button-only
-                    right
-                    locale="en-US"
-                    aria-controls="example-input"
-                    @context="onContext"
-                  ></b-form-datepicker>
-                </b-input-group-append>
-
-              </b-input-group>
-
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Reservation Time</b>
-              </b-col>
-              <b-col sm="8">
-                <b-row>
-
-                  <b-col sm="4">
-                    <b-form-select v-model="reservationTimeHourly" class="mb-3">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                    </b-form-select>
-                  </b-col>
-
-                  <b-col sm="4">
-                    <b-form-select v-model="reservationTimeQuaterly" class="mb-3">
-                      <option value="00"> 00 </option>
-                      <option value="15"> 15 </option>
-                      <option value="30"> 30 </option>
-                      <option value="45"> 45 </option>
-                    </b-form-select>
-                  </b-col>
-
-                  <b-col sm="4">
-                    <b-form-select v-model="reservationAmPm" class="mb-3">
-                      <option value="AM"> AM </option>
-                      <option value="PM"> PM </option>
-                    </b-form-select>
-                  </b-col>
-
-                </b-row>
-              </b-col>
-            </b-row>
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Mission</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-select v-model="addBookerMission" class="mb-3">
-                  <option value="1"> Cyberbot </option>
-                  <option value="2"> Block Monster </option>
-                  <option value="3"> Cyberbot Pro </option>
-                  <option value="4"> Cyberbot Halloween </option>
-                </b-form-select>
-              </b-col>
-            </b-row>
-
-
-            <!-- <b-row class="my-1">
-              <b-col>
-                <p style="text-align:center; text-transform:uppercase; font-weight:bold; "> Add XOLA DETAILS BELOW </p>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Order Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaOrderId" id="input-large" placeholder="Enter Xola Order Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Booker Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addXolaBookerId" id="input-large" placeholder="Enter Xola Booker Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Item Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaItemId" id="input-large" placeholder="Enter Xola Item Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Traveler Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaTravelerId" id="input-large" placeholder="Enter Xola Traveler Id"></b-form-input>
-              </b-col>
-            </b-row> -->
-
-            <br>
-
-            <b-row class="my-1">
-
-              <b-col>
-
-              </b-col>
-
-
-              <b-col v-if="addBookerFirstName.length == 0 || addBookerEmail.length == 0 || addBookerPhoneNumber.length == 0 || addBookerTeamSize.length == 0  
-              || reservationTimeQuaterly.length == 0 || reservationTimeHourly.length == 0 || reservationAmPm.length == 0 || addBookerMission.length == 0">
-                <b-button variant="primary" v-on:click="clickedSubmitReservation" disabled>Submit Reservation</b-button>
-              </b-col>
-              <b-col v-else>
-                <b-button variant="primary" v-on:click="clickedSubmitReservation">Submit Reservation</b-button>
-              </b-col>
-
-            </b-row>
-
-            <br>
-
-          </b-modal>
-          <!-- end of Add Reservation Modal -->
-
-
-
-          <b-modal id="modal-organization" centered size="md" title="Organization">
-            
-            <!-- <p>  </p> -->
-
-            <!-- <p> {{reservationIdForOrganization}}</p> -->
-
-            
-
-            <!-- <select v-model="organizationTypeList" id="input-large" size="lg" style="text-transform: lowercase">
-              
-            </select> -->
-
-            <br/>
-            <b-row class="my-1">
-              <b-col sm="5">
-                <b>Organization Name</b>
-              </b-col>
-              <b-col sm="7">
-                <b-form-input v-model="organizationNameTyped" id="input-large" placeholder="Enter Organization Name" style="text-transform: lowercase"></b-form-input>
-              </b-col>
-            </b-row>
-            <br>
-            <b-row class="my-1">
-              <b-col sm="5">
-                <b>Organization Type</b>
-              </b-col>
-              <b-col sm="7">
-                <b-form-select v-model="organizationTypeSelected">
-                  <option v-for="item in organizationTypeList" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
-                  <!-- <option value="createNewOrganization">Create New</option> -->
-                </b-form-select>
-              </b-col>
-            </b-row>
-
-            <br>
-
-            <b-row class="my-1" v-if="organizationTypeSelected == 'createNewOrganization'">
-              <b-col sm="5">
-                <b>Type Name</b>
-              </b-col>
-              <b-col sm="7">
-                <b-form-input v-model="organizationTypeSelectedNew" id="input-large" placeholder="new organization type name" style="text-transform: lowercase"></b-form-input>
-              </b-col>
-            </b-row>
-
-            <br> 
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal-xs" @click="organizationnNameUpdate($event, organizationNameTyped)">SUBMIT</button>
-            </div>
-
-          </b-modal>
-
-          <b-modal id="modal-xl" centered size="xl" title="TEAM" @click="reloadPageEvent">
-                                <p  style="text-transform: capitalize;">{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}}</p>
-                                <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
-                              <br/>
-                              <b-container class="bv-example-row">
-                                  <b-row style="font-weight:bold;">
-                                    <b-col><p>F Name</p></b-col>
-                                    <b-col><p>L Name</p></b-col>
-                                    <b-col><p>Cell number</p></b-col>
-                                    <b-col><p>Waiver</p></b-col>
-                                    <b-col><p>Arrived</p></b-col>
-                                    <!-- <b-col><p>Waiver</p></b-col> -->
-                                    <b-col><p>Adult/Minor</p></b-col>
-                                    <b-col><p>Player</p></b-col>
-                                    <b-col><p>Tags</p></b-col>
-                                    <b-col><p>Assigned</p></b-col>
-                                  </b-row>
-
-                                  <!-- <div v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id">
-                                    <p>{{fetchlist1.player_name}}</p>
-                                    <p>S</p>
-                                  </div> -->
-
-                                  <b-row v-for="fetchlist1 in clickedPlayerList.Reservation_people" v-bind:key="fetchlist1.id" style="margin-top: 1%;">
-                                    <b-col style="text-transform: capitalize;">{{fetchlist1.player_first_name}}</b-col>
-                                    <b-col style="text-transform: capitalize;">{{fetchlist1.player_last_name}}</b-col>
-                                    <b-col>{{fetchlist1.player_cell_number}}</b-col>
-                                    <b-col>YES</b-col>
-                                    <!-- <b-col><input type="checkbox" v-model="subchildArrived"/></b-col> -->
-                                    <b-col>
-                                      <!-- <p v-if="fetchlist1.arrived == '1'">YES</p>
-                                      <p v-else>NO</p> -->
-                                      <!-- {{fetchlist1.arrived}} -->
-                                      <p v-if="fetchlist1.arrived == '1'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
-                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="arrivedCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
-                                    </b-col>
-
-                                    <!-- <b-col>{{fetchlist1.minor_tag}} {{fetchlist1.mission_name}} {{fetchlist1.play_count}}</b-col> -->
-                                    <b-col v-if="fetchlist1.minor_tag == 'M'">Minor</b-col>
-                                    <b-col v-else>Adult</b-col>
-
-                                    <b-col>
-
-                                      <p v-if="fetchlist1.non_player == '0'"><input type="checkbox" id="jack" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
-                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="nonPlayerCheckbox($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
-
-                                    </b-col>
-
-                                    <!-- this code works for bomb_beater -->
-                                    <b-col>
-                                      <span v-if="fetchlist1.player_repeaters > '1'">R{{fetchlist1.player_repeaters}}</span>
-                                      <span v-if="fetchlist1.player_bomb_beater_status > '0'">&nbsp; &#128163;</span>
-                                    </b-col>
-                                    <!-- end of working bomb beater -->
-
-                                    <!-- reservation people and minor session update -->
-                                    <b-col>
-
-                                      <p v-if="fetchlist1.reservation_session_id > '0'"><input type="checkbox" id="jule" value="fetchlist1.player_first_name" v-on:click="updateReservationSession($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)" checked></p>
-                                      <p v-else><input type="checkbox" value="fetchlist1.player_first_name" v-on:click="updateReservationSession($event, fetchlist1.reservation_people_minor_table_id, fetchlist1.minor_tag)"></p>
-
-                                    </b-col>
-
-                                    <!-- end of reservation people/minor update -->
-                                    <!-- player_bomb_beater_status -->
-
-
-                                  </b-row>
-
-                                </b-container>
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal-xs" @click="reloadPageEvent">OK</button>
-                                </div>
-
-
-                          <!-- <b-table :fields="fields">
-                            <p>{{post.customerName}}</p>
-                            <template v-slot:table-caption>This is a table caption.</template>
-                            }
-                          </b-table>  -->
-                      </b-modal>
-
-
-
-    <div>
+      <!-- first part b-row -->
       <b-row>
         <!-- start of the left div which has navigation menu -->
         <b-col lg="2">
 
-          <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="/#/users" active>Check-In</b-list-group-item>
-            <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
-            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-            <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
-            <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
-            <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
-          </b-list-group>
-
-        
+          <div style="margin-top: 10%;">
+            <b-button variant="primary" v-on:click="activateWeekList()">Weekly List 
+              <span v-if="weeklyList == '0'">&#187;</span> <!-- point right -->
+              <span v-if="weeklyList == '1'">&#8659;</span> <!-- point down -->
+            </b-button>
+          </div>
+          <div v-if="weeklyList == '1'">
+            <div v-for="element in allDates.slice().reverse()" :key="element.id">
+             <b-button variant="info" v-on:click="dateSelected(element,1);" style="margin-top: 2%;">{{element}}</b-button>
+            </div>
+          </div>
 
         </b-col>
         <!-- end of navigation menu on left side -->
@@ -574,10 +32,16 @@
 
         <!-- start of right div which consists of table with all details -->
         <b-col lg="10" style="background-color:#fafafa;">
+          <br>
+          <br>
+          <b-row>
+            <b-col>
 
-          <b-row style="margin-top: 1%;">
-            <b-col lg="2">
-              <p style="margin-top: 3%; font-size: 1.1em;"><b>Reservation Date</b></p>
+            <!-- <p style="font-weight:bold;font-size:25px;">{{startDateUsed}} to {{endDateUsed}}</p> -->
+
+            <b-row style="margin-top: 1%;">
+            <b-col lg="1">
+              <p style="margin-top: 3%; font-size: 1.1em;"><b>Date</b></p>
             </b-col>
 
             <b-col lg="2">
@@ -588,7 +52,7 @@
                   v-model="dateClicked"
                   type="text"
                   placeholder="YYYY-MM-DD"
-                  autocomplete="off"
+                  autocomplete="off" 
                 ></b-form-input>
 
                 <b-input-group-append>
@@ -598,7 +62,7 @@
                     right
                     locale="en-US"
                     aria-controls="example-input"
-                    @context="onContext"
+                    @context="dateSelected(dateClicked,2)"
                   ></b-form-datepicker>
                 </b-input-group-append>
 
@@ -606,159 +70,280 @@
             </b-col>
 
             <b-col lg="2">
-              <b-button variant="outline-primary" v-on:click="addReservation();"> Add Reservation </b-button>
-            </b-col>
+              <b-input-group class="mb-1">
 
-            <b-col lg="2">
-              <b-button variant="outline-primary" v-on:click="updateReservation();"> Update Reservation </b-button>
-            </b-col>
+                <b-form-input
+                  id="example-input"
+                  v-model="endDateClicked"
+                  type="text"
+                  placeholder="YYYY-MM-DD"
+                  autocomplete="off" 
+                ></b-form-input>
 
-            <b-col lg="1">
-              <b-button variant="outline-primary" v-on:click="waiverList();"> Waivers </b-button>
-            </b-col>
+                <b-input-group-append>
+                  <b-form-datepicker
+                    v-model="endDateClicked"
+                    button-only
+                    right
+                    locale="en-US"
+                    aria-controls="example-input"
+                    @context="dateSelected(endDateClicked,2)"
+                  ></b-form-datepicker>
+                </b-input-group-append>
 
-            <!-- <b-col lg="2">
-              <b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
-            </b-col> -->
-            <b-col lg="3">
-              <b-input-group size="md">
-                <b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
-                <b-input-group-prepend>
-                  <span class="input-group-text" v-on:click="searchPlayers()" v-if="searchedText.length > '1'">&#128270;</span>
-                  <span class="input-group-text" v-else disabled>&#128270;</span>
-                </b-input-group-prepend>
               </b-input-group>
             </b-col>
 
           </b-row>
 
-          <br>
+              <hr>
+              <br>
 
-          <table class="table table-hover">
-              <thead>
-                <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <th scope="col">Time</th>
-                  <th scope="col">Reservation</th>
-                  <th scope="col" style="font-size: 2em;">#</th>
-                  <th scope="col">Mission</th>
-                  <th scope="col">Organization</th> <!-- changed it from GROUP to ORGANIZATION as asked by CHUCK -->
-                  <th scope="col">Players Arrived</th>
-                  <th scope="col">Spectators Arrived</th>
-                  <th scope="col">Paid</th>
-                  <th scope="col">Late</th>
-                  <th scope="col">No Shows</th>
-                  <th scope="col">Release</th>
-                </tr>
-              </thead>
-                <tr v-for="(item, index) in posts" v-bind:key="item.id">
-                  <td class="covertedtime">
-                    {{item.reservation_time}}
-                  </td>
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Session & Mission Breakdown</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Players</td>
+                      <td>{{totalPlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Cyberbot</td>
+                      <td>{{mission1total}}</td>
+                    </tr> 
+                    <tr>
+                      <td class="tdStyle">Block Monster</td>
+                      <td>{{mission2total}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Discrepancy</td>
+                      <td>{{missionDiscrepancy}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
 
-                  <td v-on:click="selectItem ($event, posts, item, index)">
-                    <!-- <b-button pill variant="outline-info">{{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}</b-button> -->
+                <b-col>
 
-                    <b-button block pill variant="outline-info" style="text-transform: capitalize;" v-if="item.Booker.Person.last_name == 'null' || item.Booker.Person.last_name == 'undefined' ">
-                      {{item.Booker.Person.first_name}}
-                    </b-button>
+                  <table class="table table-hover">
+                  <thead>
+                    <p class="theadStyle">Team Size</p>
+                  </thead>
+                  <tr>
+                    <td class="tdStyle">Total Players</td>
+                    <td>{{totalPlayers}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Total Teams</td>
+                    <td>{{totalTeams}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Calculated Team Size</td>
+                    <td>{{calculatedTeamSize}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Avg Team Size</td>
+                    <td>{{avgTeamSize}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Discrepancy</td>
+                    <td>{{avgTeamSizeDiscrepancy}}</td>
+                  </tr>  
+                </table>
+                </b-col>
+              </b-row>
 
-                    <b-button block pill variant="outline-info" v-else style="text-transform: capitalize;">
-                      {{item.Booker.Person.first_name}} {{item.Booker.Person.last_name}}
-                    </b-button>
+              <!-- <hr> -->
+              <br>
 
-                  </td>
+              <!-- below b-row generates the second table -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Minors</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Players</td>
+                      <td>{{totalPlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Total Adults</td>
+                      <td>{{totalGender}}</td>
+                    </tr> 
+                    <tr>
+                      <td class="tdStyle">Total Minors</td>
+                      <td>{{totalMinors}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Discrepancy</td>
+                      <td>{{minorsDiscrepancy}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
 
-                  <td>
-                    {{item.size}}
-                  </td>
+                <b-col>
 
-                  <td>
-                    {{item.Mission.name}}
-                    <!-- <span v-if="item.battlemode > '0' " style="color:black; font-size: 1.5em;"> | &#9755; &#9756; </span> -->
-                    <p v-if="item.battlemode > '0'"><b> Battle Mode</b></p>
+                  <table class="table table-hover">
+                  <thead>
+                    <p class="theadStyle">Gender</p>
+                  </thead>
+                  <tr>
+                    <td class="tdStyle">Female</td>
+                    <td>{{totalFemale}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Male</td>
+                    <td>{{totalMale}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Non Binary</td>
+                    <td>{{totalNonBinary}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Prefer not to answer</td>
+                    <td>{{totalPreferNotToAnswer}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Sum</td>
+                    <td>{{totalGender}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Female Percentage</td>
+                    <td>{{femalePercentage}}</td>
+                  </tr>  
+                </table>
+                </b-col>
+              </b-row>
+              <!-- end of b-row for second table -->
 
-                  </td>
+              <!-- <hr> -->
+              <br>
 
-                  
+              <!-- below b-row generates the third table -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Bomb Beaters</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Both Mission</td>
+                      <td>{{bombbeaters}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Mission 1</td>
+                      <td>{{bombbeatersMission1}}</td>
+                    </tr> 
+                    <tr>
+                      <td class="tdStyle">Mission 2</td>
+                      <td>{{bombbeatersMission2}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Winners Player Count Session Endpoint</td>
+                      <td>{{bombBeatersBySession}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Discrepancy</td>
+                      <td>{{bombBeatersDiscrepancy}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
 
-                  <td>
-                    <!-- <select v-model="organizationType">
-                      <option value=""> </option>
-                      <option v-for="organization in organizationDetail" v-bind:key="organization.id">{{organization.name}}</option>
-                    </select>
-                    <p v-if="organizationType == 'Other'">
-                      <input type="text">
-                    </p> -->
+                <b-col>
 
-                    <!-- it uses the organization_id from RESERVATION TABLE ONLY -->
+                  <table class="table table-hover">
+                  <thead>
+                    <p class="theadStyle">How did you hear about us?</p>
+                  </thead>
+                  <tr>
+                    <td class="tdStyle">Heard about it directly from a friend, family or colleague</td>
+                    <td>{{answer2}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Saw it on a friend's social media</td>
+                    <td>{{answer3}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Google search</td>
+                    <td>{{answer4}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Trip Advisor, Yelp or other Review site</td>
+                    <td>{{answer5}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Instagram</td>
+                    <td>{{answer7}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">TikTok</td>
+                    <td>{{answer8}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Others</td>
+                    <td>{{answer6}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Total</td>
+                    <td>{{totalAnswer}}</td>
+                  </tr>  
+                </table>
+                </b-col>
+              </b-row>
+              <!-- end of b-row for third table -->
 
-                    <p v-if="item.organization_id > '0'"> {{item.Organization.name}} </p>
-                    <p v-else>
-                      <b-button variant="outline-primary" v-on:click="addOrganization($event, index)">ADD</b-button>
-                    </p>
+              <!-- <hr> -->
+              <br>
 
-                  </td>
+              <!-- below b-row generates the third table -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Average Reservation Size</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Player</td>
+                      <td>{{totalPlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Reservation Size</td>
+                      <td>{{averageReservationSize}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
 
-                  <!-- <td>
-                    {{item.Reservation_people.length+item.Reservation_minors.length}}
-                  </td> -->
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Average Game Time</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Teams</td>
+                      <td>{{totalTeams}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Time to play Beat The Bomb</td>
+                      <td>{{averageReservationSize}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
+              </b-row>
+              <!-- end of b-row for third table -->
 
-                  <td>
-                    <p v-if="item.size-item.total_player_arrived < '0'" style="color:red;font-size: 1.1em;"><b>{{item.total_player_arrived}}</b></p>
-                    <p v-else>{{item.total_player_arrived}}</p>
-                  </td>
+            </b-col>
 
-                  <td>
-                    <!-- {{item.Reservation_people.length}} --> <!-- arrived non player -->
-                    {{item.total_non_player_arrived}}
-                  </td>
 
-                  <td>
-                    <!-- <p v-if="item.paid_amount == item.final_dollar_amount" style="color:green;">&#10004;&#65039;</p>
-                    <p v-if="item.paid_amount != item.final_dollar_amount">&#10060;</p> -->
-                    <p v-if="item.balance == '0'" style="color:green;">&#10004;&#65039;</p>
-                    <p v-if="item.balance > '0'">&#10060;</p>
-                  </td>
+          </b-row>
+            <!-- end of right div which all table -->
 
-                  <td>
-                    <p v-if="item.late_by < '15' || item.size != item.total_arrived">
-                      <b v-if="!item.released == '1' && item.late_by < '10'">&#10060;</b>
-                      <b v-else> </b>
-                    </p>
-                  </td>
-
-                  <td>
-                    <!-- <p v-if="item.size - item.total_arrived => '0'">{{item.size - item.total_arrived}}</p> -->
-                    <!-- {{item.size - item.total_player_arrived}} -->
-
-                    <!-- <p v-if="item.size-item.total_player_arrived < '0'">{{item.size}}+{{item.total_player_arrived-item.size}}</p>
-                    <p v-else>{{item.size - item.total_player_arrived}}</p> -->
-                    <div v-if="item.vouchers > '0'" style="margin-top: -13%;">
-
-                      <span style="font-size: 30px; color:#007bff;" v-on:click="forwardedEmailVouchers($event, item.reservation_id)">&#9993;</span>
-
-                    </div>
-
-                    <div v-else>
-                      <!-- <p v-if="item.size-item.total_player_arrived > '0'"><a v-on:click="noShowsVoucher($event, item.reservation_id)" style="color: #007bff;font-weight: bold;">{{item.size-item.total_player_arrived}}</a></p> -->
-                      <p v-if="item.size-item.total_player_arrived > '0'">{{item.size-item.total_player_arrived}}</p>
-                      <p v-else>0</p>
-                    </div>
-
-                  </td>
-
-                  <td>
-                    <p v-if="item.released == '1'"><input type="checkbox" id="jack" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)" checked></p>
-                    <p v-else><input type="checkbox" value="item.player_first_name" v-on:click="teamReleasedCheckbox($event, item.reservation_id)"></p>
-                  </td>
-
-                </tr>
-            </table>
-
-        </b-col>
-        <!-- end of right div which all table -->
+          </b-col>
       </b-row>
+
+
+     
     </div>
 
     <br/>
@@ -794,6 +379,7 @@
 </template>
 
 <script src="moment.js"></script>
+<script src="moment-range.js"></script>
 <script>
   moment().format();  
 </script>
@@ -818,7 +404,13 @@
   // import VueSignature from "vue-signature-pad";
   // import App from "./App";
   import Vue from 'vue';
-  import moment from 'moment';
+  import Moment from 'moment';
+
+  // import Moment from 'moment';
+  // import Moment from 'moment';
+  import { extendMoment } from 'moment-range';
+   
+  const moment = extendMoment(Moment);
 
   import vSelect from "vue-select";
   // import DateDropdown from 'vue-date-dropdown'; // this for the date dropdown
@@ -837,6 +429,53 @@ export default {
     return{
       // url: process.env.VUE_APP_URL,
       // title: process.env.VUE_APP_TITLE,
+
+      endDateClicked: '',
+      // dateClicked: '',
+
+      startDate: '2020-12-06',
+      endDate: moment().format('YYYY-MM-DD'),
+      allDates: [],
+      startDateUsed:'',
+      endDateUsed: '',
+
+      totalPlayers:'',
+      totalTeams:'',
+      mission1total:'',
+      mission2total:'',
+      missionDiscrepancy:'',
+      avgTeamSize:'',
+      avgTeamSizeDiscrepancy:'',
+      calculatedTeamSize:'',
+      totalMinors:'',
+      totalFemale:'',
+      totalMale:'',
+      totalNonBinary:'',
+      totalPreferNotToAnswer:'',
+      totalGender: '',
+      minorsDiscrepancy:'',
+      femalePercentage:'',
+
+      bombbeaters:'',
+      bombbeatersMission1:'',
+      bombbeatersMission2:'',
+      bombBeatersBySession:'',
+      bombBeatersDiscrepancy:'',
+
+      answer2:'',
+      answer3:'',
+      answer4:'',
+      answer5:'',
+      answer6:'',
+      answer7:'',
+      answer8:'',
+      totalAnswer:'',
+      averageReservationSize:'',
+
+      weeklyList:'0',
+      buttonDisplay:'',
+      pageReload:'1',
+
       value:'',
       searchQuery: '',
       posts: [],
@@ -1057,6 +696,27 @@ export default {
 
 mounted: function(){
 
+  console.log(this.startDate+' that was start date');
+  console.log(this.endDate+' that was end date');
+
+  /** this will give us the date range as for link **/
+    var dates = [];
+
+    var currDate = moment(this.startDate).startOf('day');
+    var lastDate = moment(this.endDate).startOf('day');
+
+      while(currDate.add(7, 'days').diff(lastDate) < 0) {
+          console.log(currDate.toDate());
+          var getDate = currDate.toDate();
+          var convertDate = moment(getDate).format('YYYY-MM-DD');
+          // console.log(convertDate);
+          this.allDates.push(convertDate);
+      }
+  /** end of DATE RANGE link **/
+
+  var lastDateElement = this.allDates.slice(-1).pop();
+  this.startDateUsed = moment(lastDateElement).add('days',1).format('YYYY-MM-DD');
+  this.endDateUsed = moment(this.startDateUsed).add('days',7).format('YYYY-MM-DD');
   this.currentTime = moment().format('HH:mm');
 
   //   var currentDate = moment().format('YYYY-MM-DD');
@@ -1101,6 +761,7 @@ mounted: function(){
   //    .then(response => (this.posts = response.data.data));
 
     this.dateClicked = moment().format('YYYY-MM-DD');
+    this.endDateClicked = moment().add('days',7).format('YYYY-MM-DD');
 
     var starttime='start';
     var endtime='end';
@@ -1136,9 +797,9 @@ mounted: function(){
             var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
             var reservationForConvert = replyDataObj1[i].reservation_for;
 
-            var date = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A MM-DD-YYYY');
+            var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A');
+            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
             console.log(reservationForConvert);
             console.log(date);
@@ -1146,7 +807,7 @@ mounted: function(){
 
             replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-            var lateStatus = moment.utc(reservationForConvert).subtract('hours',3).format('HHmm');
+            var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
             var lateBy = lateStatus-currentTime;
 
             var arrivedPerson = 0;
@@ -1254,6 +915,8 @@ mounted: function(){
     // .catch(function (error){
     //     console.log(error);
     //   });
+
+    this.dateSelected();
   },
 
 /* the function below grabs the time fro axios.get(API) and converts to military time */
@@ -1268,6 +931,440 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    activateWeekList(){
+      this.buttonDisplay++;
+      if(this.buttonDisplay%2 == 0){
+        // console.log(this.buttonDisplay+' even');
+        this.weeklyList = 0;
+      }
+      else{
+        // console.log(this.buttonDisplay+' odd');
+        this.weeklyList = 1;
+      }
+    },
+
+    dateSelected(element,value){
+
+      console.log(element);
+      console.log(value);
+
+      console.log('in in in in in');
+
+      if(this.pageReload == '1'){
+        console.log('page loaded');
+        var element = this.allDates.pop(); /** this will select the Last Element FROM DATE LINK **/
+
+        var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
+        var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
+        // console.log(startDate + ' ' + endDate);
+        this.startDateUsed = startDate;
+        this.endDateUsed = endDate;
+
+        this.dateClicked = startDate;
+        this.endDateClicked = endDate;
+
+        this.pageReload = 0;
+      }
+
+      if(value == 1){
+        console.log('yes link');
+        var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
+        var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
+        // console.log(startDate + ' ' + endDate);
+        this.startDateUsed = startDate;
+        this.endDateUsed = endDate;
+
+        this.dateClicked = startDate;
+        this.endDateClicked = endDate;
+
+        this.pageReload = 0;
+      }
+      else{
+        console.log('no link');
+        this.startDateUsed = this.dateClicked;
+        console.log(this.startDateUsed);
+        this.endDateUsed = this.endDateClicked;
+        console.log(this.endDateUsed);
+
+        this.pageReload = 0;
+      }
+
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        this.totalPlayers = response.data;
+
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/1',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.mission1total = response.data;
+          })
+          .catch(function (error) {
+              console.log(error);
+            });
+
+
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/2',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.mission2total = response.data;
+            this.missionDiscrepancy = parseInt(this.totalPlayers)-(parseInt(this.mission1total)+parseInt(this.mission2total));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalTeams = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.avgTeamSize = parseFloat(response.data[0].player_count).toFixed(2);
+            // this.avgTeamSize = parseFloat(this.avgTeamSize).toFixed(2);
+            var x = this.totalPlayers;
+            var y = this.totalTeams;
+            console.log(x);
+            console.log(y);
+            var z = x/y;
+            console.log('z value is '+z);
+            this.calculatedTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
+            // var avgBySize = this.totalPlayers/this.totalTeams;
+            // console.log(avgBySize);
+            // var formatAvgSize = avgBySize.toFixed(2);
+            this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+
+            if(this.avgTeamSizeDiscrepancy < 0 || this.avgTeamSizeDiscrepancy > 0){
+              this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+            }
+            else{
+              this.avgTeamSizeDiscrepancy = this.avgTeamSize-this.calculatedTeamSize;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** below axios is for the minors **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/minors',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalMinors = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of minors endpoint detail **/
+
+
+          /** below axios is for total female gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/1',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalFemale = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of female gender endpoint detail **/
+
+          /** below axios is for total Male gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/2',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalMale = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of Male gender endpoint detail **/
+
+          /** below axios is for total NonBinary gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/3',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalNonBinary = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of NonBinary gender endpoint detail **/
+
+          /** below axios is for total prefer not to answer gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/4',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalPreferNotToAnswer = response.data.count;
+            this.totalGender = this.totalFemale+this.totalMale+this.totalNonBinary+this.totalPreferNotToAnswer;
+            this.minorsDiscrepancy = this.totalPlayers-(this.totalMinors+this.totalGender);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of total prefer not to answer endpoint detail **/
+
+
+          /** female percentage **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.femalePercentage = response.data.percentFemale;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of female percentage **/
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+      /** bomb beaters both mission **/
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data);
+          this.bombbeaters = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of bomb beaters both mission **/
+
+      /** bomb beaters of mission 1 **/
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters/1',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data);
+          this.bombbeatersMission1 = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of bomb beaters of mission 1 **/
+
+      /** bomb beaters of mission 2 **/
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters/2',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data);
+          this.bombbeatersMission2 = response.data;
+
+          /** bomb beaters from SESSION TABLE **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners_player_count_session/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+            })
+            .then(response => 
+            {
+              console.log(response.data);
+              this.bombBeatersBySession = response.data[0].player_count;
+              this.bombBeatersDiscrepancy = this.bombBeatersBySession-(this.bombbeatersMission1+this.bombbeatersMission2);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          /** end of bomb beaters from SESSION TABLE **/
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of bomb beaters of mission 2 **/
+
+
+      /** How did you hear about us for Heard about it directly from a friend, family or colleague **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/2');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/2',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer2 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us for Heard about it directly from a friend, family or colleague **/
+
+
+      /** How did you hear about us Friends Social Media **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/3');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/3',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer3 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us Friends Social Media **/
+
+      /** How did you hear about us Google Search **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/4');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/4',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer4 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us Google Search **/
+
+      /** How did you hear about us Trip Advisor **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/5');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/5',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer5 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us Trip Advisor **/
+
+      /** How did you hear about us from OTHERS **/
+      console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/6');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/6',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer6 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us from OTHERS **/
+
+      /** How did you hear about us from INSTAGRAM **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/7');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/7',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer7 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us from INSTAGRAM **/
+
+      /** How did you hear about us from TIK TOK **/
+      // console.log(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/8');
+      axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/8',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer8 = response.data.count;
+          this.totalAnswer = this.answer2+this.answer3+this.answer4+this.answer5+this.answer6+this.answer7+this.answer8;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of How did you hear about us from TIK TOK **/
+
+
+      /** AVERAGE RESERVATION SIZE **/
+      axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/average_group_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data[0]);
+          var space = 'average size';
+          console.log(response.data[0].average_size);
+          this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of AVERAGE RESERVATION SIZE **/
+
+      /** AVERAGE Game Time from SESSION TABLE **/
+      axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/average_group_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data[0]);
+          var space = 'average size';
+          console.log(response.data[0].average_size);
+          this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** end of AVERAGE Game Time from Session table **/
+
+
+    },
 
     changedReservation(event,index,checkPlayer){
       console.log(event);
@@ -1321,6 +1418,7 @@ var arrows = document.getElementsByClassName("covertedtime");
     waiverList(){
 
       this.dateClicked = moment().format('YYYY-MM-DD');
+      this.endDateClicked = moment().add('days',7).format('YYYY-MM-DD');
 
       var starttime='start';
       var endtime='end';
@@ -1708,9 +1806,9 @@ var arrows = document.getElementsByClassName("covertedtime");
                   var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
                   var reservationForConvert = replyDataObj1[i].reservation_for;
 
-                  var date = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A MM-DD-YYYY');
+                  var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A');
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
                   console.log(reservationForConvert);
                   console.log(date);
@@ -1718,10 +1816,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 
                   replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',3).format('HHmm');
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
                   console.log(lateStatus);
 
-                  var currentTime = moment(response.data.createdAt).subtract('hours',3).format("HHmm");
+                  var currentTime = moment(response.data.createdAt).subtract('hours',5).format("HHmm");
                   console.log('current time '+currentTime);
 
                   var lateBy = lateStatus-currentTime;
@@ -1872,9 +1970,9 @@ var arrows = document.getElementsByClassName("covertedtime");
                   var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
                   var reservationForConvert = replyDataObj1[i].reservation_for;
 
-                  var date = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A MM-DD-YYYY');
+                  var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A');
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
                   console.log(reservationForConvert);
                   console.log(date);
@@ -1882,7 +1980,7 @@ var arrows = document.getElementsByClassName("covertedtime");
 
                   replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',3).format('HHmm');
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
                   var lateBy = lateStatus-currentTime;
 
                   var arrivedPerson = 0;
@@ -2363,9 +2461,9 @@ var arrows = document.getElementsByClassName("covertedtime");
       /** conversion of date and time for second part **/
         // var date = this.posts[index].reservation_for;
 
-        var reservation_for_converted = moment.utc(date).subtract('hours',3).format('hh:mm A MM-DD-YYYY');
+        var reservation_for_converted = moment.utc(date).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
         var onlyDate = moment.utc(date).format('MM-DD-YYYY');
-        var timeConverted = moment.utc(date).subtract('hours',3).format('hh:mm A');
+        var timeConverted = moment.utc(date).subtract('hours',5).format('hh:mm A');
 
         console.log(reservation_for_converted);
         console.log(index);
@@ -2815,8 +2913,8 @@ var arrows = document.getElementsByClassName("covertedtime");
              
             
             var reservationForConvert = replyDataObj1[i].reservation_for;
-            var date = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A MM-DD-YYYY');
-            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',3).format('hh:mm A');
+            var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
+            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
             console.log(reservationForConvert);
             console.log(date);
@@ -2905,6 +3003,14 @@ var arrows = document.getElementsByClassName("covertedtime");
   height: 500px;
   overflow-y: auto;
   /*background-color: red;*/
+}
+
+.tdStyle{
+  text-align:left;font-weight: bold;
+}
+
+.theadStyle{
+  font-weight:bold;font-size: 19px; margin:auto;
 }
 
 </style>

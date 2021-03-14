@@ -47,6 +47,8 @@
 								<th scope="col">Team Name</th>
 								<th scope="col">Date of Birth</th>
 								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Gender</th>
 							</tr>
 						</thead>
 						<tbody v-for="item in teamList" v-bind:key="item.id">
@@ -67,18 +69,28 @@
 								<td>
 									<p v-if="!detail.player_minor_id > 0">{{detail.Player.Person.instagram}}</p>
 									<p v-else></p></td>
-									<td style="text-transform:capitalize;">{{item.Team.name}}</td>
-									<td>
-										<p v-if="!detail.player_minor_id > 0" style="
+								<td style="text-transform:capitalize;">{{item.Team.name}}</td>
+								<td>
+									<p v-if="!detail.player_minor_id > 0" style="
 											display:inline-block;
 											white-space: nowrap;
 											overflow: hidden;
 											text-overflow: ellipsis;
 											max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
-											<p v-else>{{detail.Player_minor.date_of_birth}}</p>
-										</td>
-										<td>{{detail.Player.Person.email}}</td>
-									</tr>
+									<p v-else>{{detail.Player_minor.date_of_birth}}</p>
+									</td>
+								<td>{{detail.Player.Person.email}}</td>
+								<td>{{detail.Player.Person.phone}}</td>
+								<td>
+									<div v-if="!detail.player_minor_id > 0">
+										<p v-if="detail.Player.Person.gender_id == '1'">Female</p>
+										<p v-if="detail.Player.Person.gender_id == '2'">Male</p>
+										<p v-if="detail.Player.Person.gender_id == '3'">Nonbinary</p>
+										<p v-if="detail.Player.Person.gender_id == '4'">Not to say</p>
+									</div>
+									<div v-else>Minor</div>
+								</td>
+								</tr>
 								</tbody>
 							</table>
 
