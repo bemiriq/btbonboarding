@@ -326,7 +326,7 @@
                     </tr>
                     <tr>
                       <td class="tdStyle">Average Time to play Beat The Bomb</td>
-                      <td>{{averageReservationSize}}</td>
+                      <td>{{averageSessionTime}}</td>
                     </tr>  
                   </table>
                 </b-col>
@@ -471,6 +471,8 @@ export default {
       answer8:'',
       totalAnswer:'',
       averageReservationSize:'',
+
+      averageSessionTime:'',
 
       weeklyList:'0',
       buttonDisplay:'',
@@ -1348,15 +1350,16 @@ var arrows = document.getElementsByClassName("covertedtime");
       /** end of AVERAGE RESERVATION SIZE **/
 
       /** AVERAGE Game Time from SESSION TABLE **/
-      axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/average_group_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/average_team_time/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
         })
         .then(response => 
         {
-          console.log(response.data[0]);
-          var space = 'average size';
-          console.log(response.data[0].average_size);
-          this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+          console.log(response.data.avgTimePlayed);
+          this.averageSessionTime = response.data.avgTimePlayed;
+          // var space = 'average size';
+          // console.log(response.data[0].average_size);
+          // this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
         })
         .catch(function (error) {
           console.log(error);

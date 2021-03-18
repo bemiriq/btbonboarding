@@ -1574,11 +1574,21 @@ var arrows = document.getElementsByClassName("covertedtime");
       if(amPm == 'AM'){
         console.log('AM');
         var b = this.reservationTimeHourly;
+        console.log(b);
       }
       if(amPm == 'PM'){
         console.log( 'PM ');
         var b = parseInt(this.reservationTimeHourly);
-        b += 12;
+
+        if(b == 12){
+          console.log('it was 12 '+ b);
+          var b = 12;
+        }
+        else{
+          console.log('not 12 '+b);
+          b += 12;
+        }
+
       }
 
       var reservationDateTime = this.addReservationDate+' '+b+':'+parseInt(this.reservationTimeQuaterly)+':00';
@@ -1599,61 +1609,45 @@ var arrows = document.getElementsByClassName("covertedtime");
 
           var peopleId = response.data[0].id;
 
-          /** axios post to PLAYERS TABLE **/
-          axios.post(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId,{
+            console.log(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId);
 
-          })
-          .then(response => {
-            console.log(response);
-            console.log(response.data[0].id);
+            axios.post(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId,{
+              // person_id: peopleId /** this will update people id from people table not person id **/
+            })
+            .then(response => {
+              console.log(response);
+              console.log("Create player id");
+            })
 
-            var personId = response.data[0].id;
 
-            /** find or create booker **/
-            // var xolaBookerId = this.addXolaBookerId;
-            var defaultId = 'btbdefaultid'+this.addBookerPhoneNumber;
-            var xolaBookerId = defaultId;
-            axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/'+xolaBookerId,{
-              person_id: peopleId /** this will update people id from people table not person id **/
+            axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/person/'+peopleId,{
+              // person_id: peopleId /** this will update people id from people table not person id **/
             })
             .then(response => {
               console.log("Xola Booker Id response below");
               console.log(response);
-              
 
-              var bookerId = response.data[0].id;
+              var xolaBookerId = response.data.xola_booker_id;
+              var bookerId = response.data.id;
 
-              /** find or create reservation **/
 
-              // var xolaOrderId = this.addBookerXolaOrderId;
-              // var xolaItemId = this.addBookerXolaItemId;
-              // var xolaExperienceItemId = this.addBookerXolaTravelerId;
-              var xolaOrderId = defaultId;
-              var xolaItemId = defaultId;
-              var xolaExperienceItemId = defaultId;
-              var totalAmount = parseInt(teamSize)*44.95;
-
-              axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/xola_order_id/'+xolaOrderId+'/xola_item_id/'+xolaItemId,{
-                size: teamSize,
-                booker_id: bookerId,
-                final_dollar_amount: totalAmount,
-                reservation_for: reservationDateTime,
+              axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/booker/'+bookerId,{
+              // person_id: peopleId /** this will update people id from people table not person id **/
                 location_id: 1,
-                mission_id: mission,
-                experience_item_id: xolaItemId
+                size: this.addBookerTeamSize,
+                mission_id: this.addBookerMission,
+                reservation_for: reservationDateTime
               })
               .then(response => {
+                console.log("Xola Reservation detail is below");
                 console.log(response);
-
                 this.reloadPageEvent();
-
               })
               .catch(function (error) {
                 console.log(error);
               });
 
               /** end of find or create reservation **/
-
 
             })
             .catch(function (error) {
@@ -1662,11 +1656,76 @@ var arrows = document.getElementsByClassName("covertedtime");
             /** end of find or create booker **/
 
 
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-          /** END OF axios post PLAYER detail **/
+          // var peopleId = response.data[0].id;
+
+          // /** axios post to PLAYERS TABLE **/
+          // axios.post(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId,{
+
+          // })
+          // .then(response => {
+          //   console.log(response);
+          //   console.log(response.data[0].id);
+
+          //   var personId = response.data[0].id;
+
+          //   /** find or create booker **/
+          //   // var xolaBookerId = this.addXolaBookerId;
+          //   var defaultId = 'btbdefaultid'+this.addBookerPhoneNumber;
+          //   var xolaBookerId = defaultId;
+          //   axios.post(process.env.VUE_APP_BOOKERS+'find_or_create/'+xolaBookerId,{
+          //     person_id: peopleId /** this will update people id from people table not person id **/
+          //   })
+          //   .then(response => {
+          //     console.log("Xola Booker Id response below");
+          //     console.log(response);
+              
+
+          //     var bookerId = response.data[0].id;
+
+          //     /** find or create reservation **/
+
+          //     // var xolaOrderId = this.addBookerXolaOrderId;
+          //     // var xolaItemId = this.addBookerXolaItemId;
+          //     // var xolaExperienceItemId = this.addBookerXolaTravelerId;
+          //     var xolaOrderId = defaultId;
+          //     var xolaItemId = defaultId;
+          //     var xolaExperienceItemId = defaultId;
+          //     var totalAmount = parseInt(teamSize)*44.95;
+
+          //     axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/xola_order_id/'+xolaOrderId+'/xola_item_id/'+xolaItemId,{
+          //       size: teamSize,
+          //       booker_id: bookerId,
+          //       final_dollar_amount: totalAmount,
+          //       reservation_for: reservationDateTime,
+          //       location_id: 1,
+          //       mission_id: mission,
+          //       experience_item_id: xolaItemId
+          //     })
+          //     .then(response => {
+          //       console.log(response);
+
+          //       this.reloadPageEvent();
+
+          //     })
+          //     .catch(function (error) {
+          //       console.log(error);
+          //     });
+
+          //     /** end of find or create reservation **/
+
+
+          //   })
+          //   .catch(function (error) {
+          //     console.log(error);
+          //   });
+          //   /** end of find or create booker **/
+
+
+          // })
+          // .catch(function (error) {
+          //   console.log(error);
+          // });
+          // /** END OF axios post PLAYER detail **/
 
         })
         .catch(function (error) {

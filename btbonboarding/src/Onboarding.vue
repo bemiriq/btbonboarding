@@ -1538,7 +1538,7 @@
                             </b-col>
                             <b-col sm="7">
 
-                              <b-form-input size="md" v-model="item.Team.name" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                              <b-form-input size="md" v-model="item.Team.name" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                             </b-col>
 
@@ -1724,7 +1724,7 @@
                                 </b-col>
                                 <b-col sm="7">
 
-                                  <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                                  <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                                 </b-col>
 
@@ -1980,7 +1980,7 @@
                           <b-col sm="7">
 
 
-                            <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                            <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                           </b-col>
@@ -2268,7 +2268,7 @@
                         <b-col sm="7">
 
 
-                          <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:change="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:blur="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
 
                         </b-col>
@@ -2515,7 +2515,7 @@
                       </b-col>
                       <b-col sm="7">
 
-                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:change="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:blur="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                       </b-col>
 
@@ -2778,7 +2778,7 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                     </b-col>
 
@@ -3026,7 +3026,7 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:change="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:blur="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                         </b-col>
 
@@ -3288,7 +3288,7 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                     </b-col>
 
@@ -3534,7 +3534,7 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                         </b-col>
 
@@ -3792,7 +3792,7 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:change="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                     </b-col>
 
@@ -4038,7 +4038,7 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:change="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
 
                         </b-col>
 
@@ -4559,7 +4559,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(1, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(6, 'days').format("YYYY-MM-DD");
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
