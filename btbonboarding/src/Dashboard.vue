@@ -20,7 +20,7 @@
             </b-button>
           </div>
           <div v-if="weeklyList == '1'">
-            <div v-for="element in allDates.slice().reverse()" :key="element.id">
+            <div v-for="element in newDateUse.slice().reverse()" :key="element.id">
              <b-button variant="info" v-on:click="dateSelected(element,1);" style="margin-top: 2%;">{{element}}</b-button>
             </div>
           </div>
@@ -439,6 +439,8 @@ export default {
       startDateUsed:'',
       endDateUsed: '',
 
+      newDateUse:[],
+
       totalPlayers:'',
       totalTeams:'',
       mission1total:'',
@@ -711,10 +713,20 @@ mounted: function(){
           console.log(currDate.toDate());
           var getDate = currDate.toDate();
           var convertDate = moment(getDate).format('YYYY-MM-DD');
-          // console.log(convertDate);
-          this.allDates.push(convertDate);
+          console.log(convertDate);
+          // console.log('san');
+          dates.push(convertDate);
+          this.newDateUse.push(convertDate);
+          console.log(dates);
+          // console.log(this.allDates.length);
+          // console.log(this.allDates[this.allDates.length-1]);
+         
+          // console.log(dates[dates.length-1]);
+          // this.allDates.push(dates[dates.length-1]);
+          // console.log(this.allDates);
       }
   /** end of DATE RANGE link **/
+  // var lastDateElement1 = this.newDateUse.slice(-1).pop();
 
   var lastDateElement = this.allDates.slice(-1).pop();
   this.startDateUsed = moment(lastDateElement).add('days',1).format('YYYY-MM-DD');
@@ -973,6 +985,17 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log('yes link');
         var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
         var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
+        var currentdate = moment().format('YYYY-MM-DD');
+
+        var formatEndDate = moment(element).add('days',7).format('YYYYMMDD');
+        var formatCurrentDate = moment().format('YYYYMMDD');
+        if(formatEndDate > formatCurrentDate){
+          // console.log('greater than 0');
+          var endDate = moment(formatCurrentDate).format('YYYY-MM-DD');
+        }
+        else{
+          console.log('End date is less than current date');
+        }
         // console.log(startDate + ' ' + endDate);
         this.startDateUsed = startDate;
         this.endDateUsed = endDate;
