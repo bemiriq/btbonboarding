@@ -810,8 +810,8 @@ mounted: function(){
   //       {headers: {'X-API-KEY': 'Af144hp8uKL3ESKoSDlsDR1btaMM4nO1cbdsT8rWvKo'}})
   //    .then(response => (this.posts = response.data.data));
 
-    this.dateClicked = moment().format('YYYY-MM-DD');
-    this.endDateClicked = moment().add('days',7).format('YYYY-MM-DD');
+    this.dateClicked = moment(this.newDateUse[this.newDateUse.length-1]).format('YYYY-MM-DD');
+    this.endDateClicked = moment(this.dateClicked).add('days',7).format('YYYY-MM-DD');
 
     var starttime='start';
     var endtime='end';
@@ -1005,14 +1005,20 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log('page loaded');
         var element = this.allDates.pop(); /** this will select the Last Element FROM DATE LINK **/
 
-        var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
-        var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
-        // console.log(startDate + ' ' + endDate);
+        // var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
+        // var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
+
+        var startDate = this.dateClicked;
+        var endDate = this.endDateClicked;
+
         this.startDateUsed = startDate;
         this.endDateUsed = endDate;
 
-        this.dateClicked = startDate;
-        this.endDateClicked = endDate;
+        console.log('start date is '+this.startDateUsed);
+        console.log('end date is '+this.endDateUsed);
+
+        // this.dateClicked = startDate;
+        // this.endDateClicked = endDate;
 
         this.pageReload = 0;
       }
