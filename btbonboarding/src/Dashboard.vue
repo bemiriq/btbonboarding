@@ -333,8 +333,43 @@
               </b-row>
               <!-- end of b-row for third table -->
 
+              <br>
+
+              <!-- below b-row generates the third table -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Bookers</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Bookers</td>
+                      <td>{{totalBooker}}</td>
+                    </tr>
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <!-- <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Average Game Time</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Teams</td>
+                      <td>{{totalTeams}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Time to play Beat The Bomb</td>
+                      <td>{{averageSessionTime}}</td>
+                    </tr>  
+                  </table> -->
+                </b-col>
+              </b-row>
+              <!-- end of b-row for third table -->
+
             </b-col>
 
+            <br>
 
           </b-row>
             <!-- end of right div which all table -->
@@ -440,6 +475,7 @@ export default {
       endDateUsed: '',
 
       newDateUse:[],
+      totalBooker:'',
 
       totalPlayers:'',
       totalTeams:'',
@@ -1388,6 +1424,27 @@ var arrows = document.getElementsByClassName("covertedtime");
           console.log(error);
         });
       /** end of AVERAGE Game Time from Session table **/
+
+      // http://20.17.0.4:9090/people/booker/dashboard/start/2020-9-11/end/2020-10-11
+      /** Total Number of bookers **/
+      axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'booker/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          console.log(response.data.count);
+
+          this.totalBooker = response.data.count;
+          // this.averageSessionTime = response.data.avgTimePlayed;
+          // var space = 'average size';
+          // console.log(response.data[0].average_size);
+          // this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      /** ENd of Booker description **/
 
 
     },
