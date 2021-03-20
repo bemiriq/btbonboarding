@@ -4563,6 +4563,7 @@ for(let b=0; b < totalBoxes; b++){
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
+var startCurrentDate = moment().subtract(2, 'hours').format('YYYY-MM-DD');
 var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
@@ -4573,10 +4574,10 @@ this.reservationDateUsed = currentdate;
 console.log("START RESEVATION TIME "+startReservationTime);
 console.log("END RESERVATION TIME "+endReservationTime);
 
-console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+startCurrentDate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
 // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00').then(response => 
-axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+startCurrentDate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
 })
 .then(response => 
