@@ -4563,8 +4563,8 @@ for(let b=0; b < totalBoxes; b++){
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startReservationTime = moment().subtract(1, 'minutes').format('HH:mm:ss');
-var endReservationTime = moment().add(11, 'hours').format('HH:mm:ss');
+var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 this.startReservationTime = startReservationTime;
 this.endReservationTime = endReservationTime;
