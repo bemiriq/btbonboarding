@@ -1905,7 +1905,7 @@ var arrows = document.getElementsByClassName("covertedtime");
 
           var startReservationTime = '08:45:00';
           // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
-          var endReservationTime = '23:45:00';
+          var endReservationTime = '23:57:00';
           var currentTime = moment().format("HHmm");
           console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
           axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
