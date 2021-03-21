@@ -4567,6 +4567,14 @@ var startCurrentDate = moment().subtract(2, 'hours').format('YYYY-MM-DD');
 var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
+var getStartDateTime = moment().format('HHmm');
+if(getStartDateTime > '2325'){
+  console.log('time was greater than 11:25 PM');
+}
+else{
+  console.log('time was less than 11:25 PM');
+}
+
 this.startReservationTime = startReservationTime;
 this.endReservationTime = endReservationTime;
 this.reservationDateUsed = currentdate;
