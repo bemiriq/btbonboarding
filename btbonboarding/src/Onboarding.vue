@@ -4570,7 +4570,7 @@ var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
 console.log('get start time '+getStartDateTime);
-if(getStartDateTime > '200'){
+if(getStartDateTime > 200){
   console.log('time was greater than 2:00 AM');
   // var startCurrentDate = moment()
 }
