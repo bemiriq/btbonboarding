@@ -4566,17 +4566,17 @@ console.log(currentdate+ ' date used for reservation');
 
 var startCurrentDate = moment().format('YYYY-MM-DD');
 var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
 console.log('get start time '+getStartDateTime);
-if(getStartDateTime < '200'){
-  console.log('time was greater than 12:00 AM');
+if(getStartDateTime > '200'){
+  console.log('time was greater than 2:00 AM');
   // var startCurrentDate = moment()
-  startCurrentDate = moment().subtract(1,'days').format('YYYY-MM-DD');
 }
 else{
-  console.log('time was less than 12:00 AM');
+  console.log('time was greater than 12:00 AM and less than 2:00 AM');
+  startCurrentDate = moment().subtract(1,'days').format('YYYY-MM-DD');
 }
 
 this.startReservationTime = startReservationTime;
