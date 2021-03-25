@@ -1257,6 +1257,7 @@
           <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
           <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
           <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+          <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
           <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
           <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
           <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
@@ -4563,16 +4564,19 @@ for(let b=0; b < totalBoxes; b++){
 var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
-var startCurrentDate = moment().subtract(2, 'hours').format('YYYY-MM-DD');
+var startCurrentDate = moment().format('YYYY-MM-DD');
 var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
-if(getStartDateTime > '2325'){
-  console.log('time was greater than 11:25 PM');
+console.log('get start time '+getStartDateTime);
+if(getStartDateTime < '200'){
+  console.log('time was greater than 12:00 AM');
+  // var startCurrentDate = moment()
+  startCurrentDate = moment().subtract(1,'days').format('YYYY-MM-DD');
 }
 else{
-  console.log('time was less than 11:25 PM');
+  console.log('time was less than 12:00 AM');
 }
 
 this.startReservationTime = startReservationTime;

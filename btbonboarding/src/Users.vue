@@ -337,53 +337,6 @@
               </b-col>
             </b-row>
 
-
-            <!-- <b-row class="my-1">
-              <b-col>
-                <p style="text-align:center; text-transform:uppercase; font-weight:bold; "> Add XOLA DETAILS BELOW </p>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Order Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaOrderId" id="input-large" placeholder="Enter Xola Order Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Booker Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addXolaBookerId" id="input-large" placeholder="Enter Xola Booker Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Item Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaItemId" id="input-large" placeholder="Enter Xola Item Id"></b-form-input>
-              </b-col>
-            </b-row>
-
-
-            <b-row class="my-1">
-              <b-col sm="4">
-                <b>Xola Traveler Id</b>
-              </b-col>
-              <b-col sm="8">
-                <b-form-input v-model="addBookerXolaTravelerId" id="input-large" placeholder="Enter Xola Traveler Id"></b-form-input>
-              </b-col>
-            </b-row> -->
-
             <br>
 
             <b-row class="my-1">
@@ -559,6 +512,7 @@
             <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
             <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+            <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
@@ -1569,6 +1523,8 @@ var arrows = document.getElementsByClassName("covertedtime");
       var bookerEmail = this.addBookerEmail.toLowerCase();
       var mission = this.addBookerMission;
       var teamSize = this.addBookerTeamSize;
+      var battleMode = '0';
+      var onlineReservation = '0';
 
       var amPm = this.reservationAmPm;
       if(amPm == 'AM'){
@@ -1636,12 +1592,16 @@ var arrows = document.getElementsByClassName("covertedtime");
                 location_id: 1,
                 size: this.addBookerTeamSize,
                 mission_id: this.addBookerMission,
-                reservation_for: reservationDateTime
+                reservation_for: reservationDateTime,
+                battlemode: battleMode,
+                online_reservation: onlineReservation
               })
               .then(response => {
                 console.log("Xola Reservation detail is below");
                 console.log(response);
+               
                 this.reloadPageEvent();
+
               })
               .catch(function (error) {
                 console.log(error);
