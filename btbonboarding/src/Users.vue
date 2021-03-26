@@ -1523,8 +1523,8 @@ var arrows = document.getElementsByClassName("covertedtime");
       var bookerEmail = this.addBookerEmail.toLowerCase();
       var mission = this.addBookerMission;
       var teamSize = this.addBookerTeamSize;
-      var battleMode = '0';
-      var onlineReservation = '0';
+      var battleMode = 0;
+      var onlineReservation = 0;
 
       var amPm = this.reservationAmPm;
       if(amPm == 'AM'){
@@ -1590,6 +1590,8 @@ var arrows = document.getElementsByClassName("covertedtime");
               var xolaBookerId = response.data.xola_booker_id;
               var bookerId = response.data.id;
 
+              var xolaOrderId = 'addedreservation'+phoneNumber;
+              var xolaItemId = 'addedreservation'+phoneNumber;
 
               axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/booker/'+bookerId,{
               // person_id: peopleId /** this will update people id from people table not person id **/
@@ -1597,8 +1599,10 @@ var arrows = document.getElementsByClassName("covertedtime");
                 size: this.addBookerTeamSize,
                 mission_id: this.addBookerMission,
                 reservation_for: reservationDateTime,
-                battlemode: battleMode,
-                online_reservation: onlineReservation
+                battlemode: 0,
+                online_reservation: 0,
+                xola_order_id: xolaOrderId,
+                xola_item_id: xolaItemId
               })
               .then(response => {
                 console.log("Xola Reservation detail is below");
