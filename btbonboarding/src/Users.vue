@@ -1547,6 +1547,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 
       }
 
+      console.log('date was '+this.addReservationDate);
+      console.log('hour value as b was '+b);
+      console.log('reservation time quaterly '+this.reservationTimeQuaterly);
+
       var reservationDateTime = this.addReservationDate+' '+b+':'+parseInt(this.reservationTimeQuaterly)+':00';
       console.log(reservationDateTime);
 
