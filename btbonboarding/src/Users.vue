@@ -1591,7 +1591,6 @@ var arrows = document.getElementsByClassName("covertedtime");
               var bookerId = response.data.id;
 
               var xolaOrderId = 'addedreservation'+phoneNumber;
-              var xolaItemId = 'addedreservation'+phoneNumber;
 
               axios.post(process.env.VUE_APP_RESERVATIONS+'find_or_create/booker/'+bookerId,{
               // person_id: peopleId /** this will update people id from people table not person id **/
@@ -1608,7 +1607,29 @@ var arrows = document.getElementsByClassName("covertedtime");
                 console.log("Xola Reservation detail is below");
                 console.log(response);
                 console.log("this was the reservation id "+response.data[0].id);
-               
+                
+                var reservationFetchId = response.data[0].id;
+
+                console.log(process.env.VUE_APP_RESERVATIONS+reservationFetchId);
+
+                axios.put(process.env.VUE_APP_RESERVATIONS+reservationFetchId,{
+                  location_id: 1,
+                  size: this.addBookerTeamSize,
+                  mission_id: this.addBookerMission,
+                  reservation_for: reservationDateTime
+                  battlemode: 0,
+                  online_reservation: 0,
+                  xola_order_id: xolaOrderId,
+                  xola_item_id: xolaOrderId,
+                  experience_item_id: xolaOrderId
+                }
+                .then(response => {
+                  console.log(response);
+                  console.log('Reservation id with data was updated');
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
                 // this.reloadPageEvent();
 
               })
