@@ -1616,13 +1616,13 @@ var arrows = document.getElementsByClassName("covertedtime");
                   location_id: 1,
                   size: this.addBookerTeamSize,
                   mission_id: this.addBookerMission,
-                  reservation_for: reservationDateTime
+                  reservation_for: reservationDateTime,
                   battlemode: 0,
                   online_reservation: 0,
                   xola_order_id: xolaOrderId,
                   xola_item_id: xolaOrderId,
                   experience_item_id: xolaOrderId
-                }
+                })
                 .then(response => {
                   console.log(response);
                   console.log('Reservation id with data was updated');
