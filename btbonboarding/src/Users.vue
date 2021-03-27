@@ -1607,6 +1607,7 @@ var arrows = document.getElementsByClassName("covertedtime");
               .then(response => {
                 console.log("Xola Reservation detail is below");
                 console.log(response);
+                console.log("this was the reservation id "+response.data[0].id);
                
                 // this.reloadPageEvent();
 
