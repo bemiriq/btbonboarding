@@ -1626,11 +1626,13 @@ var arrows = document.getElementsByClassName("covertedtime");
                 .then(response => {
                   console.log(response);
                   console.log('Reservation id with data was updated');
+                  
+                  this.reloadPageEvent(); /** triggers the RELOAD EVENT **/
+
                 })
                 .catch(function (error) {
                   console.log(error);
                 });
-                // this.reloadPageEvent();
 
               })
               .catch(function (error) {
