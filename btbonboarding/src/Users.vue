@@ -1608,7 +1608,7 @@ var arrows = document.getElementsByClassName("covertedtime");
                 console.log("Xola Reservation detail is below");
                 console.log(response);
                
-                this.reloadPageEvent();
+                // this.reloadPageEvent();
 
               })
               .catch(function (error) {
