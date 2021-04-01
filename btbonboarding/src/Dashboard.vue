@@ -44,7 +44,7 @@
               <p style="margin-top: 3%; font-size: 1.1em;"><b>Date</b></p>
             </b-col>
 
-            <b-col lg="2">
+            <b-col lg="3">
               <b-input-group class="mb-1">
 
                 <b-form-input
@@ -69,7 +69,7 @@
               </b-input-group>
             </b-col>
 
-            <b-col lg="2">
+            <b-col lg="3">
               <b-input-group class="mb-1">
 
                 <b-form-input
@@ -1025,20 +1025,29 @@ var arrows = document.getElementsByClassName("covertedtime");
 
       if(value == 1){
         console.log('yes link');
-        var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
-        var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
-        var currentdate = moment().format('YYYY-MM-DD');
 
-        var formatEndDate = moment(element).add('days',7).format('YYYYMMDD');
-        var formatCurrentDate = moment().format('YYYYMMDD');
-        if(formatEndDate > formatCurrentDate){
-          // console.log('greater than 0');
-          var endDate = moment(formatCurrentDate).format('YYYY-MM-DD');
-        }
-        else{
-          console.log('End date is less than current date');
-        }
-        // console.log(startDate + ' ' + endDate);
+        var endDate = moment(element).add('days',1).format('YYYY-MM-DD');
+        var startDate = moment(element).subtract('days',6).format('YYYY-MM-DD');
+
+        console.log('start date was '+startDate);
+        console.log('end adate was '+endDate);
+
+        // var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
+        // var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
+        
+
+
+        // var currentdate = moment().format('YYYY-MM-DD');
+
+        // var formatEndDate = moment(element).add('days',7).format('YYYYMMDD');
+        // var formatCurrentDate = moment().format('YYYYMMDD');
+        // if(formatEndDate > formatCurrentDate){
+        //   var endDate = moment(formatCurrentDate).format('YYYY-MM-DD');
+        // }
+        // else{
+        //   console.log('End date is less than current date');
+        // }
+
         this.startDateUsed = startDate;
         this.endDateUsed = endDate;
 
