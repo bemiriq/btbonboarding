@@ -50,6 +50,7 @@
 								<th scope="col">Email</th>
 								<th scope="col">Phone</th>
 								<th scope="col">Gender</th>
+								<th scope="col">Waiver ID</th>
 							</tr>
 						</thead>
 						<tbody v-for="item in teamList" v-bind:key="item.id">
@@ -91,6 +92,7 @@
 									</div>
 									<div v-else>Minor</div>
 								</td>
+								<td>{{detail.Player.Person.waiver_id}}</td>
 								</tr>
 								</tbody>
 							</table>
@@ -164,7 +166,7 @@ console.log(moment().format('YYYY-MM-DD'));
     var endDate = moment().add('days',1).format('YYYY-MM-DD');
     this.dateClicked = startDate;
 
-    console.log(axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500'));
+    console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500');
 
     axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/most_recent_team_for_players/start/'+startDate+'/end/'+endDate+'/limit/500',{
       // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
