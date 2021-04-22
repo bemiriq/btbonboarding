@@ -94,10 +94,31 @@
               </b-input-group>
             </b-col>
 
+            <!-- pageload OVERALL buttons -->
+            <b-col lg="2" v-if="pageLoad=='1'">
+              <b-button variant="info" v-on:click="pageLoad='1'" size="md">OVERALL</b-button>
+            </b-col>
+            <b-col lg="2" v-else>
+              <b-button variant="outline-info" v-on:click="pageLoad='1'" size="md">OVERALL</b-button>
+            </b-col>
+            <!-- end of PAGE LOAD OVERALL BUtton -->
+
+            <!-- pageload REPEATERS button -->
+            <b-col lg="2" v-if="pageLoad=='1'">
+              <b-button variant="outline-info" v-on:click="pageLoad='2'" size="md">REPEATERS</b-button>
+            </b-col>
+            <b-col lg="2" v-else>
+              <b-button variant="info" v-on:click="pageLoad='2'" size="md">REPEATERS</b-button>
+            </b-col>
+            <!-- END of Pageload Repeaters button -->
+
           </b-row>
 
               <hr>
               <br>
+
+            <!-- OVERALL DASHBOARD DEFINED -->
+            <div v-if="pageLoad=='1'">
 
               <b-row>
                 <b-col>
@@ -367,6 +388,192 @@
               </b-row>
               <!-- end of b-row for third table -->
 
+            </div>
+            <!-- END OF OVERALL DASHBOARD -->
+
+            <!-- REPEATERS DASHBOARD DIV -->
+            <div v-else>
+              <span style="font-size: 1.7em;text-decoration: underline;"><b> BOOKER DATA </b></span>
+              <br><br>
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Purchaser/Booker Data</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Purchasers</td>
+                      <td>{{uniqueBookers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Purchases</td>
+                      <td>{{totalBookers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Unique Purchasers Since Beginning</td>
+                      <td>{{allTimeTotalBookers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Purchases Since Beginning</td>
+                      <td>{{allTimeUniqueBookers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Unique Purchasers Rolling 12 Months</td>
+                      <td>{{uniquePurchaser12months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Purchases in last 12 Months</td>
+                      <td>{{purchaseVolume12months}}</td>
+                    </tr> 
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Repeat Purchaser Data</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Repeat Purchasers Since Beginning</td>
+                      <td>{{purchaseVolumeByEndDate}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Aggregate Volume of Unique Repeat Purchasers Since Beginning</td>
+                      <td>{{aggregatePurchaseVolume12months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Repeat Purchasers rolling 12-Month</td>
+                      <td>{{uniquePurchaseVolume12months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Aggregate Volume of Unique Repeat Purchasers rolling 12 Months</td>
+                      <td>{{aggregateUniquePurchaseVolume12months}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
+              </b-row>
+              <br>
+              <b-row>
+                <b-col>
+                <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Repeat Purchaser Ratios</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Monthly Repeat Rate Full</td>
+                      <td>{{monthlyRepeatRate}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Monthly Repeat Rate 12 Months</td>
+                      <td>{{monthlyRepeatRate12months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">All Time Repeat Rate</td>
+                      <td>{{allTimeRepeatRate}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Rolling 12 Month Repeat Rate</td>
+                      <td>{{rolling12monthRepeatRate}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
+                <b-col>
+                </b-col>
+              </b-row>
+
+              <hr>
+
+              <span style="font-size: 1.7em;text-decoration: underline;"><b> PLAYER DATA </b></span>
+              <br><br>
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Player Data (No Player Minors)</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Players</td>
+                      <td>{{volumeInMonthUniquePlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Plays</td>
+                      <td>{{volumeInMonthPlays}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Unique Players Since Beginning</td>
+                      <td>{{uniquePlayersSinceBeginning}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Plays Since Beginning</td>
+                      <td>{{volumePlaysSinceBeginning}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Unique Players Rolling 12 Months</td>
+                      <td>{{uniquePlayersRolling12Months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of Plays in last 12 Months</td>
+                      <td>{{last12MonthsVolumePlay}}</td>
+                    </tr> 
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Repeat Player Data</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Repeat Players Since Beginning</td>
+                      <td>{{inMonthUniquePlayerRepeaters}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Aggregate Volume of Unique Repeat Players Since Beginning</td>
+                      <td>{{aggregateVolumeUniquePlayerRepeaters}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Volume of In-Month Unique Repeat Players Rolling 12-Month</td>
+                      <td>{{playersMonthUniqueRepeaters}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Aggregate Volume of Unique Repeat Players Rolling 12 Months</td>
+                      <td>{{aggregateUniquePlayerRepeaters12months}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
+              </b-row>
+              <br>
+              <b-row>
+                <b-col>
+                <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Repeat Player Ratios</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Monthly Repeat Rate Full</td>
+                      <td>{{playersMonthlyRepeatRate}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Monthly Repeat Rate 12 Months</td>
+                      <td>{{playersMonthlyRepeatRate12months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">All Time Repeat Rate</td>
+                      <td>{{playersAllTimeRepeatRate}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Rolling 12 Month Repeat Rate</td>
+                      <td>{{playersRolling12monthRepeatRate}}</td>
+                    </tr>  
+                  </table>
+                </b-col>
+                <b-col>
+                </b-col>
+              </b-row>
+
+            </div>
+            <!-- END OF REPEATERS DASHBOARD -->
+            
             </b-col>
 
             <br>
@@ -464,6 +671,48 @@ export default {
     return{
       // url: process.env.VUE_APP_URL,
       // title: process.env.VUE_APP_TITLE,
+
+    /** repeaters dashboard obejcts **/
+      uniqueBookers:'',
+      totalBookers:'',
+      allTimeTotalBookers:'',
+      allTimeUniqueBookers:'',
+      uniquePurchaser12months:'',
+      purchaseVolume12months:'',
+
+      purchaseVolumeByEndDate:'',
+      aggregatePurchaseVolume12months:'',
+      uniquePurchaseVolume12months:'',
+      aggregateUniquePurchaseVolume12months:'',
+
+      monthlyRepeatRate: '',
+      monthlyRepeatRate12months: '',
+      allTimeRepeatRate:'',
+      rolling12monthRepeatRate:'',
+
+      /** players repeaters object **/
+
+      volumeInMonthUniquePlayers:'',
+      volumeInMonthPlays:'',
+      uniquePlayersSinceBeginning:'',
+      volumePlaysSinceBeginning:'',
+      uniquePlayersRolling12Months:'',
+      last12MonthsVolumePlay:'',
+
+      inMonthUniquePlayerRepeaters:'',
+      aggregateVolumeUniquePlayerRepeaters:'',
+      playersMonthUniqueRepeaters:'',
+      aggregateUniquePlayerRepeaters12months:'',
+
+      playersMonthlyRepeatRate:'',
+      playersMonthlyRepeatRate12months:'',
+      playersAllTimeRepeatRate:'',
+      playersRolling12monthRepeatRate:'',
+      /** end of players repeaters objects **/
+
+    /** end of repeaters dashboard objects **/
+
+      pageLoad:'1',
 
       endDateClicked: '',
       // dateClicked: '',
@@ -1233,6 +1482,305 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(error);
           });
           /** end of female percentage **/
+
+
+      /** the below axios post are for REPEATERS DASHBOARD **/
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_bookers/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.uniqueBookers = response.data[0].unique_bookers;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/total_bookers/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalBookers = response.data[0].total_bookers;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/alltime_unique_bookers/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.allTimeUniqueBookers = response.data[0].alltime_unique_bookers;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/alltime_total_bookers/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.allTimeTotalBookers = response.data[0].alltime_total_bookers;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_purchaser_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.uniquePurchaser12months = response.data[0].unique_purchaser_12months;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.purchaseVolume12months = response.data[0].purchase_volume_12months;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** Repeat Purchaser **/
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.purchaseVolumeByEndDate = response.data[0].purchase_volume_12months;
+            this.monthlyRepeatRate = parseFloat(this.purchaseVolumeByEndDate/this.uniqueBookers*100).toFixed(2);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_purchase_volume_12months/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.aggregatePurchaseVolume12months = response.data[0].aggregate_purchase_volume_12months;
+            this.allTimeRepeatRate = parseFloat(this.aggregatePurchaseVolume12months/this.allTimeUniqueBookers*100).toFixed(2);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.uniquePurchaseVolume12months = response.data[0].unique_purchase_volume_12months;
+            this.monthlyRepeatRate12months = parseFloat(this.uniquePurchaseVolume12months/this.uniquePurchaser12months*100).toFixed(2);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_purchase_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.aggregateUniquePurchaseVolume12months = response.data[0].aggregate_unique_purchase_12months;
+            this.rolling12monthRepeatRate = parseFloat(this.aggregateUniquePurchaseVolume12months/this.uniquePurchaser12months*100).toFixed(2);
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** End of Purchaser **/
+
+
+        /** BEGIN of PLAYER REPEATERS DATA **/
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_by_month/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.volumeInMonthUniquePlayers = response.data[0].unique_players_by_month;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_in_month_plays/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.volumeInMonthPlays = response.data[0].volume_in_month_plays;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.uniquePlayersSinceBeginning = response.data[0].unique_players_since_beginning;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_plays_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.volumePlaysSinceBeginning = response.data[0].volume_plays_since_beginning;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.uniquePlayersRolling12Months = response.data[0].unique_players_rolling_12months;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/last_12months_volume_play/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.last12MonthsVolumePlay = response.data[0].last_12months_volume_play;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.inMonthUniquePlayerRepeaters = response.data[0].in_month_unique_repeaters;
+
+            this.playersMonthlyRepeatRate = parseFloat(this.inMonthUniquePlayerRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.aggregateVolumeUniquePlayerRepeaters = response.data[0].aggregate_volume_unique_repeaters;
+
+            this.playersAllTimeRepeatRate = parseFloat(this.aggregateVolumeUniquePlayerRepeaters/this.uniquePlayersSinceBeginning*100).toFixed(2);
+
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.playersMonthUniqueRepeaters = response.data[0].players_month_unique_repeaters;
+
+            this.playersMonthlyRepeatRate12months = parseFloat(this.playersMonthUniqueRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.aggregateUniquePlayerRepeaters12months = response.data[0].aggregate_unique_player_repeaters_12months;
+
+            this.playersRolling12monthRepeatRate = parseFloat(this.aggregateUniquePlayerRepeaters12months/this.uniquePlayersRolling12Months*100).toFixed(2);
+
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+        /** END OF PLAYERS REPEATERS DATA **/
+
+      /** END OF REPEATERS DASHBOARD **/
 
       })
       .catch(function (error) {
