@@ -15,20 +15,6 @@
               <th>Waiver Id</th>
             </tr>
 
-            <!-- <tr v-for="item in playerProfile" v-bind:key="first_name">
-              <td style="text-transform:capitalize;">
-                {{item.first_name}} 
-              </td>
-              <td>{{item.email}}</td>
-              <td>
-              <p v-if="item.gender == '1'">Female</p>
-              <p v-if="item.gender == '2'">Male</p>
-              <p v-if="item.gender == '3'">Others</p>
-              <p v-if="item.gender == '4'">No Answer</p>
-              </td>
-              <td>{{item.waiver_id}}</td>
-            </tr> -->
-
             <tr>
            <td>{{playerName}}</td>
             <td>{{playerEmail}}</td>

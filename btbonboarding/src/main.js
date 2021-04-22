@@ -17,6 +17,8 @@ import Onboardingtest from './OnboardingTest.vue';
 import Singleonboarding from './Singleonboarding.vue';
 import Playerdetails from './Playerdetails.vue';
 import Dashboard from './Dashboard.vue';
+import Rfid from './Rfid.vue';
+
 
 /* pages link for footer */
 import Control from './Control.vue';
@@ -57,6 +59,7 @@ const routes = [
 	{ path : '/Singleonboarding', component: Singleonboarding},
 	{ path : '/Playerdetails', component: Playerdetails},
 	{ path : '/Dashboard', component: Dashboard},
+	{ path : '/Rfid', component: Rfid},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 

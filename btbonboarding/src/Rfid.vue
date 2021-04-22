@@ -1,0 +1,208 @@
+<template>
+  <div id="rfidapp" style="min-width: 100%;min-height: 100vh;margin-top: -7%;">
+	<br><br>
+	<table style="width: 100%; margin:auto;" v-if="teamName.length < '1'">
+		<tr>
+			<td class="fontStyle">
+				<p class="adjustTitle1 blink_me">{{scanWristbandText}}</p>
+			</td>
+			<td><b-form-input id="input-large-define" size="sm" placeholder="Tap the wristband ... " v-on:input="tappedWristband($event)" autofocus></b-form-input></td>
+		</tr>
+	</table>
+
+	<br><br><br>
+
+	<table style="margin-left:-11%; margin-top:7%; width:100%;" v-if="teamName.length > '0'">
+		<tr>
+			<td class="playerDetailStyle blink_me">{{teamName}}</td>
+			<td class="playerDetailStyle blink_me">{{teamSize}}</td>
+		</tr>
+		<br><br>
+		<tr>
+			<td class="playerDetailStyle blink_me" style="text-align:center;">{{playerName}}</td>
+		</tr>
+	</table>
+
+
+	<br><br>
+
+	<table style="margin-left:-29%; margin-top:2%; width:100%;" v-if="activateError > '0'">
+		<tr>
+			<td class="playerDetailStyle blink_me" style="text-align:right;">No Rfid Value !!</td>
+		</tr>
+	</table>
+
+  </div>
+</template>
+
+<script>
+	import axios from 'axios';
+
+// var moment = require('moment');
+export default {
+
+	name: 'App',
+	components: {
+    // HelloWorld
+},
+
+data(){
+  return{
+		scanWristbandText:'Scan your wristband',
+		rfidTag:'',
+		teamName:'',
+		playerName:'',
+		teamSize:'',
+		activateError:''
+	}
+},
+
+mounted: function(){
+	console.log('inside mounted function');
+},
+
+methods:{
+
+	tappedWristband(event){
+		console.log('inside tapped wristband function');
+		console.log(event);
+		if(event.length == '8'){
+			console.log('rfid lenght was 8');
+
+			/** convert rfid tag into id **/
+			axios.get(process.env.VUE_APP_DATABASE_RFIDS+'tag/'+event,{
+
+			})
+			.then(response => 
+			{
+				console.log(response);
+
+				var fetchedRfidId = response.data.id; /** gets rfid id **/
+
+
+				/** gets latest rfid tag used from team player session table **/
+				if(fetchedRfidId > '0'){
+					axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/rfid_id/'+fetchedRfidId,{
+
+					})
+					.then(response => 
+					{
+						console.log(response);
+						var player_minor_id = response.data[0].player_minor_id;
+
+						this.teamName = response.data[0].Team.name;
+						this.teamSize = response.data[0].Session.player_count;
+
+						if(player_minor_id > '0'){
+							console.log('yes it was minor ');
+							this.playerName = response.data[0].Player_minor.first_name+' '+response.data[0].Player_minor.last_name;
+						}
+						else{
+							this.playerName = response.data[0].Player.Person.first_name+' '+response.data[0].Player.Person.last_name;
+						}
+
+						var v = this;
+						setTimeout(function(){
+							v.rfidTag='';
+							v.teamName='';
+							v.playerName='';
+							v.teamSize='';
+						}, 3500);
+
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+				}
+				else{
+					console.log('Cannot find the rfid id');
+					this.activateError = 1;
+
+					var v = this;
+						setTimeout(function(){
+							v.rfidTag='';
+							v.teamName='';
+							v.playerName='';
+							v.teamSize='';
+						}, 3500);
+				}
+				/** end of team player session table **/
+
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+			/** end of rfid tag into id **/
+		}
+		// else{
+		// 	console.log('Rfid tag more/less than 8');
+		// 			this.activateError = 1;
+
+		// 			var v = this;
+		// 				setTimeout(function(){
+		// 					v.rfidTag='';
+		// 					v.teamName='';
+		// 					v.playerName='';
+		// 					v.teamSize='';
+		// 					v.activateError='';
+		// 				}, 3500);
+		// }
+	},
+
+}
+
+}; /** close the eport default bracket **/
+
+</script>
+
+<style>
+	@import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
+	/*html{
+		background-color: #00FFBC;
+		font-family: Avenir, Helvetica, Arial, sans-serif;
+	}*/
+	#rfidapp{
+		background-color: #00FFBC;
+	}
+	.fontStyle{
+		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+		font-size: 130px;
+		color:black;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		/*margin: auto;*/
+		/*padding: auto;*/
+	}
+	.playerDetailStyle{
+		/*margin:auto;*/
+		width:100%;
+		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+		font-size: 110px;
+		color:black;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		/*text-align: center;*/
+	}
+
+	#input-large-define{
+		background-color: #00FFBC;
+		width:0.01%;
+		border-color:#00FFBC;
+	}
+
+	.adjustTitle1{
+		margin-top: 18%;
+		margin-right: -12%;
+	}
+
+	.blink_me {
+		animation: blinker 1.3s linear infinite;
+	}
+
+	@keyframes blinker {
+		50% {
+		opacity: 0.3;
+	}
+	}
+</style>
