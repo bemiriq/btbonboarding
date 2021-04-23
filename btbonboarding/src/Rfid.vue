@@ -1,7 +1,7 @@
 <template>
   <div id="rfidapp" style="min-width: 100%;min-height: 100vh;margin-top: -7%;">
 	<br><br>
-	<table style="width: 100%; margin:auto;" v-if="teamName.length < '1'">
+	<table style="width: auto; margin:auto;" v-if="teamName.length < '1'">
 		<tr>
 			<td class="fontStyle">
 				<p class="adjustTitle1 blink_me">{{scanWristbandText}}</p>
@@ -12,14 +12,19 @@
 
 	<br><br><br>
 
-	<table style="margin-left:-11%; margin-top:7%; width:100%;" v-if="teamName.length > '0'">
+	<table style="margin:auto;margin-top: 6%;" v-if="teamName.length > '0'">
 		<tr>
-			<td class="playerDetailStyle blink_me">{{teamName}}</td>
-			<td class="playerDetailStyle blink_me">{{teamSize}}</td>
+			<td class="playerDetailStyle blink_me" id="leftRightAnimation">{{teamName}}</td>
+			<td class="playerDetailStyle blink_me" id="leftRightAnimation" style="padding-left: 10%;">{{teamSize}}</td>
 		</tr>
 		<br><br>
+	</table>
+
+	<br>
+
+	<table style="margin:auto;">
 		<tr>
-			<td class="playerDetailStyle blink_me" style="text-align:center;">{{playerName}}</td>
+			<td class="playerDetailStyle2 blink_me">{{playerName}}</td>
 		</tr>
 	</table>
 
@@ -95,10 +100,12 @@ methods:{
 
 						if(player_minor_id > '0'){
 							console.log('yes it was minor ');
-							this.playerName = response.data[0].Player_minor.first_name+' '+response.data[0].Player_minor.last_name;
+							var lastName = response.data[0].Player_minor.last_name.charAt(0);
+							this.playerName = response.data[0].Player_minor.first_name+' '+lastName;
 						}
 						else{
-							this.playerName = response.data[0].Player.Person.first_name+' '+response.data[0].Player.Person.last_name;
+							var lastPlayerName = response.data[0].Player.Person.last_name.charAt(0);
+							this.playerName = response.data[0].Player.Person.first_name+' '+lastPlayerName;
 						}
 
 						var v = this;
@@ -158,10 +165,7 @@ methods:{
 
 <style>
 	@import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
-	/*html{
-		background-color: #00FFBC;
-		font-family: Avenir, Helvetica, Arial, sans-serif;
-	}*/
+
 	#rfidapp{
 		background-color: #00FFBC;
 	}
@@ -176,12 +180,26 @@ methods:{
 	}
 	.playerDetailStyle{
 		/*margin:auto;*/
-		width:100%;
+		width:auto;
 		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
-		font-size: 110px;
+		font-size: 140px;
 		color:black;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		/*text-align: center;*/
+	}
+
+	.playerDetailStyle2{
+		/*margin:auto;*/
+		width:auto;
+		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+		font-size: 150px;
+		color:black;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		margin-left: 25%;
+		/*margin:auto;*/
+		/*text-align: right;*/
 		/*text-align: center;*/
 	}
 
@@ -197,12 +215,21 @@ methods:{
 	}
 
 	.blink_me {
-		animation: blinker 1.3s linear infinite;
+		animation: blinker 1.2s linear infinite;
 	}
 
 	@keyframes blinker {
 		50% {
 		opacity: 0.3;
 	}
+	}
+
+	#leftRightAnimation{
+		position: relative;
+		animation: mymove 4s infinite;
+	}
+	@keyframes mymove {
+		from {left: -200px;}
+		to {left: 0px;}
 	}
 </style>
