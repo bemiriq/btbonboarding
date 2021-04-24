@@ -167,12 +167,12 @@ methods:{
 	@import url(//db.onlinewebfonts.com/c/4f0c82bb2e8fb2d03bd14a1137235ef3?family=Pixel+Digivolve+Cyrillic);
 
 	#rfidapp{
-		background-color: #00FFBC;
+		background-color: black;
 	}
 	.fontStyle{
 		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
 		font-size: 130px;
-		color:black;
+		color:#00FFBC;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		/*margin: auto;*/
@@ -183,7 +183,7 @@ methods:{
 		width:auto;
 		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
 		font-size: 140px;
-		color:black;
+		color:#00FFBC;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		/*text-align: center;*/
@@ -194,7 +194,7 @@ methods:{
 		width:auto;
 		font-family: 'Pixel Digivolve Cyrillic', sans-serif;
 		font-size: 150px;
-		color:black;
+		color:#00FFBC;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		margin-left: 25%;
@@ -204,9 +204,9 @@ methods:{
 	}
 
 	#input-large-define{
-		background-color: #00FFBC;
+		background-color: black;
 		width:0.01%;
-		border-color:#00FFBC;
+		border-color:black;
 	}
 
 	.adjustTitle1{

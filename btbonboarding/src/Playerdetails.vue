@@ -540,7 +540,7 @@ methods:{
 			})
 			.then(response => 
 				{	
-					console.log(response.data[0].id);
+					console.log(response.data[0]);
 
 						if(response.data[0].id > '0'){
 
@@ -605,7 +605,7 @@ methods:{
 			})
 			.then(response => 
 			{	
-				// console.log(response.data);
+				console.log(response.data);
 				this.searchedTeamPlayerSession.push(response.data);
 			})
 			.catch(function (error) {
@@ -659,12 +659,18 @@ methods:{
 				// var arrayNumber = i;
 
 				var playerRfid = v.searchedTeamPlayerSession[index][i].rfid_id;
-				var bomb_time = v.searchedTeamPlayerSession[index][i].Session.bomb_time;
+
+				var bomb_time_minute = Math.floor(v.searchedTeamPlayerSession[index][i].Session.bomb_time/60);
+				var bomb_time_seconds = Math.floor(v.searchedTeamPlayerSession[index][i].Session.bomb_time) - bomb_time_minute * 60;
+
+				var bomb_time = bomb_time_minute+':'+bomb_time_seconds;
+
+				// var bomb_time = v.searchedTeamPlayerSession[index][i].Session.bomb_time;
 				var mission_id = v.searchedTeamPlayerSession[index][i].Session.mission_id;
 				var total_score = v.searchedTeamPlayerSession[index][i].Session.total_score;
 				var player_count = v.searchedTeamPlayerSession[index][i].Session.player_count;
 				var winners = v.searchedTeamPlayerSession[index][i].Session.winners;
-				var playedAt = moment(v.searchedTeamPlayerSession[index][i].Session.createdAt).format("YYYY-MM-DD");
+				var playedAt = moment(v.searchedTeamPlayerSession[index][i].Session.createdAt).format("YYYY-MM-DD hh:mm A");
 				var battleMode = v.searchedTeamPlayerSession[index][i].Session.team_vs_team_id;
 				var team_name = v.searchedTeamPlayerSession[index][i].Team.name;
 
