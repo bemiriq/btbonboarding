@@ -4565,8 +4565,8 @@ var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
 var startCurrentDate = moment().format('YYYY-MM-DD');
-var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
-var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
+var startReservationTime = moment().subtract(7, 'hours').format('HH:mm:ss');
+var endReservationTime = moment().add(4, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
 console.log('get start time '+getStartDateTime);
@@ -8466,19 +8466,87 @@ add: function() {
 
           this["disableButton"+newValue] = false; /** this will disable the SEND TO WAITLIST BUTTON **/
 
-          var teamPlayerSessionId = this["list"+col+"teamplayersessionid"][index];
+          // var teamPlayerSessionId = this["list"+col+"teamplayersessionid"][index];
+
+          // axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
+          //   rfid_id: ''
+          // })
+          // .then(function (response) {
+          //   console.log(response);
+          // })
+          // .catch(function (error) {
+          //   console.log(error);
+          // });
+
+          var playerId = this["list"+col][index].Person.Player.id;
+              // var minorId = null;
+
+              if(this["list"+col][index].Person.minor == 'yes'){ /** this is for minor **/
+
+                playerId = this["list"+col][index].Person.player_id; /** serves the ADULT PLAYER ID value if minor **/
+                var minorId = this["list"+col][index].Person.person_id; /** this is the minor id value **/
+
+                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+playerId+'/minor/'+minorId
+
+                )
+                .then(response => {
+                  console.log(response);
+                  var usethisTPSId = response.data[0].id;
+                  console.log(usethisTPSId);
+
+                  console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
+
+                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                    rfid_id: 0
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
 
-          axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
-            rfid_id: ''
-          })
-          .then(function (response) {
-            console.log(response);
-      // this["list"+col][index].rfidState1 = ''; 
-    })
-          .catch(function (error) {
-            console.log(error);
-          });
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              }/** end of if minor **/
+
+              else{ /** its player not minor **/
+
+                console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
+
+                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
+
+                )
+                .then(response => {
+                  console.log(response);
+                  var usethisTPSId = response.data[0].id;
+
+                  console.log(usethisTPSId);
+
+                  // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
+
+                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                    rfid_id: 0
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+              }
 
         },
 
@@ -8494,9 +8562,6 @@ add: function() {
             var newCol = col;
           }      
 
-     // var arr = this['fetchPlayerList'+newCol];
-
-     // var number = this.countfunction++;
 
      var updateOnTPS = this['fetchPlayerList'+newCol][1].Team_player_sessions[index].id;
 
@@ -8586,6 +8651,10 @@ add: function() {
       var teamPlayerLength = this["list"+col].length;
       console.log(teamPlayerLength);
 
+      console.log(this["list"+col]);
+      console.log(this["list"+col][index]);
+      console.log(this["list"+col][index].Person.first_name);
+
       
       if(event.length > 7 && event.length < 9){
 
@@ -8630,18 +8699,75 @@ add: function() {
 
             var rfidtag_id = response.data[0].id;
 
-            var updateOnTPS = this["list"+col+"teamplayersessionid"][index];
+              var playerId = this["list"+col][index].Person.Player.id;
+              // var minorId = null;
 
-            axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
-              rfid_id: rfidtag_id
-            })
-            .then(function (response) {
-              console.log(response);
-            })
+              if(this["list"+col][index].Person.minor == 'yes'){ /** this is for minor **/
 
-            .catch(function (error) {
-              console.log(error);
-            });
+                playerId = this["list"+col][index].Person.player_id; /** serves the ADULT PLAYER ID value if minor **/
+                var minorId = this["list"+col][index].Person.person_id; /** this is the minor id value **/
+
+                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+playerId+'/minor/'+minorId
+
+                )
+                .then(response => {
+                  console.log(response);
+                  var usethisTPSId = response.data[0].id;
+                  console.log(usethisTPSId);
+
+                  console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
+
+                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                    rfid_id: rfidtag_id
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              }/** end of if minor **/
+
+              else{ /** its player not minor **/
+
+                console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
+
+                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
+
+                )
+                .then(response => {
+                  console.log(response);
+                  var usethisTPSId = response.data[0].id;
+
+                  console.log(usethisTPSId);
+
+                  // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
+
+                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                    rfid_id: rfidtag_id
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+              }
 
           })
 
