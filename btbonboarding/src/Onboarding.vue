@@ -4565,7 +4565,7 @@ var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
 var startCurrentDate = moment().format('YYYY-MM-DD');
-var startReservationTime = moment().subtract(8, 'hours').format('HH:mm:ss');
+var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
