@@ -80,7 +80,7 @@
 						<b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
 						<b-list-group-item href="/#/Playerdetails" active>Player Details</b-list-group-item>
 						<b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-						<b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+						<b-list-group-item href="/#/Social">Social Tagging</b-list-group-item>
 						<!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
 						<!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
 					</b-list-group>
