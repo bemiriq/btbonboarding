@@ -3,7 +3,11 @@
 
 		<br><br>
 
-		<b-modal id="modal-password" centered size="md" title="Log-in" v-bind:hide-footer="true">
+		<b-modal id="modal-downloadedSuccesfully" centered size="md" title="Success" v-bind:hide-footer="true">
+			<p style="color:#138496;"> Downloaded players detail from <b>{{downloadPeopleStartDate}}</b> till <b>{{downloadPeopleEndDate}}</b>. </p>
+		</b-modal>
+
+		<b-modal id="modal-password" centered size="md" title="Player Details Download" v-bind:hide-footer="true">
 			<b-row v-if="loginPage == '1' ">
 				<b-col lg="8">
 						<b-form-input id="example-input" v-model="passwordDetail" type="password" placeholder="Please Enter Password" autocomplete="off" v-on:keypress="checkPassword($event)"></b-form-input>
@@ -14,15 +18,17 @@
 				</b-col>
 			</b-row>
 
+			<br>
+
 			<b-row v-if="emptyPassword == '1'">
 				<b-col>
-					<p>Please enter password and then press submit.</p>
+					<p style="color:red;font-family:italic;">Please enter password and click submit.</p>
 				</b-col>
 			</b-row>
 
 			<b-row v-if="incorrectPassword == '1'">
 				<b-col>
-					<p>Incorrect Password.</p>
+					<p style="color:red;font-family:italic;">Incorrect Password.</p>
 				</b-col>
 			</b-row>
 
@@ -33,7 +39,7 @@
 						<b-input-group>
 							<b-form-input id="example-input" v-model="downloadPeopleStartDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
 								<b-input-group-append>
-									<b-form-datepicker v-model="downloadPeopleStartDate" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+									<b-form-datepicker v-model="downloadPeopleStartDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
 								</b-input-group-append>
 						</b-input-group>
 					</td>
@@ -45,20 +51,20 @@
 						<b-input-group>
 							<b-form-input id="example-input" v-model="downloadPeopleEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
 								<b-input-group-append>
-									<b-form-datepicker v-model="downloadPeopleEndDate" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+									<b-form-datepicker v-model="downloadPeopleEndDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
 								</b-input-group-append>
 						</b-input-group>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<b-button variant="info" v-on:click="convertData($event)">Convert</b-button>
+						<b-button variant="info" v-on:click="convertData($event)">File Download</b-button>
 					</td>
 				</tr>
 			</table>
 
 			<table class="dataTable" style="display:none;">
-				<tr>
+				<tr style="font-weight:bold;">
 					<th>Name</th>
 					<th>Email</th>
 					<th>Instagram</th>
@@ -68,7 +74,6 @@
 					<th>Adult/Minor</th>
 					<th>Date Played</th>
 					<th>Time Played</th>
-
 				</tr>
 				<tr v-for="item in downloadPlayerSearched" :key="item.id">
 					<td>{{item.player_name}}</td>
@@ -175,7 +180,7 @@
 							<p class="teamTitle1">PLAYER DETAILS</p>
 						</b-col>
 						<b-col>
-							<button v-on:click="clickedDownload()">Download</button>
+							<b-button variant="info" v-on:click="clickedDownload()">Download</b-button>
 						</b-col>
 					</b-row>
 					<br>
@@ -530,109 +535,9 @@ methods:{
 
 	},
 
-	convertData(event){
+	convertData(){
 
-		console.log*(event);
-
-		this.downloadPlayerSearched = []; /** this will empty the array first and load the new one again **/
-
-		var startDownloadDate = this.downloadPeopleStartDate;
-		var endDownloadDate = this.downloadPeopleEndDate;
-
-		console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/start/'+startDownloadDate+'/end/'+endDownloadDate);
-
-		axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/start/'+startDownloadDate+'/end/'+endDownloadDate,{
-
-		})
-		.then(response => 
-		{
-			console.log(response.data);
-
-			// console.log(response.data[0].id);
-
-			// console.log(response.data.length);
-
-			var totalPlayerSearchedDownload = response.data.length;
-			console.log(totalPlayerSearchedDownload);
-
-			for (var i = 0; i < totalPlayerSearchedDownload; i++) {
-
-				var session_id = response.data[i].id;
-				var player_session_date = moment(response.data[i].session_time).format('YYYY-MM-DD');
-				var player_session_time = moment(response.data[i].session_time).format('H:mm A');
-				// var player_first_name = response.data[i].first_name;
-				// var player_last_name = response.data[i].last_name;
-				// var player_instagram = response.data[i].instagram;
-				// var player_email = response.data[i].email;
-				// var player_phone = response.data[i].phone;
-				// var player_dob = response.data[i],date_of_birth;
-				var player_team_name = response.data[i].Team.name;
-				// var player_gender = response.data[i].gender;
-
-				console.log(response.data[i].Team_player_sessions.length);
-
-				for (var j = 0; j < response.data[i].Team_player_sessions.length; j++) {
-
-					if(response.data[i].Team_player_sessions[j].player_minor_id > '0'){
-						// console.log('yes minor');
-
-						var player_first_name = response.data[i].Team_player_sessions[j].Player_minor.first_name;
-						var player_last_name = response.data[i].Team_player_sessions[j].Player_minor.last_name;
-						var player_dob = moment(response.data[i].Team_player_sessions[j].Player_minor.date_of_birth).format('YYYY-MM-DD');
-						var player_email = ' ';
-						var player_instagram = ' ';
-						var player_phone = ' ';
-						var player_adult_minor = 'Minor';
-
-					}
-					else{
-						// console.log('adult');
-
-						player_first_name = response.data[i].Team_player_sessions[j].Player.Person.first_name;
-						player_last_name = response.data[i].Team_player_sessions[j].Player.Person.last_name;
-						player_email = response.data[i].Team_player_sessions[j].Player.Person.email;
-						player_dob = moment(response.data[i].Team_player_sessions[j].Player.Person.date_of_birth).format('YYYY-MM-DD');
-						player_phone = response.data[i].Team_player_sessions[j].Player.Person.phone;
-						player_instagram = response.data[i].Team_player_sessions[j].Player.Person.instagram;
-						player_adult_minor = 'Adult';
-
-					}
-
-					let playerDownloadArray = {
-						'id' : session_id,
-						'player_team_name': player_team_name,
-						'player_name': player_first_name+' '+player_last_name,
-						'player_dob': player_dob,
-						'player_email': player_email,
-						'player_instagram': player_instagram,
-						'player_phone': player_phone,
-						'player_adult_minor' : player_adult_minor,
-						'player_session_time' : player_session_time,
-						'player_session_date' : player_session_date
-					}
-
-					this.downloadPlayerSearched.push(playerDownloadArray);
-				}
-
-				if(i+1 == totalPlayerSearchedDownload){
-					console.log('yes last session id download part');
-
-					this.covertButtonValue = '1';
-					this.convertPlayerDownloadFile();
-					// this.getPersonDetail();
-					// console.log(this.searchedPersonId.length);
-
-				}
-			}
-
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-	},
-
-	convertPlayerDownloadFile(){
-		console.log('inside cinvert player download file ');
+		console.log('inside convert player download file ');
 
 		var csv = [];
 		var rows = document.querySelectorAll("table.dataTable tr");
@@ -680,6 +585,9 @@ methods:{
 		downloadLink.click();
 		//    var v = this;
 		// setTimeout(function(){v.getTeamPlayerSessionDetail(); }, 2000);
+		this.$bvModal.hide('modal-password');
+		this.$bvModal.show('modal-downloadedSuccesfully');
+
 	},
 
 	searchPlayers(){
@@ -1033,6 +941,117 @@ methods:{
 		// 	console.log(error);
 		// });
 			// alert(value);
+	},
+
+	onContextDownload(ctx){
+		console.log('download now');
+
+		this.formatted = ctx.selectedFormatted;
+        // The following will be an empty string until a valid date is entered
+        this.selectedReservationDate = ctx.selectedYMD;
+
+        // console.log("CHANGED DATE");
+        console.log(this.dateClicked);
+        console.log(this.formatted);
+
+		console.log(this.downloadPeopleStartDate);
+		console.log(this.downloadPeopleEndDate);
+
+		this.downloadPlayerSearched = []; /** this will empty the array first and load the new one again **/
+
+		var startDownloadDate = this.downloadPeopleStartDate;
+		var endDownloadDate = this.downloadPeopleEndDate;
+
+		console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/start/'+startDownloadDate+'/end/'+endDownloadDate);
+
+		axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/start/'+startDownloadDate+'/end/'+endDownloadDate,{
+
+		})
+		.then(response => 
+		{
+			console.log(response.data);
+
+			// console.log(response.data[0].id);
+
+			// console.log(response.data.length);
+
+			var totalPlayerSearchedDownload = response.data.length;
+			console.log(totalPlayerSearchedDownload);
+
+			for (var i = 0; i < totalPlayerSearchedDownload; i++) {
+
+				var session_id = response.data[i].id;
+				var player_session_date = moment(response.data[i].session_time).format('YYYY-MM-DD');
+				var player_session_time = moment(response.data[i].session_time).format('H:mm A');
+				// var player_first_name = response.data[i].first_name;
+				// var player_last_name = response.data[i].last_name;
+				// var player_instagram = response.data[i].instagram;
+				// var player_email = response.data[i].email;
+				// var player_phone = response.data[i].phone;
+				// var player_dob = response.data[i],date_of_birth;
+				var player_team_name = response.data[i].Team.name;
+				// var player_gender = response.data[i].gender;
+
+				console.log(response.data[i].Team_player_sessions.length);
+
+				for (var j = 0; j < response.data[i].Team_player_sessions.length; j++) {
+
+					if(response.data[i].Team_player_sessions[j].player_minor_id > '0'){
+						// console.log('yes minor');
+
+						var player_first_name = response.data[i].Team_player_sessions[j].Player_minor.first_name;
+						var player_last_name = response.data[i].Team_player_sessions[j].Player_minor.last_name;
+						var player_dob = moment(response.data[i].Team_player_sessions[j].Player_minor.date_of_birth).format('YYYY-MM-DD');
+						var player_email = ' ';
+						var player_instagram = ' ';
+						var player_phone = ' ';
+						var player_adult_minor = 'Minor';
+
+					}
+					else{
+						// console.log('adult');
+
+						player_first_name = response.data[i].Team_player_sessions[j].Player.Person.first_name;
+						player_last_name = response.data[i].Team_player_sessions[j].Player.Person.last_name;
+						player_email = response.data[i].Team_player_sessions[j].Player.Person.email;
+						player_dob = moment(response.data[i].Team_player_sessions[j].Player.Person.date_of_birth).format('YYYY-MM-DD');
+						player_phone = response.data[i].Team_player_sessions[j].Player.Person.phone;
+						player_instagram = response.data[i].Team_player_sessions[j].Player.Person.instagram;
+						player_adult_minor = 'Adult';
+
+					}
+
+					let playerDownloadArray = {
+						'id' : session_id,
+						'player_team_name': player_team_name,
+						'player_name': player_first_name+' '+player_last_name,
+						'player_dob': player_dob,
+						'player_email': player_email,
+						'player_instagram': player_instagram,
+						'player_phone': player_phone,
+						'player_adult_minor' : player_adult_minor,
+						'player_session_time' : player_session_time,
+						'player_session_date' : player_session_date
+					}
+
+					this.downloadPlayerSearched.push(playerDownloadArray);
+				}
+
+				if(i+1 == totalPlayerSearchedDownload){
+					console.log('yes last session id download part');
+
+					this.covertButtonValue = '1';
+					// this.getPersonDetail();
+					// console.log(this.searchedPersonId.length);
+
+				}
+			}
+
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
 	},
 
 	onContext(ctx) {
