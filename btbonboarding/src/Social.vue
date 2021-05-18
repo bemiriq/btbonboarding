@@ -205,7 +205,7 @@
             
           <b-col lg="3">
             <b-input-group size="md">
-            <b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchTeam($event)" v-model="searchedText"></b-form-input>
+            <b-form-input id="input-large" size="md" placeholder="Search for team name ... " v-on:change="searchTeam($event)" v-model="searchedText"></b-form-input>
 
             </b-input-group>
           </b-col>
