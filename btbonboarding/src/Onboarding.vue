@@ -1259,7 +1259,7 @@
           <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
           <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
           <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-          <b-list-group-item href="#foobar">Social Tagging</b-list-group-item>
+          <b-list-group-item href="/#/Social">Social Tagging</b-list-group-item>
           <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
           <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
         </b-list-group>
@@ -4577,6 +4577,11 @@ if(getStartDateTime > 200){
 else{
   console.log('time was greater than 12:00 AM and less than 2:00 AM. So update on current date.');
   startCurrentDate = moment().subtract(1,'days').format('YYYY-MM-DD');
+
+  /** added the below line to display all times **/
+  startReservationTime = moment().subtract(1,'days').subtract(2,'hours').format('HH:mm:ss');
+  console.log('start reservation time after 12:00 AM was used as '+startReservationTime);
+
 }
 
 this.startReservationTime = startReservationTime;
@@ -6678,6 +6683,9 @@ methods: {
         var endDate = moment().add('days',1).format('YYYY-MM-DD');
         var endTime = moment(this.sessionRow10DateTime).subtract('minutes',5).format('T'+'23:55:00');
         console.log('end time INISDE if loop is '+endTime);
+
+        /** add the start timeloop over here for previous team display before / after 12 AM **/
+
       }
       else{
         var endDate = moment().format('YYYY-MM-DD');
@@ -7019,7 +7027,7 @@ methods: {
                     "team_drag_time" : boxTime
                   }
 
-                  console.log(replyDataObj1);
+                console.log(replyDataObj1);
 
                 // this.toListFetchRouteA1 = replyDataObj1;
 
