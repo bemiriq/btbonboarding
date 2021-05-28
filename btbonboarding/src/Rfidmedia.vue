@@ -235,7 +235,9 @@ data(){
 		teamMedia10:'', /** gets pthobomb url from session_media_assets 14 **/
 
 		clickedMediaCharacter:'',
-		clickedZoomMedia:''
+		clickedZoomMedia:'',
+
+		timeFormat: 10000
 	}
 },
 
@@ -252,6 +254,7 @@ methods:{
 		this.$bvModal.show('modal-teamMedia');
 		this.clickedZoomMedia = value;
 		this.clickedMediaCharacter = value.slice(-3);
+		this.timeFormat = this.timeFormat+8000;
 	},
 
 	tappedWristband(event){
@@ -319,7 +322,8 @@ methods:{
 							v.teamMedia8='';
 							v.teamMedia9='';
 							v.teamMedia10='';
-						}, 10000);
+							v.$bvModal.hide('modal-teamMedia');
+						}, v.timeFormat);
 
 						this.displaySessionBox = '1'; /** activate the box or modal **/
 

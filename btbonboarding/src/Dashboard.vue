@@ -1595,7 +1595,8 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(response.data[0]);
             var space = 'average size';
             console.log(response.data[0].average_size);
-            this.averageBattleModeReservations = parseFloat(response.data[0].average_size).toFixed(2);
+            var x = response.data[0].average_size;
+            this.averageBattleModeReservations = parseFloat(x).toFixed(2);
           })
           .catch(function (error) {
             console.log(error);
