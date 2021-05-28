@@ -131,7 +131,7 @@
                       <td>{{totalPlayers}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Cyberbot</td>
+                      <td class="tdStyle">Cyberbot includes BM</td>
                       <td>{{mission1total}}</td>
                     </tr> 
                     <tr>
@@ -361,6 +361,39 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
+                      <p class="theadStyle">Battle mode</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Total Reservations</td>
+                      <td>{{totalBattleModeReservations}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Total Teams</td>
+                      <td>{{totalBattleModeTeams}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Total Players</td>
+                      <td>{{totalBattleModePlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Reservation</td>
+                      <td>{{averageBattleModeReservations}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Team
+                        <br>
+                        <p style="font-style:italic;">total players / total teams
+                        </p>
+                      </td>
+                      <td>{{averageBattleModeTeams}}
+                      </td>
+                    </tr>
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
                       <p class="theadStyle">Bookers</p>
                     </thead>
                     <tr>
@@ -368,22 +401,6 @@
                       <td>{{totalBooker}}</td>
                     </tr>
                   </table>
-                </b-col>
-
-                <b-col>
-                  <!-- <table class="table table-hover">
-                    <thead>
-                      <p class="theadStyle">Average Game Time</p>
-                    </thead>
-                    <tr>
-                      <td class="tdStyle">Total Teams</td>
-                      <td>{{totalTeams}}</td>
-                    </tr>
-                    <tr>
-                      <td class="tdStyle">Average Time to play Beat The Bomb</td>
-                      <td>{{averageSessionTime}}</td>
-                    </tr>  
-                  </table> -->
                 </b-col>
               </b-row>
               <!-- end of b-row for third table -->
@@ -712,7 +729,13 @@ export default {
 
     /** end of repeaters dashboard objects **/
 
+      /** battle mode team details **/
+      // battleModeTotalPlayers:'',
+      // battleModeTotalTeam:'',
+      /** end of battle mode details **/
+
       pageLoad:'1',
+
 
       endDateClicked: '',
       // dateClicked: '',
@@ -748,6 +771,14 @@ export default {
       bombbeatersMission2:'',
       bombBeatersBySession:'',
       bombBeatersDiscrepancy:'',
+
+      /** data for battle mode **/
+      totalBattleModeReservations:'',
+      totalBattleModePlayers:'',
+      totalBattleModeTeams:'',
+      averageBattleModeTeams:'',
+      averageBattleModeReservations:'',
+      /** end of battle mode data **/
 
       answer2:'',
       answer3:'',
@@ -1362,7 +1393,6 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(error);
           });
 
-
           axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
           })
@@ -1510,6 +1540,80 @@ var arrows = document.getElementsByClassName("covertedtime");
           .catch(function (error) {
             console.log(error);
           });
+
+
+          /** battle mode data **/
+
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalBattleModePlayers = response.data;
+            var ss = response.data;
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              var tt = response.data;
+              this.totalBattleModeTeams = response.data/2;
+
+              // this.averageBattleModeTeams = this.battleModeTotalPlayers/response.data;
+
+              // console.log(this.totalBattleModeTeams);
+              // console.log(response.data);
+
+              if(ss == '0' || tt == '0'){
+                this.averageBattleModeTeams = '0';
+              }
+              else{
+                // console.log('battle mode team was '+battleModeTotalTeams);
+                // console.log('battle mode player size was '+this.totalBattleModePlayers);
+                this.averageBattleModeTeams = ss/tt;
+              }
+              // this.average
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/battle_mode_average_reservation_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response.data[0]);
+            var space = 'average size';
+            console.log(response.data[0].average_size);
+            this.averageBattleModeReservations = parseFloat(response.data[0].average_size).toFixed(2);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/battle_mode_reservation_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            this.totalBattleModeReservations = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          /** end of battle mode data **/
+
 
 
           axios.get(process.env.VUE_APP_RAW_QUERIES+'/alltime_unique_bookers/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{

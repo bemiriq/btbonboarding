@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <a href='/#/users' v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
+    <a href='/#/users' v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
     
     <br/><br/><br/>
 
-    <b-container v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid'">
+    <b-container v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'">
       <b-row id="dateTimeDiv">
 
         <b-col lg="5">

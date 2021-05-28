@@ -3,7 +3,7 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
-  <b-modal id="modal-teamMedia" centered size="xl" v-bind:hide-footer="true" v-bind:hide-header="true">
+  <b-modal id="modal-teamMedia" centered size="xl" v-bind:hide-footer="true">
     <br>
     <h5 align="center" style="text-transform: capitalize;">{{team_name}} {{teamMissionClicked}} {{teamPlayedDateTime}} </h5>
     <table class="table" style="text-transform:capitalize;">
