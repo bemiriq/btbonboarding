@@ -295,16 +295,16 @@
                     <td>{{answer5}}</td>
                   </tr>
                   <tr>
+                    <td class="tdStyle">Others</td>
+                    <td>{{answer6}}</td>
+                  </tr>
+                  <tr>
                     <td class="tdStyle">Instagram</td>
                     <td>{{answer7}}</td>
                   </tr> 
                   <tr>
                     <td class="tdStyle">TikTok</td>
                     <td>{{answer8}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Others</td>
-                    <td>{{answer6}}</td>
                   </tr>
                   <tr>
                     <td class="tdStyle">Total</td>
@@ -347,7 +347,7 @@
                     </tr>
                     <tr>
                       <td class="tdStyle">Average Time to play Beat The Bomb</td>
-                      <td>{{averageSessionTime}}</td>
+                      <td>{{averageSessionTime}} minutes</td>
                     </tr>  
                   </table>
                 </b-col>
@@ -364,8 +364,14 @@
                       <p class="theadStyle">Battle mode</p>
                     </thead>
                     <tr>
-                      <td class="tdStyle">Total Reservations</td>
+                      <td class="tdStyle">Reservations Xola / Database
+                        <p style="font-style:italic;">Customer might cancel after booking from xola</p>
+                      </td>
                       <td>{{totalBattleModeReservations}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Total Reservations that played</td>
+                      <td>{{totalPlayedBattleModeReservations}}</td>
                     </tr>
                     <tr>
                       <td class="tdStyle">Total Teams</td>
@@ -399,6 +405,14 @@
                     <tr>
                       <td class="tdStyle">Total Bookers</td>
                       <td>{{totalBooker}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Bookers
+                        <p style="font-style:italic;">
+                          Total Bookers/Total Players
+                        </p>
+                      </td>
+                      <td>{{totalAverageBooker}}</td>
                     </tr>
                   </table>
                 </b-col>
@@ -696,6 +710,7 @@ export default {
       allTimeUniqueBookers:'',
       uniquePurchaser12months:'',
       purchaseVolume12months:'',
+      totalAverageBooker:'',
 
       purchaseVolumeByEndDate:'',
       aggregatePurchaseVolume12months:'',
@@ -778,6 +793,7 @@ export default {
       totalBattleModeTeams:'',
       averageBattleModeTeams:'',
       averageBattleModeReservations:'',
+      totalPlayedBattleModeReservations:'',
       /** end of battle mode data **/
 
       answer2:'',
@@ -1536,6 +1552,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           {
             console.log(response);
             this.totalBookers = response.data[0].total_bookers;
+            this.totalAverageBooker = parseFloat(response.data[0].total_bookers/this.totalPlayers).toFixed(2);
           })
           .catch(function (error) {
             console.log(error);
@@ -1560,8 +1577,8 @@ var arrows = document.getElementsByClassName("covertedtime");
             {
               console.log(response);
               var tt = response.data;
-              this.totalBattleModeTeams = response.data/2;
-
+              this.totalBattleModeTeams = response.data;
+              this.totalPlayedBattleModeReservations = tt/2;
               // this.averageBattleModeTeams = this.battleModeTotalPlayers/response.data;
 
               // console.log(this.totalBattleModeTeams);
@@ -1573,7 +1590,7 @@ var arrows = document.getElementsByClassName("covertedtime");
               else{
                 // console.log('battle mode team was '+battleModeTotalTeams);
                 // console.log('battle mode player size was '+this.totalBattleModePlayers);
-                this.averageBattleModeTeams = ss/tt;
+                this.averageBattleModeTeams = parseFloat(ss/tt).toFixed(2);
               }
               // this.average
             })
@@ -2069,6 +2086,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           console.log(response.data[0]);
           var space = 'average size';
           console.log(response.data[0].average_size);
+          // var y = 
           this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
         })
         .catch(function (error) {
@@ -2082,8 +2100,15 @@ var arrows = document.getElementsByClassName("covertedtime");
         })
         .then(response => 
         {
-          console.log(response.data.avgTimePlayed);
-          this.averageSessionTime = response.data.avgTimePlayed;
+          // console.log(response);
+
+          // console.log(response.data.avgTimePlayed);
+
+          var formatAverageTime = Math.round(response.data[0].avgTimePlayed/60);
+          // console.log(formatAverageTime);
+          // var momentFormatAverageTime = moment(formatAverageTime).format('HH:mm');
+          // console.log(momentFormatAverageTime);
+          this.averageSessionTime = formatAverageTime;
           // var space = 'average size';
           // console.log(response.data[0].average_size);
           // this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);

@@ -20,6 +20,7 @@ import Dashboard from './Dashboard.vue';
 import Rfid from './Rfid.vue';
 import Social from './Social.vue';
 import Rfidmedia from './Rfidmedia.vue';
+import Activeteams from './Activeteams.vue';
 
 
 /* pages link for footer */
@@ -64,6 +65,7 @@ const routes = [
 	{ path : '/Rfid', component: Rfid},
 	{ path : '/Social', component: Social},
 	{ path : '/Scanmedia', component: Rfidmedia},
+	{ path : '/Activeteams', component: Activeteams},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 

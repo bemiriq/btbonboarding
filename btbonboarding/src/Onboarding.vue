@@ -1355,7 +1355,7 @@
                       </b-col>
                       <b-col sm="7">
 
-                        <b-form-input size="md" v-model="item.Team.name" placeholder="TEAM NAME 1" v-on:change="previousTeamUpdate($event, index)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="item.Team.name" placeholder="TEAM NAME 1"  style="text-transform: uppercase"></b-form-input>
 
                       </b-col>
 
@@ -1725,7 +1725,11 @@
                                 </b-col>
                                 <b-col sm="7">
 
-                                  <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                                  <b-form-input size="md" v-model="teamName10" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 10)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 10)"></b-form-input>
+
+                                  <span v-if="teamNameSpecialCharacters10 == '1'" class="specialCharacters">
+                                    Please dont use special characters
+                                  </span>
 
                                 </b-col>
 
@@ -1981,7 +1985,11 @@
                           <b-col sm="7">
 
 
-                            <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                            <b-form-input size="md" v-model="teamName11" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 11)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 11)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters11 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
 
                           </b-col>
@@ -2269,7 +2277,11 @@
                         <b-col sm="7">
 
 
-                          <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:blur="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName12" placeholder="TEAM NAME 3" v-on:blur="posttoapi($event, 12)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 12)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters12 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
 
                         </b-col>
@@ -2516,7 +2528,11 @@
                       </b-col>
                       <b-col sm="7">
 
-                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:blur="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                        <b-form-input size="md" v-model="teamName13" placeholder="TEAM NAME 4" v-on:blur="posttoapi($event, 13)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 13)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters13 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                       </b-col>
 
@@ -2779,7 +2795,11 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName14" placeholder="TEAM NAME 5" v-on:blur="posttoapi($event, 14)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 14)"></b-form-input>
+
+                      <span v-if="teamNameSpecialCharacters14 == '1'" class="specialCharacters">
+                        Please dont use special characters
+                      </span>
 
                     </b-col>
 
@@ -2938,7 +2958,7 @@
                 <br />
 
 
-                <div v-if=" selected14 > 0 && selected14 == selected11">
+                <div v-if=" selected14 > 0 && selected14 == selected15">
 
                   <b-row>
                     <b-col sm="3">
@@ -3027,7 +3047,11 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:blur="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName15" placeholder="TEAM NAME 6" v-on:blur="posttoapi($event, 15)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 15)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters15 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                         </b-col>
 
@@ -3190,7 +3214,7 @@
 
                   <br />
 
-                  <div v-if=" selected15 > 0 && selected10 == selected15">
+                  <div v-if=" selected15 > 0 && selected15 == selected14">
 
                     <b-row>
                       <b-col sm="3">
@@ -3289,7 +3313,11 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName16" placeholder="TEAM NAME 7" v-on:blur="posttoapi($event, 16)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 16)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters16 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                     </b-col>
 
@@ -3535,7 +3563,11 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName17" placeholder="TEAM NAME 8" v-on:blur="posttoapi($event, 17)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 17)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters17 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                         </b-col>
 
@@ -3793,7 +3825,11 @@
                     </b-col>
                     <b-col sm="7">
 
-                      <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 1" v-on:blur="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                      <b-form-input size="md" v-model="teamName18" placeholder="TEAM NAME 9" v-on:blur="posttoapi($event, 18)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 18)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters18 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                     </b-col>
 
@@ -4039,7 +4075,11 @@
                         </b-col>
                         <b-col sm="7">
 
-                          <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 2" v-on:blur="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20"></b-form-input>
+                          <b-form-input size="md" v-model="teamName19" placeholder="TEAM NAME 10" v-on:blur="posttoapi($event, 19)" style="text-transform: uppercase" maxlength="20" @keydown="teamNameSpecialCharacters($event, 19)"></b-form-input>
+
+                            <span v-if="teamNameSpecialCharacters19 == '1'" class="specialCharacters">
+                              Please dont use special characters
+                            </span>
 
                         </b-col>
 
@@ -5539,6 +5579,19 @@ data() {
     playerSessionDetail4:[],
     /* end of session id */
 
+    /** team name special characters **/
+    teamNameSpecialCharacters10:'',
+    teamNameSpecialCharacters11:'',
+    teamNameSpecialCharacters12:'',
+    teamNameSpecialCharacters13:'',
+    teamNameSpecialCharacters14:'',
+    teamNameSpecialCharacters15:'',
+    teamNameSpecialCharacters16:'',
+    teamNameSpecialCharacters17:'',
+    teamNameSpecialCharacters18:'',
+    teamNameSpecialCharacters19:'',
+    /** end of special characters **/
+
     // dataList1: [
     //    { name: "Sandes", id: 0 },
     //     { name: "Chuck", id: 1 },
@@ -5553,6 +5606,26 @@ data() {
 },
 
 methods: {
+
+  teamNameSpecialCharacters(e,value){
+    console.log(e.which);
+
+    if(e.which != 32){
+      if (/^\W$/.test(e.key)) {
+        e.preventDefault();
+        this['teamNameSpecialCharacters'+value] = '1';
+
+        var v = this;
+              setTimeout(function(){
+                v['teamNameSpecialCharacters'+value]=0;
+              }, 2500);
+
+      }
+      else{
+        this['teamNameSpecialCharacters'+value] = 0;
+      }
+    }
+  },
 
   playerDetailSession(colValue){
     console.log('col value is '+colValue);
@@ -8903,7 +8976,7 @@ add: function() {
       }
 
       axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdFirstTeam,{
-        team_vs_team_id : '0'
+        team_vs_team_id : null
       })
       .then(response => {
         console.log(response);
@@ -8918,7 +8991,7 @@ add: function() {
       /**this will update session id on team_vs_team_id for SIDE B 1 **/
 
       axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+getSessionIdSecondTeam,{
-        team_vs_team_id : '0'
+        team_vs_team_id : null
       })
 
       .then(response => {
@@ -12915,6 +12988,12 @@ computed:{
   background-color: #90ee90;
   /*margin-top: -2% !important;*/
   /*color: yellow;*/
+}
+
+.specialCharacters{
+  font-size: 0.9em;
+  color:red;
+  font-style:italic;
 }
 
 
