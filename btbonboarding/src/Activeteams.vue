@@ -60,12 +60,12 @@
             <p class="teamTitle1">ACTIVE TEAMS</p>
 
             <table class="table">
-              <tr>
-                <th>Team Name</th>
+              <tr style="font-size: 1.2em;text-align:left;">
+                <th style="text-align:center;">Team Name</th>
                 <th> Mission</th>
                 <th> Update </th>
               </tr>
-              <tr v-for="team in teamList" v-bind:key="team.id">
+              <tr v-for="team in teamList" v-bind:key="team.id" style="text-align:left;">
                 <td>
                   <p class="detailsText" style="text-transform:capitalize;">{{team.Team.name}}</p>
                 </td>
@@ -77,7 +77,8 @@
                 </td>
 
                 <td>
-                  <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button>
+                  <button type="button" class="btn btn-info" v-on:click="editTeamDetails(team.id)">Edit</button>
+                  <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
                 </td>
               </tr>
             </table>

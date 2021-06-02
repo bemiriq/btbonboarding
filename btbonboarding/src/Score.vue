@@ -13,6 +13,7 @@
             <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item>
             <b-list-group-item href="#">Onboarding</b-list-group-item>
             <b-list-group-item href="#foobar">Teams On Deck</b-list-group-item>
+            <b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
             <b-list-group-item href="#">Playing</b-list-group-item>
             <b-list-group-item href="#">Print Scoresheet</b-list-group-item>
             <b-list-group-item href="/#/Social">Social Tagging</b-list-group-item>

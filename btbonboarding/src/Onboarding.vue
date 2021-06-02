@@ -1256,6 +1256,7 @@
           <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
           <b-list-group-item href="/#/Onboarding" active>Onboarding</b-list-group-item>
           <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
+          <b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
           <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
           <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
           <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
@@ -3988,7 +3989,7 @@
                 <br />
 
 
-                <div v-if=" selected18 > 0 && selected18 == selected11">
+                <div v-if=" selected18 > 0 && selected18 == selected19">
                   <b-row>
                     <b-col sm="3">
                       <label for="input-small">Battle Mode</label>
