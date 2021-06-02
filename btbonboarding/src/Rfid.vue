@@ -12,7 +12,7 @@
 
 	<br><br><br>
 
-	<table style="margin:auto;margin-top: 6%;" v-if="teamName.length > '0'">
+	<table style="margin:auto;margin-top: 6%;" v-if="teamName.length > '0' && activateError < '1'">
 		<tr>
 			<td class="playerDetailStyle blink_me" id="leftRightAnimation">{{teamName}}</td>
 			<td class="playerDetailStyle blink_me" id="leftRightAnimation" style="padding-left: 10%;">{{teamSize}}</td>
@@ -33,7 +33,7 @@
 
 	<table style="margin-left:-29%; margin-top:2%; width:100%;" v-if="activateError > '0'">
 		<tr>
-			<td class="playerDetailStyle blink_me" style="text-align:right;">No Rfid Value !!</td>
+			<td class="playerDetailStyle blink_me" style="text-align:right;">Details Not Found !!</td>
 		</tr>
 	</table>
 
@@ -131,7 +131,7 @@ methods:{
 							v.teamName='';
 							v.playerName='';
 							v.teamSize='';
-						}, 3500);
+						}, 2000);
 				}
 				/** end of team player session table **/
 
@@ -142,19 +142,20 @@ methods:{
 
 			/** end of rfid tag into id **/
 		}
-		// else{
-		// 	console.log('Rfid tag more/less than 8');
-		// 			this.activateError = 1;
+		else{
+			console.log('Rfid tag more/less than 8');
+					this.activateError = 1;
+					this.teamName = 'random teams';
 
-		// 			var v = this;
-		// 				setTimeout(function(){
-		// 					v.rfidTag='';
-		// 					v.teamName='';
-		// 					v.playerName='';
-		// 					v.teamSize='';
-		// 					v.activateError='';
-		// 				}, 3500);
-		// }
+					var v = this;
+						setTimeout(function(){
+							v.rfidTag='';
+							v.teamName='';
+							v.playerName='';
+							v.teamSize='';
+							v.activateError='';
+						}, 2000);
+		}
 	},
 
 }
