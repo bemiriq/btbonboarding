@@ -7,6 +7,44 @@
       Succesfully Updated. It will refresh page in 2 seconds.
     </b-modal>
 
+    <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true">
+      <b-row>
+        <b-col><b>Old Team Name</b></b-col>
+        <b-col lg="8">{{clickedTeamName}}</b-col>
+      </b-row>
+      <br>
+      <b-row>
+        <b-col><b>New Team Name</b></b-col>
+        <b-col lg="8"><b-form-input v-model="updateTeamName" placeholder="Please write their new team name"> </b-form-input></b-col>
+      </b-row>
+      <br>
+      <div style="text-align:center;margin-top:2%;">
+        <button type="button" class="btn btn-info" v-on:click="submitTeamName()" v-if="updateTeamName.length > '1'">SUBMIT</button>
+        <button type="button" class="btn btn-info" v-on:click="submitTeamName()" v-else disabled>SUBMIT</button>
+
+        <button type="button" class="btn btn-danger" v-on:click="cancelTeamName()" style="margin-left:2%;">CANCEL</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-booleanCloneTeams" centered size="md" v-bind:hide-footer="true">
+      <!-- You are going to clone {{clonedTPS1[0].team_name}} and team 2. -->
+
+      <div v-if="clonedTPS2.length > '0'">
+        <p>
+          You are going to clone <b>{{clonedTPS1[0].team_name}}</b> and <b>{{clonedTPS2[0].team_name}}</b>.
+        </p>
+
+        <hr>
+
+        <button type="button" class="btn btn-info" v-on:click="clonedTeamSubmitted()">SUBMIT</button>
+        <button type="button" class="btn btn-danger" v-on:click="cancelCloning()" style="margin-left:2%;">CANCEL</button>
+
+
+      </div>
+
+
+    </b-modal>
+
     <b-modal id="modal-activeTeams" centered size="lg" v-bind:hide-footer="true">
       <table class="table">
         <tr>
@@ -17,7 +55,10 @@
           <th>VS Team Name</th>
         </tr>
         <tr>
-          <td>{{clickedTeamName}}</td>
+          <!-- <td>{{clickedTeamName}}</td> -->
+          <td>
+            <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{clickedTeamName}}</a>
+          </td>
           <td>
             <b-form-select v-model="clickedMission" v-on:change="changedMission($event)">
               <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
@@ -34,6 +75,43 @@
           </td>
         </tr>
       </table>
+    </b-modal>
+
+    <b-modal id="modal-cloneTeams" centered size="lg" v-bind:hide-footer="true">
+      <!-- <p>CLONE IT NOW</p> -->
+
+      <!-- <table class="table">
+        <tr>
+          <th>Team Name</th>
+          <th>Mission</th>
+          <th>Battle Mode</th>
+          <th>VS Team Name</th>
+        </tr>
+        <tr>
+          <td>{{clickedTeamName}}</td>
+          <td>
+            <b-form-select v-model="clickedMission" v-on:change="changedMission($event)">
+              <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
+            </b-form-select>
+          </td>
+          <td v-if="battleModeTeamSession > '0' ">YES</td>
+          <td v-else>NO</td>
+          <td style="width:40%;">
+            <b-form-select v-model="cloneTeamsValue" v-on:change="cloneTeams($event)">
+              <option style="font-weight:bold;" value="normalMode">Convert to normal mode team</option>
+              <option v-for="item in teamList" :value="item.id" v-bind:key="item.id">{{item.Team.name}}</option>
+            </b-form-select>
+          </td>
+        </tr>
+      </table> -->
+
+      <div  v-if="clickedTeamName.length > '0'">
+        <p>You are going to clone team <b>{{clickedTeamName}}</b> </p>
+
+        <button type="button" class="btn btn-info" v-on:click="clonedTeamSubmitted()">SUBMIT</button>
+        <button type="button" class="btn btn-danger" v-on:click="cancelCloning()" style="margin-left:2%;">CANCEL</button>
+
+      </div>
     </b-modal>
 
     <div>
@@ -63,11 +141,14 @@
               <tr style="font-size: 1.2em;text-align:left;">
                 <th style="text-align:center;">Team Name</th>
                 <th> Mission</th>
+                <th> Time </th>
                 <th> Update </th>
+                <th> Clone Team </th>
               </tr>
               <tr v-for="team in teamList" v-bind:key="team.id" style="text-align:left;">
                 <td>
                   <p class="detailsText" style="text-transform:capitalize;">{{team.Team.name}}</p>
+                  <!-- <a href="#/Activeteams" @click="editTeamName()" style="text-transform:capitalize;">{{team.Team.name}}</a> -->
                 </td>
 
                 <td>
@@ -77,9 +158,18 @@
                 </td>
 
                 <td>
-                  <button type="button" class="btn btn-info" v-on:click="editTeamDetails(team.id)">Edit</button>
+                  {{team.session_time | convertTime}}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info" v-on:click="editTeamDetails(team.id,1)">Edit</button>
                   <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
                 </td>
+
+                <td>
+                  <button type="button" class="btn btn-primary" v-on:click="editTeamDetails(team.id,2)">Clone</button>
+                  <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
+                </td>
+
               </tr>
             </table>
         </b-col>
@@ -123,6 +213,7 @@
 <script>
 
   import axios from 'axios';
+  import moment from 'moment';
 
   export default {
     name: 'App',
@@ -142,7 +233,13 @@
         battleModeTeamSession:'',
         updatedBattleModeSession:'',
         limitTeams:20,
-        missions:[]
+        missions:[],
+        cloneTeamsValue:[],
+        clonedTPS1:[],
+        clonedTPS2:[],
+        clonedTeam1SessionId:'',
+        updateTeamName:'',
+        // clonedTeam2SessionId:''
         // clickedBattleModeTeam:'',
       }
     },
@@ -164,7 +261,305 @@
       });
     },
 
+    filters:{
+      convertTime(value){
+        if(value == null){
+          return 'Empty'
+        }
+        var formattime = moment(value).format('hh:mm A');
+        return formattime
+      },
+    },
+
     methods:{
+
+      submitTeamName(){
+        console.log(this.updateTeamName);
+        console.log(this.clickedSessionId);
+        axios.post(process.env.VUE_APP_DATABASE_TEAMS+'/find_or_create/'+this.updateTeamName,{
+
+        })
+        .then(response => {
+          console.log(response.data);
+          console.log(response.data[0].id);
+          var teamId = response.data[0].id;
+
+          axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+            team_id: teamId
+          })
+          .then(response => {
+            console.log(response.data);
+            this.$bvModal.hide('modal-activeTeams');
+            this.$bvModal.hide('modal-editTeamName');
+            this.$bvModal.show('modal-success');
+            this.reloadFuntion();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          // console.log('Update Team Name');
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      },
+
+      cancelTeamName(){
+        this.$bvModal.hide('modal-editTeamName');
+      },
+
+      editTeamName(session_id){
+        console.log('inside');
+        console.log(session_id);
+        this.$bvModal.show('modal-editTeamName');
+      },
+
+      clonedTeamSubmitted(){
+
+        /** axios.post create two session id and add the value of clonedTPS1/clonedTPS2 once the session is created , as you
+        have to use that SESSION ID value on TPS / Team player session **/
+
+        /** this will run after the team is cloned successfully **/
+        // this.$bvModal.hide('modal-booleanCloneTeams');
+        // this.$bvModal.show('modal-success');
+        // this.reloadFuntion();
+
+        if(this.clonedTPS1[0].reservation_id > '0' && this.clonedTPS1[0].team_id > '0'){
+
+          axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+              location_id: 1,
+              reservation_id: this.clonedTPS1[0].reservation_id,
+              mission_id: this.clickedMission,
+              session_time: moment().format('YYYY-MM-DD HH:mm:00'),
+              team_id: this.clonedTPS1[0].team_id,
+              route_id: 1, /** this is for side A **/
+              active: 1,
+              player_count: this.clonedTPS1.length
+            })
+          .then(response => {
+            console.log(response.data);
+            console.log('Created new session id for first team');
+
+            var team1SessionId = response.data.id;
+            this.clonedTeam1SessionId = response.data.id;
+
+            /** this will create the team player session followed by clonedTPS length **/
+            for (var i = 0; i < this.clonedTPS1.length; i++) {
+
+              axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
+                team_id: this.clonedTPS1[0].team_id,
+                player_id: this.clonedTPS1[i].player_id,
+                player_minor_id: this.clonedTPS1[i].player_minor_id,
+                session_id: team1SessionId,
+                rfid_id: this.clonedTPS1[i].rfid_id,
+                reservation_id: this.clonedTPS1[i].reservation_id
+              })
+              .then(response => {
+                console.log(response.data);
+                console.log('Created tps of team 1 player '+i);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+
+              if(i+1 == this.clonedTPS1.length){
+                /** this will run after the team is cloned successfully **/
+                // this.$bvModal.hide('modal-booleanCloneTeams');
+                this.$bvModal.hide('modal-cloneTeams');
+                this.$bvModal.show('modal-success');
+                this.reloadFuntion();
+              }
+
+            }/** for loop closed **/
+
+            /** end of team player session post **/
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        }
+
+
+        /** second team **/
+
+        // if(this.clonedTPS2[0].reservation_id > '0' && this.clonedTPS2[0].team_id > '0'){
+
+        //   axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
+        //       location_id: 1,
+        //       reservation_id: this.clonedTPS2[0].reservation_id,
+        //       mission_id: this.clickedMission,
+        //       session_time: moment().format('YYYY-MM-DD HH:mm:00'),
+        //       team_id: this.clonedTPS2[0].team_id,
+        //       route_id: 2, /** this is for side A **/
+        //       active: 1,
+        //       player_count: this.clonedTPS2.length,
+        //       team_vs_team_id: this.clickedSessionId
+        //     })
+        //   .then(response => {
+        //     console.log(response.data);
+        //     console.log('Created new session id for second team');
+
+        //     var team2SessionId = response.data.id;
+
+        //     /** update battle mode team_vs_team_id value for team 1 **/
+        //     axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clonedTeam1SessionId,{
+        //       team_vs_team_id: team2SessionId
+        //     })
+        //     .then(response => {
+        //       console.log(response.data);
+        //       console.log('Update team 1 team_vs_team_id');
+        //     })
+        //     .catch(function (error) {
+        //       console.log(error);
+        //     });
+        //     /** end of team 1 update team_vs_team_id value **/
+
+        //     * this will create the team player session followed by clonedTPS length *
+        //     for (var i = 0; i < this.clonedTPS2.length; i++) {
+
+        //       axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS,{
+        //         team_id: this.clonedTPS2[0].team_id,
+        //         player_id: this.clonedTPS2[i].player_id,
+        //         player_minor_id: this.clonedTPS2[i].player_minor_id,
+        //         session_id: team2SessionId,
+        //         rfid_id: this.clonedTPS2[i].rfid_id,
+        //         reservation_id: this.clonedTPS2[i].reservation_id
+        //       })
+        //       .then(response => {
+        //         console.log(response.data);
+        //         console.log('Created tps of team 2 player '+i);
+        //       })
+        //       .catch(function (error) {
+        //         console.log(error);
+        //       });
+
+        //       if(i+1 == this.clonedTPS2.length){
+        //         /** this will run after the team is cloned successfully **/
+        //         this.$bvModal.hide('modal-booleanCloneTeams');
+        //         this.$bvModal.show('modal-success');
+        //         this.reloadFuntion();
+        //       }
+
+        //     }
+        //     /** for loop closed **/
+
+        //     /** end of team player session post **/
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+
+        // }
+
+        /** end of second team **/
+
+
+      },
+
+      cancelCloning(){
+
+        // this.$bvModal.hide('modal-booleanCloneTeams');
+        this.$bvModal.hide('modal-cloneTeams');
+        // this.$bvModal.hide('modal-booleanCloneTeams');
+
+      },
+
+      cloneTeams(){
+        console.log('inside clone');
+
+        this.clonedTPS1 = [];
+        // this.clonedTPS2 = [];
+
+        // console.log(this.clickedSessionId);
+        // console.log(event);
+
+        // var cloneSessionId1 = this.clickedSessionId;
+
+        // var cloneSessionId2 = event;
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+            
+          })
+          .then(response => {
+            console.log(response.data);
+
+            var teamPlayerSession1 = response.data.Team_player_sessions;
+            for (var i = 0; i < teamPlayerSession1.length; i++) {
+              console.log(i);
+              console.log(teamPlayerSession1[i]);
+
+              var tpsPlayerId = teamPlayerSession1[i].player_id;
+              var tpsMinorId = teamPlayerSession1[i].player_minor_id;
+              var tpsReservationId = teamPlayerSession1[i].reservation_id;
+              var tpsTeamId = teamPlayerSession1[i].team_id;
+              var tpsRfid = teamPlayerSession1[i].rfid_id;
+              // var tpsTeamName1 = response.data.Team.name;
+
+
+              var tpsDetail1 = {
+                'player_id' : tpsPlayerId,
+                'player_minor_id' : tpsMinorId,
+                'reservation_id' : tpsReservationId,
+                'team_id' : tpsTeamId,
+                'rfid_id' : tpsRfid,
+                // 'team_name' : tpsTeamName1
+                'team_name' : this.clickedTeamName
+
+              }
+
+              this.clonedTPS1.push(tpsDetail1);
+
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
+
+        // if(cloneSessionId2 > '0'){
+        //   axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+cloneSessionId2,{
+            
+        //   })
+        //   .then(response => {
+        //     console.log(response.data);
+
+        //     var teamPlayerSession2 = response.data.Team_player_sessions;
+        //     for (var i = 0; i < teamPlayerSession2.length; i++) {
+        //       console.log(i);
+        //       console.log(teamPlayerSession2[i]);
+
+        //       var tpsPlayerId2 = teamPlayerSession2[i].player_id;
+        //       var tpsMinorId2 = teamPlayerSession2[i].player_minor_id;
+        //       var tpsReservationId2 = teamPlayerSession2[i].reservation_id;
+        //       var tpsTeamId2 = teamPlayerSession2[i].team_id;
+        //       var tpsRfid2 = teamPlayerSession2[i].rfid_id;
+        //       var tpsTeamName2 = response.data.Team.name;
+
+        //       var tpsDetail2 = {
+        //         'player_id' : tpsPlayerId2,
+        //         'player_minor_id' : tpsMinorId2,
+        //         'reservation_id' : tpsReservationId2,
+        //         'team_id' : tpsTeamId2,
+        //         'rfid_id' : tpsRfid2,
+        //         'team_name' : tpsTeamName2
+        //       }
+
+        //       this.clonedTPS2.push(tpsDetail2);
+        //     }
+
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        // });
+        // }
+
+        this.$bvModal.hide('modal-cloneTeams');
+        
+        // this.$bvModal.show('modal-booleanCloneTeams');
+
+      },
 
       changedBattleModeTeam(event){
         console.log(event);
@@ -276,7 +671,7 @@
         }, 2000);
       },
 
-      editTeamDetails(value){
+      editTeamDetails(value,updateValue){
         console.log(value);
         console.log('inside');
         this.clickedSessionId = value;
@@ -314,7 +709,15 @@
           console.log(error);
         });
 
-        this.$bvModal.show('modal-activeTeams');
+        if(updateValue == '1'){
+          this.$bvModal.show('modal-activeTeams');
+        }
+        else{
+          this.cloneTeams(); /** cloneTeams function will pass TPS value into clonedTPS1 **/
+          this.$bvModal.show('modal-cloneTeams');
+        }
+
+        
       }
     }
 

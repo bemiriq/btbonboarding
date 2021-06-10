@@ -5,7 +5,7 @@
 
   <b-modal id="modal-teamMedia" centered size="xl" v-bind:hide-footer="true">
     <br>
-    <h5 align="center" style="text-transform: capitalize;">{{team_name}} {{teamMissionClicked}} {{teamPlayedDateTime}} </h5>
+    <h5 align="center" style="text-transform: capitalize;">{{team_name}} / {{teamMissionClicked}} / {{teamPlayedDateTime}} / Session Id {{clickedSessionId}}</h5>
     <table class="table" style="text-transform:capitalize;">
       <tr style="font-weight:bold;">
         <td>Name</td>
@@ -223,7 +223,7 @@
                 <b-table id="my-table" :items="searchTeamName" :per-page="perPage" :current-page="currentPage" medium :fields="fields" style="text-align:left;">
                   
                   <template #cell(team_name)="data">
-                    <a href="#" @click="teamNameClicked(data.item.session_id)" style="text-transform:capitalize;">{{data.item.team_name}}</a>
+                    <a href="#/Social" @click="teamNameClicked(data.item.session_id)" style="text-transform:capitalize;">{{data.item.team_name}}</a>
                   </template>
                   
                   
@@ -309,6 +309,7 @@ export default {
       teamMedia9:'',
       teamMedia10:'', /** gets pthobomb url from session_media_assets 14 **/
       clickedPeopleDetail:[], /** gathers up all the player name detail from the session id clicked **/
+      clickedSessionId:'',
     }
   },
 
@@ -484,6 +485,7 @@ export default {
     teamNameClicked(clickedSessionId){
       console.log('team name was clicked');
 
+      this.clickedSessionId = clickedSessionId;
       this.teamMedia = []; /** empty the previous array on click **/
 
       this.clickedPeopleDetail = []; /** empty the previous array player details **/
