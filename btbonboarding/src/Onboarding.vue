@@ -4606,7 +4606,7 @@ var currentdate = moment().format("YYYY-MM-DD");
 console.log(currentdate+ ' date used for reservation');
 
 var startCurrentDate = moment().format('YYYY-MM-DD');
-var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
+var startReservationTime = moment().subtract(5, 'hours').format('HH:mm:ss');
 var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
 var getStartDateTime = moment().format('HHmm');
@@ -10849,10 +10849,10 @@ inputEvent3(e) {
 
         /** delete the code below **/
 
-        var missionid = this.teamByTime2[0].mission_id;
-        console.log('using mission id value as '+missionid);
+        // var missionid = this.teamByTime2[0].mission_id;
+        // console.log('using mission id value as '+missionid);
 
-        console.log(this.teamByTime2[0].mission_id);
+        // console.log(this.teamByTime2[0].mission_id);
 
         var countondrop = this["onDrop"+col+"FunctionLoaded"]++;
         console.log(countondrop);
@@ -10860,14 +10860,13 @@ inputEvent3(e) {
         console.log("below is the dragged id as person id");
         console.log(this["list"+col][countondrop]);
 
-        console.log('mission id mission id mission id was '+this.missions[missionid].id);
-        console.log('mission name mission name mission name was '+this.missions[missionid].name);
-        console.log('actual mission id mission id was '+missionid+ ' as in our database it starts at 0');
+        // console.log('mission id mission id mission id was '+this.missions[missionid].id);
+        // console.log('mission name mission name mission name was '+this.missions[missionid].name);
+        // console.log('actual mission id mission id was '+missionid+ ' as in our database it starts at 0');
 
         // this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
-        this["selected"+col] = this.missions[missionid-1].id; /** made changes here at 06/17/2021, it used to be above line code **/
 
-        console.log(this["selected"+col]);
+        // console.log(this["selected"+col]);
 
     // var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
     var listLength = this["list"+col].length;
@@ -10897,6 +10896,21 @@ inputEvent3(e) {
   }
 
   console.log("RESERVATION ID "+reservationid);
+
+    // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationid);
+
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationid,{
+
+    })
+    .then(response => {
+        console.log('received the reservation detail by id');
+        console.log(response);
+        console.log(this["selected"+col]);
+        this["selected"+col] = response.data.mission_id; /** made changes here at 06/17/2021, it used to be above line code **/
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
     // var teamId = this.teamname1id[0].id;
     
