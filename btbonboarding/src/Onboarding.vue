@@ -7359,7 +7359,7 @@ methods: {
                               console.log(minorPersonId);
                               console.log(minorPlayerSignedWaiverid);
 
-                              replyDataObj3['Team_player_sessions'][j]['Person']={ /** made changes here , as it used to say [i] **/
+                              replyDataObj3['Team_player_sessions'][j]['Person']={ /** made changes here at 06/17/2021, it used to be [i] not [j] **/
                                "first_name": minorFirstName,
                                "last_name": minorLastName,
                                "id": minorPersonId,
@@ -10861,9 +10861,11 @@ inputEvent3(e) {
 
         console.log('mission id mission id mission id was '+this.missions[missionid].id);
         console.log('mission name mission name mission name was '+this.missions[missionid].name);
-        console.log('actual mission id mission id was '+missionid);
+        console.log('actual mission id mission id was '+missionid+ ' as in our database it starts at 0');
 
-        this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        // this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
+        this["selected"+col] = this.missions[missionid].id; /** made changes here at 06/17/2021, it used to be above line code **/
+
         console.log(this["selected"+col]);
 
     // var draggedPlayerId = this.list2[this.list2.length - 1].id; /* this will always select the last player id dragged */
