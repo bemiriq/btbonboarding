@@ -10864,7 +10864,7 @@ inputEvent3(e) {
         console.log('actual mission id mission id was '+missionid+ ' as in our database it starts at 0');
 
         // this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
-        this["selected"+col] = this.missions[missionid].id; /** made changes here at 06/17/2021, it used to be above line code **/
+        this["selected"+col] = this.missions[this.missions[missionid].id].id; /** made changes here at 06/17/2021, it used to be above line code **/
 
         console.log(this["selected"+col]);
 
