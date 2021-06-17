@@ -4,7 +4,41 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
 
+    <b-modal id="modal-date" centered size="md" title="Select date and convert" v-bind:hide-footer="true">
+      <table class="table" >
+        <tr>
+          <td style="border: none;"><b>Start Date</b></td>
+          <td style="border: none;">
+            <b-input-group>
+              <b-form-input id="example-input" v-model="startDateUsed" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+                <b-input-group-append>
+                  <b-form-datepicker v-model="startDateUsed" button-only right locale="en-US" aria-controls="example-input"></b-form-datepicker>
+                </b-input-group-append>
+            </b-input-group>
+          </td>
+        </tr>
 
+        <tr>
+          <td style="border: none;"><b>End Date</b></td>
+          <td style="border: none;">
+            <b-input-group>
+              <b-form-input id="example-input" v-model="endDateUsed" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+                <b-input-group-append>
+                  <b-form-datepicker v-model="endDateUsed" button-only right locale="en-US" aria-controls="example-input"></b-form-datepicker>
+                </b-input-group-append>
+            </b-input-group>
+          </td>
+        </tr>
+        <tr>
+          <td style="border: none;"></td>
+          <td style="border: none;">
+            <b-button variant="info" v-on:click="dateSelected($event,2)">View Data</b-button>
+          </td>
+        </tr>
+      </table>
+
+
+    </b-modal>
 
     <div style="margin-top: 1%;">
 
@@ -40,11 +74,13 @@
             <!-- <p style="font-weight:bold;font-size:25px;">{{startDateUsed}} to {{endDateUsed}}</p> -->
 
             <b-row style="margin-top: 1%;">
-            <b-col lg="1">
+            <!-- <b-col lg="1">
               <p style="margin-top: 3%; font-size: 1.1em;"><b>Date</b></p>
-            </b-col>
+            </b-col> -->
 
-            <b-col lg="3">
+            <b-button variant="outline-primary" v-on:click="selectDate()" style="margin-left:2%;">Select Date</b-button>
+
+            <b-col lg="2">
               <b-input-group class="mb-1">
 
                 <b-form-input
@@ -53,23 +89,12 @@
                   type="text"
                   placeholder="YYYY-MM-DD"
                   autocomplete="off" 
-                ></b-form-input>
-
-                <b-input-group-append>
-                  <b-form-datepicker
-                    v-model="dateClicked"
-                    button-only
-                    right
-                    locale="en-US"
-                    aria-controls="example-input"
-                    @context="dateSelected(dateClicked,2)"
-                  ></b-form-datepicker>
-                </b-input-group-append>
+                disabled></b-form-input>
 
               </b-input-group>
             </b-col>
 
-            <b-col lg="3">
+            <b-col lg="2">
               <b-input-group class="mb-1">
 
                 <b-form-input
@@ -78,18 +103,7 @@
                   type="text"
                   placeholder="YYYY-MM-DD"
                   autocomplete="off" 
-                ></b-form-input>
-
-                <b-input-group-append>
-                  <b-form-datepicker
-                    v-model="endDateClicked"
-                    button-only
-                    right
-                    locale="en-US"
-                    aria-controls="example-input"
-                    @context="dateSelected(endDateClicked,2)"
-                  ></b-form-datepicker>
-                </b-input-group-append>
+                disabled></b-form-input>
 
               </b-input-group>
             </b-col>
@@ -308,7 +322,7 @@
                   </tr>
                   <tr>
                     <td class="tdStyle">Total</td>
-                    <td>{{totalAnswer}}</td>
+                    <td><b>{{totalAnswer}}</b></td>
                   </tr>  
                 </table>
                 </b-col>
@@ -418,6 +432,62 @@
                 </b-col>
               </b-row>
               <!-- end of b-row for third table -->
+
+              <!-- below b-row forth table HOW DID YOU ARRIVE AT BEAT THE BOMB -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">How did you arrive at Beat The Bomb?</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Uber/Lyft or other ride share service</td>
+                      <td>{{answer11}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">NYC Taxi</td>
+                      <td>{{answer12}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">NYC Subway</td>
+                      <td>{{answer13}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">NYC Bus</td>
+                      <td>{{answer14}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Got a car ride with friends or family</td>
+                      <td>{{answer15}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Drove my own car (includes gave a ride to others)</td>
+                      <td>{{answer16}}</td>
+                    </tr>
+
+                    <tr>
+                      <td style="text-align:left;padding-left:10%;font-style:italic;">I parked my car on the street</td>
+                      <td style="font-style:italic;text-align:left;">{{answer16answer1}}</td>
+                    </tr>
+                    <tr>
+                      <td style="text-align:left;padding-left:10%;font-style:italic;">I parked in a paid parking garage</td>
+                      <td style="font-style:italic; text-align:left;">{{answer16answer2}}</td>
+                    </tr>
+
+
+                    <tr>
+                      <td class="tdStyle">Total</td>
+                      <td><b>{{totalHowYouArrive}}</b></td>
+                    </tr>
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+                  </table>
+                </b-col>
+              </b-row>
+              <!-- end of b-row for forth table -->
 
             </div>
             <!-- END OF OVERALL DASHBOARD -->
@@ -887,6 +957,18 @@ export default {
       addXolaBookerId: '',
       /** end of new reservation detail **/
 
+      /** arrive at beat the bomb **/
+      answer11:'',
+      answer12:'',
+      answer13:'',
+      answer14:'',
+      answer15:'',
+      answer16:'',
+      answer16answer1:'',
+      answer16answer2:'',
+      totalHowYouArrive:'',
+      /** end of arrive at beat the bomb **/
+
       /** used on firebase **/
       // username: '',
       // email: '',
@@ -1278,6 +1360,11 @@ var arrows = document.getElementsByClassName("covertedtime");
 
   methods:{
 
+    selectDate(){
+      console.log('select date');
+      this.$bvModal.show('modal-date');
+    },
+
     activateWeekList(){
       this.buttonDisplay++;
       if(this.buttonDisplay%2 == 0){
@@ -1328,22 +1415,6 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log('start date was '+startDate);
         console.log('end adate was '+endDate);
 
-        // var startDate = moment(element).add('days',1).format('YYYY-MM-DD');
-        // var endDate = moment(element).add('days',7).format('YYYY-MM-DD');
-        
-
-
-        // var currentdate = moment().format('YYYY-MM-DD');
-
-        // var formatEndDate = moment(element).add('days',7).format('YYYYMMDD');
-        // var formatCurrentDate = moment().format('YYYYMMDD');
-        // if(formatEndDate > formatCurrentDate){
-        //   var endDate = moment(formatCurrentDate).format('YYYY-MM-DD');
-        // }
-        // else{
-        //   console.log('End date is less than current date');
-        // }
-
         this.startDateUsed = startDate;
         this.endDateUsed = endDate;
 
@@ -1351,17 +1422,28 @@ var arrows = document.getElementsByClassName("covertedtime");
         this.endDateClicked = endDate;
 
         this.pageReload = 0;
+
+        this.loadData();
       }
       else{
         console.log('no link');
-        this.startDateUsed = this.dateClicked;
+
+        this.dateClicked = this.startDateUsed;
+        this.endDateClicked = this.endDateUsed;
+
         console.log(this.startDateUsed);
-        this.endDateUsed = this.endDateClicked;
         console.log(this.endDateUsed);
 
         this.pageReload = 0;
+        
+        this.$bvModal.hide('modal-date');
+
+        this.loadData();
       }
 
+    },
+
+    loadData(){
       axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
       })
@@ -2077,6 +2159,119 @@ var arrows = document.getElementsByClassName("covertedtime");
       /** end of How did you hear about us from TIK TOK **/
 
 
+      /** How did you arrive at beat the bomb **/
+
+        /** Uber/Lyft **/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/11',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer11 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** NYC TAXI **/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/12',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer12 = response.data.count;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** NYC Subway **/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/13',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer13 = response.data.count;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** NYC BUS **/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/14',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer14 = response.data.count;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** got a car ride from friends and family **/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/15',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer15 = response.data.count;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/answer/16',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer16 = response.data.count;
+          this.totalHowYouArrive = this.answer11+this.answer12+this.answer13+this.answer14+this.answer15+this.answer16;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** drove my own car  open text 1 as I parked my car on the street**/
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/open_text/1',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer16answer1 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_PERSON_SURVEY_ANSWER+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/open_text/2',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data.count);
+          this.answer16answer2 = response.data.count;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      /** end of How did you arrive at beat the bomb **/
+
+
       /** AVERAGE RESERVATION SIZE **/
       axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/average_group_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
@@ -2138,8 +2333,6 @@ var arrows = document.getElementsByClassName("covertedtime");
           console.log(error);
         });
       /** ENd of Booker description **/
-
-
     },
 
     changedReservation(event,index,checkPlayer){
