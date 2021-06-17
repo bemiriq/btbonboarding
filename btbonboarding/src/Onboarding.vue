@@ -7173,6 +7173,8 @@ methods: {
 
                         console.log(i);
                         console.log(response.data[0]);
+                        console.log(response.data[0].Team_player_sessions[i]);
+
                         var ifPlayerMinor = response.data[0].Team_player_sessions[i].player_minor_id;
 
                         console.log(" IN SID EEEEE ");
@@ -7337,7 +7339,7 @@ methods: {
                             }
 
                             else{
-                              console.log(" P OPO PO PO NULL");
+                              console.log("on reload it was a minor data");
                               console.log(response.data[0]);
 
                               var minorLastName = response.data[0].Team_player_sessions[j].Player_minor.last_name;
@@ -7350,14 +7352,14 @@ methods: {
                               var SessionId = response.data[0].Team_player_sessions[j].session_id;
 
                               var bombBeater = response.data[0].Team_player_sessions[j].Player_minor.bomb_beater;
-                              console.log('BOMBBEATERRRRRRRRRRRRRRRRRRR '+bombBeater);
+                              // console.log('BOMBBEATERRRRRRRRRRRRRRRRRRR '+bombBeater);
                               // var playerCount = response.data[0].Team_player_sessions[j].Player.play_count;
 
                               console.log(minorFirstName + ' ' + minorLastName);
                               console.log(minorPersonId);
                               console.log(minorPlayerSignedWaiverid);
 
-                              replyDataObj3['Team_player_sessions'][i]['Person']={
+                              replyDataObj3['Team_player_sessions'][j]['Person']={ /** made changes here , as it used to say [i] **/
                                "first_name": minorFirstName,
                                "last_name": minorLastName,
                                "id": minorPersonId,
@@ -10857,8 +10859,8 @@ inputEvent3(e) {
         console.log("below is the dragged id as person id");
         console.log(this["list"+col][countondrop]);
 
-        console.log('mission id mission id mission id was '+this.missions[missionid-1].id);
-        console.log('mission name mission name mission name was '+this.missions[missionid-1].name);
+        console.log('mission id mission id mission id was '+this.missions[missionid].id);
+        console.log('mission name mission name mission name was '+this.missions[missionid].name);
         console.log('actual mission id mission id was '+missionid);
 
         this["selected"+col] = this.missions[missionid-1].id; /** negative one is to match the array . Array start from 0,1,2 and our data id is 1,2,3 **/
