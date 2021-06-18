@@ -7768,7 +7768,7 @@ else{
                                           console.log(minorPlayerSignedWaiverid);
 
 
-                                          replyDataObj3['Team_player_sessions'][i]['Person']={
+                                          replyDataObj3['Team_player_sessions'][j]['Person']={ /** made changes here at 06/18/2021 **/
                                            "first_name": minorFirstName,
                                            "last_name": minorLastName,
                                            "id": minorPersonId,
