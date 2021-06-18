@@ -5919,8 +5919,8 @@ methods: {
 
     if(rfidValue.length > 7 && rfidValue.length < 9){ /** you need to right code to upload only 8 digits for rfid value **/
 
-      axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfidValue,{
-        tag: rfidValue
+      axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfidValue.toUpperCase(),{
+        tag: rfidValue.toUpperCase(),
       })
       .then(response => {
         console.log(response);
@@ -8435,8 +8435,8 @@ add: function() {
           var rfid_tag = event;
           console.log(rfid_tag);
 
-          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-            tag: rfid_tag,
+          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag.toUpperCase(),{
+            tag: rfid_tag.toUpperCase(),
           })
           .then(response => {
             console.log(response);
@@ -8690,8 +8690,8 @@ add: function() {
          var rfid_tag = event;
          console.log(rfid_tag);
 
-         axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-          tag: rfid_tag,
+         axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag.toUpperCase(),{
+          tag: rfid_tag.toUpperCase(),
         })
          .then(response => {
 
@@ -8750,6 +8750,8 @@ add: function() {
           
           var rfidValue = this['list'+col][i].rfidState1;
 
+          console.log('rfid value was '+rfidValue);
+
           if(event != rfidValue){
             console.log('different value used');
             // break;
@@ -8774,8 +8776,10 @@ add: function() {
 
           var rfid_tag = this["list"+col][index].rfidState1;
 
-          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag,{
-            tag: rfid_tag,
+          console.log('rfid tag was '+rfid_tag.toUpperCase());
+
+          axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag.toUpperCase(),{
+            tag: rfid_tag.toUpperCase(),
           })
           .then(response => {
             console.log(response.data[0].id);
