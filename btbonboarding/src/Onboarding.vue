@@ -10816,7 +10816,7 @@ inputEvent3(e) {
     /** this if and ELSE statement is for the TEAM NAME update before and after dropping player name **/
     if(this["teamName"+col].length > 1){
 
-      console.log("/pop op o po po ");
+      // console.log("/pop op o po po ");
 
       var teamName = this["teamName"+col];
       var teamNameId = this["teamIdSide"+col];
@@ -10903,13 +10903,11 @@ inputEvent3(e) {
 
     // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationid);
 
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationid,{
-
-    })
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationid)
     .then(response => {
         console.log('received the reservation detail by id');
         console.log(response);
-        console.log(this["selected"+col]);
+        // console.log(this["selected"+col]);
         this["selected"+col] = response.data.mission_id; /** made changes here at 06/17/2021, it used to be above line code **/
     })
     .catch(error => {
@@ -11030,6 +11028,17 @@ inputEvent3(e) {
               .catch(function (error) {
                 console.log(error);
               });
+
+              // console.log('grab mission id as '+this["selected"+col]);
+              axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                  mission_id: this["selected"+col]
+                })
+                .then(response => {
+                  console.log("Update mission value as "+this["selected"+col]+" using session ID as "+sessionIdInserted+ " for minors");
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
 
               /** this will update the reservation_minors session_id **/
 
@@ -11323,8 +11332,6 @@ else{
 
           if(!this["list"+col+"sessionid"] > '0' ){
 
-            console.log(" NOW DSS  KDS KKDS S");
-
             axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+reservationid+'/team/'+teamId+'/route/'+routeId,{
               team_id: teamId,
               route_id: routeId,
@@ -11417,6 +11424,18 @@ else{
                 })
                 .then(response => {
                   console.log("Inside 3rd team player sessions update on sessions");
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                console.log('grab mission id as '+this["selected"+col]);
+
+                axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionIdInserted,{
+                  mission_id: this["selected"+col]
+                })
+                .then(response => {
+                  console.log("Update mission value as "+this["selected"+col]+" using session ID as "+sessionIdInserted);
                 })
                 .catch(function (error) {
                   console.log(error);

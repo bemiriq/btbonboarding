@@ -91,7 +91,7 @@
 		</b-modal>
 
 		<b-modal id="modal-profileDetail" centered size="xl" title="Profile" v-bind:hide-footer="true">
-			<table class="table">
+			<table class="table table-borderless">
             <tr>
               <th>Player Name</th>
               <th>Email</th>
@@ -103,7 +103,7 @@
             </tr>
 
             <tr>
-           <td>{{playerName}}</td>
+           <td style="text-transform:capitalize;">{{playerName}}</td>
             <td>{{playerEmail}}</td>
             <td>{{playerPhone}}</td>
             <td>{{playerInstagram}}</td>
@@ -190,7 +190,8 @@
 							<b-input-group class="mb-1">
 								<b-form-input id="example-input" v-model="dateClicked" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
 								<b-input-group-append>
-									<b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+									<!-- <b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker> -->
+									<b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" v-on:input="onContext(dateClicked)"></b-form-datepicker>
 								</b-input-group-append>
 							</b-input-group>
 						</b-col>
@@ -199,7 +200,7 @@
 							<b-input-group class="mb-1">
 								<b-form-input id="example-input" v-model="dateClickedEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
 								<b-input-group-append>
-									<b-form-datepicker v-model="dateClickedEndDate" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+									<b-form-datepicker v-model="dateClickedEndDate" button-only right locale="en-US" aria-controls="example-input"  v-on:input="onContext(dateClickedEndDate)"></b-form-datepicker>
 								</b-input-group-append>
 							</b-input-group>
 						</b-col>
@@ -422,7 +423,7 @@ console.log(moment().format('YYYY-MM-DD'));
     this.dateClicked = startDate;
     this.dateClickedEndDate = endDate;
 
-            this.teamList = []; /** if it contained any value it will remove it first **/
+        this.teamList = []; /** if it contained any value it will remove it first **/
 
         /** this will now change the check in list following the date **/
 
@@ -445,11 +446,11 @@ console.log(moment().format('YYYY-MM-DD'));
 		this.searchedPeopleId = [];
 		this.searchedPersonId = [];
 		this.searchedTeamPlayerSession = [];
-		this.teamList = [];
+		// this.teamList = [];
 		this.playerTeamPlayerSessionDetail = [];
 		/** end of array reset **/
 
-		console.log(axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate));
+		console.log(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate);
 
 		axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate,{
 
@@ -458,24 +459,25 @@ console.log(moment().format('YYYY-MM-DD'));
 		{
 			// console.log(response.data[0].id);
 
-			// console.log(response.data.length);
+			console.log('total player ' +response.data.length);
 
 			var totalSearchedText = response.data.length;
 
 			for (var i = 0; i < totalSearchedText; i++) {
 				var peopleId = response.data[i].id;
 
+				console.log(response.data[i].id);
+				console.log(peopleId);
+
 				this.searchedPeopleId.push(peopleId);
 
 				if(i+1 == totalSearchedText){
-					// console.log('yes yes');
-					// console.log(this.searchedPeopleId);
+					console.log('ul');
 					var v = this;
-					// setTimeout(function(){v.getPersonDetail(); }, 3000);
-					console.log(this.searchedPeopleId);
+					// console.log(this.searchedPeopleId);
 					setTimeout(function(){
-						console.log(v.searchedPeopleId);
-						console.log(v.getPersonDetail());
+						// console.log(v.searchedPeopleId);
+						v.getPersonDetail();
 						console.log('yes yes'); }, 1000);
 
 				}
@@ -603,7 +605,7 @@ methods:{
 
 		var searchText = this.searchedText;
 
-		console.log(axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'searchText/'+searchText));
+		console.log(process.env.VUE_APP_DATABASE_PEOPLE+'searchText/'+searchText);
 
 		axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'searchText/'+searchText,{
 
@@ -618,6 +620,8 @@ methods:{
 
 			for (var i = 0; i < totalSearchedText; i++) {
 				var peopleId = response.data[i].id;
+
+				// console.log(peopleId);
 
 				this.searchedPeopleId.push(peopleId);
 
@@ -737,6 +741,7 @@ methods:{
 
 	getPersonDetail(){
 		console.log('use this function now');
+		console.log(this.searchedPeopleId.length);
 		for (var k = 0; k < this.searchedPeopleId.length; k++) {
 
 			axios.get(process.env.VUE_APP_DATABASE_PLAYERS+'person/'+this.searchedPeopleId[k],{
@@ -789,11 +794,13 @@ methods:{
 					console.log(error);
 				});
 
-
-			if(k+1 == this.searchedPeopleId.length){
-				var v = this;
-				setTimeout(function(){v.getTeamPlayerSessionDetail(); }, 2000); /** setting up 1 sec delay to pass person detail **/
-			}
+				if(k+1 == this.searchedPeopleId.length){
+									console.log('inside 799');
+									var v = this;
+									// v.sea
+									// v.getTeamPlayerSessionDetail();
+									setTimeout(function(){v.getTeamPlayerSessionDetail(); }, 1000); /** setting up 1 sec delay to pass person detail **/
+								}
 				
 		}
 	},
@@ -801,20 +808,30 @@ methods:{
 	getTeamPlayerSessionDetail(){
 		console.log('searched person length '+this.teamList.length);
 		for (var i = 0; i < this.teamList.length; i++) {
-			// console.log(this.teamList[i].person_id);
+			console.log(this.teamList[i].id);
 			var getPlayerId = this.teamList[i].id;
 
-			axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+getPlayerId,{
+			console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+getPlayerId);
 
-			})
-			.then(response => 
-			{	
-				console.log(response.data);
-				this.searchedTeamPlayerSession.push(response.data);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+			if(getPlayerId > '0'){
+				axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+getPlayerId,{
+
+				})
+				.then(response => 
+				{	
+					console.log(response.data);
+					this.searchedTeamPlayerSession.push(response.data);
+				})
+				.catch(function (error) {
+					console.log(error);
+					// this.searchedTeamPlayerSession.push('0');
+				});
+			}
+			else{
+				var value='0';
+				this.searchedTeamPlayerSession.push(value);
+			}
+			
 		}
 	},
 
@@ -1089,13 +1106,14 @@ methods:{
 
         /** resetting the array **/
 		this.searchedPeopleId = [];
+		console.log(this.searchedPeopleId);
 		this.searchedPersonId = [];
 		this.searchedTeamPlayerSession = [];
 		this.teamList = [];
 		this.playerTeamPlayerSessionDetail = [];
 		/** end of array reset **/
 
-		console.log(axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate));
+		console.log(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate);
 
 		axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'playersDetail/start/'+startDate+'/end/'+endDate,{
 
@@ -1104,25 +1122,27 @@ methods:{
 		{
 			// console.log(response.data[0].id);
 
-			// console.log(response.data.length);
+			console.log(response.data.length);
 
 			var totalSearchedText = response.data.length;
 
 			for (var i = 0; i < totalSearchedText; i++) {
 				var peopleId = response.data[i].id;
+				
+				console.log(peopleId);
 
 				this.searchedPeopleId.push(peopleId);
 
 				if(i+1 == totalSearchedText){
-					// console.log('yes yes');
+					console.log('yes yes');
 					// console.log(this.searchedPeopleId);
 					var v = this;
 					// setTimeout(function(){v.getPersonDetail(); }, 3000);
-					console.log(this.searchedPeopleId);
+					// console.log(this.searchedPeopleId);
 					setTimeout(function(){
-						console.log(v.searchedPeopleId);
-						console.log(v.getPersonDetail());
-						console.log('yes yes'); }, 1000);
+						// v.searchedPeopleId;
+						v.getPersonDetail();
+					}, 2000);
 
 				}
 			}
