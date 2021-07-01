@@ -156,7 +156,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                    <b-col>
-                      <p v-bind:class="room2StatusTextColor" class="roomNameGame"> {{room2game}} </p>
+                      <p v-bind:class="room2StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room2game}} </p>
                       <p v-bind:class="room2StatusTextColor" class="roomGameStatus"> {{room2status}} </p>
                     </b-col>
                   </b-row>
@@ -203,8 +203,8 @@
                     <b-col>
                       <!-- <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p> -->
 
-                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-if="room3teamname.length > 10" style="font-size: 1.37em;" > {{room3game}} </p>
-                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-else> {{romm3game}} </p>
+                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" style="font-size: 1.30em;" > {{room3game}} </p>
+                      <!-- <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-else> {{romm3game}} </p> -->
 
                       <p v-bind:class="room3StatusTextColor" class="roomGameStatus"> {{room3status}} </p>
                     </b-col>
@@ -251,7 +251,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room4StatusTextColor" class="roomNameGame"> {{room4game}} </p>
+                      <p v-bind:class="room4StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room4game}} </p>
                       <p v-bind:class="room4StatusTextColor" class="roomGameStatus"> {{room4status}} </p>
                     </b-col>
                   </b-row>
@@ -315,7 +315,7 @@
                   
                   <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room5teamname.length > 12" style="font-size: 1.1em;"> {{room5teamname}}</p>
+                  <p class="teamNameText" v-if="room5teamname.length > 11" style="font-size: 1.1em;"> {{room5teamname}}</p>
                   <p v-else class="teamNameText"> {{room5teamname}}</p>
 
                 </div>
@@ -461,7 +461,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room7StatusTextColor" class="roomNameGame"> {{room7game}} </p>
+                      <p v-bind:class="room7StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room7game}} </p>
                       <p v-bind:class="room7StatusTextColor" class="roomGameStatus"> {{room7status}} </p>
                     </b-col>
                   </b-row>
@@ -506,8 +506,8 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-if="room8game.length > 10" style="font-size: 1.37em;" > {{room8game}} </p>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-else> {{romm8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" style="font-size: 1.30em;" > {{room8game}} </p>
+                      <!-- <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-else> {{romm8game}} </p> -->
 
                       <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
                     </b-col>
@@ -618,7 +618,7 @@
                   
                   <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room10teamname.length > 12" style="font-size: 1.1em;"> {{room10teamname}}</p>
+                  <p class="teamNameText" v-if="room10teamname.length > 11" style="font-size: 1.1em;"> {{room10teamname}}</p>
                   <p v-else class="teamNameText"> {{room10teamname}}</p>
 
                 </div>
