@@ -205,7 +205,7 @@
                     </tr>
                     <tr>
                       <td class="tdStyle">Total Adults</td>
-                      <td>{{totalGender}}</td>
+                      <td>{{totalAdults}}</td>
                     </tr> 
                     <tr>
                       <td class="tdStyle">Total Minors</td>
@@ -843,6 +843,7 @@ export default {
       avgTeamSizeDiscrepancy:'',
       calculatedTeamSize:'',
       totalMinors:'',
+      totalAdults:'',
       totalFemale:'',
       totalMale:'',
       totalNonBinary:'',
@@ -1522,15 +1523,30 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(error);
           });
 
-
-          /** below axios is for the minors **/
-          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/minors',{
+          /** below axios is for the total adults **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/total_adults/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
           })
           .then(response => 
           {
             console.log(response);
-            this.totalMinors = response.data.count;
+            this.totalAdults = response.data.count;
+
+             /** below axios is for the minors **/
+              axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/total_minors/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+              })
+              .then(response => 
+              {
+                console.log(response);
+                this.totalMinors = response.data.count;
+                this.minorsDiscrepancy = this.totalPlayers-this.totalAdults-this.totalMinors;
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+              /** end of minors endpoint detail **/
+
           })
           .catch(function (error) {
             console.log(error);
@@ -1589,7 +1605,7 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(response);
             this.totalPreferNotToAnswer = response.data.count;
             this.totalGender = this.totalFemale+this.totalMale+this.totalNonBinary+this.totalPreferNotToAnswer;
-            this.minorsDiscrepancy = this.totalPlayers-(this.totalMinors+this.totalGender);
+            // this.minorsDiscrepancy = this.totalPlayers-(this.totalMinors+this.totalGender);
           })
           .catch(function (error) {
             console.log(error);

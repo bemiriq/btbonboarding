@@ -48,6 +48,57 @@
 
             <!-- starting div for room 1 and room 6 -->
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
+
+            <!-- instruction room -->
+
+            <b-col class="border border-dark" v-bind:class="room11StatusColor">
+
+                <div style="background-color:black;">
+                  <img v-bind:src="require('./assets/' + room11game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room11StatusTextColor" class="roomNameGame"> {{room11game}} </p>
+                      <!-- <p v-bind:class="room11StatusTextColor" class="roomGameStatus"> {{room11status}} </p> -->
+                      <p v-bind:class="room11StatusTextColor" class="roomGameStatus" v-if="room11status == 'Instructions Playing'"> Playing </p>
+                      <p v-bind:class="room11StatusTextColor" class="roomGameStatus" v-else> {{room11status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room11currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  
+                  <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
+                  
+                  <p class="teamNameText" v-if="room11teamname.length > 12" style="font-size: 0.8em;"> {{room11teamname}}</p>
+                  <p v-else class="teamNameText"> {{room11teamname}}</p>
+
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room11teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  00:00 </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : 00:00 </p>
+                </div>
+
+            </b-col>
+
+            <!-- end of instruction room -->
+
+
             <b-col class="border border-dark" v-bind:class="room1StatusColor">
 
                 <div>
@@ -77,7 +128,7 @@
                   
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room1teamname.length > 15" style="font-size: 1.1em;"> {{room1teamname}}</p>
+                  <p class="teamNameText" v-if="room1teamname.length > 12" style="font-size: 1.1em;"> {{room1teamname}}</p>
                   <p v-else class="teamNameText"> {{room1teamname}}</p>
 
                 </div>
@@ -85,8 +136,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room1teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room1timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room1bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room1timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room1bombtime}} </p>
                 </div>
 
             </b-col>
@@ -123,7 +174,7 @@
                   
                   <!-- <p class="teamNameText"> {{room2teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room2teamname.length > 15" style="font-size: 1.1em;"> {{room2teamname}}</p>
+                  <p class="teamNameText" v-if="room2teamname.length > 12" style="font-size: 1.1em;"> {{room2teamname}}</p>
                   <p v-else class="teamNameText"> {{room2teamname}}</p>
 
                 </div>
@@ -131,8 +182,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room2teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room2timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room2bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room2timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room2bombtime}} </p>
                 </div>
 
             </b-col>
@@ -150,7 +201,11 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p>
+                      <!-- <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p> -->
+
+                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-if="room3teamname.length > 10" style="font-size: 1.37em;" > {{room3game}} </p>
+                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-else> {{romm3game}} </p>
+
                       <p v-bind:class="room3StatusTextColor" class="roomGameStatus"> {{room3status}} </p>
                     </b-col>
                   </b-row>
@@ -168,7 +223,7 @@
                   
                   <!-- <p class="teamNameText"> {{room3teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room3teamname.length > 15" style="font-size: 1.1em;"> {{room3teamname}}</p>
+                  <p class="teamNameText" v-if="room3teamname.length > 12" style="font-size: 1.1em;"> {{room3teamname}}</p>
                   <p v-else class="teamNameText"> {{room3teamname}}</p>
 
                 </div>
@@ -176,8 +231,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room3teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room3timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room3bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room3timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room3bombtime}} </p>
                 </div>
 
             </b-col>
@@ -214,7 +269,7 @@
                   
                   <!-- <p class="teamNameText"> {{room4teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room4teamname.length > 15" style="font-size: 1.1em;"> {{room4teamname}}</p>
+                  <p class="teamNameText" v-if="room4teamname.length > 12" style="font-size: 1.1em;"> {{room4teamname}}</p>
                   <p v-else class="teamNameText"> {{room4teamname}}</p>
 
                 </div>
@@ -222,8 +277,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room4teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room4timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room4bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room4timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room4bombtime}} </p>
                 </div>
 
             </b-col>
@@ -260,7 +315,7 @@
                   
                   <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room5teamname.length > 15" style="font-size: 1.1em;"> {{room5teamname}}</p>
+                  <p class="teamNameText" v-if="room5teamname.length > 12" style="font-size: 1.1em;"> {{room5teamname}}</p>
                   <p v-else class="teamNameText"> {{room5teamname}}</p>
 
                 </div>
@@ -268,8 +323,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room5teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room5timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room5bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room5timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room5bombtime}} </p>
                 </div>
 
             </b-col>
@@ -299,6 +354,55 @@
           <b-row>
 
             <!-- starting div for room 1 and room 6 -->
+
+            <!-- SIDE B Instruction screen -->
+            <b-col class="border border-dark" v-bind:class="room12StatusColor">
+
+                <div style="background-color:black;">
+                  <img v-bind:src="require('./assets/' + room12game +'.png')" class="gameLogo"/>
+                </div>
+
+                <br/>
+
+                <div class="blackBackgroundOverText">
+                  <b-row>
+                    <b-col>
+                      <p v-bind:class="room12StatusTextColor" class="roomNameGame"> {{room12game}} </p>
+
+                      <p v-bind:class="room12StatusTextColor" class="roomGameStatus" v-if="room12status == 'Instructions Playing'"> Playing </p>
+                      <p v-bind:class="room12StatusTextColor" class="roomGameStatus" v-else> {{room12status}} </p>
+
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div>
+                  <h2 class="bombTimeText"> {{room12currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div>
+                  
+                  <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
+                  
+                  <p class="teamNameText" v-if="room12teamname.length > 12" style="font-size: 1.1em;"> {{room12teamname}}</p>
+                  <p v-else class="teamNameText"> {{room12teamname}}</p>
+
+                </div>
+
+                <br/>
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room12teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  00:00 </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : 00:00 </p>
+                </div>
+
+            </b-col>
+            <!-- end of SIDE B Instruction screen -->
+
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room6StatusColor">
 
@@ -329,7 +433,7 @@
                   
                   <!-- <p class="teamNameText"> {{room6teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room6teamname.length > 15" style="font-size: 1.1em;"> {{room6teamname}}</p>
+                  <p class="teamNameText" v-if="room6teamname.length > 12" style="font-size: 1.1em;"> {{room6teamname}}</p>
                   <p v-else class="teamNameText"> {{room6teamname}}</p>
 
                 </div>
@@ -337,8 +441,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room6teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room6timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room6bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room6timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room6bombtime}} </p>
                 </div>
 
             </b-col>
@@ -375,7 +479,7 @@
                   
                   <!-- <p class="teamNameText"> {{room7teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room7teamname.length > 15" style="font-size: 1.1em;"> {{room7teamname}}</p>
+                  <p class="teamNameText" v-if="room7teamname.length > 12" style="font-size: 1.1em;"> {{room7teamname}}</p>
                   <p v-else class="teamNameText"> {{room7teamname}}</p>
 
                 </div>
@@ -383,8 +487,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room7teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room7timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room7bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room7timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room7bombtime}} </p>
                 </div>
 
             </b-col>
@@ -402,7 +506,9 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame"> {{room8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-if="room8teamname.length > 10" style="font-size: 1.37em;" > {{room8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-else> {{romm8game}} </p>
+
                       <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
                     </b-col>
                   </b-row>
@@ -420,7 +526,7 @@
                   
                   <!-- <p class="teamNameText"> {{room8teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room8teamname.length > 15" style="font-size: 1.1em;"> {{room8teamname}}</p>
+                  <p class="teamNameText" v-if="room8teamname.length > 12" style="font-size: 1.1em;"> {{room8teamname}}</p>
                   <p v-else class="teamNameText"> {{room8teamname}}</p>
 
                 </div>
@@ -428,8 +534,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room8teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room8timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room8bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room8timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room8bombtime}} </p>
                 </div>
 
             </b-col>
@@ -466,7 +572,7 @@
                   
                   <!-- <p class="teamNameText"> {{room9teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room9teamname.length > 15" style="font-size: 1.1em;"> {{room9teamname}}</p>
+                  <p class="teamNameText" v-if="room9teamname.length > 12" style="font-size: 1.1em;"> {{room9teamname}}</p>
                   <p v-else class="teamNameText"> {{room9teamname}}</p>
 
                 </div>
@@ -474,8 +580,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room9teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room9timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room9bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room9timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room9bombtime}} </p>
                 </div>
 
             </b-col>
@@ -512,7 +618,7 @@
                   
                   <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room10teamname.length > 15" style="font-size: 1.1em;"> {{room10teamname}}</p>
+                  <p class="teamNameText" v-if="room10teamname.length > 12" style="font-size: 1.1em;"> {{room10teamname}}</p>
                   <p v-else class="teamNameText"> {{room10teamname}}</p>
 
                 </div>
@@ -520,8 +626,8 @@
                 <br/>
                 <div>
                   <p class="sizeAndTimeDetail"> TEAM SIZE : {{room10teamsize}} </p>
-                  <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room10timeearned}} </p>
-                  <p class="sizeAndTimeDetail"> BOMB TIME  {{room10bombtime}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM TIME :  {{room10timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> BOMB TIME : {{room10bombtime}} </p>
                 </div>
 
             </b-col>
@@ -596,6 +702,14 @@ export default {
       interval: null,
       gameStatusByColor: true,
 
+      room11status: null,
+      room11StatusColor: '',
+      room11StatusTextColor: '',
+
+      room12status: null,
+      room12StatusColor: '',
+      room12StatusTextColor: '',
+
       room1status: null,
       room1StatusColor: '',
       room1StatusTextColor: '',
@@ -636,6 +750,8 @@ export default {
       room10StatusColor: '',
       room10StatusTextColor: '',
 
+      room11game: 'Instruction',
+      room12game: 'Instruction',
       room1game: '',
       room2game: '',
       room3game: '',
@@ -647,6 +763,8 @@ export default {
       room9game: '',
       room10game: '',
 
+      room11teamsize: '',
+      room12teamsize: '',      
       room1teamsize: '',
       room2teamsize: '',
       room3teamsize: '',
@@ -658,6 +776,7 @@ export default {
       room9teamsize: '',
       room10teamsize: '',
 
+      // room0teamname: '',
       room1teamname: '',
       room2teamname: '',
       room3teamname: '',
@@ -668,6 +787,9 @@ export default {
       room8teamname: '',
       room9teamname: '',
       room10teamname: '',
+      room11teamname: '',
+      room12teamname: '',
+
 
       room1bombtime: '',
       room2bombtime: '',
@@ -691,6 +813,7 @@ export default {
       room9timeearned: '',
       room10timeearned: '',
 
+
       room1currenttime: '',
       room2currenttime: '',
       room3currenttime: '',
@@ -701,6 +824,8 @@ export default {
       room8currenttime: '',
       room9currenttime: '',
       room10currenttime: '',
+      room11currenttime: '', /** side A instructions **/
+      room12currenttime: '', /** side B instructions **/
 
 
       sideAdiv: true,
@@ -816,6 +941,16 @@ export default {
 
           console.log(x.statusResult[0].Game.id);
           
+          console.log(x.statusResult[10].Room_status.name);
+
+          /** side A instructions **/
+          if(x.statusResult[10].Room_status.id == undefined){
+            this.room0status = 0;
+          }
+          else{
+
+          }
+          /** end of SIDE A instructions **/
 
           if(x.statusResult[0].Room_status.id == undefined){
             this.room1status = 0;
@@ -831,8 +966,11 @@ export default {
             vm.room8status = x.statusResult[7].Room_status.name;
             vm.room9status = x.statusResult[8].Room_status.name;
             vm.room10status = x.statusResult[9].Room_status.name;
+            vm.room11status = x.statusResult[10].Room_status.name; /** side A instruction **/
+            vm.room12status = x.statusResult[11].Room_status.name;
 
 
+            // console.log(x.statusResult[0].Game.name);
             vm.room1game = x.statusResult[0].Game.name;
             vm.room2game = x.statusResult[1].Game.name;
             vm.room3game = x.statusResult[2].Game.name;
@@ -855,6 +993,9 @@ export default {
             vm.room8teamsize = x.statusResult[7].Session.player_count;
             vm.room9teamsize = x.statusResult[8].Session.player_count;
             vm.room10teamsize = x.statusResult[9].Session.player_count;
+            vm.room11teamsize = x.statusResult[10].Session.player_count; /** side A instruction **/
+            vm.room12teamsize = x.statusResult[11].Session.player_count; /** side B instruction **/
+
 
             vm.room1teamname = x.statusResult[0].Session.Team.name;
             vm.room2teamname = x.statusResult[1].Session.Team.name;
@@ -866,6 +1007,9 @@ export default {
             vm.room8teamname = x.statusResult[7].Session.Team.name;
             vm.room9teamname = x.statusResult[8].Session.Team.name;
             vm.room10teamname = x.statusResult[9].Session.Team.name;
+            vm.room11teamname = x.statusResult[10].Session.Team.name; /** side A instruction **/
+            vm.room12teamname = x.statusResult[11].Session.Team.name; /** side B instruction **/
+
 
 
 
@@ -942,6 +1086,137 @@ export default {
             vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
 
           /** end of bomb room time **/
+
+          /** instruction room time side A **/
+
+            var room11gameendtime = x.statusResult[1].game_end;
+            var room11gameendtimeminute = moment(room11gameendtime).format("mm");
+            var room11gameendtimesecond = moment(room11gameendtime).format("ss");
+            var convertMinute11ToSeconds = room11gameendtimeminute*60;
+
+            var gameendtime11 = Number(convertMinute11ToSeconds)+Number(room11gameendtimesecond);
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            console.log(currentTimeValue);
+            console.log(gameendtime11);
+
+            var currentRoom11Time = gameendtime11-currentTimeValue;
+            console.log(currentRoom11Time);
+
+            if(vm.room11status == 'Ready'){
+              vm.room11currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE A READY');
+            }
+
+            if(vm.room11status == 'Released'){
+              vm.room11currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE A Released');
+            }
+
+            if(vm.room11status == 'Instructions Playing'){
+              vm.room11currenttime = '04:00';
+              console.log('INSTRUCTION ROOM SIDE A Instructions Playing');
+            }
+
+            if(vm.room11status == 'Waiting'){
+              vm.room11currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE A Waiting');
+            }
+
+            if(vm.room11status == 'Trouble'){
+              console.log('INSTRUCTION ROOM SIDE A Trouble');
+              if(currentRoom11Time > '0'){
+                vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
+              }
+              else{
+                vm.room11currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room11status == 'Playing'){
+
+              if(currentRoom11Time > '0'){
+                vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
+
+                console.log("Instrcution room playing");
+                // console.log('ROOM 1 Playing 11');
+
+              }
+              else{
+                console.log('SIDE A instruction room playing');
+                vm.room11currenttime = '00:00';
+              }
+
+            }
+          /** end of instruction room time SIDE A **/
+
+
+          /** instruction room time SIDE B **/
+
+            var room12gameendtime = x.statusResult[1].game_end;
+            var room12gameendtimeminute = moment(room12gameendtime).format("mm");
+            var room12gameendtimesecond = moment(room12gameendtime).format("ss");
+            var convertMinute11ToSeconds = room12gameendtimeminute*60;
+
+            var gameendtime11 = Number(convertMinute11ToSeconds)+Number(room12gameendtimesecond);
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            console.log(currentTimeValue);
+            console.log(gameendtime11);
+
+            var currentRoom12Time = gameendtime11-currentTimeValue;
+            console.log(currentRoom12Time);
+
+            if(vm.room12status == 'Ready'){
+              vm.room12currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE B READY');
+            }
+
+            if(vm.room12status == 'Released'){
+              vm.room12currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE B Released');
+            }
+
+            if(vm.room12status == 'Instructions Playing'){
+              vm.room12currenttime = '04:00';
+              console.log('INSTRUCTION ROOM SIDE B Instructions Playing');
+            }
+
+            if(vm.room12status == 'Waiting'){
+              vm.room12currenttime = '00:00';
+              console.log('INSTRUCTION ROOM SIDE B Waiting');
+            }
+
+            if(vm.room12status == 'Trouble'){
+              console.log('INSTRUCTION ROOM SIDE B Trouble');
+              if(currentRoom12Time > '0'){
+                vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
+              }
+              else{
+                vm.room12currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room12status == 'Playing'){
+
+              if(currentRoom12Time > '0'){
+                vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
+
+                console.log("Instrcution room playing");
+                // console.log('ROOM 1 Playing 11');
+
+              }
+              else{
+                console.log('SIDE B instruction room playing');
+                vm.room12currenttime = '00:00';
+              }
+
+            }
+          /** end of instruction room time SIDE B **/
 
 
           /** current room time **/
@@ -1221,6 +1496,10 @@ export default {
             }
 
             if(vm.room5status == 'Waiting'){
+              vm.room5currenttime = '00:00';
+            }
+
+            if(vm.room5status == 'Photobomb Running'){
               vm.room5currenttime = '00:00';
             }
 
@@ -1557,6 +1836,76 @@ export default {
           /** end of current room time **/
 
             /** defines the background color following 2 Instructions, 3 Playing, 4 Waiting, 5 Released, 1 Ready **/
+
+              /** Instruction ROOM SIDE A **/
+
+              if(vm.room11status == 'Ready'){
+                  vm.room11StatusColor = 'greenStatus';
+                  vm.room11StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room11status == 'Instructions Playing'){
+                  vm.room11StatusColor = 'playingStatus';
+                  vm.room11StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room11status == 'Playing'){
+                  vm.room11StatusColor = 'playingStatus';
+                  vm.room11StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room11status == 'Waiting'){
+                  vm.room11StatusColor = 'yellowStatus';
+                  vm.room11StatusTextColor = 'yellowStatusText';
+                }
+
+                if(vm.room11status == 'Released'){
+                  vm.room11StatusColor = 'yellowStatus';
+                  vm.room11StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room11status == 'Trouble'){
+                  vm.room11StatusColor = 'pinkStatus';
+                  vm.room11StatusTextColor = 'pinkStatusText';
+                }
+
+
+              /** END OF INSTRUCTION ROOM SIDE A **/
+
+              /** Instruction ROOM SIDE B **/
+
+              if(vm.room12status == 'Ready'){
+                  vm.room12StatusColor = 'greenStatus';
+                  vm.room12StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room12status == 'Instructions Playing'){
+                  vm.room12StatusColor = 'playingStatus';
+                  vm.room12StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room12status == 'Playing'){
+                  vm.room12StatusColor = 'playingStatus';
+                  vm.room12StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room12status == 'Waiting'){
+                  vm.room12StatusColor = 'yellowStatus';
+                  vm.room12StatusTextColor = 'yellowStatusText';
+                }
+
+                if(vm.room12status == 'Released'){
+                  vm.room12StatusColor = 'yellowStatus';
+                  vm.room12StatusTextColor = 'yellowStatusText';
+                }
+
+                if(vm.room12status == 'Trouble'){
+                  vm.room12StatusColor = 'pinkStatus';
+                  vm.room12StatusTextColor = 'pinkStatusText';
+                }
+
+
+              /** END OF INSTRUCTION ROOM SIDE B **/
               
               /** ROOM 1 **/
                 if(vm.room1status == 'Ready'){
@@ -1715,6 +2064,11 @@ export default {
                 if(vm.room5status == 'Trouble'){
                   vm.room5StatusColor = 'pinkStatus';
                   vm.room5StatusTextColor = 'pinkStatusText';
+                }
+
+                if(vm.room5status == 'Photobomb Running'){
+                  vm.room5StatusColor = 'violetStatus';
+                  vm.room5StatusTextColor = 'violetStatusText';
                 }
               /** END OF ROOM 5 **/
 
@@ -1875,6 +2229,11 @@ export default {
                 if(vm.room10status == 'Trouble'){
                   vm.room10StatusColor = 'pinkStatus';
                   vm.room10StatusTextColor = 'pinkStatusText';
+                }
+
+                if(vm.room10status == 'Photobomb Running'){
+                  vm.room10StatusColor = 'violetStatus';
+                  vm.room10StatusTextColor = 'violetStatusText';
                 }
               /** END OF ROOM 10 **/
 
@@ -2046,6 +2405,11 @@ export default {
   padding-top: 1%;
 }
 
+.violetStatus{ /** for the photobomb server **/
+  background-color: #0000FF;
+  padding-top: 1%;
+}
+
 /** this is the BLUE STATUS background csss **/
 .playingStatus{
   background-color: #0000FF;
@@ -2065,6 +2429,11 @@ export default {
 
 .yellowStatusText{
   color: #ffff00;
+  font-weight: bold;
+}
+
+.violetStatusText{ /** for the photobomb server **/
+  color:  #0000FF;
   font-weight: bold;
 }
 
