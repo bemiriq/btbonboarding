@@ -62,7 +62,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room11StatusTextColor" class="roomNameGame"> {{room11game}} </p>
+                      <p v-bind:class="room11StatusTextColor" class="roomNameGame"  style="font-size: 1.1em;"> {{room11game}} </p>
                       <!-- <p v-bind:class="room11StatusTextColor" class="roomGameStatus"> {{room11status}} </p> -->
                       <p v-bind:class="room11StatusTextColor" class="roomGameStatus" v-if="room11status == 'Instructions Playing'"> Playing </p>
                       <p v-bind:class="room11StatusTextColor" class="roomGameStatus" v-else> {{room11status}} </p>
@@ -82,7 +82,7 @@
                   
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room11teamname.length > 12" style="font-size: 0.8em;"> {{room11teamname}}</p>
+                  <p class="teamNameText" v-if="room11teamname.length > 12" style="font-size: 1.1em;"> {{room11teamname}}</p>
                   <p v-else class="teamNameText"> {{room11teamname}}</p>
 
                 </div>
@@ -110,7 +110,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room1StatusTextColor" class="roomNameGame"> {{room1game}} </p>
+                      <p v-bind:class="room1StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room1game}} </p>
                       <p v-bind:class="room1StatusTextColor" class="roomGameStatus"> {{room1status}} </p>
                     </b-col>
                   </b-row>
@@ -156,7 +156,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                    <b-col>
-                      <p v-bind:class="room2StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room2game}} </p>
+                      <p v-bind:class="room2StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room2game}} </p>
                       <p v-bind:class="room2StatusTextColor" class="roomGameStatus"> {{room2status}} </p>
                     </b-col>
                   </b-row>
@@ -203,7 +203,7 @@
                     <b-col>
                       <!-- <p v-bind:class="room3StatusTextColor" class="roomNameGame"> {{room3game}} </p> -->
 
-                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" style="font-size: 1.30em;" > {{room3game}} </p>
+                      <p v-bind:class="room3StatusTextColor" class="roomNameGame" style="font-size: 1.1em;" > {{room3game}} </p>
                       <!-- <p v-bind:class="room3StatusTextColor" class="roomNameGame" v-else> {{romm3game}} </p> -->
 
                       <p v-bind:class="room3StatusTextColor" class="roomGameStatus"> {{room3status}} </p>
@@ -251,7 +251,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room4StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room4game}} </p>
+                      <p v-bind:class="room4StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room4game}} </p>
                       <p v-bind:class="room4StatusTextColor" class="roomGameStatus"> {{room4status}} </p>
                     </b-col>
                   </b-row>
@@ -297,7 +297,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room5StatusTextColor" class="roomNameGame"> {{room5game}} </p>
+                      <p v-bind:class="room5StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room5game}} </p>
                       <p v-bind:class="room5StatusTextColor" class="roomGameStatus"> {{room5status}} </p>
                     </b-col>
                   </b-row>
@@ -367,7 +367,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room12StatusTextColor" class="roomNameGame"> {{room12game}} </p>
+                      <p v-bind:class="room12StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room12game}} </p>
 
                       <p v-bind:class="room12StatusTextColor" class="roomGameStatus" v-if="room12status == 'Instructions Playing'"> Playing </p>
                       <p v-bind:class="room12StatusTextColor" class="roomGameStatus" v-else> {{room12status}} </p>
@@ -415,7 +415,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room6StatusTextColor" class="roomNameGame"> {{room6game}} </p>
+                      <p v-bind:class="room6StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room6game}} </p>
                       <p v-bind:class="room6StatusTextColor" class="roomGameStatus"> {{room6status}} </p>
                     </b-col>
                   </b-row>
@@ -461,7 +461,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room7StatusTextColor" class="roomNameGame" style="font-size: 1.30em;"> {{room7game}} </p>
+                      <p v-bind:class="room7StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room7game}} </p>
                       <p v-bind:class="room7StatusTextColor" class="roomGameStatus"> {{room7status}} </p>
                     </b-col>
                   </b-row>
@@ -506,7 +506,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" style="font-size: 1.30em;" > {{room8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room8game}} </p>
                       <!-- <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-else> {{romm8game}} </p> -->
 
                       <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
@@ -554,7 +554,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room9StatusTextColor" class="roomNameGame"> {{room9game}} </p>
+                      <p v-bind:class="room9StatusTextColor" class="roomNameGame" style="font-size: 1.1em;"> {{room9game}} </p>
                       <p v-bind:class="room9StatusTextColor" class="roomGameStatus"> {{room9status}} </p>
                     </b-col>
                   </b-row>
@@ -600,7 +600,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room10StatusTextColor" class="roomNameGame"> {{room10game}} </p>
+                      <p v-bind:class="room10StatusTextColor" class="roomNameGame"  style="font-size: 1.1em;" > {{room10game}} </p>
                       <p v-bind:class="room10StatusTextColor" class="roomGameStatus"> {{room10status}} </p>
                     </b-col>
                   </b-row>
@@ -935,16 +935,17 @@ export default {
 
         if(checkSession.Session != null){
           console.log('MORE');
-          console.log(checkSession.id);
-          console.log(x);
-          console.log(x.statusResult[0].Room_status.name);
+          // console.log(checkSession.id);
+          // console.log(x);
+          // console.log(x.statusResult[0].Room_status.name);
 
-          console.log(x.statusResult[0].Game.id);
+          // console.log(x.statusResult[0].Game.id);
           
-          console.log(x.statusResult[10].Room_status.name);
+          // console.log(x.statusResult[10].Room_status.name);
 
           /** side A instructions **/
           if(x.statusResult[10].Room_status.id == undefined){
+            console.log(x.statusResult[10].Room_status.id);
             this.room0status = 0;
           }
           else{
@@ -1055,7 +1056,12 @@ export default {
 
           /** bomb room time **/
             var convertroom1bombtime = x.statusResult[0].Session.bomb_time;
-            vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            if(convertroom1bombtime == undefined){
+              vm.room1bombtime = '00:00';
+            }
+            else{
+              vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            }
 
             var convertroom2bombtime = x.statusResult[1].Session.bomb_time;
             vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
@@ -1071,7 +1077,12 @@ export default {
 
 
             var convertroom6bombtime = x.statusResult[5].Session.bomb_time;
-            vm.room6bombtime = moment().startOf('day').seconds(convertroom6bombtime).format("mm:ss");
+            if(convertroom6bombtime == undefined){
+              vm.room6bombtime = '00:00';
+            }
+            else{
+              vm.room6bombtime = moment().startOf('day').seconds(convertroom6bombtime).format("mm:ss");
+            }
 
             var convertroom7bombtime = x.statusResult[6].Session.bomb_time;
             vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
