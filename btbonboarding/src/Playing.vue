@@ -506,7 +506,7 @@
                 <div class="blackBackgroundOverText">
                   <b-row>
                     <b-col>
-                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-if="room8teamname.length > 10" style="font-size: 1.37em;" > {{room8game}} </p>
+                      <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-if="room8game.length > 10" style="font-size: 1.37em;" > {{room8game}} </p>
                       <p v-bind:class="room8StatusTextColor" class="roomNameGame" v-else> {{romm8game}} </p>
 
                       <p v-bind:class="room8StatusTextColor" class="roomGameStatus"> {{room8status}} </p>
