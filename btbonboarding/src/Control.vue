@@ -2393,6 +2393,12 @@ export default {
               }
 
             }
+
+            if(vm.room5status == 'Photobomb Running'){
+              vm.room5StatusColor = 'violetStatus';
+              vm.room5StatusTextColor = 'violetStatusText';
+            }
+
             /** END OF ROOM 5 **/
 
 
@@ -2683,6 +2689,11 @@ export default {
                 vm.room10currenttime = '00:00';
               }
 
+            }
+
+            if(vm.room5status == 'Photobomb Running'){
+              vm.room5StatusColor = 'violetStatus';
+              vm.room5StatusTextColor = 'violetStatusText';
             }
             /** END OF ROOM 10 **/
             
@@ -3283,6 +3294,16 @@ export default {
 .yellowStatus{
   background-color: #ffff00; 
   padding-top: 1%;
+}
+
+.violetStatus{ /** for the photobomb server **/
+  background-color: #0000FF;
+  padding-top: 1%;
+}
+
+.violetStatusText{ /** for the photobomb server **/
+  color:  #0000FF;
+  font-weight: bold;
 }
 
 /** this is the BLUE STATUS background csss **/
