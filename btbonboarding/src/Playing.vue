@@ -952,6 +952,7 @@ export default {
         var x = JSON.parse(filterData);
 
         var checkSession = x.statusResult[0];
+        console.log(checkSession);
 
         if(checkSession.Session != null){
           // console.log('MORE');

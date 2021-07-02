@@ -116,15 +116,15 @@
                 </div>
 
                 <div v-if="startReset == '1'">
-                  <b-button block variant="primary" @click="startTeam(event,11), teamRoomNumber = 11">START</b-button>
+                  <b-button block variant="primary" @click="startTeam(event,100), teamRoomNumber = 100">START</b-button>
                 </div>
 
                 <div v-if="startReset == '1'">
-                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,11), teamRoomNumber = 11">RESET</b-button>
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,100), teamRoomNumber = 100">RESET</b-button>
                 </div>
 
                 <div v-if="skipValue1 == '1'">
-                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,11,a)">Skip</b-button>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,100,a)">Skip</b-button>
                 </div>
 
                 <!-- <b-row v-if="editTime == '1'">
@@ -667,15 +667,15 @@
                 </div>
 
                 <div v-if="startReset == '1'">
-                  <b-button block variant="primary" @click="startTeam(event,12), teamRoomNumber = 12">START</b-button>
+                  <b-button block variant="primary" @click="startTeam(event,101), teamRoomNumber = 101">START</b-button>
                 </div>
 
                 <div v-if="startReset == '1'">
-                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,12), teamRoomNumber = 12">RESET</b-button>
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,101), teamRoomNumber = 101">RESET</b-button>
                 </div>
 
                 <div v-if="skipValue1 == '1'">
-                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,12,b)">Skip</b-button>
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,101,b)">Skip</b-button>
                 </div>
 
                 <!-- <b-row v-if="editTime == '1'">
