@@ -2691,9 +2691,9 @@ export default {
 
             }
 
-            if(vm.room5status == 'Photobomb Running'){
-              vm.room5StatusColor = 'violetStatus';
-              vm.room5StatusTextColor = 'violetStatusText';
+            if(vm.room10status == 'Photobomb Running'){
+              vm.room10StatusColor = 'violetStatus';
+              vm.room10StatusTextColor = 'violetStatusText';
             }
             /** END OF ROOM 10 **/
             
