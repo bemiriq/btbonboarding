@@ -116,7 +116,7 @@
                 </div>
 
                 <div v-if="startReset == '1'">
-                  <b-button block variant="primary" @click="startTeam(event,11), teamRoomNumber = 1">START</b-button>
+                  <b-button block variant="primary" @click="startTeam(event,11), teamRoomNumber = 11">START</b-button>
                 </div>
 
                 <div v-if="startReset == '1'">

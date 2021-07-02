@@ -1927,6 +1927,10 @@ export default {
               vm.room10currenttime = '00:00';
             }
 
+            if(vm.room10status == 'Photobomb Running'){
+              vm.room10currenttime = '00:00';
+            }
+
             if(vm.room10status == 'Trouble'){
 
               if(currentRoom10Time > '0'){
