@@ -99,7 +99,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room11teamname}} </p> -->
                   <p class="teamNameText" v-if="room11teamname.length > 10" style="font-size: 1.1em;"> {{room11teamname}}</p>
                   <p v-else class="teamNameText"> {{room11teamname}}</p>
@@ -123,9 +123,9 @@
                   <b-button block variant="danger" class="resetButton" @click="resetTeam(event,100), teamRoomNumber = 100">RESET</b-button>
                 </div>
 
-                <div v-if="skipValue1 == '1'">
+                <!-- <div v-if="skipValue1 == '1'">
                   <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,100,a)">Skip</b-button>
-                </div>
+                </div> -->
 
                 <!-- <b-row v-if="editTime == '1'">
                   <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
@@ -188,7 +188,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   <p class="teamNameText" v-if="room1teamname.length > 10" style="font-size: 1.1em;"> {{room1teamname}}</p>
                   <p v-else class="teamNameText"> {{room1teamname}}</p>
@@ -275,7 +275,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room2teamname}} </p> -->
                   <p class="teamNameText" v-if="room2teamname.length > 10" style="font-size: 1.1em;"> {{room2teamname}}</p>
                   <p v-else class="teamNameText"> {{room2teamname}}</p>
@@ -361,7 +361,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room3teamname}} </p> -->
                   <p class="teamNameText" v-if="room3teamname.length > 10" style="font-size: 1.1em;"> {{room3teamname}}</p>
                   <p v-else class="teamNameText"> {{room3teamname}}</p>
@@ -448,7 +448,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room4teamname}} </p> -->
                   <p class="teamNameText" v-if="room4teamname.length > 10" style="font-size: 1.1em;"> {{room4teamname}}</p>
                   <p v-else class="teamNameText"> {{room4teamname}}</p>
@@ -536,7 +536,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
                   <p class="teamNameText" v-if="room5teamname.length > 10" style="font-size: 1.1em;"> {{room5teamname}}</p>
                   <p v-else class="teamNameText"> {{room5teamname}}</p>
@@ -650,7 +650,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room12teamname}} </p> -->
                   <p class="teamNameText" v-if="room12teamname.length > 10" style="font-size: 1.1em;"> {{room12teamname}}</p>
                   <p v-else class="teamNameText"> {{room12teamname}}</p>
@@ -674,9 +674,9 @@
                   <b-button block variant="danger" class="resetButton" @click="resetTeam(event,101), teamRoomNumber = 101">RESET</b-button>
                 </div>
 
-                <div v-if="skipValue1 == '1'">
+                <!-- <div v-if="skipValue1 == '1'">
                   <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,101,b)">Skip</b-button>
-                </div>
+                </div> -->
 
                 <!-- <b-row v-if="editTime == '1'">
                   <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
@@ -739,7 +739,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room6teamname}} </p> -->
                   <p class="teamNameText" v-if="room6teamname.length > 10" style="font-size: 1.1em;"> {{room6teamname}}</p>
                   <p v-else class="teamNameText"> {{room6teamname}}</p>
@@ -826,7 +826,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room7teamname}} </p> -->
                   <p class="teamNameText" v-if="room7teamname.length > 10" style="font-size: 1.1em;"> {{room7teamname}}</p>
                   <p v-else class="teamNameText"> {{room7teamname}}</p>
@@ -912,7 +912,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room8teamname}} </p> -->
                   <p class="teamNameText" v-if="room8teamname.length > 10" style="font-size: 1.1em;"> {{room8teamname}}</p>
                   <p v-else class="teamNameText"> {{room8teamname}}</p>
@@ -999,7 +999,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room9teamname}} </p> -->
                   <p class="teamNameText" v-if="room9teamname.length > 10" style="font-size: 1.1em;"> {{room9teamname}}</p>
                   <p v-else class="teamNameText"> {{room9teamname}}</p>
@@ -1086,7 +1086,7 @@
 
                 <br/>
 
-                <div style="height:40px; position:relative;">
+                <div style="height:40px; position:relative;margin-bottom:20px;">
                   <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
                   <p class="teamNameText" v-if="room10teamname.length > 10" style="font-size: 1.1em;"> {{room10teamname}}</p>
                   <p v-else class="teamNameText"> {{room10teamname}}</p>
