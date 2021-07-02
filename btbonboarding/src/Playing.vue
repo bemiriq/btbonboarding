@@ -78,11 +78,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room11teamname.length > 12" style="font-size: 1.1em;"> {{room11teamname}}</p>
+                  <p class="teamNameText" v-if="room11teamname.length > 10" style="font-size: 1.1em;"> {{room11teamname}}</p>
                   <p v-else class="teamNameText"> {{room11teamname}}</p>
 
                 </div>
@@ -126,11 +126,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room1teamname.length > 12" style="font-size: 1.1em;"> {{room1teamname}}</p>
+                  <p class="teamNameText" v-if="room1teamname.length > 10" style="font-size: 1.1em;"> {{room1teamname}}</p>
                   <p v-else class="teamNameText"> {{room1teamname}}</p>
 
                 </div>
@@ -174,11 +174,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room2teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room2teamname.length > 12" style="font-size: 1.1em;"> {{room2teamname}}</p>
+                  <p class="teamNameText" v-if="room2teamname.length > 10" style="font-size: 1.1em;"> {{room2teamname}}</p>
                   <p v-else class="teamNameText"> {{room2teamname}}</p>
 
                 </div>
@@ -225,11 +225,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room3teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room3teamname.length > 12" style="font-size: 1.1em;"> {{room3teamname}}</p>
+                  <p class="teamNameText" v-if="room3teamname.length > 10" style="font-size: 1.1em;"> {{room3teamname}}</p>
                   <p v-else class="teamNameText"> {{room3teamname}}</p>
 
                 </div>
@@ -273,11 +273,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room4teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room4teamname.length > 12" style="font-size: 1.1em;"> {{room4teamname}}</p>
+                  <p class="teamNameText" v-if="room4teamname.length > 10" style="font-size: 1.1em;"> {{room4teamname}}</p>
                   <p v-else class="teamNameText"> {{room4teamname}}</p>
 
                 </div>
@@ -321,7 +321,7 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
                   
@@ -394,11 +394,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room12teamname.length > 12" style="font-size: 1.1em;"> {{room12teamname}}</p>
+                  <p class="teamNameText" v-if="room12teamname.length > 10" style="font-size: 1.1em;"> {{room12teamname}}</p>
                   <p v-else class="teamNameText"> {{room12teamname}}</p>
 
                 </div>
@@ -441,11 +441,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room6teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room6teamname.length > 12" style="font-size: 1.1em;"> {{room6teamname}}</p>
+                  <p class="teamNameText" v-if="room6teamname.length > 10" style="font-size: 1.1em;"> {{room6teamname}}</p>
                   <p v-else class="teamNameText"> {{room6teamname}}</p>
 
                 </div>
@@ -489,11 +489,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room7teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room7teamname.length > 12" style="font-size: 1.1em;"> {{room7teamname}}</p>
+                  <p class="teamNameText" v-if="room7teamname.length > 10" style="font-size: 1.1em;"> {{room7teamname}}</p>
                   <p v-else class="teamNameText"> {{room7teamname}}</p>
 
                 </div>
@@ -538,11 +538,11 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room8teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room8teamname.length > 12" style="font-size: 1.1em;"> {{room8teamname}}</p>
+                  <p class="teamNameText" v-if="room8teamname.length > 10" style="font-size: 1.1em;"> {{room8teamname}}</p>
                   <p v-else class="teamNameText"> {{room8teamname}}</p>
 
                 </div>
@@ -590,7 +590,7 @@
                   
                   <!-- <p class="teamNameText"> {{room9teamname}} </p> -->
                   
-                  <p class="teamNameText" v-if="room9teamname.length > 12" style="font-size: 1.1em;"> {{room9teamname}}</p>
+                  <p class="teamNameText" v-if="room9teamname.length > 10" style="font-size: 1.1em;"> {{room9teamname}}</p>
                   <p v-else class="teamNameText"> {{room9teamname}}</p>
 
                 </div>
@@ -634,7 +634,7 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   
                   <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
                   
@@ -922,7 +922,7 @@ export default {
 
     runMqtt() {
       // this.interval = setInterval(this.updateCurrentTime, 1000);
-      console.log(" IN SIDE RUN MQTT");
+      // console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
@@ -936,7 +936,7 @@ export default {
 
         client.subscribe('route_status', function (err) {
 
-          console.log('san1');
+          // console.log('san1');
 
           if (!err) {
             client.publish('presence', 'Message from Sandesh Vue App')
@@ -946,7 +946,7 @@ export default {
 
       client.on('message', function (topic, message) {
 
-        console.log('san3');
+        // console.log('san3');
 
         var filterData = message;
         var x = JSON.parse(filterData);
@@ -954,7 +954,7 @@ export default {
         var checkSession = x.statusResult[0];
 
         if(checkSession.Session != null){
-          console.log('MORE');
+          // console.log('MORE');
           // console.log(checkSession.id);
           // console.log(x);
           // console.log(x.statusResult[0].Room_status.name);
@@ -1036,47 +1036,101 @@ export default {
 
           /** time earned for each room **/
             var convertroom1timeearned = x.statusResult[0].Session_game_score.score;
-            if(convertroom1bombtime > 0){
-              vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            if(convertroom1timeearned > 0){
+              vm.room1timeearned = moment().startOf('day').seconds(convertroom1timeearned).format("mm:ss");
             }
             else{
-              vm.room1bombtime = 0;
+              vm.room1timeearned = '00:00';
             }
             // vm.room1timeearned = moment().startOf('day').seconds(convertroom1timeearned).format("mm:ss");
 
             var convertroom2timeearned = x.statusResult[1].Session_game_score.score;
-            vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
+            if(convertroom2timeearned > 0){
+              vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
+            }
+            else{
+              vm.room2timeearned = '00:00';
+            }
+            // vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
 
             var convertroom3timeearned = x.statusResult[2].Session_game_score.score;
-            vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
+            if(convertroom3timeearned > 0){
+              vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
+            }
+            else{
+              vm.room3timeearned = '00:00';
+            }
+            // vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
 
             var convertroom4timeearned = x.statusResult[3].Session_game_score.score;
-            vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
+            if(convertroom4timeearned > 0){
+              vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
+            }
+            else{
+              vm.room4timeearned = '00:00';
+            }
+            // vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
 
             var convertroom5timeearned = x.statusResult[4].Session_game_score.score;
-            vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
+            if(convertroom5timeearned > 0){
+              vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
+            }
+            else{
+              vm.room5timeearned = '00:00';
+            }
+            // vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
 
             var convertroom6timeearned = x.statusResult[5].Session_game_score.score;
-            vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
+            if(convertroom6timeearned > 0){
+              vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
+            }
+            else{
+              vm.room6timeearned = '00:00';
+            }
+            // vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
 
             var convertroom7timeearned = x.statusResult[6].Session_game_score.score;
-            vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
+            if(convertroom7timeearned > 0){
+              vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
+            }
+            else{
+              vm.room7timeearned = '00:00';
+            }
+            // vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
 
             var convertroom8timeearned = x.statusResult[7].Session_game_score.score;
-            vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
+            if(convertroom8timeearned > 0){
+              vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
+            }
+            else{
+              vm.room8timeearned = '00:00';
+            }
+            // vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
 
             var convertroom9timeearned = x.statusResult[8].Session_game_score.score;
-            vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
+            if(convertroom9timeearned > 0){
+              vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
+            }
+            else{
+              vm.room9timeearned = '00:00';
+            }
+            // vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
 
             var convertroom10timeearned = x.statusResult[9].Session_game_score.score;
-            vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
+            if(convertroom10timeearned > 0){
+              vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
+            }
+            else{
+              vm.room10timeearned = '00:00';
+            }
+            // vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
 
           /** END of time earned for each room **/
 
 
           /** bomb room time **/
             var convertroom1bombtime = x.statusResult[0].Session.bomb_time;
-            if(convertroom1bombtime == undefined){
+            if(convertroom1bombtime == undefined || convertroom1bombtime < '1'){
               vm.room1bombtime = '00:00';
             }
             else{
@@ -1084,20 +1138,44 @@ export default {
             }
 
             var convertroom2bombtime = x.statusResult[1].Session.bomb_time;
-            vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
+            if(convertroom2bombtime == undefined || convertroom2bombtime < '1'){
+              vm.room2bombtime = '00:00';
+            }
+            else{
+              vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
+            }
+            // vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
 
             var convertroom3bombtime = x.statusResult[2].Session.bomb_time;
-            vm.room3bombtime = moment().startOf('day').seconds(convertroom3bombtime).format("mm:ss");
+            if(convertroom3bombtime == undefined || convertroom3bombtime < '1'){
+              vm.room3bombtime = '00:00';
+            }
+            else{
+              vm.room3bombtime = moment().startOf('day').seconds(convertroom3bombtime).format("mm:ss");
+            }
+            // vm.room3bombtime = moment().startOf('day').seconds(convertroom3bombtime).format("mm:ss");
 
             var convertroom4bombtime = x.statusResult[3].Session.bomb_time;
-            vm.room4bombtime = moment().startOf('day').seconds(convertroom4bombtime).format("mm:ss");
+            if(convertroom4bombtime == undefined || convertroom4bombtime < '1'){
+              vm.room4bombtime = '00:00';
+            }
+            else{
+              vm.room4bombtime = moment().startOf('day').seconds(convertroom4bombtime).format("mm:ss");
+            }
+            // vm.room4bombtime = moment().startOf('day').seconds(convertroom4bombtime).format("mm:ss");
 
             var convertroom5bombtime = x.statusResult[4].Session.bomb_time;
-            vm.room5bombtime = moment().startOf('day').seconds(convertroom5bombtime).format("mm:ss");
+            if(convertroom5bombtime == undefined || convertroom5bombtime < '1'){
+              vm.room5bombtime = '00:00';
+            }
+            else{
+              vm.room5bombtime = moment().startOf('day').seconds(convertroom5bombtime).format("mm:ss");
+            }
+            // vm.room5bombtime = moment().startOf('day').seconds(convertroom5bombtime).format("mm:ss");
 
 
             var convertroom6bombtime = x.statusResult[5].Session.bomb_time;
-            if(convertroom6bombtime == undefined){
+            if(convertroom6bombtime == undefined || convertroom6bombtime < '1'){
               vm.room6bombtime = '00:00';
             }
             else{
@@ -1105,16 +1183,40 @@ export default {
             }
 
             var convertroom7bombtime = x.statusResult[6].Session.bomb_time;
-            vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
+            if(convertroom7bombtime == undefined || convertroom7bombtime < '1'){
+              vm.room7bombtime = '00:00';
+            }
+            else{
+              vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
+            }
+            // vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
 
             var convertroom8bombtime = x.statusResult[7].Session.bomb_time;
-            vm.room8bombtime = moment().startOf('day').seconds(convertroom8bombtime).format("mm:ss");
+            if(convertroom8bombtime == undefined || convertroom8bombtime < '1'){
+              vm.room8bombtime = '00:00';
+            }
+            else{
+              vm.room8bombtime = moment().startOf('day').seconds(convertroom8bombtime).format("mm:ss");
+            }
+            // vm.room8bombtime = moment().startOf('day').seconds(convertroom8bombtime).format("mm:ss");
 
             var convertroom9bombtime = x.statusResult[8].Session.bomb_time;
-            vm.room9bombtime = moment().startOf('day').seconds(convertroom9bombtime).format("mm:ss");
+            if(convertroom9bombtime == undefined || convertroom9bombtime < '1'){
+              vm.room9bombtime = '00:00';
+            }
+            else{
+              vm.room9bombtime = moment().startOf('day').seconds(convertroom9bombtime).format("mm:ss");
+            }
+            // vm.room9bombtime = moment().startOf('day').seconds(convertroom9bombtime).format("mm:ss");
 
             var convertroom10bombtime = x.statusResult[9].Session.bomb_time;
-            vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
+            if(convertroom10bombtime == undefined || convertroom10bombtime < '1'){
+              vm.room10bombtime = '00:00';
+            }
+            else{
+              vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
+            }
+            // vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
 
           /** end of bomb room time **/
 
@@ -1129,34 +1231,34 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime11);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime11);
 
             var currentRoom11Time = gameendtime11-currentTimeValue;
-            console.log(currentRoom11Time);
+            // console.log(currentRoom11Time);
 
             if(vm.room11status == 'Ready'){
               vm.room11currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE A READY');
+              // console.log('INSTRUCTION ROOM SIDE A READY');
             }
 
             if(vm.room11status == 'Released'){
               vm.room11currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE A Released');
+              // console.log('INSTRUCTION ROOM SIDE A Released');
             }
 
             if(vm.room11status == 'Instructions Playing'){
               vm.room11currenttime = '04:00';
-              console.log('INSTRUCTION ROOM SIDE A Instructions Playing');
+              // console.log('INSTRUCTION ROOM SIDE A Instructions Playing');
             }
 
             if(vm.room11status == 'Waiting'){
               vm.room11currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE A Waiting');
+              // console.log('INSTRUCTION ROOM SIDE A Waiting');
             }
 
             if(vm.room11status == 'Trouble'){
-              console.log('INSTRUCTION ROOM SIDE A Trouble');
+              // console.log('INSTRUCTION ROOM SIDE A Trouble');
               if(currentRoom11Time > '0'){
                 vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
               }
@@ -1171,12 +1273,12 @@ export default {
               if(currentRoom11Time > '0'){
                 vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
 
-                console.log("Instrcution room playing");
-                // console.log('ROOM 1 Playing 11');
+                // console.log("Instrcution room playing");
+                console.log('ROOM 1 Playing 11');
 
               }
               else{
-                console.log('SIDE A instruction room playing');
+                // console.log('SIDE A instruction room playing');
                 vm.room11currenttime = '00:00';
               }
 
@@ -1195,34 +1297,34 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime11);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime11);
 
             var currentRoom12Time = gameendtime11-currentTimeValue;
-            console.log(currentRoom12Time);
+            // console.log(currentRoom12Time);
 
             if(vm.room12status == 'Ready'){
               vm.room12currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE B READY');
+              // console.log('INSTRUCTION ROOM SIDE B READY');
             }
 
             if(vm.room12status == 'Released'){
               vm.room12currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE B Released');
+              // console.log('INSTRUCTION ROOM SIDE B Released');
             }
 
             if(vm.room12status == 'Instructions Playing'){
               vm.room12currenttime = '04:00';
-              console.log('INSTRUCTION ROOM SIDE B Instructions Playing');
+              // console.log('INSTRUCTION ROOM SIDE B Instructions Playing');
             }
 
             if(vm.room12status == 'Waiting'){
               vm.room12currenttime = '00:00';
-              console.log('INSTRUCTION ROOM SIDE B Waiting');
+              // console.log('INSTRUCTION ROOM SIDE B Waiting');
             }
 
             if(vm.room12status == 'Trouble'){
-              console.log('INSTRUCTION ROOM SIDE B Trouble');
+              // console.log('INSTRUCTION ROOM SIDE B Trouble');
               if(currentRoom12Time > '0'){
                 vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
               }
@@ -1237,12 +1339,12 @@ export default {
               if(currentRoom12Time > '0'){
                 vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
 
-                console.log("Instrcution room playing");
+                // console.log("Instrcution room playing");
                 // console.log('ROOM 1 Playing 11');
 
               }
               else{
-                console.log('SIDE B instruction room playing');
+                // console.log('SIDE B instruction room playing');
                 vm.room12currenttime = '00:00';
               }
 
@@ -1256,27 +1358,27 @@ export default {
             var room1gameendtimesecond = moment(room1gameendtime).format("ss");
             var convertMinute1ToSeconds = room1gameendtimeminute*60;
 
-            console.log(room1gameendtimeminute);
-            console.log(room1gameendtimesecond);
-            console.log(convertMinute1ToSeconds);
+            // console.log(room1gameendtimeminute);
+            // console.log(room1gameendtimesecond);
+            // console.log(convertMinute1ToSeconds);
 
             var gameendtime1 = Number(convertMinute1ToSeconds)+Number(room1gameendtimesecond);
 
-            console.log(gameendtime1);
+            // console.log(gameendtime1);
 
             var currentMinute = moment().format("mm");
-            console.log(currentMinute);
+            // console.log(currentMinute);
             var currentSeconds = moment().format("ss");
-            console.log(currentSeconds);
+            // console.log(currentSeconds);
             var currentMinuteToSeconds = Number(currentMinute)*60;
-            console.log(currentMinuteToSeconds);
+            // console.log(currentMinuteToSeconds);
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
+            // console.log(currentTimeValue);
 
             var currentRoom1Time = gameendtime1-currentTimeValue;
-            console.log(currentRoom1Time);
+            // console.log(currentRoom1Time);
 
             if(vm.room1status == 'Ready'){
               vm.room1currenttime = '00:00';
@@ -1328,34 +1430,34 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime2);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime2);
 
             var currentRoom2Time = gameendtime2-currentTimeValue;
-            console.log(currentRoom2Time);
+            // console.log(currentRoom2Time);
 
             if(vm.room2status == 'Ready'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 READY');
+              // console.log('ROOM 2 READY');
             }
 
             if(vm.room2status == 'Released'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 Released');
+              // console.log('ROOM 2 Released');
             }
 
             if(vm.room2status == 'Instructions Playing'){
               vm.room2currenttime = '10:00';
-              console.log('ROOM 2 Instructions Playing');
+              // console.log('ROOM 2 Instructions Playing');
             }
 
             if(vm.room2status == 'Waiting'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 Waiting');
+              // console.log('ROOM 2 Waiting');
             }
 
             if(vm.room2status == 'Trouble'){
-              console.log('ROOM 2 Triuble');
+              // console.log('ROOM 2 Triuble');
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
               }
@@ -1370,12 +1472,12 @@ export default {
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
 
-                console.log("INSIDE ROOM 2");
-                console.log('ROOM 2 Playing 2');
+                // console.log("INSIDE ROOM 2");
+                // console.log('ROOM 2 Playing 2');
 
               }
               else{
-                console.log('ROOM 2 Playing 3');
+                // console.log('ROOM 2 Playing 3');
                 vm.room2currenttime = '00:00';
               }
 
@@ -1394,11 +1496,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime3);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime3);
 
             var currentRoom3Time = gameendtime3-currentTimeValue;
-            console.log(currentRoom3Time);
+            // console.log(currentRoom3Time);
 
             if(vm.room3status == 'Ready'){
               vm.room3currenttime = '00:00';
@@ -1451,11 +1553,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime4);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime4);
 
             var currentRoom4Time = gameendtime4-currentTimeValue;
-            console.log(currentRoom4Time);
+            // console.log(currentRoom4Time);
 
             if(vm.room4status == 'Ready'){
               vm.room4currenttime = '00:00';
@@ -1508,11 +1610,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime5);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime5);
 
             var currentRoom5Time = gameendtime5-currentTimeValue;
-            console.log(currentRoom5Time);
+            // console.log(currentRoom5Time);
 
             if(vm.room5status == 'Ready'){
               vm.room5currenttime = '00:00';
@@ -1569,12 +1671,12 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime6);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime6);
 
             var currentRoom6Time = gameendtime6-currentTimeValue;
-            console.log(currentRoom6Time);
-            console.log("SIDE B ROOM 1 time above");
+            // console.log(currentRoom6Time);
+            // console.log("SIDE B ROOM 1 time above");
 
             if(vm.room6status == 'Ready'){
               vm.room6currenttime = '00:00';
@@ -1627,11 +1729,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime7);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime7);
 
             var currentRoom7Time = gameendtime7-currentTimeValue;
-            console.log(currentRoom7Time);
+            // console.log(currentRoom7Time);
 
             if(vm.room7status == 'Ready'){
               vm.room7currenttime = '00:00';
@@ -1690,11 +1792,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime8);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime8);
 
             var currentRoom8Time = gameendtime8-currentTimeValue;
-            console.log(currentRoom8Time);
+            // console.log(currentRoom8Time);
 
             if(vm.room8status == 'Ready'){
               vm.room8currenttime = '00:00';
@@ -1746,11 +1848,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime9);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime9);
 
             var currentRoom9Time = gameendtime9-currentTimeValue;
-            console.log(currentRoom9Time);
+            // console.log(currentRoom9Time);
 
             if(vm.room9status == 'Ready'){
               vm.room9currenttime = '00:00';
@@ -1803,11 +1905,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime10);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime10);
 
             var currentRoom10Time = gameendtime10-currentTimeValue;
-            console.log(currentRoom10Time);
+            // console.log(currentRoom10Time);
 
             if(vm.room10status == 'Ready'){
               vm.room10currenttime = '00:00';
@@ -1892,7 +1994,7 @@ export default {
 
                 if(vm.room11status == 'Released'){
                   vm.room11StatusColor = 'yellowStatus';
-                  vm.room11StatusTextColor = 'greenStatusText';
+                  vm.room11StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room11status == 'Trouble'){
@@ -1960,8 +2062,8 @@ export default {
                 }
 
                 if(vm.room1status == 'Released'){
-                  vm.room1StatusColor = 'greenStatus';
-                  vm.room1StatusTextColor = 'greenStatusText';
+                  vm.room1StatusColor = 'yellowStatus';
+                  vm.room1StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room1status == 'Trouble'){
@@ -1992,8 +2094,8 @@ export default {
                 }
 
                 if(vm.room2status == 'Released'){
-                  vm.room2StatusColor = 'greenStatus';
-                  vm.room2StatusTextColor = 'greenStatusText';
+                  vm.room2StatusColor = 'yellowStatus';
+                  vm.room2StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room2status == 'Trouble'){
@@ -2024,8 +2126,8 @@ export default {
                 }
 
                 if(vm.room3status == 'Released'){
-                  vm.room3StatusColor = 'greenStatus';
-                  vm.room3StatusTextColor = 'greenStatusText';
+                  vm.room3StatusColor = 'yellowStatus';
+                  vm.room3StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room3status == 'Trouble'){
@@ -2056,8 +2158,8 @@ export default {
                 }
 
                 if(vm.room4status == 'Released'){
-                  vm.room4StatusColor = 'greenStatus';
-                  vm.room4StatusTextColor = 'greenStatusText';
+                  vm.room4StatusColor = 'yellowStatus';
+                  vm.room4StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room4status == 'Trouble'){
@@ -2088,8 +2190,8 @@ export default {
                 }
 
                 if(vm.room5status == 'Released'){
-                  vm.room5StatusColor = 'greenStatus';
-                  vm.room5StatusTextColor = 'greenStatusText';
+                  vm.room5StatusColor = 'yellowStatus';
+                  vm.room5StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room5status == 'Trouble'){
@@ -2125,8 +2227,8 @@ export default {
                 }
 
                 if(vm.room6status == 'Released'){
-                  vm.room6StatusColor = 'greenStatus';
-                  vm.room6StatusTextColor = 'greenStatusText';
+                  vm.room6StatusColor = 'yellowStatus';
+                  vm.room6StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room6status == 'Trouble'){
@@ -2157,8 +2259,8 @@ export default {
                 }
 
                 if(vm.room7status == 'Released'){
-                  vm.room7StatusColor = 'greenStatus';
-                  vm.room7StatusTextColor = 'greenStatusText';
+                  vm.room7StatusColor = 'yellowStatus';
+                  vm.room7StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room7status == 'Trouble'){
@@ -2189,8 +2291,8 @@ export default {
                 }
 
                 if(vm.room8status == 'Released'){
-                  vm.room8StatusColor = 'greenStatus';
-                  vm.room8StatusTextColor = 'greenStatusText';
+                  vm.room8StatusColor = 'yellowStatus';
+                  vm.room8StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room8status == 'Trouble'){
@@ -2221,8 +2323,8 @@ export default {
                 }
 
                 if(vm.room9status == 'Released'){
-                  vm.room9StatusColor = 'greenStatus';
-                  vm.room9StatusTextColor = 'greenStatusText';
+                  vm.room9StatusColor = 'yellowStatus';
+                  vm.room9StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room9status == 'Trouble'){
@@ -2253,8 +2355,8 @@ export default {
                 }
 
                 if(vm.room10status == 'Released'){
-                  vm.room10StatusColor = 'greenStatus';
-                  vm.room10StatusTextColor = 'greenStatusText';
+                  vm.room10StatusColor = 'yellowStatus';
+                  vm.room10StatusTextColor = 'yellowStatusText';
                 }
 
                 if(vm.room10status == 'Trouble'){

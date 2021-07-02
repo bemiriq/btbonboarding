@@ -75,6 +75,97 @@
 
           <b-row>
             <!-- starting div for room 1 and room 6 -->
+
+            <!-- instruction column -->
+
+            <b-col class="border border-dark" v-bind:class="room11StatusColor">
+
+                <div style="background-color: room11StatusTextColor;">
+                  <b-row>
+                    <b-col>
+                      <p class="roomNameTop"> {{room11game}} </p>
+                      <!-- <p class="teamNameText"> {{room11status}} </p> -->
+                      <p class="teamNameText" v-if="room11status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room11status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div style="background-color: black; height: 7%;">
+                  <h2 class="bombTimeText"> {{room11currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div style="height:40px; position:relative;">
+                  <!-- <p class="teamNameText"> {{room11teamname}} </p> -->
+                  <p class="teamNameText" v-if="room11teamname.length > 10" style="font-size: 1.1em;"> {{room11teamname}}</p>
+                  <p v-else class="teamNameText"> {{room11teamname}}</p>
+                </div>
+
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room11teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room11timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room11bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room11timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room11bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room11SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,11), teamRoomNumber = 1">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,11), teamRoomNumber = 11">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue1 == '1'">
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,11,a)">Skip</b-button>
+                </div>
+
+                <!-- <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
+                </b-row> -->
+
+                <br/>
+
+            </b-col>
+            <!-- end b-col and div for room 1 and room 6 -->
+
+            <!-- end of instruction column -->
+
+
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room1StatusColor">
 
@@ -82,7 +173,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room1game}} </p>
-                      <p class="teamNameText"> {{room1status}} </p>
+                      <!-- <p class="teamNameText"> {{room1status}} </p> -->
+                      <p class="teamNameText" v-if="room1status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room1status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -95,9 +188,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room1teamname}} </p> -->
-                  <p class="teamNameText" v-if="room1teamname.length > 15" style="font-size: 1.1em;"> {{room1teamname}}</p>
+                  <p class="teamNameText" v-if="room1teamname.length > 10" style="font-size: 1.1em;"> {{room1teamname}}</p>
                   <p v-else class="teamNameText"> {{room1teamname}}</p>
                 </div>
 
@@ -167,7 +260,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room2game}} </p>
-                      <p class="teamNameText"> {{room2status}} </p>
+                      <!-- <p class="teamNameText"> {{room2status}} </p> -->
+                      <p class="teamNameText" v-if="room2status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room2status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -180,9 +275,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room2teamname}} </p> -->
-                  <p class="teamNameText" v-if="room2teamname.length > 15" style="font-size: 1.1em;"> {{room2teamname}}</p>
+                  <p class="teamNameText" v-if="room2teamname.length > 10" style="font-size: 1.1em;"> {{room2teamname}}</p>
                   <p v-else class="teamNameText"> {{room2teamname}}</p>
                 </div>
 
@@ -251,7 +346,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room3game}} </p>
-                      <p class="teamNameText"> {{room3status}} </p>
+                      <!-- <p class="teamNameText"> {{room3status}} </p> -->
+                      <p class="teamNameText" v-if="room3status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room3status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -264,9 +361,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room3teamname}} </p> -->
-                  <p class="teamNameText" v-if="room3teamname.length > 15" style="font-size: 1.1em;"> {{room3teamname}}</p>
+                  <p class="teamNameText" v-if="room3teamname.length > 10" style="font-size: 1.1em;"> {{room3teamname}}</p>
                   <p v-else class="teamNameText"> {{room3teamname}}</p>
                 </div>
 
@@ -336,7 +433,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room4game}} </p>
-                      <p class="teamNameText"> {{room4status}} </p>
+                      <!-- <p class="teamNameText"> {{room4status}} </p> -->
+                      <p class="teamNameText" v-if="room4status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room4status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -349,9 +448,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room4teamname}} </p> -->
-                  <p class="teamNameText" v-if="room4teamname.length > 15" style="font-size: 1.1em;"> {{room4teamname}}</p>
+                  <p class="teamNameText" v-if="room4teamname.length > 10" style="font-size: 1.1em;"> {{room4teamname}}</p>
                   <p v-else class="teamNameText"> {{room4teamname}}</p>
                 </div>
 
@@ -422,6 +521,8 @@
                     <b-col>
                       <p class="roomNameTop"> {{room5game}} </p>
                       <p class="teamNameText" v-if=" room5status == 'Photobomb Running'"> PB Running </p>
+                      <!-- <p class="teamNameText" v-else> {{room5status}} </p> -->
+                      <p class="teamNameText" v-if="room5status == 'Instructions Playing'"> Playing </p>
                       <p class="teamNameText" v-else> {{room5status}} </p>
                     </b-col>
                   </b-row>
@@ -435,9 +536,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room5teamname}} </p> -->
-                  <p class="teamNameText" v-if="room5teamname.length > 15" style="font-size: 1.1em;"> {{room5teamname}}</p>
+                  <p class="teamNameText" v-if="room5teamname.length > 10" style="font-size: 1.1em;"> {{room5teamname}}</p>
                   <p v-else class="teamNameText"> {{room5teamname}}</p>
                 </div>
 
@@ -525,6 +626,96 @@
 
           <b-row>
 
+
+            <!-- instruction column -->
+
+            <b-col class="border border-dark" v-bind:class="room12StatusColor">
+
+                <div style="background-color: room12StatusTextColor;">
+                  <b-row>
+                    <b-col>
+                      <p class="roomNameTop"> {{room12game}} </p>
+                      <!-- <p class="teamNameText"> {{room12status}} </p> -->
+                      <p class="teamNameText" v-if="room12status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room12status}} </p>
+                    </b-col>
+                  </b-row>
+                </div>
+
+                <br/>
+
+                <div style="background-color: black; height: 7%;">
+                  <h2 class="bombTimeText"> {{room12currenttime}} </h2>
+                </div>
+
+                <br/>
+
+                <div style="height:40px; position:relative;">
+                  <!-- <p class="teamNameText"> {{room12teamname}} </p> -->
+                  <p class="teamNameText" v-if="room12teamname.length > 10" style="font-size: 1.1em;"> {{room12teamname}}</p>
+                  <p v-else class="teamNameText"> {{room12teamname}}</p>
+                </div>
+
+                <div>
+                  <p class="sizeAndTimeDetail"> TEAM SIZE : {{room12teamsize}} </p>
+                  <p class="sizeAndTimeDetail"> ROOM SCORE : {{room12timeearned}} </p>
+                  <p class="sizeAndTimeDetail"> TOTAL SCORE : {{room12bombtime}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> TIME FROM ROOM  {{room12timeearned}} </p> -->
+                  <!-- <p class="sizeAndTimeDetail"> BOMB TIME  {{room12bombtime}} </p> -->
+                  <p class="sizeAndTimeDetail"> SESSION ID : {{room12SessionId}} </p>
+                  <!-- <p class="sizeAndTimeDetail"> RFID TAG : {{room1SessionId}} </p> -->
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="primary" @click="startTeam(event,12), teamRoomNumber = 12">START</b-button>
+                </div>
+
+                <div v-if="startReset == '1'">
+                  <b-button block variant="danger" class="resetButton" @click="resetTeam(event,12), teamRoomNumber = 12">RESET</b-button>
+                </div>
+
+                <div v-if="skipValue1 == '1'">
+                  <b-button block variant="warning" class="resetButton" @click="skipInstruction($event,12,b)">Skip</b-button>
+                </div>
+
+                <!-- <b-row v-if="editTime == '1'">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-60)">-01:00</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,-30)">-00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,30)">+00:30</b-button></b-col>
+                </b-row>
+                <b-row v-if="editTime == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editTimeForTeam($event,1,a,60)">+01:00</b-button></b-col>
+                </b-row>
+
+                <br>
+
+                <b-row v-if="editScore == '1'">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-10)">-10</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,-1)">-1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,1)">+1</b-button></b-col>
+                </b-row>
+
+                <b-row v-if="editScore == '1'" class="editTimeMargin">
+                  <b-col><b-button block variant="primary" @click="editScoreForTeam($event,1,a,10)">+10</b-button></b-col>
+                </b-row> -->
+
+                <br/>
+
+            </b-col>
+            <!-- end b-col and div for room 1 and room 6 -->
+
+            <!-- end of instruction column -->
+
             <!-- starting div for room 1 and room 6 -->
             <!-- <b-col class="border border-dark" v-bind:class="[gameStatusByColor ? 'greenStatus' : 'playingStatus']"> -->
             <b-col class="border border-dark" v-bind:class="room6StatusColor">
@@ -533,7 +724,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room6game}} </p>
-                      <p class="teamNameText"> {{room6status}} </p>
+                      <!-- <p class="teamNameText"> {{room6status}} </p> -->
+                      <p class="teamNameText" v-if="room6status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room6status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -546,9 +739,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room6teamname}} </p> -->
-                  <p class="teamNameText" v-if="room6teamname.length > 15" style="font-size: 1.1em;"> {{room6teamname}}</p>
+                  <p class="teamNameText" v-if="room6teamname.length > 10" style="font-size: 1.1em;"> {{room6teamname}}</p>
                   <p v-else class="teamNameText"> {{room6teamname}}</p>
                 </div>
 
@@ -618,7 +811,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room7game}} </p>
-                      <p class="teamNameText"> {{room7status}} </p>
+                      <!-- <p class="teamNameText"> {{room7status}} </p> -->
+                      <p class="teamNameText" v-if="room7status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room7status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -631,9 +826,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room7teamname}} </p> -->
-                  <p class="teamNameText" v-if="room7teamname.length > 15" style="font-size: 1.1em;"> {{room7teamname}}</p>
+                  <p class="teamNameText" v-if="room7teamname.length > 10" style="font-size: 1.1em;"> {{room7teamname}}</p>
                   <p v-else class="teamNameText"> {{room7teamname}}</p>
                 </div>
 
@@ -702,7 +897,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room8game}} </p>
-                      <p class="teamNameText"> {{room8status}} </p>
+                      <!-- <p class="teamNameText"> {{room8status}} </p> -->
+                      <p class="teamNameText" v-if="room8status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room8status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -715,9 +912,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room8teamname}} </p> -->
-                  <p class="teamNameText" v-if="room8teamname.length > 15" style="font-size: 1.1em;"> {{room8teamname}}</p>
+                  <p class="teamNameText" v-if="room8teamname.length > 10" style="font-size: 1.1em;"> {{room8teamname}}</p>
                   <p v-else class="teamNameText"> {{room8teamname}}</p>
                 </div>
 
@@ -787,7 +984,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room9game}} </p>
-                      <p class="teamNameText"> {{room9status}} </p>
+                      <!-- <p class="teamNameText"> {{room9status}} </p> -->
+                      <p class="teamNameText" v-if="room9status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room9status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -800,9 +999,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room9teamname}} </p> -->
-                  <p class="teamNameText" v-if="room9teamname.length > 15" style="font-size: 1.1em;"> {{room9teamname}}</p>
+                  <p class="teamNameText" v-if="room9teamname.length > 10" style="font-size: 1.1em;"> {{room9teamname}}</p>
                   <p v-else class="teamNameText"> {{room9teamname}}</p>
                 </div>
 
@@ -872,7 +1071,9 @@
                   <b-row>
                     <b-col>
                       <p class="roomNameTop"> {{room10game}} </p>
-                      <p class="teamNameText"> {{room10status}} </p>
+                      <!-- <p class="teamNameText"> {{room10status}} </p> -->
+                      <p class="teamNameText" v-if="room10status == 'Instructions Playing'"> Playing </p>
+                      <p class="teamNameText" v-else> {{room10status}} </p>
                     </b-col>
                   </b-row>
                 </div>
@@ -885,9 +1086,9 @@
 
                 <br/>
 
-                <div>
+                <div style="height:40px; position:relative;">
                   <!-- <p class="teamNameText"> {{room10teamname}} </p> -->
-                  <p class="teamNameText" v-if="room10teamname.length > 15" style="font-size: 1.1em;"> {{room10teamname}}</p>
+                  <p class="teamNameText" v-if="room10teamname.length > 10" style="font-size: 1.1em;"> {{room10teamname}}</p>
                   <p v-else class="teamNameText"> {{room10teamname}}</p>
                 </div>
 
@@ -1068,6 +1269,14 @@ export default {
       interval: null,
       gameStatusByColor: true,
 
+      room11status: null,
+      room11StatusColor: '',
+      room11StatusTextColor: '',
+
+      room12status: null,
+      room12StatusColor: '',
+      room12StatusTextColor: '',
+
       room1status: null,
       room1StatusColor: '',
       room1StatusTextColor: '',
@@ -1108,6 +1317,8 @@ export default {
       room10StatusColor: '',
       room10StatusTextColor: '',
 
+      room11game: 'Instruction',
+      room12game: 'Instruction',
       room1game: '',
       room2game: '',
       room3game: '',
@@ -1119,6 +1330,8 @@ export default {
       room9game: '',
       room10game: '',
 
+      room11teamsize: '',
+      room12teamsize: '', 
       room1teamsize: '',
       room2teamsize: '',
       room3teamsize: '',
@@ -1140,6 +1353,9 @@ export default {
       room8SessionId:'',
       room9SessionId:'',
       room10SessionId:'',
+      room11SessionId:'',
+      room12SessionId:'',
+
 
       room1GameId:'',
       room2GameId:'',
@@ -1173,6 +1389,8 @@ export default {
       room8bombtime: 0,
       room9bombtime: 0,
       room10bombtime: 0,
+      room11bombtime: 0,
+      room12bombtime: 0,
 
       room1timeearned: '',
       room2timeearned: '',
@@ -1184,6 +1402,9 @@ export default {
       room8timeearned: '',
       room9timeearned: '',
       room10timeearned: '',
+      room11timeearned: '00:00',
+      room12timeearned: '00:00',
+
 
       room1currenttime: '',
       room2currenttime: '',
@@ -1195,6 +1416,8 @@ export default {
       room8currenttime: '',
       room9currenttime: '',
       room10currenttime: '',
+      room11currenttime: '', /** side A instructions **/
+      room12currenttime: '', /** side B instructions **/
 
 
       sideAdiv: true,
@@ -1225,25 +1448,25 @@ export default {
 
     startTeam(event,room){
 
-      console.log('team start on room '+ room);
+      // console.log('team start on room '+ room);
 
       this.$root.$emit('bv::show::modal', 'modal-startTeam', '#btnShow');
 
     },
 
     resetTeam(event, room){
-      console.log(this['room'+room+'game']);
+      // console.log(this['room'+room+'game']);
       this.resetRoomName = this['room'+room+'game'];
       this.$root.$emit('bv::show::modal', 'modal-resetTeam', '#btnShow');
     },
 
     confirmedResetTeam(){
 
-      console.log('room number '+this.teamRoomNumber);
+      // console.log('room number '+this.teamRoomNumber);
       var roomId = this.teamRoomNumber;
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      console.log(client);
+      // console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"reset", "route_status_id":"'+roomId+'"}');
 
@@ -1257,16 +1480,16 @@ export default {
     },
 
     clickedTeamName(){
-      console.log("room number "+this.teamRoomNumber);
-      console.log("session id of team "+this.teamSessionId);
+      // console.log("room number "+this.teamRoomNumber);
+      // console.log("session id of team "+this.teamSessionId);
 
       axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.teamSessionId,{
 
       })
       .then(response => 
       {
-        console.log(response);
-        console.log(response.data);
+        // console.log(response);
+        // console.log(response.data);
 
         this.rfidTagForTeam = response.data.Team_player_sessions[0].Rfid.tag;
         var rfidTagUsed =response.data.Team_player_sessions[0].Rfid.tag;
@@ -1274,7 +1497,7 @@ export default {
 
         var mqtt = require('mqtt');
         var client  = mqtt.connect('ws://20.17.0.5:8083/');
-        console.log(client);
+        // console.log(client);
         var vm = this;
         client.publish('server/commands', '{"command":"tap", "route":"a", "route_status_id":"'+roomId+'", "rfid_tag": "'+rfidTagUsed+'"}'); /** route_status_id is room number **/
 
@@ -1286,38 +1509,38 @@ export default {
 
       })
       .catch(function (error){
-        console.log(error);
+        // console.log(error);
       });
     },
 
     editTimeForTeam(event,roomId,side,timeValue){
-      console.log(event);
-      console.log('room number '+roomId);
-      console.log('side '+side);
-      console.log('time value '+timeValue);
-      console.log(this['room'+roomId+'SessionId']);
+      // console.log(event);
+      // console.log('room number '+roomId);
+      // console.log('side '+side);
+      // console.log('time value '+timeValue);
+      // console.log(this['room'+roomId+'SessionId']);
 
       var teamSessionId = this['room'+roomId+'SessionId'];
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      console.log(client);
+      // console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"change_room_time",  "route_status_id":"'+roomId+'", "route":"'+side+'", "room":"'+roomId+'", "seconds": "'+timeValue+'"}');
 
     },
 
     editScoreForTeam(event,roomId,side,scoreValue){
-      console.log(event);
-      console.log('room number '+roomId);
-      console.log('side '+side);
-      console.log('score value '+scoreValue);
-      console.log(this['room'+roomId+'SessionId']);
+      // console.log(event);
+      // console.log('room number '+roomId);
+      // console.log('side '+side);
+      // console.log('score value '+scoreValue);
+      // console.log(this['room'+roomId+'SessionId']);
 
       var teamGameId = this['room'+roomId+'GameId'];
       var teamSessionId = this['room'+roomId+'SessionId'];
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      console.log(client);
+      // console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"add_score", "route_status_id":"'+roomId+'", "game_id":"'+teamGameId+'", "session_id":"'+teamSessionId+'","route":"'+side+'", "room":"'+roomId+'", "score": "'+scoreValue+'"}');
 
@@ -1327,7 +1550,7 @@ export default {
       var teamSessionId = this['room'+roomId+'SessionId'];
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
-      console.log(client);
+      // console.log(client);
       var vm = this;
       client.publish('server/commands', '{"command":"skip_instructions",  "route_status_id":"'+roomId+'", "route":"'+side+'", "room":"'+roomId+'"}');
       this['skipValue'+roomId] = 0;
@@ -1338,7 +1561,7 @@ export default {
       this.message = 'Greatness is within sight!!!';
       this.interval = setInterval(this.countdownTimer, 1000);
       this.totalTime = (180); /** each team time value should be defined here as mm * ss or sss  **/
-      console.log(this.totalTime);
+      // console.log(this.totalTime);
       this.gameStatusByColor = !this.gameStatusByColor;
     },
     timerPause() {
@@ -1355,7 +1578,7 @@ export default {
       this.gameStatusByColor = !this.gameStatusByColor; /* this will reset the game status color */
     },
     timerCountdown() {
-      console.log('Working');
+      // console.log('Working');
       this.timerRunning = true;
       this.interval = setInterval(this.updateCurrentTime, 1000);
       // Counts down from 60 seconds times 1000.
@@ -1384,12 +1607,12 @@ export default {
 
     runMqtt() {
       // this.interval = setInterval(this.updateCurrentTime, 1000);
-      console.log(" IN SIDE RUN MQTT");
+      // console.log(" IN SIDE RUN MQTT");
 
       var mqtt = require('mqtt');
       var client  = mqtt.connect('ws://20.17.0.5:8083/');
 
-      console.log(client);
+      // console.log(client);
 
       var vm = this; /** vm is now variable as this which will pass on the value **/
       // var pl = playSound;
@@ -1398,7 +1621,7 @@ export default {
 
         client.subscribe('route_status', function (err) {
 
-          console.log('san1');
+          // console.log('san1');
 
           if (!err) {
             client.publish('presence', 'Message from Sandesh Vue App')
@@ -1408,21 +1631,30 @@ export default {
 
       client.on('message', function (topic, message) {
 
-        console.log('san3');
-
         var filterData = message;
         var x = JSON.parse(filterData);
 
         var checkSession = x.statusResult[0];
 
         if(checkSession.Session != null){
-          console.log('MORE');
-          console.log(checkSession.id);
-          console.log(x);
-          console.log(x.statusResult[0].Room_status.name);
+          // console.log('MORE');
+          // console.log(checkSession.id);
+          // console.log(x);
+          // console.log(x.statusResult[0].Room_status.name);
 
-          console.log(x.statusResult[0].Game.id);
+          // console.log(x.statusResult[0].Game.id);
           
+          // console.log(x.statusResult[10].Room_status.name);
+
+          /** side A instructions **/
+          if(x.statusResult[10].Room_status.id == undefined){
+            console.log(x.statusResult[10].Room_status.id);
+            this.room0status = 0;
+          }
+          else{
+
+          }
+          /** end of SIDE A instructions **/
 
           if(x.statusResult[0].Room_status.id == undefined){
             this.room1status = 0;
@@ -1438,6 +1670,8 @@ export default {
             vm.room8status = x.statusResult[7].Room_status.name;
             vm.room9status = x.statusResult[8].Room_status.name;
             vm.room10status = x.statusResult[9].Room_status.name;
+            vm.room11status = x.statusResult[10].Room_status.name; /** side A instruction **/
+            vm.room12status = x.statusResult[11].Room_status.name;
 
 
             vm.room1game = x.statusResult[0].Game.name;
@@ -1462,6 +1696,9 @@ export default {
             vm.room8teamsize = x.statusResult[7].Session.player_count;
             vm.room9teamsize = x.statusResult[8].Session.player_count;
             vm.room10teamsize = x.statusResult[9].Session.player_count;
+            vm.room11teamsize = x.statusResult[10].Session.player_count; /** side A instruction **/
+            vm.room12teamsize = x.statusResult[11].Session.player_count; /** side B instruction **/
+
 
             vm.room1SessionId = x.statusResult[0].Session.id;
             vm.room2SessionId = x.statusResult[1].Session.id;
@@ -1473,6 +1710,10 @@ export default {
             vm.room8SessionId = x.statusResult[7].Session.id;
             vm.room9SessionId = x.statusResult[8].Session.id;
             vm.room10SessionId = x.statusResult[9].Session.id;
+            vm.room11SessionId = x.statusResult[10].Session.id;
+            vm.room12SessionId = x.statusResult[11].Session.id;
+
+
 
             vm.room1GameId = x.statusResult[0].Game.id;
             vm.room2GameId = x.statusResult[1].Game.id;
@@ -1495,84 +1736,353 @@ export default {
             vm.room8teamname = x.statusResult[7].Session.Team.name;
             vm.room9teamname = x.statusResult[8].Session.Team.name;
             vm.room10teamname = x.statusResult[9].Session.Team.name;
+            vm.room11teamname = x.statusResult[10].Session.Team.name; /** side A instruction **/
+            vm.room12teamname = x.statusResult[11].Session.Team.name; /** side B instruction **/
 
 
 
           /** time earned for each room **/
+
+            // var convertroom1timeearned = x.statusResult[0].Session_game_score.score;
+            // vm.room1timeearned = moment().startOf('day').seconds(convertroom1timeearned).format("mm:ss");
+
+            // var convertroom2timeearned = x.statusResult[1].Session_game_score.score;
+            // vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
+
+            // var convertroom3timeearned = x.statusResult[2].Session_game_score.score;
+            // vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
+
+            // var convertroom4timeearned = x.statusResult[3].Session_game_score.score;
+            // vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
+
+            // var convertroom5timeearned = x.statusResult[4].Session_game_score.score;
+            // vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
+
+            // var convertroom6timeearned = x.statusResult[5].Session_game_score.score;
+            // vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
+
+            // var convertroom7timeearned = x.statusResult[6].Session_game_score.score;
+            // vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
+
+            // var convertroom8timeearned = x.statusResult[7].Session_game_score.score;
+            // vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
+
+            // var convertroom9timeearned = x.statusResult[8].Session_game_score.score;
+            // vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
+
+            // var convertroom10timeearned = x.statusResult[9].Session_game_score.score;
+            // vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
+
             var convertroom1timeearned = x.statusResult[0].Session_game_score.score;
-            vm.room1timeearned = moment().startOf('day').seconds(convertroom1timeearned).format("mm:ss");
+            if(convertroom1timeearned > 0){
+              vm.room1timeearned = moment().startOf('day').seconds(convertroom1timeearned).format("mm:ss");
+            }
+            else{
+              vm.room1timeearned = '00:00';
+            }
+            
 
             var convertroom2timeearned = x.statusResult[1].Session_game_score.score;
-            vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
+            if(convertroom2timeearned > 0){
+              vm.room2timeearned = moment().startOf('day').seconds(convertroom2timeearned).format("mm:ss");
+            }
+            else{
+              vm.room2timeearned = '00:00';
+            }
+            
 
             var convertroom3timeearned = x.statusResult[2].Session_game_score.score;
-            vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
+            if(convertroom3timeearned > 0){
+              vm.room3timeearned = moment().startOf('day').seconds(convertroom3timeearned).format("mm:ss");
+            }
+            else{
+              vm.room3timeearned = '00:00';
+            }
+            
 
             var convertroom4timeearned = x.statusResult[3].Session_game_score.score;
-            vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
+            if(convertroom4timeearned > 0){
+              vm.room4timeearned = moment().startOf('day').seconds(convertroom4timeearned).format("mm:ss");
+            }
+            else{
+              vm.room4timeearned = '00:00';
+            }
+            
 
             var convertroom5timeearned = x.statusResult[4].Session_game_score.score;
-            vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
+            if(convertroom5timeearned > 0){
+              vm.room5timeearned = moment().startOf('day').seconds(convertroom5timeearned).format("mm:ss");
+            }
+            else{
+              vm.room5timeearned = '00:00';
+            }
+            
 
             var convertroom6timeearned = x.statusResult[5].Session_game_score.score;
-            vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
+            if(convertroom6timeearned > 0){
+              vm.room6timeearned = moment().startOf('day').seconds(convertroom6timeearned).format("mm:ss");
+            }
+            else{
+              vm.room6timeearned = '00:00';
+            }
+            
 
             var convertroom7timeearned = x.statusResult[6].Session_game_score.score;
-            vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
+            if(convertroom7timeearned > 0){
+              vm.room7timeearned = moment().startOf('day').seconds(convertroom7timeearned).format("mm:ss");
+            }
+            else{
+              vm.room7timeearned = '00:00';
+            }
+            
 
             var convertroom8timeearned = x.statusResult[7].Session_game_score.score;
-            vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
+            if(convertroom8timeearned > 0){
+              vm.room8timeearned = moment().startOf('day').seconds(convertroom8timeearned).format("mm:ss");
+            }
+            else{
+              vm.room8timeearned = '00:00';
+            }
+            
 
             var convertroom9timeearned = x.statusResult[8].Session_game_score.score;
-            vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
+            if(convertroom9timeearned > 0){
+              vm.room9timeearned = moment().startOf('day').seconds(convertroom9timeearned).format("mm:ss");
+            }
+            else{
+              vm.room9timeearned = '00:00';
+            }
+            
 
             var convertroom10timeearned = x.statusResult[9].Session_game_score.score;
-            vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
+            if(convertroom10timeearned > 0){
+              vm.room10timeearned = moment().startOf('day').seconds(convertroom10timeearned).format("mm:ss");
+            }
+            else{
+              vm.room10timeearned = '00:00';
+            }
+            
+
 
           /** END of time earned for each room **/
 
 
           /** bomb room time **/
             var convertroom1bombtime = x.statusResult[0].Session.bomb_time;
-            // vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss"); 
-            /** this is the line that throws an error and make the white background for CONTROL PANEL **/
-
-            if(convertroom1bombtime > 0){
-              vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
+            if(convertroom1bombtime == undefined || convertroom1bombtime < '1'){
+              vm.room1bombtime = '00:00';
             }
             else{
-              vm.room1bombtime = 0;
+              vm.room1bombtime = moment().startOf('day').seconds(convertroom1bombtime).format("mm:ss");
             }
 
             var convertroom2bombtime = x.statusResult[1].Session.bomb_time;
-            vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
-
+            if(convertroom2bombtime == undefined || convertroom2bombtime < '1'){
+              vm.room2bombtime = '00:00';
+            }
+            else{
+              vm.room2bombtime = moment().startOf('day').seconds(convertroom2bombtime).format("mm:ss");
+            }
+            
             var convertroom3bombtime = x.statusResult[2].Session.bomb_time;
-            vm.room3bombtime = moment().startOf('day').seconds(convertroom3bombtime).format("mm:ss");
-
+            if(convertroom3bombtime == undefined || convertroom3bombtime < '1'){
+              vm.room3bombtime = '00:00';
+            }
+            else{
+              vm.room3bombtime = moment().startOf('day').seconds(convertroom3bombtime).format("mm:ss");
+            }
+            
             var convertroom4bombtime = x.statusResult[3].Session.bomb_time;
-            vm.room4bombtime = moment().startOf('day').seconds(convertroom4bombtime).format("mm:ss");
-
+            if(convertroom4bombtime == undefined || convertroom4bombtime < '1'){
+              vm.room4bombtime = '00:00';
+            }
+            else{
+              vm.room4bombtime = moment().startOf('day').seconds(convertroom4bombtime).format("mm:ss");
+            }
+            
             var convertroom5bombtime = x.statusResult[4].Session.bomb_time;
-            vm.room5bombtime = moment().startOf('day').seconds(convertroom5bombtime).format("mm:ss");
-
+            if(convertroom5bombtime == undefined || convertroom5bombtime < '1'){
+              vm.room5bombtime = '00:00';
+            }
+            else{
+              vm.room5bombtime = moment().startOf('day').seconds(convertroom5bombtime).format("mm:ss");
+            }
+            
 
             var convertroom6bombtime = x.statusResult[5].Session.bomb_time;
-            vm.room6bombtime = moment().startOf('day').seconds(convertroom6bombtime).format("mm:ss");
+            if(convertroom6bombtime == undefined || convertroom6bombtime < '1'){
+              vm.room6bombtime = '00:00';
+            }
+            else{
+              vm.room6bombtime = moment().startOf('day').seconds(convertroom6bombtime).format("mm:ss");
+            }
 
             var convertroom7bombtime = x.statusResult[6].Session.bomb_time;
-            vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
-
+            if(convertroom7bombtime == undefined || convertroom7bombtime < '1'){
+              vm.room7bombtime = '00:00';
+            }
+            else{
+              vm.room7bombtime = moment().startOf('day').seconds(convertroom7bombtime).format("mm:ss");
+            }
+            
             var convertroom8bombtime = x.statusResult[7].Session.bomb_time;
-            vm.room8bombtime = moment().startOf('day').seconds(convertroom8bombtime).format("mm:ss");
-
+            if(convertroom8bombtime == undefined || convertroom8bombtime < '1'){
+              vm.room8bombtime = '00:00';
+            }
+            else{
+              vm.room8bombtime = moment().startOf('day').seconds(convertroom8bombtime).format("mm:ss");
+            }
+            
             var convertroom9bombtime = x.statusResult[8].Session.bomb_time;
-            vm.room9bombtime = moment().startOf('day').seconds(convertroom9bombtime).format("mm:ss");
-
+            if(convertroom9bombtime == undefined || convertroom9bombtime < '1'){
+              vm.room9bombtime = '00:00';
+            }
+            else{
+              vm.room9bombtime = moment().startOf('day').seconds(convertroom9bombtime).format("mm:ss");
+            }
+            
             var convertroom10bombtime = x.statusResult[9].Session.bomb_time;
-            vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
+            if(convertroom10bombtime == undefined || convertroom10bombtime < '1'){
+              vm.room10bombtime = '00:00';
+            }
+            else{
+              vm.room10bombtime = moment().startOf('day').seconds(convertroom10bombtime).format("mm:ss");
+            }
+            
 
           /** end of bomb room time **/
+
+
+          /** instruction room time side A **/
+
+            var room11gameendtime = x.statusResult[1].game_end;
+            var room11gameendtimeminute = moment(room11gameendtime).format("mm");
+            var room11gameendtimesecond = moment(room11gameendtime).format("ss");
+            var convertMinute11ToSeconds = room11gameendtimeminute*60;
+
+            var gameendtime11 = Number(convertMinute11ToSeconds)+Number(room11gameendtimesecond);
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            // console.log(currentTimeValue);
+            // console.log(gameendtime11);
+
+            var currentRoom11Time = gameendtime11-currentTimeValue;
+            // console.log(currentRoom11Time);
+
+            if(vm.room11status == 'Ready'){
+              vm.room11currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE A READY');
+            }
+
+            if(vm.room11status == 'Released'){
+              vm.room11currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE A Released');
+            }
+
+            if(vm.room11status == 'Instructions Playing'){
+              vm.room11currenttime = '04:00';
+              // console.log('INSTRUCTION ROOM SIDE A Instructions Playing');
+            }
+
+            if(vm.room11status == 'Waiting'){
+              vm.room11currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE A Waiting');
+            }
+
+            if(vm.room11status == 'Trouble'){
+              // console.log('INSTRUCTION ROOM SIDE A Trouble');
+              if(currentRoom11Time > '0'){
+                vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
+              }
+              else{
+                vm.room11currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room11status == 'Playing'){
+
+              if(currentRoom11Time > '0'){
+                vm.room11currenttime = moment().startOf('day').seconds(currentRoom11Time).format("mm:ss");
+
+                // console.log("Instrcution room playing");
+                console.log('ROOM 1 Playing 11');
+
+              }
+              else{
+                // console.log('SIDE A instruction room playing');
+                vm.room11currenttime = '00:00';
+              }
+
+            }
+          /** end of instruction room time SIDE A **/
+
+
+          /** instruction room time SIDE B **/
+
+            var room12gameendtime = x.statusResult[1].game_end;
+            var room12gameendtimeminute = moment(room12gameendtime).format("mm");
+            var room12gameendtimesecond = moment(room12gameendtime).format("ss");
+            var convertMinute11ToSeconds = room12gameendtimeminute*60;
+
+            var gameendtime11 = Number(convertMinute11ToSeconds)+Number(room12gameendtimesecond);
+
+            var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
+            
+            // console.log(currentTimeValue);
+            // console.log(gameendtime11);
+
+            var currentRoom12Time = gameendtime11-currentTimeValue;
+            // console.log(currentRoom12Time);
+
+            if(vm.room12status == 'Ready'){
+              vm.room12currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE B READY');
+            }
+
+            if(vm.room12status == 'Released'){
+              vm.room12currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE B Released');
+            }
+
+            if(vm.room12status == 'Instructions Playing'){
+              vm.room12currenttime = '04:00';
+              // console.log('INSTRUCTION ROOM SIDE B Instructions Playing');
+            }
+
+            if(vm.room12status == 'Waiting'){
+              vm.room12currenttime = '00:00';
+              // console.log('INSTRUCTION ROOM SIDE B Waiting');
+            }
+
+            if(vm.room12status == 'Trouble'){
+              // console.log('INSTRUCTION ROOM SIDE B Trouble');
+              if(currentRoom12Time > '0'){
+                vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
+              }
+              else{
+                vm.room12currenttime = '00:00';
+              }
+
+            }
+
+            if(vm.room12status == 'Playing'){
+
+              if(currentRoom12Time > '0'){
+                vm.room12currenttime = moment().startOf('day').seconds(currentRoom12Time).format("mm:ss");
+
+                // console.log("Instrcution room playing");
+                // console.log('ROOM 1 Playing 11');
+
+              }
+              else{
+                // console.log('SIDE B instruction room playing');
+                vm.room12currenttime = '00:00';
+              }
+
+            }
+          /** end of instruction room time SIDE B **/
 
 
           /** current room time **/
@@ -1581,27 +2091,27 @@ export default {
             var room1gameendtimesecond = moment(room1gameendtime).format("ss");
             var convertMinute1ToSeconds = room1gameendtimeminute*60;
 
-            console.log(room1gameendtimeminute);
-            console.log(room1gameendtimesecond);
-            console.log(convertMinute1ToSeconds);
+            // console.log(room1gameendtimeminute);
+            // console.log(room1gameendtimesecond);
+            // console.log(convertMinute1ToSeconds);
 
             var gameendtime1 = Number(convertMinute1ToSeconds)+Number(room1gameendtimesecond);
 
-            console.log(gameendtime1);
+            // console.log(gameendtime1);
 
             var currentMinute = moment().format("mm");
-            console.log(currentMinute);
+            // console.log(currentMinute);
             var currentSeconds = moment().format("ss");
-            console.log(currentSeconds);
+            // console.log(currentSeconds);
             var currentMinuteToSeconds = Number(currentMinute)*60;
-            console.log(currentMinuteToSeconds);
+            // console.log(currentMinuteToSeconds);
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
+            // console.log(currentTimeValue);
 
             var currentRoom1Time = gameendtime1-currentTimeValue;
-            console.log(currentRoom1Time);
+            // console.log(currentRoom1Time);
 
             if(vm.room1status == 'Ready'){
               vm.room1currenttime = '00:00';
@@ -1621,10 +2131,17 @@ export default {
 
             if(vm.room1status == 'Playing'){
 
+              console.log('playing playing playing');
+
               if(currentRoom1Time > '0'){
+                console.log('playing playing playing 1');
+
                 vm.room1currenttime = moment().startOf('day').seconds(currentRoom1Time).format("mm:ss");
               }
               else{
+
+              console.log('playing playing playing 0');
+
                 vm.room1currenttime = '00:00';
               }
 
@@ -1653,34 +2170,34 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime2);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime2);
 
             var currentRoom2Time = gameendtime2-currentTimeValue;
-            console.log(currentRoom2Time);
+            // console.log(currentRoom2Time);
 
             if(vm.room2status == 'Ready'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 READY');
+              // console.log('ROOM 2 READY');
             }
 
             if(vm.room2status == 'Released'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 Released');
+              // console.log('ROOM 2 Released');
             }
 
             if(vm.room2status == 'Instructions Playing'){
               vm.room2currenttime = '10:00';
-              console.log('ROOM 2 Instructions Playing');
+              // console.log('ROOM 2 Instructions Playing');
             }
 
             if(vm.room2status == 'Waiting'){
               vm.room2currenttime = '00:00';
-              console.log('ROOM 2 Waiting');
+              // console.log('ROOM 2 Waiting');
             }
 
             if(vm.room2status == 'Trouble'){
-              console.log('ROOM 2 Triuble');
+              // console.log('ROOM 2 Triuble');
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
               }
@@ -1695,12 +2212,12 @@ export default {
               if(currentRoom2Time > '0'){
                 vm.room2currenttime = moment().startOf('day').seconds(currentRoom2Time).format("mm:ss");
 
-                console.log("INSIDE ROOM 2");
-                console.log('ROOM 2 Playing 2');
+                // console.log("INSIDE ROOM 2");
+                // console.log('ROOM 2 Playing 2');
 
               }
               else{
-                console.log('ROOM 2 Playing 3');
+                // console.log('ROOM 2 Playing 3');
                 vm.room2currenttime = '00:00';
               }
 
@@ -1719,11 +2236,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime3);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime3);
 
             var currentRoom3Time = gameendtime3-currentTimeValue;
-            console.log(currentRoom3Time);
+            // console.log(currentRoom3Time);
 
             if(vm.room3status == 'Ready'){
               vm.room3currenttime = '00:00';
@@ -1776,11 +2293,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime4);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime4);
 
             var currentRoom4Time = gameendtime4-currentTimeValue;
-            console.log(currentRoom4Time);
+            // console.log(currentRoom4Time);
 
             if(vm.room4status == 'Ready'){
               vm.room4currenttime = '00:00';
@@ -1833,11 +2350,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime5);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime5);
 
             var currentRoom5Time = gameendtime5-currentTimeValue;
-            console.log(currentRoom5Time);
+            // console.log(currentRoom5Time);
 
             if(vm.room5status == 'Ready'){
               vm.room5currenttime = '00:00';
@@ -1890,12 +2407,12 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime6);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime6);
 
             var currentRoom6Time = gameendtime6-currentTimeValue;
-            console.log(currentRoom6Time);
-            console.log("SIDE B ROOM 1 time above");
+            // console.log(currentRoom6Time);
+            // console.log("SIDE B ROOM 1 time above");
 
             if(vm.room6status == 'Ready'){
               vm.room6currenttime = '00:00';
@@ -1948,11 +2465,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime7);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime7);
 
             var currentRoom7Time = gameendtime7-currentTimeValue;
-            console.log(currentRoom7Time);
+            // console.log(currentRoom7Time);
 
             if(vm.room7status == 'Ready'){
               vm.room7currenttime = '00:00';
@@ -1983,7 +2500,7 @@ export default {
 
             if(vm.room7status == 'Playing'){
 
-              // console.log('ROOM 3 Playing 1');
+              console.log('ROOM 3 Playing 1');
               // var playSound = 'http://soundbible.com/mp3/Air%20Plane%20Ding-SoundBible.com-496729130.mp3';
               // console.log(playSound);
               // pl.play();
@@ -2011,11 +2528,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime8);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime8);
 
             var currentRoom8Time = gameendtime8-currentTimeValue;
-            console.log(currentRoom8Time);
+            // console.log(currentRoom8Time);
 
             if(vm.room8status == 'Ready'){
               vm.room8currenttime = '00:00';
@@ -2067,11 +2584,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime9);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime9);
 
             var currentRoom9Time = gameendtime9-currentTimeValue;
-            console.log(currentRoom9Time);
+            // console.log(currentRoom9Time);
 
             if(vm.room9status == 'Ready'){
               vm.room9currenttime = '00:00';
@@ -2124,11 +2641,11 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            console.log(currentTimeValue);
-            console.log(gameendtime10);
+            // console.log(currentTimeValue);
+            // console.log(gameendtime10);
 
             var currentRoom10Time = gameendtime10-currentTimeValue;
-            console.log(currentRoom10Time);
+            // console.log(currentRoom10Time);
 
             if(vm.room10status == 'Ready'){
               vm.room10currenttime = '00:00';
@@ -2189,6 +2706,38 @@ export default {
 
             /** defines the background color following 2 Instructions, 3 Playing, 4 Waiting, 5 Released, 1 Ready **/
               
+              /** ROOM 11  Instruction **/
+                if(vm.room11status == 'Ready'){
+                  vm.room11StatusColor = 'greenStatus';
+                  vm.room11StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room11status == 'Instructions Playing'){
+                  vm.room11StatusColor = 'playingStatus';
+                  vm.room11StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room11status == 'Playing'){
+                  vm.room11StatusColor = 'playingStatus';
+                  vm.room11StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room11status == 'Waiting'){
+                  vm.room11StatusColor = 'yellowStatus';
+                  vm.room11StatusTextColor = 'yellowStatusText';
+                }
+
+                if(vm.room11status == 'Released'){
+                  vm.room11StatusColor = 'greenStatus';
+                  vm.room11StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room11status == 'Trouble'){
+                  vm.room11StatusColor = 'pinkStatus';
+                  vm.room11StatusTextColor = 'pinkStatusText';
+                }
+              /** END OF ROOM 11 **/
+
               /** ROOM 1 **/
                 if(vm.room1status == 'Ready'){
                   vm.room1StatusColor = 'greenStatus';
@@ -2348,6 +2897,40 @@ export default {
                   vm.room5StatusTextColor = 'pinkStatusText';
                 }
               /** END OF ROOM 5 **/
+
+
+              /** ROOM 12 Insturction **/
+                if(vm.room12status == 'Ready'){
+                  vm.room12StatusColor = 'greenStatus';
+                  vm.room12StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room12status == 'Instructions Playing'){
+                  vm.room12StatusColor = 'playingStatus';
+                  vm.room12StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room12status == 'Playing'){
+                  vm.room12StatusColor = 'playingStatus';
+                  vm.room12StatusTextColor = 'blueStatusText';
+                }
+
+                if(vm.room12status == 'Waiting'){
+                  vm.room12StatusColor = 'yellowStatus';
+                  vm.room12StatusTextColor = 'yellowStatusText';
+                }
+
+                if(vm.room12status == 'Released'){
+                  vm.room12StatusColor = 'greenStatus';
+                  vm.room12StatusTextColor = 'greenStatusText';
+                }
+
+                if(vm.room12status == 'Trouble'){
+                  vm.room12StatusColor = 'pinkStatus';
+                  vm.room12StatusTextColor = 'pinkStatusText';
+                }
+              /** END OF ROOM 12 **/
+
 
               /** ROOM 6 **/
                 if(vm.room6status == 'Ready'){
@@ -2526,7 +3109,7 @@ export default {
 
       })
       
-      // console.log(client.subscribe('route_status'));
+      console.log(client.subscribe('route_status'));
     }
 
   },
@@ -2540,13 +3123,13 @@ export default {
       })
       .then(response => 
       {
-        console.log(response);
-        console.log(response.data);
+        // console.log(response);
+        // console.log(response.data);
 
         this.teamList = response.data;
       })
       .catch(function (error){
-        console.log(error);
+        // console.log(error);
       });
 
     this.runMqtt();
@@ -2681,7 +3264,7 @@ export default {
 
 .sizeAndTimeDetail{
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.0em;
   color: black;
   font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   text-align: left;
