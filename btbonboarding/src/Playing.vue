@@ -1232,8 +1232,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime11);
+            console.log(currentTimeValue);
+            console.log(gameendtime11);
 
             var currentRoom11Time = gameendtime11-currentTimeValue;
             // console.log(currentRoom11Time);
@@ -1298,8 +1298,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime11);
+            console.log(currentTimeValue);
+            console.log(gameendtime11);
 
             var currentRoom12Time = gameendtime11-currentTimeValue;
             // console.log(currentRoom12Time);
@@ -1376,9 +1376,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-
-            var currentRoom1Time = gameendtime1-currentTimeValue;
+            console.log(currentTimeValue);
+          var currentRoom1Time = gameendtime1-currentTimeValue;
             // console.log(currentRoom1Time);
 
             if(vm.room1status == 'Ready'){
@@ -1431,8 +1430,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime2);
+            console.log(currentTimeValue);
+            console.log(gameendtime2);
 
             var currentRoom2Time = gameendtime2-currentTimeValue;
             // console.log(currentRoom2Time);
@@ -1497,8 +1496,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime3);
+            console.log(currentTimeValue);
+            console.log(gameendtime3);
 
             var currentRoom3Time = gameendtime3-currentTimeValue;
             // console.log(currentRoom3Time);
@@ -1554,8 +1553,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime4);
+            console.log(currentTimeValue);
+            console.log(gameendtime4);
 
             var currentRoom4Time = gameendtime4-currentTimeValue;
             // console.log(currentRoom4Time);
@@ -1611,8 +1610,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime5);
+            console.log(currentTimeValue);
+            console.log(gameendtime5);
 
             var currentRoom5Time = gameendtime5-currentTimeValue;
             // console.log(currentRoom5Time);
@@ -1672,8 +1671,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime6);
+            console.log(currentTimeValue);
+            console.log(gameendtime6);
 
             var currentRoom6Time = gameendtime6-currentTimeValue;
             // console.log(currentRoom6Time);
@@ -1730,8 +1729,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime7);
+            console.log(currentTimeValue);
+            console.log(gameendtime7);
 
             var currentRoom7Time = gameendtime7-currentTimeValue;
             // console.log(currentRoom7Time);
@@ -1793,8 +1792,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime8);
+            console.log(currentTimeValue);
+            console.log(gameendtime8);
 
             var currentRoom8Time = gameendtime8-currentTimeValue;
             // console.log(currentRoom8Time);
@@ -1849,8 +1848,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime9);
+            console.log(currentTimeValue);
+            console.log(gameendtime9);
 
             var currentRoom9Time = gameendtime9-currentTimeValue;
             // console.log(currentRoom9Time);
@@ -1906,8 +1905,8 @@ export default {
 
             var currentTimeValue = Number(currentMinuteToSeconds)+Number(currentSeconds);
             
-            // console.log(currentTimeValue);
-            // console.log(gameendtime10);
+            console.log(currentTimeValue);
+            console.log(gameendtime10);
 
             var currentRoom10Time = gameendtime10-currentTimeValue;
             // console.log(currentRoom10Time);
