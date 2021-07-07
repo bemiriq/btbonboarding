@@ -37,7 +37,9 @@
 
               <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
                 <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}</p>
+                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}
+                    <span v-if="team.team_vs_team_id > '0'" style="font-weight: lighter;"> vs {{team.Team_vs_team.Team.name}} </span>
+                  </p>
                 </b-col>
 
 <!--                 <b-col>

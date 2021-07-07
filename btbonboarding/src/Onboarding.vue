@@ -116,8 +116,8 @@
         <br>
         <!-- {{emptyBoxValue}} -->
         <b-row>
-          <b-col><b-button variant="primary" @click="previousEmptyBox($event, previousTeamArrayValue), reloadPageEvent()" >YES</b-button></b-col>
-          <b-col><b-button variant="info" @click="previousDeleteBoxModal()">NO</b-button></b-col>
+          <b-col><b-button variant="primary" @click="previousEmptyBox($event, previousTeamArrayValue), reloadPageEvent()" >Submit</b-button></b-col>
+          <b-col><b-button variant="info" @click="previousDeleteBoxModal()">Cancel</b-button></b-col>
         </b-row>
 
       </b-modal>
@@ -152,8 +152,8 @@
           <br>
           <!-- {{emptyBoxValue}} -->
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)" >YES</b-button></b-col>
-            <b-col><b-button variant="info" @click="hideEmptyBoxModal()">NO</b-button></b-col>
+            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)" >Submit</b-button></b-col>
+            <b-col><b-button variant="info" @click="hideEmptyBoxModal()">Cancel</b-button></b-col>
           </b-row>
 
         </b-modal>

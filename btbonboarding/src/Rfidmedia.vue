@@ -284,7 +284,8 @@ methods:{
 		this.$bvModal.show('modal-teamMedia');
 		this.clickedZoomMedia = value;
 		this.clickedMediaCharacter = value.slice(-3);
-		this.timeFormat = this.timeFormat+8000;
+		this.timeFormat = this.timeFormat+10000;
+		console.log(this.timeFormat);
 	},
 
 	tappedWristband(event){

@@ -14,7 +14,7 @@
 
 	<table style="margin:auto;margin-top: 6%;" v-if="teamName.length > '0'">
 		<tr>
-			<td class="playerDetailStyle blink_me" id="leftRightAnimation">{{teamName}}</td>
+			<td class="playerDetailStyle blink_me" id="leftRightAnimation">{{teamName}} / </td>
 			<td class="playerDetailStyle blink_me" id="leftRightAnimation" style="padding-left: 10%;">{{teamSize}}</td>
 		</tr>
 		<br><br>
