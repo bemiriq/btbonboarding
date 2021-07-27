@@ -138,7 +138,7 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Session & Mission Breakdown</p>
+                      <p class="theadStyle">Player Breakdown</p>
                     </thead>
                     <tr>
                       <td class="tdStyle">Total Players</td>
@@ -152,6 +152,17 @@
                       <td class="tdStyle">Block Monster</td>
                       <td>{{mission2total}}</td>
                     </tr>
+
+                    <tr>
+                      <td class="tdStyle">Batte mode mission 1</td>
+                      <td>0</td>
+                    </tr> 
+
+                     <tr>
+                      <td class="tdStyle">Battle mode mission 2</td>
+                      <td>0</td>
+                    </tr> 
+
                     <tr>
                       <td class="tdStyle">Discrepancy</td>
                       <td>{{missionDiscrepancy}}</td>
@@ -163,7 +174,7 @@
 
                   <table class="table table-hover">
                   <thead>
-                    <p class="theadStyle">Team Size</p>
+                    <p class="theadStyle">Team Breakdown</p>
                   </thead>
                   <tr>
                     <td class="tdStyle">Total Players</td>
@@ -337,7 +348,7 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Average Reservation Size</p>
+                      <p class="theadStyle">Reservation / Booker Table</p>
                     </thead>
                     <tr>
                       <td class="tdStyle">Total Player</td>
@@ -1480,48 +1491,113 @@ var arrows = document.getElementsByClassName("covertedtime");
           });
 
 
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.totalBattleModePlayers = response.data;
+            var ss = response.data;
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              var tt = response.data;
+              this.totalBattleModeTeams = response.data;
+              this.totalPlayedBattleModeReservations = tt/2;
+              // this.averageBattleModeTeams = this.battleModeTotalPlayers/response.data;
+
+              // console.log(this.totalBattleModeTeams);
+              // console.log(response.data);
+
+              if(ss == '0' || tt == '0'){
+                this.averageBattleModeTeams = '0';
+              }
+              else{
+                // console.log('battle mode team was '+battleModeTotalTeams);
+                // console.log('battle mode player size was '+this.totalBattleModePlayers);
+                this.averageBattleModeTeams = parseFloat(ss/tt).toFixed(2);
+              }
+              // this.average
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
           axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
           })
           .then(response => 
           {
             console.log(response);
-            this.totalTeams = response.data;
+            var totalTeams = response.data;
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              var tt = response.data;
+              this.totalTeams = response.data+totalTeams;
+
+              /** endpoint for CALCULATED TEAM SIZE **/
+
+                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+                })
+                .then(response => 
+                {
+                  console.log(response);
+                  this.avgTeamSize = parseFloat(response.data[0].player_count).toFixed(2);
+                  // this.avgTeamSize = parseFloat(this.avgTeamSize).toFixed(2);
+                  var x = this.totalPlayers;
+                  var y = this.totalTeams;
+                  // console.log(x);
+                  // console.log(y);
+                  var z = x/y;
+                  // console.log('z value is '+z);
+                  // console.log('total teams was '+this.totalTeams);
+                  
+                  this.calculatedTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
+                  // var avgBySize = this.totalPlayers/this.totalTeams;
+                  // console.log(avgBySize);
+                  // var formatAvgSize = avgBySize.toFixed(2);
+                  this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+
+                  if(this.avgTeamSizeDiscrepancy < 0 || this.avgTeamSizeDiscrepancy > 0){
+                    this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+                  }
+                  else{
+                    this.avgTeamSizeDiscrepancy = this.avgTeamSize-this.calculatedTeamSize;
+                  }
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+              /** END OF CALCULATED TEAM SIZE **/
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+
           })
           .catch(function (error) {
             console.log(error);
           });
 
-          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-          })
-          .then(response => 
-          {
-            console.log(response);
-            this.avgTeamSize = parseFloat(response.data[0].player_count).toFixed(2);
-            // this.avgTeamSize = parseFloat(this.avgTeamSize).toFixed(2);
-            var x = this.totalPlayers;
-            var y = this.totalTeams;
-            console.log(x);
-            console.log(y);
-            var z = x/y;
-            console.log('z value is '+z);
-            this.calculatedTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
-            // var avgBySize = this.totalPlayers/this.totalTeams;
-            // console.log(avgBySize);
-            // var formatAvgSize = avgBySize.toFixed(2);
-            this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
-
-            if(this.avgTeamSizeDiscrepancy < 0 || this.avgTeamSizeDiscrepancy > 0){
-              this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
-            }
-            else{
-              this.avgTeamSizeDiscrepancy = this.avgTeamSize-this.calculatedTeamSize;
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
 
           /** below axios is for the total adults **/
           axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/total_adults/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
@@ -1658,48 +1734,6 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
           /** battle mode data **/
-
-          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-          })
-          .then(response => 
-          {
-            console.log(response);
-            this.totalBattleModePlayers = response.data;
-            var ss = response.data;
-
-            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-            })
-            .then(response => 
-            {
-              console.log(response);
-              var tt = response.data;
-              this.totalBattleModeTeams = response.data;
-              this.totalPlayedBattleModeReservations = tt/2;
-              // this.averageBattleModeTeams = this.battleModeTotalPlayers/response.data;
-
-              // console.log(this.totalBattleModeTeams);
-              // console.log(response.data);
-
-              if(ss == '0' || tt == '0'){
-                this.averageBattleModeTeams = '0';
-              }
-              else{
-                // console.log('battle mode team was '+battleModeTotalTeams);
-                // console.log('battle mode player size was '+this.totalBattleModePlayers);
-                this.averageBattleModeTeams = parseFloat(ss/tt).toFixed(2);
-              }
-              // this.average
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
 
 
           axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/battle_mode_average_reservation_size/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
@@ -2311,7 +2345,7 @@ var arrows = document.getElementsByClassName("covertedtime");
         })
         .then(response => 
         {
-          // console.log(response);
+          console.log(response);
 
           // console.log(response.data.avgTimePlayed);
 
