@@ -126,7 +126,7 @@ export default {
     margin: auto;
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-     margin-top:-5%; 
+     margin-top:-7%; 
   }
 
   .main {
@@ -135,7 +135,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
+    width: 100vw;
     /*height: 1078px;*/
     height: 100vh;
     background-color: black;
@@ -221,7 +221,10 @@ export default {
     
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-    margin-top:-5%;
+    margin-top:-7%;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
 
   }
 
@@ -231,7 +234,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: auto;
+    width: 100vw;
     /*height: 1700px;*/
     height: 100vh;
     background-color: black;
