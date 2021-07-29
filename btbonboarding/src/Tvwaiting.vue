@@ -3,7 +3,7 @@
   <div id="tvwaiting">
 
     <div class="main">
-      <p class="teamTitle">TEAMS ON DECK</p>
+      <p class="teamTitle" style="margin-top:2%;">TEAMS ON DECK</p>
       <hr class="colorHr">
       <hr class="lineCross">
         <b-row class="teamName" v-for="(team, index) in teamList" v-bind:key="index.id">
@@ -126,7 +126,7 @@ export default {
     margin: auto;
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-     margin-top:-6%; 
+     margin-top:-7%; 
   }
 
   .main {
@@ -221,7 +221,7 @@ export default {
     
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-    margin-top:-6%;
+    margin-top:-7%;
 
     overflow-y: hidden;
     overflow-x: hidden;
@@ -256,7 +256,7 @@ export default {
     font-size: 8em;
     /*color: #007BFF;*/
     color: #00ff89;
-    margin-top: 4%;
+    /*margin-top: 4%;*/
     font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   }
 
