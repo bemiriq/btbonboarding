@@ -1,6 +1,6 @@
 <template>
 
-  <div id="app">
+  <div id="tvwaiting">
 
     <div class="main">
       <p class="teamTitle">TEAMS ON DECK</p>
@@ -116,16 +116,17 @@ export default {
 
 @media (min-width: 992px) { /** this defines the css for the BIGGER TV AS WELL **/
 
-    #app {
+    #tvwaiting {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.99%;
+    width: 100vw;
     margin: auto;
     /*overflow-y: hidden;
     overflow-x: hidden;*/
+     margin-top:-12%; 
   }
 
   .main {
@@ -209,17 +210,19 @@ export default {
 
 @media (min-width: 2000px) {
 
-    #app {
+    #tvwaiting {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    width: 99.99%; /** width: auto; **/
+    width: 100vw; /** width: auto; **/
     /*margin-left: 0.1%;*/
     
     /*overflow-y: hidden;
     overflow-x: hidden;*/
+    margin-top:-12%;
+
   }
 
   .main {
@@ -233,6 +236,7 @@ export default {
     height: 100vh;
     background-color: black;
     /*margin-top: -10%;*/
+    /*padding-bottom: 2%; */
     /*margin-left: -1%;*/
     overflow-y: hidden;
     overflow-x: hidden;
