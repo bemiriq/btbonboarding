@@ -124,6 +124,8 @@ export default {
     color: #2c3e50;
     width: 99.99%;
     margin: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
 
   .main {
@@ -208,6 +210,9 @@ export default {
     color: #2c3e50;
     width: 99.99%; /** width: auto; **/
     /*margin-left: 0.1%;*/
+    
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
 
   .main {

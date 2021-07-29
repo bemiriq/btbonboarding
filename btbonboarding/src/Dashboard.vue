@@ -286,10 +286,17 @@
                       <td class="tdStyle">Mission 2</td>
                       <td>{{bombbeatersMission2}}</td>
                     </tr>
+
                     <tr>
-                      <td class="tdStyle">Winners Player Count Session Endpoint</td>
+                      <td class="tdStyle">Mission 1 Winners</td>
                       <td>{{bombBeatersBySession}}</td>
                     </tr>
+
+                    <tr>
+                      <td class="tdStyle">Mission 2 Winners</td>
+                      <td>{{bombBeatersBySession}}</td>
+                    </tr>
+
                     <tr>
                       <td class="tdStyle">Discrepancy</td>
                       <td>{{bombBeatersDiscrepancy}}</td>
@@ -297,46 +304,49 @@
                   </table>
                 </b-col>
 
-                <b-col>
+                <!-- <b-col> -->
 
-                  <table class="table table-hover">
-                  <thead>
-                    <p class="theadStyle">How did you hear about us?</p>
-                  </thead>
-                  <tr>
-                    <td class="tdStyle">Heard about it directly from a friend, family or colleague</td>
-                    <td>{{answer2}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Saw it on a friend's social media</td>
-                    <td>{{answer3}}</td>
-                  </tr> 
-                  <tr>
-                    <td class="tdStyle">Google search</td>
-                    <td>{{answer4}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Trip Advisor, Yelp or other Review site</td>
-                    <td>{{answer5}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Others</td>
-                    <td>{{answer6}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Instagram</td>
-                    <td>{{answer7}}</td>
-                  </tr> 
-                  <tr>
-                    <td class="tdStyle">TikTok</td>
-                    <td>{{answer8}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Total</td>
-                    <td><b>{{totalAnswer}}</b></td>
-                  </tr>  
-                </table>
-                </b-col>
+                  <b-col>
+                    <table class="table table-hover">
+                      <thead>
+                        <p class="theadStyle">Battle mode</p>
+                      </thead>
+                      <tr>
+                        <td class="tdStyle">Reservations Xola / Database
+                          <p style="font-style:italic;">Customer might cancel after booking from xola</p>
+                        </td>
+                        <td>{{totalBattleModeReservations}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdStyle">Total Reservations that played</td>
+                        <td>{{totalPlayedBattleModeReservations}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdStyle">Total Teams</td>
+                        <td>{{totalBattleModeTeams}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdStyle">Total Players</td>
+                        <td>{{totalBattleModePlayers}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdStyle">Average Reservation</td>
+                        <td>{{averageBattleModeReservations}}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdStyle">Average Team
+                          <br>
+                          <p style="font-style:italic;">total players / total teams
+                          </p>
+                        </td>
+                        <td>{{averageBattleModeTeams}}
+                        </td>
+                      </tr>
+                    </table>
+                  </b-col>
+
+                <!-- </b-col> -->
+
               </b-row>
               <!-- end of b-row for third table -->
 
@@ -357,7 +367,21 @@
                     <tr>
                       <td class="tdStyle">Average Reservation Size</td>
                       <td>{{averageReservationSize}}</td>
-                    </tr>  
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">Total Bookers</td>
+                      <td>{{totalBooker}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Average Bookers
+                        <p style="font-style:italic;">
+                          Total Bookers/Total Players
+                        </p>
+                      </td>
+                      <td>{{totalAverageBooker}}</td>
+                    </tr>
+
                   </table>
                 </b-col>
 
@@ -383,46 +407,50 @@
 
               <!-- below b-row generates the third table -->
               <b-row>
+                
+                <!-- drop here -->
+
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Battle mode</p>
+                      <p class="theadStyle">How did you hear about us?</p>
                     </thead>
                     <tr>
-                      <td class="tdStyle">Reservations Xola / Database
-                        <p style="font-style:italic;">Customer might cancel after booking from xola</p>
-                      </td>
-                      <td>{{totalBattleModeReservations}}</td>
+                      <td class="tdStyle">Heard about it directly from a friend, family or colleague</td>
+                      <td>{{answer2}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Total Reservations that played</td>
-                      <td>{{totalPlayedBattleModeReservations}}</td>
+                      <td class="tdStyle">Saw it on a friend's social media</td>
+                      <td>{{answer3}}</td>
+                    </tr> 
+                    <tr>
+                      <td class="tdStyle">Google search</td>
+                      <td>{{answer4}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Total Teams</td>
-                      <td>{{totalBattleModeTeams}}</td>
+                      <td class="tdStyle">Trip Advisor, Yelp or other Review site</td>
+                      <td>{{answer5}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Total Players</td>
-                      <td>{{totalBattleModePlayers}}</td>
+                      <td class="tdStyle">Others</td>
+                      <td>{{answer6}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Average Reservation</td>
-                      <td>{{averageBattleModeReservations}}</td>
+                      <td class="tdStyle">Instagram</td>
+                      <td>{{answer7}}</td>
+                    </tr> 
+                    <tr>
+                      <td class="tdStyle">TikTok</td>
+                      <td>{{answer8}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Average Team
-                        <br>
-                        <p style="font-style:italic;">total players / total teams
-                        </p>
-                      </td>
-                      <td>{{averageBattleModeTeams}}
-                      </td>
-                    </tr>
+                      <td class="tdStyle">Total</td>
+                      <td><b>{{totalAnswer}}</b></td>
+                    </tr>  
                   </table>
                 </b-col>
 
-                <b-col>
+                <!-- <b-col>
                   <table class="table table-hover">
                     <thead>
                       <p class="theadStyle">Bookers</p>
@@ -440,12 +468,12 @@
                       <td>{{totalAverageBooker}}</td>
                     </tr>
                   </table>
-                </b-col>
-              </b-row>
+                </b-col> -->
+              <!-- </b-row> -->
               <!-- end of b-row for third table -->
 
               <!-- below b-row forth table HOW DID YOU ARRIVE AT BEAT THE BOMB -->
-              <b-row>
+              <!-- <b-row> -->
                 <b-col>
                   <table class="table table-hover">
                     <thead>
@@ -490,11 +518,6 @@
                       <td class="tdStyle">Total</td>
                       <td><b>{{totalHowYouArrive}}</b></td>
                     </tr>
-                  </table>
-                </b-col>
-
-                <b-col>
-                  <table class="table table-hover">
                   </table>
                 </b-col>
               </b-row>
