@@ -222,7 +222,7 @@ export default {
     /*overflow-y: hidden;
     overflow-x: hidden;*/
     margin-top:-7%;
-    margin-bottom: 1%;
+    /*margin-bottom: 1%;*/
     overflow-y: hidden;
     overflow-x: hidden;
 
@@ -236,7 +236,7 @@ export default {
     color: #2c3e50;
     width: 100vw;
     /*height: 1700px;*/
-    height: 100vh;
+    height: 101vh;
     background-color: black;
     /*margin-top: -10%;*/
     /*padding-bottom: 2%; */
