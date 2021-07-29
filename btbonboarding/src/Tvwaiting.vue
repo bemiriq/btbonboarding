@@ -144,9 +144,9 @@ export default {
 
   }
 
-  .main::-webkit-scrollbar {
+  /*.main::-webkit-scrollbar {
     display: none;
-  }
+  }*/
   /*.container{
     display: none;
   }*/
@@ -236,12 +236,11 @@ export default {
     margin-left: -1%;
     overflow-y: hidden;
     overflow-x: hidden;
-
   }
 
-  .main::-webkit-scrollbar {
+  /*.main::-webkit-scrollbar {
     display: none;
-  }
+  }*/
   /*.container{
     display: none;
   }*/
