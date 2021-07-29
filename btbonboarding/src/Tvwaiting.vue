@@ -139,6 +139,8 @@ export default {
     height: 100vh;
     background-color: black;
     margin-top: -10%;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
   }
 
@@ -232,6 +234,8 @@ export default {
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
   }
 
