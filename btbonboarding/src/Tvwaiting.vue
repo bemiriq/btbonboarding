@@ -138,7 +138,7 @@ export default {
     /*height: 1078px;*/
     height: 100vh;
     background-color: black;
-    margin-top: -10%;
+    /*margin-top: -10%;*/
     overflow-y: hidden;
     overflow-x: hidden;
 
@@ -232,8 +232,8 @@ export default {
     /*height: 1700px;*/
     height: 100vh;
     background-color: black;
-    margin-top: -10%;
-    margin-left: -1%;
+    /*margin-top: -10%;*/
+    /*margin-left: -1%;*/
     overflow-y: hidden;
     overflow-x: hidden;
   }
