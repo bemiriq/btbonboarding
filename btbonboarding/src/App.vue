@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <a href='/#/users' v-if="$route.path!=='/Bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
+    <a href='/#/users' v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
     
     <br/><br/><br/>
 
-    <b-container v-if="$route.path!=='/Bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'">
+    <b-container v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'">
       <b-row id="dateTimeDiv">
+
         <b-col lg="5">
           Beat The Bomb Site Operations (BTB Site Ops)
         </b-col>
