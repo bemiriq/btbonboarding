@@ -126,7 +126,7 @@ export default {
     margin: auto;
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-     margin-top:-7%; 
+     margin-top:-6%; 
   }
 
   .main {
@@ -221,7 +221,7 @@ export default {
     
     /*overflow-y: hidden;
     overflow-x: hidden;*/
-    margin-top:-7%;
+    margin-top:-6%;
 
     overflow-y: hidden;
     overflow-x: hidden;
