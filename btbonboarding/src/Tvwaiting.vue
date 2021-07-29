@@ -222,7 +222,7 @@ export default {
     /*overflow-y: hidden;
     overflow-x: hidden;*/
     margin-top:-7%;
-
+    margin-bottom: 1%;
     overflow-y: hidden;
     overflow-x: hidden;
 
