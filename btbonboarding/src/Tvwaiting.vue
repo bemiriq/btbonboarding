@@ -3,7 +3,7 @@
   <div id="app">
 
     <div class="main">
-      <p class="teamTitle" style="color:red;">TEAMS ON DECK</p>
+      <p class="teamTitle">TEAMS ON DECK</p>
       <hr class="colorHr">
       <hr class="lineCross">
         <b-row class="teamName" v-for="(team, index) in teamList" v-bind:key="index.id">
@@ -135,7 +135,8 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1078px;
+    /*height: 1078px;*/
+    height: 100vh;
     background-color: black;
     margin-top: -10%;
 
@@ -226,7 +227,8 @@ export default {
     text-align: center;
     color: #2c3e50;
     width: auto;
-    height: 1700px;
+    /*height: 1700px;*/
+    height: 100vh;
     background-color: black;
     margin-top: -10%;
     margin-left: -1%;
