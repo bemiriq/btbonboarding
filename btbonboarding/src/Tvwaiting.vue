@@ -124,8 +124,8 @@ export default {
     color: #2c3e50;
     width: 99.99%;
     margin: auto;
-    overflow-y: hidden;
-    overflow-x: hidden;
+    /*overflow-y: hidden;
+    overflow-x: hidden;*/
   }
 
   .main {
@@ -139,6 +139,10 @@ export default {
     background-color: black;
     margin-top: -10%;
 
+  }
+
+  .main::-webkit-scrollbar {
+    display: none;
   }
   /*.container{
     display: none;
@@ -211,8 +215,8 @@ export default {
     width: 99.99%; /** width: auto; **/
     /*margin-left: 0.1%;*/
     
-    overflow-y: hidden;
-    overflow-x: hidden;
+    /*overflow-y: hidden;
+    overflow-x: hidden;*/
   }
 
   .main {
@@ -227,6 +231,10 @@ export default {
     margin-top: -10%;
     margin-left: -1%;
 
+  }
+
+  .main::-webkit-scrollbar {
+    display: none;
   }
   /*.container{
     display: none;
