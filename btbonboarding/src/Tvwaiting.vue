@@ -3,7 +3,7 @@
   <div id="app">
 
     <div class="main">
-      <p class="teamTitle">TEAMS ON DECK</p>
+      <p class="teamTitle" style="color:red;">TEAMS ON DECK</p>
       <hr class="colorHr">
       <hr class="lineCross">
         <b-row class="teamName" v-for="(team, index) in teamList" v-bind:key="index.id">

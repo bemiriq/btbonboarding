@@ -6,7 +6,6 @@
 
     <b-container v-if="$route.path!=='/Bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'">
       <b-row id="dateTimeDiv">
-
         <b-col lg="5">
           Beat The Bomb Site Operations (BTB Site Ops)
         </b-col>
