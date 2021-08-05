@@ -7,6 +7,10 @@
       Succesfully Updated. It will refresh page in 2 seconds.
     </b-modal>
 
+    <b-modal id="modal-5sec-success" centered size="md" v-bind:hide-footer="true">
+      Succesfully Updated. It will refresh page once data is updated.
+    </b-modal>
+
     <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true">
       <b-row>
         <b-col><b>Old Team Name</b></b-col>
@@ -25,6 +29,33 @@
         <button type="button" class="btn btn-danger" v-on:click="cancelTeamName()" style="margin-left:2%;">CANCEL</button>
       </div>
     </b-modal>
+
+    <b-modal id="modal-updateAsTestTeam" centered size="md" v-bind:hide-footer="true">
+      <div>
+        <p>
+          <b>You are going to convert normal team into test team. Are you sure?</b>.
+        </p>
+
+        <hr>
+
+        <button type="button" class="btn btn-info" v-on:click="submitTestTeam(1)">YES</button>
+        <button type="button" class="btn btn-danger" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-removeAsTestTeam" centered size="md" v-bind:hide-footer="true">
+      <div>
+        <p>
+          <b>You are going convert test team into normal team. Are you sure?</b>.
+        </p>
+
+        <hr>
+
+        <button type="button" class="btn btn-info" v-on:click="submitTestTeam(null)">YES</button>
+        <button type="button" class="btn btn-danger" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
+      </div>
+    </b-modal>
+
 
     <b-modal id="modal-booleanCloneTeams" centered size="md" v-bind:hide-footer="true">
       <!-- You are going to clone {{clonedTPS1[0].team_name}} and team 2. -->
@@ -45,11 +76,12 @@
 
     </b-modal>
 
-    <b-modal id="modal-activeTeams" centered size="lg" v-bind:hide-footer="true">
+    <b-modal id="modal-activeTeams" centered size="xl" v-bind:hide-footer="true">
       <table class="table">
         <tr>
           <th>Team Name</th>
           <th>Mission</th>
+          <th>Test Team</th>
           <th>Battle Mode</th>
           <!-- <th v-if="battleModeTeamSession > '0' ">Battle Mode</th> -->
           <th>VS Team Name</th>
@@ -64,6 +96,15 @@
               <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
             </b-form-select>
           </td>
+
+          <!-- this td defines test team or not -->
+          <td v-if="testTeamSession > '0' ">
+            <a href="#/Activeteams" @click="updateAsTestTeam(clickedSessionId,0)">YES</a>
+          </td>
+          <td v-else>
+            <a href="#/Activeteams" @click="updateAsTestTeam(clickedSessionId,1)">NO</a>
+          </td>
+
           <td v-if="battleModeTeamSession > '0' ">YES</td>
           <td v-else>NO</td>
           <!-- <td v-if="battleModeTeamSession > '0' " style="width:40%;"> -->
@@ -230,6 +271,7 @@
         clickedTeamName:'',
         clickedTeamName2:'',/**battle mode opponent team name **/
         clickedSessionId2:'',/** battle mode team session id **/
+        testTeamSession:'',
         battleModeTeamSession:'',
         updatedBattleModeSession:'',
         limitTeams:20,
@@ -239,6 +281,10 @@
         clonedTPS2:[],
         clonedTeam1SessionId:'',
         updateTeamName:'',
+
+        /** make test session,reservation,booker,players,people,minors,team player session**/
+        sessionMadeTest:'',
+        tpsMadeTest:'',
         // clonedTeam2SessionId:''
         // clickedBattleModeTeam:'',
       }
@@ -273,6 +319,194 @@
 
     methods:{
 
+      updateAsTestTeam(clickedSessionId,getValue){
+        console.log(clickedSessionId);
+        console.log(this.battleModeTeamSession);
+        
+        if(getValue == '1'){
+          this.$bvModal.show('modal-updateAsTestTeam');
+        }
+        else{
+          this.$bvModal.show('modal-removeAsTestTeam');
+        }
+
+      },
+
+      submitTestTeam(getValue){
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+
+          })
+          .then(response => {
+            console.log(response.data);
+
+            /** session updated as test **/
+            axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+              test: getValue
+            })
+            .then(response => {
+              console.log(response);
+              this.sessionMadeTest = 1;
+              console.log('Succesfully update session as test');
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+            /** reservation / booker updated as test following xola_order_id **/
+            var reservationId = response.data.reservation_id;
+
+            axios.get(process.env.VUE_APP_RESERVATIONS+reservationId,{
+
+            })
+            .then(response => {
+              console.log(response);
+
+              axios.put(process.env.VUE_APP_DATABASE_RESERVATIONS+reservationId,{
+                test: getValue
+              })
+              .then(response => {
+                console.log(response);
+                console.log('Succesfully update reservation as test');
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+
+              /** update booker as test following xola order id from reservation get **/
+              var bookerId = response.data.booker_id;
+              console.log(bookerId);
+              axios.put(process.env.VUE_APP_BOOKERS+bookerId,{
+                test: getValue
+              })
+              .then(response => {
+                console.log(response);
+                console.log('Succesfully update booker as test');
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            
+
+            var totalPlayers = response.data.Team_player_sessions.length;
+
+            /** team player session updated as test **/
+            for (var i = 0; i < totalPlayers; i++) {
+              
+              var updateTeamOnTps = response.data.Team_player_sessions[i].id;
+              console.log(i+' '+updateTeamOnTps);
+
+              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateTeamOnTps,{
+                test: getValue
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+
+              var playerDetail = response.data.Team_player_sessions[i].player_id;
+              var minorDetail = response.data.Team_player_sessions[i].player_minor_id;
+              var peopleDetail = response.data.Team_player_sessions[i].Player.Person.id;
+
+              if(minorDetail > '0'){
+                console.log('Its a minor player');
+                /** Update test on PLAYER MINORS TABLE **/
+                axios.put(process.env.VUE_APP_PLAYER_MINORS+minorDetail,{
+                  test: getValue
+                })
+                .then(response => {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                /** Update test on RESERVATION MINORS TABLE **/
+                // axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/player_minor/'+minorDetail+'/reservation/'+reservationId,{
+                //   test: getValue
+                // })
+                // .then(response => {
+                //   console.log(response);
+                // })
+                // .catch(function (error) {
+                //   console.log(error);
+                // });
+
+              }
+              else{
+                console.log('Its a player');
+
+                /** Update test on PLAYERS TABLE **/
+                axios.put(process.env.VUE_APP_DATABASE_PLAYERS+playerDetail,{
+                  test: getValue
+                })
+                .then(response => {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+
+                /** Update test on PEOPLE TABLE **/
+                axios.put(process.env.VUE_APP_DATABASE_PEOPLE+peopleDetail,{
+                  test: getValue
+                })
+                .then(response => {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+
+                /** Update test on RESERVATION PLAYERS TABLE where person is the PEOPLE ID **/
+                // axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/person/'+peopleDetail+'/reservation/'+reservationId,{
+                //   test: getValue
+                // })
+                // .then(response => {
+                //   console.log(response);
+                // })
+                // .catch(function (error) {
+                //   console.log(error);
+                // });
+
+
+
+              }
+              
+              if(i+1 == totalPlayers){
+                console.log('Succesfully team player session as test');
+                this.tpsMadeTest = 1;
+
+                this.$bvModal.show('modal-5sec-success');
+                this.reload5secFuntion();
+
+              }
+
+            }
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          // console.log('Update Team Name');
+      },
+
+      cancelTestTeam(){
+        this.$bvModal.hide('modal-updateAsTestTeam');
+        this.$bvModal.hide('modal-removeAsTestTeam');
+      },
+
       submitTeamName(){
         console.log(this.updateTeamName);
         console.log(this.clickedSessionId);
@@ -289,10 +523,44 @@
           })
           .then(response => {
             console.log(response.data);
-            this.$bvModal.hide('modal-activeTeams');
-            this.$bvModal.hide('modal-editTeamName');
-            this.$bvModal.show('modal-success');
-            this.reloadFuntion();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+
+          })
+          .then(response => {
+            console.log(response.data);
+
+            var totalPlayers = response.data.Team_player_sessions.length;
+
+            for (var i = 0; i < totalPlayers; i++) {
+              
+              var updateTeamOnTps = response.data.Team_player_sessions[i].id;
+              console.log(i+' '+updateTeamOnTps);
+
+              axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateTeamOnTps,{
+                team_id: teamId
+              })
+              .then(response => {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+              if(i+1 == totalPlayers){
+                console.log('i is equal to '+totalPlayers);
+                this.$bvModal.hide('modal-activeTeams');
+                this.$bvModal.hide('modal-editTeamName');
+                this.$bvModal.show('modal-success');
+                this.reloadFuntion();
+              }
+
+            }
+
           })
           .catch(function (error) {
             console.log(error);
@@ -318,7 +586,7 @@
       clonedTeamSubmitted(){
 
         /** axios.post create two session id and add the value of clonedTPS1/clonedTPS2 once the session is created , as you
-        have to use that SESSION ID value on TPS / Team player session **/
+        have to use that SESSION ID value on TPS / Team player session *
 
         /** this will run after the team is cloned successfully **/
         // this.$bvModal.hide('modal-booleanCloneTeams');
@@ -668,7 +936,13 @@
       reloadFuntion(){
         setTimeout(function(){
          window.location.reload(true);
-        }, 2000);
+        }, 2500);
+      },
+
+      reload5secFuntion(){
+        setTimeout(function(){
+         window.location.reload(true);
+        }, 4000);
       },
 
       editTeamDetails(value,updateValue){
@@ -684,6 +958,7 @@
           // this.teamList = response.data;
           this.clickedTeamName = response.data.Team.name;
           this.clickedMission = response.data.mission_id;
+          this.testTeamSession = response.data.test;
           this.battleModeTeamSession = response.data.team_vs_team_id;
           this.updatedBattleModeSession = response.data.team_vs_team_id;
 

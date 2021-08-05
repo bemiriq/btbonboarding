@@ -154,18 +154,17 @@
                     </tr>
 
                     <tr>
-                      <td class="tdStyle">Batte mode mission 1</td>
-                      <td>0</td>
+                    <td class="tdStyle">Battle Mode Mission 1</td>
+                    <td>{{battleModePlayersMission1}}</td>
                     </tr> 
-
-                     <tr>
-                      <td class="tdStyle">Battle mode mission 2</td>
-                      <td>0</td>
+                    <tr>
+                      <td class="tdStyle">Battle Mode Mission 2</td>
+                      <td>{{battleModePlayersMission2}}</td>
                     </tr> 
 
                     <tr>
                       <td class="tdStyle">Discrepancy</td>
-                      <td>{{missionDiscrepancy}}</td>
+                      <td>{{checkPlayerMissionDiscrepancy}}</td> <!-- here it calls the COMPUTED PROPERTY FUNCTION -->
                     </tr>  
                   </table>
                 </b-col>
@@ -177,25 +176,37 @@
                     <p class="theadStyle">Team Breakdown</p>
                   </thead>
                   <tr>
-                    <td class="tdStyle">Total Players</td>
-                    <td>{{totalPlayers}}</td>
-                  </tr>
-                  <tr>
                     <td class="tdStyle">Total Teams</td>
                     <td>{{totalTeams}}</td>
                   </tr> 
                   <tr>
-                    <td class="tdStyle">Calculated Team Size</td>
-                    <td>{{calculatedTeamSize}}</td>
-                  </tr>
-                  <tr>
-                    <td class="tdStyle">Avg Team Size</td>
-                    <td>{{avgTeamSize}}</td>
+                    <td class="tdStyle">Mission 1</td>
+                    <td>{{mission1TotalTeams}}</td>
                   </tr> 
                   <tr>
+                    <td class="tdStyle">Mission 2</td>
+                    <td>{{mission2TotalTeams}}</td>
+                  </tr>
+                  <tr>
+                    <td class="tdStyle">Battle Mode Mission 1</td>
+                    <td>{{battleModeMission1TotalTeams}}</td>
+                  </tr> 
+                  <tr>
+                    <td class="tdStyle">Battle Mode Mission 2</td>
+                    <td>{{battleModeMission2TotalTeams}}</td>
+                  </tr> 
+                  <!-- <tr>
+                    <td class="tdStyle">Calculated Team Size</td>
+                    <td>{{calculatedTeamSize}}</td>
+                  </tr> -->
+                  <tr>
+                    <td class="tdStyle">Avg Team Size</td>
+                    <td>{{averageTeamSizeFunction}}</td> <!-- here it calls the COMPUTED PROPERTY FUNCTION -->
+                  </tr> 
+                  <!-- <tr>
                     <td class="tdStyle">Discrepancy</td>
                     <td>{{avgTeamSizeDiscrepancy}}</td>
-                  </tr>  
+                  </tr>  --> 
                 </table>
                 </b-col>
               </b-row>
@@ -272,35 +283,40 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Bomb Beaters</p>
+                      <p class="theadStyle">Bomb Beater Teams / Players</p>
                     </thead>
+
                     <tr>
-                      <td class="tdStyle">Both Mission</td>
-                      <td>{{bombbeaters}}</td>
+                      <td class="tdStyle">Both Mission Teams</td>
+                      <td>{{bombBeatersTotalTeamsFunction}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Mission 1</td>
-                      <td>{{bombbeatersMission1}}</td>
+                      <td class="tdStyle">Mission 1 Winner Teams</td>
+                      <td>{{bombBeatersMission1TotalTeams}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">Mission 2 Winner Teams</td>
+                      <td>{{bombBeatersMission2TotalTeams}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">Both Mission Players</td>
+                      <td>{{bombBeatersTotalPlayers}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Mission 1 Players</td>
+                      <td>{{bombBeatersMission1Players}}</td>
                     </tr> 
                     <tr>
-                      <td class="tdStyle">Mission 2</td>
-                      <td>{{bombbeatersMission2}}</td>
+                      <td class="tdStyle">Mission 2 Players</td>
+                      <td>{{bombBeatersMission2Players}}</td>
                     </tr>
 
-                    <tr>
-                      <td class="tdStyle">Mission 1 Winners</td>
-                      <td>{{bombBeatersBySession}}</td>
-                    </tr>
-
-                    <tr>
-                      <td class="tdStyle">Mission 2 Winners</td>
-                      <td>{{bombBeatersBySession}}</td>
-                    </tr>
-
-                    <tr>
+                    <!-- <tr>
                       <td class="tdStyle">Discrepancy</td>
                       <td>{{bombBeatersDiscrepancy}}</td>
-                    </tr>  
+                    </tr>   -->
                   </table>
                 </b-col>
 
@@ -327,7 +343,7 @@
                       </tr>
                       <tr>
                         <td class="tdStyle">Total Players</td>
-                        <td>{{totalBattleModePlayers}}</td>
+                        <td>{{totalBattleModePlayersFunction}}</td>
                       </tr>
                       <tr>
                         <td class="tdStyle">Average Reservation</td>
@@ -339,7 +355,7 @@
                           <p style="font-style:italic;">total players / total teams
                           </p>
                         </td>
-                        <td>{{averageBattleModeTeams}}
+                        <td>{{averageBattleModeTeamsFunctions}}
                         </td>
                       </tr>
                     </table>
@@ -366,7 +382,7 @@
                     </tr>
                     <tr>
                       <td class="tdStyle">Average Reservation Size</td>
-                      <td>{{averageReservationSize}}</td>
+                      <td>{{averageReservationSizeByXola}}</td>
                     </tr>
 
                     <tr>
@@ -816,6 +832,14 @@ export default {
       purchaseVolume12months:'',
       totalAverageBooker:'',
 
+      battleModePlayersMission1:'',
+      battleModePlayersMission2:'',
+
+      mission1TotalTeams:'',
+      mission2TotalTeams:'',
+      battleModeMission1TotalTeams:'',
+      battleModeMission2TotalTeams:'',
+
       purchaseVolumeByEndDate:'',
       aggregatePurchaseVolume12months:'',
       uniquePurchaseVolume12months:'',
@@ -889,7 +913,14 @@ export default {
       bombbeaters:'',
       bombbeatersMission1:'',
       bombbeatersMission2:'',
-      bombBeatersBySession:'',
+
+      bombBeatersMission1TotalTeams:'',
+      bombBeatersMission2TotalTeams:'',
+
+      bombBeatersTotalPlayers:'',
+      bombBeatersMission1Players:'',
+      bombBeatersMission2Players:'',
+
       bombBeatersDiscrepancy:'',
 
       /** data for battle mode **/
@@ -909,7 +940,7 @@ export default {
       answer7:'',
       answer8:'',
       totalAnswer:'',
-      averageReservationSize:'',
+      averageReservationSizeByXola:'',
 
       averageSessionTime:'',
 
@@ -1032,6 +1063,33 @@ export default {
   },
 
   computed: {
+
+    checkPlayerMissionDiscrepancy: function(){
+
+      var x = this.totalPlayers-(this.mission1total+this.mission2total+this.battleModePlayersMission1+this.battleModePlayersMission2);
+      return x;
+    },
+
+    averageTeamSizeFunction(){
+
+      var x = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
+      return x;
+    },
+
+    bombBeatersTotalTeamsFunction(){
+      var x = this.bombBeatersMission1TotalTeams+this.bombBeatersMission2TotalTeams;
+      return x;
+    },
+
+    totalBattleModePlayersFunction(){
+      var x = this.battleModePlayersMission1+this.battleModePlayersMission2;
+      return x;
+    },
+
+    averageBattleModeTeamsFunctions(){
+      var x = parseFloat((this.battleModePlayersMission1+this.battleModePlayersMission2)/(this.battleModeMission1TotalTeams+this.battleModeMission2TotalTeams)).toFixed(2);
+      return x;
+    },
 
     // addOrganization: function(){
     //   this.$bvModal.show('modal-center');
@@ -1507,14 +1565,40 @@ var arrows = document.getElementsByClassName("covertedtime");
           {
             console.log(response);
             this.mission2total = response.data;
-            this.missionDiscrepancy = parseInt(this.totalPlayers)-(parseInt(this.mission1total)+parseInt(this.mission2total));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          /** battle mode mission 1 total players **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/1',{
+
+          })
+          .then(response => 
+          {
+            console.log('battle mode players mission 1 '+response.data);
+            this.battleModePlayersMission1 = response.data;
+            // this.missionDiscrepancy = parseInt(this.totalPlayers)-(parseInt(this.mission1total)+parseInt(this.mission2total));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/2',{
+
+          })
+          .then(response => 
+          {
+            console.log('battle mode players mission 2 '+response.data);
+            this.battleModePlayersMission2 = response.data;
+            // this.missionDiscrepancy = parseInt(this.totalPlayers)-(parseInt(this.mission1total)+parseInt(this.mission2total)+parseInt(this.battleModePlayersMission1)+response.data);
           })
           .catch(function (error) {
             console.log(error);
           });
 
 
-          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/battle_mode_total_players/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/1',{
 
           })
           .then(response => 
@@ -1564,56 +1648,46 @@ var arrows = document.getElementsByClassName("covertedtime");
           {
             console.log(response);
             var totalTeams = response.data;
+            this.totalTeams = totalTeams;
+            this.avgTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
 
-            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+            // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-            })
-            .then(response => 
-            {
-              console.log(response);
-              var tt = response.data;
-              this.totalTeams = response.data+totalTeams;
+            // })
+            // .then(response => 
+            // {
+            //   console.log(response);
+            //   var tt = response.data;
 
-              /** endpoint for CALCULATED TEAM SIZE **/
+            //     axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-                axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/average_session_player_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-                })
-                .then(response => 
-                {
-                  console.log(response);
-                  this.avgTeamSize = parseFloat(response.data[0].player_count).toFixed(2);
-                  // this.avgTeamSize = parseFloat(this.avgTeamSize).toFixed(2);
-                  var x = this.totalPlayers;
-                  var y = this.totalTeams;
-                  // console.log(x);
-                  // console.log(y);
-                  var z = x/y;
-                  // console.log('z value is '+z);
-                  // console.log('total teams was '+this.totalTeams);
+            //     })
+            //     .then(response => 
+            //     {
+            //       console.log(response);
+            //       this.avgTeamSize = parseFloat(response.data[0].player_count).toFixed(2);
+            //       var x = this.totalPlayers;
+            //       var y = this.totalTeams;
+            //       var z = x/y;
                   
-                  this.calculatedTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
-                  // var avgBySize = this.totalPlayers/this.totalTeams;
-                  // console.log(avgBySize);
-                  // var formatAvgSize = avgBySize.toFixed(2);
-                  this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+            //       this.calculatedTeamSize = parseFloat(this.totalPlayers/this.totalTeams).toFixed(2);
+            //       this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
 
-                  if(this.avgTeamSizeDiscrepancy < 0 || this.avgTeamSizeDiscrepancy > 0){
-                    this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
-                  }
-                  else{
-                    this.avgTeamSizeDiscrepancy = this.avgTeamSize-this.calculatedTeamSize;
-                  }
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
+            //       if(this.avgTeamSizeDiscrepancy < 0 || this.avgTeamSizeDiscrepancy > 0){
+            //         this.avgTeamSizeDiscrepancy = parseFloat(this.avgTeamSize-this.calculatedTeamSize).toFixed(2);
+            //       }
+            //       else{
+            //         this.avgTeamSizeDiscrepancy = this.avgTeamSize-this.calculatedTeamSize;
+            //       }
+            //     })
+            //     .catch(function (error) {
+            //       console.log(error);
+            //     });
 
-              /** END OF CALCULATED TEAM SIZE **/
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+            // })
+            // .catch(function (error) {
+            //   console.log(error);
+            // });
 
 
           })
@@ -1621,6 +1695,59 @@ var arrows = document.getElementsByClassName("covertedtime");
             console.log(error);
           });
 
+
+          /** mision 1 total teams **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/1',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.mission1TotalTeams = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          /** mision 2 total teams **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/2',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.mission2TotalTeams = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** battle mode mision 1 total teams **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/1',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.battleModeMission1TotalTeams = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          /** battle mode mision 2 total teams **/
+          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/battle_mode_team/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/mission/2',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.battleModeMission2TotalTeams = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
           /** below axios is for the total adults **/
           axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/total_adults/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
@@ -2064,64 +2191,71 @@ var arrows = document.getElementsByClassName("covertedtime");
         console.log(error);
       });
 
+      /** BOMB BEATERS BOTH MISSION TOTAL PLAYERS **/
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners_player_count_session/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-      /** bomb beaters both mission **/
-      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters',{
+      })
+      .then(response => 
+      {
+        console.log(response.data);
+        this.bombBeatersTotalPlayers = response.data[0].player_count;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-        })
-        .then(response => 
-        {
-          console.log(response.data);
-          this.bombbeaters = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      /** end of bomb beaters both mission **/
-
-      /** bomb beaters of mission 1 **/
+      /** BOMB BEATERS MISSION 1 TOTAL PLAYERS **/
       axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters/1',{
 
-        })
-        .then(response => 
-        {
-          console.log(response.data);
-          this.bombbeatersMission1 = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      /** end of bomb beaters of mission 1 **/
+      })
+      .then(response => 
+      {
+        console.log(response.data);
+        this.bombBeatersMission1Players = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-      /** bomb beaters of mission 2 **/
+      /** BOMB BEATERS MISSION 2 TOTAL PLAYERS **/
       axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/bombbeaters/2',{
 
-        })
-        .then(response => 
-        {
-          console.log(response.data);
-          this.bombbeatersMission2 = response.data;
+      })
+      .then(response => 
+      {
+        console.log(response.data);
+        this.bombBeatersMission2Players = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-          /** bomb beaters from SESSION TABLE **/
-          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners_player_count_session/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-            })
-            .then(response => 
-            {
-              console.log(response.data);
-              this.bombBeatersBySession = response.data[0].player_count;
-              this.bombBeatersDiscrepancy = this.bombBeatersBySession-(this.bombbeatersMission1+this.bombbeatersMission2);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-          /** end of bomb beaters from SESSION TABLE **/
+      /** BOMB BEATERS mission 1 teams **/
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/1',{
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      /** end of bomb beaters of mission 2 **/
+      })
+      .then(response => 
+      {
+        console.log(response.data);
+        this.bombBeatersMission1TotalTeams = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      /** BOMB BEATERS mission 2 teams **/
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/2',{
+
+      })
+      .then(response => 
+      {
+        console.log(response.data);
+        this.bombBeatersMission2TotalTeams = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
 
       /** How did you hear about us for Heard about it directly from a friend, family or colleague **/
@@ -2355,7 +2489,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           var space = 'average size';
           console.log(response.data[0].average_size);
           // var y = 
-          this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+          this.averageReservationSizeByXola = parseFloat(response.data[0].average_size).toFixed(2);
         })
         .catch(function (error) {
           console.log(error);
@@ -2379,7 +2513,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           this.averageSessionTime = formatAverageTime;
           // var space = 'average size';
           // console.log(response.data[0].average_size);
-          // this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+          // this.averageReservationSizeByXola = parseFloat(response.data[0].average_size).toFixed(2);
         })
         .catch(function (error) {
           console.log(error);
@@ -2400,7 +2534,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           // this.averageSessionTime = response.data.avgTimePlayed;
           // var space = 'average size';
           // console.log(response.data[0].average_size);
-          // this.averageReservationSize = parseFloat(response.data[0].average_size).toFixed(2);
+          // this.averageReservationSizeByXola = parseFloat(response.data[0].average_size).toFixed(2);
         })
         .catch(function (error) {
           console.log(error);

@@ -95,7 +95,25 @@ methods:{
 						console.log(response);
 						var player_minor_id = response.data[0].player_minor_id;
 
-						this.teamName = response.data[0].Team.name;
+						/** team name following session id **/
+						var sessionId = response.data[0].session_id;
+
+						console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId);
+						
+						axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionId,{
+
+						})
+						.then(response => 
+						{
+							console.log(response.data.Team.name);
+							this.teamName = response.data.Team.name;
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+						/** end of team name following session id **/
+
+						// this.teamName = response.data[0].Team.name;
 						this.teamSize = response.data[0].Session.player_count;
 
 						if(player_minor_id > '0'){
