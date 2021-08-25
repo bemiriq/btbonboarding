@@ -134,6 +134,73 @@
             <!-- OVERALL DASHBOARD DEFINED -->
             <div v-if="pageLoad=='1'">
 
+
+              <!-- below b-row generates the third table -->
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Reservation / Booker Breakdown</p>
+                    </thead>
+
+                    <tr>
+                      <td class="tdStyle">Total Bookers</td>
+                      <td>{{totalBooker}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">Total Reserved Players</td>
+                      <td>{{xolaReserevedPlayer}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">Total Player</td>
+                      <td>{{totalPlayers}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="tdStyle">No Shows</td>
+                      <td>{{noShowCustomers}}</td>
+                    </tr>
+
+                    <!-- <tr>
+                      <td class="tdStyle">Average Booker
+                        <p style="font-style:italic;">
+                          Total Bookers/Total Players
+                        </p>
+                      </td>
+                      <td>{{totalAverageBooker}}</td>
+                    </tr> -->
+
+                    <tr>
+                      <td class="tdStyle">Average Reservation Size</td>
+                      <td>{{averageReservationSizeByXola}}</td>
+                    </tr>
+
+
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Operational Performance</p>
+                    </thead>
+                    <!-- <tr>
+                      <td class="tdStyle">Total Teams</td>
+                      <td>{{totalTeams}}</td>
+                    </tr> -->
+                    <tr>
+                      <td class="tdStyle">Average Time to play Beat The Bomb</td>
+                      <td>{{averageSessionTime}} minutes</td>
+                    </tr>  
+                  </table>
+                </b-col>
+              </b-row>
+              <!-- end of b-row for third table -->
+
+              <br>
+
               <b-row>
                 <b-col>
                   <table class="table table-hover">
@@ -141,24 +208,24 @@
                       <p class="theadStyle">Player Breakdown</p>
                     </thead>
                     <tr>
-                      <td class="tdStyle">Total Players</td>
+                      <td class="tdStyle">Total</td>
                       <td>{{totalPlayers}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Cyberbot includes BM</td>
+                      <td class="tdStyle">Mission 1 Classic Mode</td>
                       <td>{{mission1total}}</td>
                     </tr> 
                     <tr>
-                      <td class="tdStyle">Block Monster</td>
+                      <td class="tdStyle">Mission 2 Classic Mode</td>
                       <td>{{mission2total}}</td>
                     </tr>
 
                     <tr>
-                    <td class="tdStyle">Battle Mode Mission 1</td>
+                    <td class="tdStyle">Mission 1 Battle Mode</td>
                     <td>{{battleModePlayersMission1}}</td>
                     </tr> 
                     <tr>
-                      <td class="tdStyle">Battle Mode Mission 2</td>
+                      <td class="tdStyle">Mission 2 Battle Mode</td>
                       <td>{{battleModePlayersMission2}}</td>
                     </tr> 
 
@@ -180,19 +247,19 @@
                     <td>{{totalTeams}}</td>
                   </tr> 
                   <tr>
-                    <td class="tdStyle">Mission 1</td>
+                    <td class="tdStyle">Mission 1 Classic Mode</td>
                     <td>{{mission1TotalTeams}}</td>
                   </tr> 
                   <tr>
-                    <td class="tdStyle">Mission 2</td>
+                    <td class="tdStyle">Mission 2 Classic Mode</td>
                     <td>{{mission2TotalTeams}}</td>
                   </tr>
                   <tr>
-                    <td class="tdStyle">Battle Mode Mission 1</td>
+                    <td class="tdStyle">Mission 1 Battle Mode</td>
                     <td>{{battleModeMission1TotalTeams}}</td>
                   </tr> 
                   <tr>
-                    <td class="tdStyle">Battle Mode Mission 2</td>
+                    <td class="tdStyle">Mission 2 Battle Mode</td>
                     <td>{{battleModeMission2TotalTeams}}</td>
                   </tr> 
                   <!-- <tr>
@@ -203,10 +270,10 @@
                     <td class="tdStyle">Avg Team Size</td>
                     <td>{{averageTeamSizeFunction}}</td> <!-- here it calls the COMPUTED PROPERTY FUNCTION -->
                   </tr> 
-                  <!-- <tr>
+                  <tr>
                     <td class="tdStyle">Discrepancy</td>
-                    <td>{{avgTeamSizeDiscrepancy}}</td>
-                  </tr>  --> 
+                    <td>{{teamSizeDiscrepancy}}</td>
+                  </tr>  
                 </table>
                 </b-col>
               </b-row>
@@ -219,7 +286,7 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Minors</p>
+                      <p class="theadStyle">Age Breakdown</p>
                     </thead>
                     <tr>
                       <td class="tdStyle">Total Players</td>
@@ -244,7 +311,7 @@
 
                   <table class="table table-hover">
                   <thead>
-                    <p class="theadStyle">Gender</p>
+                    <p class="theadStyle">Gender Breakdown</p>
                   </thead>
                   <tr>
                     <td class="tdStyle">Female</td>
@@ -283,33 +350,33 @@
                 <b-col>
                   <table class="table table-hover">
                     <thead>
-                      <p class="theadStyle">Bomb Beater Teams / Players</p>
+                      <p class="theadStyle">Bomb Beaters</p>
                     </thead>
 
                     <tr>
-                      <td class="tdStyle">Both Mission Teams</td>
+                      <td class="tdStyle">Total Winning Teams</td>
                       <td>{{bombBeatersTotalTeamsFunction}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Mission 1 Winner Teams</td>
+                      <td class="tdStyle">Mission 1 Winning Teams</td>
                       <td>{{bombBeatersMission1TotalTeams}}</td>
                     </tr>
 
                     <tr>
-                      <td class="tdStyle">Mission 2 Winner Teams</td>
+                      <td class="tdStyle">Mission 2 Winning Teams</td>
                       <td>{{bombBeatersMission2TotalTeams}}</td>
                     </tr>
 
                     <tr>
-                      <td class="tdStyle">Both Mission Players</td>
+                      <td class="tdStyle">Total Winning Players</td>
                       <td>{{bombBeatersTotalPlayers}}</td>
                     </tr>
                     <tr>
-                      <td class="tdStyle">Mission 1 Players</td>
+                      <td class="tdStyle">Mission 1 Winning Players</td>
                       <td>{{bombBeatersMission1Players}}</td>
                     </tr> 
                     <tr>
-                      <td class="tdStyle">Mission 2 Players</td>
+                      <td class="tdStyle">Mission 2 Winning Players</td>
                       <td>{{bombBeatersMission2Players}}</td>
                     </tr>
 
@@ -328,8 +395,8 @@
                         <p class="theadStyle">Battle mode</p>
                       </thead>
                       <tr>
-                        <td class="tdStyle">Reservations Xola / Database
-                          <p style="font-style:italic;">Customer might cancel after booking from xola</p>
+                        <td class="tdStyle">Reservations Database
+                          <!-- <p style="font-style:italic;">Customer might cancel after booking from xola</p> -->
                         </td>
                         <td>{{totalBattleModeReservations}}</td>
                       </tr>
@@ -351,9 +418,9 @@
                       </tr>
                       <tr>
                         <td class="tdStyle">Average Team
-                          <br>
+                          <!-- <br>
                           <p style="font-style:italic;">total players / total teams
-                          </p>
+                          </p> -->
                         </td>
                         <td>{{averageBattleModeTeamsFunctions}}
                         </td>
@@ -367,58 +434,6 @@
               <!-- end of b-row for third table -->
 
               <!-- <hr> -->
-              <br>
-
-              <!-- below b-row generates the third table -->
-              <b-row>
-                <b-col>
-                  <table class="table table-hover">
-                    <thead>
-                      <p class="theadStyle">Reservation / Booker Table</p>
-                    </thead>
-                    <tr>
-                      <td class="tdStyle">Total Player</td>
-                      <td>{{totalPlayers}}</td>
-                    </tr>
-                    <tr>
-                      <td class="tdStyle">Average Reservation Size</td>
-                      <td>{{averageReservationSizeByXola}}</td>
-                    </tr>
-
-                    <tr>
-                      <td class="tdStyle">Total Bookers</td>
-                      <td>{{totalBooker}}</td>
-                    </tr>
-                    <tr>
-                      <td class="tdStyle">Average Bookers
-                        <p style="font-style:italic;">
-                          Total Bookers/Total Players
-                        </p>
-                      </td>
-                      <td>{{totalAverageBooker}}</td>
-                    </tr>
-
-                  </table>
-                </b-col>
-
-                <b-col>
-                  <table class="table table-hover">
-                    <thead>
-                      <p class="theadStyle">Average Game Time</p>
-                    </thead>
-                    <tr>
-                      <td class="tdStyle">Total Teams</td>
-                      <td>{{totalTeams}}</td>
-                    </tr>
-                    <tr>
-                      <td class="tdStyle">Average Time to play Beat The Bomb</td>
-                      <td>{{averageSessionTime}} minutes</td>
-                    </tr>  
-                  </table>
-                </b-col>
-              </b-row>
-              <!-- end of b-row for third table -->
-
               <br>
 
               <!-- below b-row generates the third table -->
@@ -538,6 +553,32 @@
                 </b-col>
               </b-row>
               <!-- end of b-row for forth table -->
+
+              <br><br>
+              <b-row>
+                <b-col>
+                  <table class="table table-hover">
+                    <thead>
+                      <p class="theadStyle">Marketing Data</p>
+                    </thead>
+                    <tr>
+                      <td class="tdStyle">Instagram</td>
+                      <td>{{countInstagram}}</td>
+                    </tr>
+                    <tr>
+                      <td class="tdStyle">Marketing Consent</td>
+                      <td>{{countMarketingConsent}}</td>
+                    </tr>
+                  </table>
+                </b-col>
+
+                <b-col>
+                  <table class="table table-hover">
+
+                  </table>
+                </b-col>
+              </b-row>
+              <br>
 
             </div>
             <!-- END OF OVERALL DASHBOARD -->
@@ -879,6 +920,9 @@ export default {
 
       pageLoad:'1',
 
+      xolaReserevedPlayer:'',
+      countInstagram:'',
+      countMarketingConsent:'',
 
       endDateClicked: '',
       // dateClicked: '',
@@ -1063,6 +1107,17 @@ export default {
   },
 
   computed: {
+
+    teamSizeDiscrepancy: function(){
+      var x = this.totalTeams-(this.mission1TotalTeams+this.mission2TotalTeams+this.battleModeMission1TotalTeams+this.battleModeMission2TotalTeams);
+      return x;
+    },
+
+    noShowCustomers: function(){
+
+      var x = this.xolaReserevedPlayer-this.totalPlayers;
+      return x;
+    },
 
     checkPlayerMissionDiscrepancy: function(){
 
@@ -1694,6 +1749,48 @@ var arrows = document.getElementsByClassName("covertedtime");
           .catch(function (error) {
             console.log(error);
           });
+
+          /** XOLA total reserved player **/
+          axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/reservation_size_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.xolaReserevedPlayer = response.data.rows[0].reservation_size_count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** Instagram Count **/
+          axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'dashboard/count_instagram/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.countInstagram = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+          /** Marketing consent count **/
+          axios.get(process.env.VUE_APP_DATABASE_PEOPLE+'dashboard/count_marketing_consent/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            this.countMarketingConsent = response.data.count;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
 
 
           /** mision 1 total teams **/

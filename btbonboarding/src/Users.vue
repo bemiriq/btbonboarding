@@ -2792,6 +2792,12 @@ var arrows = document.getElementsByClassName("covertedtime");
       // console.log(this.posts);
       // this.selectedCustomerName = posts.customerName /*this.selectedCustomerName pass the value to data return() */
       // var bookerName = this.selectedCustomerName
+      
+
+      /** this line below will sort the array followed by first name **/
+      this.clickedPlayerList.Reservation_people.sort((a,b) => a.player_first_name.localeCompare(b.player_first_name));
+
+
       this.$bvModal.show('modal-xl');
 
       /** this function should reload the page **/

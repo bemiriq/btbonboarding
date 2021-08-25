@@ -21,6 +21,7 @@ import Rfid from './Rfid.vue';
 import Social from './Social.vue';
 import Rfidmedia from './Rfidmedia.vue';
 import Activeteams from './Activeteams.vue';
+import Gamebay from './Gamebay.vue';
 
 
 /* pages link for footer */
@@ -66,6 +67,7 @@ const routes = [
 	{ path : '/Social', component: Social},
 	{ path : '/Scanmedia', component: Rfidmedia},
 	{ path : '/Activeteams', component: Activeteams},
+	{ path : '/Gamebay', component: Gamebay},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 
