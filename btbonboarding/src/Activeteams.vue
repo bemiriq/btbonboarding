@@ -105,7 +105,10 @@
             <a href="#/Activeteams" @click="updateAsTestTeam(clickedSessionId,1)">NO</a>
           </td>
 
-          <td v-if="battleModeTeamSession > '0' ">YES</td>
+          <td v-if="battleModeTeamSession > '0' ">
+            YES <br> <span v-if="clickedTeamRouteId == '1'">Side A</span>
+            <span v-if="clickedTeamRouteId == '2' ">Side B</span>
+          </td>
           <td v-else>NO</td>
           <!-- <td v-if="battleModeTeamSession > '0' " style="width:40%;"> -->
           <td style="width:40%;">
@@ -281,6 +284,7 @@
         clonedTPS2:[],
         clonedTeam1SessionId:'',
         updateTeamName:'',
+        clickedTeamRouteId:'',
 
         /** make test session,reservation,booker,players,people,minors,team player session**/
         sessionMadeTest:'',
@@ -842,13 +846,15 @@
           console.log('second team session id '+event);
 
           axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
-            team_vs_team_id : event /** updates second session id on first one **/
+            team_vs_team_id : event, /** updates second session id on first one **/
+            route_id : 1
           })
           .then(response => {
             console.log(response);
 
             axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+event,{
-              team_vs_team_id : this.clickedSessionId /** updates first session id on second one **/
+              team_vs_team_id : this.clickedSessionId, /** updates first session id on second one **/
+              route_id : 2
             })
             .then(response => {
               console.log(response);
@@ -961,6 +967,7 @@
           this.testTeamSession = response.data.test;
           this.battleModeTeamSession = response.data.team_vs_team_id;
           this.updatedBattleModeSession = response.data.team_vs_team_id;
+          this.clickedTeamRouteId = response.data.route_id;
 
           if(response.data.team_vs_team_id > '0'){
 

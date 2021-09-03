@@ -145,7 +145,7 @@
 
       <!-- this modal will hide/unhide reservation name -->
 
-        <b-modal id="modal-updateReservation" centered size="md" title="Update Reservation" v-bind:hide-footer="true" v-bind:hide-header="true">
+        <b-modal id="modal-updateReservation" centered size="md" title="Cancel Reservation" v-bind:hide-footer="true" v-bind:hide-header="true">
 
             <!-- <b-row v-for="item in (index,posts)" v-bind:key="fetchlist1.id" style="margin-top: 1%;">
               <b-col sm="4">
@@ -591,20 +591,19 @@
 
           <table class="table table-hover">
               <thead>
-                <tr>
-                  <!-- <th scope="col">#</th> -->
+                <!-- <tr> -->
                   <th scope="col">Time</th>
                   <th scope="col">Reservation</th>
-                  <th scope="col" style="font-size: 2em;">#</th>
+                  <th scope="col" style="word-wrap: break-word;width:10%;">Expected Players</th>
                   <th scope="col">Mission</th>
                   <th scope="col">Organization</th> <!-- changed it from GROUP to ORGANIZATION as asked by CHUCK -->
-                  <th scope="col">Players Arrived</th>
-                  <th scope="col">Spectators Arrived</th>
+                  <th scope="col" style="word-wrap: break-word;width:10%;">Players Arrived</th>
+                  <th scope="col" style="word-wrap: break-word;width:10%;">Spectators Arrived</th>
                   <th scope="col">Paid</th>
                   <th scope="col">Late</th>
                   <th scope="col">No Shows</th>
-                  <th scope="col">Release</th>
-                </tr>
+                  <th scope="col" style="word-wrap: break-word;width:10%;">Show in Onboarding</th>
+                <!-- </tr> -->
               </thead>
                 <tr v-for="(item, index) in posts" v-bind:key="item.id">
                   <td class="covertedtime">
@@ -722,7 +721,7 @@
 
       <b-row>
         <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
-        <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
+        <b-col><a href="/#/Dashboard">Dashboard</a></b-col>
         <b-col>On Deck</b-col>
         <!-- <b-col>Room Status</b-col> -->
         <b-col>CCTV</b-col>
