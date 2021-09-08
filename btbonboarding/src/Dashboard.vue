@@ -603,11 +603,11 @@
                     </tr>
                     <tr>
                       <td class="tdStyle">Volume of Unique Purchasers Since Beginning</td>
-                      <td>{{allTimeTotalBookers}}</td>
+                      <td>{{allTimeUniqueBookers}}</td>
                     </tr>
                     <tr>
                       <td class="tdStyle">Volume of Purchases Since Beginning</td>
-                      <td>{{allTimeUniqueBookers}}</td>
+                      <td>{{allTimeTotalBookers}}</td>
                     </tr>
                     <tr>
                       <td class="tdStyle">Volume of Unique Purchasers Rolling 12 Months</td>
@@ -2066,7 +2066,7 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
           /** Repeat Purchaser **/
-          axios.get(process.env.VUE_APP_RAW_QUERIES+'/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+          axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_bookers_repeaters/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
           })
           .then(response => 
@@ -2101,7 +2101,7 @@ var arrows = document.getElementsByClassName("covertedtime");
           {
             console.log(response);
             this.uniquePurchaseVolume12months = response.data[0].unique_purchase_volume_12months;
-            this.monthlyRepeatRate12months = parseFloat(this.uniquePurchaseVolume12months/this.uniquePurchaser12months*100).toFixed(2);
+            this.monthlyRepeatRate12months = parseFloat(this.uniquePurchaseVolume12months/this.uniqueBookers*100).toFixed(2);
           })
           .catch(function (error) {
             console.log(error);

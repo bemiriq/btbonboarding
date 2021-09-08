@@ -20,12 +20,6 @@
 
     <b-row>
 
-    <!-- modal when READY TO PLAY is clicked and displays warning message for empty rfid values -->
-      <b-modal id="modal-assignRfidValue" centered size="md" title="Warning!" v-bind:hide-footer="true" v-bind:show-header="true">
-            <p>Please assign RFID Values for all players.</p>
-      </b-modal>
-      <!-- end of modal for ready to play -->
-
       <!-- the modal below will display modal to check if the TPS and RFID is scanned or not -->
 
       <b-modal id="modal-playersDetail" centered v-bind:hide-footer="true">
@@ -1953,35 +1947,12 @@
                           <b-col>
 
                             <div v-if="removeWaitlist0 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected10 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton10 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(10,11,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton0 == false" @click="displayNoRfidModal" style="background-color: #76b8ff;
-  color: white;border:none;">Ready to play 1</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Ready to play</b-button>
-                              </div>
-                              
+                              <b-button block v-if="disableButton0 == false" variant="primary" disabled>Ready to play</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Ready to play</b-button>
+                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
                             </div>
                             <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected10 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,10,11)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> 
-                              </div>
-
+                              <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button>
                             </div>
 
                           </b-col>
@@ -2252,35 +2223,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist1 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected11 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton11 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(10,11,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton1 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected11 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,10,11)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 1)">Remove Waitlist</b-button> 
-                              </div>
-
-                            </div>
+                            <b-button block v-if="disableButton1 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 1)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
 
@@ -2537,35 +2486,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist2 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected12 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton12 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(12,13,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton2 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected12 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,12,13)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 2)">Remove Waitlist</b-button> 
-                              </div>
-
-                            </div>
+                            <b-button block v-if="disableButton2 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 2)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
                       </b-row>
@@ -2573,6 +2500,7 @@
                   </b-row>
 
                   <br/>
+
                 </b-col>
 
                 <!-- </form> -->
@@ -2817,35 +2745,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist3 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected13 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton13 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(12,13,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton3 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected13 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,12,13)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 3)">Remove Waitlist</b-button> 
-                              </div>
-
-                            </div>
+                            <b-button block v-if="disableButton3 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 3)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
                       </b-row>
@@ -3106,34 +3012,12 @@
                           <b-col>
 
                             <div v-if="removeWaitlist4 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected14 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton14 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(14,15,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton4 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Ready to play</b-button>
-                              </div>
-                              
+                              <b-button block v-if="disableButton4 == false" variant="primary" disabled>Ready to play</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Ready to play</b-button>
+                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
                             </div>
                             <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected14 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,14,15)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 4)">Remove Waitlist</b-button> 
-                              </div>
-
+                              <b-button block variant="warning" v-on:click="removeWaitingList($event, 4)">Remove Waitlist</b-button>
                             </div>
 
                           </b-col>
@@ -3378,35 +3262,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist5 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected15 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton15 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(14,15,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton5 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected15 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,14,15)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 5)">Remove Waitlist</b-button> 
-                              </div>
-
-                            </div>
+                            <b-button block v-if="disableButton5 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 5)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
                       </b-row>
@@ -3666,34 +3528,12 @@
                           <b-col>
 
                             <div v-if="removeWaitlist6 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected16 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton16 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(16,17,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton6 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Ready to play</b-button>
-                              </div>
-                              
+                              <b-button block v-if="disableButton6 == false" variant="primary" disabled>Ready to play</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Ready to play</b-button>
+                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
                             </div>
                             <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected16 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,16,17)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 6)">Remove Waitlist</b-button> 
-                              </div>
-
+                              <b-button block variant="warning" v-on:click="removeWaitingList($event, 6)">Remove Waitlist</b-button>
                             </div>
 
                           </b-col>
@@ -3936,35 +3776,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist7 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected17 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton17 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(16,17,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton7 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected17 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,16,17)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 7)">Remove Waitlist</b-button> 
-                              </div>
-
-                            </div>
+                            <b-button block v-if="disableButton7 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 7)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
                       </b-row>
@@ -4222,34 +4040,12 @@
                           <b-col>
 
                             <div v-if="removeWaitlist8 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected18 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton18 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(18,19,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton8 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Ready to play</b-button>
-                              </div>
-                              
+                              <b-button block v-if="disableButton8 == false" variant="primary" disabled>Ready to play</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Ready to play</b-button>
+                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
                             </div>
                             <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected18 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,18,19)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 8)">Remove Waitlist</b-button> 
-                              </div>
-
+                              <b-button block variant="warning" v-on:click="removeWaitingList($event, 8)">Remove Waitlist</b-button>
                             </div>
 
                           </b-col>
@@ -4493,34 +4289,13 @@
                         <b-col>
 
                           <div v-if="removeWaitlist9 == false">
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected19 != null">
-                                <!-- <p>Battle mode baby</p> -->
-                                <b-button block v-if="battleModeDisableButton19 == false" variant="primary" disabled>Ready to battle</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateBattleModeBothSides(18,19,1)">Ready to battle</b-button>
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block v-if="disableButton9 == false" variant="primary" disabled>Ready to play</b-button>
-                                <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Ready to play</b-button>
-                              </div>
-                              
-                            </div>
-                            <div v-else>
-                              <!-- <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button> -->
-
-                              <!-- battle mode team -->
-                              <div v-if="vsselected19 != null">
-                                <b-button block variant="warning" v-on:click="removeBattleModeWaitlist($event,18,19)">Remove Waitlist</b-button> 
-                              </div>
-
-                              <!-- normal mode team -->
-                              <div v-else>
-                                <b-button block variant="warning" v-on:click="removeWaitingList($event, 9)">Remove Waitlist</b-button> 
-                              </div>
-                            </div>
+                            <b-button block v-if="disableButton9 == false" variant="primary" disabled>Ready to play</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Ready to play</b-button>
+                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                          </div>
+                          <div v-else>
+                            <b-button block variant="warning" v-on:click="removeWaitingList($event, 9)">Remove Waitlist</b-button>
+                          </div>
 
                         </b-col>
                       </b-row>
@@ -5483,29 +5258,6 @@ data() {
     disableButton9: false,
     // disableButton10: false,
 
-    /** button activates READY TO PLAY if its battle mode team **/
-    battleModeDisableButton10: false,
-    battleModeDisableButton11: false,
-    battleModeDisableButton12: false,
-    battleModeDisableButton13: false,
-    battleModeDisableButton14: false,
-    battleModeDisableButton15: false,
-    battleModeDisableButton16: false,
-    battleModeDisableButton17: false,
-    battleModeDisableButton18: false,
-    battleModeDisableButton19: false,
-
-    battleModeDisableButton10check: '',
-    battleModeDisableButton11check: '',
-    battleModeDisableButton12check: '',
-    battleModeDisableButton13check: '',
-    battleModeDisableButton14check: '',
-    battleModeDisableButton15check: '',
-    battleModeDisableButton16check: '',
-    battleModeDisableButton17check: '',
-    battleModeDisableButton18check: '',
-    battleModeDisableButton19check: '',
-
     removeWaitlist0: false,
     removeWaitlist1: false,
     removeWaitlist2: false,
@@ -5755,19 +5507,19 @@ data() {
     vsselected5: null,
     vsselected6: null,
     vsselected7: null,
-    vsselected8: null,
-    vsselected9: null,
+    vsselected8: '',
+    vsselected9: '',
 
     vsselected10: null,
     vsselected11: null,
     vsselected12: null,
     vsselected13: null,
-    vsselected14: null,
-    vsselected15: null,
-    vsselected16: null,
-    vsselected17: null,
-    vsselected18: null,
-    vsselected19: null,
+    vsselected14: '',
+    vsselected15: '',
+    vsselected16: '',
+    vsselected17: '',
+    vsselected18: '',
+    vsselected19: '',
 
     teamvsteamBoolen10: false,
     teamvsteamBoolen11: false,
@@ -5855,204 +5607,6 @@ data() {
 },
 
 methods: {
-
-  displayNoRfidModal(){
-    console.log('assign value for all readers');
-
-    this.$bvModal.show('modal-assignRfidValue');
-
-  },
-
-  removeBattleModeWaitlist(event,leftColValue,rightColValue){
-
-    console.log(event);
-
-    var leftSessionId = this["list"+leftColValue+"sessionid"];
-    var rightSessionId = this["list"+rightColValue+"sessionid"];
-
-    var newLeftColValue = leftColValue-10;
-    var newRightColValue = rightColValue-10;
-
-    /** after reload remove from waitlist **/
-
-    if(this['list'+leftColValue+'sessionid'] == undefined || !this['list'+leftColValue+'sessionid'] > '0'){ /** if undefined it will check on fetchRoute col name rather than on list col value **/
-      console.log('YES after reload');
-
-      leftSessionId = this['fetchPlayerList'+newLeftColValue][1].id; /** session id is defined using id **/
-      rightSessionId = this['fetchPlayerList'+newRightColValue][1].id; /** session id is defined using id **/
-
-    }
-
-    else{
-      console.log('Before reload');
-    }
-
-    axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+leftSessionId,{
-      active: 0
-    })
-    .then(response => {
-      console.log(response);
-      this["sendToWishlistClicked"+leftColValue] = false;
-      this["removeWaitlist"+newLeftColValue] = false;
-      this["disableButton"+newLeftColValue] = true;
-      console.log(" Deactivated Waitlist for Box "+ newLeftColValue);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+rightSessionId,{
-      active: 0
-    })
-    .then(response => {
-      console.log(response);
-      this["sendToWishlistClicked"+rightColValue] = false;
-      this["removeWaitlist"+newRightColValue] = false;
-      this["disableButton"+newRightColValue] = true;
-      console.log(" Deactivated Waitlist for Box "+ newRightColValue);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    /** end of after reload remove from waitlist **/
-
-
-  },
-
-  activateBattleModeBothSides(leftColValue,rightColValue,pageValue){
-
-    console.log(leftColValue);
-    console.log(rightColValue);
-    console.log('inside activate battle mode for both sides button');
-
-    // this.fetchPlayerList[arrayValue].active = '1';
-
-    if(pageValue == '1'){ /** 1 defines before reload **/
-
-      var leftSessionId = this['list'+leftColValue+'sessionid'];
-      var rightSessionId = this['list'+rightColValue+'sessionid'];
-
-      axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+rightSessionId,{
-        active: 1
-      })
-      .then(response => {
-        console.log(response.data);
-
-        this['sendToWishlistClicked'+rightColValue] = true;
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+rightSessionId,{
-        // active: 1
-      })
-      .then(response => {
-        console.log(response.data);
-
-        // console.log(leftSessionId);
-        /** this will ready on left side after right side is updated **/
-          leftSessionId = response.data.team_vs_team_id;
-
-          axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+leftSessionId,{
-            active: 1
-          })
-          .then(response => {
-            console.log(response.data);
-            this['sendToWishlistClicked'+leftColValue] = true;
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        /** end of left side ready activate **/
-
-        this['sendToWishlistClicked'+rightColValue] = true;
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-
-      /** this part will display REMOVE FROM WAITLIST Button once user clicks READY TO PLAY or BM **/
-      var leftRemoveButtonActivate = leftColValue-10;
-      var rightRemoveButtonActive = rightColValue-10;
-
-      console.log(leftRemoveButtonActivate);
-      console.log(rightRemoveButtonActive);
-
-      this['removeWaitlist'+leftRemoveButtonActivate] = true;
-      this['removeWaitlist'+rightRemoveButtonActive] = true;
-      /** end of REMOVE FROM WAITLIST button activation **/
-
-    }
-  },
-
-  battleModeButton: function (colValue){
-    console.log(this.vsselected10);
-    console.log(this.vsselected11);
-    console.log('inside battle mode button function');
-
-    if(colValue%2 == 0){
-      console.log('even');
-      var leftColumnValue = colValue;
-      var rightColumnValue = colValue+1;
-    }
-    else{
-      console.log('odd');
-      var leftColumnValue = colValue-1;
-      var rightColumnValue = colValue;
-    }
-
-    console.log('left column '+leftColumnValue);
-    console.log('right column '+rightColumnValue);
-
-    /** battle mode button activation for BEFORE RELOAD ONBOARDING PAGE **/
-    if(this['vsselected'+leftColumnValue] != null && this['vsselected'+rightColumnValue]){
-      console.log('looks like battle mode column');
-
-      if(this['list'+leftColumnValue].length > '0' && this['list'+rightColumnValue].length > '0'){
-        console.log('contains player greater than 0');
-
-        for (var i = 0; i < this['list'+leftColumnValue].length; i++) {
-          
-          console.log('inside for each loop 1');
-
-          if(this['list'+leftColumnValue][i].rfidState1  != null || this['list'+leftColumnValue][i].rfidState1 != undefined){
-            console.log(this['list'+leftColumnValue][i].rfidState1);
-            this['battleModeDisableButton'+leftColumnValue] = true;
-            this['battleModeDisableButton'+rightColumnValue] = true;
-          }
-          else{
-            this['battleModeDisableButton'+leftColumnValue] = false;
-            this['battleModeDisableButton'+rightColumnValue] = false;
-          }
-
-        }
-
-        for (var i = 0; i < this['list'+rightColumnValue].length; i++) {
-          
-          console.log('inside for each loop 2');
-
-          if(this['list'+rightColumnValue][i].rfidState1 != null || this['list'+rightColumnValue][i].rfidState1 != undefined){
-            console.log(this['list'+rightColumnValue][i].rfidState1);
-            this['battleModeDisableButton'+leftColumnValue] = true;
-            this['battleModeDisableButton'+rightColumnValue] = true;
-          }
-          else{
-            this['battleModeDisableButton'+leftColumnValue] = false;
-            this['battleModeDisableButton'+rightColumnValue] = false;
-          }
-
-        }
-      }
-    }
-    /** END OF BEFORE RELOAD ONBOARDING PAGE FOR BATTLE MODE ACTIVATE BUTTON **/
-    
-  },
 
   teamNameSpecialCharacters(e,value){
     console.log(e.which);
@@ -7716,6 +7270,8 @@ methods: {
                               console.log(playerLastName);
                               console.log(playerFirstName);
                               console.log(playerId);
+                              
+                              console.log(b+" that was B id");
 
                               replyDataObj3['Team_player_sessions'][j]['Person']={
                                "first_name": playerFirstName,
@@ -8169,10 +7725,6 @@ else{
 
                                           this["arrived"+teamObjectId] = arrivedValue;
 
-
-                                          console.log(b+" that was B id");
-
-
                                           // if(response.data[0].Team_player_sessions[j].Rfid > '0'){
                                           //   this['removeWaitlist'+teamObjectId] = true;
                                           //   // this["sendToWishlistClicked"+teamObjectId] = true;
@@ -8301,64 +7853,6 @@ else{
                                     console.log('B KO VALUE FOR ELSE '+ b);
                                     
                                     this['fetchPlayerList'+b].push(this['toListFetch'+b]);
-
-                                    /** this will check and then enable/disable the ready to Battle button **/
-                                    
-                                    console.log(this['toListFetch'+b]);
-
-                                    var checkBm = this['toListFetch'+b].team_vs_team_id;
-                                    console.log(checkBm);
-
-                                    if(checkBm > '1'){
-                                      
-                                      var leftSideBox = b-1;
-                                      var rightSideBox = b;
-
-                                      var battleModeButtonLeftValue = b+9; /** b starts as 1 because we are isnide route id 2 and 1+9**/
-                                      var battleModeButtonRightValue = b+10;
-
-                                      console.log(b);
-                                      console.log(this['toListFetch'+leftSideBox]);
-                                      console.log(this['toListFetch'+rightSideBox]);
-
-                                      for (var m = 0; m < this['toListFetch'+leftSideBox].Team_player_sessions.length; m++) {
-                                        
-                                        if(this['toListFetch'+leftSideBox].Team_player_sessions[m].Rfid == undefined){
-
-                                          this['battleModeDisableButton'+battleModeButtonLeftValue+'check'] = 1;
-                                          // break;
-                                          // this.['battleModeDisableButton'+battleModeButtonLeftValue+'check'] = 1;
-
-                                        }
-
-                                      }
-
-                                      for (var n = 0; n < this['toListFetch'+rightSideBox].Team_player_sessions.length; n++) {
-                                        // console.log(n);
-
-                                        if(this['toListFetch'+rightSideBox].Team_player_sessions[n].Rfid == undefined){
-                                          this['battleModeDisableButton'+battleModeButtonRightValue+'check'] = 1;
-                                          // break;
-                                        }
-
-                                      }
-
-                                      if(this['battleModeDisableButton'+battleModeButtonRightValue+'check'] > '0' || this['battleModeDisableButton'+battleModeButtonLeftValue+'check'] > '0'){
-                                        // console.log('true true');
-
-                                        this['battleModeDisableButton'+battleModeButtonLeftValue] = false;
-                                        this['battleModeDisableButton'+battleModeButtonRightValue] = false;
-                                      }
-                                      else{
-                                        // console.log('false false');
-
-                                        this['battleModeDisableButton'+battleModeButtonLeftValue] = true;
-                                        this['battleModeDisableButton'+battleModeButtonRightValue] = true;
-                                      }
-
-                                    }
-                                    /** end of enable/disable ready to Battle button **/
-
 
                                     /** if clause display button EDIT 6 PLAYERS **/
                                         // if(this['fetchPlayerList'+b][1].Team_player_sessions.length == '6'){
@@ -9284,13 +8778,10 @@ add: function() {
 
           console.log('rfid tag was '+rfid_tag.toUpperCase());
 
-          console.log(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag.toUpperCase());
-
           axios.post(process.env.VUE_APP_DATABASE_RFIDS+'find_or_create/'+rfid_tag.toUpperCase(),{
-            // tag: rfid_tag.toUpperCase(),
+            tag: rfid_tag.toUpperCase(),
           })
           .then(response => {
-            // console.log(response);
             console.log(response.data[0].id);
             this["list"+col+"rfidcontainer"] = response.data[0].id;
 
@@ -9304,9 +8795,6 @@ add: function() {
                 playerId = this["list"+col][index].Person.player_id; /** serves the ADULT PLAYER ID value if minor **/
                 var minorId = this["list"+col][index].Person.person_id; /** this is the minor id value **/
 
-                console.log('playerId was '+playerId);
-                console.log('minor id was '+minorId);
-                
                 axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_id/'+playerId+'/minor/'+minorId
 
                 )
@@ -9333,8 +8821,6 @@ add: function() {
                 .catch(function (error) {
                   console.log(error);
                 });
-
-                this.battleModeButton(col);
 
               }/** end of if minor **/
 
@@ -9370,8 +8856,6 @@ add: function() {
                   console.log(error);
                 });
               }
-
-              this.battleModeButton(col);
 
           })
 
@@ -9470,13 +8954,6 @@ add: function() {
         var colvalue1 = colvalue+0;
         var colvalue2 = colvalue+1;
       }
-
-      /** this will remove the vsseleted value for battle mode if user removes team from battle mode to normal mode team **/
-      var bmLeftValue = colvalue+colvalue1;
-      var bmRightValue = colvalue+colvalue2;
-      this['vsselected'+bmLeftValue] = '';
-      this['vsselected'+bmRightValue] = '';
-      /** end of battle mode team swtich to normal mode **/
 
       var getSessionIdFirstTeam = this['list'+colvalue1+'sessionid'];
       var getSessionIdSecondTeam = this['list'+colvalue2+'sessionid'];

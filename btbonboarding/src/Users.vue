@@ -22,15 +22,24 @@
       <b-modal id="modal-waiverList" centered size="lg" title="Waiver List" v-bind:hide-footer="true" v-bind:hide-header="true">
         <!-- <p style="margin:auto;">List of People</p> -->
         <b-row>
-          <b-col><h3>WAIVER LIST</h3></b-col>
+          <b-col lg="6">
+            <h3 style="text-align:left;">Waiver List</h3>
+          </b-col>
+          <b-col lg="3">
+            <p style="text-align:right;">Player to show:</p>
+          </b-col>
           <b-col lg="2">
             <b-form-select v-model="limitReservationList" :options="options" class="mb-3" v-on:change="waiverList();">
                         <!-- <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option> -->
+
                         <b-form-select-option value="5">10</b-form-select-option>
                         <b-form-select-option value="10">20</b-form-select-option>
                         <b-form-select-option value="15">30</b-form-select-option>
                         <b-form-select-option value="20">40</b-form-select-option>
                       </b-form-select>
+          </b-col>
+          <b-col lg="1">
+            <b-button style="background-color:#fff;border-style:none;" @click="hideWaiverListModal()">&#x2716;</b-button>
           </b-col>
         </b-row>
         <hr>
@@ -41,8 +50,8 @@
                     <!-- <th scope="col">#</th> -->
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Reservation Name</th>
+                    <th scope="col">Adult/Minor</th>
+                    <th scope="col">Move to Reservation:</th>
                   </tr>
             </thead>
 
@@ -95,7 +104,11 @@
         </table> -->
 
         <b-row class="my-1">
-          <b-col><b-button variant="info" v-on:click="reloadPageEvent()">Submit</b-button></b-col>
+          <b-col lg="1"><b-button variant="info" v-on:click="reloadPageEvent()">Submit</b-button></b-col>
+          <b-col lg="1"><b-button variant="warning" v-on:click="hideWaiverListModal()" style="margin-left: 40%;">Cancel</b-button></b-col>
+          <b-col lg="8">
+
+          </b-col>
           <!-- <b-col v-on:click="hideVoucherModal"><b-button variant="warning">Cancel</b-button></b-col> -->
         </b-row>
 
@@ -361,20 +374,62 @@
           </b-modal>
           <!-- end of Add Reservation Modal -->
 
+          <b-modal id="modal-updateOrganization" centered size="md" title="Update Organization" v-bind:hide-footer="true">
+            <br/>
+            <b-row class="my-1">
+              <b-col sm="6">
+                <b>Remove Organization</b>
+              </b-col>
+              <b-col sm="2">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="removeOrganization">Yes
+              </b-col>
+              <b-col sm="2">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="removeOrganization">No
+              </b-col>
+            </b-row>
+
+            <br> 
+            <b-row class="my-1" v-if="removeOrganization == '1'">
+              <b-col sm="5">
+                <b>Organization Name</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-input v-model="organizationNameTyped" id="input-large" placeholder="Enter Organization Name" style="text-transform: lowercase"></b-form-input>
+              </b-col>
+            </b-row>
+            <br>
+            <b-row class="my-1" v-if="removeOrganization == '1'">
+              <b-col sm="5">
+                <b>Organization Type</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-select v-model="organizationTypeSelected">
+                  <option v-for="item in organizationTypeList" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
+                  <!-- <option value="createNewOrganization">Create New</option> -->
+                </b-form-select>
+              </b-col>
+            </b-row>
+
+            <br>
+
+            <b-row class="my-1" v-if="organizationTypeSelected == 'createNewOrganization' && removeOrganization == '1'">
+              <b-col sm="5">
+                <b>Type Name</b>
+              </b-col>
+              <b-col sm="7">
+                <b-form-input v-model="organizationTypeSelectedNew" id="input-large" placeholder="new organization type name" style="text-transform: lowercase"></b-form-input>
+              </b-col>
+            </b-row>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal-xs" @click="organizationnNameUpdate($event, organizationNameTyped)">SUBMIT</button>
+            </div>
+
+          </b-modal>
+
 
 
           <b-modal id="modal-organization" centered size="md" title="Organization">
-            
-            <!-- <p>  </p> -->
-
-            <!-- <p> {{reservationIdForOrganization}}</p> -->
-
-            
-
-            <!-- <select v-model="organizationTypeList" id="input-large" size="lg" style="text-transform: lowercase">
-              
-            </select> -->
-
             <br/>
             <b-row class="my-1">
               <b-col sm="5">
@@ -565,7 +620,7 @@
             </b-col>
 
             <b-col lg="2">
-              <b-button variant="outline-primary" v-on:click="updateReservation();"> Update Reservation </b-button>
+              <b-button variant="outline-primary" v-on:click="updateReservation();"> Cancel Reservation </b-button>
             </b-col>
 
             <b-col lg="1">
@@ -647,7 +702,12 @@
 
                     <!-- it uses the organization_id from RESERVATION TABLE ONLY -->
 
-                    <p v-if="item.organization_id > '0'"> {{item.Organization.name}} </p>
+                    <p v-if="item.organization_id > '0'"> 
+                      <!-- <b-button variant="outline-primary" v-on:click="updateOrganization($event, index)">{{item.Organization.name}}</b-button> -->
+                      <b-button variant="outline-info" v-on:click="updateOrganization($event, index)">
+                        {{item.Organization.name}}
+                      </b-button>
+                    </p>
                     <p v-else>
                       <b-button variant="outline-primary" v-on:click="addOrganization($event, index)">ADD</b-button>
                     </p>
@@ -805,6 +865,7 @@ export default {
       selected2: '',
 
       searchedText:'',
+      removeOrganization:'',
 
       waiverLists: [],
       waiverListsMinor: [],
@@ -1222,6 +1283,10 @@ var arrows = document.getElementsByClassName("covertedtime");
 
 
   methods:{
+
+    hideWaiverListModal(){
+      this.$bvModal.hide('modal-waiverList');
+    },
 
     changedReservation(event,index,checkPlayer){
       console.log(event);
@@ -2835,6 +2900,41 @@ var arrows = document.getElementsByClassName("covertedtime");
       this.$bvModal.show('modal-organization');
 
      },
+
+     updateOrganization(event, index) {
+
+      console.log(event);
+      console.log(index);
+
+      console.log("event "+event+" index "+ index);
+
+      console.log(this.posts[index]);
+
+      var reservationIdForOrganization = this.posts[index].reservation_id;
+
+      console.log(reservationIdForOrganization);
+
+      this.reservationIdForOrganization = reservationIdForOrganization;
+
+      axios.get(process.env.VUE_APP_DTB_ORGANIZATION,{
+
+        })
+      .then(response => 
+        {
+          console.log(response);
+          this.organizationNameList = response.data;
+        }
+      )
+      .catch(function (error){
+        console.log(error);
+      });
+
+      console.log("inside update organization");
+
+      this.removeOrganization = '1';
+      this.$bvModal.show('modal-updateOrganization');
+
+      },
 
 
      addReservation(){

@@ -202,14 +202,15 @@
 
                         <div class="col playerItem" v-for="(element, index) in releasedPlayerList" :key="index">
                           <b-row>
-                            <b-col sm="0">
+                            <b-col sm="2">
 
-                              <p v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'">&#10060;</p>
-                              <p v-if="releasedPlayerList[index].rfidState1 > '0'" style='color:green;'>&#9989;</p>
-
+                              <!-- <p v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'">&#10060;</p>
+                              <p v-if="releasedPlayerList[index].rfidState1 > '0'" style='color:green;'>&#9989;</p> -->
+                              <img src="./assets/nowristband.png" style="width:120%;height:100%;" v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'"/>
+                              <img src="./assets/greenWristband.png" style="width:120%;height:100%;" v-else/>
                             </b-col>
 
-                            <b-col sm="9">
+                            <b-col sm="9" style="text-transform:capitalize;">
                               {{element.Person.first_name}} {{element.Person.last_name}} ({{element.Person.Bookerdetail.firstName}} {{element.Person.Bookerdetail.lastName}})
                             </b-col>
 
@@ -422,6 +423,7 @@
           </template>
 
           <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/v-img@latest/dist/v-img.min.js"></script>
           <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import draggable from "vuedraggable";
