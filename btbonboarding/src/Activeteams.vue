@@ -219,8 +219,8 @@
       <div  v-if="clickedTeamName.length > '0'">
         <p>You are going to clone team <b>{{clickedTeamName}}</b> </p>
 
-        <button type="button" class="btn btn-info" v-on:click="clonedTeamSubmitted()">SUBMIT</button>
-        <button type="button" class="btn btn-danger" v-on:click="cancelCloning()" style="margin-left:2%;">CANCEL</button>
+        <button type="button" class="btn btn-primary" v-on:click="clonedTeamSubmitted()">SUBMIT</button>
+        <button type="button" class="btn btn-info" v-on:click="cancelCloning()" style="margin-left:2%;">CANCEL</button>
 
       </div>
     </b-modal>
