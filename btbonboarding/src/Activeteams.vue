@@ -3,18 +3,18 @@
 
     <br><br>
 
-    <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true">
-      Succesfully Updated. It will refresh page in 2 seconds.
+    <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true" title="Message">
+      Updating data and reloading the page.
     </b-modal>
 
-    <b-modal id="modal-5sec-success" centered size="md" v-bind:hide-footer="true">
-      Succesfully Updated. It will refresh page once data is updated.
+    <b-modal id="modal-5sec-success" centered size="md" v-bind:hide-footer="true" title="Message">
+      Updating data and reloading the page.
     </b-modal>
 
-    <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true">
+    <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true" :title="updateTeamNameTitle">
       <b-row>
         <b-col><b>Old Team Name</b></b-col>
-        <b-col lg="8">{{clickedTeamName}}</b-col>
+        <b-col lg="8">{{teamNameDisplay}}</b-col>
       </b-row>
       <br>
       <b-row>
@@ -30,29 +30,89 @@
       </div>
     </b-modal>
 
-    <b-modal id="modal-updateAsTestTeam" centered size="md" v-bind:hide-footer="true">
+    <b-modal id="modal-teamScore" centered size="md" v-bind:hide-footer="true" :title="checkTitle">
+
+      <div class="table-responsive-sm">
+        <table class="table table-borderless">
+          <tr>
+            <td>{{room1Name}}</td>
+            <td>
+              <b-form-input type="text" v-model="room1Score" @input="updateTeamScore()">{{room1Score}}</b-form-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{room2Name}}</td>
+            <td>
+              <b-form-input type="text" v-model="room2Score" @input="updateTeamScore()">{{room2Score}}</b-form-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{room3Name}}</td>
+            <td>
+              <b-form-input type="text" v-model="room3Score" @input="updateTeamScore()">{{room3Score}}</b-form-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{room4Name}}</td>
+            <td>
+              <b-form-input type="text" v-model="room4Score" @input="updateTeamScore()">{{room4Score}}</b-form-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td>{{room5Name}}</td>
+            <td>
+              <b-form-input type="text" v-model="room5Score" @input="updateTeamScore()">{{room5Score}}</b-form-input>
+            </td>
+          </tr>
+
+          <tr>
+            <td><b>Total Score</b></td>
+            <td>
+              <b-form-input type="text" v-model="totalScore" disabled>{{totalScore}}</b-form-input>
+            </td>
+          </tr>
+
+        </table>
+        <br>
+        <b-row>
+          <b-col cols="2"><button type="button" class="btn btn-primary" v-on:click="submitTeamScore()">Submit</button></b-col>
+          <b-col><button type="button" class="btn btn-info" v-on:click="hideTeamScore()">Cancel</button></b-col>
+        </b-row>
+
+      </div>
+
+        
+    </b-modal>
+
+    <b-modal id="modal-updateAsTestTeam" centered size="md" v-bind:hide-footer="true" :title="teamToTestTeam">
       <div>
         <p>
-          <b>You are going to convert normal team into test team. Are you sure?</b>.
+          <!-- <b>You are going to convert normal team into test team. Are you sure?</b>. -->
+          This will hide team's information from reporting. If this team is currently playing, there WILL be problems. Are you sure?
+
         </p>
 
         <hr>
 
-        <button type="button" class="btn btn-info" v-on:click="submitTestTeam(1)">YES</button>
-        <button type="button" class="btn btn-danger" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
+        <button type="button" class="btn btn-primary" v-on:click="submitTestTeam(1)">YES</button>
+        <button type="button" class="btn btn-info" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
       </div>
     </b-modal>
 
-    <b-modal id="modal-removeAsTestTeam" centered size="md" v-bind:hide-footer="true">
+    <b-modal id="modal-removeAsTestTeam" centered size="md" v-bind:hide-footer="true" :title="testToNormalTeam">
       <div>
         <p>
-          <b>You are going convert test team into normal team. Are you sure?</b>.
+          This will change test team into normal team. Are you sure?
         </p>
 
         <hr>
 
-        <button type="button" class="btn btn-info" v-on:click="submitTestTeam(null)">YES</button>
-        <button type="button" class="btn btn-danger" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
+        <button type="button" class="btn btn-primary" v-on:click="submitTestTeam(null)">YES</button>
+        <button type="button" class="btn btn-info" v-on:click="cancelTestTeam()" style="margin-left:2%;">NO</button>
       </div>
     </b-modal>
 
@@ -76,7 +136,7 @@
 
     </b-modal>
 
-    <b-modal id="modal-activeTeams" centered size="xl" v-bind:hide-footer="true">
+    <b-modal id="modal-activeTeams" centered size="xl" v-bind:hide-footer="true" :title="teamNameDisplay">
       <table class="table">
         <tr>
           <th>Team Name</th>
@@ -84,12 +144,13 @@
           <th>Test Team</th>
           <th>Battle Mode</th>
           <!-- <th v-if="battleModeTeamSession > '0' ">Battle Mode</th> -->
-          <th>VS Team Name</th>
+          <th>Battle Mode Opponent</th>
+          <th>Score</th>
         </tr>
         <tr>
           <!-- <td>{{clickedTeamName}}</td> -->
           <td>
-            <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{clickedTeamName}}</a>
+            <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{teamNameDisplay}}</a>
           </td>
           <td>
             <b-form-select v-model="clickedMission" v-on:change="changedMission($event)">
@@ -111,11 +172,17 @@
           </td>
           <td v-else>NO</td>
           <!-- <td v-if="battleModeTeamSession > '0' " style="width:40%;"> -->
-          <td style="width:40%;">
+          <td style="width:30%;">
             <b-form-select v-model="updatedBattleModeSession" v-on:change="changedBattleModeTeam($event)">
-              <option style="font-weight:bold;" value="normalMode">Convert to normal mode team</option>
-              <option v-for="item in teamList" :value="item.id" v-bind:key="item.id">{{item.Team.name}}</option>
+              <option style="font-weight:bold;" :value="null"> -- None -- </option>
+              <option v-for="item in teamList" :value="item.id" v-bind:key="item.id" style="text-transform:capitalize;">{{item.Team.name}}</option>
             </b-form-select>
+          </td>
+
+          <td style="width=20%;">
+            <button type="button" class="btn btn-outline-primary" v-on:click="updateScoreModal()">
+              Update<!-- <img src="./assets/edit.png" style="width:10%;height:10%;color:white;"/> -->
+            </button>
           </td>
         </tr>
       </table>
@@ -142,7 +209,7 @@
           <td v-else>NO</td>
           <td style="width:40%;">
             <b-form-select v-model="cloneTeamsValue" v-on:change="cloneTeams($event)">
-              <option style="font-weight:bold;" value="normalMode">Convert to normal mode team</option>
+              <option style="font-weight:bold;" value="normalMode">-- None --</option>
               <option v-for="item in teamList" :value="item.id" v-bind:key="item.id">{{item.Team.name}}</option>
             </b-form-select>
           </td>
@@ -179,19 +246,41 @@
         </b-col>
 
         <b-col lg="10">
-            <p class="teamTitle1">ACTIVE TEAMS</p>
+
+            <b-row>
+              <b-col lg="6"><p class="teamTitle1">ACTIVE TEAMS</p></b-col>
+              <b-col lg="1"></b-col>
+              <b-col lg="4">
+                <b-row>
+                  <b-col><p style="padding-top:3%;" class="h5">Select team list:</p></b-col>
+                  <b-col>
+                        <b-form-select v-model="limitTeams" class="mb-3" v-on:change="limitTeam();" title="Select teams">
+                          <!-- <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option> -->
+
+                          <b-form-select-option value="10">10</b-form-select-option>
+                          <b-form-select-option value="20">20</b-form-select-option>
+                          <b-form-select-option value="30">30</b-form-select-option>
+                          <b-form-select-option value="40">40</b-form-select-option>
+                          <b-form-select-option value="60">60</b-form-select-option>
+                        </b-form-select>
+                  </b-col>
+                </b-row>
+              </b-col>
+            </b-row>
 
             <table class="table">
               <tr style="font-size: 1.2em;text-align:left;">
-                <th style="text-align:center;">Team Name</th>
+                <th style="text-align:center;padding-right:10%;">Team Name</th>
                 <th> Mission</th>
-                <th> Time </th>
+                <th> Date </th>
                 <th> Update </th>
                 <th> Clone Team </th>
               </tr>
               <tr v-for="team in teamList" v-bind:key="team.id" style="text-align:left;">
                 <td>
-                  <p class="detailsText" style="text-transform:capitalize;">{{team.Team.name}}</p>
+                  <p class="detailsText">{{team.Team.name}} 
+                    <span v-if="team.test > '0' "><b> / T</b></span>
+                  </p>
                   <!-- <a href="#/Activeteams" @click="editTeamName()" style="text-transform:capitalize;">{{team.Team.name}}</a> -->
                 </td>
 
@@ -204,12 +293,12 @@
                 <td>
                   {{team.session_time | convertTime}}
                 </td>
-                <td>
+                <td style="padding-left:1.5%;">
                   <button type="button" class="btn btn-info" v-on:click="editTeamDetails(team.id,1)">Edit</button>
                   <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
                 </td>
 
-                <td>
+                <td style="padding-left:2.5%;">
                   <button type="button" class="btn btn-primary" v-on:click="editTeamDetails(team.id,2)">Clone</button>
                   <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
                 </td>
@@ -276,7 +365,7 @@
         clickedSessionId2:'',/** battle mode team session id **/
         testTeamSession:'',
         battleModeTeamSession:'',
-        updatedBattleModeSession:'',
+        updatedBattleModeSession:null,
         limitTeams:20,
         missions:[],
         cloneTeamsValue:[],
@@ -285,12 +374,35 @@
         clonedTeam1SessionId:'',
         updateTeamName:'',
         clickedTeamRouteId:'',
+        convertClickedTeamName:'',
+        // limitTeamList:'',
 
         /** make test session,reservation,booker,players,people,minors,team player session**/
         sessionMadeTest:'',
         tpsMadeTest:'',
         // clonedTeam2SessionId:''
         // clickedBattleModeTeam:'',
+
+        room1Score:'',
+        room2Score:'',
+        room3Score:'',
+        room4Score:'',
+        room5Score:'',
+        totalScore:'',
+
+        room1Name:'',
+        room2Name:'',
+        room3Name:'',
+        room4Name:'',
+        room5Name:'',
+
+        gameId1:'',
+        gameId2:'',
+        gameId3:'',
+        gameId4:'',
+        gameId5:'',
+
+
       }
     },
 
@@ -316,12 +428,263 @@
         if(value == null){
           return 'Empty'
         }
-        var formattime = moment(value).format('hh:mm A');
+        var formattime = moment(value).format('hh:mm A MM-DD-YYYY');
         return formattime
       },
     },
 
+    computed:{
+      checkTitle(){
+        return this.convertClickedTeamName+' Update Score';
+      },
+
+      updateTeamNameTitle(){
+        return 'Edit '+this.convertClickedTeamName;
+      },
+
+      teamNameDisplay(){
+        return this.convertClickedTeamName;
+      },
+
+      teamToTestTeam(){
+        // const lower = this.clickedTeamName.toLowerCase();
+        // return this.clickedTeamName.charAt(0).toUpperCase() + lower.slice(1);
+        return this.convertClickedTeamName+' - Convert to Test Team'
+      },
+
+      testToNormalTeam(){
+        // const lower = this.clickedTeamName.toLowerCase();
+        // return this.clickedTeamName.charAt(0).toUpperCase() + lower.slice(1);
+        return this.convertClickedTeamName+' - Convert to Normal Team'
+      }
+
+    },
+
     methods:{
+
+      updateTeamScore(){
+        console.log('update score here');
+
+        if(this.room5Score == '0'){
+          this.room5Score = 1;
+        }
+
+        this.totalScore = (parseInt(this.room1Score)+parseInt(this.room2Score)+parseInt(this.room3Score)+parseInt(this.room4Score))*parseInt(this.room5Score);
+
+      },
+
+      submitTeamScore(){
+
+        /** update score **/
+        
+        /** Room 1 update score **/
+        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId1+'/session/'+this.clickedSessionId,{
+          score: this.room1Score
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** Room 2 update score **/
+        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId2+'/session/'+this.clickedSessionId,{
+          score: this.room2Score
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** Room 3 update score **/
+        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId3+'/session/'+this.clickedSessionId,{
+          score: this.room3Score
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** Room 4 update score **/
+        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId4+'/session/'+this.clickedSessionId,{
+          score: this.room4Score
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** Room 5 Update Score **/
+        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId5+'/session/'+this.clickedSessionId,{
+          score: this.room5Score
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** Total Score update on session table **/
+        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+          total_score: this.totalScore
+        })
+        .then(response => {
+          this.totalScore = response.data.total_score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        /** end of update score **/
+
+        this.$bvModal.hide('modal-teamScore');
+      },
+
+      hideTeamScore(){
+        this.$bvModal.hide('modal-teamScore');
+      },
+
+      updateScoreModal(){
+        this.$bvModal.show('modal-teamScore');
+
+        console.log(this.clickedSessionId);
+        console.log(this.clickedTeamName);
+        console.log(this.clickedMission);
+
+        if(this.clickedMission == '1'){
+          var gameIdRoom1 = '1';
+          var gameIdRoom2 = '2';
+          var gameIdRoom3 = '3';
+          var gameIdRoom4 = '4';
+          var gameIdRoom5 = '5';
+
+          this.gameId1 = gameIdRoom1;
+          this.gameId2 = gameIdRoom2;
+          this.gameId3 = gameIdRoom3;
+          this.gameId4 = gameIdRoom4;
+          this.gameId5 = gameIdRoom5;
+
+          this.room1Name = 'Hack Attack';
+          this.room2Name = 'Laser Maze';
+          this.room3Name = 'Echo Chamber';
+          this.room4Name = 'Floor Grid';
+          this.room5Name = 'Cyberbot';
+
+        }
+
+        if(this.clickedMission == '2'){
+          gameIdRoom1 = '11';
+          gameIdRoom2 = '12';
+          gameIdRoom3 = '13';
+          gameIdRoom4 = '14';
+          gameIdRoom5 = '15';
+
+          this.gameId1 = gameIdRoom1;
+          this.gameId2 = gameIdRoom2;
+          this.gameId3 = gameIdRoom3;
+          this.gameId4 = gameIdRoom4;
+          this.gameId5 = gameIdRoom5;
+
+          this.room1Name = 'Sequencer';
+          this.room2Name = 'Cryto Laser';
+          this.room3Name = 'Mad Dash';
+          this.room4Name = 'Low Battery';
+          this.room5Name = 'Block Monster';
+        }
+
+        axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom1,{
+
+        })
+        .then(response => {
+          console.log(response);
+          this.room1Score = response.data.score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom2,{
+
+        })
+        .then(response => {
+          console.log(response);
+          this.room2Score = response.data.score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom3,{
+
+        })
+        .then(response => {
+          console.log(response);
+          this.room3Score = response.data.score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom4,{
+
+        })
+        .then(response => {
+          console.log(response);
+          this.room4Score = response.data.score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom5,{
+
+        })
+        .then(response => {
+          console.log(response);
+          this.room5Score = response.data.score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** end point below will check on total score **/
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+
+        })
+        .then(response => {
+          this.totalScore = response.data.total_score;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        /** end of total score endpoint **/
+
+      },
+
+      limitTeam(){
+        console.log('select '+this.limitTeams+' list to display.');
+        var limit = this.limitTeams;
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/recent_teams/limit/'+limit,{
+
+        })
+        .then(response => {
+          // console.log(response);
+          this.teamList = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
 
       updateAsTestTeam(clickedSessionId,getValue){
         console.log(clickedSessionId);
@@ -836,7 +1199,8 @@
       changedBattleModeTeam(event){
         console.log(event);
 
-        if(event == 'normalMode'){ /** change battle mode into normal mode **/
+        if(event == null){ /** change battle mode into normal mode **/
+          console.log('its a normal team');
           this.changedIntoNormalTeam();
         }
 
@@ -963,6 +1327,9 @@
           console.log(response);
           // this.teamList = response.data;
           this.clickedTeamName = response.data.Team.name;
+
+          this.convertClickedTeamName = this.clickedTeamName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+
           this.clickedMission = response.data.mission_id;
           this.testTeamSession = response.data.test;
           this.battleModeTeamSession = response.data.team_vs_team_id;
@@ -1025,7 +1392,7 @@
   font-family: 'Pixel Digivolve Cyrillic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: right;
   font-size: 2em;
 }
 
@@ -1037,7 +1404,15 @@
 
 .detailsText{
   color: black;
-  text-align: center;
   font-size: 17px;
+  padding-left: 20%;
+  text-transform:uppercase;
+  text-align:left;
 }
+
+.borderless tr td {
+    border: none !important;
+    padding: 0px !important;
+}
+
 </style>
