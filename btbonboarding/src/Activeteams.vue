@@ -960,7 +960,7 @@
         // this.$bvModal.show('modal-success');
         // this.reloadFuntion();
 
-        if(this.clonedTPS1[0].reservation_id > '0' && this.clonedTPS1[0].team_id > '0'){
+        if(this.clonedTPS1[0].team_id > '0'){
 
           axios.post(process.env.VUE_APP_DATABASE_SESSIONS,{
               location_id: 1,
