@@ -3,6 +3,26 @@
 
     <br><br>
 
+    <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true" title="Message">
+      Updating data and reloading the page.
+    </b-modal>
+
+    <b-modal id="modal-teamStatus" centered size="md" v-bind:hide-footer="true" title="Message">
+      
+      You are deactivating team. Are you sure?
+
+      <br><br>
+      <b-row>
+      <b-col>
+
+        <button type="button" class="btn btn-primary" v-on:click="deactivateTeam()">Yes</button>
+      </b-col>
+      <b-col>
+        <button type="button" class="btn btn-info" v-on:click="cancelTeamName()">No</button>
+      </b-col>
+    </b-row>
+    </b-modal>
+
     <div>
       <b-row>
         <b-col lg="2">
@@ -24,42 +44,31 @@
         </b-col>
 
         <b-col lg="10">
-            <p class="teamTitle1">TEAMS ON DECK</p>
-            <hr>
-            <b-container class="bv-example-row">
+            <p class="teamTitle1" style="text-align:center;">TEAMS ON DECK</p>
 
-              <b-row>
+            <table class="table">
+              <tr>
+                <th> Team Name </th>
+                <th> Team Size </th>
+                <th> Active/Deactivate </th>
+              </tr>
 
-                <b-col><p class="teamTitle1"> TEAM NAME </p></b-col>
-                <b-col><p class="teamTitle1"> TEAM SIZE </p></b-col>
-
-              </b-row>
-
-              <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
-                <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team.name}}
+              <tr v-for="team in teamList" v-bind:key="team.id">
+                <td>
+                  <p v-if="team.Session_game_scores == '' " style="text-transform:capitalize;">{{team.Team.name}}
                     <span v-if="team.team_vs_team_id > '0'" style="font-weight: lighter;"> vs {{team.Team_vs_team.Team.name}} </span>
                   </p>
-                </b-col>
+                </td>
+                <td>
+                  <p v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
+                </td>
+                <td>
+                  <b-button class="btn btn-info" v-if="team.active == '1' " @click="changeTeamStatus(team.id)">De-activate</b-button>
+                  <!-- <b-button v-if="team.active == '2' ">Deactive</b-button> -->
+                </td>
+              </tr>
 
-<!--                 <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == ''">{{team.player_count}}</p>
-                </b-col> -->
-
-                <b-col>
-                  <p class="teamList" v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
-                </b-col>
-
-                <!-- <b-col>
-                  <div v-if="team.Session_game_scores == '' ">
-                    <p class="teamList" v-if="team.Team_player_sessions.length == team.player_count" style='color:green;'>&#9989;</p>
-                    <p v-else>&#10060;</p>
-                  </div>
-                </b-col> -->
-
-              </b-row>
-
-            </b-container>
+            </table>
         </b-col>
       </b-row>
     </div>
@@ -111,7 +120,9 @@
     data(){
       return{
         teamname: [],
-        teamList: []
+        teamList: [],
+        clickedSessionId: '',
+        teamClicked:'',
       }
     },
 
@@ -126,6 +137,52 @@
       .catch(function (error) {
         console.log(error);
       });
+    },
+
+    methods:{
+      changeTeamStatus(data){
+        console.log(data);
+
+        this.clickedSessionId = data;
+
+        console.log('clicked status');
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+data,{
+
+        })
+        .then(response => {
+          this.teamClicked = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        this.$bvModal.show('modal-teamStatus');
+
+      },
+      deactivateTeam(){
+        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+          active: null
+        })
+        .then(response => {
+          // this.teamClicked = response.data;
+          console.log(response.data);
+          this.$bvModal.hide('modal-teamStatus');
+          this.$bvModal.show('modal-success');
+          this.reloadFuntion();
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      reloadFuntion(){
+        setTimeout(function(){
+         window.location.reload(true);
+       }, 2500);
+      },
+
     }
 
   };
