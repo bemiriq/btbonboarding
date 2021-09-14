@@ -73,36 +73,39 @@
 
           <b-row>
             <b-col>
-              <p class="teamTitle1" style="text-align:right;">TEAMS ON DECK</p>
+              <p class="teamTitle1" style="text-align:right; font-size: 2.5em;">TEAMS ON DECK</p>
             </b-col>
             <b-col>
               <b>Teams : </b><b-button class="btn btn-info" @click="teamListModal()">Active / Deactive</b-button>
             </b-col>
           </b-row>
 
-          <table class="table">
-            <tr>
-              <th> Team Name </th>
-              <th> Team Size </th>
-              <!-- <th> Active/Deactivate </th> -->
-            </tr>
+          <hr>
 
-            <tr v-for="team in teamList" v-bind:key="team.id">
-              <td>
-                <p v-if="team.Session_game_scores == '' " style="text-transform:capitalize;">{{team.Team.name}}
-                  <span v-if="team.team_vs_team_id > '0'" style="font-weight: lighter;"> vs {{team.Team_vs_team.Team.name}} </span>
-                </p>
-              </td>
-              <td>
-                <p v-if="team.Session_game_scores == '' ">{{team.Team_player_sessions.length}}</p>
-              </td>
-<!--                 <td>
-                  <b-button class="btn btn-info" v-if="team.active == '1' " @click="changeTeamStatus(team.id)">De-activate</b-button>
-                  <b-button v-if="team.active == '2' ">Deactive</b-button>
-                </td> -->
-              </tr>
+          <b-container class="bv-example-row">
 
-            </table>
+              <b-row>
+
+                <b-col><p class="teamTitle1" style="text-align:left;"> TEAM NAME </p></b-col>
+                <b-col><p class="teamTitle1"  style="text-align:left;"> TEAM SIZE </p></b-col>
+
+              </b-row>
+
+              <b-row class="teamName" v-for="team in teamList" v-bind:key="team.id">
+                <b-col>
+                  <p class="teamList" v-if="team.Session_game_scores == '' " style="text-align:left;">{{team.Team.name}}
+                    <span v-if="team.team_vs_team_id > '0'" style="font-weight: lighter;text-align:left;"> vs {{team.Team_vs_team.Team.name}} </span>
+                  </p>
+                </b-col>
+
+                <b-col>
+                  <p class="teamList" v-if="team.Session_game_scores == '' " style="text-align:left;padding-left:15%;">{{team.Team_player_sessions.length}}</p>
+                </b-col>
+
+              </b-row>
+
+            </b-container>
+          
           </b-col>
         </b-row>
       </div>
@@ -308,7 +311,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    font-size: 2em;
+    font-size: 1em;
   }
 
   .teamList{

@@ -172,7 +172,7 @@
           <b-col lg="10">
           <b-row>
             <b-col>
-              <p class="teamTitle1">TEAM DETAILS</p>
+              <p class="teamDetailsTitle">TEAM DETAILS</p>
           
           <!-- <button v-on:click="clickedDownload()">
             Download photo
@@ -802,5 +802,14 @@ export default {
 .container:hover .teamMedia2 {
   opacity: 1;
 }
+
+.teamDetailsTitle{
+    color: black;
+    font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    font-size: 2em;
+  }
 
 </style>
