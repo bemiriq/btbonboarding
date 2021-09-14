@@ -170,7 +170,7 @@
       // this.startDate = startDate;
       // this.endDate = endDate;
 
-      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/10/active',{
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/'+100+'/active',{
 
       })
       .then(response => {

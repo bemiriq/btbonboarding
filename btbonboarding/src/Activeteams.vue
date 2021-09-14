@@ -649,6 +649,46 @@ export default {
           this.room5Name = 'Block Monster';
         }
 
+        if(this.clickedMission == '9'){
+          gameIdRoom1 = '11';
+          gameIdRoom2 = '12';
+          gameIdRoom3 = '13';
+          gameIdRoom4 = '14';
+          gameIdRoom5 = '15';
+
+          this.gameId1 = gameIdRoom1;
+          this.gameId2 = gameIdRoom2;
+          this.gameId3 = gameIdRoom3;
+          this.gameId4 = gameIdRoom4;
+          this.gameId5 = gameIdRoom5;
+
+          this.room1Name = 'Sequencer';
+          this.room2Name = 'Cryto Laser';
+          this.room3Name = 'Mad Dash';
+          this.room4Name = 'Low Battery';
+          this.room5Name = 'Block Monster';
+        }
+
+        if(this.clickedMission == '10'){
+          gameIdRoom1 = '11';
+          gameIdRoom2 = '12';
+          gameIdRoom3 = '13';
+          gameIdRoom4 = '14';
+          gameIdRoom5 = '15';
+
+          this.gameId1 = gameIdRoom1;
+          this.gameId2 = gameIdRoom2;
+          this.gameId3 = gameIdRoom3;
+          this.gameId4 = gameIdRoom4;
+          this.gameId5 = gameIdRoom5;
+
+          this.room1Name = 'Sequencer';
+          this.room2Name = 'Cryto Laser';
+          this.room3Name = 'Mad Dash';
+          this.room4Name = 'Low Battery';
+          this.room5Name = 'Block Monster';
+        }
+
         axios.get(process.env.VUE_APP_SESSION_GAME_SCORES+'/session/'+this.clickedSessionId+'/game/'+gameIdRoom1,{
 
         })
