@@ -16,7 +16,6 @@
         <b-button variant="info" v-on:click="hide12PlayerModal()">Close</b-button>
       </b-modal>
 
-
       <!-- same rfid value used modal -->
       <b-modal id="modal-sameReader" centered v-bind:hide-footer="true" v-bind:hide-header="true">
         <p class="warning"><b> You have already used that wristband for a player. Please use a different one.</b></p>
