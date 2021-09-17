@@ -6,8 +6,14 @@
 
     <div class="bv-example-row" id="mainContainer">
 
-      <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true">
-        Page will refresh in 3 seconds.
+      <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true" title="Success Message">
+        Completed task. Now the page will refresh in 3 seconds.
+      </b-modal>
+
+      <b-modal id="modal-morethan12players" centered size="md" v-bind:hide-footer="true" title="Message">
+        You are tyring to add more than 12 players.
+        <br><br><br>
+        <b-button variant="info" v-on:click="hide12PlayerModal()">Close</b-button>
       </b-modal>
 
 
@@ -87,8 +93,8 @@
 
         <hr>
         <b-row class="my-1" style="margin-left: 2%;">
-          <b-col sm="2"><b-button variant="primary" v-on:click="emptyBoxReload()">YES</b-button></b-col>
-          <b-col><b-button variant="info" @click="hideReloadReservationModal()">NO</b-button></b-col>
+          <b-col sm="2"><b-button variant="primary" v-on:click="emptyBoxReload()"> DONE </b-button></b-col>
+          <!-- <b-col><b-button variant="info" @click="hideReloadReservationModal()">NO</b-button></b-col> -->
         </b-row>
       </b-modal>
 
@@ -206,7 +212,7 @@
 
                               <!-- <p v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'">&#10060;</p>
                               <p v-if="releasedPlayerList[index].rfidState1 > '0'" style='color:green;'>&#9989;</p> -->
-                              <img src="./assets/nowristband.png" style="width:120%;height:100%;" v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'"/>
+                              <img src="./assets/wristband.png" style="width:120%;height:100%;" v-if="releasedPlayerList[index].rfidState1 == '' || !releasedPlayerList[index].rfidState1 > '0'"/>
                               <img src="./assets/greenWristband.png" style="width:120%;height:100%;" v-else/>
                             </b-col>
 
@@ -895,6 +901,11 @@ methods:{
     // this.checkRfidReader = 0;
   },
 
+  hide12PlayerModal(){
+    this.$root.$emit('bv::hide::modal', 'modal-morethan12players', '#btnShow');
+    // this.checkRfidReader = 0;
+  },
+
   hideModalRfidClicked(){
     this.$root.$emit('bv::hide::modal', 'modal-center', '#btnShow');
   },
@@ -1171,6 +1182,8 @@ methods:{
       console.log(this.releasedPlayerList[index]);
 
       this.releasedPlayerList.splice(index,1);
+
+      this.$bvModal.show('modal-morethan12players');
 
       this.reloadRightDiv();
 
