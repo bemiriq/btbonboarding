@@ -3,47 +3,95 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
-  <b-modal id="modal-teamMedia" centered size="xl" v-bind:hide-footer="true">
-    <br>
-    <h5 align="center" style="text-transform: capitalize;">{{team_name}} / {{teamMissionClicked}} / {{teamPlayedDateTime}} / Session Id {{clickedSessionId}}</h5>
-    <table class="table" style="text-transform:capitalize;">
-      <tr style="font-weight:bold;">
-        <td>Name</td>
-        <td>Email</td>
-        <td>Phone</td>
-        <td>Instagram</td>
-        <td>Detail</td>
-        <td>Date of birth</td>
-        <td>Play Count</td>
-        <!-- <td>Played Date</td> -->
-        <!-- <td>Played Time</td> -->
+    <b-modal id="modal-minorBookerDetails" centered size="lg" v-bind:hide-footer="true" title="Waiver Signed By">
+      <table class="table table-borderless" style="text-transform:capitalize; border: none;">
+        <tr style="font-weight:bold;">
+          <td>Name</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Instagram</td>
+          <td>Waiver Id</td>
+        </tr>
+        <tr>
+          <td style="text-transform:capitalize;">{{waiverSignedFirstName}} {{waiverSignedLastName}}</td>
+          <td>{{waiverSignedEmail}}</td>
 
-      </tr>
-      <tr v-for="item in clickedPeopleDetail" v-bind:key="item.id">
-        <td>{{item.fullName}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.phone}}</td>
-        <td>{{item.instagram}}</td>
-        <td>{{item.minor}}</td>
-        <td>{{item.date_of_birth}}</td>
-        <td>
-          <span v-if="item.play_count > '1'">R{{fetchlist1.player_repeaters}}</span>
-          <span v-if="item.bomb_beater > '0'">&nbsp; &#128163;</span>
-        </td>
-        <!-- <td>{{item.date_played}}</td> -->
-        <!-- <td>{{item.time_played_at}}</td> -->
-      </tr>
-    </table>
-    <br>
-    <h5 align="center" style="text-transform: capitalize;" v-if="teamMedia10.length > '0'">
-      <a :href="(teamMedia10)" target="_blank">
+          <td>{{waiverSignedPhone}}</td>
+
+          <td>{{waiverSignedInstagram}}</td>
+          <td>{{waiverSignedWaiverId}}</td>
+        </tr>
+      </table>
+    </b-modal>
+
+
+    <b-modal id="modal-teamMedia" centered size="xl" v-bind:hide-footer="true" title="Team's Player Detail">
+      <br>
+      <h5 align="center" style="text-transform: capitalize;">{{team_name}} / {{teamMissionClicked}} / {{teamPlayedDateTime}} / Session Id {{clickedSessionId}}</h5>
+      <br>
+      <table class="table" style="text-transform:capitalize;">
+        <tr style="font-weight:bold;">
+          <td>Player Name</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Instagram</td>
+          <td>Detail</td>
+          <td>Date of birth</td>
+          <td>Play Count</td>
+          <!-- <td>Played Date</td> -->
+          <!-- <td>Played Time</td> -->
+
+        </tr>
+        <tr v-for="(item,index) in clickedPeopleDetail" v-bind:key="item.id">
+          <td>
+            <p v-if="item.minor == 'Minor'">
+              <a href="#/Social" @click="minorNameClicked(index)" style="text-transform:capitalize;">{{item.fullName}}</a>
+            </p>
+            <p v-else>{{item.fullName}}</p>
+          </td>
+          <td>{{item.email}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.instagram}}</td>
+          <td>{{item.minor}}</td>
+          <td>{{item.date_of_birth}}</td>
+          <td>
+            <span v-if="item.play_count > '1'">R{{fetchlist1.player_repeaters}}</span>
+            <span v-if="item.bomb_beater > '0'">&nbsp; &#128163;</span>
+          </td>
+          <!-- <td>{{item.date_played}}</td> -->
+          <!-- <td>{{item.time_played_at}}</td> -->
+        </tr>
+      </table>
+      <br>
+      <h5 align="center" style="text-transform: capitalize;">Booker Detail</h5>
+      <br>
+      <table class="table">
+        <tr style="font-weight:bold;">
+          <td>Booker Name</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Instagram</td>
+        </tr>
+        <tr>
+          <td style="text-transform:capitalize;">{{bookerFirstName}} {{bookerLastName}}</td>
+          <td>{{bookerEmail}}</td>
+
+          <td>{{bookerPhone}}</td>
+
+          <td>{{bookerInstagram}}</td>
+
+        </tr>
+      </table>
+      <br>
+      <h5 align="center" style="text-transform: capitalize;" v-if="teamMedia10.length > '0'">
+        <a :href="(teamMedia10)" target="_blank">
+          Photobomb Photos/Videos
+        </a>
+      </h5>
+      <h5 align="center" style="text-transform: capitalize;" v-else>
         Photobomb Photos/Videos
-      </a>
-    </h5>
-    <h5 align="center" style="text-transform: capitalize;" v-else>
-        Photobomb Photos/Videos
-    </h5>
-    <table class="table">
+      </h5>
+      <table class="table">
       <!-- <tr>
         <td style="width:10%;">{{teamMedia0}}</td>
         <figure class="media"><iframe v-bind:src="(teamMedia0)"></iframe></figure>
@@ -92,35 +140,35 @@
       </tr>
 
       <tr>
-        
-        <td>
-          <figure class="container media">
-            <video style="height:100%;width:100%;" controls>
-            <source :src="(teamMedia1)" type="video/mp4">
-          </video>
-          </figure>
-        </td>
 
         <td>
           <figure class="container media">
             <video style="height:100%;width:100%;" controls>
-            <source :src="(teamMedia9)" type="video/mp4">
-          </video>
-          </figure>
-        </td>
+              <source :src="(teamMedia1)" type="video/mp4">
+              </video>
+            </figure>
+          </td>
 
-        <td>
-          <figure class="container media">
-            <img v-bind:src="(teamMedia2)" style="height:100%;width:100%;">
-          </figure>
-        </td>
-      </tr>
+          <td>
+            <figure class="container media">
+              <video style="height:100%;width:100%;" controls>
+                <source :src="(teamMedia9)" type="video/mp4">
+                </video>
+              </figure>
+            </td>
 
-      <tr>
-        <h5>
-          <a :href="(teamMedia0)" target="_blank">Download Scoresheet</a>
-        </h5>
-      </tr>
+            <td>
+              <figure class="container media">
+                <img v-bind:src="(teamMedia2)" style="height:100%;width:100%;">
+              </figure>
+            </td>
+          </tr>
+
+          <tr>
+            <h5>
+              <a :href="(teamMedia0)" target="_blank">Download Scoresheet</a>
+            </h5>
+          </tr>
 
      <!--  <tr>
         <td style="width:10%;">{{teamMedia4}}</td>
@@ -143,48 +191,48 @@
     </table>
   </b-modal>
 
-    <div class="bv-example-row" style="width: 80%;margin:auto;">
-      <b-row>
-        <!-- start of the left div which has navigation menu -->
-        <b-col lg="2">
+  <div class="bv-example-row" style="width: 80%;margin:auto;">
+    <b-row>
+      <!-- start of the left div which has navigation menu -->
+      <b-col lg="2">
 
-          <b-list-group class="leftMenuDiv">
-            <b-list-group-item href="/#/users">Check-In</b-list-group-item>
-            <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
-            <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-            <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
-            <b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
-            <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-            <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
-            <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-            <b-list-group-item href="/#/Social" active>Social Tagging</b-list-group-item>
-            <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
-            <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
-          </b-list-group>
+        <b-list-group class="leftMenuDiv">
+          <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+          <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
+          <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+          <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
+          <b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
+          <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+          <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
+          <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
+          <b-list-group-item href="/#/Social" active>Social Tagging</b-list-group-item>
+          <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
+          <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
+        </b-list-group>
 
-        </b-col>
-        <!-- end of navigation menu on left side -->
+      </b-col>
+      <!-- end of navigation menu on left side -->
 
 
-        <!-- SIDE A status screen -->
-        <!-- start of right div which consists of table with all details -->
-        <!-- <b-col lg="10" style="background-color:#fafafa; font-weight: bold;" v-show="sideAdiv"> -->
-          <b-col lg="10">
+      <!-- SIDE A status screen -->
+      <!-- start of right div which consists of table with all details -->
+      <!-- <b-col lg="10" style="background-color:#fafafa; font-weight: bold;" v-show="sideAdiv"> -->
+        <b-col lg="10">
           <b-row>
             <b-col>
               <p class="teamDetailsTitle">TEAM DETAILS</p>
-          
+
           <!-- <button v-on:click="clickedDownload()">
             Download photo
           </button>
 
-            <a href="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" target="_blank" download> DOWNLOAD </a> -->
+          <a href="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" target="_blank" download> DOWNLOAD </a> -->
 
-            </b-col>
+        </b-col>
 
-          </b-row>
-          <br>
-          <b-row>
+      </b-row>
+      <br>
+      <b-row>
             <!-- <b-col lg="3">
               <b-input-group class="mb-1">
                 <b-form-input id="example-input" v-model="dateClicked" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
@@ -204,12 +252,12 @@
             </b-col> -->
 
             
-          <b-col lg="3">
-            <b-input-group size="md">
-            <b-form-input id="input-large" size="md" placeholder="Search for team name ... " v-on:change="searchTeam($event)" v-model="searchedText"></b-form-input>
+            <b-col lg="3">
+              <b-input-group size="md">
+                <b-form-input id="input-large" size="md" placeholder="Search for team name ... " v-on:change="searchTeam($event)" v-model="searchedText"></b-form-input>
 
-            </b-input-group>
-          </b-col>
+              </b-input-group>
+            </b-col>
 
             <b-col lg="3">
               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
@@ -218,19 +266,19 @@
 
 
           <b-col>
-              <!-- opended pagination div -->
-              <div class="overflow-auto">
-                <b-table id="my-table" :items="searchTeamName" :per-page="perPage" :current-page="currentPage" medium :fields="fields" style="text-align:left;">
-                  
-                  <template #cell(team_name)="data">
-                    <a href="#/Social" @click="teamNameClicked(data.item.session_id)" style="text-transform:capitalize;">{{data.item.team_name}}</a>
-                  </template>
-                  
-                  
-                </b-table>
-              </div>
-              <!-- end of pagination div -->
-            </b-col>
+            <!-- opended pagination div -->
+            <div class="overflow-auto">
+              <b-table id="my-table" :items="searchTeamName" :per-page="perPage" :current-page="currentPage" medium :fields="fields" style="text-align:left;">
+
+                <template #cell(team_name)="data">
+                  <a href="#/Social" @click="teamNameClicked(data.item.session_id)" style="text-transform:capitalize;">{{data.item.team_name}}</a>
+                </template>
+
+
+              </b-table>
+            </div>
+            <!-- end of pagination div -->
+          </b-col>
 
           <!-- try pagination -->
 
@@ -243,29 +291,29 @@
     <br/>
     <br/>
 
-        <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
+    <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
-          <b-row>
-            <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
-            <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
-            <b-col>On Deck</b-col>
-            <!-- <b-col>Room Status</b-col> -->
-            <b-col>CCTV</b-col>
-            <b-col><a href="/#/controlroom">Control Room</a></b-col>
-            <b-col>Photo Bomb</b-col>
-            <b-col>Bomb Vision</b-col>
-            <b-col>Stats</b-col>
-            <b-col>Support</b-col>
-            <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
-            <b-col>Photo Bomb</b-col>
-            <!-- <b-col> | </b-col> -->
-            <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
-            <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
-            <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
+      <b-row>
+        <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+        <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
+        <b-col>On Deck</b-col>
+        <!-- <b-col>Room Status</b-col> -->
+        <b-col>CCTV</b-col>
+        <b-col><a href="/#/controlroom">Control Room</a></b-col>
+        <b-col>Photo Bomb</b-col>
+        <b-col>Bomb Vision</b-col>
+        <b-col>Stats</b-col>
+        <b-col>Support</b-col>
+        <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+        <b-col>Photo Bomb</b-col>
+        <!-- <b-col> | </b-col> -->
+        <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
+        <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+        <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
 
-          </b-row>
+      </b-row>
 
-        </div>
+    </div>
 
     <br/>
 
@@ -284,7 +332,7 @@ export default {
   name: 'App',
   components: {
     // HelloWorld
-},
+  },
 
   data(){
     return{
@@ -310,10 +358,55 @@ export default {
       teamMedia10:'', /** gets pthobomb url from session_media_assets 14 **/
       clickedPeopleDetail:[], /** gathers up all the player name detail from the session id clicked **/
       clickedSessionId:'',
+      // bookerDetail:[],
+      bookerFirstName:'',
+      bookerLastName:'',
+      bookerInstagram:'',
+      bookerEmail:'',
+      bookerPhone:'',
+
+      minorWaiverSigned:[],
+      waiverSignedFirstName:'',
+      waiverSignedLastName:'',
+      waiverSignedEmail:'',
+      waiverSignedInstagram:'',
+      waiverSignedPhone:'',
+      waiverSignedWaiverId:'',
+
     }
   },
 
   methods: {
+
+    minorNameClicked(index){
+      console.log('minor name clicked');
+      
+      console.log(this.clickedPeopleDetail[index]);
+      var playerId = this.clickedPeopleDetail[index].player_id;
+
+      axios.get(process.env.VUE_APP_DATABASE_PLAYERS+playerId,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        this.minorWaiverSigned = response.data;
+
+        this.waiverSignedFirstName = response.data.Person.first_name;
+        this.waiverSignedLastName = response.data.Person.last_name;
+        this.waiverSignedEmail = response.data.Person.email;
+        this.waiverSignedPhone = response.data.Person.phone;
+        this.waiverSignedInstagram = response.data.Person.instagram;
+        this.waiverSignedWaiverId = response.data.Person.waiver_id;
+
+        this.$bvModal.show('modal-minorBookerDetails');
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    },
 
     clickedDownload(value){
       console.log('clicked Download');
@@ -372,19 +465,19 @@ export default {
       // document.body.removeChild(a);
 
       axios({
-                    url: fileName,
-                    method: 'GET',
-                    responseType: 'blob',
-                }).then((response) => {
-                     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                     var fileLink = document.createElement('a');
+        url: fileName,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+       var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+       var fileLink = document.createElement('a');
 
-                     fileLink.href = fileURL;
-                     fileLink.setAttribute('download', 'media.jpg');
-                     document.body.appendChild(fileLink);
+       fileLink.href = fileURL;
+       fileLink.setAttribute('download', 'media.jpg');
+       document.body.appendChild(fileLink);
 
-                     fileLink.click();
-                });
+       fileLink.click();
+     });
     },
 
     searchTeam(event){
@@ -402,56 +495,74 @@ export default {
 
       })
       .then(response => 
+      {
+        console.log(response);
+
+        var teamId = response.data[0].id;
+
+        console.log(teamId);
+
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/search_team_id/'+teamId,{
+
+        })
+        .then(response => 
         {
-          console.log(response);
+          if(response.data.length > '0'){
 
-          var teamId = response.data[0].id;
+            console.log('total team with that id are '+response.data.length);
+            console.log(response.data);
 
-          console.log(teamId);
+            var totalTeamId = response.data.length;
 
+            for (var i = 0; i < totalTeamId; i++) {
 
-          axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/search_team_id/'+teamId,{
+              var sessionId = response.data[i].id;
+              var missionId = response.data[i].mission_id;
 
-          })
-          .then(response => 
-            {
-              if(response.data.length > '0'){
-                
-                console.log('total team with that id are '+response.data.length);
-                console.log(response.data);
+              if(missionId == '1'){
+                var missionName = 'Cyberbot';
+              }
+              if(missionId == '2'){
+                var missionName = 'Block Monster';
+              }
+              if(missionId == '3'){
+                var missionName = 'Cyberbot Pro';
+              }
+              if(missionId == '4'){
+                var missionName = 'Cyberbot Halloween';
+              }
+              if(missionId == '5'){
+                var missionName = 'Game Bay Mini Mission';
+              }
+              if(missionId == '6'){
+                var missionName = 'Game Bay Floor grid bonanza';
+              }
+              if(missionId == '7'){
+                var missionName = 'Game Bay No RFID games';
+              }
+              if(missionId == '8'){
+                var missionName = 'Block Monster 5min Qualifier';
+              }
+              if(missionId == '9'){
+                var missionName = 'Block Monster 5min Semi Final';
+              }
+              if(missionId == '10'){
+                var missionName = 'Block Monster 5min Final';
+              }
 
-                var totalTeamId = response.data.length;
+              var playedDate = moment(response.data[i].session_time).format('MM-DD-YYYY');
+              var playedTime = moment(response.data[i].session_time).format('hh:mm A');
 
-                for (var i = 0; i < totalTeamId; i++) {
+              var teamDetail = {
+                "team_name":teamName,
+                "session_id":sessionId,
+                "mission":missionName,
+                "date_played":playedDate,
+                "time_played": playedTime
+              }
 
-                  var sessionId = response.data[i].id;
-                  var missionId = response.data[i].mission_id;
-
-                  if(missionId == '1'){
-                    var missionName = 'Cyberbot';
-                  }
-                  if(missionId == '2'){
-                    var missionName = 'Block Monster';
-                  }
-                  if(missionId == '3'){
-                    var missionName = 'Cyberbot Pro';
-                  }
-                  if(missionId == '4'){
-                    var missionName = 'Cyberbot Halloween';
-                  }
-
-                  var playedDate = moment(response.data[i].session_time).format('MM-DD-YYYY');
-                  var playedTime = moment(response.data[i].session_time).format('hh:mm A');
-
-                  var teamDetail = {
-                    "team_name":teamName,
-                    "session_id":sessionId,
-                    "mission":missionName,
-                    "date_played":playedDate,
-                    "time_played": playedTime
-                  }
-
-                  this.searchTeamName.push(teamDetail);
+              this.searchTeamName.push(teamDetail);
 
                   // if(i+1 == totalSearchedText){
                   //   var v = this;
@@ -470,13 +581,13 @@ export default {
                 console.log('Team Name not found');
               }
 
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+            })
+        .catch(function (error) {
+          console.log(error);
+        });
 
 
-        })
+      })
       .catch(function (error) {
         console.log(error);
       });
@@ -502,18 +613,41 @@ export default {
       this.teamMedia9 = [];
       this.teamMedia10 = []; /** gets pthobomb url from session_media_assets 14 **/
 
-      this.team_name = this.searchedText;
+      // this.team_name = this.searchedText;
 
       this.teamPlayedDateTime = '';
       this.teamMissionClicked = '';
 
       console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/'+clickedSessionId);
 
+
+      /** booker details **/
+      axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/booker_detail/'+clickedSessionId,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        // this.bookerDetail = response.data[0];
+
+        this.bookerFirstName = response.data[0].Reservation.Booker.Person.first_name;
+        this.bookerLastName = response.data[0].Reservation.Booker.Person.last_name;
+        this.bookerEmail = response.data[0].Reservation.Booker.Person.email;
+        this.bookerInstagram = response.data[0].Reservation.Booker.Person.instagram;
+        this.bookerPhone = response.data[0].Reservation.Booker.Person.phone;
+        this.team_name = response.data[0].Team.name;
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
       axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+clickedSessionId,{
 
-          })
-          .then(response => 
-          {
+      })
+      .then(response => 
+      {
             // console.log(response);
 
             if(response.data.mission_id == '1'){
@@ -533,22 +667,22 @@ export default {
             this.teamPlayedDateTime = moment(response.data.updatedAt).format('MM-DD-YYYY H:mm A');
 
           })
-          .catch(function (error) {
-            console.log(error);
-          });
+      .catch(function (error) {
+        console.log(error);
+      });
 
       axios.get(process.env.VUE_APP_SESSION_MEDIA_ASSETS+'/session/'+clickedSessionId,{
 
-          })
-          .then(response => 
-          {
-            console.log(response);
-            console.log(response.data.length);
+      })
+      .then(response => 
+      {
+        console.log(response);
+        console.log(response.data.length);
 
-            var clickedSessionIdLength = response.data.length;
+        var clickedSessionIdLength = response.data.length;
 
-            for (var i = 0; i < clickedSessionIdLength; i++) {
-              
+        for (var i = 0; i < clickedSessionIdLength; i++) {
+
               // valueName[i] == response.data[i].s3_url;
 
               this['teamMedia'+i] = response.data[i].s3_url;
@@ -564,27 +698,27 @@ export default {
             }
 
             /** grabs all the team player session under that session id **/ 
-                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/session/'+clickedSessionId,{
+            axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/session/'+clickedSessionId,{
 
-                })
-                .then(response => 
-                {
-                  console.log(response.data);
-                  console.log(response.data.length);
+            })
+            .then(response => 
+            {
+              console.log(response.data);
+              console.log(response.data.length);
 
-                  for (var i = 0; i < response.data.length; i++) {
+              for (var i = 0; i < response.data.length; i++) {
 
-                    var totalPeopleInTeam = response.data.length;
+                var totalPeopleInTeam = response.data.length;
 
-                    console.log(response.data[i].Player.person_id);
+                console.log(response.data[i].Player.person_id);
 
-                    var bomb_beater = response.data[i].Player.bomb_beater;
-                    var last_played_date = moment(response.data[i].Player.updatedAt).format('MM-DD-YYYY');
-                    var last_played_time = moment(response.data[i].Player.updatedAt).format('H:mm A');
-                    var person_id = response.data[i].Player.person_id;
-                    var play_count = response.data[i].Player.play_count;
+                var bomb_beater = response.data[i].Player.bomb_beater;
+                var last_played_date = moment(response.data[i].Player.updatedAt).format('MM-DD-YYYY');
+                var last_played_time = moment(response.data[i].Player.updatedAt).format('H:mm A');
+                var person_id = response.data[i].Player.person_id;
+                var play_count = response.data[i].Player.play_count;
 
-                    console.log('bomb beater '+bomb_beater);
+                console.log('bomb beater '+bomb_beater);
                     // console.log('last played '+last_played);
                     console.log('person id '+person_id);
                     console.log('play count '+play_count);
@@ -636,7 +770,8 @@ export default {
                       var minor_play_count = response.data[i].Player_minor.play_count;
                       var minor_last_played_date = moment(response.data[i].Player_minor.updatedAt).format('MM-DD-YYYY');
                       var minor_last_played_time = moment(response.data[i].Player_minor.updatedAt).format('H:mm A');
-
+                      var minor_id = response.data[i].Player_minor.id;
+                      var signed_player_id = response.data[i].Player_minor.player_id;
                       var minorDetail = {
                         "fullName" : minor_first_name+' '+minor_last_name,
                         "date_of_birth" : minor_date_of_birth,
@@ -646,117 +781,131 @@ export default {
                         "instagram" : ' ',
                         "phone" : ' ',
                         "email" : ' ',
-                        "minor" : 'Minor'
+                        "minor" : 'Minor',
+                        "player_minor_id": minor_id,
+                        "player_id": signed_player_id
                       }
 
-                        this.clickedPeopleDetail.push(minorDetail);
+                      this.clickedPeopleDetail.push(minorDetail);
 
                     } 
                     
                     if(i == totalPeopleInTeam-1){
                       // console.log('open the modal');
                       this.$bvModal.show('modal-teamMedia'); /** this will open the modal **/
-            
+
                     }
 
                   }
                 })
-                .catch(function (error) {
-                  console.log(error);
-                });
-                /** end of Team Player Session Detail **/
+.catch(function (error) {
+  console.log(error);
+});
+/** end of Team Player Session Detail **/
 
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
+},
+
+
+mounted: function(){
+
+  console.log('load the most recent teams');
+
+  var startDate = moment().subtract(1,'days').format('YYYY-MM-DD');
+  var endDate = moment().add(1,'days').format('YYYY-MM-DD');
+  var limit = '20';
+
+  console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/completed_recent_team/start/'+startDate+'/end/'+endDate+'/limit/'+limit);
+
+  axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/recent_teams/limit/'+limit,{
+  // axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed_recent_team/start/'+startDate+'/end/'+endDate+'/limit/'+limit,{
+
+  })
+  .then(response => 
+  {
+    if(response.data.length > '0'){
+
+      console.log('total team with that id are '+response.data.length);
+      console.log(response.data);
+
+      var totalTeamId = response.data.length;
+
+      for (var i = 0; i < totalTeamId; i++) {
+
+        var sessionId = response.data[i].id;
+        var missionId = response.data[i].mission_id;
+
+        if(missionId == '1'){
+          var missionName = 'Cyberbot';
+        }
+        if(missionId == '2'){
+          var missionName = 'Block Monster';
+        }
+        if(missionId == '3'){
+          var missionName = 'Cyberbot Pro';
+        }
+        if(missionId == '4'){
+          var missionName = 'Cyberbot Halloween';
+        }
+        if(missionId == '5'){
+          var missionName = 'Game Bay Mini Mission';
+        }
+        if(missionId == '6'){
+          var missionName = 'Game Bay Floor grid bonanza';
+        }
+        if(missionId == '7'){
+          var missionName = 'Game Bay No RFID games';
+        }
+        if(missionId == '8'){
+          var missionName = 'Block Monster 5min Qualifier';
+        }
+        if(missionId == '9'){
+          var missionName = 'Block Monster 5min Semi Final';
+        }
+        if(missionId == '10'){
+          var missionName = 'Block Monster 5min Final';
+        }
+
+        var teamName = response.data[i].Team.name;
+        var playedDate = moment(response.data[i].session_time).format('MM-DD-YYYY');
+        var playedTime = moment(response.data[i].session_time).format('hh:mm A');
+
+        // this.team_name = teamName;
+
+        var teamDetail = {
+          "team_name":teamName,
+          "session_id":sessionId,
+          "mission":missionName,
+          "date_played":playedDate,
+          "time_played": playedTime
+        }
+
+        this.searchTeamName.push(teamDetail);
+
+      }
+
+
     }
-  },
+    else{
+      console.log('Team Name not found');
+    }
 
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
-  mounted: function(){
+},
 
-    console.log('load the most recent teams');
-
-    var startDate = moment().subtract(1,'days').format('YYYY-MM-DD');
-    var endDate = moment().add(1,'days').format('YYYY-MM-DD');
-    var limit = '20';
-
-    console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/completed_recent_team/start/'+startDate+'/end/'+endDate+'/limit/'+limit);
-
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/completed_recent_team/start/'+startDate+'/end/'+endDate+'/limit/'+limit,{
-
-          })
-          .then(response => 
-            {
-              if(response.data.length > '0'){
-                
-                console.log('total team with that id are '+response.data.length);
-                console.log(response.data);
-
-                var totalTeamId = response.data.length;
-
-                for (var i = 0; i < totalTeamId; i++) {
-
-                  var sessionId = response.data[i].id;
-                  var missionId = response.data[i].mission_id;
-
-                  if(missionId == '1'){
-                    var missionName = 'Cyberbot';
-                  }
-                  if(missionId == '2'){
-                    var missionName = 'Block Monster';
-                  }
-                  if(missionId == '3'){
-                    var missionName = 'Cyberbot Pro';
-                  }
-                  if(missionId == '4'){
-                    var missionName = 'Cyberbot Halloween';
-                  }
-
-                  var teamName = response.data[i].Team.name;
-                  var playedDate = moment(response.data[i].session_time).format('MM-DD-YYYY');
-                  var playedTime = moment(response.data[i].session_time).format('hh:mm A');
-
-                  var teamDetail = {
-                    "team_name":teamName,
-                    "session_id":sessionId,
-                    "mission":missionName,
-                    "date_played":playedDate,
-                    "time_played": playedTime
-                  }
-
-                  this.searchTeamName.push(teamDetail);
-
-                  // if(i+1 == totalSearchedText){
-                  //   var v = this;
-                  //   console.log(this.searchedPeopleId);
-                  //   setTimeout(function(){
-                  //     console.log(v.searchedPeopleId);
-                  //     console.log(v.getPersonDetail());
-                  //     console.log('yes yes'); }, 1000);
-                  // }
-
-                }
-
-
-              }
-              else{
-                console.log('Team Name not found');
-              }
-
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
-  },
-
-  computed: {
-    rows() {
-       return this.searchTeamName.length
-    },
-  },  
+computed: {
+  rows() {
+   return this.searchTeamName.length
+ },
+},  
 
 };
 </script>
@@ -804,12 +953,12 @@ export default {
 }
 
 .teamDetailsTitle{
-    color: black;
-    font-family: 'Pixel Digivolve Cyrillic', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    font-size: 2em;
-  }
+  color: black;
+  font-family: 'Pixel Digivolve Cyrillic', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-size: 2em;
+}
 
 </style>
