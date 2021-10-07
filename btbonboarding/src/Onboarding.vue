@@ -1493,8 +1493,8 @@
                                 <b-col>
 
                                   <div v-if="fetchPlayerList[index].active != '1'">
-                                    <!-- <b-button block v-if="disableButton7 == false" variant="primary" disabled>Ready to play</b-button> -->
-                                    <b-button block variant="primary" v-on:click="previousButtonActivateTeam($event, index)">Ready to play</b-button>
+                                    <!-- <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button> -->
+                                    <b-button block variant="primary" v-on:click="previousButtonActivateTeam($event, index)">Send To Waitlist</b-button>
                                   </div>
                                   <div v-else>
                                     <b-button block variant="warning" v-on:click="previousButtonRemoveWaitlist($event, index)">Remove Waitlist</b-button>
@@ -1681,8 +1681,8 @@
                                 <b-col>
 
                                   <div v-if="fetchPlayerList[index].active != '1'">
-                                    <!-- <b-button block v-if="disableButton7 == false" variant="primary" disabled>Ready to play</b-button> -->
-                                    <b-button block variant="primary" v-on:click="previousButtonActivateTeam($event, index)">Ready to play</b-button>
+                                    <!-- <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button> -->
+                                    <b-button block variant="primary" v-on:click="previousButtonActivateTeam($event, index)">Send To Waitlist</b-button>
                                   </div>
                                   <div v-else>
                                     <b-button block variant="warning" v-on:click="previousButtonRemoveWaitlist($event, index)">Remove Waitlist</b-button>
@@ -1947,9 +1947,9 @@
                           <b-col>
 
                             <div v-if="removeWaitlist0 == false">
-                              <b-button block v-if="disableButton0 == false" variant="primary" disabled>Ready to play</b-button>
-                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Ready to play</b-button>
-                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                              <b-button block v-if="disableButton0 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 10)">Send To Waitlist</b-button>
+                              <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                             </div>
                             <div v-else>
                               <b-button block variant="warning" v-on:click="removeWaitingList($event, 0)">Remove Waitlist</b-button>
@@ -2223,9 +2223,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist1 == false">
-                            <b-button block v-if="disableButton1 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton1 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 11)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 1)">Remove Waitlist</b-button>
@@ -2486,9 +2486,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist2 == false">
-                            <b-button block v-if="disableButton2 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton2 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 12)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 2)">Remove Waitlist</b-button>
@@ -2745,9 +2745,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist3 == false">
-                            <b-button block v-if="disableButton3 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton3 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 13)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 3)">Remove Waitlist</b-button>
@@ -3012,9 +3012,9 @@
                           <b-col>
 
                             <div v-if="removeWaitlist4 == false">
-                              <b-button block v-if="disableButton4 == false" variant="primary" disabled>Ready to play</b-button>
-                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Ready to play</b-button>
-                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                              <b-button block v-if="disableButton4 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 14)">Send To Waitlist</b-button>
+                              <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                             </div>
                             <div v-else>
                               <b-button block variant="warning" v-on:click="removeWaitingList($event, 4)">Remove Waitlist</b-button>
@@ -3262,9 +3262,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist5 == false">
-                            <b-button block v-if="disableButton5 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton5 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 15)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 5)">Remove Waitlist</b-button>
@@ -3528,9 +3528,9 @@
                           <b-col>
 
                             <div v-if="removeWaitlist6 == false">
-                              <b-button block v-if="disableButton6 == false" variant="primary" disabled>Ready to play</b-button>
-                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Ready to play</b-button>
-                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                              <b-button block v-if="disableButton6 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 16)">Send To Waitlist</b-button>
+                              <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                             </div>
                             <div v-else>
                               <b-button block variant="warning" v-on:click="removeWaitingList($event, 6)">Remove Waitlist</b-button>
@@ -3776,9 +3776,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist7 == false">
-                            <b-button block v-if="disableButton7 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton7 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 17)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 7)">Remove Waitlist</b-button>
@@ -4040,9 +4040,9 @@
                           <b-col>
 
                             <div v-if="removeWaitlist8 == false">
-                              <b-button block v-if="disableButton8 == false" variant="primary" disabled>Ready to play</b-button>
-                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Ready to play</b-button>
-                              <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                              <b-button block v-if="disableButton8 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                              <b-button block v-else variant="primary" v-on:click="activateTeam($event, 18)">Send To Waitlist</b-button>
+                              <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                             </div>
                             <div v-else>
                               <b-button block variant="warning" v-on:click="removeWaitingList($event, 8)">Remove Waitlist</b-button>
@@ -4289,9 +4289,9 @@
                         <b-col>
 
                           <div v-if="removeWaitlist9 == false">
-                            <b-button block v-if="disableButton9 == false" variant="primary" disabled>Ready to play</b-button>
-                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Ready to play</b-button>
-                            <!-- <b-button block v-else variant="primary">Ready to play</b-button> -->
+                            <b-button block v-if="disableButton9 == false" variant="primary" disabled>Send To Waitlist</b-button>
+                            <b-button block v-else variant="primary" v-on:click="activateTeam($event, 19)">Send To Waitlist</b-button>
+                            <!-- <b-button block v-else variant="primary">Send To Waitlist</b-button> -->
                           </div>
                           <div v-else>
                             <b-button block variant="warning" v-on:click="removeWaitingList($event, 9)">Remove Waitlist</b-button>
@@ -4422,24 +4422,22 @@
   <div class="bv-example-row" style="width:80%;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
     <b-row>
-      <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
-      <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
-      <b-col>On Deck</b-col>
-      <!-- <b-col>Room Status</b-col> -->
-      <b-col>CCTV</b-col>
-      <b-col><a href="/#/controlroom">Control Room</a></b-col>
-      <b-col>Photo Bomb</b-col>
-      <b-col>Bomb Vision</b-col>
-      <b-col>Stats</b-col>
-      <b-col>Support</b-col>
-      <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
-      <b-col>Photo Bomb</b-col>
-      <!-- <b-col> | </b-col> -->
-      <b-col><a href="https://app.joinhomebase.com/accounts/sign_in" target="_blank">Homebase</a></b-col>
-      <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
-      <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
+              <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+              <b-col><a href="/#/Dashboard">Dashboard</a></b-col>
+              <b-col><a href="/#/Teamwaiting">Waitlist</a></b-col>
+              <b-col><a href="/#/controlroom">Control Room</a></b-col>
+              <b-col><a href="/#/Rfid">Check Rfid</a></b-col>
+              <b-col><a href="/#/Scanmedia">Photobomb Rfid</a></b-col>
+              <b-col>Photo Bomb</b-col>
+              <b-col>Bomb Vision</b-col>
+              <b-col>Support</b-col>
+              <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+              <!-- <b-col> | </b-col> -->
+              <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
+              <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+              <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
 
-    </b-row>
+            </b-row>
 
   </div>
 
@@ -7194,7 +7192,7 @@ methods: {
                           // this['sendToWishlistClicked'+newValue] = false;
                         }
 
-                        /** this will check I for each value of rfid_id to enable/disable Ready to play button **/
+                        /** this will check I for each value of rfid_id to enable/disable SEND TO WAITLIST button **/
                         var checkRfidValue = response.data[0].Team_player_sessions[i].rfid_id;
                         if(checkRfidValue > '0'){
                           console.log('ENABLE WAITLIST');
@@ -8548,7 +8546,7 @@ add: function() {
 
           var newValue = col-10;
 
-          this["disableButton"+newValue] = false; /** this will disable the Ready to play BUTTON **/
+          this["disableButton"+newValue] = false; /** this will disable the SEND TO WAITLIST BUTTON **/
 
           // var teamPlayerSessionId = this["list"+col+"teamplayersessionid"][index];
 
@@ -8669,7 +8667,7 @@ add: function() {
       console.log(error);
     });
 
-     this["disableButton"+newCol] = false; /** this will de-activate the Ready to play button **/
+     this["disableButton"+newCol] = false; /** this will de-activate the SEND TO WAITLIST button **/
      console.log(this["disableButton"+newCol]);
 
         this['fetchPlayerList'+newCol][1].Team_player_sessions[index].rfid_id = 0; /** this will convert the RED CROSS SIGN into GREEN CHECKMARK AS

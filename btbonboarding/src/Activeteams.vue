@@ -11,7 +11,7 @@
       Updating data and reloading the page.
     </b-modal>
 
-    <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true" :title="updateTeamNameTitle">
+    <b-modal id="modal-editTeamName" centered size="md" v-bind:hide-footer="true" title="Edit Team Name">
       <b-row>
         <b-col><b>Old Team Name</b></b-col>
         <b-col lg="8">{{teamNameDisplay}}</b-col>
@@ -23,10 +23,10 @@
       </b-row>
       <br>
       <div style="text-align:center;margin-top:2%;">
-        <button type="button" class="btn btn-info" v-on:click="submitTeamName()" v-if="updateTeamName.length > '1'">SUBMIT</button>
-        <button type="button" class="btn btn-info" v-on:click="submitTeamName()" v-else disabled>SUBMIT</button>
+        <button type="button" class="btn btn-primary" v-on:click="submitTeamName()" v-if="updateTeamName.length > '1'">SUBMIT</button>
+        <button type="button" class="btn btn-primary" v-on:click="submitTeamName()" v-else disabled>SUBMIT</button>
 
-        <button type="button" class="btn btn-danger" v-on:click="cancelTeamName()" style="margin-left:2%;">CANCEL</button>
+        <button type="button" class="btn btn-info" v-on:click="cancelTeamName()" style="margin-left:2%;">CANCEL</button>
       </div>
     </b-modal>
 
@@ -186,6 +186,8 @@
             </td>
           </tr>
         </table>
+        <br>
+        <div><button type="button" class="btn btn-info" v-on:click="hideModalActive()" style="margin-left:1%;">DONE</button></div>
       </b-modal>
 
       <b-modal id="modal-cloneTeams" centered size="lg" v-bind:hide-footer="true">
@@ -272,7 +274,7 @@
             <tr style="font-size: 1.2em;text-align:left;">
               <th style="text-align:center;padding-right:10%;">Team Name</th>
               <th> Mission</th>
-              <th> Date </th>
+              <th> Session Start Time </th>
               <th> Update </th>
               <th> Clone Team </th>
             </tr>
@@ -300,7 +302,7 @@
                 <span v-if="team.team_vs_team_id > '0'" ><br>Battle Mode</span>
               </td>
 
-              <td>
+              <td style="padding-left:1.5%;">
                 {{team.session_time | convertTime}}
               </td>
               <td style="padding-left:1.5%;">
@@ -326,24 +328,22 @@
     <div class="bv-example-row" style="width:auto;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
       <b-row>
-        <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
-        <!-- <b-col><a href="/#/Print">Print Score</a></b-col> -->
-        <b-col>On Deck</b-col>
-        <!-- <b-col>Room Status</b-col> -->
-        <b-col>CCTV</b-col>
-        <b-col><a href="/#/controlroom">Control Room</a></b-col>
-        <b-col>Photo Bomb</b-col>
-        <b-col>Bomb Vision</b-col>
-        <b-col>Stats</b-col>
-        <b-col>Support</b-col>
-        <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
-        <b-col>Photo Bomb</b-col>
-        <!-- <b-col> | </b-col> -->
-        <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
-        <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
-        <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
+              <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+              <b-col><a href="/#/Dashboard">Dashboard</a></b-col>
+              <b-col><a href="/#/Teamwaiting">Waitlist</a></b-col>
+              <b-col><a href="/#/controlroom">Control Room</a></b-col>
+              <b-col><a href="/#/Rfid">Check Rfid</a></b-col>
+              <b-col><a href="/#/Scanmedia">Photobomb Rfid</a></b-col>
+              <b-col>Photo Bomb</b-col>
+              <b-col>Bomb Vision</b-col>
+              <b-col>Support</b-col>
+              <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+              <!-- <b-col> | </b-col> -->
+              <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
+              <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+              <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
 
-      </b-row>
+            </b-row>
 
     </div>
 
@@ -960,6 +960,10 @@ export default {
         cancelTestTeam(){
           this.$bvModal.hide('modal-updateAsTestTeam');
           this.$bvModal.hide('modal-removeAsTestTeam');
+        },
+
+        hideModalActive(){
+          this.$bvModal.hide('modal-activeTeams');
         },
 
         submitTeamName(){
