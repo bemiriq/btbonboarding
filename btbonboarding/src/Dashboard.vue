@@ -76,7 +76,7 @@
           <!-- <th>Instagram</th> -->
         </tr>
 
-        <tr v-for="(item,index) in bookerReservationPlayerDetails" :key="item.id">
+        <tr v-for="item in bookerReservationPlayerDetails" :key="item.id">
           <td style="text-transform:capitalize;">{{item.first_name}} {{item.last_name}}</td>
           <td>{{item.status}}</td>
           <td>{{item.email}}</td>
@@ -1496,6 +1496,7 @@ import axios from 'axios';
       bookerReservationTotalScore:'',
       bookerReservationPlayCount:'',
       bookerReservationSessionTime:'',
+      bookerReservationBombTime:'',
       /** end of booker profile detail **/
 
       /** photobomb assets**/
