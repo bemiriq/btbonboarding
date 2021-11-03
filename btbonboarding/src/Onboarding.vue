@@ -42,12 +42,12 @@
       <!-- end of MODAL to check TPS and RFID value -->
 
 
-      <b-modal id="modal-previousTeamRfid" centered v-bind:hide-footer="true" v-bind:hide-header="false">
+      <b-modal id="modal-previousTeamRfid" centered v-bind:hide-footer="true" v-bind:hide-header="false" title="Assign RFIDs">
         <!-- <p class="warning"><b> You are inside previous button rfid and array value is {{previousTeamArrayValue}}</b></p> -->
         <!-- <br> -->
         <div v-if="previousTeamEnableRfidModal == '1'"> <!-- used this as it was throwing error while loading the page at first -->
 
-          <b><p> {{fetchPlayerList[previousTeamArrayValue].Team.name}} on Side {{previousRouteValue}} for {{formatedReservationFor(fetchPlayerList[previousTeamArrayValue].session_time)}}</p></b>
+          <b><p> {{fetchPlayerList[previousTeamArrayValue].Team.name}} - Side {{previousRouteValue}} - {{formatedReservationFor(fetchPlayerList[previousTeamArrayValue].session_time)}}</p></b>
 
           <div class="list-group-item item" v-for="(teamfetch, index) in fetchPlayerList[previousTeamArrayValue].Team_player_sessions" :key="index" >
 
@@ -76,24 +76,28 @@
                   <b-form-input disabled style="background-color: #33FF90;color:#33FF90;">
                     
                   </b-form-input>
-                  <p>P</p>
+                  <!-- <p>P</p> -->
                 </div>
 
                 <div v-else>
                   <b-form-input v-model="teamfetch.rfidState1" v-on:input="previousTeamRfidUpdate($event, previousTeamArrayValue, index)" :style="teamfetch.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null">
                   </b-form-input>
-                  <p>S</p>
+                  <!-- <p>S</p> -->
                 </div>
 
               </b-col>
 
               <b-col sm="2">
-                <p v-if="teamfetch.Rfid != null">
-                  <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleteTeamRfidUpdate($event, previousTeamArrayValue, index) , activeBtn = 'btn1' "></b-icon>
-                </p>
-                <p v-else>
-                  <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='', deleteTeamRfidUpdate($event, previousTeamArrayValue, index)" ></b-icon>
-                </p>
+                <!-- <p v-if="teamfetch.Rfid != null"> -->
+                  <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.Rfid.tag='' , deleteTeamRfidUpdate($event, previousTeamArrayValue, index) , activeBtn = 'btn1' "></b-icon> -->
+                  <button type="button" class="btn btn-outline-primary" v-if="teamfetch.Rfid != null" @click="teamfetch.Rfid.tag='' , deleteTeamRfidUpdate($event, previousTeamArrayValue, index) , activeBtn = 'btn1' ">Clear</button>
+                <!-- </p> -->
+                <!-- <p v-else> -->
+                  <button type="button" class="btn btn-outline-primary" v-else @click="teamfetch.rfidState1='', deleteTeamRfidUpdate($event, previousTeamArrayValue, index)" >
+                    Clear
+                  </button>
+                  <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="teamfetch.rfidState1='', deleteTeamRfidUpdate($event, previousTeamArrayValue, index)" ></b-icon> -->
+                <!-- </p> -->
               </b-col>
             </b-row>
           </div>
@@ -110,14 +114,14 @@
 
 
       <!-- this modal will be displayed when the user tries to delete box after reload -->
-      <b-modal id="modal-previousDeleteBox" centered v-bind:hide-footer="true">
-        <p><b> Are you sure you want empty the box values ?</b></p>
+      <b-modal id="modal-previousDeleteBox" centered v-bind:hide-footer="true" title="Clear Team">
+        <p><b> This will reset the team name and mission, and unassign all its players. Are you sure ?</b></p>
         
         <br>
         <!-- {{emptyBoxValue}} -->
         <b-row>
-          <b-col><b-button variant="primary" @click="previousEmptyBox($event, previousTeamArrayValue), reloadPageEvent()" >Submit</b-button></b-col>
-          <b-col><b-button variant="info" @click="previousDeleteBoxModal()">Cancel</b-button></b-col>
+          <b-col cols="4"><b-button variant="primary" @click="previousEmptyBox($event, previousTeamArrayValue), reloadPageEvent()" >Clear Team</b-button></b-col>
+          <b-col cols="1"><b-button variant="info" @click="previousDeleteBoxModal()">Cancel</b-button></b-col>
         </b-row>
 
       </b-modal>
@@ -146,14 +150,14 @@
       </b-modal>
 
       <!-- <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true"> -->
-        <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true">
-          <p><b> Are you sure you want empty the box values ?</b></p>
+        <b-modal id="modal-emptyBox" centered v-bind:hide-footer="true" :title="clickedTeamName">
+          <p><b> This will reset the team name and mission, and unassign all its players. Are you sure ?</b></p>
 
           <br>
           <!-- {{emptyBoxValue}} -->
           <b-row>
-            <b-col><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)" >Submit</b-button></b-col>
-            <b-col><b-button variant="info" @click="hideEmptyBoxModal()">Cancel</b-button></b-col>
+            <b-col cols="4"><b-button variant="primary" @click="emptyBox($event, emptyBoxValue)" >Clear Team</b-button></b-col>
+            <b-col cols="1"><b-button variant="info" @click="hideEmptyBoxModal()">Cancel</b-button></b-col>
           </b-row>
 
         </b-modal>
@@ -171,16 +175,16 @@
 
 
         <!-- this modal is used to reloadReservation -->
-        <b-modal id="modal-reloadReservation" centered v-bind:hide-footer="true">
+        <b-modal id="modal-reloadReservation" centered v-bind:hide-footer="true" :title="clickedReservationLastName">
           <b-row>
             <!-- <p class="playerModalText"><b> This box contains. {{reservationSessionId}}</b></p> -->
           </b-row>
 
           <b-container class="bv-example-row" fluid="lg">
             <b-row style="font-weight:bold;">
-              <b-col cols="6"><p>Full Name</p></b-col>
-              <b-col cols="2"><p>Player</p></b-col>
-              <b-col cols="2"><p>Assigned</p></b-col>
+              <b-col cols="5"><p>Full Name</p></b-col>
+              <b-col cols="1"><p>Adult/Minor</p></b-col>
+              <b-col cols="6"><p style="text-align:right;">Assigned To Team</p></b-col>
             </b-row>
 
             <b-row v-for="reservationListings in clickedReservationId.Reservation_people" v-bind:key="reservationListings.id">
@@ -216,8 +220,8 @@
 
           <hr>
           <b-row class="my-1" style="margin-left: 2%;">
-            <b-col sm="2"><b-button variant="primary" v-on:click="emptyBoxReload">YES</b-button></b-col>
-            <b-col><b-button variant="info" @click="hideReloadReservationModal()">NO</b-button></b-col>
+            <b-col sm="2"><b-button variant="primary" v-on:click="emptyBoxReload">Save</b-button></b-col>
+            <b-col><b-button variant="info" @click="hideReloadReservationModal()">Cancel</b-button></b-col>
           </b-row>
         </b-modal>
 
@@ -226,8 +230,8 @@
         <!-- list for all rfid b-modal -->
 
         <!-- <b-modal id="modal-center" ref="sideRfidUpdate" centered title="Side A" v-bind:hide-footer="true"> -->
-          <b-modal id="modal-center" ref="sideRfidUpdate10" centered v-bind:hide-footer="true">
-            <b><p class="capitalLetters">{{teamName10}} Side A {{dateTime1Data}}</p></b>
+          <b-modal id="modal-center" ref="sideRfidUpdate10" centered v-bind:hide-footer="true" title="Assign RFIDs">
+            <b><p class="capitalLetters">{{teamName10}} - Side A - {{dateTime1Data}}</p></b>
 
             <b-row class="my-1">
               <b-col sm="12">
@@ -332,8 +336,8 @@
         <!-- sibe B 1 .. rfid update -->
 
         <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-          <b-modal id="modal-center11" ref="sideRfidUpdate11" centered v-bind:hide-footer="true">
-            <b><p class="capitalLetters">{{teamName11}} on Side B for {{dateTime1BData}}</p></b>
+          <b-modal id="modal-center11" ref="sideRfidUpdate11" centered v-bind:hide-footer="true" title="Assign RFIDs">
+            <b><p class="capitalLetters">{{teamName11}} - Side B - {{dateTime1BData}}</p></b>
 
             <b-row class="my-1">
               <b-col sm="12">
@@ -433,8 +437,8 @@
 
 
         <!-- SIDE A 2 -->
-        <b-modal id="modal-center12" ref="sideRfidUpdate12" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName12}} on Side A {{dateTime2Data}}</p></b>
+        <b-modal id="modal-center12" ref="sideRfidUpdate12" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName12}} - Side A - {{dateTime2Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -538,8 +542,8 @@
       <!-- sibe B 2 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center13" ref="sideRfidUpdate13" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName13}} on Side B for {{dateTime2Data}}</p></b>
+        <b-modal id="modal-center13" ref="sideRfidUpdate13" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName13}} - Side B - {{dateTime2Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -641,8 +645,8 @@
       <!-- sibe A 3 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center14" ref="sideRfidUpdate14" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName14}} on Side A for {{dateTime3Data}}</p></b>
+        <b-modal id="modal-center14" ref="sideRfidUpdate14" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName14}} - Side A - {{dateTime3Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -744,8 +748,8 @@
       <!-- sibe B 3 and BOX 6 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center15" ref="sideRfidUpdate15" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName15}} on Side B for {{dateTime3Data}}</p></b>
+        <b-modal id="modal-center15" ref="sideRfidUpdate15" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName15}} - Side B - {{dateTime3Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -847,8 +851,8 @@
       <!-- sibe A 4 and BOX 7 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center16" ref="sideRfidUpdate16" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName16}} on Side B for {{dateTime4Data}}</p></b>
+        <b-modal id="modal-center16" ref="sideRfidUpdate16" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName16}} - Side B - {{dateTime4Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -950,8 +954,8 @@
       <!-- sibe B 4 and BOX 8 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center17" ref="sideRfidUpdate17" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName17}} on Side B for {{dateTime4Data}}</p></b>
+        <b-modal id="modal-center17" ref="sideRfidUpdate17" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName17}} - Side B - {{dateTime4Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -1049,8 +1053,8 @@
       <!-- sibe A BOX 9 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center18" ref="sideRfidUpdate18" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName18}} on Side A for {{dateTime5Data}}</p></b>
+        <b-modal id="modal-center18" ref="sideRfidUpdate18" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName18}} - Side A - {{dateTime5Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -1150,8 +1154,8 @@
       <!-- sibe B , BOX 10 -->
 
       <!-- <b-modal id="modal-centersideB_one" ref="sideB1rfidModalUpdate" centered title="Side B 1" v-bind:hide-footer="true"> -->
-        <b-modal id="modal-center19" ref="sideRfidUpdate19" centered v-bind:hide-footer="true">
-          <b><p class="capitalLetters">{{teamName19}} on Side B for {{dateTime5Data}}</p></b>
+        <b-modal id="modal-center19" ref="sideRfidUpdate19" centered v-bind:hide-footer="true" title="Assign RFIDs">
+          <b><p class="capitalLetters">{{teamName19}} - Side B - {{dateTime5Data}}</p></b>
 
           <b-row class="my-1">
             <b-col sm="12">
@@ -1260,7 +1264,7 @@
           <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
           <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
           <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-          <b-list-group-item href="/#/Social">Social Tagging</b-list-group-item>
+          <b-list-group-item href="/#/Social">Team Summary</b-list-group-item>
           <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
           <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
         </b-list-group>
@@ -1278,8 +1282,14 @@
 
           <b-row style="margin-top: 1%;">
 
-            <b-col lg="10">
-              <p> </p>
+            <b-col cols="7">
+              <p style="font-size: 2em;text-align:center;"><b>Mission</b></p>
+            </b-col>
+            <b-col cols="1">
+              <b-button variant="info" href="/#/Onboarding" size="md">Mission</b-button>
+            </b-col>
+            <b-col cols="2">
+              <b-button variant="outline-info" href="/#/Gamebay" size="md">Game bay</b-button>
             </b-col>
 
             <b-col sm="1">
@@ -1287,14 +1297,6 @@
                <b> &#60; </b>
              </button>
            </b-col>
-
-           <b-col sm="1" style="margin-left: -4%;">
-            <p></p>
-                <!-- <button role="menuitem" type="button" tabindex="-1" aria-label="Go to next page" class="page-link" v-on:click="changeTimeAdd(),splicePreviousList(),mostRecentTeams()">
-                  <b> > </b>
-                </button> -->
-              </b-col>
-
 
             </b-row>
             <hr>
@@ -1459,8 +1461,8 @@
                           <div v-if=" selected13 > 0 && selected12 == selected13">
 
                             <b-row>
-                              <b-col sm="3">
-                                <label for="input-small">Battle Mode</label>
+                              <b-col sm="4">
+                                <label for="input-small">Battle Mode <br> Opponent</label>
                               </b-col>
                               <b-col sm="8">
 
@@ -1647,8 +1649,8 @@
                           <div v-if=" selected13 > 0 && selected12 == selected13">
 
                             <b-row>
-                              <b-col sm="3">
-                                <label for="input-small">Battle Mode</label>
+                              <b-col sm="4">
+                                <label for="input-small">Battle Mode <br> Opponent</label>
                               </b-col>
                               <b-col sm="8">
 
@@ -1735,7 +1737,7 @@
                                 </b-col>
 
                                 <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                                  <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 10"></b-icon>
+                                  <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 10, clickedTeamName = teamName10"></b-icon>
                                 </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -1907,10 +1909,10 @@
 
                 <div v-if=" selected10 > 0 && selected10 == selected11">
                   <b-row>
-                    <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
+                    <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
                     </b-col>
-                    <b-col sm="9">
+                    <b-col sm="8">
 
                       <b-form-select v-if="!teamVsTeam10 > '0'" v-model="vsselected10" v-on:change="onChangeTeamVsTeam1($event, 10)">
                         <option> </option>
@@ -1996,7 +1998,7 @@
                           </b-col>
 
                           <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                            <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 11"></b-icon>
+                            <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 11,clickedTeamName = teamName11"></b-icon>
                           </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -2165,7 +2167,7 @@
                   <div v-if=" selected11 > 0 && selected10 == selected11">
                     <!-- <b-row>
                       <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
+                      <label for="input-small">Battle Mode Opponent</label>
                       </b-col>
                       <b-col sm="9">
 
@@ -2178,10 +2180,10 @@
                     </b-row> -->
 
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam11 > '0'" v-model="vsselected11" v-on:change="onChangeTeamVsTeam1($event, 11)">
                           <option> </option>
@@ -2289,7 +2291,7 @@
 
                         <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                           <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
-                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 12"></b-icon>
+                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 12,clickedTeamName = teamName12"></b-icon>
 
                         </b-col>
 
@@ -2452,10 +2454,10 @@
 
                   <div v-if=" selected12 > 0 && selected12 == selected13">
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam12 > '0'" v-model="vsselected12" v-on:change="onChangeTeamVsTeam1($event, 12)">
                           <option> </option>
@@ -2539,7 +2541,7 @@
 
                       <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
                         <!-- <b-icon icon="trash-fill" font-scale="1.5" @click="emptyBox($event, 10)"></b-icon> -->
-                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 13"></b-icon>
+                        <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 13,clickedTeamName = teamName13"></b-icon>
 
                       </b-col>
 
@@ -2701,10 +2703,10 @@
                   <div v-if=" selected13 > 0 && selected12 == selected13">
 
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam13 > '0'" v-model="vsselected13" v-on:change="onChangeTeamVsTeam1($event, 13)">
                           <option> </option>
@@ -2805,7 +2807,7 @@
                     </b-col>
 
                     <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 14"></b-icon>
+                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 14,clickedTeamName = teamName14"></b-icon>
                     </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -2962,10 +2964,10 @@
                 <div v-if=" selected14 > 0 && selected14 == selected15">
 
                   <b-row>
-                    <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
+                    <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
                     </b-col>
-                    <b-col sm="9">
+                    <b-col sm="8">
 
                       <b-form-select v-if="!teamVsTeam14 > '0'" v-model="vsselected14" v-on:change="onChangeTeamVsTeam1($event, 14)">
                         <option> </option>
@@ -3057,7 +3059,7 @@
                         </b-col>
 
                         <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 15"></b-icon>
+                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 15,clickedTeamName = teamName15"></b-icon>
                         </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -3218,10 +3220,10 @@
                   <div v-if=" selected15 > 0 && selected15 == selected14">
 
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam15 > '0'" v-model="vsselected15" v-on:change="onChangeTeamVsTeam1($event, 15)">
                           <option> </option>
@@ -3323,7 +3325,7 @@
                     </b-col>
 
                     <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 16"></b-icon>
+                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 16,clickedTeamName = teamName16"></b-icon>
                     </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -3479,10 +3481,10 @@
 
                 <div v-if=" selected16 > 0 && selected16 == selected17">
                   <b-row>
-                    <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
+                    <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
                     </b-col>
-                    <b-col sm="9">
+                    <b-col sm="8">
 
                       <b-form-select v-if="!teamVsTeam16 > '0'" v-model="vsselected16" v-on:change="onChangeTeamVsTeam1($event, 16)">
                         <option> </option>
@@ -3573,7 +3575,7 @@
                         </b-col>
 
                         <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 17"></b-icon>
+                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 17,clickedTeamName = teamName17"></b-icon>
                         </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -3733,10 +3735,10 @@
 
                   <div v-if=" selected17 > 0 && selected16 == selected17">
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam17 > '0'" v-model="vsselected17" v-on:change="onChangeTeamVsTeam1($event, 17)">
                           <option> </option>
@@ -3835,7 +3837,7 @@
                     </b-col>
 
                     <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 18"></b-icon>
+                      <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 18,clickedTeamName = teamName18"></b-icon>
                     </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -3991,10 +3993,10 @@
 
                 <div v-if=" selected18 > 0 && selected18 == selected19">
                   <b-row>
-                    <b-col sm="3">
-                      <label for="input-small">Battle Mode</label>
+                    <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
                     </b-col>
-                    <b-col sm="9">
+                    <b-col sm="8">
 
                       <b-form-select v-if="!teamVsTeam18 > '0'" v-model="vsselected18" v-on:change="onChangeTeamVsTeam1($event, 18)">
                         <option> </option>
@@ -4085,7 +4087,7 @@
                         </b-col>
 
                         <b-col sm="1" style="margin-left: -3.3%; margin-top: 1.4%;">
-                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 19"></b-icon>
+                          <b-icon icon="trash-fill" font-scale="1.5" v-b-modal.modal-emptyBox @click="emptyBoxValue = 19,clickedTeamName = teamName10"></b-icon>
                         </b-col>
 
                   <!-- <b-col sm="1" class="checkMoveEditIcon">
@@ -4245,10 +4247,10 @@
                   <div v-if=" selected19 > 0 && selected18 == selected19">
 
                     <b-row>
-                      <b-col sm="3">
-                        <label for="input-small">Battle Mode</label>
-                      </b-col>
-                      <b-col sm="9">
+                      <b-col sm="4">
+                      <label for="input-small">Battle Mode <br> Opponent</label>
+                    </b-col>
+                    <b-col sm="8">
 
                         <b-form-select v-if="!teamVsTeam19 > '0'" v-model="vsselected19" v-on:change="onChangeTeamVsTeam1($event, 19)">
                           <option> </option>
@@ -4356,7 +4358,10 @@
               <b v-if="reservation.Booker.Person.last_name == 'undefined' || reservation.Booker.Person.last_name == 'null'" style="text-transform: capitalize" >{{reservation.Booker.Person.first_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}}- <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button> </b>
 
               <b v-else style="text-transform: capitalize">{{reservation.Booker.Person.last_name}} Reservation - {{reservation.size}} - {{reservation.Mission.name}} 
-                <span v-if="reservation.battlemode > '0' "> <br> Battle Mode </span> <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b>
+                <span v-if="reservation.battlemode > '0' "> <br> Battle Mode </span> 
+
+                <!-- <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">&#10002;</button></b> -->
+                <button  type="button" class="btn btn-outline-primary" v-on:click="reservationSessionId = reservation.id, reservationDetail($event,reservation.id)" v-b-modal.modal-reloadReservation style="margin-bottom: 2%;">Edit</button></b>
 
               <!-- <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" :move="checkMove1"> -->
                 <draggable :list="reservation.Reservation_people" class="list-group" draggable=".item" group="a" @add="onDragBackReservation(),onDragBackReservation()">
@@ -4372,25 +4377,14 @@
                       <b-col sm="1">
                         {{element.Person.minorsymbol}}
                       </b-col>
-
-                    <!-- <b-col sm="1">
-                      <p v-if="element.Person.Player.bomb_beater == '10'">&#128163;</p>
-                    </b-col> -->
-
-                    <!-- <b-col sm="1">
-                      <p v-if="element.Person.Player.play_count > '1' ">R</p>
-                    </b-col> -->
-
                   </b-row>
-
-                  <!-- <p>S</p> -->
                 </div>
               </draggable>
 
 
-              <div slot="footer" class="btn-group list-group-item" role="group" aria-label="Basic example">
+              <!-- <div slot="footer" class="btn-group list-group-item" role="group" aria-label="Basic example">
 
-              </div>
+              </div> -->
 
             </div>
             
@@ -5123,6 +5117,9 @@ data() {
     teamName18: '',
     teamName19: '',
     teamName20: '',
+
+    clickedTeamName:'',
+    clickedReservationLastName:'',
 
     teamname10id:'',
     teamname11id:'',
@@ -7926,6 +7923,11 @@ reservationDetail(event,reservationId){
   .then(response =>
   {
     console.log(response);
+    this.clickedReservationLastName = response.data.Booker.Person.last_name[0].toUpperCase()+response.data.Booker.Person.last_name.slice(1).toLowerCase()+' Reservation';
+    // string[0].toUpperCase() + string.slice(1).toLowerCase();
+    if(response.data.Booker.Person.last_name.length < 1){
+      this.clickedReservationLastName = response.data.Booker.Person.first_name[0].toUpperCase()+response.data.Booker.Person.first_name.slice(1).toLowerCase()+' Reservation';
+    }
     this.clickedReservationId = response.data;
   })
   .catch(function (error){
@@ -13035,6 +13037,11 @@ computed:{
   font-size: 0.9em;
   color:red;
   font-style:italic;
+}
+
+.btn-group .list-group-item{
+  display: none;
+  background-color: yellow !important;
 }
 
 

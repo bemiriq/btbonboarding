@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-
-    <p style="font-size: 2em;"><b>GAME BAY ONBOARDING</b></p>
-    <hr>
+    
 
     <div class="bv-example-row" id="mainContainer">
 
@@ -170,7 +168,7 @@
             <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
             <b-list-group-item href="/#/Playerdetails">Player Details</b-list-group-item>
             <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-            <b-list-group-item href="/#/Social">Social Tagging</b-list-group-item>
+            <b-list-group-item href="/#/Social">Team Summary</b-list-group-item>
             <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
             <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
           </b-list-group>
@@ -180,11 +178,32 @@
 
 
         <!-- start of center div which consists of table with all details -->
-        <b-col lg="7" style="background-color:#fafafa;height: 650px;">
+        <b-col lg="7" style="background-color:#fafafa;height: 800px;">
 
           <div class="bv-example-row">
 
-            <br>
+            <b-row style="margin-top: 1%;">
+
+            <b-col cols="7">
+              <p style="font-size: 2em;text-align:center;"><b>GAME BAY</b></p>
+            </b-col>
+            <b-col cols="1">
+              <b-button variant="outline-info" href="/#/Onboarding" size="md">Mission</b-button>
+            </b-col>
+            <b-col cols="2">
+              <b-button variant="info" href="/#/Gamebay" size="md">Game bay</b-button>
+            </b-col>
+
+            <!-- <b-col sm="1">
+              <button role="menuitem" type="button" tabindex="-1" aria-label="Go to previous page" aria-disabled="true" class="page-link" v-on:click="mostRecentTeams()">
+               <b> &#60; </b>
+             </button>
+           </b-col> -->
+
+            </b-row>
+
+            <hr>
+            
             <b-row>
 
               <b-col>

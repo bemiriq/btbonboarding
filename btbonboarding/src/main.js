@@ -22,6 +22,7 @@ import Social from './Social.vue';
 import Rfidmedia from './Rfidmedia.vue';
 import Activeteams from './Activeteams.vue';
 import Gamebay from './Gamebay.vue';
+import Teamwaiting from './Teamwaiting.vue';
 
 
 /* pages link for footer */
@@ -68,7 +69,8 @@ const routes = [
 	{ path : '/Scanmedia', component: Rfidmedia},
 	{ path : '/Activeteams', component: Activeteams},
 	{ path : '/Gamebay', component: Gamebay},
-	{ path: '/', component: Users} /** this defines the home page url **/
+	{ path : '/Teamwaiting', component: Teamwaiting},
+		{ path: '/', component: Users} /** this defines the home page url **/
 ];
 
 const router = new VueRouter({

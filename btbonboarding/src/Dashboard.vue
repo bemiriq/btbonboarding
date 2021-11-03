@@ -478,7 +478,7 @@
               <b-button variant="info" v-on:click="pageLoad='2'" size="md">REPEATERS</b-button>
             </b-col> -->
             <!-- END of Pageload Repeaters button -->
-            <b-col cols="2">
+            <b-col cols="1">
               <b-button variant="outline-info" v-on:click="pageLoad='1'" size="md">Overall</b-button>
             </b-col>
             <b-col cols="2">
@@ -486,6 +486,9 @@
             </b-col>
             <b-col cols="2">
               <b-button variant="outline-info" @click="clickedPlayCount()" size="md">Repeater List</b-button>
+            </b-col>
+            <b-col cols="1">
+              <b-button variant="outline-info" @click="clickedGraph()" size="md">Graph</b-button>
             </b-col>
 
           </b-row>
@@ -1197,6 +1200,50 @@
 
               <!-- end of PLAY COUNT dashboard -->
 
+              <!-- start of graph div -->
+              <div v-if="pageLoad == '4'">
+                <b-row>
+                  <b-col><p class="h2" style="padding-left:10%;"><u>Graph Representation</u></p></b-col>
+                  <b-col lg="2">
+                    <b-form-select v-model="selectedRange" class="mb-1" v-on:change="clickedGraph()">
+                      <b-form-select-option value="1">Day</b-form-select-option>
+                      <b-form-select-option value="2">Week</b-form-select-option>
+                      <b-form-select-option value="3">Month</b-form-select-option>
+                      <b-form-select-option value="4">Year</b-form-select-option>
+                    </b-form-select>
+                  </b-col>
+                </b-row>
+                <br><br>
+                <b-row>
+                  <b-col>
+                    <p class="h5">Total Players</p>
+                    <br>
+                    <apexchart width="500" type="bar" :options="totalPlayerBar" :series="totalPlayerBarSeries"></apexchart>
+                  </b-col>
+
+                  <b-col>
+                    <p class="h5">Gender</p>
+                    <br>
+                    <apexchart width="380" type="pie" :options="genderOptions" :series="genderSeries"></apexchart>
+                  </b-col>
+                </b-row>
+                <br><br>
+                <b-row>
+                  <b-col>
+                    <p class="h5">Mission 1 Players</p>
+                    <br>
+                    <apexchart width="500" type="line" :options="totalMission1Options" :series="totalMission1Series"></apexchart>
+                  </b-col>
+
+                  <b-col>
+                    <p class="h5">Mission 2 Players</p>
+                    <br>
+                    <apexchart width="500" type="line" :options="totalMission1Options" :series="totalMission2Series"></apexchart>
+                  </b-col>
+                </b-row>
+              </div>
+              <!-- end of graph div -->
+
             </b-col>
 
             <br>
@@ -1243,6 +1290,8 @@
 
 <script src="moment.js"></script>
 <script src="moment-range.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+
 <script>
 moment().format();  
 </script>
@@ -1268,6 +1317,12 @@ import axios from 'axios';
   // import App from "./App";
   import Vue from 'vue';
   import Moment from 'moment';
+
+  /** this is for the graphical chart **/
+  import VueApexCharts from 'vue-apexcharts';
+  Vue.use(VueApexCharts);
+  Vue.component('apexchart', VueApexCharts);
+  /** end of apex chart **/
 
   // import Moment from 'moment';
   // import Moment from 'moment';
@@ -1612,8 +1667,47 @@ import axios from 'axios';
         key: 'createdAt',
         sortable: true
       }
-      ]
+      ],
+
+      /** this for apexchart day , month and year track **/
+      eachDay:[],
+      numberOfWeeks:'',
+      selectedRange:'1',
+
       // timelist: 1500
+
+      /** below is for apex chart **/
+      // totalPlayerBar: {
+      //   chart: {
+      //     id: 'vuechart-example'
+      //   },
+      //   xaxis: {
+      //     categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+      //   }
+      // },
+      totalPlayerBar: [],
+      totalPlayerBarSeries: [{
+        data:[],
+      }],
+
+      totalMission1Options: [],
+      totalMission1Series: [{
+        data:[],
+      }],
+
+      totalMission2Options: [],
+      totalMission2Series: [{
+        data:[],
+      }],
+
+      genderOptions:{ labels:["Female", "Male", "Non-binary", "Prefer not to say"]},
+      genderSeries:[],
+      genderLabel:['Female','Male','Non-binary','Prefer not to say'],
+      // totalPlayerBarSeries: [{
+      //   name: 'series-1',
+      //   data: [30, 40, 45, 50, 49, 60, 70]
+      // }],
+
     }
   },
 
@@ -2566,6 +2660,194 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       this.playCountPlayers();
     },
 
+    clickedGraph(){
+
+      /** clear all the array **/
+      // this.totalMission1Options = [];
+      // this.totalMission1Series = [];
+      // this.totalMission2Series = [];
+      // this.totalPlayerBarSeries[0].data = [];
+      this.genderSeries = [];
+
+      // chart.render();
+      console.log(this.selectedRange);
+      console.log(this.startDateUsed);
+      console.log(this.endDateUsed);
+
+      if(this.selectedRange == '1'){
+        console.log('each day data');
+
+        var getValue = 0;
+        for (var m = moment(this.startDateUsed); m.isBefore(this.endDateUsed); m.add(1, 'days')) {
+            // console.log(m.format('YYYY-MM-DD'));
+            this.eachDay.push(m.format('DD/MM'));
+
+            var dateStarted = m.format('YYYY-MM-DD');
+            var dateEnded = m.format('YYYY-MM-DD');
+
+            /** this for total players **/
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/start/'+dateStarted+'/end/'+dateEnded,{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              this.totalPlayerBarSeries[0].data.push(response.data);
+              getValue++;
+              // console.log(this.eachDay.length);
+              if(getValue == this.eachDay.length){
+                console.log('equal value');
+                this.pageLoad = '4';
+              }
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+            this.totalPlayerBar = {
+              chart: {
+                id: 'vuechart-example'
+              },
+              xaxis: {
+                categories: this.eachDay /** date **/
+              }
+            };
+            /** end of total players **/
+
+
+            /** mission 1 total players line graph **/
+            axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+dateStarted+'/end/'+dateEnded+'/mission/1',{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              this.totalMission1Series[0].data.push(response.data);
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+            this.totalMission1Options = {
+              chart: {
+                id: 'vuechart-example'
+              },
+              xaxis: {
+                categories: this.eachDay /** date **/
+              }
+            };
+
+            axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+dateStarted+'/end/'+dateEnded+'/mission/2',{
+
+            })
+            .then(response => 
+            {
+              console.log(response);
+              this.totalMission2Series[0].data.push(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            /** mission 1 total players line graph **/
+
+        }
+
+
+        /** this if for gender **/
+
+          /** below axios is for total female gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/1',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            // this.totalFemale = response.data.count;
+            this.genderSeries.push(response.data.count);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of female gender endpoint detail **/
+
+          /** below axios is for total Male gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/2',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            // this.totalMale = response.data.count;
+            this.genderSeries.push(response.data.count);
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of Male gender endpoint detail **/
+
+          /** below axios is for total NonBinary gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/3',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            // this.totalNonBinary = response.data.count;
+            this.genderSeries.push(response.data.count);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of NonBinary gender endpoint detail **/
+
+          /** below axios is for total prefer not to answer gender **/
+          axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed+'/gender/4',{
+
+          })
+          .then(response => 
+          {
+            console.log(response);
+            // this.totalPreferNotToAnswer = response.data.count;
+            this.genderSeries.push(response.data.count);
+            // this.totalGender = this.totalFemale+this.totalMale+this.totalNonBinary+this.totalPreferNotToAnswer;
+            })
+          .catch(function (error) {
+            console.log(error);
+          });
+          /** end of total prefer not to answer endpoint detail **/
+
+        /** gender options **/
+
+        
+
+      }
+
+      if(this.selectedRange == '2'){
+        console.log('weekly data');
+      }
+      if(this.selectedRange == '3'){
+        console.log('monthly data');
+      }
+      if(this.selectedRange == '4'){
+        console.log('yearly data');
+        var weekStartDate = moment(this.startDateUsed, 'DD-MM-YYYY'); 
+        var weekEndDate = moment(this.endDateUsed, 'DD-MM-YYYY');
+        this.numberOfWeeks = weekEndDate.diff(weekStartDate, 'weeks');
+
+        console.log(this.numberOfWeeks);
+
+        // for (var i = 0; i < this.numberOfWeeks; i++) {
+        //   this.weekRange =     
+        // }
+      }
+
+
+      // var totalPlayerArray = [];
+    },
+
     playCountPlayers(){
 
       this.playCountBookersValue = '0';
@@ -2638,6 +2920,10 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
       console.log('in in in in in');
 
+      if(this.pageLoad == '4'){
+        this.clickedGraph();
+      }
+
       if(this.pageReload == '1'){
         console.log('page loaded');
         var element = this.allDates.pop(); /** this will select the Last Element FROM DATE LINK **/
@@ -2693,6 +2979,10 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         this.$bvModal.hide('modal-date');
 
         this.loadData();
+      }
+
+      if(pageReload == '4'){
+        this.clickedGraph();
       }
 
     },
@@ -5391,5 +5681,11 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 .theadStyle{
   font-weight:bold;font-size: 19px; margin:auto;
 }
+
+#chart {
+  max-width: 650px;
+  margin: 35px auto;
+}
+
 
 </style>
