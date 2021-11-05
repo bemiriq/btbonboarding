@@ -20,7 +20,7 @@
 
       <!-- modal for waiver not signed -->
       <b-modal id="modal-waiverNotSigned" centered size="md" title="Waiver Details" v-bind:hide-footer="true">
-        <p class="paragraph">No waivers has been completed.</p>
+        <p class="paragraph">No waivers have been completed.</p>
         <br>
         <b-button variant="primary" v-on:click="hideWaiverNotSignedModal()">Ok</b-button>
       </b-modal>
