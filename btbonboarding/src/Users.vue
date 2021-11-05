@@ -18,6 +18,14 @@
 
       </b-container>
 
+      <!-- modal for waiver not signed -->
+      <b-modal id="modal-waiverNotSigned" centered size="md" title="Waiver Details" v-bind:hide-footer="true">
+        <p class="paragraph">No waivers has been completed.</p>
+        <br>
+        <b-button variant="primary" v-on:click="hideWaiverNotSignedModal()">Ok</b-button>
+      </b-modal>
+      <!-- end of modal for waiver not signed -->
+
       <!-- the modal display all the recent waiver list -->
       <b-modal id="modal-waiverList" centered size="lg" title="Waiver List" v-bind:hide-footer="true" v-bind:hide-header="true">
         <!-- <p style="margin:auto;">List of People</p> -->
@@ -1286,6 +1294,11 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
   methods:{
 
+    hideWaiverNotSignedModal(){
+      // this.$bvModal.hide('modal-waiverNotSigned');
+      this.reloadPageEvent();
+    },
+
     hideSubmitReservation(){
       this.$bvModal.hide('modal-addReservation');
     },
@@ -2454,6 +2467,14 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       console.log(posts);
       console.log(item);
       console.log(index);
+
+      if(this.posts[index].Reservation_people.length > 0 || this.posts[index].Reservation_minors.length > 0){
+        console.log('waiver signed');
+      }
+      else{
+        console.log('waiver not signed');
+        this.$bvModal.show('modal-waiverNotSigned');
+      }
 
       if(this.posts[index].Booker.Person.last_name == 'undefined'){
         var bookerLastName = ' ';
