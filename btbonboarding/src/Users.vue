@@ -674,7 +674,7 @@
               </thead>
               <tr v-for="(item, index) in posts" v-bind:key="item.id">
                 <td class="covertedtime">
-                  {{item.reservation_time}}
+                  {{item.reservation_time| dayLightTime(item.reservation_time)}}
                 </td>
 
                 <td v-on:click="selectItem ($event, posts, item, index)">
@@ -1079,6 +1079,28 @@ import axios from 'axios';
 
   },
 
+  // filters:{
+  //   dayLightTime(time){
+  //     // console.log(value);
+  //     // console.log(this.posts);
+  //     // return moment(y).format('HH:mm');
+  //     console.log(time);
+  //     var getTime = time.substring(0, 2);
+  //     var lastValue = time.substring(2, 8);
+  //     console.log(getTime);
+  //     console.log(lastValue);
+  //     var subtractHour = getTime - 1;
+  //     console.log(subtractHour);
+  //     if(subtractHour.length > ''){
+  //       console.log('two value');
+  //     }
+  //     else{
+  //       console.log('one value');
+  //       return '0'+subtractHour+lastValue;
+  //     }
+  //     // return 'san';
+  //   }
+  // },
 
   mounted: function(){
 
@@ -1161,9 +1183,9 @@ import axios from 'axios';
             var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
             var reservationForConvert = replyDataObj1[i].reservation_for;
 
-            var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+            var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A');
+            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
             console.log(reservationForConvert);
             console.log(date);
@@ -1171,7 +1193,7 @@ import axios from 'axios';
 
             replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-            var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
+            var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
             var lateBy = lateStatus-currentTime;
 
             var arrivedPerson = 0;
@@ -1843,9 +1865,9 @@ searchPlayers(){
                   var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
                   var reservationForConvert = replyDataObj1[i].reservation_for;
 
-                  var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+                  var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A');
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
                   console.log(reservationForConvert);
                   console.log(date);
@@ -1853,10 +1875,10 @@ searchPlayers(){
 
                   replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
                   console.log(lateStatus);
 
-                  var currentTime = moment(response.data.createdAt).subtract('hours',4).format("HHmm");
+                  var currentTime = moment(response.data.createdAt).subtract('hours',5).format("HHmm");
                   console.log('current time '+currentTime);
 
                   var lateBy = lateStatus-currentTime;
@@ -2007,9 +2029,9 @@ onContext(ctx) {
                   var countReservationMinors = replyDataObj1[i].Reservation_minors.length;
                   var reservationForConvert = replyDataObj1[i].reservation_for;
 
-                  var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+                  var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
 
-                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A');
+                  var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
                   console.log(reservationForConvert);
                   console.log(date);
@@ -2017,7 +2039,7 @@ onContext(ctx) {
 
                   replyDataObj1[i]['reservation_time']=reservationOnlyTime; /** single data posted to this.posts **/
 
-                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',4).format('HHmm');
+                  var lateStatus = moment.utc(reservationForConvert).subtract('hours',5).format('HHmm');
                   var lateBy = lateStatus-currentTime;
 
                   var arrivedPerson = 0;
@@ -2523,9 +2545,9 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       /** conversion of date and time for second part **/
         // var date = this.posts[index].reservation_for;
 
-        var reservation_for_converted = moment.utc(date).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
+        var reservation_for_converted = moment.utc(date).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
         var onlyDate = moment.utc(date).format('MM-DD-YYYY');
-        var timeConverted = moment.utc(date).subtract('hours',4).format('hh:mm A');
+        var timeConverted = moment.utc(date).subtract('hours',5).format('hh:mm A');
 
         console.log(reservation_for_converted);
         console.log(index);
@@ -3016,8 +3038,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
             
             var reservationForConvert = replyDataObj1[i].reservation_for;
-            var date = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
-            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',4).format('hh:mm A');
+            var date = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A MM-DD-YYYY');
+            var reservationOnlyTime = moment.utc(reservationForConvert).subtract('hours',5).format('hh:mm A');
 
             console.log(reservationForConvert);
             console.log(date);
