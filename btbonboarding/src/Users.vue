@@ -20,7 +20,9 @@
 
       <!-- modal for waiver not signed -->
       <b-modal id="modal-waiverNotSigned" centered size="md" title="Waiver Details" v-bind:hide-footer="true">
-        <p class="paragraph">No waivers have been completed.</p>
+        <p class="paragraph">No waivers have been completed.  <b-button variant="outline-secondary" v-on:click="copyOnlineWaiverLink()">Copy Online Waiver Link</b-button>
+        <input type="hidden" id="testing-code" :value="onlineWaiverLink">
+        </p>
         <br>
         <b-button variant="primary" v-on:click="hideWaiverNotSignedModal()">Ok</b-button>
       </b-modal>
@@ -482,7 +484,8 @@
         </b-modal>
 
         <b-modal id="modal-xl" centered size="xl" title="Reservation" @click="reloadPageEvent">
-          <p  style="text-transform: capitalize;">{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}} Players</p>
+          <p  style="text-transform: capitalize;">{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}} Players / <b-button variant="outline-secondary" v-on:click="copyOnlineWaiverLink()">Copy Online Waiver Link</b-button>
+        <input type="hidden" id="testing-code" :value="onlineWaiverLink"></p>
           <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
           <br/>
           <b-container class="bv-example-row">
@@ -882,6 +885,8 @@ import axios from 'axios';
       reservationLists: [],
       updateReservationId: '',
       limitReservationList: '5',
+
+      onlineWaiverLink:'',
 
       voucherReservationName:'',
       voucherReservationSize:'',
@@ -1315,6 +1320,26 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
 
   methods:{
+
+    copyOnlineWaiverLink(){
+
+      let testingCodeToCopy = document.querySelector('#testing-code')
+          testingCodeToCopy.setAttribute('type', 'text') 
+          testingCodeToCopy.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            // alert('Testing code was copied ' + msg);
+          } catch (err) {
+            alert('Oops, unable to copy');
+          }
+
+          /* unselect the range */
+          testingCodeToCopy.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+
+    },
 
     hideWaiverNotSignedModal(){
       // this.$bvModal.hide('modal-waiverNotSigned');
@@ -2552,6 +2577,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         console.log(reservation_for_converted);
         console.log(index);
         console.log(this.posts[index]);
+
+        this.onlineWaiverLink = 'https://btbbrooklyn.ddns.net/#/'+this.posts[index].xola_order_id;
 
         // var arr = reservation_for.split("T");
         // var onlyDate = arr.splice(0,1).join("");
