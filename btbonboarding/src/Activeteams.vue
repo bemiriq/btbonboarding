@@ -2,6 +2,18 @@
   <div id="app" style="width: 80%; margin:auto;">
 
     <br><br>
+    <b-modal id="modal-printScoresheetMessage" centered size="md" v-bind:hide-footer="true" title="Printing Out">
+      If it does not print please try to manually print out any document from that computer and check if the printer is working or not.
+    </b-modal>
+
+    <b-modal id="modal-printScoresheet" centered size="md" v-bind:hide-footer="true" title="Print Scoresheet">
+      If you trying to print the scoresheet for <span style="text-transform:capitalize;"><b>{{clickedTeamName}}</b></span>, if the scores were wrong. Then please update their score and try to print it out. If not then you may click on the Print button to print the scoresheet.
+      <br><br>
+      <b-row>
+        <b-col cols="2"><button type="button" class="btn btn-primary" v-on:click="printScoreSheetConfirm()">Print</button></b-col>
+        <b-col><button type="button" class="btn btn-info" v-on:click="cancelPrintScoreSheet()">Cancel</button></b-col>
+      </b-row>
+    </b-modal>
 
     <b-modal id="modal-success" centered size="md" v-bind:hide-footer="true" title="Message">
       Updating data and reloading the page.
@@ -187,7 +199,10 @@
           </tr>
         </table>
         <br>
-        <div><button type="button" class="btn btn-info" v-on:click="hideModalActive()" style="margin-left:1%;">DONE</button></div>
+        <div>
+          <button type="button" class="btn btn-primary" v-on:click="printScoresheet()" style="margin-left:1%;">PRINT SCORESHEET</button>
+          <button type="button" class="btn btn-info" v-on:click="hideModalActive()" style="margin-left:1%;">DONE</button>
+        </div>
       </b-modal>
 
       <b-modal id="modal-cloneTeams" centered size="lg" v-bind:hide-footer="true">
@@ -489,6 +504,38 @@ export default {
     },
 
     methods:{
+
+      cancelPrintScoreSheet(){
+        this.$bvModal.hide('modal-printScoresheet');
+      },
+
+      printScoreSheetConfirm(){
+
+        axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+          stats_printed: null
+        })
+        .then(response => {
+          // this.totalScore = response.data.total_score;
+          console.log(response);
+          console.log('updated printed value in session table');
+          
+          this.$bvModal.show('modal-printScoresheetMessage');
+
+          this.reloadFuntion();
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      },
+
+      printScoresheet(){
+        console.log('printScoresheet');
+        console.log(this.clickedSessionId);
+
+        this.$bvModal.show('modal-printScoresheet');
+      },
 
       updateTeamScore(){
         console.log('update score here');
