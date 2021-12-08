@@ -870,7 +870,7 @@
 
                 <!-- below b-row forth table HOW DID YOU ARRIVE AT BEAT THE BOMB -->
                 <!-- <b-row> -->
-                  <b-col>
+                  <!-- <b-col>
                     <table class="table table-hover">
                       <thead>
                         <p class="theadStyle">How did you arrive at Beat The Bomb?</p>
@@ -915,11 +915,29 @@
                         <td><b>{{totalHowYouArrive}}</b></td>
                       </tr>
                     </table>
-                  </b-col>
-                </b-row>
+                  </b-col> -->
+
+                  <!-- this will display marketing data -->
+                    <b-col>
+                      <table class="table table-hover">
+                        <thead>
+                          <p class="theadStyle">Marketing Data</p>
+                        </thead>
+                        <tr>
+                          <td class="tdStyle">Instagram</td>
+                          <td>{{countInstagram}}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdStyle">Marketing Consent</td>
+                          <td>{{countMarketingConsent}}</td>
+                        </tr>
+                      </table>
+                    </b-col> <!-- end of marketing data -->
+                  </b-row>
                 <!-- end of b-row for forth table -->
 
-                <br><br>
+                <br>
+                <!-- <br>
                 <b-row>
                   <b-col>
                     <table class="table table-hover">
@@ -942,7 +960,7 @@
 
                     </table>
                   </b-col>
-                </b-row>
+                </b-row> -->
                 <br>
 
               </div>
