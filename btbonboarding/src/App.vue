@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a href='/#/users' v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'"> <img alt="BTB  Logo" src="./assets/btb.png"> </a>
+    <a href='/#/users' v-if="$route.path!=='/bigscreen' && $route.path!=='/Rfid' && $route.path!=='/Scanmedia'"> <img alt="BTB  Logo" src="./assets/btb.png" @click="clickedImage()"> </a>
     
     <br/><br/><br/>
 
@@ -67,6 +67,16 @@ export default {
 
 
   methods:{
+
+    clickedImage(){
+      console.log('image was clicked');
+      console.log(this.$router.history.current.path); /** provides the detail for current page route **/
+
+      if(this.$router.history.current.path == '/users'){
+        window.location.reload(true);
+      }
+
+    },
 
     showAllTime: function (){
 

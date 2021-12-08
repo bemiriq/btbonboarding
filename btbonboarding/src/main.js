@@ -23,6 +23,8 @@ import Rfidmedia from './Rfidmedia.vue';
 import Activeteams from './Activeteams.vue';
 import Gamebay from './Gamebay.vue';
 import Teamwaiting from './Teamwaiting.vue';
+import Cctv from './Cctv.vue';
+
 
 
 /* pages link for footer */
@@ -33,6 +35,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import Vue from 'vue';
 import VueDraggable from 'vue-draggable';
+
+import LoadScript from 'vue-plugin-load-script'; /** added to run vue-twitch-player **/
+
 // import VueFire from 'vuefire';
 // import VueMultiDrag from 'vue-multi-drag';
 // import './firebase'; //this one is for database
@@ -43,6 +48,9 @@ import VueDraggable from 'vue-draggable';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueDraggable);
+
+Vue.use(LoadScript); /** added to run vue-twitch-player **/
+
 // Vue.use(VueFire);
 // var firebase = require('firebase');
 
@@ -69,6 +77,7 @@ const routes = [
 	{ path : '/Scanmedia', component: Rfidmedia},
 	{ path : '/Activeteams', component: Activeteams},
 	{ path : '/Gamebay', component: Gamebay},
+	{ path : '/cctv', component: Cctv},
 	{ path : '/Teamwaiting', component: Teamwaiting},
 		{ path: '/', component: Users} /** this defines the home page url **/
 ];
