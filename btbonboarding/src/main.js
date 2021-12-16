@@ -24,7 +24,7 @@ import Activeteams from './Activeteams.vue';
 import Gamebay from './Gamebay.vue';
 import Teamwaiting from './Teamwaiting.vue';
 import Cctv from './Cctv.vue';
-
+import Customers from './Customers.vue';
 
 
 /* pages link for footer */
@@ -79,7 +79,8 @@ const routes = [
 	{ path : '/Gamebay', component: Gamebay},
 	{ path : '/cctv', component: Cctv},
 	{ path : '/Teamwaiting', component: Teamwaiting},
-		{ path: '/', component: Users} /** this defines the home page url **/
+	{ path : '/Customers', component: Customers},
+	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 
 const router = new VueRouter({

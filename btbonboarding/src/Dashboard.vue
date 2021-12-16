@@ -1281,22 +1281,23 @@
     <div class="bv-example-row" style="width:auto;margin:auto; background-color: #fafafa;font-weight:bold; font-size: 0.94em;">
 
       <b-row>
-              <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
-              <b-col><a href="/#/Dashboard">Dashboard</a></b-col>
-              <b-col><a href="/#/Teamwaiting">Waitlist</a></b-col>
-              <b-col><a href="/#/controlroom">Control Room</a></b-col>
-              <b-col><a href="/#/Rfid">Check Rfid</a></b-col>
-              <b-col><a href="/#/Scanmedia">Photobomb Rfid</a></b-col>
-              <b-col>Photo Bomb</b-col>
-              <b-col>Bomb Vision</b-col>
-              <b-col>Support</b-col>
-              <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
-              <!-- <b-col> | </b-col> -->
-              <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
-              <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
-              <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
+        <b-col><a href="/#/Onboardingtest">Onboarding Test</a></b-col>
+        <b-col><a href="/#/Dashboard">Dashboard</a></b-col>
+        <b-col><a href="/#/Teamwaiting">Waitlist</a></b-col>
+        <b-col><a href="/#/controlroom">Control Room</a></b-col>
+        <b-col><a href="/#/Rfid">Check Rfid</a></b-col>
+        <b-col><a href="/#/Scanmedia">Photobomb Rfid</a></b-col>
+        <b-col>Photo Bomb</b-col>
+        <b-col><a href="/#/Customers">Update Profile</a></b-col>
+        <b-col>Bomb Vision</b-col>
+        <b-col>Support</b-col>
+        <b-col><a href="https://docs.google.com/document/u/3/?tgif=c" target="_blank">EOD</a></b-col>
+        <!-- <b-col> | </b-col> -->
+        <b-col><a href="https://joinhomebase.com/" target="_blank">Homebase</a></b-col>
+        <b-col><a href="https://xola.com/_public/login.html" target="_blank">Xola</a></b-col>
+        <b-col><a href="https://squareup.com/login" target="_blank">Square</a></b-col>
 
-            </b-row>
+      </b-row>
 
     </div>
 
