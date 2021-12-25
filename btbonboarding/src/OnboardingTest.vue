@@ -33,7 +33,9 @@
                                   <b-row>
                                     <b-col>PLAYER ONE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 1" value="" v-on:input="posttorfidapi($event, 10, 0)">
+                                      <!-- <b-form-input v-model="listings.rfidState1" ref="todos" v-on:input="posttorfidapi($event, 10, index)" :style="listings.rfidState1 ? { 'background-color': '#33FF90', color:'#33FF90' } : null" spellcheck="false">
+                      </b-form-input> -->
+                                      <b-form-input id="focus0" placeholder="RFID VALUE 1" ref="todos" v-on:input="posttorfidapi($event, 10, 0)">
 
                                       </b-form-input>
                                     </b-col>
@@ -48,7 +50,7 @@
                                   <b-row>
                                     <b-col>PLAYER TWO</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 2" value="" v-on:input="posttorfidapi($event, 10, 1)">
+                                      <b-form-input placeholder="RFID VALUE 2" id="focus1" ref="todos" v-on:input="posttorfidapi($event, 10, 1)">
 
                                       </b-form-input>
                                     </b-col>
@@ -64,7 +66,7 @@
                                   <b-row>
                                     <b-col>PLAYER THREE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 3" value="" v-on:input="posttorfidapi($event, 10, 2)">
+                                      <b-form-input placeholder="RFID VALUE 3" id="focus2" ref="todos" v-on:input="posttorfidapi($event, 10, 2)">
 
                                       </b-form-input>
                                     </b-col>
@@ -80,7 +82,7 @@
                                   <b-row>
                                     <b-col>PLAYER FOUR</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 4" value="" v-on:input="posttorfidapi($event, 10, 3)">
+                                      <b-form-input placeholder="RFID VALUE 4" id="focus3" v-on:input="posttorfidapi($event, 10, 3)">
 
                                       </b-form-input>
                                     </b-col>
@@ -95,7 +97,7 @@
                                   <b-row>
                                     <b-col>PLAYER FIVE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 5" value="" v-on:input="posttorfidapi($event, 10, 4)">
+                                      <b-form-input placeholder="RFID VALUE 5" id="focus4" v-on:input="posttorfidapi($event, 10, 4)">
 
                                       </b-form-input>
                                     </b-col>
@@ -110,7 +112,7 @@
                                   <b-row>
                                     <b-col>PLAYER SIX</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 6" value="" v-on:input="posttorfidapi($event, 10, 5)">
+                                      <b-form-input placeholder="RFID VALUE 6" id="focus5" v-on:input="posttorfidapi($event, 10, 5)">
 
                                       </b-form-input>
                                     </b-col>
@@ -144,7 +146,7 @@
                                   <b-row>
                                     <b-col>PLAYER SEVEN</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 1" value="" v-on:input="posttorfidapi($event, 11, 0)">
+                                      <b-form-input placeholder="RFID VALUE 1" id="focus6" v-on:input="posttorfidapi($event, 11, 0)">
 
                                       </b-form-input>
                                     </b-col>
@@ -159,7 +161,7 @@
                                   <b-row>
                                     <b-col>PLAYER EIGHT</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 2" value="" v-on:input="posttorfidapi($event, 11, 1)">
+                                      <b-form-input placeholder="RFID VALUE 2" id="focus7" v-on:input="posttorfidapi($event, 11, 1)">
 
                                       </b-form-input>
                                     </b-col>
@@ -175,7 +177,7 @@
                                   <b-row>
                                     <b-col>PLAYER NINE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 3" value="" v-on:input="posttorfidapi($event, 11, 2)">
+                                      <b-form-input placeholder="RFID VALUE 3" id="focus8" v-on:input="posttorfidapi($event, 11, 2)">
 
                                       </b-form-input>
                                     </b-col>
@@ -191,7 +193,7 @@
                                   <b-row>
                                     <b-col>PLAYER TEN</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 4" value="" v-on:input="posttorfidapi($event, 11, 3)">
+                                      <b-form-input placeholder="RFID VALUE 4" id="focus9" v-on:input="posttorfidapi($event, 11, 3)">
 
                                       </b-form-input>
                                     </b-col>
@@ -206,7 +208,7 @@
                                   <b-row>
                                     <b-col>PLAYER ELEVEN</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 5" value="" v-on:input="posttorfidapi($event, 11, 4)">
+                                      <b-form-input placeholder="RFID VALUE 5" id="focus10" v-on:input="posttorfidapi($event, 11, 4)">
 
                                       </b-form-input>
                                     </b-col>
@@ -221,7 +223,7 @@
                                   <b-row>
                                     <b-col>PLAYER TWELVE</b-col>
                                     <b-col>
-                                      <b-form-input placeholder="RFID VALUE 6" value="" v-on:input="posttorfidapi($event, 11, 5)">
+                                      <b-form-input placeholder="RFID VALUE 6" id="focus11" v-on:input="posttorfidapi($event, 11, 5)">
 
                                       </b-form-input>
                                     </b-col>
@@ -2407,12 +2409,27 @@ export default {
 
             })
 
-           
+          if(col == '10'){
 
-          // const nextIndex = index + 1;
-         
-          // this.$refs.todos[nextIndex].focus();
+            const nextIndex = index + 1;
+            console.log('next index is '+nextIndex);
+            var inputVal = document.getElementById("focus"+index);
+            inputVal.style.backgroundColor = "#33FF90";
+            inputVal.style.color = "#33FF90";
+            document.getElementById("focus"+nextIndex).focus();
 
+          }
+          if(col == '11'){
+            index = index+6;
+            const nextIndex = index+1;
+            console.log('index was '+index+' and next index is '+nextIndex);
+            var inputVal = document.getElementById("focus"+index);
+            inputVal.style.backgroundColor = "#33FF90";
+            inputVal.style.color = "#33FF90";
+
+            document.getElementById("focus"+nextIndex).focus();
+          }
+          
 
 
         }

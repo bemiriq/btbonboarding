@@ -65,6 +65,14 @@
             <b-form-input type="text" v-model="customerInstagram" placeholder="Update customer instagram">{{customerInstagram}}</b-form-input>
           </td>
         </tr>
+
+        <tr>
+          <th>Zip Code</th>
+          <td>
+            <b-form-input type="text" v-model="customerZipCode" placeholder="Update customer zipcode">{{customerZipCode}}</b-form-input>
+          </td>
+        </tr>
+
         <tr>
           <td>
             <button type="button" class="btn btn-primary" v-on:click="submitCustomerDetail()" style="margin-left:1%;margin-top:5%;" v-if="validatePhone == true && validateEmail == true ">Submit</button>
@@ -109,7 +117,7 @@
         <b-col lg="10" style="background-color:#fafafa;">
 
           <div style="margin-top: 2%;">
-            <p class="h3">CUSTOMER DETAILS</p>
+            <p style="font-size: 1.5rem; margin-left:-5%;">Customer Details</p>
           </div>
           <hr>
           <b-row style="margin-top: 2%;">
@@ -273,6 +281,7 @@ export default {
       customerPhone:'',
       customerInstagram:'',
       customerId:'',
+      customerZipCode:'',
       /** end of customer details update **/
 
       /** load data by selecting date **/
@@ -388,6 +397,7 @@ export default {
         instagram: this.customerInstagram,
         email: this.customerEmail,
         phone: this.customerPhone,
+        postal_code: this.customerZipCode
       })
       .then(response => 
       {
@@ -440,6 +450,7 @@ export default {
             this.customerEmail = response.data[0].email;
             this.customerInstagram = response.data[0].instagram;
             this.customerId = response.data[0].id;
+            this.customerZipCode = response.data[0].postal_code;
 
             this.updateCustomerDetail = response.data;
             
@@ -537,6 +548,8 @@ export default {
         this.customerEmail = response.data[0].email;
         this.customerInstagram = response.data[0].instagram;
         this.customerId = response.data[0].id;
+        this.customerZipCode = response.data[0].postal_code;
+
 
         this.updateCustomerDetail = response.data;
 
