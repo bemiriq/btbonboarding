@@ -286,12 +286,17 @@
           </b-row>
 
           <table class="table">
-            <tr style="font-size: 1.2em;text-align:left;">
-              <th style="text-align:center;padding-right:10%;">Team Name</th>
-              <th> Mission</th>
-              <th> Session Start Time </th>
-              <th> Update </th>
-              <th> Clone Team </th>
+            <tr style="font-size: 1.05em;text-align:left;">
+              <th style="text-align:center;padding-right:10%;width:17%;">Team Name</th>
+              <th>Reservation Name</th>
+              <th>Reservation Time</th>
+              <th>Reservation Date</th>
+              <th>Onboarded Time</th>
+              <th style="width:10%;">Session Date </th>
+              <th>Mission</th>
+              <th>Room Status</th>
+              <th>Update</th>
+              <th>Clone</th>
             </tr>
             <tr v-for="team in teamList" v-bind:key="team.id" style="text-align:left;">
               <td>
@@ -299,6 +304,29 @@
                   <span v-if="team.test > '0' "><b> / T</b></span>
                 </p>
                 <!-- <a href="#/Activeteams" @click="editTeamName()" style="text-transform:capitalize;">{{team.Team.name}}</a> -->
+              </td>
+
+              <td style="padding-left:1.5%;">
+                <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
+                <!-- <p v-else>Booker</p> -->
+                <p v-else style="text-transform: capitalize;">{{team.Reservation.Booker.Person.first_name}} {{team.Reservation.Booker.Person.last_name}}</p>
+              </td>
+              <td style="padding-left:1.5%;">
+                <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
+                <p v-else>{{team.Reservation.reservation_for | convertTime}}</p>
+              </td>
+
+              <td style="padding-left:1.5%;">
+                <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
+                <p v-else>{{team.Reservation.reservation_for | convertDate}}</p>
+              </td>
+
+              <td style="padding-left:1.5%;">
+                {{team.session_time | convertTime}}
+              </td>
+
+              <td style="padding-left:1.5%;">
+                {{team.session_time | convertDate}}
               </td>
 
               <td>
@@ -317,9 +345,12 @@
                 <span v-if="team.team_vs_team_id > '0'" ><br>Battle Mode</span>
               </td>
 
-              <td style="padding-left:1.5%;">
-                {{team.session_time | convertTime}}
+              <td>
+                <!-- Last Room -->
+                <p v-if="team.Session_game_scores.length > '0'">{{team.Session_game_scores | currentRoomStatus}}</p>
+                <p v-else>N/A</p>
               </td>
+
               <td style="padding-left:1.5%;">
                 <button type="button" class="btn btn-info" v-on:click="editTeamDetails(team.id,1)">Edit</button>
                 <!-- <b-button v-on:click="editTeamDetails(team.id)">Edit</b-button> -->
@@ -454,10 +485,107 @@ export default {
         if(value == null){
           return 'Empty'
         }
-        var formattime = moment(value).format('hh:mm A MM-DD-YYYY');
-        return formattime
+        var formattime = moment(value).format('hh:mm A');
+        return formattime;
       },
 
+      convertDate(value){
+        if(value == null){
+          return 'Empty'
+        }
+        var formatDate = moment(value).format('MM-DD-YYYY');
+        return formatDate;
+      },
+
+      currentRoomStatus(value){
+        // console.log(value);
+        if(value == null){
+          return 'Empty'
+        }
+        else{
+          var getRoomName = value[value.length - 1];
+          // console.log(getRoomName);
+          var gameIdFetched = getRoomName.game_id;
+          
+
+          if(gameIdFetched == '1'){
+            return 'Hack Attack';
+          }
+          if(gameIdFetched == '2'){
+            return 'Laser Maze';
+          }
+          if(gameIdFetched == '3'){
+            return 'Echo Chamber';
+          }
+          if(gameIdFetched == '4'){
+            return 'Floor Grid';
+          }
+          if(gameIdFetched == '5'){
+            return 'Cyberbot';
+          }
+
+
+          if(gameIdFetched == '6'){
+            return 'Halloween Hack Attack';
+          }
+          if(gameIdFetched == '7'){
+            return 'Halloween Laser Maze';
+          }
+          if(gameIdFetched == '8'){
+            return 'Halloween Echo Chamber';
+          }
+          if(gameIdFetched == '9'){
+            return 'Halloween Floor Grid';
+          }
+          if(gameIdFetched == '10'){
+            return 'Halloween Cyberbot';
+          }
+
+
+          if(gameIdFetched == '11'){
+            return 'Seqeuncer';
+          }
+          if(gameIdFetched == '12'){
+            return 'Crypto Lazer';
+          }
+          if(gameIdFetched == '13'){
+            return 'Mad Dash';
+          }
+          if(gameIdFetched == '14'){
+            return 'Low Battery';
+          }
+          if(gameIdFetched == '15'){
+            return 'Block Monster';
+          }
+
+
+          if(gameIdFetched == '16'){
+            return 'Hack Attack Pro';
+          }
+          if(gameIdFetched == '17'){
+            return 'Lazer Maze Pro';
+          }
+          if(gameIdFetched == '18'){
+            return 'Echo Chamber Pro';
+          }
+          if(gameIdFetched == '19'){
+            return 'Floor Grid Pro';
+          }
+          if(gameIdFetched == '20'){
+            return 'Cyberbot Pro';
+          }
+
+          if(gameIdFetched == '100'){
+            return 'Ready Room';
+          }
+
+          if(gameIdFetched < '1' || gameIdFetched > '20' && gameIdFetched != '100'){
+            return 'N/A';
+          }
+
+        }
+        return 'value';
+      },
       // convertMissionId(data){
       //   console.log(data);
       //   console.log('convert mission name');

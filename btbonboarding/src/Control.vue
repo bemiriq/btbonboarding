@@ -30,7 +30,7 @@
         <!-- end of navigation menu on left side -->
 
         <b-modal id="modal-startTeam" centered v-bind:hide-footer="true">
-          <p class="warning"><b> TEAM LIST</b></p>
+          <p class="warning"><b> TEAM LIST </b></p>
         
             <b-form-select v-model="teamSessionId" class="mb-3">
               <option v-for="item in teamList" v-bind:key="item.id" v-bind:value="item.id">{{item.Team.name}}</option>
@@ -1447,7 +1447,7 @@ export default {
 
     startTeam(event,room){
 
-      // console.log('team start on room '+ room);
+      console.log('team start on room '+ room);
 
       this.$root.$emit('bv::show::modal', 'modal-startTeam', '#btnShow');
 
@@ -1482,16 +1482,36 @@ export default {
       // console.log("room number "+this.teamRoomNumber);
       // console.log("session id of team "+this.teamSessionId);
 
+      console.log(this.teamSessionId);
+      
       axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.teamSessionId,{
 
       })
       .then(response => 
       {
-        // console.log(response);
+        console.log(response);
         // console.log(response.data);
 
-        this.rfidTagForTeam = response.data.Team_player_sessions[0].Rfid.tag;
-        var rfidTagUsed =response.data.Team_player_sessions[0].Rfid.tag;
+        if(response.data.team_id == '4'){
+          console.log("running test team");
+
+          this.rfidTagForTeam = '8AC3523A';
+          var rfidTagUsed = '8AC3523A';
+        }
+        else{
+
+          console.log('not a test team');
+
+          this.rfidTagForTeam = response.data.Team_player_sessions[0].Rfid.tag;
+          
+          var rfidTagUsed =response.data.Team_player_sessions[0].Rfid.tag;
+
+        }
+        
+
+        console.log('rfid tag used was '+rfidTagUsed);
+        console.log('room number was '+this.teamRoomNumber);
+
         var roomId = this.teamRoomNumber;
 
         var mqtt = require('mqtt');
@@ -3127,8 +3147,13 @@ export default {
 
   mounted: function(){
     
+    /** 29946 **/
 
-    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/20',{
+    console.log('san here');
+    console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/24878');
+
+
+    axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/limit/19',{
 
       })
       .then(response => 
@@ -3137,6 +3162,25 @@ export default {
         // console.log(response.data);
 
         this.teamList = response.data;
+
+        axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/24878',{
+
+        })
+        .then(response => 
+        {
+          console.log(response.data);
+
+          var endpointData = response.data;
+
+          this.teamList.unshift(endpointData);
+
+          console.log(this.teamList);
+
+        })
+        .catch(function (error){
+          // console.log(error);
+        });
+
       })
       .catch(function (error){
         // console.log(error);

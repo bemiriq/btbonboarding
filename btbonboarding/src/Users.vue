@@ -4,6 +4,18 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
 
+
+    <!-- modal for booker not found while search -->
+      <b-modal id="modal-onSearchBookerNotFound" centered size="md" title="Message" v-bind:hide-footer="true">
+        <p class="paragraph">Cannot find booker of that name. Please try first name, last name or email only.
+        </p>
+        <br>
+        <b-button variant="primary" v-on:click="hideOnSearchBookerNotFound()">Ok</b-button>
+      </b-modal>
+    <!-- end of modal for booker not found while search -->
+
+
+
     <b-container class="bv-example-row" id="searchId">
       <!-- Stack the columns on mobile by making one full-width and the other half-width -->
       <b-row>
@@ -1342,6 +1354,13 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
     },
 
+    hideOnSearchBookerNotFound(){
+      this.$bvModal.hide('modal-onSearchBookerNotFound');
+      this.searchedText = '';
+      var currentDate = moment().format('YYYY-MM-DD');
+      this.onContext(currentDate);
+    },
+
     hideWaiverNotSignedModal(){
       // this.$bvModal.hide('modal-waiverNotSigned');
       this.reloadPageEvent();
@@ -1882,6 +1901,13 @@ searchPlayers(){
               var replyDataObj1 = this.posts;
 
               console.log(this.posts);
+
+              console.log('post length was '+this.posts.length);
+
+              if(this.posts.length == '0'){
+                console.log('Booker name not found');
+                this.$bvModal.show('modal-onSearchBookerNotFound');
+              }
 
               for(let i=0; i <= countPostArray; i++){
 
