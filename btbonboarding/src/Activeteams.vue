@@ -391,7 +391,9 @@
               <td style="padding-left:1.5%;">
                 <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
                 <!-- <p v-else>Booker</p> -->
-                <p v-else style="text-transform: capitalize;">{{team.Reservation.Booker.Person.first_name}} {{team.Reservation.Booker.Person.last_name}}</p>
+                <p v-else style="text-transform: capitalize;">{{team.Reservation.Booker.Person.first_name}} 
+                  <span v-if="team.Reservation.Booker.Person.last_name != 'undefined'">{{team.Reservation.Booker.Person.last_name}}</span>
+                </p>
               </td>
               <td style="padding-left:1.5%;">
                 <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
