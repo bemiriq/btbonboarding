@@ -8,21 +8,21 @@
 		</b-modal>
 
 		<b-modal id="modal-playerDetailEmpty" centered size="md" v-bind:hide-footer="true" title="No Details">
-			Reasons that we have no details for this player are
+			We have no details for this player as
 			<br><br>
-			&#8226; This player is an adult who signed waiver as spectator for minor.
+			&#8226; This player might be an adult who signed waiver as spectator for minor.
 			<br>
-      &#8226; This player seems to be a booker who used different emails to book and sign waiver.
-      <br>
-      &#8226;Signed the waiver but did not play.
-      <br>
-      &#8226; This player can be really old player before 2019 and missing out some data.
-      <br><br>
-      If you see multiple names for this player. Please click on cancel and try out the other link.
-      <br>
-      <br>
-      <button type="button" class="btn btn-info" v-on:click="hidePlayerDetailEmpty()" style="margin-left:2%;">Cancel</button>
-    </b-modal>
+			&#8226; This player might be a booker who used different emails to book and sign waiver.
+			<br>
+			&#8226; Signed the waiver but did not play.
+			<br>
+			&#8226; This player might be really old player before 2019 and missing out some data.
+			<br><br>
+			If you see multiple names for this player. Please click on cancel and try out the other link.
+			<br>
+			<br>
+			<button type="button" class="btn btn-info" v-on:click="hidePlayerDetailEmpty()" style="margin-left:2%;">Cancel</button>
+		</b-modal>
 
 		<b-modal id="modal-minorBookerDetailsModal" centered size="lg" v-bind:hide-footer="true" title="Waiver Signed By">
 			<table class="table table-borderless" style="text-transform:capitalize; border: none;">
@@ -116,78 +116,78 @@
         <figure class="media"><iframe v-bind:src="(teamMedia0)"></iframe></figure>
       </tr> -->
       <tr>
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia8)" style="height:100%;width:100%;">
-      		</figure>
+    <td>
+      <figure class="container media">
+      <img v-bind:src="(teamMedia8)" style="height:100%;width:100%;">
+     </figure>
 
-      		<!-- <button v-on:click="clickedDownload(teamMedia8)">Download Image</button> -->
-      	</td>
+     <!-- <button v-on:click="clickedDownload(teamMedia8)">Download Image</button> -->
+   </td>
 
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia3)" style="height:100%;width:100%;">
-      		</figure>
+   <td>
+     <figure class="container media">
+      <img v-bind:src="(teamMedia3)" style="height:100%;width:100%;">
+     </figure>
 
-      	</td>
+   </td>
 
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia4)" style="height:100%;width:100%;">
-      		</figure>
-      	</td>
+   <td>
+     <figure class="container media">
+      <img v-bind:src="(teamMedia4)" style="height:100%;width:100%;">
+     </figure>
+   </td>
       </tr>
 
       <tr>
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia5)" style="height:100%;width:100%;">
-      		</figure>
-      	</td>
+   <td>
+     <figure class="container media">
+      <img v-bind:src="(teamMedia5)" style="height:100%;width:100%;">
+     </figure>
+   </td>
 
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia6)" style="height:100%;width:100%;">
-      		</figure>
-      	</td>
+   <td>
+     <figure class="container media">
+      <img v-bind:src="(teamMedia6)" style="height:100%;width:100%;">
+     </figure>
+   </td>
 
-      	<td>
-      		<figure class="container media">
-      			<img v-bind:src="(teamMedia7)" style="height:100%;width:100%;">
-      		</figure>
-      	</td>
+   <td>
+     <figure class="container media">
+      <img v-bind:src="(teamMedia7)" style="height:100%;width:100%;">
+     </figure>
+   </td>
       </tr>
 
       <tr>
 
-      	<td>
-      		<figure class="container media">
-      			<video style="height:100%;width:100%;" controls>
-      				<source :src="(teamMedia1)" type="video/mp4">
-      				</video>
-      			</figure>
-      		</td>
+   <td>
+     <figure class="container media">
+      <video style="height:100%;width:100%;" controls>
+      <source :src="(teamMedia1)" type="video/mp4">
+      </video>
+  </figure>
+     </td>
 
-      		<td>
-      			<figure class="container media">
-      				<video style="height:100%;width:100%;" controls>
-      					<source :src="(teamMedia9)" type="video/mp4">
-      					</video>
-      				</figure>
-      			</td>
+     <td>
+  <figure class="container media">
+      <video style="height:100%;width:100%;" controls>
+      <source :src="(teamMedia9)" type="video/mp4">
+      </video>
+  </figure>
+  </td>
 
-      			<td>
-      				<figure class="container media">
-      					<img v-bind:src="(teamMedia2)" style="height:100%;width:100%;">
-      				</figure>
-      			</td>
-      		</tr>
+  <td>
+  <figure class="container media">
+      <img v-bind:src="(teamMedia2)" style="height:100%;width:100%;">
+  </figure>
+  </td>
+     </tr>
 
-      		<tr>
-      			<h5>
-      				<a :href="(teamMedia0)" target="_blank">Download Scoresheet</a>
-      			</h5>
-      		</tr>
+     <tr>
+  <h5>
+  <a :href="(teamMedia0)" target="_blank">Download Scoresheet</a>
+  </h5>
+     </tr>
 
      <!--  <tr>
         <td style="width:10%;">{{teamMedia4}}</td>
@@ -212,265 +212,265 @@
   </b-modal>
 
   <b-modal id="modal-password" centered size="md" title="Player Details Download" v-bind:hide-footer="true">
-  	<b-row v-if="loginPage == '1' ">
-  		<b-col lg="8">
-  			<b-form-input id="example-input" v-model="passwordDetail" type="password" placeholder="Please Enter Password" autocomplete="off" v-on:keypress="checkPassword($event)"></b-form-input>
-  		</b-col>
+  <b-row v-if="loginPage == '1' ">
+ <b-col lg="8">
+ <b-form-input id="example-input" v-model="passwordDetail" type="password" placeholder="Please Enter Password" autocomplete="off" v-on:keypress="checkPassword($event)"></b-form-input>
+ </b-col>
 
-  		<b-col lg="2">
-  			<b-button variant="info" v-on:click="checkPassword($event)">Submit</b-button>
-  		</b-col>
-  	</b-row>
+ <b-col lg="2">
+ <b-button variant="info" v-on:click="checkPassword($event)">Submit</b-button>
+ </b-col>
+  </b-row>
 
-  	<br>
+  <br>
 
-  	<b-row v-if="emptyPassword == '1'">
-  		<b-col>
-  			<p style="color:red;font-family:italic;">Please enter password and click submit.</p>
-  		</b-col>
-  	</b-row>
+  <b-row v-if="emptyPassword == '1'">
+ <b-col>
+ <p style="color:red;font-family:italic;">Please enter password and click submit.</p>
+ </b-col>
+  </b-row>
 
-  	<b-row v-if="incorrectPassword == '1'">
-  		<b-col>
-  			<p style="color:red;font-family:italic;">Incorrect Password.</p>
-  		</b-col>
-  	</b-row>
+  <b-row v-if="incorrectPassword == '1'">
+ <b-col>
+ <p style="color:red;font-family:italic;">Incorrect Password.</p>
+ </b-col>
+  </b-row>
 
-  	<table class="table" v-if="correctPassword == '1'">
-  		<tr>
-  			<td><b>Start Date</b></td>
-  			<td>
-  				<b-input-group>
-  					<b-form-input id="example-input" v-model="downloadPeopleStartDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
-  					<b-input-group-append>
-  						<b-form-datepicker v-model="downloadPeopleStartDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
-  					</b-input-group-append>
-  				</b-input-group>
-  			</td>
-  		</tr>
+  <table class="table" v-if="correctPassword == '1'">
+ <tr>
+ <td><b>Start Date</b></td>
+ <td>
+ <b-input-group>
+  <b-form-input id="example-input" v-model="downloadPeopleStartDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+  <b-input-group-append>
+  <b-form-datepicker v-model="downloadPeopleStartDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
+ </b-input-group-append>
+ </b-input-group>
+ </td>
+ </tr>
 
-  		<tr>
-  			<td><b>End Date</b></td>
-  			<td>
-  				<b-input-group>
-  					<b-form-input id="example-input" v-model="downloadPeopleEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
-  					<b-input-group-append>
-  						<b-form-datepicker v-model="downloadPeopleEndDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
-  					</b-input-group-append>
-  				</b-input-group>
-  			</td>
-  		</tr>
-  		<tr>
-  			<td>
-  				<b-button variant="info" v-on:click="convertData($event)">File Download</b-button>
-  			</td>
-  		</tr>
-  	</table>
+ <tr>
+ <td><b>End Date</b></td>
+ <td>
+ <b-input-group>
+ <b-form-input id="example-input" v-model="downloadPeopleEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+ <b-input-group-append>
+  <b-form-datepicker v-model="downloadPeopleEndDate" button-only right locale="en-US" aria-controls="example-input" @context="onContextDownload"></b-form-datepicker>
+ </b-input-group-append>
+ </b-input-group>
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <b-button variant="info" v-on:click="convertData($event)">File Download</b-button>
+ </td>
+ </tr>
+  </table>
 
-  	<table class="dataTable" style="display:none;">
-  		<tr style="font-weight:bold;">
-  			<th>Name</th>
-  			<th>Email</th>
-  			<th>Instagram</th>
-  			<th>Phone Number</th>
-  			<th>Team Name</th>
-  			<th>Date of birth</th>
-  			<th>Adult/Minor</th>
-  			<!-- <th>Tags</th> -->
-  			<th>Date Played</th>
-  			<th>Time Played</th>
-  		</tr>
-  		<tr v-for="item in downloadPlayerSearched" :key="item.id">
-  			<td>{{item.player_name}}</td>
-  			<td>{{item.player_email}}</td>
-  			<td>{{item.player_instagram}}</td>
-  			<td>{{item.player_phone}}</td>
-  			<td style="text-transform:capitalize;">{{item.player_team_name}}</td>
-  			<td>{{item.player_dob}}</td>
-  			<td>{{item.player_adult_minor}}</td>
-  			<!-- <td>R</td> -->
-  			<td>{{item.player_session_date}}</td>
-  			<td>{{item.player_session_time}}</td>
-  		</tr>
-  	</table>
+  <table class="dataTable" style="display:none;">
+ <tr style="font-weight:bold;">
+ <th>Name</th>
+ <th>Email</th>
+ <th>Instagram</th>
+ <th>Phone Number</th>
+ <th>Team Name</th>
+ <th>Date of birth</th>
+ <th>Adult/Minor</th>
+ <!-- <th>Tags</th> -->
+ <th>Date Played</th>
+ <th>Time Played</th>
+ </tr>
+ <tr v-for="item in downloadPlayerSearched" :key="item.id">
+ <td>{{item.player_name}}</td>
+ <td>{{item.player_email}}</td>
+ <td>{{item.player_instagram}}</td>
+ <td>{{item.player_phone}}</td>
+ <td style="text-transform:capitalize;">{{item.player_team_name}}</td>
+ <td>{{item.player_dob}}</td>
+ <td>{{item.player_adult_minor}}</td>
+ <!-- <td>R</td> -->
+ <td>{{item.player_session_date}}</td>
+ <td>{{item.player_session_time}}</td>
+ </tr>
+  </table>
 
   </b-modal>
 
   <b-modal id="modal-profileDetail" centered size="xl" title="Profile" v-bind:hide-footer="true">
-  	<table class="table table-borderless">
-  		<tr>
-  			<th>Player Name</th>
-  			<th>Email</th>
-  			<th>Phone Number</th>
-  			<th>Instagram</th>
-  			<th>Gender</th>
-  			<th>Date of birth</th>
-  			<th>Tags</th>
-  			<!-- <th>Organization</th> -->
-  			<th>Waiver Id</th>
-  		</tr>
+  <table class="table table-borderless">
+ <tr>
+ <th>Player Name</th>
+ <th>Email</th>
+ <th>Phone Number</th>
+ <th>Instagram</th>
+ <th>Gender</th>
+ <th>Date of birth</th>
+ <th>Tags</th>
+ <!-- <th>Organization</th> -->
+ <th>Waiver Id</th>
+ </tr>
 
-  		<tr>
-  			<td style="text-transform:capitalize;">{{playerName}}</td>
-  			<td>{{playerEmail}}</td>
-  			<td>{{playerPhone}}</td>
-  			<td>{{playerInstagram}}</td>
-  			<td>
-  				<p v-if="playerGender == 1">Female</p>
-  				<p v-if="playerGender == 2">Male</p>
-  				<p v-if="playerGender == 3">Others</p>
-  				<p v-if="playerGender == 4">No answer</p>
-  			</td>
-  			<td>{{playerDateOfBirth}}</td>
-  			<!-- <td>Toodle</td> -->
-  			<td>
-  				<b-row>
-  					<b-col cols="2" v-if="playerPlayCount > '0' ">R{{playerPlayCount}}</b-col>
-  					<b-col v-if="playerBombBeater > '0' "> &#128163; </b-col>
-  				</b-row>
-  			</td>
-  			<td>
-  				<p v-if="playerWaiverId > '0'">{{playerWaiverId}}</p>
-  				<p v-else>Old Waiver</p>
-  			</td>
-  		</tr>
-  	</table>
+ <tr>
+ <td style="text-transform:capitalize;">{{playerName}}</td>
+ <td>{{playerEmail}}</td>
+ <td>{{playerPhone}}</td>
+ <td>{{playerInstagram}}</td>
+ <td>
+ <p v-if="playerGender == 1">Female</p>
+ <p v-if="playerGender == 2">Male</p>
+ <p v-if="playerGender == 3">Others</p>
+ <p v-if="playerGender == 4">No answer</p>
+ </td>
+ <td>{{playerDateOfBirth}}</td>
+ <!-- <td>Toodle</td> -->
+ <td>
+ <b-row>
+ <b-col cols="2" v-if="playerPlayCount > '0' ">R{{playerPlayCount}}</b-col>
+ <b-col v-if="playerBombBeater > '0' "> &#128163; </b-col>
+ </b-row>
+ </td>
+ <td>
+ <p v-if="playerWaiverId > '0'">{{playerWaiverId}}</p>
+ <p v-else>Old Waiver</p>
+ </td>
+ </tr>
+  </table>
 
-  	<table class="table">
-  		<h5> Game Play Details </h5>
-  		<tr>
-  			<th>Team Name</th>
-  			<th>Bomb Time</th>
-  			<th>Total Score</th>
-  			<th>Rfid</th>
-  			<th>Winners</th>
-  			<th>Mission</th>
-  			<th>Group Size</th>
-  			<th>Date Played</th>	              
-  		</tr>
-  		<tr v-for="(item,index) in playerTeamPlayerSessionDetail" :key="item.id">
-  			<td style="text-transform:capitalize;">
-  				<a href="#/Playerdetails" @click="clickedTeamName(index)">{{item.team_name}}</a></td>
-  				<td>{{item.bomb_time}}</td>
-  				<td>{{item.total_score}}</td>
-  				<td>{{item.rfid_id}}</td>
-  				<td>
-  					<p v-if="item.winners > '0'">&#128163;</p>
-  					<p v-else>NO</p>
-  				</td>
-  				<td>
-  					<p v-if="item.battle_mode > '0'"><b>Battle Mode</b></p>
-  					<p v-if="item.mission_id == '1'">Cyberbot</p>
-  					<p v-if="item.mission_id == '2'">Block Monster</p>
-  					<p v-if="item.mission_id == '3'">Cyberbot Pro</p>
-  					<p v-if="item.mission_id == '4'">Cyberbot Halloween</p>
-  				</td>
-  				<td>{{item.size}}</td>
-  				<td>{{item.date_played}}</td>
-  			</tr>
-  		</table>
+  <table class="table">
+ <h5> Game Play Details </h5>
+ <tr>
+ <th>Team Name</th>
+ <th>Bomb Time</th>
+ <th>Total Score</th>
+ <th>Rfid</th>
+ <th>Winners</th>
+ <th>Mission</th>
+ <th>Group Size</th>
+ <th>Date Played</th>              
+ </tr>
+ <tr v-for="(item,index) in playerTeamPlayerSessionDetail" :key="item.id">
+ <td style="text-transform:capitalize;">
+ <a href="#/Playerdetails" @click="clickedTeamName(index)">{{item.team_name}}</a></td>
+ <td>{{item.bomb_time}}</td>
+ <td>{{item.total_score}}</td>
+ <td>{{item.rfid_id}}</td>
+ <td>
+ <p v-if="item.winners > '0'">&#128163;</p>
+ <p v-else>NO</p>
+ </td>
+ <td>
+ <p v-if="item.battle_mode > '0'"><b>Battle Mode</b></p>
+ <p v-if="item.mission_id == '1'">Cyberbot</p>
+ <p v-if="item.mission_id == '2'">Block Monster</p>
+ <p v-if="item.mission_id == '3'">Cyberbot Pro</p>
+ <p v-if="item.mission_id == '4'">Cyberbot Halloween</p>
+ </td>
+ <td>{{item.size}}</td>
+ <td>{{item.date_played}}</td>
+ </tr>
+ </table>
 
-  	</b-modal>
+  </b-modal>
 
-  	<div id="disablePage" v-if="loadingBar == '1'">
+  <div id="disablePage" v-if="loadingBar == '1'">
 
-  	</div>
+  </div>
 
-  	<div v-if="loadingBar == '1' " >
-  		<button class="btn btn-primary btn-lg" type="button" disabled>
-  			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  			Loading Data ...
-  		</button>
-  	</div>
+  <div v-if="loadingBar == '1' " >
+ <button class="btn btn-primary btn-lg" type="button" disabled>
+ <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+ Loading Data ...
+ </button>
+  </div>
 
-  	<div>
-  		<b-row>
-  			<b-col lg="2">
-  				<!-- start of the left div which has navigation menu -->
-  				<b-list-group class="leftMenuDiv">
-  					<b-list-group-item href="/#/users">Check-In</b-list-group-item>
-  					<!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
-  					<b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
-  					<b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
-  					<b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
-  					<b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
-  					<b-list-group-item href="/#/Playerdetails" active>Player Details</b-list-group-item>
-  					<b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
-  					<b-list-group-item href="/#/Social">Team Summary</b-list-group-item>
-  					<!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
-  					<!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
-  				</b-list-group>
-  				<!-- end of navigation menu on left side -->
-  			</b-col>
+  <div>
+ <b-row>
+ <b-col lg="2">
+ <!-- start of the left div which has navigation menu -->
+ <b-list-group class="leftMenuDiv">
+ <b-list-group-item href="/#/users">Check-In</b-list-group-item>
+ <!-- <b-list-group-item href="/#/onsite">Onsite Players</b-list-group-item> -->
+ <b-list-group-item href="/#/Onboarding">Onboarding</b-list-group-item>
+ <b-list-group-item href="/#/Waiting">Teams On Deck</b-list-group-item>
+ <b-list-group-item href="/#/Activeteams">Active Teams</b-list-group-item>
+ <b-list-group-item href="/#/Playing">Status Screen</b-list-group-item>
+ <b-list-group-item href="/#/Playerdetails" active>Player Details</b-list-group-item>
+ <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item>
+ <b-list-group-item href="/#/Social">Team Summary</b-list-group-item>
+ <!-- <b-list-group-item href="/#/Onboardingtest">Onboarding Test</b-list-group-item> -->
+ <!-- <b-list-group-item href="/#/Print">Print Scoresheet</b-list-group-item> -->
+ </b-list-group>
+ <!-- end of navigation menu on left side -->
+ </b-col>
 
-  			<b-col lg="10">
-  				<b-row>
-  					<b-col>
-  						<p class="teamTitle1">PLAYER DETAILS</p>
-  					</b-col>
-  					<b-col>
-  						<b-button variant="info" v-on:click="clickedDownload()">Download</b-button>
-  					</b-col>
-  				</b-row>
-  				<br>
-  				<b-row>
-  					<b-col lg="2">
-  						<p class="h6" style="margin-top:5%;"><b>Search By Date</b></p>
-  					</b-col>
-  					<b-col lg="3" style="margin-left: -2%;">
-  						<b-input-group class="mb-1">
-  							<b-form-input id="example-input" v-model="dateClicked" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
-  							<b-input-group-append>
-  								<!-- <b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker> -->
-  								<b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" v-on:input="onContext(dateClicked)"></b-form-datepicker>
-  							</b-input-group-append>
-  						</b-input-group>
-  					</b-col>
+ <b-col lg="10">
+ <b-row>
+ <b-col>
+  <p class="teamTitle1">PLAYER DETAILS</p>
+ </b-col>
+ <b-col>
+  <b-button variant="info" v-on:click="clickedDownload()">Download</b-button>
+ </b-col>
+ </b-row>
+ <br>
+ <b-row>
+ <b-col lg="2">
+  <p class="h6" style="margin-top:5%;"><b>Search By Date</b></p>
+ </b-col>
+ <b-col lg="3" style="margin-left: -2%;">
+  <b-input-group class="mb-1">
+  <b-form-input id="example-input" v-model="dateClicked" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+  <b-input-group-append>
+  <!-- <b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker> -->
+  <b-form-datepicker v-model="dateClicked" button-only right locale="en-US" aria-controls="example-input" v-on:input="onContext(dateClicked)"></b-form-datepicker>
+ </b-input-group-append>
+ </b-input-group>
+ </b-col>
 
-							<!-- <b-col lg="3">
-								<b-input-group class="mb-1">
-									<b-form-input id="example-input" v-model="dateClickedEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
-									<b-input-group-append>
-										<b-form-datepicker v-model="dateClickedEndDate" button-only right locale="en-US" aria-controls="example-input"  v-on:input="onContext(dateClickedEndDate)"></b-form-datepicker>
-									</b-input-group-append>
-								</b-input-group>
-							</b-col> -->
-
-
-							<b-col lg="3">
-								<b-input-group size="md">
-									<b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
-									<b-input-group-prepend>
-										<span class="input-group-text" v-on:click="searchPlayers()" v-if="searchedText.length > '1'">&#128270;</span>
-										<span class="input-group-text" v-else disabled>&#128270;</span>
-									</b-input-group-prepend>
-								</b-input-group>
-							</b-col>
-
-							<b-col lg="3">
-								<b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
-							</b-col>
-						</b-row>
+<!-- <b-col lg="3">
+<b-input-group class="mb-1">
+<b-form-input id="example-input" v-model="dateClickedEndDate" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+<b-input-group-append>
+<b-form-datepicker v-model="dateClickedEndDate" button-only right locale="en-US" aria-controls="example-input"  v-on:input="onContext(dateClickedEndDate)"></b-form-datepicker>
+</b-input-group-append>
+</b-input-group>
+</b-col> -->
 
 
-						<b-col>
-							<!-- opended pagination div -->
-							<div class="overflow-auto">
-								<!-- <p class="mt-3">Current Page: {{ currentPage }}</p> -->
-								<b-table id="my-table" :items="teamList" :per-page="perPage" :current-page="currentPage" medium :fields="fields" style="text-align:left;">
-									
-									<template #cell(name)="data">
-										<a href="/#/Playerdetails" @click="playerNameClicked(data.value,data.index)" style="text-transform:capitalize;">{{data.value}}</a>
-									</template>
-									
-									<template #cell(adult_minor)="data2">
-										<div v-if="data2.value > 0">Adult</div>
-										<div v-else>Adult</div>
+<b-col lg="3">
+<b-input-group size="md">
+<b-form-input id="input-large" size="md" placeholder="Search here ... " v-on:change="searchPlayers()" v-model="searchedText"></b-form-input>
+<b-input-group-prepend>
+<span class="input-group-text" v-on:click="searchPlayers()" v-if="searchedText.length > '1'">&#128270;</span>
+<span class="input-group-text" v-else disabled>&#128270;</span>
+</b-input-group-prepend>
+</b-input-group>
+</b-col>
+
+<b-col lg="3">
+<b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table"></b-pagination>
+</b-col>
+</b-row>
+
+
+<b-col>
+<!-- opended pagination div -->
+<div class="overflow-auto">
+<!-- <p class="mt-3">Current Page: {{ currentPage }}</p> -->
+<b-table id="my-table" :items="teamList" :per-page="perPage" :current-page="currentPage" medium :fields="fields" style="text-align:left;">
+
+<template #cell(name)="data">
+<a href="/#/Playerdetails" @click="playerNameClicked(data.value,data.index)" style="text-transform:capitalize;">{{data.value}}</a>
+</template>
+
+<template #cell(adult_minor)="data2">
+<div v-if="data2.value > 0">Adult</div>
+<div v-else>Adult</div>
 									</template>
 
 									<template #cell(bomb_beater)="data1">
-										<div v-if="data1.value > 0">&#128163;</div>
-										<div v-else></div>
+<div v-if="data1.value > 0">&#128163;</div>
+<div v-else></div>
 									</template>
 									
 								</b-table>
@@ -516,11 +516,11 @@
 								<td style="text-transform:capitalize;">{{item.Team.name}}</td>
 								<td>
 									<p v-if="!detail.player_minor_id > 0" style="
-											display:inline-block;
-											white-space: nowrap;
-											overflow: hidden;
-											text-overflow: ellipsis;
-											max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
+display:inline-block;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 11ch;">{{detail.Player.Person.date_of_birth}}</p>
 									<p v-else>{{detail.Player_minor.date_of_birth}}</p>
 									</td>
 								<td>{{detail.Player.Person.email}}</td>
@@ -590,27 +590,27 @@ export default {
   },
 
   data(){
-  	return{
-  		teamname: [],
-  		teamList: [],
-  		fields:['name','date_of_birth','adult_minor','play_count','bomb_beater'],
+  return{
+ teamname: [],
+ teamList: [],
+ fields:['name','date_of_birth','adult_minor','play_count','bomb_beater'],
 
-  		playerProfile:[],
-  		searchedPeopleId:[],	searchedPersonId:[],	searchedTeamPlayerSession:[],	teamNameTPSIndex:[],	searchedIndexClicked:0,	playerValue:0,
-  		dateClicked: '',	dateClickedEndDate:'',	selectedReservationDate: '',	formatted: '',	perPage: 20,	currentPage: 1,	searchedText:'',
-  		/** player profile detail **/	playerName: '',	playerEmail:'',	playerPhone:'',	playerInstagram:'',	playerGender:'',	playerDateOfBirth:'',	playerWaiverId:'',	playerPlayCount:'',	playerBombBeater:'',	playerTeamPlayerSessionDetail:[],	/** end of player profile detail **/
-  		/** player/booker/team details once the team name is clicked **/	teamBookerFirstName:'',	teamBookerLastName:'',	teamBookerEmail:'',	teamBookerPhone:'',	teamBookerInstagram:'',	teamClikedName:'',	clickedPeopleDetail:[],
-  		minorWaiverSigned : [],	waiverSignedFirstName : '',	waiverSignedLastName : '',	waiverSignedEmail : '',	waiverSignedPhone : '',	waiverSignedInstagram : '',	waiverSignedWaiverId : '',
-  		teamMedia:[],	teamMedia0:'',	teamMedia1:'',	teamMedia2:'',	teamMedia3:'',	teamMedia4:'',	teamMedia5:'',	teamMedia6:'',	teamMedia7:'',	teamMedia8:'',	teamMedia9:'',	teamMedia10:'', /** gets pthobomb url from session_media_assets 14 **/
-  		/** end of player/booker/team details**/
-  		/** below is for password security **/	passwordDetail:'',	loginPage:1,	emptyPassword:0,	security:'btbsecure2017',	incorrectPassword:0,	correctPassword:0,	downloadPeopleStartDate:moment().subtract('days',1).format('YYYY-MM-DD'),	downloadPeopleEndDate:moment().format('YYYY-MM-DD'),	/** end of password security **/
-  		/** download player detail **/	downloadPlayerSearched:[],	covertButtonValue:0,	/** end of player download **/
-  		loadingBar: '',
-  	}
+ playerProfile:[],
+ searchedPeopleId:[],	searchedPersonId:[],	searchedTeamPlayerSession:[],	teamNameTPSIndex:[],	searchedIndexClicked:0,	playerValue:0,
+ dateClicked: '',	dateClickedEndDate:'',	selectedReservationDate: '',	formatted: '',	perPage: 20,	currentPage: 1,	searchedText:'',
+ /** player profile detail **/	playerName: '',	playerEmail:'',	playerPhone:'',	playerInstagram:'',	playerGender:'',	playerDateOfBirth:'',	playerWaiverId:'',	playerPlayCount:'',	playerBombBeater:'',	playerTeamPlayerSessionDetail:[],	/** end of player profile detail **/
+ /** player/booker/team details once the team name is clicked **/	teamBookerFirstName:'',	teamBookerLastName:'',	teamBookerEmail:'',	teamBookerPhone:'',	teamBookerInstagram:'',	teamClikedName:'',	clickedPeopleDetail:[],
+ minorWaiverSigned : [],	waiverSignedFirstName : '',	waiverSignedLastName : '',	waiverSignedEmail : '',	waiverSignedPhone : '',	waiverSignedInstagram : '',	waiverSignedWaiverId : '',
+ teamMedia:[],	teamMedia0:'',	teamMedia1:'',	teamMedia2:'',	teamMedia3:'',	teamMedia4:'',	teamMedia5:'',	teamMedia6:'',	teamMedia7:'',	teamMedia8:'',	teamMedia9:'',	teamMedia10:'', /** gets pthobomb url from session_media_assets 14 **/
+ /** end of player/booker/team details**/
+ /** below is for password security **/	passwordDetail:'',	loginPage:1,	emptyPassword:0,	security:'btbsecure2017',	incorrectPassword:0,	correctPassword:0,	downloadPeopleStartDate:moment().subtract('days',1).format('YYYY-MM-DD'),	downloadPeopleEndDate:moment().format('YYYY-MM-DD'),	/** end of password security **/
+ /** download player detail **/	downloadPlayerSearched:[],	covertButtonValue:0,	/** end of player download **/
+ loadingBar: '',
+ }
   },
 
   mounted: function(){
-  	console.log(moment().format('YYYY-MM-DD'));
+console.log(moment().format('YYYY-MM-DD'));
 
     // var startDate = moment().subtract('days',7).format('YYYY-MM-DD');
     // var endDate = moment().add('days',6).format('YYYY-MM-DD');
@@ -734,70 +734,70 @@ export default {
 
         for (var i = 0; i < tpsLength; i++) {
 
-        	var checkMinor = response.data[0].Team_player_sessions[i].Player_minor;
+     var checkMinor = response.data[0].Team_player_sessions[i].Player_minor;
 
-        	if(checkMinor == null){
+     if(checkMinor == null){
 
-        		console.log('not minor');
+       console.log('not minor');
 
-        		var player_first_name = response.data[0].Team_player_sessions[i].Player.Person.first_name;
-        		var player_last_name = response.data[0].Team_player_sessions[i].Player.Person.last_name;
-        		var player_email = response.data[0].Team_player_sessions[i].Player.Person.email;
-        		var player_phone = response.data[0].Team_player_sessions[i].Player.Person.phone;
-        		var player_date_of_birth = response.data[0].Team_player_sessions[i].Player.Person.date_of_birth;
-        		var player_instagram = response.data[0].Team_player_sessions[i].Player.Person.instagram;
-        		var player_play_count = response.data[0].Team_player_sessions[i].Player.play_count;
-        		var player_bomb_beater = response.data[0].Team_player_sessions[i].Player.bomb_beater;
-        		var last_played_date = moment(response.data[0].Team_player_sessions[i].updatedAt).format('MM-DD-YYYY');
-        		var last_played_time = moment(response.data[0].Team_player_sessions[i].updatedAt).format('H:mm A');
+       var player_first_name = response.data[0].Team_player_sessions[i].Player.Person.first_name;
+       var player_last_name = response.data[0].Team_player_sessions[i].Player.Person.last_name;
+       var player_email = response.data[0].Team_player_sessions[i].Player.Person.email;
+       var player_phone = response.data[0].Team_player_sessions[i].Player.Person.phone;
+       var player_date_of_birth = response.data[0].Team_player_sessions[i].Player.Person.date_of_birth;
+       var player_instagram = response.data[0].Team_player_sessions[i].Player.Person.instagram;
+       var player_play_count = response.data[0].Team_player_sessions[i].Player.play_count;
+       var player_bomb_beater = response.data[0].Team_player_sessions[i].Player.bomb_beater;
+       var last_played_date = moment(response.data[0].Team_player_sessions[i].updatedAt).format('MM-DD-YYYY');
+       var last_played_time = moment(response.data[0].Team_player_sessions[i].updatedAt).format('H:mm A');
 
-        		var playerDetail = {
-        			"fullName" : player_first_name+' '+player_last_name,
-        			"date_of_birth" : player_date_of_birth,
-        			"play_count" : player_play_count,
-        			"bomb_beater" : player_bomb_beater,
-        			"date_played" : last_played_date,
-        			"time_played_at" : last_played_time,
-        			"instagram" : player_instagram,
-        			"phone" : player_phone,
-        			"email" : player_email,
-        			"minor" : 'Adult'
-        		}
+       var playerDetail = {
+    "fullName" : player_first_name+' '+player_last_name,
+    "date_of_birth" : player_date_of_birth,
+    "play_count" : player_play_count,
+    "bomb_beater" : player_bomb_beater,
+    "date_played" : last_played_date,
+    "time_played_at" : last_played_time,
+    "instagram" : player_instagram,
+    "phone" : player_phone,
+    "email" : player_email,
+    "minor" : 'Adult'
+       }
 
-        		this.clickedPeopleDetail.push(playerDetail);
+       this.clickedPeopleDetail.push(playerDetail);
 
 
-        	}
-        	else{
+     }
+     else{
 
-        		console.log('it was minor');
+       console.log('it was minor');
 
-        		var minor_first_name = response.data[0].Team_player_sessions[i].Player_minor.first_name;
-        		var minor_last_name = response.data[0].Team_player_sessions[i].Player_minor.last_name;
-        		var minor_date_of_birth = response.data[0].Team_player_sessions[i].Player_minor.date_of_birth;
-        		var minor_play_count = response.data[0].Team_player_sessions[i].Player_minor.play_count;
-        		var minor_last_played_date = moment(response.data[0].Team_player_sessions[i].Player_minor.updatedAt).format('MM-DD-YYYY');
-        		var minor_last_played_time = moment(response.data[0].Team_player_sessions[i].Player_minor.updatedAt).format('H:mm A');
-        		var minor_id = response.data[0].Team_player_sessions[i].Player_minor.id;
-        		var signed_player_id = response.data[0].Team_player_sessions[i].Player_minor.player_id;
+       var minor_first_name = response.data[0].Team_player_sessions[i].Player_minor.first_name;
+       var minor_last_name = response.data[0].Team_player_sessions[i].Player_minor.last_name;
+       var minor_date_of_birth = response.data[0].Team_player_sessions[i].Player_minor.date_of_birth;
+       var minor_play_count = response.data[0].Team_player_sessions[i].Player_minor.play_count;
+       var minor_last_played_date = moment(response.data[0].Team_player_sessions[i].Player_minor.updatedAt).format('MM-DD-YYYY');
+       var minor_last_played_time = moment(response.data[0].Team_player_sessions[i].Player_minor.updatedAt).format('H:mm A');
+       var minor_id = response.data[0].Team_player_sessions[i].Player_minor.id;
+       var signed_player_id = response.data[0].Team_player_sessions[i].Player_minor.player_id;
 
-        		var minorDetail = {
-        			"fullName" : minor_first_name+' '+minor_last_name,
-        			"date_of_birth" : minor_date_of_birth,
-        			"play_count" : minor_play_count,
-        			"date_played" : minor_last_played_date,
-        			"time_played_at" : minor_last_played_time,
-        			"instagram" : ' ',
-        			"phone" : ' ',
-        			"email" : ' ',
-        			"minor" : 'Minor',
-        			"player_minor_id": minor_id,
-        			"player_id": signed_player_id
-        		}
+       var minorDetail = {
+    "fullName" : minor_first_name+' '+minor_last_name,
+    "date_of_birth" : minor_date_of_birth,
+    "play_count" : minor_play_count,
+    "date_played" : minor_last_played_date,
+    "time_played_at" : minor_last_played_time,
+    "instagram" : ' ',
+    "phone" : ' ',
+    "email" : ' ',
+    "minor" : 'Minor',
+    "player_minor_id": minor_id,
+    "player_id": signed_player_id
+       }
 
-        		this.clickedPeopleDetail.push(minorDetail);
+       this.clickedPeopleDetail.push(minorDetail);
 
-        	}
+     }
         }
       })
 			.catch(function (error) {
@@ -823,7 +823,7 @@ export default {
               this['teamMedia'+i] = response.data[i].s3_url;
 
               if(response.data[i].session_media_item_id == '14'){
-              	this.teamMedia10 = response.data[i].s3_url;
+           this.teamMedia10 = response.data[i].s3_url;
               }
 
             }
@@ -1016,85 +1016,85 @@ export default {
 // console.log(response.data.length);
 
 // 	for (var i = 0; i < response.data.length; i++) { /** this for loop started for each session **/
-// 		// console.log(response.data[i].id);
+//// console.log(response.data[i].id);
 
-// 		var teamPlayerSessionLength = response.data[i].Team_player_sessions.length;
-// 		console.log('team player session length '+teamPlayerSessionLength);
+//var teamPlayerSessionLength = response.data[i].Team_player_sessions.length;
+//console.log('team player session length '+teamPlayerSessionLength);
 
-// 		for (var j = 0; j < teamPlayerSessionLength; j++) { /** for loop to get each player detail from Team_player_sessions **/
-
-
-// 			if(response.data[i].Team_player_sessions[j].player_minor_id > '0'){ /** checks if its minor **/
-// 				var minorLastName = response.data[i].Team_player_sessions[j].Player_minor.last_name;
-// 				var minorFirstName = response.data[i].Team_player_sessions[j].Player_minor.first_name;
-// 				var minorId = response.data[i].Team_player_sessions[j].Player_minor.id;
-// 				var minorDOB =  response.data[i].Team_player_sessions[j].Player_minor.date_of_birth;
-// 				// var minorBombBeater =  response.data[i].Team_player_sessions[j].Player_minor.bomb_beater;
-// 				// var minorPlayCount =  response.data[i].Team_player_sessions[j].Player_minor.play_count;
-// 				// var minorTeamName = response.data[i].Team.name;
-// 				// var minorBookerFirstName = response.data[i].Reservation.Booker.Person.first_name;
-// 				// var minorBookerLastName = response.data[i].Reservation.Booker.Person.last_name;
-
-// 				let playerArray = {
-// 					'id' : minorId,
-// 					'name': minorFirstName+ ' ' +minorLastName,
-// 					'date_of_birth': minorDOB,
-// 					// 'team_name' : minorTeamName,
-// 					'bomb_beater': ' ',
-// 					'play_count' : ' ',
-// 					'adult/minor' : 'Minor'
-// 				}
-
-// 				this.teamList.push(playerArray);
-// 			}/** end of minor IF loop **/
-
-// 			else{/** this is player not minor **/
-
-// 				var playerLastName = response.data[i].Team_player_sessions[j].Player.Person.last_name;
-// 				var playerFirstName = response.data[i].Team_player_sessions[j].Player.Person.first_name;
-// 				var playerId = response.data[i].Team_player_sessions[j].Player.Person.id;
-// 				var playerDOB =  response.data[i].Team_player_sessions[j].Player.Person.date_of_birth;
-// 				// var playerEmail =  response.data[i].Team_player_sessions[j].Player.Person.email;
-// 				// var playerInsta =  response.data[i].Team_player_sessions[j].Player.Person.instagram;
-// 				var bombBeater =  response.data[i].Team_player_sessions[j].Player.bomb_beater;
-
-// 				if(response.data[i].Team_player_sessions[j].Player.play_count > 0){
-// 					var playCount = 'R'+response.data[i].Team_player_sessions[j].Player.play_count;
-// 				}
-// 				else{
-// 					playCount = response.data[i].Team_player_sessions[j].Player.play_count;
-// 				}
-
-// 				// if(response.data[i].Team_player_sessions[j].Player.bomb_beater > 0){
-// 				// 	var bombBeater = "1";
-// 				// }
-// 				// else{
-// 				// 	bombBeater = response.data[i].Team_player_sessions[j].Player.bomb_beater;
-// 				// }
-
-// 				// var playCount =  response.data[i].Team_player_sessions[j].Player.play_count;
-// 				// var teamName = response.data[i].Team.name;
-// 				// var bookerFirstName = response.data[i].Reservation.Booker.Person.first_name;
-// 				// var bookerLastName = response.data[i].Reservation.Booker.Person.last_name;
-
-// 				let playerArray = {
-// 					'id' : playerId,
-// 					'name': playerFirstName+ ' ' +playerLastName,
-// 					'date_of_birth': playerDOB,
-// 					// 'team_name' : teamName,
-// 					// 'email' : playerEmail,
-// 					// 'instagram' : playerInsta,
-// 					'adult/minor' : 'Adult',
-// 					'bomb_beater': bombBeater,
-// 					'play_count' : playCount
-// 				}
-
-// 				this.teamList.push(playerArray);
-
-// 			}/** end of Player Else loop **/
+//for (var j = 0; j < teamPlayerSessionLength; j++) { /** for loop to get each player detail from Team_player_sessions **/
 
 
-// 		}/** end of for loop for each player detail from Team_player_sessions **/
+//	if(response.data[i].Team_player_sessions[j].player_minor_id > '0'){ /** checks if its minor **/
+//		var minorLastName = response.data[i].Team_player_sessions[j].Player_minor.last_name;
+//		var minorFirstName = response.data[i].Team_player_sessions[j].Player_minor.first_name;
+//		var minorId = response.data[i].Team_player_sessions[j].Player_minor.id;
+//		var minorDOB =  response.data[i].Team_player_sessions[j].Player_minor.date_of_birth;
+//		// var minorBombBeater =  response.data[i].Team_player_sessions[j].Player_minor.bomb_beater;
+//		// var minorPlayCount =  response.data[i].Team_player_sessions[j].Player_minor.play_count;
+//		// var minorTeamName = response.data[i].Team.name;
+//		// var minorBookerFirstName = response.data[i].Reservation.Booker.Person.first_name;
+//		// var minorBookerLastName = response.data[i].Reservation.Booker.Person.last_name;
+
+//		let playerArray = {
+//			'id' : minorId,
+//			'name': minorFirstName+ ' ' +minorLastName,
+//			'date_of_birth': minorDOB,
+//			// 'team_name' : minorTeamName,
+//			'bomb_beater': ' ',
+//			'play_count' : ' ',
+//			'adult/minor' : 'Minor'
+//		}
+
+//		this.teamList.push(playerArray);
+//	}/** end of minor IF loop **/
+
+//	else{/** this is player not minor **/
+
+//		var playerLastName = response.data[i].Team_player_sessions[j].Player.Person.last_name;
+//		var playerFirstName = response.data[i].Team_player_sessions[j].Player.Person.first_name;
+//		var playerId = response.data[i].Team_player_sessions[j].Player.Person.id;
+//		var playerDOB =  response.data[i].Team_player_sessions[j].Player.Person.date_of_birth;
+//		// var playerEmail =  response.data[i].Team_player_sessions[j].Player.Person.email;
+//		// var playerInsta =  response.data[i].Team_player_sessions[j].Player.Person.instagram;
+//		var bombBeater =  response.data[i].Team_player_sessions[j].Player.bomb_beater;
+
+//		if(response.data[i].Team_player_sessions[j].Player.play_count > 0){
+//			var playCount = 'R'+response.data[i].Team_player_sessions[j].Player.play_count;
+//		}
+//		else{
+//			playCount = response.data[i].Team_player_sessions[j].Player.play_count;
+//		}
+
+//		// if(response.data[i].Team_player_sessions[j].Player.bomb_beater > 0){
+//		// 	var bombBeater = "1";
+//		// }
+//		// else{
+//		// 	bombBeater = response.data[i].Team_player_sessions[j].Player.bomb_beater;
+//		// }
+
+//		// var playCount =  response.data[i].Team_player_sessions[j].Player.play_count;
+//		// var teamName = response.data[i].Team.name;
+//		// var bookerFirstName = response.data[i].Reservation.Booker.Person.first_name;
+//		// var bookerLastName = response.data[i].Reservation.Booker.Person.last_name;
+
+//		let playerArray = {
+//			'id' : playerId,
+//			'name': playerFirstName+ ' ' +playerLastName,
+//			'date_of_birth': playerDOB,
+//			// 'team_name' : teamName,
+//			// 'email' : playerEmail,
+//			// 'instagram' : playerInsta,
+//			'adult/minor' : 'Adult',
+//			'bomb_beater': bombBeater,
+//			'play_count' : playCount
+//		}
+
+//		this.teamList.push(playerArray);
+
+//	}/** end of Player Else loop **/
+
+
+//}/** end of for loop for each player detail from Team_player_sessions **/
 
 // 	}/** end of for loop for SESSION **/
 
@@ -1277,15 +1277,15 @@ getTeamPlayerSessionDetail(){
 						var playerProfileSession = response.data[i].Session.id;
 						this.playerProfile.push(playerProfileSession);
 
-											// this.playerProfile = response.data[i].Session.id;
-											// console.log(this.playerProfile);
-											console.log('i value was this as '+i);
-											var playerRfid = response.data[i].rfid_id;
+// this.playerProfile = response.data[i].Session.id;
+// console.log(this.playerProfile);
+console.log('i value was this as '+i);
+var playerRfid = response.data[i].rfid_id;
 
-											var bomb_time_minute = Math.floor(response.data[i].Session.bomb_time/60);
-											var bomb_time_seconds = Math.floor(response.data[i].Session.bomb_time) - bomb_time_minute * 60;
+var bomb_time_minute = Math.floor(response.data[i].Session.bomb_time/60);
+var bomb_time_seconds = Math.floor(response.data[i].Session.bomb_time) - bomb_time_minute * 60;
 
-											var bomb_time = bomb_time_minute+':'+bomb_time_seconds;
+var bomb_time = bomb_time_minute+':'+bomb_time_seconds;
 
 										// var bomb_time = response.data[i].Session.bomb_time;
 										var mission_id = response.data[i].Session.mission_id;
@@ -1299,30 +1299,30 @@ getTeamPlayerSessionDetail(){
 										console.log(playerRfid);
 
 										if(battleMode > '0'){
-											battleMode = '1';
+battleMode = '1';
 										}
 
 										var teamId =response.data[i].Session.team_id;
 
 										var playerTPSdetails = {
-											"rfid_id" : playerRfid,
-											"total_score": total_score,
-											"mission_id": mission_id,
-											"bomb_time": bomb_time,
-											"size":player_count,
-											"winners":winners,
-											"date_played":playedAt,
-											"team_id": teamId,
-											"battle_mode": battleMode,
-											"team_name":team_name
+"rfid_id" : playerRfid,
+"total_score": total_score,
+"mission_id": mission_id,
+"bomb_time": bomb_time,
+"size":player_count,
+"winners":winners,
+"date_played":playedAt,
+"team_id": teamId,
+"battle_mode": battleMode,
+"team_name":team_name
 										};
 
 										this.playerTeamPlayerSessionDetail.push(playerTPSdetails);
 
 										if(i+1 == response.data.length){
-											setTimeout(
-												this.$bvModal.show('modal-profileDetail'),1200
-												);
+setTimeout(
+this.$bvModal.show('modal-profileDetail'),1200
+);
 											// this.$bvModal.show('modal-profileDetail');
 										}
 
@@ -1332,7 +1332,7 @@ getTeamPlayerSessionDetail(){
 
 								else{ 
 									console.log('empty values');
-                  this.$bvModal.show('modal-playerDetailEmpty');
+									this.$bvModal.show('modal-playerDetailEmpty');
 								} /** end of else statement **/
 
 
@@ -1374,7 +1374,7 @@ getTeamPlayerSessionDetail(){
         })
         .then(response => 
         {
-        	console.log(response.data);
+     console.log(response.data);
 
 			// console.log(response.data[0].id);
 
@@ -1454,7 +1454,7 @@ getTeamPlayerSessionDetail(){
 
 		})
         .catch(function (error) {
-        	console.log(error);
+     console.log(error);
         });
 
       },
@@ -1536,7 +1536,7 @@ getTeamPlayerSessionDetail(){
 
 		})
           .catch(function (error) {
-          	console.log(error);
+       console.log(error);
           });
 
 
@@ -1553,9 +1553,9 @@ getTeamPlayerSessionDetail(){
 // console.log(response.data.length);
 
 // 	for (var i = 0; i < response.data.length; i++) { /** this for loop started for each session **/
-// 		// console.log(response.data[i].id);
+//// console.log(response.data[i].id);
 
-// 		var teamPlayerSessionLength = response.data[i].Team_player_sessions.length;
+//var teamPlayerSessionLength = response.data[i].Team_player_sessions.length;
 // 		console.log('team player session length '+teamPlayerSessionLength);
 
 // 		for (var j = 0; j < teamPlayerSessionLength; j++) { /** for loop to get each player detail from Team_player_sessions **/
