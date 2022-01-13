@@ -24,6 +24,13 @@
 			<button type="button" class="btn btn-info" v-on:click="hidePlayerDetailEmpty()" style="margin-left:2%;">Cancel</button>
 		</b-modal>
 
+		<b-modal id="modal-playerNameNotFound" centered size="md" v-bind:hide-footer="true" title="Message">
+			<p class="paragraph">Cannot find player of that name. Please use the correct first name, last name or email.
+        </p>
+        <br>
+        <b-button variant="primary" v-on:click="hidePlayerNameNotFound()">Ok</b-button>
+		</b-modal>
+
 		<b-modal id="modal-minorBookerDetailsModal" centered size="lg" v-bind:hide-footer="true" title="Waiver Signed By">
 			<table class="table table-borderless" style="text-transform:capitalize; border: none;">
 				<tr style="font-weight:bold;">
@@ -700,6 +707,10 @@ console.log(moment().format('YYYY-MM-DD'));
 			this.$bvModal.show('modal-password');
 		},
 
+		hidePlayerNameNotFound(){
+			this.$bvModal.hide('modal-playerNameNotFound');
+		},
+
 		hidePlayerDetailEmpty(){
 			this.$bvModal.hide('modal-playerDetailEmpty');
 		},
@@ -984,6 +995,12 @@ console.log(moment().format('YYYY-MM-DD'));
 
 			// console.log(response.data.length);
 
+			console.log(response.data.length);
+
+			if(response.data.length < '1'){
+				this.$bvModal.show('modal-playerNameNotFound');
+			}
+
 			var totalSearchedText = response.data.length;
 
 			for (var i = 0; i < totalSearchedText; i++) {
@@ -997,7 +1014,6 @@ console.log(moment().format('YYYY-MM-DD'));
 					console.log('yes yes');
 					this.getPersonDetail();
 					// console.log(this.searchedPersonId.length);
-
 				}
 			}
 
