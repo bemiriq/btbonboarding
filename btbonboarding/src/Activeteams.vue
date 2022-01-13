@@ -768,17 +768,17 @@ export default {
           console.log('remove minor from a team');
 
           var tpsPlayerMinorId =  this.editTeamPlayers.Team_player_sessions[index].id;
-          var personId = this.editTeamPlayers.Team_player_sessions[index].player_minor_id;
-          var reservationId = this.editTeamPlayers.Team_player_sessions[index].reservation_id;
+          var playerMinorId = this.editTeamPlayers.Team_player_sessions[index].player_minor_id;
+          var minorReservationId = this.editTeamPlayers.Team_player_sessions[index].reservation_id;
 
-          console.log('person id was '+personId);
-          console.log('reservation id was '+reservationId);
+          console.log('person id was '+playerMinorId);
+          console.log('reservation id was '+minorReservationId);
 
           axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+tpsPlayerMinorId,{
             // test: 1
           })
           .then(response => {
-
+            console.log(response);
             console.log('deleted player from tps');
 
             axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
@@ -799,7 +799,7 @@ export default {
 
                 /** update on reservation_minor table **/
 
-                axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/player_minor/'+personId+'/reservation/'+reservationId,{
+                axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/player_minor/'+playerMinorId+'/reservation/'+minorReservationId,{
                   session_id: null /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
                 })
                 .then(response => {
@@ -850,7 +850,7 @@ export default {
             // test: 1
           })
           .then(response => {
-
+            console.log(response.data);
             console.log('deleted player from tps');
 
             axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
