@@ -6,6 +6,65 @@
       If it does not print please try to manually print out any document from that computer and check if the printer is working or not.
     </b-modal>
 
+
+    <b-modal id="modal-removedPlayer" centered size="md" v-bind:hide-footer="true" title="Player Removed Message">
+      Removed a player from {{clickedTeamName}}. Updating data and reloading the page.
+    </b-modal>
+
+    <b-modal id="modal-twoPlayerMessage" centered size="md" v-bind:hide-footer="true" title="Unable to remove player">
+      There should at least be two players to play at Beat The Bomb. You cannot remove player from team <span style="text-transform:capitalize;"><b>{{clickedTeamName}}</b></span> as it consists of only two players.
+      <br><br>
+      <button type="button" class="btn btn-info" v-on:click="hideTwoPlayerMessage()">Cancel</button>
+    </b-modal>
+
+    <b-modal id="modal-removePlayerMessage" centered size="md" v-bind:hide-footer="true" title="Remove Player Confirmation">
+      <div>
+        <p>
+          <!-- <b>You are going to convert normal team into test team. Are you sure?</b>. -->
+          You are about to remove player 
+          <span style="text-transform:capitalize;"><b>{{removingPlayerName}}</b></span>
+           from team 
+           <span style="text-transform:capitalize;"><b>{{clickedTeamName}}</b></span>.
+          Once you click on YES, you will not be able to add this player to the team. Are you sure?
+        </p>
+
+        <hr>
+
+        <button type="button" class="btn btn-primary" v-on:click="removePlayer()">YES</button>
+        <button type="button" class="btn btn-info" v-on:click="hideRemovePlayerModal()" style="margin-left:2%;">NO</button>
+      </div>
+    </b-modal>
+
+    <b-modal id="modal-removePlayerClicked" centered size="md" v-bind:hide-footer="true" title="Remove Player">
+      <table class="table">
+          <tr>
+            <th>Player Name</th>
+            <th>Adult/Minor</th>
+            <th>Rfid Id</th>
+            <th>Remove Player From <br> {{teamNameDisplay}} </th>
+          </tr>
+          <tr v-for="(playerkey,index) in editTeamPlayers.Team_player_sessions" v-bind:key="playerkey.id" style="text-align:left;">
+            <td>
+              <span v-if="playerkey.player_minor_id < '1' || playerkey.player_minor_id == null" style="text-transform:capitalize;">{{playerkey.Player.Person.first_name}} {{playerkey.Player.Person.last_name}}</span>
+              <span v-else style="text-transform:capitalize;"> {{playerkey.Player_minor.first_name}} {{playerkey.Player_minor.last_name}} </span>
+            </td>
+            <td>
+              <span v-if="playerkey.player_minor_id < '1' || playerkey.player_minor_id == null" style="text-transform:capitalize;">Adult</span>
+              <span v-else>Minor</span>
+            </td>
+            <td>
+              {{playerkey.rfid_id}}
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" v-on:click="removePlayerMessageFunction(index)">Remove</button>
+            </td>
+          </tr>
+        </table>
+
+        <button type="button" class="btn btn-info" v-on:click="hideRemovePlayerClicked()">Cancel</button>
+    </b-modal>
+
+
     <b-modal id="modal-printScoresheet" centered size="md" v-bind:hide-footer="true" title="Print Scoresheet">
       If you trying to print the scoresheet for <span style="text-transform:capitalize;"><b>{{clickedTeamName}}</b></span>, if the scores were wrong. Then please update their score and try to print it out. If not then you may click on the Print button to print the scoresheet.
       <br><br>
@@ -151,23 +210,31 @@
     <b-modal id="modal-activeTeams" centered size="xl" v-bind:hide-footer="true" :title="teamNameDisplay">
       <table class="table">
         <tr>
-          <th>Team Name</th>
+          <th>Team</th>
           <th>Mission</th>
+          <th>Player Count</th>
           <th>Test Team</th>
           <th>Battle Mode</th>
           <!-- <th v-if="battleModeTeamSession > '0' ">Battle Mode</th> -->
           <th>Battle Mode Opponent</th>
           <th>Score</th>
+          <th>Team Name</th>
+          <th>Player</th>
         </tr>
         <tr>
           <!-- <td>{{clickedTeamName}}</td> -->
           <td>
-            <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{teamNameDisplay}}</a>
+            <!-- <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{teamNameDisplay}}</a> -->
+            <p style="text-transform:capitalize;">{{teamNameDisplay}}</p>
           </td>
           <td>
             <b-form-select v-model="clickedMission" v-on:change="changedMission($event)">
               <option v-for="itemCategory in missions" :value="itemCategory.id" v-bind:key="itemCategory.id">{{itemCategory.name}}</option>
             </b-form-select>
+          </td>
+
+          <td>
+            {{teamPlayersLength}}
           </td>
 
           <!-- this td defines test team or not -->
@@ -184,7 +251,7 @@
           </td>
           <td v-else>NO</td>
           <!-- <td v-if="battleModeTeamSession > '0' " style="width:40%;"> -->
-            <td style="width:30%;">
+            <td style="width:25%;">
               <b-form-select v-model="updatedBattleModeSession" v-on:change="changedBattleModeTeam($event)">
                 <option style="font-weight:bold;" :value="null"> -- None -- </option>
                 <option v-for="item in teamList" :value="item.id" v-bind:key="item.id" style="text-transform:capitalize;">{{item.Team.name}}</option>
@@ -196,8 +263,23 @@
                 Update<!-- <img src="./assets/edit.png" style="width:10%;height:10%;color:white;"/> -->
               </button>
             </td>
+
+            <td>
+              <button type="button" class="btn btn-outline-primary" v-on:click="editTeamName(clickedSessionId)">
+                Update<!-- <img src="./assets/edit.png" style="width:10%;height:10%;color:white;"/> -->
+              </button>
+              <!-- <a href="#/Activeteams" @click="editTeamName(clickedSessionId)" style="text-transform:capitalize;">{{teamNameDisplay}}</a> -->
+            </td>
+
+            <td>
+              <button type="button" class="btn btn-outline-primary" v-on:click="removePlayerClicked()">
+                Remove Player<!-- <img src="./assets/edit.png" style="width:10%;height:10%;color:white;"/> -->
+              </button>
+            </td>
+
           </tr>
         </table>
+
         <br>
         <div>
           <button type="button" class="btn btn-primary" v-on:click="printScoresheet()" style="margin-left:1%;">PRINT SCORESHEET</button>
@@ -290,11 +372,11 @@
               <th style="text-align:center;padding-right:10%;width:17%;">Team Name</th>
               <th>Reservation Name</th>
               <th>Reservation Time</th>
-              <th>Reservation Date</th>
+              <!-- <th>Reservation Date</th> -->
               <th>Onboarded Time</th>
-              <th style="width:10%;">Session Date </th>
+              <!-- <th style="width:10%;">Onboarded Date </th> -->
               <th>Mission</th>
-              <th>Room Status</th>
+              <th>Last Room</th>
               <th>Update</th>
               <th>Clone</th>
             </tr>
@@ -313,19 +395,16 @@
               </td>
               <td style="padding-left:1.5%;">
                 <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
-                <p v-else>{{team.Reservation.reservation_for | convertTime}}</p>
+                <p v-else>{{team.Reservation.reservation_for | convertTime}} <br> {{team.Reservation.reservation_for | convertDate}}</p>
               </td>
 
-              <td style="padding-left:1.5%;">
+              <!-- <td style="padding-left:1.5%;">
                 <p v-if="team.reservation_id == 'null' || !team.reservation_id > '0' ">N/A</p>
                 <p v-else>{{team.Reservation.reservation_for | convertDate}}</p>
-              </td>
+              </td> -->
 
               <td style="padding-left:1.5%;">
-                {{team.session_time | convertTime}}
-              </td>
-
-              <td style="padding-left:1.5%;">
+                {{team.session_time | convertTime}} <br>
                 {{team.session_time | convertDate}}
               </td>
 
@@ -459,6 +538,10 @@ export default {
         gameId4:'',
         gameId5:'',
 
+        editTeamPlayers:[],
+        teamPlayersLength: '',
+        removePlayerIndex:'',
+        removingPlayerName:'',
 
       }
     },
@@ -633,6 +716,197 @@ export default {
     },
 
     methods:{
+
+      removePlayerClicked(){
+        this.$bvModal.show('modal-removePlayerClicked');
+      },
+
+      removePlayerMessageFunction(index){
+
+        if(this.editTeamPlayers.Team_player_sessions.length > '2'){
+          this.removePlayerIndex = index;
+
+          /** looks for minor players **/
+          if(this.editTeamPlayers.Team_player_sessions[index].player_minor_id > '0'){ 
+            this.removingPlayerName = this.editTeamPlayers.Team_player_sessions[index].Player_minor.first_name+' '+this.editTeamPlayers.Team_player_sessions[index].Player_minor.last_name;
+          }
+          /** looks for adult players **/
+          else{
+            this.removingPlayerName = this.editTeamPlayers.Team_player_sessions[index].Player.Person.first_name+' '+this.editTeamPlayers.Team_player_sessions[index].Player.Person.last_name;
+          }
+          this.$bvModal.show('modal-removePlayerMessage');
+        }
+        else{
+          this.$bvModal.show('modal-twoPlayerMessage');
+        }
+        
+
+      },
+
+      hideRemovePlayerClicked(){
+        this.$bvModal.hide('modal-removePlayerClicked');
+      },
+
+      hideRemovePlayerModal(){
+        this.$bvModal.hide('modal-removePlayerMessage');
+      },
+
+      hideTwoPlayerMessage(){
+        this.$bvModal.hide('modal-twoPlayerMessage');
+      },
+
+      removePlayer(){
+        console.log('clicked on remove player');
+        console.log(this.clickedSessionId);
+        var index = this.removePlayerIndex;
+        console.log('index was '+index);
+        console.log(this.editTeamPlayers.Team_player_sessions[index]);
+
+        /** remove minor **/
+
+        if(this.editTeamPlayers.Team_player_sessions[index].player_minor_id > '0'){
+          console.log('remove minor from a team');
+
+          var tpsPlayerMinorId =  this.editTeamPlayers.Team_player_sessions[index].id;
+          var personId = this.editTeamPlayers.Team_player_sessions[index].player_minor_id;
+          var reservationId = this.editTeamPlayers.Team_player_sessions[index].reservation_id;
+
+          console.log('person id was '+personId);
+          console.log('reservation id was '+reservationId);
+
+          axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+tpsPlayerMinorId,{
+            // test: 1
+          })
+          .then(response => {
+
+            console.log('deleted player from tps');
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+
+            })
+            .then(response => {
+              console.log(response.data);
+              var tpsTotalPlayers = response.data.Team_player_sessions.length;
+              console.log('total players in tps is '+tpsTotalPlayers);
+
+              axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+                player_count:tpsTotalPlayers
+              })
+              .then(response => {
+                console.log(response);
+                console.log('updated player count in session');
+
+
+                /** update on reservation_minor table **/
+
+                axios.put(process.env.VUE_APP_RESERVATION_MINORS+'/player_minor/'+personId+'/reservation/'+reservationId,{
+                  session_id: null /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                })
+                .then(response => {
+                  console.log('updated reservation minor table as null');
+                  console.log(response);
+
+                  this.$bvModal.show('modal-removedPlayer');
+
+                  this.reloadFuntion();
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                /** end of update on reservation_people player table **/
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+        }
+
+        /** remove adult **/
+
+        else{
+          console.log('remove player from a team');
+
+          var tpsPlayerId =  this.editTeamPlayers.Team_player_sessions[index].id;
+          var personId = this.editTeamPlayers.Team_player_sessions[index].player_id;
+          var reservationId = this.editTeamPlayers.Team_player_sessions[index].reservation_id;
+
+          console.log('person id was '+personId);
+          console.log('reservation id was '+reservationId);
+
+          axios.delete(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+tpsPlayerId,{
+            // test: 1
+          })
+          .then(response => {
+
+            console.log('deleted player from tps');
+
+            axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+
+            })
+            .then(response => {
+              console.log(response.data);
+              var tpsTotalPlayers = response.data.Team_player_sessions.length;
+              console.log('total players in tps is '+tpsTotalPlayers);
+
+              axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+this.clickedSessionId,{
+                player_count:tpsTotalPlayers
+              })
+              .then(response => {
+                console.log(response);
+                console.log('updated player count in session');
+
+
+                /** update on reservation_people table **/
+
+                axios.put(process.env.VUE_APP_RESERVATION_PEOPLE+'/person/'+personId+'/reservation/'+reservationId,{
+                  session_id: null /** countondrop1 is length of an array so if its 0 by adding it 1 it will be 1 **/
+                })
+                .then(response => {
+                  console.log('updated reservation people table as null');
+                  console.log(response);
+
+                  this.$bvModal.show('modal-removedPlayer');
+
+                  this.reloadFuntion();
+
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                /** end of update on reservation_people player table **/
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+
+        }
+      },
 
       cancelPrintScoreSheet(){
         this.$bvModal.hide('modal-printScoresheet');
@@ -1601,6 +1875,11 @@ export default {
         })
         .then(response => {
           console.log(response);
+
+          this.editTeamPlayers = response.data;
+
+          this.teamPlayersLength = response.data.Team_player_sessions.length;
+
           // this.teamList = response.data;
           this.clickedTeamName = response.data.Team.name;
 
