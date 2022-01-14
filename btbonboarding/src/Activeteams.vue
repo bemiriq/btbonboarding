@@ -376,7 +376,7 @@
               <th>Onboarded Time</th>
               <!-- <th style="width:10%;">Onboarded Date </th> -->
               <th>Mission</th>
-              <th>Last Room</th>
+              <th>Current Room</th>
               <th>Update</th>
               <th>Clone</th>
             </tr>
@@ -429,7 +429,11 @@
               <td>
                 <!-- Last Room -->
                 <p v-if="team.Session_game_scores.length > '0'">{{team.Session_game_scores | currentRoomStatus}}</p>
-                <p v-else>N/A</p>
+                <p v-else>On Deck</p>
+
+                <p v-if="team.stats_printed != null && team.total_score != null">
+                  Completed
+                </p>
               </td>
 
               <td style="padding-left:1.5%;">
