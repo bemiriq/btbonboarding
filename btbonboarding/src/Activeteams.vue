@@ -665,7 +665,7 @@ export default {
           }
 
           if(gameIdFetched == '100'){
-            return 'Ready Room';
+            return 'Instructions';
           }
 
           if(gameIdFetched < '1' || gameIdFetched > '20' && gameIdFetched != '100'){

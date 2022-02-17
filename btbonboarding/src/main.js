@@ -25,6 +25,8 @@ import Gamebay from './Gamebay.vue';
 import Teamwaiting from './Teamwaiting.vue';
 import Cctv from './Cctv.vue';
 import Customers from './Customers.vue';
+import Newonboarding from './Newonboarding.vue';
+import Clean from './Clean.vue';
 
 
 /* pages link for footer */
@@ -80,6 +82,8 @@ const routes = [
 	{ path : '/cctv', component: Cctv},
 	{ path : '/Teamwaiting', component: Teamwaiting},
 	{ path : '/Customers', component: Customers},
+	{ path : '/Newonboarding', component: Newonboarding},
+	{ path : '/Clean', component: Clean},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
 

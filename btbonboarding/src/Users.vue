@@ -523,7 +523,11 @@
                                     <b-col style="text-transform: capitalize;">{{fetchlist1.player_first_name}}</b-col>
                                     <b-col style="text-transform: capitalize;">{{fetchlist1.player_last_name}}</b-col>
                                     <b-col>{{fetchlist1.player_cell_number}}</b-col>
-                                    <b-col>YES</b-col>
+                                    <b-col>
+                                        <p v-if="fetchlist1.waiver_id > '0'" style="color:green;">&#10004;&#65039;</p>
+                                        <p v-else> &#10060;</p>
+                                        <!-- {{fetchlist1.waiver_id}} -->
+                                    </b-col>
                                     <!-- <b-col><input type="checkbox" v-model="subchildArrived"/></b-col> -->
                                     <b-col>
                                       <!-- <p v-if="fetchlist1.arrived == '1'">YES</p>
@@ -1177,8 +1181,13 @@ import axios from 'axios';
     // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
     var endReservationTime = '23:57:00';
     var currentTime = moment().format("HHmm");
-    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
-    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+    // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+    // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+    // })
+    console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin_waiver_detail/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+    axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin_waiver_detail/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
     })
     .then(response => 
@@ -2057,8 +2066,12 @@ onContext(ctx) {
           // var endReservationTime = moment().add(1, 'hours').format('HH:mm:ss');
           var endReservationTime = '23:57:00';
           var currentTime = moment().format("HHmm");
-          console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
-          axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+          // console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+          // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
+
+          // })
+          console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin_waiver_detail/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
+          axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+'checkin_waiver_detail/'+starttime+'/'+currentdate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime,{
 
           })
           .then(response => 
@@ -2755,6 +2768,11 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         }
 
 
+        /** track down the waiver id **/
+        var waiver_id = this.posts[index].Reservation_people[i].Person.waiver_id;
+        /** track down the waiver detail **/
+
+
         // var player_first_name = this.posts[index].Reservation_people[i].Person.first_name;
         // var player_last_name = this.posts[index].Reservation_people[i].Person.last_name;
         // var player_cell_number = this.posts[index].Reservation_people[i].Person.phone;
@@ -2795,7 +2813,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
               "non_player": non_player_value,
               "reservation_session_id": reservation_people_session_id,
               "player_bomb_beater_status": bomb_beater,
-              "player_repeaters": repeated_players
+              "player_repeaters": repeated_players,
+              "waiver_id": waiver_id
             }
 
             this.clickedPlayerList = replyDataObj1;
@@ -2819,6 +2838,9 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
             console.log(item);
             var nonMinorPhone = this.personPhoneNumber;
 
+            var playerWaiverDetail = this.posts[index].Reservation_minors[i].Player_minor.Player.Person.waiver_id;
+
+            // var waiverSignedPlayer = this.clickedPlayerList.Reservation_minors[i].Player_minor.player_id;
 
 
             // console.log(this.posts[index].Reservation_minors[i].Player_minor.bomb_beater);
@@ -2913,18 +2935,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
               var reservation_people_session_id = this.posts[index].Reservation_minors[i].session_id;
             }
 
-
-            // var minor_first_name = this.posts[index].Reservation_minors[i].Player_minor.first_name;
-            // var minor_last_name = this.posts[index].Reservation_minors[i].Player_minor.last_name;
             var player_cell_number = nonMinorPhone;
             var minor_full_name = minor_first_name+' '+minor_last_name;
-            // var minor_person_id = this.posts[index].Reservation_minors[i].Player_minor.id;
-            // var minor_player_id = this.posts[index].Reservation_minors[i].Player_minor.player_id;
-            // var missionName = this.posts[index].Mission.name;
-            // var missionId = this.posts[index].Mission.id;
-            // var minorArrived = this.posts[index].Reservation_minors[i].arrived;
-            // var non_player_minor_value = this.posts[index].Reservation_minors[i].non_player;
-            // var reservation_people_minor_table_id = this.posts[index].Reservation_minors[i].id;
             var reservation_for = reservation_for_converted;
 
             console.log(i);
@@ -2951,7 +2963,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
               "reservation_for": reservation_for,
               "non_player": non_player_minor_value,
               "reservation_session_id": reservation_people_session_id,
-              "player_bomb_beater_status": minor_bomb_beater
+              "player_bomb_beater_status": minor_bomb_beater,
+              "waiver_id": playerWaiverDetail
             }
 
             // this.clickedPlayerList = replyDataObj1;
