@@ -1403,15 +1403,15 @@ import axios from 'axios';
       uniquePlayersRolling12Months:'',
       last12MonthsVolumePlay:'',
 
-      inMonthUniquePlayerRepeaters:'',
-      aggregateVolumeUniquePlayerRepeaters:'',
-      playersMonthUniqueRepeaters:'',
-      aggregateUniquePlayerRepeaters12months:'',
+      inMonthUniquePlayerRepeaters:'0',
+      aggregateVolumeUniquePlayerRepeaters:'0',
+      playersMonthUniqueRepeaters:'0',
+      aggregateUniquePlayerRepeaters12months:'0',
 
-      playersMonthlyRepeatRate:'',
-      playersMonthlyRepeatRate12months:'',
-      playersAllTimeRepeatRate:'',
-      playersRolling12monthRepeatRate:'',
+      playersMonthlyRepeatRate:'0',
+      playersMonthlyRepeatRate12months:'0',
+      playersAllTimeRepeatRate:'0',
+      playersRolling12monthRepeatRate:'0',
       /** end of players repeaters objects **/
 
       /** end of repeaters dashboard objects **/
@@ -2301,18 +2301,18 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         });
 
         console.log(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+        // axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.uniquePlayersRolling12Months = response.data[0].unique_players_rolling_12months;
+        // })
+        // .then(response => 
+        // {
+        //   console.log(response);
+        //   this.uniquePlayersRolling12Months = response.data[0].unique_players_rolling_12months;
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
 
         axios.get(process.env.VUE_APP_RAW_QUERIES+'/last_12months_volume_play/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
@@ -2330,74 +2330,74 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
 
         console.log(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+        // axios.get(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.inMonthUniquePlayerRepeaters = response.data[0].in_month_unique_repeaters;
+        // })
+        // .then(response => 
+        // {
+        //   console.log(response);
+        //   this.inMonthUniquePlayerRepeaters = response.data[0].in_month_unique_repeaters;
 
-          this.playersMonthlyRepeatRate = parseFloat(this.inMonthUniquePlayerRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+        //   this.playersMonthlyRepeatRate = parseFloat(this.inMonthUniquePlayerRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
 
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
         console.log(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+        // axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregateVolumeUniquePlayerRepeaters = response.data[0].aggregate_volume_unique_repeaters;
+        // })
+        // .then(response => 
+        // {
+        //   console.log(response);
+        //   this.aggregateVolumeUniquePlayerRepeaters = response.data[0].aggregate_volume_unique_repeaters;
 
-          this.playersAllTimeRepeatRate = parseFloat(this.aggregateVolumeUniquePlayerRepeaters/this.uniquePlayersSinceBeginning*100).toFixed(2);
+        //   this.playersAllTimeRepeatRate = parseFloat(this.aggregateVolumeUniquePlayerRepeaters/this.uniquePlayersSinceBeginning*100).toFixed(2);
 
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
 
         console.log(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+        // axios.get(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.playersMonthUniqueRepeaters = response.data[0].players_month_unique_repeaters;
+        // })
+        // .then(response => 
+        // {
+        //   console.log(response);
+        //   this.playersMonthUniqueRepeaters = response.data[0].players_month_unique_repeaters;
 
-          this.playersMonthlyRepeatRate12months = parseFloat(this.playersMonthUniqueRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+        //   this.playersMonthlyRepeatRate12months = parseFloat(this.playersMonthUniqueRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
 
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
 
         console.log(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+        // axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregateUniquePlayerRepeaters12months = response.data[0].aggregate_unique_player_repeaters_12months;
+        // })
+        // .then(response => 
+        // {
+        //   console.log(response);
+        //   this.aggregateUniquePlayerRepeaters12months = response.data[0].aggregate_unique_player_repeaters_12months;
 
-          this.playersRolling12monthRepeatRate = parseFloat(this.aggregateUniquePlayerRepeaters12months/this.uniquePlayersRolling12Months*100).toFixed(2);
+        //   this.playersRolling12monthRepeatRate = parseFloat(this.aggregateUniquePlayerRepeaters12months/this.uniquePlayersRolling12Months*100).toFixed(2);
 
 
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
 
 
 
