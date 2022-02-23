@@ -482,14 +482,14 @@
               <b-button variant="outline-info" v-on:click="pageLoad='1'" size="md">Overall</b-button>
             </b-col>
             <b-col cols="2">
-              <b-button variant="outline-info" v-on:click="pageLoad='2'" size="md">Repeater Dashboard</b-button>
+              <b-button variant="outline-info" v-on:click="pageLoad='2'" size="md" @click="clickedRepeatersButton()">Repeater Dashboard</b-button>
             </b-col>
             <b-col cols="2">
               <b-button variant="outline-info" @click="clickedPlayCount()" size="md">Repeater List</b-button>
             </b-col>
-            <b-col cols="1">
+           <!--  <b-col cols="1">
               <b-button variant="outline-info" @click="clickedGraph()" size="md">Graph</b-button>
-            </b-col>
+            </b-col> -->
 
           </b-row>
 
@@ -1219,7 +1219,7 @@
               <!-- end of PLAY COUNT dashboard -->
 
               <!-- start of graph div -->
-              <div v-if="pageLoad == '4'">
+             <!--  <div v-if="pageLoad == '4'">
                 <b-row>
                   <b-col><p class="h2" style="padding-left:10%;"><u>Graph Representation</u></p></b-col>
                   <b-col lg="2">
@@ -1259,7 +1259,7 @@
                     <apexchart width="500" type="line" :options="totalMission1Options" :series="totalMission2Series"></apexchart>
                   </b-col>
                 </b-row>
-              </div>
+              </div> -->
               <!-- end of graph div -->
 
             </b-col>
@@ -2180,6 +2180,230 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
   methods:{
 
+    clickedRepeatersButton(){
+      
+      console.log('repeaters button clicked');
+
+      /** Repeat Purchaser **/
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_bookers_repeaters/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.purchaseVolumeByEndDate = response.data[0].purchase_volume_12months;
+          this.monthlyRepeatRate = parseFloat(this.purchaseVolumeByEndDate/this.uniqueBookers*100).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_purchase_volume_12months/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.aggregatePurchaseVolume12months = response.data[0].aggregate_purchase_volume_12months;
+          this.allTimeRepeatRate = parseFloat(this.aggregatePurchaseVolume12months/this.allTimeUniqueBookers*100).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.uniquePurchaseVolume12months = response.data[0].unique_purchase_volume_12months;
+          this.monthlyRepeatRate12months = parseFloat(this.uniquePurchaseVolume12months/this.uniqueBookers*100).toFixed(2);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_purchase_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.aggregateUniquePurchaseVolume12months = response.data[0].aggregate_unique_purchase_12months;
+          this.rolling12monthRepeatRate = parseFloat(this.aggregateUniquePurchaseVolume12months/this.uniquePurchaser12months*100).toFixed(2);
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        /** End of Purchaser **/
+
+
+        /** BEGIN of PLAYER REPEATERS DATA **/
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_by_month/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.volumeInMonthUniquePlayers = response.data[0].unique_players_by_month;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_in_month_plays/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.volumeInMonthPlays = response.data[0].volume_in_month_plays;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.uniquePlayersSinceBeginning = response.data[0].unique_players_since_beginning;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_plays_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.volumePlaysSinceBeginning = response.data[0].volume_plays_since_beginning;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        console.log(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.uniquePlayersRolling12Months = response.data[0].unique_players_rolling_12months;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/last_12months_volume_play/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.last12MonthsVolumePlay = response.data[0].last_12months_volume_play;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        console.log(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.inMonthUniquePlayerRepeaters = response.data[0].in_month_unique_repeaters;
+
+          this.playersMonthlyRepeatRate = parseFloat(this.inMonthUniquePlayerRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        console.log(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.aggregateVolumeUniquePlayerRepeaters = response.data[0].aggregate_volume_unique_repeaters;
+
+          this.playersAllTimeRepeatRate = parseFloat(this.aggregateVolumeUniquePlayerRepeaters/this.uniquePlayersSinceBeginning*100).toFixed(2);
+
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        console.log(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.playersMonthUniqueRepeaters = response.data[0].players_month_unique_repeaters;
+
+          this.playersMonthlyRepeatRate12months = parseFloat(this.playersMonthUniqueRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
+
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        console.log(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
+
+        })
+        .then(response => 
+        {
+          console.log(response);
+          this.aggregateUniquePlayerRepeaters12months = response.data[0].aggregate_unique_player_repeaters_12months;
+
+          this.playersRolling12monthRepeatRate = parseFloat(this.aggregateUniquePlayerRepeaters12months/this.uniquePlayersRolling12Months*100).toFixed(2);
+
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+
+        /** END OF PLAYERS REPEATERS DATA **/
+      },
+
     dashboardMinorNameClicked(index){
       console.log('minor name clicked');
       this.minorWaiverSigned = [];
@@ -3000,9 +3224,9 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         this.loadData();
       }
 
-      if(pageReload == '4'){
-        this.clickedGraph();
-      }
+      // if(pageReload == '4'){
+      //   this.clickedGraph();
+      // }
 
     },
 
@@ -3479,223 +3703,6 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
           console.log(error);
         });
 
-
-        /** Repeat Purchaser **/
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_bookers_repeaters/purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.purchaseVolumeByEndDate = response.data[0].purchase_volume_12months;
-          this.monthlyRepeatRate = parseFloat(this.purchaseVolumeByEndDate/this.uniqueBookers*100).toFixed(2);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_purchase_volume_12months/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregatePurchaseVolume12months = response.data[0].aggregate_purchase_volume_12months;
-          this.allTimeRepeatRate = parseFloat(this.aggregatePurchaseVolume12months/this.allTimeUniqueBookers*100).toFixed(2);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_purchase_volume_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.uniquePurchaseVolume12months = response.data[0].unique_purchase_volume_12months;
-          this.monthlyRepeatRate12months = parseFloat(this.uniquePurchaseVolume12months/this.uniqueBookers*100).toFixed(2);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_purchase_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregateUniquePurchaseVolume12months = response.data[0].aggregate_unique_purchase_12months;
-          this.rolling12monthRepeatRate = parseFloat(this.aggregateUniquePurchaseVolume12months/this.uniquePurchaser12months*100).toFixed(2);
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        /** End of Purchaser **/
-
-
-        /** BEGIN of PLAYER REPEATERS DATA **/
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_by_month/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.volumeInMonthUniquePlayers = response.data[0].unique_players_by_month;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_in_month_plays/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.volumeInMonthPlays = response.data[0].volume_in_month_plays;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.uniquePlayersSinceBeginning = response.data[0].unique_players_since_beginning;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/volume_plays_since_beginning/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.volumePlaysSinceBeginning = response.data[0].volume_plays_since_beginning;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/unique_players_rolling_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.uniquePlayersRolling12Months = response.data[0].unique_players_rolling_12months;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/last_12months_volume_play/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.last12MonthsVolumePlay = response.data[0].last_12months_volume_play;
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/in_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.inMonthUniquePlayerRepeaters = response.data[0].in_month_unique_repeaters;
-
-          this.playersMonthlyRepeatRate = parseFloat(this.inMonthUniquePlayerRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
-
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_volume_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregateVolumeUniquePlayerRepeaters = response.data[0].aggregate_volume_unique_repeaters;
-
-          this.playersAllTimeRepeatRate = parseFloat(this.aggregateVolumeUniquePlayerRepeaters/this.uniquePlayersSinceBeginning*100).toFixed(2);
-
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/players_month_unique_repeaters/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.playersMonthUniqueRepeaters = response.data[0].players_month_unique_repeaters;
-
-          this.playersMonthlyRepeatRate12months = parseFloat(this.playersMonthUniqueRepeaters/this.volumeInMonthUniquePlayers*100).toFixed(2);
-
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-        axios.get(process.env.VUE_APP_RAW_QUERIES+'/aggregate_unique_player_repeaters_12months/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
-
-        })
-        .then(response => 
-        {
-          console.log(response);
-          this.aggregateUniquePlayerRepeaters12months = response.data[0].aggregate_unique_player_repeaters_12months;
-
-          this.playersRolling12monthRepeatRate = parseFloat(this.aggregateUniquePlayerRepeaters12months/this.uniquePlayersRolling12Months*100).toFixed(2);
-
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-
-
-        /** END OF PLAYERS REPEATERS DATA **/
-
         /** END OF REPEATERS DASHBOARD **/
 
       })
@@ -4017,8 +4024,12 @@ axios.get(process.env.VUE_APP_DATABASE_SESSIONS+'/dashboard/winners/start/'+this
         console.log(response);
 
           // console.log(response.data.avgTimePlayed);
-
-          var formatAverageTime = Math.round(response.data[0].avgTimePlayed/60);
+          if(response.data.length > '0'){
+            var formatAverageTime = Math.round(response.data[0].avgTimePlayed/60);
+          }
+          else{
+            formatAverageTime = '0';
+          }
           // console.log(formatAverageTime);
           // var momentFormatAverageTime = moment(formatAverageTime).format('HH:mm');
           // console.log(momentFormatAverageTime);
