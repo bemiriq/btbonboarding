@@ -3231,6 +3231,7 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
     },
 
     loadData(){
+      console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
       axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/dashboard/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
       })
@@ -3390,6 +3391,8 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         });
 
         /** XOLA total reserved player **/
+        console.log(process.env.VUE_APP_RESERVATIONS+'dashboard/reservation_size_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed);
+        
         axios.get(process.env.VUE_APP_RESERVATIONS+'dashboard/reservation_size_count/start/'+this.startDateUsed+'/end/'+this.endDateUsed,{
 
         })
