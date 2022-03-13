@@ -3088,8 +3088,6 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       .then(response => 
       {
         console.log(response);
-
-        console.log(response);
         this.getAllReservationList = response.data;
 
         /** Beginning of ARRIVED counting part **/
