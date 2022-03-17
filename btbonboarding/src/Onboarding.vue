@@ -10915,29 +10915,40 @@ inputEvent3(e) {
 
     console.log(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+selectedReservationId+'/team/'+teamId+'/route/'+routeId);
 
-    axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+selectedReservationId+'/team/'+teamId+'/route/'+routeId,{
+    /** find_or_create for two separate reservation will have two different session id,this if statement will solve the issue **/
+    if(!this["list"+col+"sessionid"] > '0'){ 
+      console.log('session created for the first time');
+
+      axios.post(process.env.VUE_APP_DATABASE_SESSIONS+'/find_or_create/reservation/'+selectedReservationId+'/team/'+teamId+'/route/'+routeId,{
       team_id: teamId,
       route_id: routeId,
       mission_id: missionId,
       session_time: this["sessionRow"+col+"DateTime"],
       location_id: process.env.VUE_APP_LOCATION_ID, /** this fethces the location id from .env file **/
       // player_count: this["list"+col].length
-    })
-    .then(response => {
-      console.log(response.data);
+      })
+      .then(response => {
+        console.log(response.data);
 
-      this.list2sessionid = response.data[0].id; /** this pass session id to list2sessionid **/
-      this["list"+col+"sessionid"] = response.data[0].id;
-      this.playerSessionDetail2 = response.data[0].id;
+        this.list2sessionid = response.data[0].id; /** this pass session id to list2sessionid **/
+        this["list"+col+"sessionid"] = response.data[0].id;
+        this.playerSessionDetail2 = response.data[0].id;
 
-      var fetchSessionId = response.data[0].id;
+        var fetchSessionId = response.data[0].id;
 
-      this.updateTPSTable(draggedIndex,col,teamId,playerWas,missionId,selectedReservationId,fetchSessionId);
+        this.updateTPSTable(draggedIndex,col,teamId,playerWas,missionId,selectedReservationId,fetchSessionId);
 
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    }
+    else{
+      console.log("session id found and it was "+this["list"+col+"sessionid"]);
+      var fetchSessionId = this["list"+col+"sessionid"];
+      this.updateTPSTable(draggedIndex,col,teamId,playerWas,missionId,selectedReservationId,fetchSessionId)
+    }
 
   },
 

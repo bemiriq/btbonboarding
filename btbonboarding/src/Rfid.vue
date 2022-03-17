@@ -4,7 +4,7 @@
 	<table style="width: auto; margin:auto;" v-if="teamName.length < '1'">
 		<tr>
 			<td class="fontStyle">
-				<p class="adjustTitle1 blink_me">{{scanWristbandText}}</p>
+				<p class="adjustTitle1 blink_me" v-if="activateError != '1' ">{{scanWristbandText}}</p>
 			</td>
 			<td><b-form-input id="input-large-define" size="sm" placeholder="Tap the wristband ... " v-on:input="tappedWristband($event)" autofocus></b-form-input></td>
 		</tr>
@@ -71,6 +71,9 @@ methods:{
 	tappedWristband(event){
 		console.log('inside tapped wristband function');
 		console.log(event);
+
+		setTimeout(location.reload.bind(location), 3500);
+
 		if(event.length == '8'){
 			console.log('rfid lenght was 8');
 
@@ -142,14 +145,16 @@ methods:{
 				else{
 					console.log('Cannot find the rfid id');
 					this.activateError = 1;
+					
+					setTimeout(location.reload.bind(location), 3000);
 
-					var v = this;
-						setTimeout(function(){
-							v.rfidTag='';
-							v.teamName='';
-							v.playerName='';
-							v.teamSize='';
-						}, 2500);
+					// var v = this;
+					// 	setTimeout(function(){
+					// 		v.rfidTag='';
+					// 		v.teamName='';
+					// 		v.playerName='';
+					// 		v.teamSize='';
+					// 	}, 2500);
 				}
 				/** end of team player session table **/
 
@@ -159,6 +164,10 @@ methods:{
 			});
 
 			/** end of rfid tag into id **/
+		}
+		else{
+			this.activateError = 1;
+			setTimeout(location.reload.bind(location), 3000);
 		}
 		// else{
 		// 	console.log('Rfid tag more/less than 8');
