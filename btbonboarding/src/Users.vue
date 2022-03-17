@@ -14,6 +14,36 @@
       </b-modal>
     <!-- end of modal for booker not found while search -->
 
+    <b-modal id="modal-checkPlayerId" centered v-bind:hide-footer="true" title="Missing Player Id">
+        <div> Player containing the red cross mark are missing player id. Please click on the create player id on the waiver that contains red crossmark and click ok once you get done. </div>
+
+        <br>
+        <b-row style="font-weight:bold;">
+          <b-col>Player Name</b-col>
+          <b-col>Waiver Status</b-col>
+          <b-col>Delete Waiver</b-col>
+        </b-row>
+
+        <br>
+
+        <div v-for="item in clickedReservationOn.Reservation_people" v-bind:key="item.id">
+          <!-- <p>{{item.Person.first_name}}</p> -->
+
+          <b-row>
+            <b-col>{{item.Person.first_name}} {{item.Person.last_name}}</b-col>
+            <b-col>
+              <p v-if="item.Person.Player == null ">&#10060;</p>
+              <p v-else style="color:green;">&#10004;&#65039;</p>
+            </b-col>
+            <b-col>
+              <b-button variant="info" @click="createPlayerId(item.Person.id)" v-if="item.Person.Player == null ">CREATE</b-button>
+            </b-col>
+          </b-row>
+        </div>
+
+        <br>
+        <b-col><b-button block variant="primary" @click="checkPlayerIdModal()">OK</b-button></b-col>
+      </b-modal>
 
 
     <b-container class="bv-example-row" id="searchId">
@@ -926,6 +956,8 @@ import axios from 'axios';
       personPhoneNumber:'',
       currentTime:'',
 
+      clickedReservationOn:[],
+
       // displayModal: true,
       timeList: [],
       convertedTimeList: '',
@@ -1342,6 +1374,27 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
 
   methods:{
+
+    checkPlayerIdModal(){
+      this.$bvModal.hide('modal-checkPlayerId');
+      window.location.reload(true);
+    },
+
+    createPlayerId(peopleId){
+      console.log('inside create player id function and people id was '+peopleId);
+
+      axios.post(process.env.VUE_APP_DATABASE_PLAYERS+'find_or_create/'+peopleId,{
+          // session_id: 0
+        })
+        .then(response => {
+          console.log(response);
+          // console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    },
 
     copyOnlineWaiverLink(){
 
@@ -2671,6 +2724,11 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         // console.log(this.posts[index].Reservation_people[i]);
         // console.log(this.posts[index].Reservation_people[i].Person.first_name);
 
+        if(this.posts[index].Reservation_people[i].Person.Player == null){
+          this.clickedReservationOn = this.posts[index];
+          console.log('looks like the value was null');
+          this.$bvModal.show('modal-checkPlayerId');
+        }
 
 
         if(this.posts[index].Reservation_people[i].Person.Player.bomb_beater == 'undefined'){
@@ -2679,6 +2737,7 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         else{
           var bomb_beater = this.posts[index].Reservation_people[i].Person.Player.bomb_beater;
         }
+
 
         /** below code is for the REPEATERS **/
         if(this.posts[index].Reservation_people[i].Person.Player.play_count == 'undefined'){
