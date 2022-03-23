@@ -20,6 +20,23 @@
 
     <b-row>
 
+      <!-- selected empty bo to delete -->
+      <b-modal id="modal-morethan6players" centered v-bind:hide-footer="true" title="Player limit 6">
+        <div> You cannot have more than 6 players. </div>
+        <!-- <br>
+        <b-col><b-button block variant="primary" @click="closeCheckTeamName()">OK</b-button></b-col> -->
+      </b-modal>
+      <!-- end of empty box selection to delete -->
+
+
+      <!-- selected empty bo to delete -->
+      <b-modal id="modal-selectedEmptyBoxToDelete" centered v-bind:hide-footer="true" title="Empty Box Selected">
+        <div> Box is empty nothing to delete. Reloading the page. </div>
+        <!-- <br>
+        <b-col><b-button block variant="primary" @click="closeCheckTeamName()">OK</b-button></b-col> -->
+      </b-modal>
+      <!-- end of empty box selection to delete -->
+
       <!-- check team name once the player name is dragged -->
 
       <b-modal id="modal-checkTeamName" centered v-bind:hide-footer="true" title="Missing Team Name">
@@ -4613,7 +4630,7 @@ for(let b=0; b < totalBoxes; b++){
   var endtime='end';
 
 
-  // var currentdate = moment().subtract(6, 'days').format("YYYY-MM-DD");
+  // var currentdate = moment().subtract(7, 'days').format("YYYY-MM-DD");
   var currentdate = moment().format("YYYY-MM-DD");
   console.log(currentdate+ ' date used for reservation');
 
@@ -9521,9 +9538,61 @@ add: function() {
 
   },
 
+  emptyBoxWorkingFunction(event, col){
+    console.log(event);
+    console.log(col);
+    console.log('clicked on the empty box');
+    if(this['list'+col].length > '0'){
+      this.emptyBoxBeforeReload(event,col);
+    }
+    else{ /** else the player are on fetchPlayerList **/
+      this.emptyBoxAfterReload(event,col);
+    }
+  },
+
+  emptyBoxBeforeReload(event,col){
+    console.log('removing value of box BEFORE reload and box was '+col);
+  },
+
+  emptyBoxAfterReload(event,col){
+
+    console.log('removing value of box AFTER reload and box was '+col);
+
+    var newCol = col-10;
+    console.log(newCol);
+
+    console.log(this['fetchPlayerList'+newCol][1]);
+
+    if(this['fetchPlayerList'+newCol][1] == undefined){
+      console.log('the box was empty nothing to delete');
+
+      // this.$bvModal.hide('modal-previousDeleteBox');
+      this.$root.$emit('bv::hide::modal', 'modal-previousDeleteBox', '#btnShow');
+
+      this.$bvModal.show('modal-selectedEmptyBoxToDelete');
+
+      setTimeout(location.reload.bind(location), 1000);
+
+      // window.location.reload(true);
+
+    } 
+    else{ /** delete the player from this else **/
+
+      console.log('reload contain value');
+
+    }
+    /** end of else to delete the values from sessions, tps, reservation_people, reservation_minor **/
+
+    /** below code will update the reservation_minor and reservation_people session id into NULL **/
+    var teamPlayerSessionLength = this['fetchPlayerList'+newCol][1].Team_player_sessions.length;
+    console.log('length '+teamPlayerSessionLength);
+
+  },
+
   emptyBox(event, col){
     console.log(event);
     console.log(col);
+    console.log('clicked on the empty box');
 
     if(this['list'+col].length > '0'){
 
@@ -12387,10 +12456,15 @@ onDrop3(e){
 
         console.log('inside');
 
-        if(this['fetchPlayerList'+boxObjectId][1].Team_player_sessions.length > '5'){
+        if(this['fetchPlayerList'+boxObjectId][1].Team_player_sessions.length > '6'){
           console.log(newCol);
           console.log('Dont Insert player');
-          this.reloadPageEvent();
+
+          this.$bvModal.show('modal-morethan6players');
+
+          // setTimeout(location.reload.bind(location), 1000);
+
+          // this.reloadPageEvent();
         }
 
         else{
