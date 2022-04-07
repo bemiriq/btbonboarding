@@ -20,6 +20,19 @@
 
     <b-row>
 
+      <!-- negative 1 session modal -->
+      <b-modal id="modal-negative1SessionModal" centered v-bind:hide-footer="true" title="Negative Session Id">
+        <div>
+          Team player sessions of this player consist of a negative value of -1.<br>
+          The band you have just created for this player, if you tap on any game it will crash the server.<br>
+          You can ask this player to sign the waiver again with a different email and create a new team with a new email.<br>
+          Please click on OK and close the modal.
+        </div>
+        <br>
+        <b-col><b-button block variant="primary" @click="closeNegative1SessionModal()">OK</b-button></b-col>
+      </b-modal>
+      <!-- end of negative 1 session modal -->
+
       <!-- selected empty bo to delete -->
       <b-modal id="modal-morethan6players" centered v-bind:hide-footer="true" title="Player limit 6">
         <div> You cannot have more than 6 players. </div>
@@ -4634,7 +4647,8 @@ for(let b=0; b < totalBoxes; b++){
   var currentdate = moment().format("YYYY-MM-DD");
   console.log(currentdate+ ' date used for reservation');
 
-  var startCurrentDate = moment().subtract(7,'days').format('YYYY-MM-DD');
+  // var startCurrentDate = moment().subtract(7,'days').format('YYYY-MM-DD');
+  var startCurrentDate = moment().format('YYYY-MM-DD');
   var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
   var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
@@ -4660,7 +4674,7 @@ this.reservationDateUsed = currentdate;
 
 console.log("START RESEVATION TIME "+startReservationTime);
 console.log("END RESERVATION TIME "+endReservationTime);
-
+console.log('san print me');
 console.log(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+startCurrentDate+'T'+startReservationTime+'/'+endtime+'/'+currentdate+'T'+endReservationTime);
 
 // axios.get(process.env.VUE_APP_DATABASE_RESERVATIONS+starttime+'/'+currentdate+'T10:00:00'+'/'+endtime+'/'+currentdate+'T23:00:00',{ 
@@ -5639,6 +5653,16 @@ data() {
 },
 
 methods: {
+
+  negative1Session(){
+    console.log('inside negative 1 modal');
+    this.$bvModal.show('modal-negative1SessionModal');
+  },
+
+  closeNegative1SessionModal(){
+    this.$bvModal.hide('modal-negative1SessionModal');
+    // window.location.reload(true);
+  },
 
   teamNameSpecialCharacters(e,value){
     console.log(e.which);
@@ -8493,19 +8517,49 @@ add: function() {
 
                 this["fetchPlayerList"+col][1].Team_player_sessions[index].rfid_id = response.data[0].id;
 
-                axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
-                          // player_id: playerid,
-                          rfid_id: rfidtag_id
-                        })
-                .then(function (response) {
-                  console.log(response);
-                  /** delete if same reader update **/
+                // axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
+                //   rfid_id: rfidtag_id
+                // })
+                // .then(function (response) {
+                //   console.log(response);
+                // })
 
-                })
+                // .catch(function (error) {
+                //   console.log(error);
+                // });
 
-                .catch(function (error) {
-                  console.log(error);
-                });
+                  var m = this;
+
+                  console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS);
+
+                  axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
+                    
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                    if(response.data.session_id < 1){
+                      console.log('its the old data');
+                      m.negative1Session();
+                      // console.log(m['list'+col][index].rfidState1);
+                      // m['list'+col][index].rfidState1='';
+                    }
+                    else{
+                      axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+updateOnTPS,{
+                        rfid_id: rfidtag_id
+                      })
+                      .then(function (response) {
+                        console.log(response);
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                    }
+                  })
+
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
                 return
 
@@ -8643,20 +8697,12 @@ add: function() {
 
               else{ /** its player not minor **/
 
-                console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
+                console.log(this['list'+col+'teamplayersessionid']);
+                console.log(this['list'+col+'teamplayersessionid'][index]);
 
-                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
+                var teamPlayerSessionId = this['list'+col+'teamplayersessionid'][index];
 
-                  )
-                .then(response => {
-                  console.log(response);
-                  var usethisTPSId = response.data[0].id;
-
-                  console.log(usethisTPSId);
-
-                  // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
-
-                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
                     rfid_id: 0
                   })
                   .then(function (response) {
@@ -8665,13 +8711,35 @@ add: function() {
 
                   .catch(function (error) {
                     console.log(error);
-                  });
-
-
-                })
-                .catch(function (error) {
-                  console.log(error);
                 });
+
+                // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
+
+                // axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
+
+                //   )
+                // .then(response => {
+                //   console.log(response);
+                //   var usethisTPSId = response.data[0].id;
+
+                //   console.log(usethisTPSId);
+
+                //   axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                //     rfid_id: 0
+                //   })
+                //   .then(function (response) {
+                //     console.log(response);
+                //   })
+
+                //   .catch(function (error) {
+                //     console.log(error);
+                //   });
+
+
+                // })
+                // .catch(function (error) {
+                //   console.log(error);
+                // });
               }
 
             },
@@ -8868,35 +8936,81 @@ add: function() {
 
               else{ /** its player not minor **/
 
-                console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
+                // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId);
 
-                axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
+                // axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_data_only/'+playerId
 
-                  )
-                .then(response => {
-                  console.log(response);
-                  var usethisTPSId = response.data[0].id;
+                //   )
+                // .then(response => {
+                //   console.log(response);
+                //   var usethisTPSId = response.data[0].id;
 
-                  console.log(usethisTPSId);
+                //   console.log(usethisTPSId);
 
-                  // console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId);
+                //   axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                //     rfid_id: rfidtag_id
+                //   })
+                //   .then(function (response) {
+                //     console.log(response);
+                //   })
 
-                  axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
-                    rfid_id: rfidtag_id
+                //   .catch(function (error) {
+                //     console.log(error);
+                //   });
+
+
+                // })
+                // .catch(function (error) {
+                //   console.log(error);
+                // });
+
+                  // axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+usethisTPSId,{
+                  //   rfid_id: rfidtag_id
+                  // })
+                  // .then(function (response) {
+                  //   console.log(response);
+                  // })
+
+                  // .catch(function (error) {
+                  //   console.log(error);
+                  // });
+
+                  console.log(this['list'+col+'teamplayersessionid']);
+                  console.log(this['list'+col+'teamplayersessionid'][index]);
+
+                  var teamPlayerSessionId = this['list'+col+'teamplayersessionid'][index];
+
+
+                  var m = this;
+                  axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
+                    
                   })
                   .then(function (response) {
                     console.log(response);
+                    if(response.data.session_id < 1){
+                      console.log('its the old data');
+                      m.negative1Session();
+                      console.log(m['list'+col][index].rfidState1);
+                      m['list'+col][index].rfidState1='';
+                    }
+                    else{
+                      axios.put(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/'+teamPlayerSessionId,{
+                        rfid_id: rfidtag_id
+                      })
+                      .then(function (response) {
+                        console.log(response);
+                      })
+
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                    }
                   })
 
                   .catch(function (error) {
                     console.log(error);
                   });
 
-
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
               }
 
             })
