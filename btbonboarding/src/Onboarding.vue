@@ -20,6 +20,54 @@
 
     <b-row>
 
+      <!-- send to waitlist missing reader -->
+      <b-modal id="modal-sendToWaitListMissingRfid" centered v-bind:hide-footer="true" title="Missing RFID ID">
+        <p> One of the players is missing an RFID value. Please click ok below, it will refresh the page and <br>
+        then you can assign the RFID for that player again. </p>
+        <br>
+        <b-col><b-button block variant="primary" @click="reloadPageEvent()">OK</b-button></b-col>
+      </b-modal>
+      <!-- end of send to wailist missing reader -->
+
+      <!-- send to waitlist team detail -->
+      <b-modal id="modal-sendToWaitListTeamDetail" centered v-bind:hide-footer="true">
+
+        <h4 align="center"> Team of {{sendToWaitListTeamDetailsArray.length}} </h4>
+        <hr>
+        <div>
+          <b-row>
+            <b-col>
+              <b>Player Name </b>
+            </b-col>
+            <b-col>
+              <b> Rfid </b>
+            </b-col>
+            <b-col>
+              <b> Adult/Minor </b>
+            </b-col>
+          </b-row>
+          <br>
+          <b-row v-for="element in sendToWaitListTeamDetailsArray" v-bind:key="element.id">
+            <b-col style="text-transform:capitalize;">{{element.player_name}}</b-col>
+            <!-- <b-col style="text-transform:capitalize;">{{element.rfid_id}}</b-col> -->
+            <b-col>
+              <p v-if="element.rfid_id > '0'" style='font-size:17px; color:green;'>&#9989;</p>
+              <p v-else>&#10060;</p>
+            </b-col>
+            <b-col>
+              {{element.adultMinor}}
+            </b-col>
+          </b-row>
+
+          <br>
+
+        </div>
+        <br>
+        <b-col><b-button block variant="primary" @click="closeSendToWaitListTeamDetail()">OK</b-button></b-col>
+      </b-modal>
+      <!-- end of send to waitlist team detail -->
+
+
       <!-- negative 1 session modal -->
       <b-modal id="modal-negative1SessionModal" centered v-bind:hide-footer="true" title="Negative Session Id">
         <div>
@@ -4647,8 +4695,8 @@ for(let b=0; b < totalBoxes; b++){
   var currentdate = moment().format("YYYY-MM-DD");
   console.log(currentdate+ ' date used for reservation');
 
-  // var startCurrentDate = moment().subtract(7,'days').format('YYYY-MM-DD');
-  var startCurrentDate = moment().format('YYYY-MM-DD');
+  var startCurrentDate = moment().subtract(7,'days').format('YYYY-MM-DD');
+  // var startCurrentDate = moment().format('YYYY-MM-DD');
   var startReservationTime = moment().subtract(2, 'hours').format('HH:mm:ss');
   var endReservationTime = moment().add(2, 'hours').format('HH:mm:ss');
 
@@ -5648,15 +5696,101 @@ data() {
 
     // reservationNameByTime: [],
 
+    sendToWaitListTeamDetailsArray:[],
+
     grabAllMostRecentTeam: []
   };
 },
 
 methods: {
 
+  sendToWaitListTeamDetail(value){
+    this.sendToWaitListTeamDetailsArray=[];
+    console.log('value was '+value);
+    if(this['list'+value+'sessionid']>'0'){
+      console.log('session id was greater than 0');
+      var sessionId = this['list'+value+'sessionid'];
+
+      console.log(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/send_to_waitlist/session/'+sessionId);
+
+      axios.get(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/send_to_waitlist/session/'+sessionId,{
+
+      })
+      .then(response => {
+        console.log(response);
+
+        var playerDetails = response.data.length;
+
+        for(let b=0; b < playerDetails; b++){
+
+          if(response.data[b].Player_minor == null){
+            console.log(response.data[b].Player.Person.first_name);
+            console.log(response.data[b].Player.Person.first_name);
+            console.log(response.data[b].rfid_id);
+
+            var playerFirstName = response.data[b].Player.Person.first_name;
+            var playerLastName = response.data[b].Player.Person.last_name;
+            var playerRfidId = response.data[b].rfid_id;
+
+            let sendToWaitListPlayers = {
+              'player_name': playerFirstName+ ' ' +playerLastName,
+              'rfid_id': playerRfidId,
+              'adultMinor': ''
+
+            };
+
+              this.sendToWaitListTeamDetailsArray.push(sendToWaitListPlayers);
+
+          }
+          else{
+            console.log(response.data[b].Player_minor.first_name);
+            console.log(response.data[b].Player_minor.first_name);
+            console.log(response.data[b].rfid_id);
+
+            var minorFirstName = response.data[b].Player_minor.first_name;
+            var minorLastName = response.data[b].Player_minor.last_name;
+            var minorRfidId = response.data[b].rfid_id;
+
+            let sendToWaitListMinors = {
+              'player_name': minorFirstName+ ' ' +minorLastName,
+              'rfid_id': minorRfidId,
+              'adultMinor': 'M'
+
+            };
+
+              this.sendToWaitListTeamDetailsArray.push(sendToWaitListMinors);
+
+
+          }
+
+
+          if(!response.data[b].rfid_id > '0'){
+            this['sendToWishlistClicked'+value]=false;
+
+            var newValue = value-10;
+            this['removeWaitlist'+newValue]=false;
+
+            this.$bvModal.show('modal-sendToWaitListMissingRfid');
+
+          }
+        }
+
+      })
+      .catch(function (error){
+        console.log(error);
+      });
+    } /** close the if **/
+    this.$bvModal.show('modal-sendToWaitListTeamDetail');
+  },
+
   negative1Session(){
     console.log('inside negative 1 modal');
     this.$bvModal.show('modal-negative1SessionModal');
+  },
+
+  closeSendToWaitListTeamDetail(){
+    this.$bvModal.hide('modal-sendToWaitListTeamDetail');
+    // window.location.reload(true);
   },
 
   closeNegative1SessionModal(){
@@ -8283,6 +8417,7 @@ activateTeam(event, value){
   console.log(value);
 
   var newValue = value;
+
   console.log('new value '+newValue);
 
   console.log(this["list"+newValue+"sessionid"]);
@@ -8300,14 +8435,17 @@ activateTeam(event, value){
     console.log('No');
   }
 
+  var m = this;
   axios.put(process.env.VUE_APP_DATABASE_SESSIONS+'/'+sessionid,{
     active: 1
   })
   .then(response => {
     console.log(response);
+    console.log('update rfid value san');
     this["sendToWishlistClicked"+newValue] = true;
     var deductValue = value-10;
     this["removeWaitlist"+deductValue] = true;
+    m.sendToWaitListTeamDetail(value);
   })
   .catch(function (error) {
     console.log(error);
