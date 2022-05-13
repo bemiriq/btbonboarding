@@ -1,8 +1,20 @@
 <template>
 	<div id="rfidapp" style="min-width: 100%;min-height: 100vh;margin-top: -7%;">
 		<br><br>
+
 		<table style="width: auto; margin:auto;" v-if="teamName.length < '1'">
 			<tr>
+
+				<td class="fontStyle">
+					<p class="adjustTitle2 blink_me" v-if="activateError != '1' " style="font-size: 200px;">{{suitUpZoneText}}</p>
+				</td>
+
+			</tr>
+		</table>
+
+		<table style="width: auto; margin:auto;" v-if="teamName.length < '1'">
+			<tr>
+
 				<td class="fontStyle">
 					<p class="adjustTitle1 blink_me" v-if="activateError != '1' ">{{scanWristbandText}}</p>
 				</td>
@@ -54,6 +66,7 @@ export default {
   data(){
 return{
 	scanWristbandText:'Scan your wristband',
+	suitUpZoneText:'Suit Up Zone',
 	rfidTag:'',
 	teamName:'',
 	playerName:'',
@@ -225,8 +238,13 @@ tappedWristband(event){
 	border-color:black;
 }
 
-.adjustTitle1{
+.adjustTitle2{
 	margin-top: 18%;
+	/*margin-right: -9%;*/
+}
+
+.adjustTitle1{
+	/*margin-top: 18%;*/
 	margin-right: -12%;
 }
 

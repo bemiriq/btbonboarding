@@ -74,6 +74,13 @@
         </tr>
 
         <tr>
+          <th>Date of Birth</th>
+          <td>
+            <b-form-input type="date" format="MM-DD-YYYY" v-model="customerDateOfBirth" placeholder="Update customer date of birth">{{customerDateOfBirth}}</b-form-input>
+          </td>
+        </tr>
+
+        <tr>
           <td>
             <button type="button" class="btn btn-primary" v-on:click="submitCustomerDetail()" style="margin-left:1%;margin-top:5%;" v-if="validatePhone == true && validateEmail == true ">Submit</button>
             <button type="button" class="btn btn-primary" v-on:click="submitCustomerDetail()" style="margin-left:1%;margin-top:5%;" v-else disabled>Submit</button>
@@ -282,6 +289,7 @@ export default {
       customerInstagram:'',
       customerId:'',
       customerZipCode:'',
+      customerDateOfBirth: '',
       /** end of customer details update **/
 
       /** load data by selecting date **/
@@ -397,7 +405,8 @@ export default {
         instagram: this.customerInstagram,
         email: this.customerEmail,
         phone: this.customerPhone,
-        postal_code: this.customerZipCode
+        postal_code: this.customerZipCode,
+        date_of_birth: this.customerDateOfBirth
       })
       .then(response => 
       {
@@ -451,6 +460,8 @@ export default {
             this.customerInstagram = response.data[0].instagram;
             this.customerId = response.data[0].id;
             this.customerZipCode = response.data[0].postal_code;
+            this.customerDateOfBirth = response.data[0].date_of_birth;
+
 
             this.updateCustomerDetail = response.data;
             
@@ -549,6 +560,8 @@ export default {
         this.customerInstagram = response.data[0].instagram;
         this.customerId = response.data[0].id;
         this.customerZipCode = response.data[0].postal_code;
+        this.customerDateOfBirth = response.data[0].date_of_birth;
+
 
 
         this.updateCustomerDetail = response.data;
