@@ -6,13 +6,13 @@
 			<tr>
 
 				<td class="fontStyle">
-					<p class="adjustTitle2 blink_me" v-if="activateError != '1' " style="font-size: 200px; margin-top: -6%;">{{suitUpZoneText}}</p>
+					<p class="adjustTitle2 blink_me" v-if="activateError != '1' " style="font-size: 230px; margin-top: 1%; background-color:red;">{{suitUpZoneText}}</p>
 				</td>
 
 			</tr>
 		</table>
 
-		<table style="width: auto; margin-top:-5%; margin-left:2%;" v-if="teamName.length < '1'">
+		<table style="width: auto; margin-top:-3%; margin-left:4.5%; background-color:yellow;" v-if="teamName.length < '1'">
 			<tr>
 
 				<td class="fontStyle">
