@@ -2023,6 +2023,8 @@ searchPlayers(){
 
                   for(let k=0; k < countReservationMinors; k++){
 
+                    console.log('fetching player minor on search');
+                    
                     arrivedMinor += replyDataObj1[i].Reservation_minors[k].arrived;
 
                     if(replyDataObj1[i].Reservation_minors[k].arrived == '1'){

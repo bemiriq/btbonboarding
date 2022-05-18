@@ -11324,7 +11324,7 @@ inputEvent3(e) {
     console.log('updatePlayerTpsTable / playerId was '+playerId);
     console.log('updatePlayerTpsTable / reservationPeopleOrMinorId was '+reservationPeopleOrMinorId);
 
-    axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/find_or_create/player/'+playerId+'/session/'+fetchSessionId,{
+    axios.post(process.env.VUE_APP_DATABASE_TEAMPLAYERSESSIONS+'/player_only/find_or_create/player/'+playerId+'/session/'+fetchSessionId,{
       team_id: teamId,
       reservation_id: selectedReservationId,
       player_id: playerId /** player id as player_id dont get added from endpoint at the top **/
