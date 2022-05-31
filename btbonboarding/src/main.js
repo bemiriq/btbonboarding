@@ -26,6 +26,7 @@ import Teamwaiting from './Teamwaiting.vue';
 import Cctv from './Cctv.vue';
 import Customers from './Customers.vue';
 import Newonboarding from './Newonboarding.vue';
+import Reservationdetails from './Reservationdetails.vue';
 import Clean from './Clean.vue';
 
 
@@ -83,6 +84,7 @@ const routes = [
 	{ path : '/Teamwaiting', component: Teamwaiting},
 	{ path : '/Customers', component: Customers},
 	{ path : '/Newonboarding', component: Newonboarding},
+	{ path : '/Reservationdetails', component: Reservationdetails},
 	{ path : '/Clean', component: Clean},
 	{ path: '/', component: Users} /** this defines the home page url **/
 ];
