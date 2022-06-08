@@ -962,7 +962,8 @@ export default {
         /** update score **/
         
         /** Room 1 update score **/
-        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId1+'/session/'+this.clickedSessionId,{
+        // axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId1+'/session/'+this.clickedSessionId,{
+        axios.post(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_or_create/session/'+this.clickedSessionId+'/game/'+this.gameId1,{
           score: this.room1Score
         })
         .then(response => {
@@ -973,7 +974,8 @@ export default {
         });
 
         /** Room 2 update score **/
-        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId2+'/session/'+this.clickedSessionId,{
+        // axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId2+'/session/'+this.clickedSessionId,{
+        axios.post(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_or_create/session/'+this.clickedSessionId+'/game/'+this.gameId2,{
           score: this.room2Score
         })
         .then(response => {
@@ -984,7 +986,8 @@ export default {
         });
 
         /** Room 3 update score **/
-        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId3+'/session/'+this.clickedSessionId,{
+        // axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId3+'/session/'+this.clickedSessionId,{
+        axios.post(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_or_create/session/'+this.clickedSessionId+'/game/'+this.gameId3,{
           score: this.room3Score
         })
         .then(response => {
@@ -995,7 +998,8 @@ export default {
         });
 
         /** Room 4 update score **/
-        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId4+'/session/'+this.clickedSessionId,{
+        // axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId4+'/session/'+this.clickedSessionId,{
+        axios.post(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_or_create/session/'+this.clickedSessionId+'/game/'+this.gameId4,{
           score: this.room4Score
         })
         .then(response => {
@@ -1006,7 +1010,8 @@ export default {
         });
 
         /** Room 5 Update Score **/
-        axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId5+'/session/'+this.clickedSessionId,{
+        // axios.put(process.env.VUE_APP_SESSION_GAME_SCORES+'/game/'+this.gameId5+'/session/'+this.clickedSessionId,{
+        axios.post(process.env.VUE_APP_SESSION_GAME_SCORES+'/find_or_create/session/'+this.clickedSessionId+'/game/'+this.gameId5,{
           score: this.room5Score
         })
         .then(response => {
