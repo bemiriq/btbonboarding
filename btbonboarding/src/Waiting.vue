@@ -177,7 +177,22 @@
       })
       .then(response => {
         console.log(response);
-        this.teamList = response.data;
+        // this.teamList = response.data;
+
+        /** this will filter out game bay team name from teams on deck **/
+        for (var i = 0; i < response.data.length; i++) {
+          
+          if(response.data[i].mission_id == '16'){
+            console.log('it was game bay mission');
+          }
+          else{
+            console.log('normal mission teams');
+            this.teamList.push(response.data[i]);
+          }
+
+        }
+        /** end of team name filter on teams on deck **/
+
       })
       .catch(function (error) {
         console.log(error);

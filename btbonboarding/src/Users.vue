@@ -4,6 +4,34 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js usersApp"/> -->
     <!-- <p>USERS</p> -->
 
+    <!-- <b-modal id="modal-birthdayOrRepeaters" centered size="lg" title="Interact with customers" v-bind:hide-footer="true">
+        
+          <div v-for="item in playerDobData" v-bind:key="item.id">
+             <b style="text-transform:capitalize;">{{item.player_first_name}} {{item.player_last_name}}</b> has a birthday on {{item.date_of_birth}} which is 
+                <b v-if="item.days_left == '0' " style="font-weight:normal;">today</b>
+                <b v-if="item.days_left== '1' " style="font-weight:normal;">tomorrow</b>
+                <b v-if="item.days_left == '2'" style="font-weight:normal;">day after tomorrow</b>
+                <b v-if="item.days_left > '2'" style="font-weight:normal;">on {{item.days_left}} days</b>
+                .
+            <b style="font-size: 25px;"> &#127880;&#129395;</b>
+          </div>
+          end of birthday with in a week div
+
+          <div v-for="playCount in clickedPlayerList.Reservation_people" v-bind:key="playCount.id" style="margin-top: 1%;">
+            <p v-if="playCount.play_count > '2'">
+              <b style="text-transform:capitalize;">{{playCount.player_first_name}} {{playCount.player_last_name}} </b> has been here for {{playCount.play_count}} times.
+            </p>
+          </div>
+
+          <div v-for="playCount in clickedPlayerList.Reservation_people" v-bind:key="playCount.id" style="margin-top: 1%;">
+            <p v-if="playCount.player_bomb_beater_status > '0'">
+              <b style="text-transform:capitalize;">{{playCount.player_first_name}} {{playCount.player_last_name}} </b> has Beat the Bomb.  <b style="font-size: 25px;">&#128163;</b>
+            </p>
+          </div>
+
+        <br>
+        <b-button variant="primary" v-on:click="hideBirthdayOrRepeaters()">Ok</b-button>
+    </b-modal> -->
 
     <!-- modal for booker not found while search -->
       <b-modal id="modal-onSearchBookerNotFound" centered size="md" title="Message" v-bind:hide-footer="true">
@@ -528,6 +556,41 @@
         <b-modal id="modal-xl" centered size="xl" title="Reservation" @click="reloadPageEvent">
           <p  style="text-transform: capitalize;">{{selectedCustomerName}} / {{selectedDate}} / {{selectedTime}} / {{mission_name}} / {{teamSize}} Players / <b-button variant="outline-secondary" v-on:click="copyOnlineWaiverLink()">Copy Online Waiver Link</b-button>
         <input type="hidden" id="testing-code" :value="onlineWaiverLink"></p>
+
+          <!-- this div will display players who has birthday with in a week -->
+          <div v-for="item in playerDobData" v-bind:key="item.id">
+            <!-- <b style="font-size: 25px;"> &#129395;&#127880; </b> -->
+             <b style="text-transform:capitalize;">{{item.player_first_name}} {{item.player_last_name}}</b> birthday on {{item.date_of_birth}} .
+             <!-- which is 
+                <b v-if="item.days_left == '0' " style="font-weight:normal;">today</b>
+                <b v-if="item.days_left== '1' " style="font-weight:normal;">tomorrow</b>
+                <b v-if="item.days_left == '2'" style="font-weight:normal;">day after tomorrow</b>
+                <b v-if="item.days_left > '2'" style="font-weight:normal;">on {{item.days_left}} days</b> -->
+            <b style="font-size: 25px;"> &#127880;&#129395;</b>
+          </div>
+          <!-- end of birthday with in a week div -->
+
+          <!-- group type details -->
+          <div v-if="reservation_group_type.length > '0' ">
+            <p><b>Group Type : </b> {{reservation_group_type}}</p>
+          </div>
+
+          <!-- more than two times repeaters -->
+          <div v-for="playCount in clickedPlayerList.Reservation_people" v-bind:key="playCount.id" style="margin-top: 1%;">
+            <p v-if="playCount.play_count > '1'">
+              <b style="text-transform:capitalize;">{{playCount.player_first_name}} {{playCount.player_last_name}} </b> has been here {{playCount.play_count}} times.
+            </p>
+          </div>
+
+          <!-- previous bomb beaters -->
+          <div v-for="playCount in clickedPlayerList.Reservation_people" v-bind:key="playCount.id" style="margin-top: 1%;">
+            <p v-if="playCount.player_bomb_beater_status > '0'">
+              <b style="text-transform:capitalize;">{{playCount.player_first_name}} {{playCount.player_last_name}} </b> has Beat the Bomb.  
+              <b style="font-size: 20px;">&#128163;</b>
+            </p>
+          </div>
+
+
           <!-- <p> Booker Name = <u style="font-weight:bold;">{{timeList}}</u> </p> -->
           <br/>
           <b-container class="bv-example-row">
@@ -924,6 +987,10 @@ import axios from 'axios';
       subchildNoShow: [],
       selected2: '',
 
+      playerDobData: [], /** to display birthday detail **/
+      moreThan2TimesRepeaters:'', /** tracks the player details more than 2 **/
+
+
       searchedText:'',
       removeOrganization:'',
 
@@ -934,6 +1001,7 @@ import axios from 'axios';
       limitReservationList: '5',
 
       onlineWaiverLink:'',
+      reservation_group_type:'',
 
       voucherReservationName:'',
       voucherReservationSize:'',
@@ -1414,6 +1482,10 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
           testingCodeToCopy.setAttribute('type', 'hidden')
           window.getSelection().removeAllRanges()
 
+    },
+
+    hideBirthdayOrRepeaters(){
+      this.$bvModal.hide('modal-birthdayOrRepeaters');
     },
 
     hideOnSearchBookerNotFound(){
@@ -2609,6 +2681,39 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       console.log(posts);
       console.log(item);
       console.log(index);
+      // console.log(this.posts[index].id +' is the reservation id');
+
+      var reservationId = this.posts[index].id;
+
+      this.playerDobData = []; /** this will stop duplication of row for birthday/repeaters players **/
+      this.moreThan2TimesRepeaters = '';
+      this.reservation_group_type = '';
+
+
+      /** fetch the group type details **/
+
+      axios.get(process.env.VUE_APP_RESERVATION_TAGS+'/reservation_id/'+reservationId,{
+
+      })
+      .then(response => 
+      {
+        console.log(response);
+        console.log('reservation detail above');
+        if(response.data.length > '0'){
+          if(response.data[0].Tags.length > '0'){
+            console.log(response.data[0].Tags[0].name);
+            this.reservation_group_type = response.data[0].Tags[0].name;
+          }
+        }
+      }
+      )
+      .catch(function (error){
+        console.log(error);
+      });
+
+      /** end of group type fetch details **/
+
+
 
       if(this.posts[index].Reservation_people.length > 0 || this.posts[index].Reservation_minors.length > 0){
         console.log('waiver signed');
@@ -2658,12 +2763,13 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
   }
 
 
+
+
   var bookerName = bookerFirstName+' '+bookerLastName;
       // var missionName = this.posts[index].Mission.name;
       // var teamSizeItem = this.posts[index].size;
       
       /** conversion of date and time for second part **/
-        // var date = this.posts[index].reservation_for;
 
         var reservation_for_converted = moment.utc(date).subtract('hours',4).format('hh:mm A MM-DD-YYYY');
         var onlyDate = moment.utc(date).format('MM-DD-YYYY');
@@ -2675,38 +2781,6 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
 
         this.onlineWaiverLink = 'https://btbbrooklyn.ddns.net/#/'+this.posts[index].xola_order_id;
 
-        // var arr = reservation_for.split("T");
-        // var onlyDate = arr.splice(0,1).join("");
-        // console.log(onlyDate);
-
-        // var onlyTime = arr.join("T");
-        // console.log(onlyTime);
-
-        // var twoDigits = onlyTime.substring(0, 2);
-        // console.log(twoDigits);
-        // var time1 = twoDigits-4;
-        // console.log(time1);
-
-        // var time2 = time1-12;
-        // console.log(time2);
-
-        // if(time1 >= 12){
-        //   console.log("PM");
-        //   var ampm = "PM";
-        // }
-        // else{
-        //   console.log("AM");
-        //   var ampm = "AM";
-        // }
-
-        // var posNegTime = Math.abs(time1);
-        // var onlyTime = arr.join("T");
-        // var twoDigits = onlyTime.substring(3, 5);
-        // console.log(twoDigits);
-
-        // var timeConverted = posNegTime+':'+twoDigits+' '+ampm;
-        // var timeConvertedWithoutAMPM = posNegTime+':'+twoDigits;
-        // console.log(timeConverted);
         /** end of date and time converted for second part **/
 
 
@@ -2829,6 +2903,70 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
         }
 
 
+
+         /** add date of birth and play count on 06/10/2022 **/
+
+          if(!this.posts[index].Reservation_people[i].Person.date_of_birth > '0' || this.posts[index].Reservation_people[i].Person.date_of_birth == null){
+            var peopleDateOfBirth = 'N/A';
+          }
+          else{
+            peopleDateOfBirth = this.posts[index].Reservation_people[i].Person.date_of_birth;
+
+            /** check if the birthday is next week **/
+
+            var convertDob = moment(peopleDateOfBirth).format('MMDD');
+
+            console.log('covertDob '+convertDob);
+
+            var countDayForBirthday = parseInt(convertDob)-moment().format('MMDD');
+
+            console.log('count day for birthday was '+countDayForBirthday);
+
+            var getBirthdayMonth = moment(peopleDateOfBirth).format('MM');
+            var getBirthday = moment(peopleDateOfBirth).format('DD');
+            var passBirthdayYear = moment().format('YYYY');
+
+            var currentBirthdayYear =passBirthdayYear+getBirthdayMonth+getBirthday;
+
+            var given = moment().format('MM-DD');
+
+            console.log(peopleDateOfBirth);
+            console.log(currentBirthdayYear);
+            // console.log(currentDay);
+
+            var currentDay = moment().format('YYYY-MM-DD');
+
+            var now = moment(new Date()); //todays date
+            var end = moment(currentBirthdayYear).format('YYYY-MM-DD'); // another date
+            var duration = moment.duration(now.diff(end));
+            var days = duration.asDays();
+            console.log('days diff was '+days);
+
+
+            if(days >= '-7' && days <= '7' ){
+              console.log('Player birthday is with in next week');
+
+              let playerDobData = {
+                "date_of_birth" : peopleDateOfBirth,
+                "days_left" : countDayForBirthday,
+                "player_first_name" : player_first_name,
+                "player_last_name" : player_last_name
+              }
+
+              this.playerDobData.push(playerDobData);
+
+            }
+
+          }
+
+          var track_player_play_count = this.posts[index].Reservation_people[i].Person.Player.play_count;
+
+          if(track_player_play_count > '2'){
+            this.moreThan2TimesRepeaters = '1';
+          }
+          /** end of date of birth and play count **/
+
+
         /** track down the waiver id **/
         var waiver_id = this.posts[index].Reservation_people[i].Person.waiver_id;
         /** track down the waiver detail **/
@@ -2875,7 +3013,9 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
               "reservation_session_id": reservation_people_session_id,
               "player_bomb_beater_status": bomb_beater,
               "player_repeaters": repeated_players,
-              "waiver_id": waiver_id
+              "waiver_id": waiver_id,
+              "player_dob": peopleDateOfBirth,
+              "play_count": track_player_play_count
             }
 
             this.clickedPlayerList = replyDataObj1;
@@ -3000,6 +3140,46 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
             var minor_full_name = minor_first_name+' '+minor_last_name;
             var reservation_for = reservation_for_converted;
 
+
+            /** minor add date of birth and play count on 06/10/2022 **/  
+
+            console.log('minor dob was '+this.posts[index].Reservation_minors[i].Player_minor.date_of_birth);
+
+            if(!this.posts[index].Reservation_minors[i].Player_minor.date_of_birth > '0' || this.posts[index].Reservation_minors[i].Player_minor.date_of_birth == null){
+              console.log('mior dov was else');
+              
+              var minorDateOfBirth = 'N/A';
+            }
+            else{
+              console.log('mior dov was else');
+              minorDateOfBirth = this.posts[index].Reservation_minors[i].Player_minor.date_of_birth;
+
+              /** check if the birthday is next week **/
+
+              var convertDob = moment(minorDateOfBirth).format('MMDD');
+
+              var countDayForBirthday = parseInt(convertDob)-moment().format('MMDD');
+
+              if(countDayForBirthday >= '0' && countDayForBirthday <= '7'){
+                console.log('Minor Player birthday is with in next week');
+
+                let playerDobData = {
+                  "date_of_birth" : minorDateOfBirth,
+                  "days_left" : countDayForBirthday,
+                  "player_first_name" : minor_first_name,
+                  "player_last_name" : minor_last_name
+                }
+
+                this.playerDobData.push(playerDobData);
+
+              }
+
+            }
+
+            /** minor end of date of birth and play count **/
+
+            console.log('minor dob was '+minorDateOfBirth);
+
             console.log(i);
             
             console.log(minorArrived);
@@ -3025,7 +3205,9 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
               "non_player": non_player_minor_value,
               "reservation_session_id": reservation_people_session_id,
               "player_bomb_beater_status": minor_bomb_beater,
-              "waiver_id": playerWaiverDetail
+              "waiver_id": playerWaiverDetail,
+              "player_dob": minorDateOfBirth
+
             }
 
             // this.clickedPlayerList = replyDataObj1;
@@ -3055,8 +3237,11 @@ axios.get(process.env.VUE_APP_DTB_ORGANIZATION_TYPE,{
       /** this line below will sort the array followed by first name **/
       this.clickedPlayerList.Reservation_people.sort((a,b) => a.player_first_name.localeCompare(b.player_first_name));
 
-
       this.$bvModal.show('modal-xl');
+
+      if(this.playerDobData.length > 0 || this.moreThan2TimesRepeaters > '0'){
+        // this.$bvModal.show('modal-birthdayOrRepeaters');
+      }
 
       /** this function should reload the page **/
       
